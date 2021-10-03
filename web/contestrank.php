@@ -18,8 +18,8 @@ class TM
 {
 	var $solved = 0;
 	var $time = 0;
-	var $p_wa_num;
-	var $p_ac_sec;
+	var $p_wa_num = array(0);
+	var $p_ac_sec = array(0);
 	var $user_id;
 	var $nick;
 
@@ -67,13 +67,17 @@ class TM
 
 function s_cmp($A, $B)
 {
-	//echo "Cmp....<br>";
-	if ($A->solved == 0 && $B->solved == 0)
-		return array_sum($A->p_wa_num) < array_sum($B->p_wa_num);
-	if ($A->solved != $B->solved)
+	if ($A->solved == 0 && $B->solved == 0) {
+		if (array_sum($A->p_wa_num) != array_sum($B->p_wa_num)) {
+			return array_sum($A->p_wa_num) < array_sum($B->p_wa_num);
+		} else {
+			return intval($A->user_id) > intval($B->user_id);
+		}
+	} elseif ($A->solved != $B->solved) {
 		return $A->solved < $B->solved;
-	else
+	} else {
 		return $A->time > $B->time;
+	}
 }
 
 // contest start time
