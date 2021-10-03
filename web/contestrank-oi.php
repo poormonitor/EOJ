@@ -16,12 +16,12 @@ class TM
 {
   var $solved = 0;
   var $time = 0;
-  var $p_wa_num;
-  var $p_ac_sec;
-  var $p_pass_rate;
+  var $p_wa_num = array(0);
+  var $p_ac_sec = array(0);
+  var $p_pass_rate = array(0);
   var $user_id;
   var $nick;
-  var $total;
+  var $total = 0;
   function __constuct()
   {
     $this->solved = 0;
@@ -33,7 +33,7 @@ class TM
   }
   function Add($pid, $sec, $res)
   {
-    if ($pid==NULL){
+    if ($pid == NULL) {
       return;
     }
     //              echo "Add $pid $sec $res<br>";
@@ -75,16 +75,20 @@ class TM
 
 function s_cmp($A, $B)
 {
-  if ($A->solved == 0 && $B->solved == 0)
-    if ($A->total == $B->total)
+  if ($A->solved == 0 && $B->solved == 0) {
+    if (array_sum($A->p_wa_num) != array_sum($B->p_wa_num)) {
       return array_sum($A->p_wa_num) < array_sum($B->p_wa_num);
-  if ($A->total != $B->total)
+    } else {
+      return intval($A->user_id) > intval($B->user_id);
+    }
+  } elseif ($A->total != $B->total) {
     return $A->total < $B->total;
-  else {
-    if ($A->solved != $B->solved)
+  } else {
+    if ($A->solved != $B->solved) {
       return $A->solved < $B->solved;
-    else
+    } else {
       return $A->time > $B->time;
+    }
   }
 }
 
