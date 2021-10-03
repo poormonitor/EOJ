@@ -16,20 +16,6 @@ if (!isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
 require_once "include/memcache.php";
 require_once "include/const.inc.php";
 
-$time = intval(date("H"));
-if ($time >= 0 && $time <= 5) {
-  $err_str = $err_str . "本时段不允许提交！";
-  $err_cnt++;
-  $view_errors = "<h3>" . $err_str . "</h3>";
-  $view_errors_js .= "swal('$err_str').then((onConfirm)=>{history.go(-1);});";
-  if (isset($_GET['ajax'])) {
-    echo "-1";
-  } else {
-    require "template/" . $OJ_TEMPLATE . "/error.php";
-  }
-  exit(0);
-}
-
 $now = strftime("%Y-%m-%d %H:%M", time());
 $user_id = $_SESSION[$OJ_NAME . '_' . 'user_id'];
 $language = intval($_POST['language']);
