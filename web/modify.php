@@ -5,6 +5,14 @@
 	<meta charset="utf-8">
 	<title><?php echo $OJ_NAME; ?></title>
 </head>
+<style>
+	@media(prefers-color-scheme: dark) {
+		body {
+			height: auto;
+			background: #242424;
+		}
+	}
+</style>
 
 <body></body>
 

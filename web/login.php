@@ -13,6 +13,7 @@
 				height: auto;
 				background: #242424;
 			}
+		}
 	</style>
 </body>
 
