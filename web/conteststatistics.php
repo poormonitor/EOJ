@@ -100,7 +100,7 @@ $sql=   "SELECT floor(UNIX_TIMESTAMP((in_date))/$res)*$res*1000 md,count(1) c FR
         foreach($result as $row){
                 $chart_data_ac[$row['md']]=$row['c'];
     }
- 
+$start_time = intval(pdo_query("select UNIX_TIMESTAMP(start_time) from contest where contest_id=?",$cid)[0][0]);
   
 if(!isset($OJ_RANK_LOCK_PERCENT)) $OJ_RANK_LOCK_PERCENT=0;
 $lock=$end_time-($end_time-$start_time)*$OJ_RANK_LOCK_PERCENT;
@@ -117,4 +117,3 @@ require("template/".$OJ_TEMPLATE."/conteststatistics.php");
 /////////////////////////Common foot
 if(file_exists('./include/cache_end.php'))
 	require_once('./include/cache_end.php');
-?>
