@@ -239,7 +239,7 @@
 		$page_cnt = 10;
 		$pstart = $page_cnt * $page - $page_cnt;
 		$pend = $page_cnt;
-		if (!isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
+		if (!isset($_SESSION[$OJ_NAME . '_' . 'administrator']) && isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
 			$user_allowed = join(",", $allow);
 		}
 		$keyword = "";
@@ -284,13 +284,13 @@
 
 		if ($keyword) {
 			$sql = "SELECT *  FROM contest WHERE contest.defunct='N' AND contest.title LIKE ? $wheremy  ORDER BY contest_id DESC";
-			$total=count(pdo_query($sql,$keyword));
+			$total = count(pdo_query($sql, $keyword));
 			$sql .= " limit " . strval($pstart) . "," . strval($pend);
 
 			$result = pdo_query($sql, $keyword);
 		} else {
 			$sql = "SELECT *  FROM contest WHERE contest.defunct='N' $wheremy  ORDER BY contest_id DESC";
-			$total=count(pdo_query($sql));
+			$total = count(pdo_query($sql));
 			$sql .= " limit " . strval($pstart) . "," . strval($pend);
 			//echo $sql;
 			$result = mysql_query_cache($sql);
