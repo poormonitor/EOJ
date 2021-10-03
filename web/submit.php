@@ -399,6 +399,7 @@ if ((!isset($_GET['ajax']))) { ?>
         height: auto;
         background: #242424;
       }
+    }
   </style>
 
   <body></body>
