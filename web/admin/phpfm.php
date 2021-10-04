@@ -2572,7 +2572,15 @@ function html_header($header=""){
 	<html xmlns=\"http://www.w3.org/1999/xhtml\">
     <head>    
     <meta http-equiv=\"content-type\" content=\"text/html; charset=".$charset."\" />	
-	<title>...:::: ".et('FileMan')."</title>
+	<title>".et('FileMan')."</title>
+    <style>
+    @media(prefers-color-scheme: dark) {
+      body {
+        height: auto;
+        background: #242424;
+      }
+    }
+    </style>
     <script language=\"Javascript\" type=\"text/javascript\">
     <!--
         function Is(){
@@ -5395,4 +5403,3 @@ class zip_file extends archive
 // +--------------------------------------------------
 // | THE END
 // +--------------------------------------------------
-?>
