@@ -33,7 +33,7 @@
                             <thead>
                                 <tr>
                                     <th>
-                                        <span style='font-size:120%;'>
+                                        <span style='font-size:140%;'>
                                             <?php echo htmlentities($nick, ENT_QUOTES, "UTF-8") ?>
                                         </span>
                                         <span>
@@ -73,10 +73,6 @@
                                     <td>School:
                                     <td align=center><?php echo $school ?>
                                 </tr>
-                                <tr>
-                                    <td>Email:
-                                    <td align=center>[email protected]
-                                </tr>
                             </tbody>
                         </table>
                     </center>
@@ -86,7 +82,7 @@
                         <table class="table table-striped" id='submission' width=70%>
                             <thead>
                                 <tr>
-                                    <th style='text-align:center; width:80%;'>Solved Problems List</th>
+                                    <th style='text-align:center; width:80%;'>已解决的问题</th>
                                 </tr>
                             </thead>
                             <tbody>
