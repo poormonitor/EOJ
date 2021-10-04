@@ -64,7 +64,7 @@ body {
 }
 
 .table-striped > tbody > tr:nth-child(2n+1) {
-    background-color: #fdfdfd !important;
+    background-color: #fff;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -78,10 +78,15 @@ body {
     img {
         filter: invert(1) hue-rotate(180deg);
     }
+    .btn {
+        color: #000;
+    }
     .btn-sm {
+        color: #fff;
         filter: invert(1) hue-rotate(180deg) brightness(117%);
     }
     .label {
+        color: #fff;
         filter: invert(1) hue-rotate(180deg) brightness(117%);
     }
     .label-info {

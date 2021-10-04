@@ -3,3 +3,6 @@ web/404.html
 web/upload
 web/include/db_info.inc.php
 web/.user.ini
+package-lock.json
+package.json
+node_modules/
