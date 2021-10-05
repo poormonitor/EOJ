@@ -6,6 +6,4 @@ web/.user.ini
 package-lock.json
 package.json
 node_modules/
-.vscode/settings.json
-core/judge_client/judge_client.o
-core/judge_client/judge_client.http
+.vscode/
