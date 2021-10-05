@@ -50,7 +50,6 @@ if ($ok == true) {
 	if ($brush == 'fortran') $brush = 'vb';
 	if ($brush == 'swift') $brush = 'csharp';
 	if ($brush == 'python3') $brush = 'python';
-	echo "<pre id=code><pre class=\"brush:" . $brush . ";\">";
 	ob_start();
 	echo "\n'''\n";
 	echo "=== Submission Info ===\n";
