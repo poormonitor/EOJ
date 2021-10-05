@@ -477,8 +477,8 @@ for ($i=0; $i<$rows_cnt; $i++) {
   
   if ($flag) {
     if ($row['result']>=4) {
-      $view_status[$i][6] = "<div id=center>".$row['memory']."KB</div>";
-      $view_status[$i][7] = "<div id=center>".$row['time']."ms</div>";
+      $view_status[$i][6] = "<div id=center>".$row['memory']." KB</div>";
+      $view_status[$i][7] = "<div id=center>".$row['time']." ms</div>";
       //echo "=========".$row['memory']."========";
     }
     else {
