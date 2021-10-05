@@ -22,8 +22,41 @@
 
 **推荐使用Debian** (脚本只适用于Debian)
 
+1. 运行脚本
+
 ```shell
 wget https://git.oldmonitor.cn/poormonitor/hustoj/raw/branch/master/install/install.sh && chmod a+x install.sh && bash install.sh
 ```
 
-运行后，数据库密码会打印。您需要复制密码，自行到数据库中以jol为用户名创建jol库，并将密码设置为上述密码。随后，使用 install/db.sql 初始化数据库。注册admin账号，该账号即为管理员账号。
+​	脚本运行结束后，会打印数据库密码。请您复制保存。
+
+2. 创建数据库
+
+   请至本机数据库（MySQL或其兼容者）中以jol为用户名创建jol库，并将密码设置为第一步复制的密码。随后，使用 install/db.sql 初始化数据库。
+
+3. *安装Python
+
+   为加速判题，默认开启了PYTHON_FREE，并在编译中将Python指向/home/judge/py3/bin/python3。您可以选用如下方法安装Python。
+
+   1. 编译安装（以3.10.0为例）
+
+      ```shell
+      wget https://www.python.org/ftp/python/3.10.0/Python-3.10.0.tar.xz
+      tar -xf Python-3.10.0.tar.xz
+      cd Python-3.10.0
+      ./configure --prefix=/home/judge/py3 --enable-optimizations
+      make
+      make install
+      ```
+
+   2. Virtualenv安装
+
+      ```shell
+      pip3 install virtualenv
+      cd /home/judge
+      virtualenv --no-site-packages py3
+      ```
+
+4. 使用
+
+   注册admin账号自动成为管理员。Enjoy it!
