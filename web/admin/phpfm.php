@@ -2573,13 +2573,6 @@ function html_header($header=""){
     <head>    
     <meta http-equiv=\"content-type\" content=\"text/html; charset=".$charset."\" />	
 	<title>".et('FileMan')."</title>
-    <style>
-    @media(prefers-color-scheme: dark) {
-      body {
-        filter: invert(1) hue-rotate(180deg);
-      }
-    }
-    </style>
     <script language=\"Javascript\" type=\"text/javascript\">
     <!--
         function Is(){
@@ -3246,8 +3239,8 @@ function dir_list_form() {
             }
         }
         function edit_file(arg){
-            var w = 1024;
-            var h = 768;
+            var w = 512;
+            var h = 384;
             // if(confirm('".uppercase(et('Edit'))." \\' '+arg+' \\' ?'))
             window.open('".addslashes($path_info["basename"])."?action=7&current_dir=".addslashes($current_dir)."&filename='+escape(arg), '', 'width='+w+',height='+h+',fullscreen=no,scrollbars=no,resizable=yes,status=no,toolbar=no,menubar=no,location=no');
         }
