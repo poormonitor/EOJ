@@ -66,7 +66,7 @@ if ($ok == true) {
 	echo (str_replace("\n\r", "\n", $view_source)) . "\n" . $auth;
 } else {
 
-	echo "I am sorry, You could not view this code!";
+	echo "抱歉，您不能浏览这份代码！";
 }
 if (file_exists('./include/cache_end.php'))
 	require_once('./include/cache_end.php');
