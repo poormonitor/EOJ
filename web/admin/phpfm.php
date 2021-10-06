@@ -163,7 +163,7 @@ if ($loggedon==$auth_pass){
 class config {
     var $data;
     var $filename;
-    function config(){
+    function __construct(){
         global $fm_self;
 	global $OJ_LANG;
         $this->data = array(
@@ -3239,8 +3239,8 @@ function dir_list_form() {
             }
         }
         function edit_file(arg){
-            var w = 512;
-            var h = 384;
+            var w = 700;
+            var h = 400;
             // if(confirm('".uppercase(et('Edit'))." \\' '+arg+' \\' ?'))
             window.open('".addslashes($path_info["basename"])."?action=7&current_dir=".addslashes($current_dir)."&filename='+escape(arg), '', 'width='+w+',height='+h+',fullscreen=no,scrollbars=no,resizable=yes,status=no,toolbar=no,menubar=no,location=no');
         }
@@ -4624,7 +4624,7 @@ function frameset(){
  */
 class archive
 {
-    function archive($name)
+    function __construct($name)
     {
         $this->options = array(
             'basedir'=>".",
@@ -4996,7 +4996,7 @@ class archive
 
 class tar_file extends archive
 {
-    function tar_file($name)
+    function __construct($name)
     {
         $this->archive($name);
         $this->options['type'] = "tar";
@@ -5177,7 +5177,7 @@ class tar_file extends archive
 
 class gzip_file extends tar_file
 {
-    function gzip_file($name)
+    function __construct($name)
     {
         $this->tar_file($name);
         $this->options['type'] = "gzip";
@@ -5222,7 +5222,7 @@ class gzip_file extends tar_file
 
 class bzip_file extends tar_file
 {
-    function bzip_file($name)
+    function __construct($name)
     {
         $this->tar_file($name);
         $this->options['type'] = "bzip";
@@ -5267,7 +5267,7 @@ class bzip_file extends tar_file
 
 class zip_file extends archive
 {
-    function zip_file($name)
+    function __construct($name)
     {
         $this->archive($name);
         $this->options['type'] = "zip";
