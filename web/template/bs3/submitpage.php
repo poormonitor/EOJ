@@ -78,7 +78,8 @@
             </select>
           </span>
           <?php if (isset($code)) {
-            echo "</br></br><div id='container_status'><pre id='code' class='alert alert-error' style='text-align:left;'>" . $code . "</pre></div>";
+            echo "<br></br><a class='btn btn-sm btn-info' href='javascript:CopyToClipboard($(\"#code\").text())'>复制</a>";
+            echo "<div id='container_status'><pre id='code' class='alert alert-error' style='text-align:left;'>" . $code . "</pre></div>";
             echo '<input id="Submit" class="btn btn-info" type=submit value="' . $MSG_SUBMIT . '" style="margin:6px;"></form>';
           } else { ?>
             <?php if ($OJ_ACE_EDITOR) { ?>
