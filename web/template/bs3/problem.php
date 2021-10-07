@@ -151,8 +151,8 @@
 							<div class='panel panel-default'>
 								<div class='panel-heading'>
 									<h4>
-										<?php echo $MSG_Sample_Input ?>
-										<a href="javascript:CopyToClipboard($('#sampleinput').text())">Copy</a>
+										<?php echo $MSG_Sample_Input ?>&nbsp;
+										<a class='btn btn-sm btn-info' href="javascript:CopyToClipboard($('#sampleinput').text())" style='padding:3px 5px;'>复制</a>
 									</h4>
 								</div>
 								<div class='panel-body'>
@@ -165,8 +165,8 @@
 							<div class='panel panel-default'>
 								<div class='panel-heading'>
 									<h4>
-										<?php echo $MSG_Sample_Output ?>
-										<a href="javascript:CopyToClipboard($('#sampleoutput').text())">Copy</a>
+										<?php echo $MSG_Sample_Output ?>&nbsp;
+										<a class='btn btn-sm btn-info' href="javascript:CopyToClipboard($('#sampleoutput').text())" style='padding:3px 5px;'>复制</a>
 									</h4>
 								</div>
 								<div class='panel-body'>
@@ -192,11 +192,12 @@
 							<div class='panel panel-default'>
 								<div class='panel-heading'>
 									<h4>
-										代码填空
+										代码填空&nbsp;
+										<a class='btn btn-sm btn-info' href="javascript:CopyToClipboard($('.blank-code').text())" style='padding:3px 5px;'>复制</a>
 									</h4>
 								</div>
 								<div class='panel-body content' style='padding:0px;'>
-									<pre id=code style='padding:15px!important;'><?php echo str_replace("%*%", "__________", str_replace("*%*\r\n", "...\r\n...\r\n", htmlentities($row["blank"], ENT_QUOTES, "UTF-8"))) ?></pre>
+									<pre id='code' class="blank-code" style='padding:15px!important;'><?php echo str_replace("%*%", "__________", str_replace("*%*\r\n", "...\r\n...\r\n", htmlentities($row["blank"], ENT_QUOTES, "UTF-8"))) ?></pre>
 								</div>
 							</div>
 						<?php
