@@ -29,7 +29,7 @@
         <tr align='center'>
           <td>
             <form method="get" action="parent.php" class="form-inline" <?php if (!isset($_SESSION[$OJ_NAME . '_' . "user_id"])) echo "onsubmit='return vcode_required(this)';" ?>>
-              <input class='form-control' id='parent_user' name='user' placeholder='学生账号(学号)/姓名' value="<?php echo (htmlentities($_GET['user'])); ?>">
+              <input class='form-control' id='parent_user' name='user' placeholder='学生账号(学号)/姓名' value="<?php if (isset($_GET['user'])) echo (htmlentities($_GET['user'])); ?>">
               <input class='form-control' id='vcode' name='vcode' type='hidden'>
               <button class='form-control' type='submit'>家长查询</button>
             </form>

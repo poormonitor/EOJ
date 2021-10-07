@@ -196,7 +196,7 @@
 										<a class='btn btn-sm btn-info' href="javascript:CopyToClipboard($('.blank-code').text())" style='padding:3px 5px;'>复制</a>
 									</h4>
 								</div>
-								<div class='panel-body content' style='padding:0px;'>
+								<div class='panel-body content' style='padding:10px;'>
 									<pre id='code' class="blank-code" style='padding:15px!important;'><?php echo str_replace("%*%", "__________", str_replace("*%*\r\n", "...\r\n...\r\n", htmlentities($row["blank"], ENT_QUOTES, "UTF-8"))) ?></pre>
 								</div>
 							</div>

@@ -80,7 +80,7 @@
           <?php if (isset($code)) {
             echo "<br></br><a class='btn btn-sm btn-info' href='javascript:CopyToClipboard($(\"#code\").text())'>复制</a>";
             echo "<div id='container_status'><pre id='code' class='alert alert-error' style='text-align:left;'>" . $code . "</pre></div>";
-            echo '<input id="Submit" class="btn btn-info" type=submit value="' . $MSG_SUBMIT . '" style="margin:6px;"></form>';
+            echo '<input id="Submit" class="btn btn-info btn-sm" type=submit value="' . $MSG_SUBMIT . '" style="margin:6px;"></form>';
           } else { ?>
             <?php if ($OJ_ACE_EDITOR) { ?>
               <pre style="width:80%;height:600;font-size:13pt;margin:8px;" cols=180 rows=20 id="source"><?php echo htmlentities($view_src, ENT_QUOTES, "UTF-8") ?></pre>
@@ -119,7 +119,7 @@
 
             <?php if (isset($OJ_TEST_RUN) && $OJ_TEST_RUN) { ?>
               <div id='test_run_btn' class='height'>
-                <input id="TestRun" class="btn btn-info" type=button value="<?php echo $MSG_TR ?>" onclick=do_test_run();>
+                <input id="TestRun" class="btn btn-info btn-sm" type=button value="<?php echo $MSG_TR ?>" onclick=do_test_run();>
                 &nbsp;&nbsp;&nbsp;<span class="label label-info" id=result>状态</span>
               </div>
             <?php } ?>
@@ -129,7 +129,7 @@
               <input id="transrun" type=button class="btn" onclick="loadFromBlockly() " value="<?php echo $MSG_BLOCKLY_TEST ?>" style="display:none;color:white;background-color:rgb(90,164,139)">
               <div id="blockly" class="center">Blockly</div>
             <?php } ?>
-            <input id="Submit" class="btn btn-info" type=button value="<?php echo $MSG_SUBMIT ?>" onclick="do_submit();" style='margin:6px;'>
+            <input id="Submit" class="btn btn-info btn-sm" type=button value="<?php echo $MSG_SUBMIT ?>" onclick="do_submit();" style='margin:6px;'>
           <?php } ?>
         </form>
         <br>
