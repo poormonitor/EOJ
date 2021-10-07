@@ -188,6 +188,37 @@
 							</div>
 						<?php
 						}
+						if ($row['blank'] != NULL) { ?>
+							<div class='panel panel-default'>
+								<div class='panel-heading'>
+									<h4>
+										代码填空
+									</h4>
+								</div>
+								<div class='panel-body content' style='padding:0px;'>
+									<pre id=code style='padding:15px!important;'><?php echo str_replace("%*%", "__________", str_replace("*%*\r\n", "...\r\n...\r\n", htmlentities($row["blank"], ENT_QUOTES, "UTF-8"))) ?></pre>
+								</div>
+							</div>
+						<?php
+						}
+						if ($row['allow'] != NULL or $row['block'] != NULL) { ?>
+							<div class='panel panel-default'>
+								<div class='panel-heading'>
+									<h4>
+										禁用/必用关键词
+									</h4>
+								</div>
+								<div class='panel-body content'>
+									<?php if ($row['block'] != NULL) { ?>
+										<div style='margin-top:10px;'>禁用: <span class='label label-danger'><?php echo str_replace(" ","</span>&nbsp;<span class='label label-danger'>",$row['block']); ?></span></div>
+									<?php }
+									if ($row['allow'] != NULL) { ?>
+										<div style='margin-top:10px;'>必用: <span class='label label-success'><?php echo str_replace(" ","</span><span class='label label-success'>",$row['allow']); ?></span></div>
+									<?php } ?>
+								</div>
+							</div>
+						<?php
+						}
 						if ($pr_flag) { ?>
 							<div class='panel panel-default'>
 								<div class='panel-heading'>
