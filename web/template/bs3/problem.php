@@ -108,11 +108,12 @@
 						<div class='panel panel-default'>
 							<div class='panel-heading'>
 								<h4>
-									<?php echo $MSG_Description ?>
+									<?php echo $MSG_Description ?>&nbsp;
+									<a class='btn btn-sm btn-info' href="javascript:CopyToClipboard($('.describe').text())" style='padding:3px 5px;'>复制</a>
 								</h4>
 							</div>
 							<div class='panel-body content'>
-								<?php echo $row['description'] ?>
+								<div class='describe'><?php echo $row['description'] ?></div>
 							</div>
 						</div>
 
@@ -211,10 +212,10 @@
 								</div>
 								<div class='panel-body content'>
 									<?php if ($row['block'] != NULL) { ?>
-										<div style='margin-top:10px;'>禁用: <span class='label label-danger'><?php echo str_replace(" ","</span>&nbsp;<span class='label label-danger'>",$row['block']); ?></span></div>
+										<div style='margin-top:10px;'>禁用: <span class='label label-danger'><?php echo str_replace(" ", "</span>&nbsp;<span class='label label-danger'>", $row['block']); ?></span></div>
 									<?php }
 									if ($row['allow'] != NULL) { ?>
-										<div style='margin-top:10px;'>必用: <span class='label label-success'><?php echo str_replace(" ","</span><span class='label label-success'>",$row['allow']); ?></span></div>
+										<div style='margin-top:10px;'>必用: <span class='label label-success'><?php echo str_replace(" ", "</span><span class='label label-success'>", $row['allow']); ?></span></div>
 									<?php } ?>
 								</div>
 							</div>
