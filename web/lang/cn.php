@@ -162,7 +162,7 @@ $MSG_SET_LOGIN_IP = "指定登录IP";
 $MSG_PRIVILEGE_TYPE = "权限 类型";
 
 //contest.php
-$MSG_PRIVATE_WARNING = "比赛尚未开始或私有，不能查看题目。";
+$MSG_PRIVATE_WARNING = "比赛尚未开始或私有，不能查看信息。";
 $MSG_PRIVATE_USERS_ADD = "*可以将学生学号从Excel整列复制过来，然后要求他们用学号做UserID注册,就能进入Private的比赛作为作业和测验。";
 $MSG_PLS_ADD = "*可通过Ctrl +单击选择。";
 $MSG_TIME_WARNING = "比赛尚未开始。";
