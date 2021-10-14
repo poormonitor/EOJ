@@ -125,13 +125,13 @@ if ($rows_cnt > 0) {
   $title = $row['title'];
 }
 if ($start_time == 0) {
-  $view_errors = "No Such Contest";
+  $view_errors = "<h2><span class='alert alert-danger'>比赛不存在！</span></h2>";
   require("template/" . $OJ_TEMPLATE . "/error.php");
   exit(0);
 }
 
 if ($start_time > time()) {
-  $view_errors = "Contest Not Started!";
+  $view_errors = "<h2><span class='alert alert-danger'>" . $MSG_PRIVATE_WARNING . "</span></h2>";
   require("template/" . $OJ_TEMPLATE . "/error.php");
   exit(0);
 }
@@ -155,7 +155,7 @@ $lock = $end_time - ($end_time - $start_time) * $OJ_RANK_LOCK_PERCENT;
 $view_lock_time = $start_time + ($end_time - $start_time) * (1 - $OJ_RANK_LOCK_PERCENT);
 $locked_msg = "";
 if (time() > $view_lock_time && time() < $end_time + $OJ_RANK_LOCK_DELAY) {
-  $locked_msg = "The board has been locked.";
+  $locked_msg = "<h2><span class='alert alert-danger'>榜单被锁定。</span></h2>";
 }
 
 if ($OJ_MEMCACHE) {
