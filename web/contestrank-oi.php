@@ -125,13 +125,13 @@ if ($rows_cnt > 0) {
   $title = $row['title'];
 }
 if ($start_time == 0) {
-  $view_errors = "<h2><span class='alert alert-danger'>比赛不存在！</span></h2>";
+  $view_errors = "<h2>不存在作业</h2><br><span class='alert alert-danger'>作业不存在！请检查作业编号是否正确</span>";
   require("template/" . $OJ_TEMPLATE . "/error.php");
   exit(0);
 }
 
 if ($start_time > time()) {
-  $view_errors = "<h2><span class='alert alert-danger'>" . $MSG_PRIVATE_WARNING . "</span></h2>";
+  $view_errors = "<h2>信息不存在</h2><br><span class='alert alert-danger'>" . $MSG_PRIVATE_WARNING . "</span>";
   require("template/" . $OJ_TEMPLATE . "/error.php");
   exit(0);
 }
@@ -155,7 +155,7 @@ $lock = $end_time - ($end_time - $start_time) * $OJ_RANK_LOCK_PERCENT;
 $view_lock_time = $start_time + ($end_time - $start_time) * (1 - $OJ_RANK_LOCK_PERCENT);
 $locked_msg = "";
 if (time() > $view_lock_time && time() < $end_time + $OJ_RANK_LOCK_DELAY) {
-  $locked_msg = "<h2><span class='alert alert-danger'>榜单被锁定。</span></h2>";
+  $locked_msg = "<h2>榜单被锁定</h2><span class='alert alert-danger'>榜单正被锁定。</span></h2>";
 }
 
 if ($OJ_MEMCACHE) {
