@@ -242,7 +242,7 @@ if (isset($_GET['user_id'])) {
     $user_id = "";
 }
 
-if ($user_id=="" and $problem_id=="" and $cid==""){
+if ($user_id=="" and $problem_id=="" and (!isset($cid) or $cid=="")){
     $view_errors="<div class='alert alert-danger' role='alert'>参数未设。查询不会进行。</div>";
     $view_status=array();
     require("template/".$OJ_TEMPLATE."/statusadmin.php");
@@ -534,7 +534,7 @@ for ($i=0; $i<$rows_cnt; $i++) {
     } else {
         $user_id = $row['user_id'];
         $sql_group = "SELECT `name` FROM `users` JOIN `group` ON `users`.gid = `group`.gid WHERE `users`.`user_id` = $user_id;";
-        $view_status[$i][12] = pdo_query($sql_group)[0]["name"];
+        if (isset(pdo_query($sql_group)[0]["name"])) $view_status[$i][12] = pdo_query($sql_group)[0]["name"];
     }
 }
 

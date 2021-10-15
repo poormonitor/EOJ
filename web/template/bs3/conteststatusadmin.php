@@ -271,10 +271,10 @@
         <table id=result-tab class="table table-striped content-box-header" align=center width=80%>
           <thead>
             <tr class='toprow'>
-              <td class="text-center">
+              <td class="text-right">
                 <?php echo $MSG_RUNID ?>
               </td>
-              <td class="text-center">
+              <td class="text-left">
                 <?php echo $MSG_USER ?>
               </td>
               <td class="text-center">
@@ -283,22 +283,22 @@
               <td class="text-left">
                 <?php echo $MSG_RESULT ?>
               </td>
-              <td class="text-center">
+              <td class="text-left">
                 SIM
               </td>
-              <td class="text-center">
+              <td class="text-left">
                 SIM to
               </td>
-              <td class="text-center">
+              <td class="text-right">
                 <?php echo $MSG_MEMORY ?>
               </td>
-              <td class="text-center">
+              <td class="text-right">
                 <?php echo $MSG_TIME ?>
               </td>
-              <td class="text-center">
+              <td class="text-right">
                 <?php echo $MSG_LANG ?>
               </td>
-              <td class="text-center">
+              <td class="text-right">
                 <?php echo $MSG_CODE_LENGTH ?>
               </td>
               <td class="text-center">
@@ -327,7 +327,15 @@
 
               $i = 0;
               foreach ($row as $table_cell) {
-                echo "<td class='text-center'>";
+                if ($i == 2 || $i == 10 || $i == 12 || $i == 11)
+                  echo "<td class='text-center'>";
+                else if ($i == 0 || $i == 6 || $i == 7 || $i == 8 || $i == 9)
+                  echo "<td class='text-right'>";
+                else if ($i == 5)
+                  echo "<td class='text-left td_result'>";
+                else
+                  echo "<td>";
+
                 echo $table_cell;
                 echo "</td>";
                 $i++;
@@ -361,32 +369,11 @@
                         } ?> ''];
   </script>
 
-  <script src="template/bs3/auto_refresh.js?v=0.55"></script>
+  <script src="https://cdn.jsdelivr.net/gh/poormonitor/hustoj/web/template/bs3/auto_refresh.min.js"></script>
 
   <script>
     var diff = new Date("<?php echo date("Y/m/d H:i:s") ?>").getTime() - new Date().getTime();
-    //swal(diff);
-    function clock() {
-      var x, h, m, s, n, xingqi, y, mon, d;
-      var x = new Date(new Date().getTime() + diff);
-      y = x.getYear() + 1900;
-
-      if (y > 3000)
-        y -= 1900;
-
-      mon = x.getMonth() + 1;
-      d = x.getDate();
-      xingqi = x.getDay();
-      h = x.getHours();
-      m = x.getMinutes();
-      s = x.getSeconds();
-      n = y + "-" + (mon >= 10 ? mon : "0" + mon) + "-" + (d >= 10 ? d : "0" + d) + " " + (h >= 10 ? h : "0" + h) + ":" + (m >= 10 ? m : "0" + m) + ":" + (s >= 10 ? s : "0" + s);
-
-      //swal(n);
-      document.getElementById('nowdate').innerHTML = n;
-      setTimeout("clock()", 1000);
-    }
-    clock();
+    clock(diff);
   </script>
 
 </body>

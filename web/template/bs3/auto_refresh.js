@@ -5,13 +5,13 @@ function auto_refresh() {
 	interval = 800;
 	var tb = window.document.getElementById('result-tab');
 	var rows = tb.rows;
-	for (var i=rows.length-1; i>0; i--) {
+	for (var i = rows.length - 1; i > 0; i--) {
 		var result = $(rows[i].cells[3].children[0]).attr("result");
 		rows[i].cells[3].className = "td_result";
 		var sid = rows[i].cells[0].innerHTML;
-		if (result<4) {
-			window.setTimeout("fresh_result("+sid+")",interval);
-			console.log("auto_refresh "+sid+" actived!");
+		if (result < 4) {
+			window.setTimeout("fresh_result(" + sid + ")", interval);
+			console.log("auto_refresh " + sid + " actived!");
 			break;
 		}
 	}
@@ -20,24 +20,23 @@ function auto_refresh() {
 function findRow(solution_id) {
 	var tb = window.document.getElementById('result-tab');
 	var rows = tb.rows;
-	for (var i=1; i<rows.length; i++) {
+	for (var i = 1; i < rows.length; i++) {
 		var cell = rows[i].cells[0];
-		if (cell.innerHTML==solution_id)
+		if (cell.innerHTML == solution_id)
 			return rows[i];
 	}
 }
 
 function fresh_result(solution_id) {
 	var xmlhttp;
-	if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+	if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
 		xmlhttp = new XMLHttpRequest();
-	}
-	else {// code for IE6, IE5
+	} else { // code for IE6, IE5
 		xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
 	}
 
 	xmlhttp.onreadystatechange = function() {
-		if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 			var tb = window.document.getElementById('result-tab');
 			var row = findRow(solution_id);
 			//alert(row);
@@ -50,51 +49,50 @@ function fresh_result(solution_id) {
 			row.cells[4].innerHTML = ra[1];
 			row.cells[5].innerHTML = ra[2];
 
-			if(ra[3]!="none")
+			if (ra[3] != "none")
 				row.cells[9].innerHTML = ra[3];
-			
-			if (ra[0]<4) {
+
+			if (ra[0] < 4) {
 				//console.log(loader);
-				if (-1==row.cells[3].innerHTML.indexOf("loader")) {
+				if (-1 == row.cells[3].innerHTML.indexOf("loader")) {
 					//console.log(row.cells[3].innerHTML);
-			 		row.cells[3].innerHTML += loader;
+					row.cells[3].innerHTML += loader;
 				}
 				interval *= 1.5;
-				window.setTimeout("fresh_result("+solution_id+")",interval);
-			}
-			else {
+				window.setTimeout("fresh_result(" + solution_id + ")", interval);
+			} else {
 				//console.log(ra[0]);
 				switch (ra[0]) {
 					case 4:
-						row.cells[3].innerHTML = "<a href=reinfo.php?sid="+solution_id+" class='"+judge_color[ra[0]]+"'>"+judge_result[ra[0]]+"</a>";
+						row.cells[3].innerHTML = "<a href=reinfo.php?sid=" + solution_id + " class='" + judge_color[ra[0]] + "'>" + judge_result[ra[0]] + "</a>";
 						break;
 					case 5:
 					case 6:
-				  case 7:
-				  case 8:
-				  case 9:
-				  case 10:
-						row.cells[3].innerHTML = "<a href=reinfo.php?sid="+solution_id+" class='"+judge_color[ra[0]]+"'>"+judge_result[ra[0]]+" AC:"+ra[4].trim()+"%</a>";
+					case 7:
+					case 8:
+					case 9:
+					case 10:
+						row.cells[3].innerHTML = "<a href=reinfo.php?sid=" + solution_id + " class='" + judge_color[ra[0]] + "'>" + judge_result[ra[0]] + " AC:" + ra[4].trim() + "%</a>";
 						break;
-				 	case 11:
-						row.cells[3].innerHTML = "<a href=ceinfo.php?sid="+solution_id+" class='"+judge_color[ra[0]]+"'>"+judge_result[ra[0]]+"</a>";
+					case 11:
+						row.cells[3].innerHTML = "<a href=ceinfo.php?sid=" + solution_id + " class='" + judge_color[ra[0]] + "'>" + judge_result[ra[0]] + "</a>";
 						break;
-				  default:
-//						row.cells[3].innerHTML = "<span class='"+judge_color[ra[0]]+"'>"+judge_result[ra[0]]+" AC:"+ra[4].trim()+"%</span>";
+					default:
+						//						row.cells[3].innerHTML = "<span class='"+judge_color[ra[0]]+"'>"+judge_result[ra[0]]+" AC:"+ra[4].trim()+"%</span>";
 				}
-			
+
 				auto_refresh();
 			}
 		}
 	}
-	xmlhttp.open("GET","status-ajax.php?solution_id="+solution_id,true);
+	xmlhttp.open("GET", "status-ajax.php?solution_id=" + solution_id, true);
 	xmlhttp.send();
 }
 
 var hj_ss = "<select class='http_judge form-control' length='2' name='result'>";
 
-for (var i=0; i<10; i++) {
-  hj_ss += "	<option value='"+i+"'>"+judge_result[i]+" </option>";
+for (var i = 0; i < 10; i++) {
+	hj_ss += "	<option value='" + i + "'>" + judge_result[i] + " </option>";
 }
 
 hj_ss += "</select>";
@@ -109,9 +107,9 @@ auto_refresh();
 $(".http_judge_form").hide();
 
 function http_judge(btn) {
-  var sid = $(btn).parent()[0].children[0].value;
-  $.post("admin/problem_judge.php",$(btn).parent().serialize(),function(data,textStatus) {
-    if(textStatus=="success")window.setTimeout("fresh_result("+sid+")",1000);
+	var sid = $(btn).parent()[0].children[0].value;
+	$.post("admin/problem_judge.php", $(btn).parent().serialize(), function(data, textStatus) {
+		if (textStatus == "success") window.setTimeout("fresh_result(" + sid + ")", 1000);
 	})
-  return false;
+	return false;
 }

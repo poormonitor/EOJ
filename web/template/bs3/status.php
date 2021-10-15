@@ -233,13 +233,7 @@
 								echo "'$result',";
 							} ?> ''];
 	</script>
-	<?php
-	if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'source_browser'])) {
-		echo '<script src="template/bs3/auto_refresh.js?v=0.56"></script>';
-	} else {
-		echo '<script src="https://cdn.jsdelivr.net/gh/zhblue/hustoj/trunk/web/template/bs3/auto_refresh.min.js"></script>';
-	}
-	?>
+	<script src="https://cdn.jsdelivr.net/gh/poormonitor/hustoj/web/template/bs3/auto_refresh.min.js"></script>
 </body>
 
 </html>
