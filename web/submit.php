@@ -175,17 +175,40 @@ if ($langmask & (1 << $language)) {
   require "template/" . $OJ_TEMPLATE . "/error.php";
   exit(0);
 }
-if (isset($_POST['code1']) || isset($_POST['multiline'])) {
-  $code = pdo_query("select blank from problem where problem_id=?", $id)[0][0];
-  for ($i = 1; isset($_POST['code' . $i]); $i++) {
-    $code = str_replace_limit("%*%", $_POST['code' . $i], $code, 1);
+$code = pdo_query("select blank from problem where problem_id=?", $id)[0][0];
+if ($code != NULL) {
+  if (isset($_POST['code1']) || isset($_POST['multiline'])) {
+    for ($i = 1; isset($_POST['code' . $i]); $i++) {
+      $code = str_replace_limit("%*%", $_POST['code' . $i], $code, 1);
+    }
+    if (isset($_POST['multiline'])) {
+      $code = str_replace_limit("*%*", $_POST['multiline'], $code, 1);
+    }
+    $code = str_replace("\t", "    ", $code);
+    $source = $code;
+    $input_text = $code;
+  } else {
+    $code = preg_quote($code);
+    $code = str_replace("%\*%", ".*", $code);
+    $code = str_replace("\*%\*", "[\s\S]*", $code);
+    echo $code;
+    echo $_POST['source'];
+    if (preg_match("#".$code."#",$_POST['source'])) {
+      $source = $_POST['source'];
+      $input_text = "";
+    } else {
+      $err_str = $err_str . "您的代码不符合填空格式！";
+      $err_cnt++;
+      $view_error_title = $err_str;
+      $view_errors_js .= "swal('$err_str').then((onConfirm)=>{history.go(-1);});";
+      if (isset($_GET['ajax'])) {
+        echo "-1";
+      } else {
+        require "template/" . $OJ_TEMPLATE . "/error.php";
+      }
+      exit(0);
+    }
   }
-  if (isset($_POST['multiline'])) {
-    $code = str_replace_limit("*%*", $_POST['multiline'], $code, 1);
-  }
-  $code = str_replace("\t", "    ", $code);
-  $source = $code;
-  $input_text = $code;
 } else {
   $source = $_POST['source'];
   $input_text = "";
@@ -214,7 +237,7 @@ if ($block != NULL) {
 if (!$flag1 or !$flag2) {
   $err_str = $err_str . "代码中有禁用的关键词或没有使用必须的关键词！";
   $err_cnt++;
-  $view_errors = "<h3>" . $err_str . "</h3>";
+  $view_error_title = $err_str;
   $view_errors_js .= "swal('$err_str').then((onConfirm)=>{history.go(-1);});";
   if (isset($_GET['ajax'])) {
     echo "-1";
