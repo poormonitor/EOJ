@@ -102,7 +102,7 @@ body {
     #container_status {
         width: auto;
     }
-    .main_contatiner,
+    .main-container,
     pre#code {
         margin: 0 auto;
     }
@@ -116,7 +116,7 @@ body {
     #container_status {
         width: 90%;
     }
-    .main_contatiner,
+    .main-container,
     pre#code {
         margin: 10px;
     }
@@ -130,7 +130,7 @@ body {
     #container_status {
         width: 80%;
     }
-    .main_contatiner,
+    .main-container,
     pre#code {
         margin: 20px;
     }
@@ -144,7 +144,7 @@ body {
     #container_status {
         width: 70%;
     }
-    .main_contatiner,
+    .main-container,
     pre#code {
         margin: 30px;
     }

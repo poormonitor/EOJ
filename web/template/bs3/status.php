@@ -14,11 +14,6 @@
 	</title>
 
 	<?php include("template/$OJ_TEMPLATE/css.php"); ?>
-	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-	<!--[if lt IE 9]>
-<script src="https://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.js"></script>
-<script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
 </head>
 
 <body>
@@ -156,7 +151,7 @@
 								<?php echo $MSG_SUBMIT_TIME ?>
 							</td>
 							<?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
-								echo "<td class='text-center'>";
+								echo "<td class='text-left'>";
 								echo $MSG_JUDGER;
 								echo "</td>";
 							} ?>
@@ -215,10 +210,7 @@
 
 	</div>
 
-	<!-- /container -->
-	<!-- Bootstrap core JavaScript
-================================================== -->
-	<!-- Placed at the end of the document so the pages load faster -->
+
 	<?php include("template/$OJ_TEMPLATE/js.php"); ?>
 
 	<script>
@@ -232,8 +224,26 @@
 							foreach ($judge_color as $result) {
 								echo "'$result',";
 							} ?> ''];
+		var i = 0;
+		var interval = 800;
+
+		var hj_ss = "<select class='http_judge form-control' length='2' name='result'>";
+
+		for (var i = 0; i < 10; i++) {
+			hj_ss += "	<option value='" + i + "'>" + judge_result[i] + " </option>";
+		}
+
+		hj_ss += "</select>";
+		hj_ss += "<input name='manual' type='hidden'>";
+		hj_ss += "<input class='http_judge form-control' size=5 title='输入判定原因与提示' name='explain' type='text'>";
+		hj_ss += "<input type='button' class='http_judge btn' name='manual' value='确定' onclick='http_judge(this)' >";
+
+		$(".http_judge_form").append(hj_ss);
+
+		auto_refresh();
+
+		$(".http_judge_form").hide();
 	</script>
-	<script src="https://cdn.jsdelivr.net/gh/poormonitor/hustoj/web/template/bs3/auto_refresh.min.js"></script>
 </body>
 
 </html>

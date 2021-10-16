@@ -13,11 +13,7 @@
   <?php include("template/$OJ_TEMPLATE/css.php"); ?>
 
 
-  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-  <!--[if lt IE 9]>
-      <script src="https://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+
 </head>
 
 <body>
@@ -25,7 +21,7 @@
     <?php include("template/$OJ_TEMPLATE/nav.php"); ?>
     <!-- Main component for a primary marketing message or call to action -->
     <div class="jumbotron">
-      <div class='main_contatiner'>
+      <div class='main-container'>
         <h2>家长查询</h2>
         <?php
         if (isset($view_error)) {
@@ -253,12 +249,7 @@
 <p>本页面所提供之数据，仅为被查询用户在本系统中的使用情况之显示，并不构成任何意思表示。</p>
 </div>
 </div>
-</div> <!-- /container -->
-
-
-<!-- Bootstrap core JavaScript
-    ================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
+</div>
 <?php include("template/$OJ_TEMPLATE/js.php"); ?>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/watermark-dom@2.3.0/index.min.js"></script>
 <?php

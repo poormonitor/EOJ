@@ -92,17 +92,18 @@ $MSG_SUBMIT_NUM = "提交量";
 $MSG_SUBMIT = "提交";
 
 //submit.php
+$MSG_NO_SUCH_CONTEST='您请求的作业不存在。这可能是因为作业本身不存在或您尚未被邀请';
 $MSG_TEST_RUN = "测试运行";
 $MSG_VCODE_WRONG = "验证码错误！";
 $MSG_LINK_ERROR = "在哪里可以找到此链接？ 没有这个问题。";
 $MSG_PROBLEM_RESERVED = "问题已禁用。";
-$MSG_NOT_IN_CONTEST = "您不能立即提交，因为您没有被比赛邀请或比赛没有进行！";
+$MSG_NOT_IN_CONTEST = "您不能立即提交，因为您没有被作业邀请或作业没有进行！";
 $MSG_NOT_INVITED = "您不被邀请！";
 $MSG_NO_PROBLEM = "没有这样的问题！";
 $MSG_NO_PLS = "使用未知的编程语言！";
 $MSG_TOO_SHORT = "代码太短！";
 $MSG_TOO_LONG = "代码太长！";
-$MSG_BREAK_TIME = "您不应在10秒钟内提交超过1次的申请.....";
+$MSG_BREAK_TIME = "您不应在10秒钟内提交超过1次的申请";
 
 //ranklist.php
 $MSG_Number = "名次";
@@ -123,7 +124,7 @@ $MSG_REG_INFO = "设置注册信息";
 $MSG_VCODE = "验证码";
 
 //problem.php
-$MSG_NO_SUCH_PROBLEM = "<h2>题目当前不可用!</h2><br><span class='alert alert-danger'>它可能被用于未来的比赛、过去的私有比赛，或者管理员由于尚未测试通过等其他原因暂时停止了该题目用于练习。</span>";
+$MSG_NO_SUCH_PROBLEM = "当前题目不可用。它可能被用于未来的作业、过去的私有作业，或者管理员由于尚未测试通过等其他原因暂时停止了该题目用于练习。";
 $MSG_Description = "题目描述";
 $MSG_Input = "输入";
 $MSG_Output = "输出";
@@ -163,19 +164,19 @@ $MSG_SET_LOGIN_IP = "指定登录IP";
 $MSG_PRIVILEGE_TYPE = "权限 类型";
 
 //contest.php
-$MSG_PRIVATE_WARNING = "比赛尚未开始或私有，不能查看信息。";
-$MSG_PRIVATE_USERS_ADD = "*可以将学生学号从Excel整列复制过来，然后要求他们用学号做UserID注册,就能进入Private的比赛作为作业和测验。";
+$MSG_PRIVATE_WARNING = "作业尚未开始或私有，不能查看信息。";
+$MSG_PRIVATE_USERS_ADD = "*可以将学生学号从Excel整列复制过来，然后要求他们用学号做UserID注册,就能进入私有的作业。";
 $MSG_PLS_ADD = "*可通过Ctrl +单击选择。";
-$MSG_TIME_WARNING = "比赛尚未开始。";
-$MSG_WATCH_RANK = "点击这里查看比赛排名。";
-$MSG_NOIP_WARNING = $OJ_NOIP_KEYWORD . " 比赛进行中，结束后才能查看结果。";
+$MSG_TIME_WARNING = "作业尚未开始。";
+$MSG_WATCH_RANK = "点击这里查看作业排名。";
+$MSG_NOIP_WARNING = $OJ_NOIP_KEYWORD . " 作业进行中，结束后才能查看结果。";
 
 $MSG_SERVER_TIME = "服务器时间";
 $MSG_START_TIME = "开始时间";
 $MSG_END_TIME = "结束时间";
-$MSG_CONTEST_ID = "作业比赛编号";
-$MSG_CONTEST_NAME = "作业比赛名称";
-$MSG_CONTEST_STATUS = "作业比赛状态";
+$MSG_CONTEST_ID = "作业编号";
+$MSG_CONTEST_NAME = "作业名称";
+$MSG_CONTEST_STATUS = "作业状态";
 $MSG_CONTEST_OPEN = "开放";
 $MSG_CONTEST_CREATOR = "创建人";
 $MSG_CONTEST_PENALTY = "累计时间";
@@ -230,15 +231,15 @@ $MSG_HELP_USER_LIST = "对注册用户停用、启用帐号";
 $MSG_HELP_USER_ADD = "添加用户";
 $MSG_HELP_ADD_PROBLEM = "手动添加新的题目，多组测试数据在添加后从题目列表TestData按钮进入上传，新建题目<b>默认隐藏</b>，需在问题列表中点击红色<font color='red'>Reserved</font>切换为绿色<font color='green'>Available</font>启用。。";
 $MSG_HELP_PROBLEM_LIST = "管理已有的题目和数据，上传数据可以用zip压缩不含目录的数据。";
-$MSG_HELP_ADD_CONTEST = "规划新的比赛，用逗号分隔题号。可以设定私有比赛，用密码或名单限制参与者。";
-$MSG_HELP_CONTEST_LIST = "已有的比赛列表，修改时间和公开/私有，尽量不要在开赛后调整题目列表。";
+$MSG_HELP_ADD_CONTEST = "规划新的作业，用逗号分隔题号。可以设定私有作业，用密码或名单限制参与者。";
+$MSG_HELP_CONTEST_LIST = "已有的作业列表，修改时间和公开/私有，尽量不要在开赛后调整题目列表。";
 $MSG_HELP_SET_LOGIN_IP = "记录考试期间的计算机(登录IP)更改。";
-$MSG_HELP_TEAMGENERATOR = "批量生成大量比赛帐号、密码，用于来自不同学校的参赛者。小系统不要随便使用，可能产生垃圾帐号，无法删除。";
+$MSG_HELP_TEAMGENERATOR = "批量生成大量作业帐号、密码，用于来自不同学校的参赛者。小系统不要随便使用，可能产生垃圾帐号，无法删除。";
 $MSG_HELP_SETMESSAGE = "设置滚动公告内容";
 $MSG_HELP_SETPASSWORD = "重设指定用户的密码，对于管理员帐号需要先降级为普通用户才能修改。";
-$MSG_HELP_REJUDGE = "重判指定的题目、提交或比赛。";
-$MSG_HELP_ADD_PRIVILEGE = "给指定用户增加权限，包括管理员、题目添加者、比赛组织者、比赛参加者、代码查看者、手动判题、远程判题、打印员、气球发放员等权限。";
-$MSG_HELP_ADD_CONTEST_USER = "给用户添加单个比赛权限。";
+$MSG_HELP_REJUDGE = "重判指定的题目、提交或作业。";
+$MSG_HELP_ADD_PRIVILEGE = "给指定用户增加权限，包括管理员、题目添加者、作业组织者、作业参加者、代码查看者、手动判题、远程判题、打印员、气球发放员等权限。";
+$MSG_HELP_ADD_CONTEST_USER = "给用户添加单个作业权限。";
 $MSG_HELP_ADD_SOLUTION_VIEW = "给用户添加单个题目的答案查看权限。";
 $MSG_HELP_PRIVILEGE_LIST = "查看已有的特殊权限列表、进行删除操作。";
 $MSG_HELP_GIVESOURCE = "将导入系统的标程赠与指定帐号，用于训练后辅助未通过的人学习参考。";
