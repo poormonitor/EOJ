@@ -21,7 +21,7 @@
     <?php include("template/$OJ_TEMPLATE/nav.php"); ?>
     <!-- Main component for a primary marketing message or call to action -->
     <div class="jumbotron">
-      <div class='main_contatiner'>
+      <div class='main-container'>
         <h2>家长查询</h2>
         <?php
         if (isset($view_error)) {
