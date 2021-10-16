@@ -369,8 +369,6 @@
                         } ?> ''];
   </script>
 
-  <script src="https://cdn.jsdelivr.net/gh/poormonitor/hustoj/web/template/bs3/auto_refresh.min.js"></script>
-
   <script>
     var diff = new Date("<?php echo date("Y/m/d H:i:s") ?>").getTime() - new Date().getTime();
     clock(diff);

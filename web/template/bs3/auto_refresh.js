@@ -45,7 +45,7 @@ function fresh_result(solution_id) {
 			ra[0] = parseInt(ra[0]);
 			// alert(r);
 			// alert(judge_result[r]);
-			var loader = "<img width=18 src=image/loader.gif>";
+			var loader = "<img width=18 style='margin-left:3px;' src='https://cdn.jsdelivr.net/gh/poormonitor/image@master/base/loading.gif'>";
 			row.cells[4].innerHTML = ra[1];
 			row.cells[5].innerHTML = ra[2];
 
