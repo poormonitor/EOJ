@@ -15,6 +15,7 @@ if (isset($view_errors_js)) { ?>
           height: auto;
           background: #242424;
         }
+      }
     </style>
   </body>
 
@@ -41,32 +42,24 @@ if (isset($view_errors_js)) { ?>
 
     <title><?php echo $OJ_NAME ?></title>
     <?php include("template/$OJ_TEMPLATE/css.php"); ?>
-
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
   </head>
 
   <body>
 
     <div class="container">
       <?php include("template/$OJ_TEMPLATE/nav.php"); ?>
-      <!-- Main component for a primary marketing message or call to action -->
       <div class="jumbotron">
-        <div style='margin:30px;'>
-          <?php echo $view_errors ?>
-          <p></p>
+        <div class='main-container'>
+          <h2><?php if (isset($view_title)) echo $view_title ?></h2>
+          </br>
+          <div class='alert alert-danger' role='alert'>
+            <h4>
+              <?php if (isset($view_errors)) echo $view_errors ?>
+            </h4>
+          </div>
         </div>
       </div>
-    </div> <!-- /container -->
-
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
+    </div>
     <?php include("template/$OJ_TEMPLATE/js.php"); ?>
   </body>
 
