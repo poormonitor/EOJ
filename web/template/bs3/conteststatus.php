@@ -270,7 +270,7 @@
                 <?php echo $MSG_SUBMIT_TIME ?>
               </td>
               <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
-                echo "<th class='text-center'>";
+                echo "<th class='text-left'>";
                 echo $MSG_JUDGER;
                 echo "</th>";
               } ?>
