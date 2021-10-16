@@ -156,7 +156,7 @@
 								<?php echo $MSG_SUBMIT_TIME ?>
 							</td>
 							<?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
-								echo "<td class='text-left'>";
+								echo "<td class='text-center'>";
 								echo $MSG_JUDGER;
 								echo "</td>";
 							} ?>
