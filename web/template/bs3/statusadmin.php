@@ -188,7 +188,7 @@
 								<?php echo $MSG_SUBMIT_TIME ?>
 							</td>
 							<?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
-								echo "<td class='text-left'>";
+								echo "<td class='text-center'>";
 								echo $MSG_JUDGER;
 								echo "</td>";
 								if (isset($gid)) {
@@ -256,7 +256,6 @@
 								echo "'$result',";
 							} ?>];
 	</script>
-	<script src="https://cdn.jsdelivr.net/gh/poormonitor/hustoj/web/template/bs3/auto_refresh.min.js"></script>
 </body>
 
 </html>

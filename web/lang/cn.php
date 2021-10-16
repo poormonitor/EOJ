@@ -92,6 +92,7 @@ $MSG_SUBMIT_NUM = "提交量";
 $MSG_SUBMIT = "提交";
 
 //submit.php
+$MSG_TEST_RUN = "测试运行";
 $MSG_VCODE_WRONG = "验证码错误！";
 $MSG_LINK_ERROR = "在哪里可以找到此链接？ 没有这个问题。";
 $MSG_PROBLEM_RESERVED = "问题已禁用。";
