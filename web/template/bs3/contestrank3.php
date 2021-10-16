@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,9 +8,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
-    <link rel="stylesheet" type="text/css" href="template/<?php echo $OJ_TEMPLATE?>/scrollboard.css">
-    <title><?php echo $OJ_NAME?></title>
-    <?php include("template/$OJ_TEMPLATE/css.php");?>
+    <link rel="stylesheet" type="text/css" href="template/<?php echo $OJ_TEMPLATE ?>/scrollboard.css">
+    <title><?php echo $OJ_NAME ?></title>
+    <?php include("template/$OJ_TEMPLATE/css.php"); ?>
 
 </head>
 
@@ -21,23 +22,24 @@
 
 
 
-<!-- Bootstrap core JavaScript
+    <!-- Bootstrap core JavaScript
 ================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<?php include("template/$OJ_TEMPLATE/js.php");?>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/zhblue/hustoj/trunk/web/include/jquery.tablesorter.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/zhblue/hustoj/trunk/web/template/<?php echo $OJ_TEMPLATE;?>/scrollboard.min.js"></script>
-<script type="text/javascript">
-    var board = new Board(<?php echo $problem_num?>, new Array(<?php echo $gold_num?>, <?php echo $silver_num?>, <?php echo $bronze_num?>),StringToDate("<?php echo  $start_time_str?>"), StringToDate("<?php echo $lock_time_str?>"),<?php echo $cid?>);
+    <!-- Placed at the end of the document so the pages load faster -->
+    <?php include("template/$OJ_TEMPLATE/js.php"); ?>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/zhblue/hustoj/trunk/web/include/jquery.tablesorter.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/zhblue/hustoj/trunk/web/template/<?php echo $OJ_TEMPLATE; ?>/scrollboard.min.js"></script>
+    <script type="text/javascript">
+        var board = new Board(<?php echo $problem_num ?>, new Array(<?php echo $gold_num ?>, <?php echo $silver_num ?>, <?php echo $bronze_num ?>), StringToDate("<?php echo  $start_time_str ?>"), StringToDate("<?php echo $lock_time_str ?>"), <?php echo $cid ?>);
 
-    board.showInitBoard();
-    $('html').click(function(e) {
+        board.showInitBoard();
+        $('html').click(function(e) {
             board.keydown();
-    });
-    $('html').keydown(function(e) {
-	if(e.keyCode==13)
-            board.keydown();
-    });
-</script>
+        });
+        $('html').keydown(function(e) {
+            if (e.keyCode == 13)
+                board.keydown();
+        });
+    </script>
 </body>
+
 </html>

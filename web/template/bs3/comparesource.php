@@ -14,23 +14,13 @@
 	<title><?php echo $OJ_NAME ?></title>
 	<?php include("template/$OJ_TEMPLATE/css.php"); ?>
 
-
-	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-	<!--[if lt IE 9]>
-      <script src="https://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
 </head>
 
 <body>
 
 	<div class="container">
 		<?php include("template/$OJ_TEMPLATE/nav.php"); ?>
-		<!-- Main component for a primary marketing message or call to action -->
 		<div class="jumbotron">
-
-
-			<!-- Requires jQuery -->
 
 			<body style="width: 100%;">
 				<table style="width: 100%;">
@@ -55,25 +45,16 @@
 			</body>
 
 
-		</div> <!-- /container -->
-
-
-		<!-- Bootstrap core JavaScript
-    ================================================== -->
-		<!-- Placed at the end of the document so the pages load faster -->
+		</div>
 		<?php include("template/$OJ_TEMPLATE/js.php"); ?>
-
-		<!-- Requires CodeMirror 2.16 -->
 		<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/zhblue/hustoj/trunk/web/mergely/codemirror.min.js"></script>
-
-		<!-- Requires Mergely -->
 		<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/zhblue/hustoj/trunk/web/mergely/mergely.min.js"></script>
 
 		<script type="text/javascript">
 			$(document).ready(function() {
 				$('#compare').mergely({
 					width: 'auto',
-					height: 'auto', // containing div must be given a height
+					height: 'auto',
 					cmsettings: {
 						readOnly: false
 					},

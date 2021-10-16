@@ -13,11 +13,7 @@
 </title>
 
 <?php include("template/$OJ_TEMPLATE/css.php");?>
-<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-<!--[if lt IE 9]>
-<script src="https://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.js"></script>
-<script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
+
 </head>
 
 <body>
@@ -142,10 +138,6 @@
 	</div>
 </div>
 
-<!-- /container -->
-<!-- Bootstrap core JavaScrip
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
 <?php include("template/$OJ_TEMPLATE/js.php");?>      
 
 <script src="https://cdn.jsdelivr.net/gh/zhblue/hustoj/trunk/web/include/sortTable.min.js"></script>
