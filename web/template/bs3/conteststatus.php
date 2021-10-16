@@ -14,11 +14,6 @@
   </title>
 
   <?php include("template/$OJ_TEMPLATE/css.php"); ?>
-  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-  <!--[if lt IE 9]>
-<script src="https://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.js"></script>
-<script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
 </head>
 
 <body>
@@ -332,36 +327,43 @@
     </div>
 
   </div>
-
-  <!-- /container -->
-  <!-- Bootstrap core JavaScript
-================================================== -->
-  <!-- Placed at the end of the document so the pages load faster -->
   <?php include("template/$OJ_TEMPLATE/js.php"); ?>
 
   <script>
     var judge_result = [<?php
                         foreach ($judge_result as $result) {
                           echo "'$result',";
-                        } echo "''"; ?>];
+                        }
+                        echo "''"; ?>];
 
     var judge_color = [<?php
                         foreach ($judge_color as $result) {
                           echo "'$result',";
-                        } echo "''"; ?>];
-  </script>
+                        }
+                        echo "''"; ?>];
 
-  <?php
-  if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'source_browser'])) {
-    echo '<script src="template/bs3/auto_refresh.js?v=0.55"></script>';
-  } else {
-    echo '<script src="https://cdn.jsdelivr.net/gh/zhblue/hustoj/trunk/web/template/bs3/auto_refresh.min.js"></script>';
-  }
-  ?>
-
-  <script>
     var diff = new Date("<?php echo date("Y/m/d H:i:s") ?>").getTime() - new Date().getTime();
     clock(diff);
+
+    var i = 0;
+    var interval = 800;
+
+    var hj_ss = "<select class='http_judge form-control' length='2' name='result'>";
+
+    for (var i = 0; i < 10; i++) {
+      hj_ss += "	<option value='" + i + "'>" + judge_result[i] + " </option>";
+    }
+
+    hj_ss += "</select>";
+    hj_ss += "<input name='manual' type='hidden'>";
+    hj_ss += "<input class='http_judge form-control' size=5 title='输入判定原因与提示' name='explain' type='text'>";
+    hj_ss += "<input type='button' class='http_judge btn' name='manual' value='确定' onclick='http_judge(this)' >";
+
+    $(".http_judge_form").append(hj_ss);
+
+    auto_refresh();
+
+    $(".http_judge_form").hide();
   </script>
 
 </body>
