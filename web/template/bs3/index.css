@@ -174,7 +174,6 @@ pre#code {
     font-size: 120%;
     background-color: #fff;
     box-shadow: 0 1px 0 rgba(255, 255, 255, .15) inset, 0 2px 6px rgba(0, 0, 0, .075);
-    padding: 30px !important;
 }
 
 .http_judge_form {
@@ -226,15 +225,15 @@ h3.pagenav div.active {
 }
 
 .red {
-    color: red;
+    color: #B22222;
 }
 
 .green {
-    color: green;
+    color: #32CD32;
 }
 
 .blue {
-    color: blue;
+    color: #00BFFF;
 }
 
 #footer {
