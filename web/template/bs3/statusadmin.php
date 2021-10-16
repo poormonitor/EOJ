@@ -256,7 +256,6 @@
 								echo "'$result',";
 							} ?>];
 	</script>
-	<script src="https://cdn.jsdelivr.net/gh/poormonitor/hustoj/web/template/bs3/auto_refresh.min.js"></script>
 </body>
 
 </html>

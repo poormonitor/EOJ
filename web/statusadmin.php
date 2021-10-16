@@ -534,6 +534,7 @@ for ($i=0; $i<$rows_cnt; $i++) {
     } else {
         $user_id = $row['user_id'];
         $sql_group = "SELECT `name` FROM `users` JOIN `group` ON `users`.gid = `group`.gid WHERE `users`.`user_id` = $user_id;";
+        $view_status[$i][12] = "";
         if (isset(pdo_query($sql_group)[0]["name"])) $view_status[$i][12] = pdo_query($sql_group)[0]["name"];
     }
 }

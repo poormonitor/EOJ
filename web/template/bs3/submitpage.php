@@ -17,14 +17,6 @@
       width: 80%;
       height: 600px;
     }
-
-    .margin {
-      margin: 8px;
-    }
-
-    .height {
-      height: 0px;
-    }
   </style>
 </head>
 
@@ -88,39 +80,36 @@
             <?php } else { ?>
               <textarea style="width:80%;height:600;margin:8px;" cols=180 rows=20 id="source" name="source"> <?php echo htmlentities($view_src, ENT_QUOTES, "UTF-8") ?></textarea>
             <?php } ?>
-
-            <?php if (isset($OJ_TEST_RUN) && $OJ_TEST_RUN) { ?>
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox" id="test_run_checkbox">
-                  <span>测试运行</span>
-                </label>
-              </div>
-              <div id='test_run' class='form-inline' style='margin-bottom:5px'>
-                <span><?php echo $MSG_Input ?>:</span>
-                <textarea style="width:20%" cols=40 rows=5 id="input_text" name="input_text"><?php echo $view_sample_input ?></textarea>
-
-                <span>标准<?php echo $MSG_Output ?>:</span>
-                <textarea style="width:15%" cols=10 rows=5 id="s_out" name="out" disabled="true"><?php echo $view_sample_output ?></textarea>
-                <span>实际<?php echo $MSG_Output ?>:</span>
-                <textarea style="width:15%" cols=10 rows=5 id="out" name="out" disabled="true"></textarea>
-              </div>
-            <?php } ?>
-
             <?php if ($OJ_VCODE) { ?>
               <?php echo $MSG_VCODE ?>:
               <input name="vcode" size=4 type=text style='margin:5px;' id='vcode_input'> <img id="vcode" alt="click to change" onclick="this.src='vcode.php?small=true&'+Math.random()" autocomplete="off">
             <?php } ?>
-
-            <?php if (isset($OJ_ENCODE_SUBMIT) && $OJ_ENCODE_SUBMIT) { ?>
-              <input class="btn btn-success" title="WAF gives you reset? Try this." type=button value="Encoded <?php echo $MSG_SUBMIT ?>" onclick="encoded_submit();">
-              <input type=hidden id="encoded_submit_mark" name="reverse2" value="reverse">
-            <?php } ?>
-
             <?php if (isset($OJ_TEST_RUN) && $OJ_TEST_RUN) { ?>
-              <div id='test_run_btn' class='height'>
-                <input id="TestRun" class="btn btn-info btn-sm" type=button value="<?php echo $MSG_TR ?>" onclick=do_test_run();>
-                &nbsp;&nbsp;&nbsp;<span class="label label-info" id=result>状态</span>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" id="test_run_checkbox">
+                  <span><?php echo $MSG_TEST_RUN ?></span>
+                </label>
+              </div>
+              <div id='test_run' class='form-group' style='margin-bottom:10px;width:80%;'>
+                <div class='row'>
+                  <div class='col-sm-4'>
+                    <textarea id="input_text" class='form-control' style='width:100%;resize:none;' rows=5 name="input_text"><?php echo $view_sample_input ?></textarea>
+                  </div>
+                  <div class='col-sm-4'>
+                    <textarea id="s_out" name="out" class='form-control' style='width:100%;resize:none;' rows=5 disabled="true"><?php echo $view_sample_output ?></textarea>
+                  </div>
+                  <div class='col-sm-4'>
+                    <textarea id="out" name="out" class='form-control' style='width:100%;resize:none;' rows=5 disabled="true"></textarea>
+                  </div>
+                </div>
+                <div class='row' style='margin-top:10px;'>
+                  <div class='col-sm-4 col-sm-offset-4'>
+                    <input id="TestRun" class="btn btn-info btn-sm" type=button value="<?php echo $MSG_TR ?>" onclick=do_test_run();>
+                    &nbsp;&nbsp;&nbsp;
+                    <span class="label label-info" id=result><?php echo $MSG_STATUS ?></span>
+                  </div>
+                </div>
               </div>
             <?php } ?>
 
@@ -128,6 +117,10 @@
               <input id="blockly_loader" type=button class="btn" onclick="openBlockly()" value="<?php echo $MSG_BLOCKLY_OPEN ?>" style="color:white;background-color:rgb(169,91,128)">
               <input id="transrun" type=button class="btn" onclick="loadFromBlockly() " value="<?php echo $MSG_BLOCKLY_TEST ?>" style="display:none;color:white;background-color:rgb(90,164,139)">
               <div id="blockly" class="center">Blockly</div>
+            <?php } ?>
+            <?php if (isset($OJ_ENCODE_SUBMIT) && $OJ_ENCODE_SUBMIT) { ?>
+              <input class="btn btn-success" title="WAF gives you reset? Try this." type=button value="Encoded <?php echo $MSG_SUBMIT ?>" onclick="encoded_submit();">
+              <input type=hidden id="encoded_submit_mark" name="reverse2" value="reverse">
             <?php } ?>
             <input id="Submit" class="btn btn-info btn-sm" type=button value="<?php echo $MSG_SUBMIT ?>" onclick="do_submit();" style='margin:6px;'>
           <?php } ?>
