@@ -58,7 +58,7 @@ if (!$use_cookie) {
 	if (isset($_POST['vcode'])) $vcode = trim($_POST['vcode']);
 	if ($OJ_VCODE && ($vcode != $_SESSION[$OJ_NAME . '_' . "vcode"] || $vcode == "" || $vcode == null)) {
 		echo "<script language='javascript'>\n";
-		echo "swal('验证码错误！').then((onConfirm)=>{history.go(-1);});\n";
+		echo "swal('错误','验证码错误！','error).then((onConfirm)=>{history.go(-1);});\n";
 		echo "</script>";
 		exit(0);
 	}
@@ -116,7 +116,7 @@ if ($login) {
 		require("template/" . $OJ_TEMPLATE . "/error.php");
 	} else {
 		echo "<script language='javascript'>\n";
-		echo "swal('用户名或密码错误！').then((onConfirm)=>{history.go(-1);});\n";
+		echo "swal('错误','用户名或密码错误！','error').then((onConfirm)=>{history.go(-1);});\n";
 		echo "</script>";
 	}
 }

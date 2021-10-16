@@ -50,7 +50,7 @@ if (isset($view_errors_js)) { ?>
       <?php include("template/$OJ_TEMPLATE/nav.php"); ?>
       <div class="jumbotron">
         <div class='main-container'>
-          <h2><?php if (isset($view_title)) echo $view_title ?></h2>
+          <h2><?php if (isset($view_error_title)) echo $view_error_title ?></h2>
           </br>
           <div class='alert alert-danger' role='alert'>
             <h4>
