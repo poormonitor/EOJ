@@ -36,7 +36,7 @@
     <div class="container">
         <?php include("template/$OJ_TEMPLATE/nav.php"); ?>
         <div class="jumbotron">
-            <div class='main_contatiner'>
+            <div class='main-container'>
                 <h2 class="ui center aligned header" style="font-size:36px!important;">帮助</h2>
                 <br>
                 <h2 class="ui header">评测</h2>

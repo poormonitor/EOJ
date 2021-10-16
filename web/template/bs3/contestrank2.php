@@ -24,19 +24,19 @@
       $rank = 1;
       ?>
       <center>
-        <h3>Contest RankList -- <?php echo $title ?></h3>
+        <h3>比赛排名 -- <?php echo $title ?></h3>
         <h4><?php if (isset($locked_msg)) echo $locked_msg; ?></h4>
-        <a href="contestrank.xls.php?cid=<?php echo $cid ?>">Download</a>
+        <a href="contestrank.xls.php?cid=<?php echo $cid ?>">下载表格</a>
       </center>
       <br>
       <table id="rank" class="table-hover table-striped" align=center width=80%>
         <thead>
           <tr class=toprow align=center>
-            <td class="{sorter:'false'}" width=10% style='margin-right:3px;'>Rank
-            <th width=10% style='margin-right:3px;'>User</th>
-            <th width=10% style='margin-right:3px;'>Nick</th>
-            <th width=10% style='margin-right:3px;'>Solved</th>
-            <th width=20% style='margin-right:3px;'>Penalty</th>
+            <td class="{sorter:'false'}" width=10% style='margin-right:3px;'>排名
+            <th width=10% style='margin-right:3px;'>用户</th>
+            <th width=10% style='margin-right:3px;'>昵称</th>
+            <th width=10% style='margin-right:3px;'>解决</th>
+            <th width=20% style='margin-right:3px;'>罚时</th>
             <?php
             for ($i = 0; $i < $pid_cnt; $i++)
               echo "<td><a href=problem.php?cid=$cid&pid=$i>$PID[$i]</a></td>";
@@ -203,7 +203,6 @@
 
     td {
       white-space: nowrap;
-
     }
 
     .red {

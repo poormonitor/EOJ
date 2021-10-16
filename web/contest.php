@@ -105,7 +105,10 @@
 		$password = stripslashes($password);
 
 		if ($rows_cnt == 0) {
-			$view_title = "比赛已经关闭!";
+			$view_title = "作业不存在！";
+			$view_errors = "当前作业不存在，请您检查编号是否正确。";
+			require("template/" . $OJ_TEMPLATE . "/error.php");
+			exit(0);
 		} else {
 			$row = $result[0];
 			$view_private = $row['private'];
