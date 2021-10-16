@@ -54,7 +54,7 @@ function fresh_result(solution_id) {
 
 			if (ra[0] < 4) {
 				//console.log(loader);
-				if (-1 == row.cells[3].innerHTML.indexOf("loader")) {
+				if (-1 == row.cells[3].innerHTML.indexOf("loading")) {
 					//console.log(row.cells[3].innerHTML);
 					row.cells[3].innerHTML += loader;
 				}
