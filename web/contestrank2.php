@@ -86,13 +86,13 @@ if ($rows_cnt > 0) {
 }
 if (!$OJ_MEMCACHE)
   if ($start_time == 0) {
-    $view_errors = "No Such Contest";
+    $view_swal = "作业不存在";
     require("template/" . $OJ_TEMPLATE . "/error.php");
     exit(0);
   }
 
 if ($start_time > time()) {
-  $view_errors = "Contest Not Started!";
+  $view_swal = "作业未开始";
   require("template/" . $OJ_TEMPLATE . "/error.php");
   exit(0);
 }
@@ -104,7 +104,7 @@ if (
   isset($_SESSION[$OJ_NAME . '_' . "contest_creator"])
 ) $noip = false;
 if ($noip) {
-  $view_errors =  "<h2> $MSG_NOIP_WARNING</h2>";
+  $view_swal =  "$MSG_NOIP_WARNING";
   require("template/" . $OJ_TEMPLATE . "/error.php");
   exit(0);
 }
