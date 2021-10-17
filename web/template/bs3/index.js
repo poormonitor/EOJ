@@ -75,13 +75,7 @@ function vcode_required(self) {
     content.setAttribute('class', 'row')
     content.setAttribute('onsubmit', 'return set_val(this)')
     content.setAttribute('style', 'padding:15px;')
-    content.innerHTML = "\
-    <div class='col-xs-8'>\
-      <input name='vcode' id='vcode-input' class='form-control' type='text' required autofocus>\
-    </div>\
-    <div class='col-xs-4'>\
-      <img id='vcode-img' alt='click to change' src='vcode.php?' + Math.random() + '' onclick='change_vcode(this)' height=auto autocomplete='off'>\
-    </div>";
+    content.innerHTML = "<div class='col-xs-8'><input name='vcode' id='vcode-input' class='form-control' type='text' required autofocus></div><div class='col-xs-4'><img id='vcode-img' alt='click to change' src='vcode.php?' + Math.random() + '' onclick='change_vcode(this)' height=auto autocomplete='off'>\</div>";
     swal({
         title: "验证码",
         content: content
