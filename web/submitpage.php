@@ -30,8 +30,7 @@ if (isset($_GET['id'])) {
 				))";
 	$result = pdo_query($sql, $id);
 	if (count($result) != 1) {
-		$view_title = "<title>$MSG_NO_SUCH_PROBLEM</title>";
-		$view_errors = "$MSG_NO_SUCH_PROBLEM";
+		$view_swal = $MSG_NO_SUCH_PROBLEM;
 		require("template/" . $OJ_TEMPLATE . "/error.php");
 		exit(0);
 	}
@@ -46,7 +45,7 @@ if (isset($_GET['id'])) {
 	$problem_id = $row[0];
 	$sample_sql = "SELECT p.sample_input, p.sample_output, p.problem_id FROM problem p WHERE problem_id = ? ";
 } else {
-	$view_errors = "<h2>题目不存在！</h2>";
+	$view_swal = "题目不存在！";
 	require("template/" . $OJ_TEMPLATE . "/error.php");
 	exit(0);
 }
@@ -69,10 +68,9 @@ if (isset($_GET['sid'])) {
 	} else {
 		if (isset($OJ_EXAM_CONTEST_ID)) {
 			if ($cid < $OJ_EXAM_CONTEST_ID && !isset($_SESSION[$OJ_NAME . '_' . 'source_browser'])) {
-				header("Content-type: text/html; charset=utf-8");
-
-				echo $MSG_SOURCE_NOT_ALLOWED_FOR_EXAM;
-				exit();
+				$view_swal = $MSG_SOURCE_NOT_ALLOWED_FOR_EXAM;
+				require("template/" . $OJ_TEMPLATE . "/error.php");
+				exit(0);
 			}
 		}
 	}
@@ -111,7 +109,7 @@ if (isset($sample_sql)) {
 	}
 
 	if ($result == false) {
-		$view_errors = "<h2>题目不存在！</h2>";
+		$view_swal = "题目不存在！";
 		require("template/" . $OJ_TEMPLATE . "/error.php");
 		exit(0);
 	}

@@ -38,7 +38,7 @@ $sql = "SELECT `school`,`email`,`nick` FROM `users` WHERE `user_id`=?";
 $result = pdo_query($sql, $user);
 $row_cnt = count($result);
 if ($row_cnt == 0) {
-	$view_errors = "No such User!";
+	$view_swal = "用户不存在";
 	require("template/" . $OJ_TEMPLATE . "/error.php");
 	exit(0);
 }
