@@ -22,10 +22,9 @@ $lost_user_id = $_POST['user_id'];
 $lost_email = $_POST['email'];
 if (isset($_POST['vcode'])) $vcode = trim($_POST['vcode']);
 if ($lost_user_id && ($vcode != $_SESSION[$OJ_NAME . '_' . "vcode"] || $vcode == "" || $vcode == null)) {
-    echo "<script language='javascript'>\n";
-    echo "swal('Verify Code Wrong!').then((onConfirm)=>{history.go(-1);});\n";
-    echo "</script>";
-    exit(0);
+	$view_swal = "验证码错误！";
+	require("template/" . $OJ_TEMPLATE . "/error.php");
+	exit(0);
 }
 $lost_user_id = stripslashes($lost_user_id);
 $lost_email = stripslashes($lost_email);

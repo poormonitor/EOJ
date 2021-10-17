@@ -6,7 +6,8 @@
 	$view_title= "LOGIN";
 
 	if (isset($_SESSION[$OJ_NAME.'_'.'user_id'])){
-	$view_errors= "<a href=logout.php>Please logout First!</a>";
+	$view_swal = "请先登出";
+	$error_location = 'logout.php';
 	require_once("template/".$OJ_TEMPLATE."/error.php");
 	exit(1);
 }

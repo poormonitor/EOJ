@@ -54,7 +54,7 @@ if (isset($_GET['id'])) {
 	$result = pdo_query($sql, $cid);
 	$rows_cnt = count($result);
 	if ($rows_cnt == 0) {
-		$view_errors = "<title>$MSG_CONTEST</title><h2>比赛不存在！</h2>";
+		$view_swal = "作业不存在！";
 		require("template/" . $OJ_TEMPLATE . "/error.php");
 		exit(0);
 	}
@@ -76,7 +76,7 @@ if (isset($_GET['id'])) {
 
 	if ($ok_cnt != 1) {
 		//not started
-		$view_errors = "<h2>比赛不存在！</h2>";
+		$view_swal = "作业不存在！";
 		require("template/" . $OJ_TEMPLATE . "/error.php");
 		exit(0);
 	} else {
@@ -92,21 +92,20 @@ if (isset($_GET['id'])) {
 
 	//public
 	if (!$contest_ok) {
-		$view_errors = "您未被邀请！";
+		$view_swal = "您未被邀请！";
 		require("template/" . $OJ_TEMPLATE . "/error.php");
 		exit(0);
 	}
 
 	$co_flag = true;
 } else {
-	$view_errors = "<title>$MSG_NO_SUCH_PROBLEM</title>$MSG_NO_SUCH_PROBLEM";
+	$view_swal = "$MSG_NO_SUCH_PROBLEM";
 	require("template/" . $OJ_TEMPLATE . "/error.php");
 	exit(0);
 }
 
 if (count($result) != 1) {
-	$view_title = "<title>$MSG_NO_SUCH_PROBLEM</title>";
-	$view_errors = "$MSG_NO_SUCH_PROBLEM";
+	$view_swal = "$MSG_NO_SUCH_PROBLEM";
 	require("template/" . $OJ_TEMPLATE . "/error.php");
 	exit(0);
 } else {
