@@ -13,7 +13,7 @@ if (!isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
 }
 require_once("./include/const.inc.php");
 if (!isset($_GET['sid'])) {
-	$view_errors = "No such code!\n";
+	$view_swal = "代码不存在！";
 	require("template/" . $OJ_TEMPLATE . "/error.php");
 	exit(0);
 }
@@ -28,7 +28,7 @@ function is_valid($str2)
 	return $n / $m > 3;
 }
 if (!isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
-	$view_errors = $MSG_WARNING_ACCESS_DENIED;
+	$view_swal = $MSG_WARNING_ACCESS_DENIED;
 	require("template/" . $OJ_TEMPLATE . "/error.php");
 	exit(0);
 }
