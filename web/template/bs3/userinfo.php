@@ -109,7 +109,8 @@
                 <br>
                 <?php
                 if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
-                ?><div class='table-responsive'>
+                ?>
+                    <div class='table-responsive'>
                         <table class='table table-bordered table-condensed' style='width:auto;'>
                             <thead>
                                 <tr class=toprow>
