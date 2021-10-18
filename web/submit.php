@@ -191,8 +191,6 @@ if ($code != NULL) {
     $code = preg_quote($code);
     $code = str_replace("%\*%", ".*", $code);
     $code = str_replace("\*%\*", "[\s\S]*", $code);
-    echo $code;
-    echo $_POST['source'];
     if (preg_match("#".$code."#",$_POST['source'])) {
       $source = $_POST['source'];
       $input_text = "";
