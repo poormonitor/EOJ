@@ -69,9 +69,10 @@
               ?>
             </select>
           </span>
-          <?php if (isset($code) && !(isset($_GET['blank']) && $_GET['blank'] == 'false')) { ?>
+          <?php if (isset($code) and !$no_blank) { ?>
             <br></br>
-            <div class='btn-group'><a class='btn btn-sm btn-info' href='javascript:CopyToClipboard($("#code").text())'>复制</a>
+            <pre id='copy' class='alert alert-error' style='text-align:left;display:none;'><?php echo $copy; ?></pre>
+            <div class='btn-group'><a class='btn btn-sm btn-info' href='javascript:CopyToClipboard($("#copy").text())'>复制</a>
               <a class='btn btn-sm btn-info' href='<?php echo $_SERVER['REQUEST_URI']; ?>&blank=false'>直接填写</a>
             </div>
             <div id='container_status'>
@@ -80,11 +81,11 @@
             <input id="Submit" class="btn btn-info btn-sm" type=submit value="<?php echo $MSG_SUBMIT; ?>" style="margin:6px;">
         </form>
       <?php } else { ?>
-        <?php if (isset($code)) { ?>
-          <pre id='code' class='alert alert-error' style='text-align:left;display:none;'><?php echo $code; ?></pre>
+        <?php if (isset($code) and $no_blank) { ?>
+          <pre id='copy' class='alert alert-error' style='text-align:left;display:none;'><?php echo $copy; ?></pre>
           <br></br>
           <div class='btn-group' style='margin-bottom:10px;'>
-            <a class='btn btn-sm btn-info' href='javascript:CopyToClipboard($("#code").text())'>复制</a>
+            <a class='btn btn-sm btn-info' href='javascript:CopyToClipboard($("#copy").text())'>复制</a>
             <a class='btn btn-sm btn-info' href='<?php echo str_replace("&blank=false", "", $_SERVER['REQUEST_URI']); ?>'>填空</a>
           </div>
         <?php }
@@ -273,7 +274,7 @@
       });
       editor.session.setTabSize(4);
       <?php
-      if (isset($code) && !(isset($_GET['blank']) && $_GET['blank'] == 'false')) { ?>
+      if (isset($code) && !$no_blank) { ?>
         editor.renderer.setShowGutter(false);
         editor.session.on('change', function(delta) {
           $("textarea[name=multiline]").val(editor.getValue())

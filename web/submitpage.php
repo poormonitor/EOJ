@@ -153,6 +153,7 @@ if ($row[0] > 10) {
 	//echo "$row[0]";
 }
 $blank = pdo_query("select blank from problem where problem_id=?", $problem_id)[0][0];
+$no_blank = (isset($_GET["blank"]) and $_GET["blank"] == 'false');
 if ($blank != NULL) {
 	$code = $blank;
 	$code = htmlentities($code, ENT_QUOTES, "UTF-8");
@@ -164,6 +165,8 @@ if ($blank != NULL) {
 	if ($num != 0) {
 		$code = str_replace_limit("*%*\r\n", "<textarea hidden='hidden' id='multiline' name='multiline' autocomplete='off'></textarea><pre id=source style='height:150px;width:auto;font-size:13pt;margin-top:8px;'></pre>", $code, 1);
 	}
+	$copy = $blank;
+	$copy = str_replace("%*%", "__________", str_replace("*%*\r\n", "...\r\n...\r\n", htmlentities($copy, ENT_QUOTES, "UTF-8")));
 }
 /////////////////////////Template
 require("template/" . $OJ_TEMPLATE . "/submitpage.php");
