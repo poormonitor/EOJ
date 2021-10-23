@@ -173,7 +173,6 @@
 			$view_errors .= "</tr>";
 			$view_errors .= "</table>";
 			$view_errors .= "<br>";
-
 			require("template/" . $OJ_TEMPLATE . "/error.php");
 			exit(0);
 		}

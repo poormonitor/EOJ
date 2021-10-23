@@ -175,7 +175,12 @@ if ($langmask & (1 << $language)) {
   require "template/" . $OJ_TEMPLATE . "/error.php";
   exit(0);
 }
-$code = pdo_query("select blank from problem where problem_id=?", $id)[0][0];
+
+$pid = $id;
+if ($pid < 0){
+  $pid = - $pid;
+}
+$code = pdo_query("select blank from problem where problem_id=?", $pid)[0][0];
 if ($code != NULL) {
   if (isset($_POST['code1']) || isset($_POST['multiline'])) {
     for ($i = 1; isset($_POST['code' . $i]); $i++) {
@@ -200,7 +205,7 @@ if ($code != NULL) {
       $view_error_title = $err_str;
       $view_errors_js .= "swal('$err_str').then((onConfirm)=>{history.go(-1);});";
       if (isset($_GET['ajax'])) {
-        echo "-1";
+        echo "-2";
       } else {
         require "template/" . $OJ_TEMPLATE . "/error.php";
       }
@@ -212,7 +217,7 @@ if ($code != NULL) {
   $input_text = "";
 }
 
-$row = pdo_query('select allow,block from problem where problem_id=?', $id)[0];
+$row = pdo_query('select allow,block from problem where problem_id=?', $pid)[0];
 $allow = $row[0];
 $block = $row[1];
 
@@ -238,13 +243,13 @@ if (!$flag1 or !$flag2) {
   $view_error_title = $err_str;
   $view_errors_js .= "swal('$err_str').then((onConfirm)=>{history.go(-1);});";
   if (isset($_GET['ajax'])) {
-    echo "-1";
+    echo "-3";
   } else {
     require "template/" . $OJ_TEMPLATE . "/error.php";
   }
   exit(0);
 }
-
+unset($pid);
 
 if (isset($_POST['input_text'])) {
   $input_text = $_POST['input_text'];
