@@ -180,7 +180,7 @@ $c_pid = $id;
 if ($c_pid < 0){
   $c_pid = - $c_pid;
 }
-$code = pdo_query("select blank from problem where problem_id=?", $c_pidd)[0][0];
+$code = pdo_query("select blank from problem where problem_id=?", $c_pid)[0][0];
 if ($code != NULL) {
   if (isset($_POST['code1']) || isset($_POST['multiline'])) {
     for ($i = 1; isset($_POST['code' . $i]); $i++) {
