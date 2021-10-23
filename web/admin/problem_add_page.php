@@ -1,4 +1,4 @@
-<html>
+<!DOCTYPE html>
 
 <head>
   <meta http-equiv="Pragma" content="no-cache">
@@ -17,7 +17,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_
   exit(1);
 }
 echo "<center><h3>" . $MSG_PROBLEM . "-" . $MSG_ADD . "</h3></center>";
-include_once("kindeditor.php");
+
 ?>
 
 <body leftmargin="30">
@@ -37,15 +37,15 @@ include_once("kindeditor.php");
       </p>
       <p align=left>
         <?php echo "<h4>" . $MSG_Description . "</h4>" ?>
-        <textarea class="kindeditor" rows=13 name=description cols=80></textarea><br>
+        <textarea id="tinymce0" rows=13 name=description cols=80></textarea><br>
       </p>
       <p align=left>
         <?php echo "<h4>" . $MSG_Input . "</h4>" ?>
-        <textarea class="kindeditor" rows=13 name=input cols=80></textarea><br>
+        <textarea id="tinymce0" rows=13 name=input cols=80></textarea><br>
       </p>
       <p align=left>
         <?php echo "<h4>" . $MSG_Output . "</h4>" ?>
-        <textarea class="kindeditor" rows=13 name=output cols=80></textarea><br>
+        <textarea id="tinymce0" rows=13 name=output cols=80></textarea><br>
       </p>
       <p align=left>
         <?php echo "<h4>" . $MSG_Sample_Input . "</h4>" ?>
@@ -67,7 +67,7 @@ include_once("kindeditor.php");
       </p>
       <p align=left>
         <?php echo "<h4>" . $MSG_HINT . "</h4>" ?>
-        <textarea class="kindeditor" rows=13 name=hint cols=80></textarea><br>
+        <textarea id="tinymce0" rows=13 name=hint cols=80></textarea><br>
       </p>
       <p>
         <?php echo "<h4>" . $MSG_SPJ . "</h4>" ?>
@@ -79,11 +79,11 @@ include_once("kindeditor.php");
       </p>
       <p>
       <div id='blank_code'>
-          <h4>待填空代码</h4>
-          <h5>单行填空请用%*%表示，多行填空用*%*表示，一个问题仅支持一个多行填空</h5>
-          <textarea hidden='hidden' id='multiline' name='blank_code' autocomplete='off'></textarea>
-          <pre id=source style='height:150px;width:auto;font-size:13pt;margin-top:8px;'></pre>
-        </div>
+        <h4>待填空代码</h4>
+        <h5>单行填空请用%*%表示，多行填空用*%*表示，一个问题仅支持一个多行填空</h5>
+        <textarea hidden='hidden' id='multiline' name='blank_code' autocomplete='off'></textarea>
+        <pre id=source style='height:150px;width:auto;font-size:13pt;margin-top:8px;'></pre>
+      </div>
       </p>
       <p align=left>
         <?php echo "<h4>禁用关键词</h4>" ?>
@@ -132,6 +132,7 @@ include_once("kindeditor.php");
   <script src="https://cdn.jsdelivr.net/npm/ace-builds@1.4.12/src-min-noconflict/ext-language_tools.min.js"></script>
   <script>
     ace.require("ace/ext/language_tools");
+    ace.config.set('basePath', 'https://cdn.jsdelivr.net/npm/ace-builds@1.4.12/src-min-noconflict/');
     var editor = ace.edit("source");
     editor.setTheme("ace/theme/chrome");
     editor.setOptions({
@@ -145,6 +146,7 @@ include_once("kindeditor.php");
       $("#multiline").val(editor.getValue())
     });
   </script>
+  <?php require_once('../tinymce/tinymce.php'); ?>
 </body>
 
 </html>

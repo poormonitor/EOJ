@@ -20,21 +20,32 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
 		echo "Rejudged Problem " . $rjpid;
 		echo "<script>location.href='$url';</script>";
 	} else if (isset($_POST['rjsid'])) {
-		$rjsid = intval($_POST['rjsid']);
-		$sql = "delete from `sim` WHERE `s_id`=?";
-		pdo_query($sql, $rjsid);
-		$sql = "UPDATE `solution` SET `result`=1 WHERE `solution_id`=? and problem_id>0";
-		pdo_query($sql, $rjsid);
-		$sql = "select contest_id from `solution` WHERE `solution_id`=? ";
-		$data = pdo_query($sql, $rjsid);
-		$row = $data[0];
-		$cid = intval($row[0]);
-		if ($cid > 0)
-			$url = "../status.php?cid=" . $cid . "&top=" . ($rjsid + 1);
-		else
-			$url = "../status.php?top=" . ($rjsid + 1);
-		echo "Rejudged Runid " . $rjsid;
-		echo "<script>location.href='$url';</script>";
+		if (strpos($_POST['rjsid'], ",")) {
+			$rjsid = explode(",", $_POST['rjsid']);
+			$sql = "delete from `sim` WHERE `s_id`>= ? AND `s_id` <= ?";
+			pdo_query($sql, $rjsid[0], $rjsid[1]);
+			$sql = "UPDATE `solution` SET `result`=1 WHERE `solution_id`>= ? AND `solution_id` <= ?  AND problem_id>0";
+			pdo_query($sql, $rjsid[0], $rjsid[1]);
+			$url = "../status.php?top=" . ($rjsid[1]);
+			echo "Rejudged Runid " . $rjsid[0] . " - " . $rjsid[1];
+			echo "<script>location.href='$url';</script>";
+		} else {
+			$rjsid = intval($_POST['rjsid']);
+			$sql = "delete from `sim` WHERE `s_id`=?";
+			pdo_query($sql, $rjsid);
+			$sql = "UPDATE `solution` SET `result`=1 WHERE `solution_id`=? and problem_id>0";
+			pdo_query($sql, $rjsid);
+			$sql = "select contest_id from `solution` WHERE `solution_id`=? ";
+			$data = pdo_query($sql, $rjsid);
+			$row = $data[0];
+			$cid = intval($row[0]);
+			if ($cid > 0)
+				$url = "../status.php?cid=" . $cid . "&top=" . ($rjsid);
+			else
+				$url = "../status.php?top=" . ($rjsid);
+			echo "Rejudged Runid " . $rjsid;
+			echo "<script>location.href='$url';</script>";
+		}
 	} else if (isset($_POST['result'])) {
 		$result = intval($_POST['result']);
 		$sql = "UPDATE `solution` SET `result`=1 WHERE `result`=? and problem_id>0";
@@ -68,7 +79,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
 <div class="container">
 	<b>Rejudge</b>
 	<ol>
-	<br>
+		<br>
 		<li><?php echo $MSG_PROBLEM ?>
 			<form action='rejudge.php' method=post>
 				<input type=input name='rjpid' placeholder="1001"> <input type='hidden' name='do' value='do'>
