@@ -357,38 +357,6 @@ function switchLang(lang) {
     editor.getSession().setMode("ace/mode/" + langnames[lang]);
 }
 
-function openBlockly() {
-    $("#frame_source").hide();
-    $("#TestRun").hide();
-    $("#language")[0].scrollIntoView();
-    $("#language").val(6).hide();
-    $("#language_span").hide();
-    $("#EditAreaArroundInfos_source").hide();
-    $('#blockly').html('<iframe name=\'frmBlockly\' width=90% height=580 src=\'blockly/demos/code/index.html\'></iframe>');
-    $("#blockly_loader").hide();
-    $("#transrun").show();
-    $("#Submit").prop('disabled', true);
-    using_blockly = true;
-}
-
-function translate() {
-    var blockly = $(window.frames['frmBlockly'].document);
-    var tb = blockly.find('td[id=tab_python]');
-    var python = blockly.find('pre[id=content_python]');
-    tb.click();
-    blockly.find('td[id=tab_blocks]').click();
-    if (typeof(editor) != "undefined") editor.setValue(python.text());
-    else $("#source").val(python.text());
-    $("#language").val(6);
-}
-
-function loadFromBlockly() {
-    translate();
-    do_test_run();
-    $("#frame_source").hide();
-    //  $("#Submit").prop('disabled', false);
-}
-
 function replay() {
     replay_index = 0;
     window.setTimeout("add()", 1000);
