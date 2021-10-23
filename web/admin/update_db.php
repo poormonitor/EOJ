@@ -9,10 +9,12 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
   <?php
   $csql = array();
   $csql[0] = "
-    delete from solution where result=13;
-    delete from source_code where solution_id not in (select solution_id from solution);
-    delete from source_code_user where solution_id not in (select solution_id from solution);
-    delete from runtimeinfo where solution_id not in (select solution_id from solution);
+  DELETE FROM solution WHERE result=13;
+  DELETE FROM source_code WHERE solution_id NOT in (SELECT solution_id FROM solution);
+  DELETE FROM source_code_user WHERE solution_id NOT in (SELECT solution_id FROM solution);
+  DELETE FROM runtimeinfo WHERE solution_id NOT IN (SELECT solution_id FROM solution);
+  UPDATE solution SET solution.nick = (SELECT users.nick FROM users WHERE users.user_id = solution.user_id) WHERE solution.nick != (SELECT users.nick FROM users WHERE users.user_id = solution.user_id);
+  
   ";
   if (isset($_POST['do'])) {
     require_once("../include/check_post_key.php");
