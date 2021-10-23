@@ -10,7 +10,7 @@
 <script src="<?php echo $OJ_CDN_URL . $path_fix . "template/$OJ_TEMPLATE/" ?>bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert@2.1.2/dist/sweetalert.min.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-175545655-2"></script>
-<script src="https://cdn.jsdelivr.net/gh/poormonitor/hustoj@master/web/template/bs3/index.min.js"></script>
+<script src="template/bs3/index.min.js"></script>
 <?php
 $endTime = microtime(true);
 $runTime = ($endTime - $startTime) * 1000 . ' ms';
@@ -24,4 +24,5 @@ $runTime = ($endTime - $startTime) * 1000 . ' ms';
 	});
 
 	console.log("Loading used <?php echo $runTime; ?>.")
+	console.log("Thanks for choosing <?php echo $OJ_NAME; ?>.");
 </script>
