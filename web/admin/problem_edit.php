@@ -1,4 +1,4 @@
-<html>
+<!DOCTYPE html>
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -17,7 +17,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_
 }
 
 echo "<center><h3>" . "Edit-" . $MSG_PROBLEM . "</h3></center>";
-include_once("kindeditor.php");
+
 ?>
 
 <body leftmargin="30">
@@ -51,17 +51,17 @@ include_once("kindeditor.php");
 
         <p align=left>
           <?php echo "<h4>" . $MSG_Description . "</h4>" ?>
-          <textarea class="kindeditor" rows=13 name=description cols=80><?php echo htmlentities($row['description'], ENT_QUOTES, "UTF-8") ?></textarea><br>
+          <textarea id="tinymce0" rows=13 name=description cols=80><?php echo htmlentities($row['description'], ENT_QUOTES, "UTF-8") ?></textarea><br>
         </p>
 
         <p align=left>
           <?php echo "<h4>" . $MSG_Input . "</h4>" ?>
-          <textarea class="kindeditor" rows=13 name=input cols=80><?php echo htmlentities($row['input'], ENT_QUOTES, "UTF-8") ?></textarea><br>
+          <textarea id="tinymce1" rows=13 name=input cols=80><?php echo htmlentities($row['input'], ENT_QUOTES, "UTF-8") ?></textarea><br>
         </p>
 
         <p align=left>
           <?php echo "<h4>" . $MSG_Output . "</h4>" ?>
-          <textarea class="kindeditor" rows=13 name=output cols=80><?php echo htmlentities($row['output'], ENT_QUOTES, "UTF-8") ?></textarea><br>
+          <textarea id="tinymce2" rows=13 name=output cols=80><?php echo htmlentities($row['output'], ENT_QUOTES, "UTF-8") ?></textarea><br>
         </p>
 
         <p align=left>
@@ -76,7 +76,7 @@ include_once("kindeditor.php");
 
         <p align=left>
           <?php echo "<h4>" . $MSG_HINT . "</h4>" ?>
-          <textarea class="kindeditor" rows=13 name=hint cols=80><?php echo htmlentities($row['hint'], ENT_QUOTES, "UTF-8") ?></textarea><br>
+          <textarea id="tinymce3" rows=13 name=hint cols=80><?php echo htmlentities($row['hint'], ENT_QUOTES, "UTF-8") ?></textarea><br>
         </p>
 
         <p>
@@ -220,6 +220,7 @@ include_once("kindeditor.php");
 <script src="https://cdn.jsdelivr.net/npm/ace-builds@1.4.12/src-min-noconflict/ext-language_tools.min.js"></script>
 <script>
   ace.require("ace/ext/language_tools");
+  ace.config.set('basePath', 'https://cdn.jsdelivr.net/npm/ace-builds@1.4.12/src-min-noconflict/');
   var editor = ace.edit("source");
   editor.setTheme("ace/theme/chrome");
   editor.setOptions({
@@ -233,5 +234,6 @@ include_once("kindeditor.php");
     $("#multiline").val(editor.getValue())
   });
 </script>
+<?php require_once('../tinymce/tinymce.php'); ?>
 
 </html>

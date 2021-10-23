@@ -8,7 +8,7 @@ if(!(isset($_SESSION[$OJ_NAME.'_'.'administrator']))){
 echo "<hr>";
 echo "<center><h3>".$MSG_NEWS."-".$MSG_ADD."</h3></center>";
 
-include_once("kindeditor.php");
+
 ?>
 
 <?php
@@ -30,7 +30,7 @@ if(isset($_GET['cid'])){
       <input type=text name=title size=71 value='<?php echo isset($title)?$title."-Copy":""?>'>
     </p>
     <p align=left>
-      <textarea class=kindeditor name=content>
+      <textarea id="tinymce0" name=content>
         <?php echo isset($content)?$content:""?>
       </textarea>
     </p>
@@ -42,3 +42,4 @@ if(isset($_GET['cid'])){
     <?php require_once("../include/set_post_key.php");?>
   </form>
 </div>
+<?php require_once('../tinymce/tinymce.php'); ?>

@@ -22,7 +22,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_
   exit(1);
 }
 echo "<center><h3>" . $MSG_CONTEST . "-" . $MSG_ADD . "</h3></center>";
-include_once("kindeditor.php");
+
 ?>
 
 <body leftmargin="30">
@@ -173,7 +173,7 @@ include_once("kindeditor.php");
       }
     }
 
-    include_once("kindeditor.php");
+    
   ?>
 
     <div class="container">
@@ -221,7 +221,7 @@ include_once("kindeditor.php");
         <br>
         <p align=left>
           <?php echo "<h4>" . $MSG_CONTEST . "-" . $MSG_Description . "</h4>" ?>
-          <textarea class=kindeditor rows=13 name=description cols=80><?php echo isset($description) ? $description : "" ?></textarea>
+          <textarea id="tinymce0" rows=13 name=description cols=80><?php echo isset($description) ? $description : "" ?></textarea>
           <br>
         <table width="100%">
           <tr>
@@ -306,6 +306,7 @@ include_once("kindeditor.php");
       return true
     }
   </script>
+  <?php require_once('../tinymce/tinymce.php'); ?>
 </body>
 
 </html>

@@ -1,10 +1,6 @@
-<html>
+<!DOCTYPE html>
 
 <head>
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Cache-Control" content="no-cache">
-  <meta http-equiv="Content-Language" content="zh-cn">
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>Edit Contest</title>
 </head>
 <hr>
@@ -19,7 +15,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_
   exit(1);
 }
 echo "<center><h3>" . "Edit-" . $MSG_CONTEST . "</h3></center>";
-include_once("kindeditor.php");
+
 ?>
 
 <body leftmargin="30">
@@ -215,7 +211,7 @@ include_once("kindeditor.php");
       <br>
       <p align=left>
         <?php echo "<h4>" . $MSG_CONTEST . "-" . $MSG_Description . "</h4>" ?>
-        <textarea class=kindeditor rows=13 name=description cols=80>
+        <textarea id="tinymce0" rows=13 name=description cols=80>
         <?php echo htmlentities($description, ENT_QUOTES, 'UTF-8') ?>
       </textarea>
         <br>
@@ -307,5 +303,6 @@ include_once("kindeditor.php");
     return true
   }
 </script>
+<?php require_once('../tinymce/tinymce.php'); ?>
 
 </html>

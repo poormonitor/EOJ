@@ -176,11 +176,11 @@ if ($langmask & (1 << $language)) {
   exit(0);
 }
 
-$pid = $id;
-if ($pid < 0){
-  $pid = - $pid;
+$c_pid = $id;
+if ($c_pid < 0){
+  $c_pid = - $c_pid;
 }
-$code = pdo_query("select blank from problem where problem_id=?", $pid)[0][0];
+$code = pdo_query("select blank from problem where problem_id=?", $c_pidd)[0][0];
 if ($code != NULL) {
   if (isset($_POST['code1']) || isset($_POST['multiline'])) {
     for ($i = 1; isset($_POST['code' . $i]); $i++) {
@@ -217,7 +217,7 @@ if ($code != NULL) {
   $input_text = "";
 }
 
-$row = pdo_query('select allow,block from problem where problem_id=?', $pid)[0];
+$row = pdo_query('select allow,block from problem where problem_id=?', $c_pid)[0];
 $allow = $row[0];
 $block = $row[1];
 
@@ -249,7 +249,7 @@ if (!$flag1 or !$flag2) {
   }
   exit(0);
 }
-unset($pid);
+unset($c_pid);
 
 if (isset($_POST['input_text'])) {
   $input_text = $_POST['input_text'];

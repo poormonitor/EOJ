@@ -11,7 +11,7 @@ require_once("../include/my_func.inc.php");
 echo "<hr>";
 echo "<center><h3>".$MSG_NEWS."-"."Edit"."</h3></center>";
 
-include_once("kindeditor.php");
+
 ?>
 
 <div class="container">
@@ -64,7 +64,7 @@ if(isset($_POST['news_id'])){
       <input type=text name=title size=71 value='<?php echo $title?>'>
     </p>
     <p align=left>
-      <textarea class=kindeditor name=content>
+      <textarea id="tinymce0" name=content>
         <?php echo htmlentities($content,ENT_QUOTES,"UTF-8")?>
       </textarea>
     </p>
@@ -76,3 +76,4 @@ if(isset($_POST['news_id'])){
     </p>
   </form>
 </div>
+<?php require_once('../tinymce/tinymce.php'); ?>

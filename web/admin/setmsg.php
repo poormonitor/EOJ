@@ -28,12 +28,11 @@ if (isset($_POST['do'])) {
 
 $msg = file_get_contents($OJ_SAE ? "saestor://web/msg.txt" : "msg.txt");
 
-include("kindeditor.php");
 ?>
 
 <div class="container">
   <form action='setmsg.php' method='post'>
-    <textarea name='msg' id='tinymce'><?php echo $msg ?></textarea><br>
+    <textarea name='msg' id="tinymce0"><?php echo $msg ?></textarea><br>
     <input type='hidden' name='do' value='do'>
     <center><input type='submit' value='<?php echo $MSG_SAVE ?>'></center>
     <!--    <br>
@@ -43,4 +42,5 @@ include("kindeditor.php");
     <?php require_once("../include/set_post_key.php"); ?>
   </form>
 </div>
+<?php require_once('../tinymce/tinymce.php'); ?>
 <?php require_once('../oj-footer.php'); ?>
