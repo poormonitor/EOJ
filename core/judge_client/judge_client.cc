@@ -2537,19 +2537,29 @@ void run_solution(int &lang, char *work_dir, double &time_lmt, int &usedtime,
 int fix_python_mis_judge(char *work_dir, int &ACflg, int &topmemory,
 						 int mem_lmt)
 {
-	int comp_res = OJ_AC;
+	int comp_res1 = OJ_AC;
+	int comp_res2 = OJ_AC;
 
-	comp_res = execute_cmd(
+	comp_res1 = execute_cmd(
 		"/bin/grep 'MemoryError'  %s/error.out", work_dir);
 
-	if (!comp_res)
+	if (!comp_res1)
 	{
 		printf("Python need more Memory!");
 		ACflg = OJ_ML;
 		topmemory = mem_lmt * STD_MB;
 	}
 
-	return comp_res;
+	comp_res2 = execute_cmd(
+		"/bin/grep 'Error'  %s/error.out", work_dir);
+
+	if (!comp_res2)
+	{
+		printf("Error not empty!");
+		ACflg = OJ_RE;
+	}
+
+	return comp_res1;
 }
 
 int fix_java_mis_judge(char *work_dir, int &ACflg, int &topmemory,
@@ -2812,7 +2822,7 @@ void watch_solution(pid_t pidApp, char *infile, int &ACflg, int isspj,
 
 		if (WIFEXITED(status))
 			break;
-		if ((lang < 4 || lang == 5 || lang == 9) && get_file_size("error.out") && !oi_mode)
+		if ((lang < 7 || lang == 9) && get_file_size("error.out") && !oi_mode)
 		{
 			ACflg = OJ_RE;
 			//addreinfo(solution_id);
@@ -2853,7 +2863,6 @@ void watch_solution(pid_t pidApp, char *infile, int &ACflg, int isspj,
 					if (DEBUG)
 						printf("alarm:%g\n", time_lmt);
 				case SIGKILL:
-				case SIGXCPU:
 					ACflg = OJ_TL;
 					usedtime = time_lmt * 1000;
 					if (DEBUG)
@@ -2895,7 +2904,6 @@ void watch_solution(pid_t pidApp, char *infile, int &ACflg, int isspj,
 				case SIGALRM:
 					alarm(0);
 				case SIGKILL:
-				case SIGXCPU:
 					ACflg = OJ_TL;
 					break;
 				case SIGXFSZ:
@@ -2972,11 +2980,7 @@ void watch_solution(pid_t pidApp, char *infile, int &ACflg, int isspj,
 				//	ACflg = OJ_RE;
 				char error[BUFFER_SIZE];
 				sprintf(error,
-						"[ERROR] solution_id:%d called a Forbidden system call:%u [%u]\n"
-						" TO FIX THIS , ask admin to add the CALLID into corresponding LANG_XXV[] located at okcalls32/64.h ,\n"
-						"and recompile judge_client. \n"
-						"if you are admin and you don't know what to do ,\n"
-						"chinese explaination can be found on https://zhuanlan.zhihu.com/p/24498599\n",
+						"[ERROR] solution_id:%d called a Forbidden system call:%u [%u]\n",
 						solution_id, call_id, (unsigned int)reg.REG_SYSCALL);
 
 				write_log(error);
