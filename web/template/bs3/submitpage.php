@@ -128,11 +128,6 @@
           </div>
         <?php } ?>
 
-        <?php if (isset($OJ_BLOCKLY) && $OJ_BLOCKLY) { ?>
-          <input id="blockly_loader" type=button class="btn" onclick="openBlockly()" value="<?php echo $MSG_BLOCKLY_OPEN ?>" style="color:white;background-color:rgb(169,91,128)">
-          <input id="transrun" type=button class="btn" onclick="loadFromBlockly() " value="<?php echo $MSG_BLOCKLY_TEST ?>" style="display:none;color:white;background-color:rgb(90,164,139)">
-          <div id="blockly" class="center">Blockly</div>
-        <?php } ?>
         <?php if (isset($OJ_ENCODE_SUBMIT) && $OJ_ENCODE_SUBMIT) { ?>
           <input class="btn btn-success" title="WAF gives you reset? Try this." type=button value="Encoded <?php echo $MSG_SUBMIT ?>" onclick="encoded_submit();">
           <input type=hidden id="encoded_submit_mark" name="reverse2" value="reverse">
@@ -230,8 +225,6 @@
 
     function do_submit() {
       <?php if ($OJ_LONG_LOGIN == true && isset($_COOKIE[$OJ_NAME . "_user"]) && isset($_COOKIE[$OJ_NAME . "_check"])) echo "let xhr=new XMLHttpRequest();xhr.open('GET','login.php',true);xhr.send();"; ?>
-      if (using_blockly)
-        translate();
 
       if (typeof(editor) != "undefined") {
         $("#hide_source").val(editor.getValue());
@@ -250,7 +243,6 @@
     }
     var sid = 0;
     var i = 0;
-    var using_blockly = false;
     var judge_result = [<?php
                         foreach ($judge_result as $result) {
                           echo "'$result',";

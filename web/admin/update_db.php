@@ -14,7 +14,8 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
   DELETE FROM source_code_user WHERE solution_id NOT in (SELECT solution_id FROM solution);
   DELETE FROM runtimeinfo WHERE solution_id NOT IN (SELECT solution_id FROM solution);
   UPDATE solution SET solution.nick = (SELECT users.nick FROM users WHERE users.user_id = solution.user_id) WHERE solution.nick != (SELECT users.nick FROM users WHERE users.user_id = solution.user_id);
-  
+  DELETE FROM sim WHERE sim_s_id NOT IN (SELECT solution_id FROM solution);
+  DELETE FROM sim WHERE s_id NOT IN (SELECT solution_id FROM solution);
   ";
   if (isset($_POST['do'])) {
     require_once("../include/check_post_key.php");
