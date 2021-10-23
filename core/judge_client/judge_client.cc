@@ -1885,12 +1885,12 @@ void prepare_files(char *filename, int namelen, char *infile, int &p_id,
 	strncpy(fname0, filename, namelen);
 	fname0[namelen] = 0;
 	escape(fname, fname0);
-	// printf("%s\n%s\n",fname0,fname);
+	//printf("%s\n%s\n",fname0,fname);
 	sprintf(infile, "%s/data/%d/%s.in", oj_home, p_id, fname);
 	if (copy_data)
-		execute_cmd("/bin/cp '%s' %sdata.in", infile, work_dir);
-	execute_cmd("/bin/cp %sdata/%d/*.dic %s/ 2>/dev/null", oj_home, p_id, work_dir);
-	execute_cmd("chown judge %s*.dic ", work_dir);
+		execute_cmd("/bin/cp '%s' %s/data.in", infile, work_dir);
+	execute_cmd("/bin/cp %s/data/%d/*.dic %s/ 2>/dev/null", oj_home, p_id, work_dir);
+	execute_cmd("chown judge %s/*.dic ", work_dir);
 	sprintf(outfile, "%s/data/%d/%s.out", oj_home, p_id, fname0);
 	sprintf(userfile, "%s/run%d/user.out", oj_home, runner_id);
 }
