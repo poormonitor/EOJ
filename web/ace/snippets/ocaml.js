@@ -1,11 +1,4 @@
-ace.define("ace/snippets/ocaml",[], function(require, exports, module) {
-"use strict";
-
-exports.snippetText = "";
-exports.scope = "ocaml";
-
-});
-                (function() {
+;                (function() {
                     ace.require(["ace/snippets/ocaml"], function(m) {
                         if (typeof module == "object" && typeof exports == "object" && module) {
                             module.exports = m;
