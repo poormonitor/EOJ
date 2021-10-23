@@ -20,9 +20,6 @@ $(".hint pre").each(function() {
 
 });
 
-
-console.log("Thanks for choosing Hangzhou High School OJ.");
-
 function admin_mod() {
     $("div[fd=source]").each(function() {
         let pid = $(this).attr('pid');
@@ -237,16 +234,27 @@ function print_result(solution_id) {
     $.get("status-ajax.php?tr=1&solution_id=" + solution_id, function(data, status) {
         $("#out").text(data)
     })
-    swal("测试结束。");
+    swal("测试结束");
 }
 
-function fresh_result(solution_id) {
+function fresh_test_result(solution_id) {
     var tb = window.document.getElementById('result');
-    if (solution_id == "-1") {
-        swal("验证码错误！");
-        tb.innerHTML = "状态";
-        if ($("#vcode") != null) $("#vcode").click();
-        return;
+    switch (solution_id) {
+        case "-1":
+            swal("验证码错误！");
+            tb.innerHTML = "状态";
+            if ($("#vcode") != null) $("#vcode").click();
+            return;
+        case "-2":
+            swal("您的代码不符合填空格式！");
+            tb.innerHTML = "状态";
+            if ($("#vcode") != null) $("#vcode").click();
+            return;
+        case "-3":
+            swal("代码中有禁用的关键词或没有使用必须的关键词！");
+            tb.innerHTML = "状态";
+            if ($("#vcode") != null) $("#vcode").click();
+            return;
     }
 
     sid = solution_id;
@@ -263,7 +271,7 @@ function fresh_result(solution_id) {
             var ra = r.split(",");
             //swal(r);
             // swal(judge_result[r]);
-            var loader = "<img width=18 src=image/loader.gif>";
+            var loader = "<img width=18 style='margin-left:3px;' src='https://cdn.jsdelivr.net/gh/poormonitor/image@master/base/loading.gif'>";
             var tag = "span";
 
             if (ra[0] < 4)
@@ -281,7 +289,7 @@ function fresh_result(solution_id) {
             tb.innerHTML += ", Time:" + ra[2];
 
             if (ra[0] < 4)
-                window.setTimeout("fresh_result(" + solution_id + ")", 2000);
+                window.setTimeout("fresh_test_result(" + solution_id + ")", 2000);
             else {
                 window.setTimeout("print_result(" + solution_id + ")", 2000);
                 count = 1;
@@ -309,8 +317,6 @@ function getSID() {
 
 var count = 0;
 
-
-
 var handler_interval;
 
 function do_test_run() {
@@ -319,7 +325,7 @@ function do_test_run() {
         swal("验证码空！");
         return false;
     }
-    var loader = "<img width=18 src='https://cdn.jsdelivr.net/gh/zhblue/hustoj/trunk/web/image/loader.gif'>";
+    var loader = "<img width=18 style='margin-left:3px;' src='https://cdn.jsdelivr.net/gh/poormonitor/image@master/base/loading.gif'>";
     var tb = window.document.getElementById('result');
     var source = $("#source").val();
 
@@ -337,7 +343,7 @@ function do_test_run() {
     //$("#hide_source").val(editor.getValue());
     //document.getElementById("frmSolution").submit();
     $.post("submit.php?ajax", $("#frmSolution").serialize(), function(data) {
-        fresh_result(data);
+        fresh_test_result(data);
     });
     $("#Submit").prop('disabled', true);
     $("#TestRun").prop('disabled', true);
@@ -346,15 +352,10 @@ function do_test_run() {
     handler_interval = window.setTimeout("resume();", 1000);
 }
 
-
-
 function switchLang(lang) {
     var langnames = new Array("c_cpp", "c_cpp", "pascal", "java", "ruby", "sh", "python", "php", "perl", "csharp", "objectivec", "vbscript", "scheme", "c_cpp", "c_cpp", "lua", "javascript", "golang");
     editor.getSession().setMode("ace/mode/" + langnames[lang]);
 }
-
-
-
 
 function openBlockly() {
     $("#frame_source").hide();

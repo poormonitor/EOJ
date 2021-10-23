@@ -60,7 +60,7 @@
               $lang = (~((int)$langmask)) & ((1 << ($lang_count)) - 1);
 
               if (isset($_COOKIE['lastlang'])) $lastlang = $_COOKIE['lastlang'];
-              else $lastlang = 0;
+              else $lastlang = 6;
 
               for ($i = 0; $i < $lang_count; $i++) {
                 if ($lang & (1 << $i))
@@ -265,7 +265,7 @@
       ace.require("ace/ext/language_tools");
       var editor = ace.edit("source");
       editor.setTheme("ace/theme/chrome");
-      switchLang(<?php echo isset($lastlang) ? $lastlang : 0;  ?>);
+      switchLang(<?php echo isset($lastlang) ? $lastlang : 6;  ?>);
       editor.setOptions({
         enableBasicAutocompletion: true,
         enableSnippets: true,
