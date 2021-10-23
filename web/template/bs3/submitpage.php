@@ -257,7 +257,7 @@
                         } ?> ''];
   </script>
 
-  <script language="Javascript" type="text/javascript" src="https://cdn.jsdelivr.net/gh/zhblue/hustoj/trunk/web/include/base64.min.js"></script>
+  <script language="Javascript" type="text/javascript" src="<?php echo $OJ_CDN_URL . $path_fix ?>include/base64.min.js"></script>
 
   <?php if ($OJ_ACE_EDITOR) { ?>
     <script src="https://cdn.jsdelivr.net/npm/ace-builds@1.4.12/src-min-noconflict/ace.js"></script>
