@@ -66,12 +66,12 @@ echo "<center><h3>" . "Edit-" . $MSG_PROBLEM . "</h3></center>";
 
         <p align=left>
           <?php echo "<h4>" . $MSG_Sample_Input . "</h4>" ?>
-          <textarea class="input input-large" style="width:100%;" rows=13 name=sample_input><?php echo htmlentities($row['sample_input'], ENT_QUOTES, "UTF-8") ?></textarea><br><br>
+          <textarea class="input input-large form-control" style="width:100%;" rows=13 name=sample_input><?php echo htmlentities($row['sample_input'], ENT_QUOTES, "UTF-8") ?></textarea><br><br>
         </p>
 
         <p align=left>
           <?php echo "<h4>" . $MSG_Sample_Output . "</h4>" ?>
-          <textarea class="input input-large" style="width:100%;" rows=13 name=sample_output><?php echo htmlentities($row['sample_output'], ENT_QUOTES, "UTF-8") ?></textarea><br><br>
+          <textarea class="input input-large form-control" style="width:100%;" rows=13 name=sample_output><?php echo htmlentities($row['sample_output'], ENT_QUOTES, "UTF-8") ?></textarea><br><br>
         </p>
 
         <p align=left>
@@ -216,8 +216,8 @@ echo "<center><h3>" . "Edit-" . $MSG_PROBLEM . "</h3></center>";
     $("#blank_code").show();
   })
 </script>
-<script src="https://cdn.jsdelivr.net/npm/ace-builds@1.4.12/src-min-noconflict/ace.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/ace-builds@1.4.12/src-min-noconflict/ext-language_tools.min.js"></script>
+<script src="<?php echo $OJ_CDN_URL . $path_fix . "ace/" ?>ace.min.js"></script>
+<script src="<?php echo $OJ_CDN_URL . $path_fix . "ace/" ?>ext-language_tools.min.js"></script>
 <script>
   ace.require("ace/ext/language_tools");
   ace.config.set('basePath', 'https://cdn.jsdelivr.net/npm/ace-builds@1.4.12/src-min-noconflict/');

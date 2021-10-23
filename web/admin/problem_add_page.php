@@ -41,33 +41,33 @@ echo "<center><h3>" . $MSG_PROBLEM . "-" . $MSG_ADD . "</h3></center>";
       </p>
       <p align=left>
         <?php echo "<h4>" . $MSG_Input . "</h4>" ?>
-        <textarea id="tinymce0" rows=13 name=input cols=80></textarea><br>
+        <textarea id="tinymce1" rows=13 name=input cols=80></textarea><br>
       </p>
       <p align=left>
         <?php echo "<h4>" . $MSG_Output . "</h4>" ?>
-        <textarea id="tinymce0" rows=13 name=output cols=80></textarea><br>
+        <textarea id="tinymce2" rows=13 name=output cols=80></textarea><br>
       </p>
       <p align=left>
         <?php echo "<h4>" . $MSG_Sample_Input . "</h4>" ?>
-        <textarea class="input input-large" style="width:100%;" rows=13 name=sample_input></textarea><br><br>
+        <textarea class="input input-large form-control" style="width:100%;" rows=13 name=sample_input></textarea><br><br>
       </p>
       <p align=left>
         <?php echo "<h4>" . $MSG_Sample_Output . "</h4>" ?>
-        <textarea class="input input-large" style="width:100%;" rows=13 name=sample_output></textarea><br><br>
+        <textarea class="input input-large form-control" style="width:100%;" rows=13 name=sample_output></textarea><br><br>
       </p>
       <p align=left>
         <?php echo "<h4>" . $MSG_Test_Input . "</h4>" ?>
         <?php echo "(" . $MSG_HELP_MORE_TESTDATA_LATER . ")" ?><br>
-        <textarea class="input input-large" style="width:100%;" rows=13 name=test_input></textarea><br><br>
+        <textarea class="input input-large form-control" style="width:100%;" rows=13 name=test_input></textarea><br><br>
       </p>
       <p align=left>
         <?php echo "<h4>" . $MSG_Test_Output . "</h4>" ?>
         <?php echo "(" . $MSG_HELP_MORE_TESTDATA_LATER . ")" ?><br>
-        <textarea class="input input-large" style="width:100%;" rows=13 name=test_output></textarea><br><br>
+        <textarea class="input input-large form-control" style="width:100%;" rows=13 name=test_output></textarea><br><br>
       </p>
       <p align=left>
         <?php echo "<h4>" . $MSG_HINT . "</h4>" ?>
-        <textarea id="tinymce0" rows=13 name=hint cols=80></textarea><br>
+        <textarea id="tinymce3" rows=13 name=hint cols=80></textarea><br>
       </p>
       <p>
         <?php echo "<h4>" . $MSG_SPJ . "</h4>" ?>

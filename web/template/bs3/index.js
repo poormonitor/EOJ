@@ -271,7 +271,7 @@ function fresh_test_result(solution_id) {
             var ra = r.split(",");
             //swal(r);
             // swal(judge_result[r]);
-            var loader = "<img width=18 style='margin-left:3px;' src='https://cdn.jsdelivr.net/gh/poormonitor/image@master/base/loading.gif'>";
+            var loader = "<img width=18 style='margin-left:3px;' src='image/loading.gif'>";
             var tag = "span";
 
             if (ra[0] < 4)
@@ -325,7 +325,7 @@ function do_test_run() {
         swal("验证码空！");
         return false;
     }
-    var loader = "<img width=18 style='margin-left:3px;' src='https://cdn.jsdelivr.net/gh/poormonitor/image@master/base/loading.gif'>";
+    var loader = "<img width=18 style='margin-left:3px;' src='image/loading.gif'>";
     var tb = window.document.getElementById('result');
     var source = $("#source").val();
 
