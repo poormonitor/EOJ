@@ -2,6 +2,7 @@
 <?php
 require_once("../include/db_info.inc.php");
 require_once("../include/my_func.inc.php");; ?>
+<link rel=stylesheet href='<?php echo $OJ_CDN_URL . $path_fix ?>include/hoj.css' type='text/css'>
 <?php require_once("../template/$OJ_TEMPLATE/css.php"); ?>
 <style>
     @media (prefers-color-scheme: dark) {
