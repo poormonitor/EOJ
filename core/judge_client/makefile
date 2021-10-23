@@ -4,4 +4,7 @@ all: judge_client.cc judge_client.http
 judge_client.http:judge_client.cc 
 	g++ -o judge_client.http -O2 judge_client.cc
 clean:
-	rm judge_client judge_client.http
+	rm judge_client judge_client.http judge_client.o
+install:
+	chmod a+x judge_client
+	cp judge_client /usr/bin
