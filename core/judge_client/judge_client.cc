@@ -1294,10 +1294,6 @@ void umount(char *work_dir)
 	execute_cmd("/bin/umount -l %s/dev 2>/dev/null", work_dir);
 	execute_cmd("/bin/umount -l %s/usr 2>/dev/null", work_dir);
 	execute_cmd("/bin/umount -l usr dev");
-	if (!DEBUG)
-	{
-		execute_cmd("/bin/rm -rf %s* ", work_dir);
-	}
 }
 int compile(int lang, char *work_dir)
 {
@@ -1885,7 +1881,7 @@ void prepare_files(char *filename, int namelen, char *infile, int &p_id,
 	strncpy(fname0, filename, namelen);
 	fname0[namelen] = 0;
 	escape(fname, fname0);
-	//printf("%s\n%s\n",fname0,fname);
+	// printf("%s\n%s\n",fname0,fname);
 	sprintf(infile, "%s/data/%d/%s.in", oj_home, p_id, fname);
 	if (copy_data)
 		execute_cmd("/bin/cp '%s' %s/data.in", infile, work_dir);
