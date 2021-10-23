@@ -67,8 +67,7 @@ if (isset($view_errors_js) or isset($view_swal)) { ?>
       <?php include("template/$OJ_TEMPLATE/nav.php"); ?>
       <div class="jumbotron">
         <div class='main-container'>
-          <?php if (isset($view_error_title)) echo "<h2>" . $view_error_title . "</h2>" ?>
-          </br>
+          <?php if (isset($view_error_title)) echo "<h2>" . $view_error_title . "</h2><br>" ?>
           <?php if (isset($view_errors)) echo $view_errors ?>
         </div>
       </div>
