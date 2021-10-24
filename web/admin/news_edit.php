@@ -29,12 +29,6 @@ if(isset($_POST['news_id'])){
   $user_id = $_SESSION[$OJ_NAME.'_'.'user_id'];
   $news_id = intval($_POST['news_id']);
 
-    $title = stripslashes($title);
-    $content = stripslashes($content);
-
-  $title = RemoveXSS($title);
-  $content = RemoveXSS($content);
-
   $sql = "UPDATE `news` SET `title`=?,`time`=now(),`content`=?,user_id=? WHERE `news_id`=?";
   //echo $sql;
   pdo_query($sql,$title,$content,$user_id,$news_id) ;
