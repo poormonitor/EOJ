@@ -97,15 +97,15 @@ echo "<center><h3>" . "Edit-" . $MSG_PROBLEM . "</h3></center>";
         </p>
         <p align=left>
           <?php echo "<h4>禁用关键词</h4>" ?>
-          <input name=block style="width:100%;" class=form-control value='<?php echo htmlentities($row['block'], ENT_QUOTES, "UTF-8") ?>'></input><br><br>
+          <input name=block class="form-control" data-role="tagsinput" value='<?php echo htmlentities(join(",", explode(" ", $row['block'])), ENT_QUOTES, "UTF-8") ?>'></input><br><br>
         </p>
         <p align=left>
           <?php echo "<h4>必须关键词</h4>" ?>
-          <input name=allow style="width:100%;" class=form-control value='<?php echo htmlentities($row['allow'], ENT_QUOTES, "UTF-8") ?>'></input><br><br>
+          <input name=allow class="form-control" data-role="tagsinput" value='<?php echo htmlentities(join(",", explode(" ", $row['allow'])), ENT_QUOTES, "UTF-8") ?>'></input><br><br>
         </p>
         <p align=left>
           <?php echo "<h4>" . $MSG_SOURCE . "</h4>" ?>
-          <input name=source style="width:100%;" class=form-control value='<?php echo htmlentities($row['source'], ENT_QUOTES, "UTF-8") ?>'></input><br><br>
+          <input name=source class="form-control" data-role="tagsinput" value='<?php echo htmlentities(join(",", explode(" ", $row['source'])), ENT_QUOTES, "UTF-8") ?>'></input><br><br>
         </p>
 
         <div align=center>
@@ -153,11 +153,12 @@ echo "<center><h3>" . "Edit-" . $MSG_PROBLEM . "</h3></center>";
       $hint = str_replace("</p>", "<br />", $hint);
       $hint = str_replace(",", "&#44;", $hint);
 
-      $source = $_POST['source'];
       $spj = $_POST['spj'];
 
-      $allow = trim($_POST['allow']);
-      $block = trim($_POST['block']);
+      $source = join(" ", explode(",", trim($_POST['source'])));
+      $allow = join(" ", explode(",", trim($_POST['allow'])));
+      $block = join(" ", explode(",", trim($_POST['block'])));
+
       $title = ($title);
       $description = RemoveXSS($description);
       $input = RemoveXSS($input);
@@ -216,11 +217,12 @@ echo "<center><h3>" . "Edit-" . $MSG_PROBLEM . "</h3></center>";
     $("#blank_code").show();
   })
 </script>
-<script src="<?php echo $OJ_CDN_URL . $path_fix . "ace/" ?>ace.min.js"></script>
-<script src="<?php echo $OJ_CDN_URL . $path_fix . "ace/" ?>ext-language_tools.min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/@adactive/bootstrap-tagsinput@0.8.2/dist/bootstrap-tagsinput.min.js'></script>
+<script src="<?php echo $OJ_CDN_URL . "ace/" ?>ace.min.js"></script>
+<script src="<?php echo $OJ_CDN_URL . "ace/" ?>ext-language_tools.min.js"></script>
 <script>
   ace.require("ace/ext/language_tools");
-  ace.config.set('basePath', 'https://cdn.jsdelivr.net/npm/ace-builds@1.4.12/src-min-noconflict/');
+  ace.config.set('basePath', '<?php echo $OJ_CDN_URL . "ace/" ?>');
   var editor = ace.edit("source");
   editor.setTheme("ace/theme/chrome");
   editor.setOptions({
