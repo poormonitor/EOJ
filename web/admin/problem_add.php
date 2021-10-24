@@ -45,9 +45,9 @@ $hint = $_POST['hint'];
 $hint = str_replace("<p>", "", $hint);
 $hint = str_replace("</p>", "<br />", $hint);
 $hint = str_replace(",", "&#44;", $hint);
-$allow = trim($_POST['allow']);
-$block = trim($_POST['block']);
-$source = $_POST['source'];
+$source = join(" ", explode(",", trim($_POST['source'])));
+$allow = join(" ", explode(",", trim($_POST['allow'])));
+$block = join(" ", explode(",", trim($_POST['block'])));
 
 $spj = $_POST['spj'];
 

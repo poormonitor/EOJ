@@ -196,21 +196,24 @@ echo "<center><h3>" . "Edit-" . $MSG_CONTEST . "</h3></center>";
           <?php
           $all = explode(",", $plist);
           $problems = pdo_query("select problem_id,title from problem;");
+          $problem_array = array();
           foreach ($problems as $i) {
             $pid = $i[0];
             $title = $i[1];
             if (in_array($pid, $all)) {
               echo ("<option value='$pid' selected>$pid $title</option>");
+              array_push($problem_array, $pid);
             } else {
               echo ("<option value='$pid'>$pid $title</option>");
             }
           }
+
           ?></select>
         <br>
       </p>
       <p align=left>
         手动输入<br>
-        <input id='problem' data-role="tagsinput" style='margin-top:10px;' onchange='return get_tag(this)'></input>
+        <input id='problem' data-role="tagsinput" class='form-control' style='margin-top:10px;' onchange='return set_tag(this)'></input>
       </p>
       <br>
       <p align=left>
@@ -299,7 +302,7 @@ echo "<center><h3>" . "Edit-" . $MSG_CONTEST . "</h3></center>";
 </body>
 <script src='https://cdn.jsdelivr.net/npm/@adactive/bootstrap-tagsinput@0.8.2/dist/bootstrap-tagsinput.min.js'></script>
 <script>
-  function get_tag(self) {
+  function set_tag(self) {
     info = $('#problem').tagsinput('items');
     info.forEach(element => {
       $('#multiple_problem').find("option[value='" + element + "']").attr("selected", true)
