@@ -13,9 +13,10 @@
             toolbar: 'code undo redo restoredraft | cut copy paste pastetext | forecolor backcolor bold italic underline strikethrough link anchor | alignleft aligncenter alignright alignjustify outdent indent | \
                      styleselect formatselect fontselect fontsizeselect | bullist numlist | blockquote subscript superscript removeformat | \
                      table image media charmap emoticons hr pagebreak insertdatetime print preview | fullscreen | lineheight',
+            font_formats: '思源黑体=SourceHanSansCN-Medium',
             height: 650,
             min_height: 400,
-            fontsize_formats: '12px 14px 16px 18px 24px 36px 48px 56px 72px',
+            fontsize_formats: '14px 18px 24px',
             image_class_list: [{
                     title: 'None',
                     value: ''

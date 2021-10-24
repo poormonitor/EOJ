@@ -2,21 +2,16 @@
 <?php
 require_once("../include/db_info.inc.php");
 require_once("../include/my_func.inc.php");; ?>
-<link rel=stylesheet href='<?php echo $OJ_CDN_URL . $path_fix ?>include/hoj.css' type='text/css'>
 <?php require_once("../template/$OJ_TEMPLATE/css.php"); ?>
+<link rel=stylesheet href='<?php echo $OJ_CDN_URL . $path_fix ?>include/hoj.css' type='text/css'>
 <style>
     @media (prefers-color-scheme: dark) {
         .btn {
             filter: invert(1) hue-rotate(180deg);
         }
 
+        .btn-secondary,
         .btn-block {
-            color: #000;
-            filter: invert(0);
-            background-color: #d5d5d5;
-        }
-
-        .btn-secondary {
             color: #000;
             filter: invert(0);
             background-color: #d5d5d5;
@@ -33,6 +28,10 @@ require_once("../include/my_func.inc.php");; ?>
 
     body {
         background-image: url(https://cdn.jsdelivr.net/gh/poormonitor/image@master/20210306/9570a8e4a6ee69b9e0ef5de25b729954.png);
+    }
+
+    input {
+        height: 24px;
     }
 </style>
 <?php
