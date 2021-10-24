@@ -2,8 +2,8 @@
 <?php
 require_once("../include/db_info.inc.php");
 require_once("../include/my_func.inc.php");; ?>
-<link rel=stylesheet href='<?php echo $OJ_CDN_URL . $path_fix ?>bootstrap/css/bootstrap.min.css' type='text/css'>
-<link rel=stylesheet href='<?php echo $OJ_CDN_URL . $path_fix ?>include/hoj.min.css' type='text/css'>
+<link rel=stylesheet href='<?php echo $OJ_CDN_URL ?>bootstrap/css/bootstrap.min.css' type='text/css'>
+<link rel=stylesheet href='<?php echo $OJ_CDN_URL ?>include/hoj.min.css' type='text/css'>
 <?php require_once("../template/$OJ_TEMPLATE/css.php"); ?>
 <?php
 if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor']) || isset($_SESSION[$OJ_NAME . '_' . 'password_setter']))) {
