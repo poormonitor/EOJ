@@ -11,7 +11,7 @@
             images_upload_base_path: '',
             plugins: 'print preview searchreplace autolink directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor insertdatetime advlist lists wordcount imagetools textpattern help emoticons autosave autoresize',
             toolbar: 'code undo redo restoredraft | cut copy paste pastetext | forecolor backcolor bold italic underline strikethrough link anchor | alignleft aligncenter alignright alignjustify outdent indent | \
-                     styleselect formatselect fontselect fontsizeselect | bullist numlist | blockquote subscript superscript removeformat | \
+                     formatselect fontselect fontsizeselect | bullist numlist | blockquote subscript superscript removeformat | \
                      table image media charmap emoticons hr pagebreak insertdatetime print preview | fullscreen | lineheight',
             font_formats: '思源黑体=SourceHanSansCN-Medium',
             height: 650,
