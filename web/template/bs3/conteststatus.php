@@ -231,7 +231,8 @@
           }
           echo "<input type=submit class='form-control' value='$MSG_SEARCH'>";
           if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
-            echo "<a class='btn btn-default' href='statusadmin.php' role='button'style='margin:5px;' > Admin $MSG_SEARCH</a>";
+            $href = str_replace("status.php", "statusadmin.php", $_SERVER['REQUEST_URI']);
+            echo "<a class='btn btn-default' href='$href' role='button'style='margin:5px;' > Admin $MSG_SEARCH</a>";
           }
           ?>
         </form>
