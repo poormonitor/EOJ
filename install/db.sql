@@ -1,4 +1,3 @@
--- Adminer 4.8.1 MySQL 5.5.5-10.6.4-MariaDB-log dump
 
 SET NAMES utf8;
 SET time_zone = '+00:00';
@@ -72,6 +71,14 @@ CREATE TABLE `group` (
   `name` varchar(50) DEFAULT NULL,
   `allow_view` varchar(1) NOT NULL,
   PRIMARY KEY (`gid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+
+DROP TABLE IF EXISTS `ip`;
+CREATE TABLE `ip` (
+  `ip` varchar(50) NOT NULL,
+  `type` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`ip`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 
@@ -174,8 +181,8 @@ CREATE TABLE `problem` (
   `submit` int(11) DEFAULT 0,
   `solved` int(11) DEFAULT 0,
   `blank` text DEFAULT NULL,
-  `allow` text CHARACTER SET utf8mb3 DEFAULT NULL,
-  `block` text CHARACTER SET utf8mb3 DEFAULT NULL,
+  `allow` varchar(100) CHARACTER SET utf8mb3 DEFAULT NULL,
+  `block` varchar(100) CHARACTER SET utf8mb3 DEFAULT NULL,
   PRIMARY KEY (`problem_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -200,13 +207,6 @@ CREATE TABLE `runtimeinfo` (
   `error` text DEFAULT NULL,
   PRIMARY KEY (`solution_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
-DROP TABLE IF EXISTS `safe_ip`;
-CREATE TABLE `safe_ip` (
-  `ip` varchar(50) NOT NULL,
-  PRIMARY KEY (`ip`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 
 DROP TABLE IF EXISTS `share_code`;
@@ -250,7 +250,7 @@ END if;
 if blank_code IS NOT NULL THEN SET new.s_id=0;
 END if; 
 
-END
+END;;
 
 DELIMITER ;
 
@@ -328,11 +328,10 @@ CREATE TABLE `users` (
   `nick` varchar(20) NOT NULL DEFAULT '',
   `school` varchar(20) NOT NULL DEFAULT '',
   `gid` int(11) DEFAULT NULL,
+  `clipboard` text DEFAULT NULL,
   PRIMARY KEY (`user_id`) USING BTREE,
   KEY `GID_KEY` (`gid`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `privilege` (`user_id`, `rightstr`, `valuestr`, `defunct`) VALUES
 ('admin',	'source_browser',	'true',	'N');
-
--- 2021-10-04 11:00:41
