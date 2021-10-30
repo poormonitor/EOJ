@@ -26,7 +26,7 @@
     <!-- Main component for a primary marketing message or call to action -->
     <div class="jumbotron">
       <center>
-        <script src="https://cdn.jsdelivr.net/gh/zhblue/hustoj/trunk/web/include/checksource.min.js"></script>
+        <script src="<?php echo $OJ_CDN_URL .  "include/" ?>checksource.min.js"></script>
 
         <form id=frmSolution action="submit.php" method="post" onsubmit='do_submit()'>
           <?php if (isset($id)) { ?>
@@ -254,8 +254,8 @@
   <script language="Javascript" type="text/javascript" src="<?php echo $OJ_CDN_URL . $path_fix ?>include/base64.min.js"></script>
 
   <?php if ($OJ_ACE_EDITOR) { ?>
-    <script src="https://cdn.jsdelivr.net/npm/ace-builds@1.4.12/src-min-noconflict/ace.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/ace-builds@1.4.12/src-min-noconflict/ext-language_tools.js"></script>
+    <script src="<?php echo $OJ_CDN_URL . "ace/" ?>ace.js"></script>
+    <script src="<?php echo $OJ_CDN_URL .  "ace/" ?>ext-language_tools.js"></script>
     <script>
       ace.require("ace/ext/language_tools");
       var editor = ace.edit("source");

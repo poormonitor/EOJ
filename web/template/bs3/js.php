@@ -6,10 +6,10 @@
 <div id=footer class='center col-sm-2'><a id='footer' target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33010802011750">浙公网安备 33010802011750号</a></div>
 <div class=col-sm-1></div>
 </br></br>
-<script src="<?php echo $OJ_CDN_URL . $path_fix . "template/$OJ_TEMPLATE/" ?>jquery.min.js"></script>
-<script src="<?php echo $OJ_CDN_URL . $path_fix . "template/$OJ_TEMPLATE/" ?>bootstrap.min.js"></script>
-<script src="<?php echo $OJ_CDN_URL . $path_fix . "template/$OJ_TEMPLATE/" ?>index.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert@2.1.2/dist/sweetalert.min.js"></script>
+<script src="<?php echo $OJ_CDN_URL . "template/$OJ_TEMPLATE/" ?>jquery.min.js"></script>
+<script src="<?php echo $OJ_CDN_URL .  "template/$OJ_TEMPLATE/" ?>bootstrap.min.js"></script>
+<script src="<?php echo $OJ_CDN_URL .  "template/$OJ_TEMPLATE/" ?>index.min.js"></script>
+<script src="<?php echo $OJ_CDN_URL .  "include/" ?>sweetalert.min.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-175545655-2"></script>
 <?php
 $endTime = microtime(true);
