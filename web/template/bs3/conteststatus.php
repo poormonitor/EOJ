@@ -314,12 +314,13 @@
           <small>
             <ul class="pagination">
               <?php
-              echo "<li class='page-item'> <a href=status.php?" . $str2 . ">&lt;&lt; Top</a></li>";
+              echo "<li class='page-item'> <a href=status.php?" . $str2 . ">&lt;&lt;&nbsp;首页</a></li>";
               if (isset($_GET['prevtop']))
-                echo "<li class='page-item'> <a href=status.php?" . $str2 . "&top=" . intval($_GET['prevtop']) . ">&lt Prev</a></li>";
+                echo "<li class='page-item'> <a href=status.php?" . $str2 . "&top=" . intval($_GET['prevtop']) . ">&lt&nbsp;上一页</a></li>";
               else
-                echo "<li class='page-item'> <a href=status.php?" . $str2 . "&top=" . ($top + 50) . ">&lt Prev</a></li>";
-              echo "<li class='page-item'> <a href=status.php?" . $str2 . "&top=" . $bottom . "&prevtop=$top>Next &gt;</a></li>";
+                echo "<li class='page-item'> <a href=status.php?" . $str2 . "&top=" . ($top + 50) . ">&lt&nbsp;上一页</a></li>";
+
+              echo "<li class='page-item'> <a href=status.php?" . $str2 . "&top=" . $bottom . "&prevtop=$top>下一页&nbsp;&gt;</a></li>";
               ?>
             </ul>
           </small>

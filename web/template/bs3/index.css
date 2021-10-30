@@ -31,10 +31,6 @@ body {
     font-family: 'SourceHanSansCN-Medium' !important;
 }
 
-.label-primary {
-    background-color: #E47A9A !important;
-}
-
 .panel-default >.panel-body {
     box-shadow: 0 1px 0 rgba(255, 255, 255, .15) inset, 0 2px 6px rgba(0, 0, 0, .075);
     border-bottom-left-radius: 10px;
@@ -90,6 +86,9 @@ body {
         background-color: #1AA2CB !important;
     }
     .navbar-default {
+        background: #E5E5E5 !important;
+    }
+    .dropdown-menu {
         background: #E5E5E5 !important;
     }
 }
@@ -166,6 +165,7 @@ body {
 .navbar-default {
     background-repeat: repeat-x;
     border-radius: 15px;
+    border: 0px;
     box-shadow: 0 1px 0 rgba(255, 255, 255, .15) inset, 0 2px 6px rgba(0, 0, 0, .075);
 }
 

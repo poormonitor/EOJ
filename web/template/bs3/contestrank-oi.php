@@ -201,6 +201,7 @@
 							<a href="conteststatistics.php?cid=<?php echo $view_cid ?>" class="btn btn-primary btn-sm"><?php echo $MSG_STATISTICS ?></a>
 							<a href="suspect_list.php?cid=<?php echo $view_cid ?>" class="btn btn-warning btn-sm"><?php echo $MSG_IP_VERIFICATION ?></a>
 							<?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator'])) { ?>
+								<a class="btn btn-success btn-sm" href="contestrank.xls.php?cid=<?php echo $cid ?>">下载表格</a>
 								<a href="user_set_ip.php?cid=<?php echo $view_cid ?>" class="btn btn-success btn-sm"><?php echo $MSG_SET_LOGIN_IP ?></a>
 								<a target="_blank" href="../../admin/contest_edit.php?cid=<?php echo $view_cid ?>" class="btn btn-success btn-sm"><?php echo "编辑" ?></a>
 							<?php } ?>
@@ -214,13 +215,12 @@
 			$rank = 1;
 			?>
 			<center>
-				<a href="contestrank.xls.php?cid=<?php echo $cid ?>">Download</a>
 				<h4><?php if (isset($locked_msg)) echo $locked_msg; ?></h4>
 				<?php
 				if ($OJ_MEMCACHE) {
 					if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
-						echo '<a href="contestrank3.php?cid=' . $cid . '">滚榜</a>';
-						echo '&nbsp;<a href="contestrank2.php?cid=' . $cid . '">Replay</a><h4></h4>';
+						echo '<div class="btn-group"><a class="btn btn-primary btn-sm" href="contestrank3.php?cid=' . $cid . '">滚榜</a>';
+						echo '&nbsp;&nbsp;<a class="btn btn-primary btn-sm" href="contestrank2.php?cid=' . $cid . '">重播</a></div><br><br>';
 					}
 				}
 				?>
