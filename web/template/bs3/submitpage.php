@@ -41,7 +41,7 @@
           ?>
             <br>
             <?php echo $MSG_PROBLEM_ID . " : " ?> <span class=blue><?php echo chr($pid + ord('A')) ?></span>
-            <br> of Contest <span class=blue> <?php echo $cid ?> </span>
+            <br>比赛编号 : <span class=blue> <?php echo $cid ?> </span>
             <br>
             <input id="cid" type='hidden' value='<?php echo $cid ?>' name="cid">
             <input id="pid" type='hidden' value='<?php echo $pid ?>' name="pid">
@@ -86,7 +86,9 @@
           <br></br>
           <div class='btn-group' style='margin-bottom:10px;'>
             <a class='btn btn-sm btn-info' href='javascript:CopyToClipboard($("#copy").text())'>复制</a>
-            <a class='btn btn-sm btn-info' href='<?php echo str_replace("&blank=false", "", $_SERVER['REQUEST_URI']); ?>'>填空</a>
+            <?php if (!isset($sid)) { ?>
+              <a class='btn btn-sm btn-info' href='<?php echo str_replace("&blank=false", "", $_SERVER['REQUEST_URI']); ?>'>填空</a>
+            <?php } ?>
           </div>
         <?php }
             if ($OJ_ACE_EDITOR) { ?>

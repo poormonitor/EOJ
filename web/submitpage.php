@@ -154,6 +154,9 @@ if ($row[0] > 10) {
 }
 $blank = pdo_query("select blank from problem where problem_id=?", $problem_id)[0][0];
 $no_blank = (isset($_GET["blank"]) and $_GET["blank"] == 'false');
+if (isset($sid)) {
+	$no_blank = true;
+}
 if ($blank != NULL) {
 	$code = $blank;
 	$code = htmlentities($code, ENT_QUOTES, "UTF-8");
