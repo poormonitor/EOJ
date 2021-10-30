@@ -1,1 +1,1685 @@
-!function(t,e){"object"==typeof exports&&"object"==typeof module?module.exports=e(require("jQuery"),require("CodeMirror")):"function"==typeof define&&define.amd?define("mergely",["jQuery","CodeMirror"],e):"object"==typeof exports?exports.mergely=e(require("jQuery"),require("CodeMirror")):t.mergely=e(t.jQuery,t.CodeMirror)}(window,(function(t,e){return function(t){var e={};function i(s){if(e[s])return e[s].exports;var r=e[s]={i:s,l:!1,exports:{}};return t[s].call(r.exports,r,r.exports,i),r.l=!0,r.exports}return i.m=t,i.c=e,i.d=function(t,e,s){i.o(t,e)||Object.defineProperty(t,e,{enumerable:!0,get:s})},i.r=function(t){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(t,"__esModule",{value:!0})},i.t=function(t,e){if(1&e&&(t=i(t)),8&e)return t;if(4&e&&"object"==typeof t&&t&&t.__esModule)return t;var s=Object.create(null);if(i.r(s),Object.defineProperty(s,"default",{enumerable:!0,value:t}),2&e&&"string"!=typeof t)for(var r in t)i.d(s,r,function(e){return t[e]}.bind(null,r));return s},i.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return i.d(e,"a",e),e},i.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},i.p="",i(i.s=0)}([function(t,e,i){"use strict";!function(t,e){var s={};s.ChangeExpression=new RegExp(/(^(?![><\-])*\d+(?:,\d+)?)([acd])(\d+(?:,\d+)?)/);var r=i(1);s.DiffParser=function(t){for(var e=[],i=0,r=t.split(/\n/),n=0;n<r.length;++n)if(0!=r[n].length){var h={},o=s.ChangeExpression.exec(r[n]);if(null!=o){var l=o[1].split(",");h["lhs-line-from"]=l[0]-1,1==l.length?h["lhs-line-to"]=l[0]-1:h["lhs-line-to"]=l[1]-1;var a=o[3].split(",");h["rhs-line-from"]=a[0]-1,1==a.length?h["rhs-line-to"]=a[0]-1:h["rhs-line-to"]=a[1]-1,h.op=o[2],e[i++]=h}}return e},s.sizeOf=function(t){var e,i=0;for(e in t)t.hasOwnProperty(e)&&i++;return i},s.LCS=function(t,e,i){function s(t,e){for(var i,s,r,n=new RegExp(/\w+/g),h={},o=0,l=0;i=n.exec(t);)!e.ignorews&&r&&r<=i.index-1&&(h[o++]={p0:r,p1:i.index-1,ws0:r,word:t.slice(r,i.index)}),r=(s=(l=i.index)+i[0].length-1)+2,h[o++]={p0:l,p1:s,ws0:r,word:t.slice(l,s+1)};return h}if(this.options=i,i.ignorews){this.xmap=s(t,this.options),this.ymap=s(e,this.options);var r=this.xmap;this.x=Object.keys(r).map((function(t){return r[t].word}));var n=this.ymap;this.y=Object.keys(n).map((function(t){return n[t].word}))}else this.x=t.split(""),this.y=e.split("")},t.extend(s.LCS.prototype,{clear:function(){this.ready=0},diff:function(t,e){for(var i=new s.diff(this.x,this.y,{ignorews:!!this.options.ignorews,ignoreaccents:!!this.options.ignoreaccents}),r=s.DiffParser(i.normal_form()),n=0;n<r.length;++n){var h=r[n];if(this.options.ignorews){if("a"!=h.op)e(this.xmap[h["lhs-line-from"]].p0,this.xmap[h["lhs-line-to"]].p1+1);if("d"!==h.op)t(this.ymap[h["rhs-line-from"]].p0,this.ymap[h["rhs-line-to"]].p1+1)}else{if("a"!=h.op)e(h["lhs-line-from"],h["lhs-line-to"]+1);if("d"!==h.op)t(h["rhs-line-from"],h["rhs-line-to"]+1)}}}}),s.CodeifyText=function(e){this._max_code=0,this._diff_codes={},this.ctxs={},t.extend(this,e),"string"==typeof e.lhs?this.lhs=e.lhs.split("\n"):this.lhs=e.lhs,"string"==typeof e.rhs?this.rhs=e.rhs.split("\n"):this.rhs=e.rhs},t.extend(s.CodeifyText.prototype,{getCodes:function(t){if(!this.ctxs.hasOwnProperty(t)){var e=this._diff_ctx(this[t]);this.ctxs[t]=e,e.codes.length=Object.keys(e.codes).length}return this.ctxs[t].codes},getLines:function(t){return this.ctxs[t].lines},_diff_ctx:function(t){var e={i:0,codes:{},lines:t};return this._codeify(t,e),e},_codeify:function(t,e){this._max_code;for(var i=0;i<t.length;++i){var s=t[i];this.options.ignorews&&(s=s.replace(/\s+/g,"")),this.options.ignorecase&&(s=s.toLowerCase()),this.options.ignoreaccents&&(s=s.normalize("NFD").replace(/[\u0300-\u036f]/g,""));var r=this._diff_codes[s];null!=r?e.codes[i]=r:(this._max_code++,this._diff_codes[s]=this._max_code,e.codes[i]=this._max_code)}}}),s.diff=function(e,i,r){var n=t.extend({ignorews:!1,ignoreaccents:!1},r);this.codeify=new s.CodeifyText({lhs:e,rhs:i,options:n});var h={codes:this.codeify.getCodes("lhs"),modified:{}},o={codes:this.codeify.getCodes("rhs"),modified:{}};h.codes.length,o.codes.length;this._lcs(h,0,h.codes.length,o,0,o.codes.length,[],[]),this._optimize(h),this._optimize(o),this.items=this._create_diffs(h,o)},t.extend(s.diff.prototype,{changes:function(){return this.items},getLines:function(t){return this.codeify.getLines(t)},normal_form:function(){for(var t="",e=0;e<this.items.length;++e){var i=this.items[e],s="c";0==i.lhs_deleted_count&&i.rhs_inserted_count>0?s="a":i.lhs_deleted_count>0&&0==i.rhs_inserted_count&&(s="d"),t+=(1==i.lhs_deleted_count?i.lhs_start+1:0==i.lhs_deleted_count?i.lhs_start:i.lhs_start+1+","+(i.lhs_start+i.lhs_deleted_count))+s+(1==i.rhs_inserted_count?i.rhs_start+1:0==i.rhs_inserted_count?i.rhs_start:i.rhs_start+1+","+(i.rhs_start+i.rhs_inserted_count))+"\n";var r=this.getLines("lhs"),n=this.getLines("rhs");if(n&&r){var h;for(h=i.lhs_start;h<i.lhs_start+i.lhs_deleted_count;++h)t+="< "+r[h]+"\n";for(i.rhs_inserted_count&&i.lhs_deleted_count&&(t+="---\n"),h=i.rhs_start;h<i.rhs_start+i.rhs_inserted_count;++h)t+="> "+n[h]+"\n"}}return t},_lcs:function(t,e,i,s,r,n,h,o){for(;e<i&&r<n&&t.codes[e]==s.codes[r];)++e,++r;for(;e<i&&r<n&&t.codes[i-1]==s.codes[n-1];)--i,--n;if(e==i)for(;r<n;)s.modified[r++]=!0;else if(r==n)for(;e<i;)t.modified[e++]=!0;else{var l=this._sms(t,e,i,s,r,n,h,o);this._lcs(t,e,l.x,s,r,l.y,h,o),this._lcs(t,l.x,i,s,l.y,n,h,o)}},_sms:function(t,e,i,s,r,n,h,o){var l=t.codes.length+s.codes.length+1,a=e-r,c=i-n,d=0!=(1&i-e-(n-r)),g=l-a,f=l-c,u=(i-e+n-r)/2+1;o[g+a+1]=e,h[f+c-1]=i;var p,m,_,v,y={x:0,y:0};for(p=0;p<=u;++p){for(m=a-p;m<=a+p;m+=2){for(m==a-p?_=o[g+m+1]:(_=o[g+m-1]+1,m<a+p&&o[g+m+1]>=_&&(_=o[g+m+1])),v=_-m;_<i&&v<n&&t.codes[_]==s.codes[v];)_++,v++;if(o[g+m]=_,d&&c-p<m&&m<c+p&&h[f+m]<=o[g+m])return y.x=o[g+m],y.y=o[g+m]-m,y}for(m=c-p;m<=c+p;m+=2){for(m==c+p?_=h[f+m-1]:(_=h[f+m+1]-1,m>c-p&&h[f+m-1]<_&&(_=h[f+m-1])),v=_-m;_>e&&v>r&&t.codes[_-1]==s.codes[v-1];)_--,v--;if(h[f+m]=_,!d&&a-p<=m&&m<=a+p&&h[f+m]<=o[g+m])return y.x=o[g+m],y.y=o[g+m]-m,y}}throw"the algorithm should never come here."},_optimize:function(t){for(var e=0,i=0;e<t.codes.length;){for(;e<t.codes.length&&(null==t.modified[e]||0==t.modified[e]);)e++;for(i=e;i<t.codes.length&&1==t.modified[i];)i++;i<t.codes.length&&t.codes[e]==t.codes[i]?(t.modified[e]=!1,t.modified[i]=!0):e=i}},_create_diffs:function(t,e){for(var i=[],s=0,r=0,n=0,h=0;n<t.codes.length||h<e.codes.length;)if(n<t.codes.length&&!t.modified[n]&&h<e.codes.length&&!e.modified[h])n++,h++;else{for(s=n,r=h;n<t.codes.length&&(h>=e.codes.length||t.modified[n]);)n++;for(;h<e.codes.length&&(n>=t.codes.length||e.modified[h]);)h++;(s<n||r<h)&&i.push({lhs_start:s,rhs_start:r,lhs_deleted_count:n-s,rhs_inserted_count:h-r})}return i}}),s.mergely=function(t,e){t&&this.init(t,e)},t.extend(s.mergely.prototype,{name:"mergely",init:function(t,e){this.diffView=new s.CodeMirrorDiffView(t,e),this.bind(t)},bind:function(t){this.diffView.bind(t)}}),s.CodeMirrorDiffView=function(t,i){e.defineExtension("centerOnCursor",(function(){var t=this.cursorCoords(null,"local");this.scrollTo(null,(t.top+t.bottom)/2-this.getScrollerElement().clientHeight/2)})),this.init(t,i)},t.extend(s.CodeMirrorDiffView.prototype,{init:function(e,i){this.settings=t.extend(!0,{autoupdate:!0,autoresize:!0,rhs_margin:"right",wrap_lines:!1,line_numbers:!0,lcs:!0,sidebar:!0,viewport:!1,ignorews:!1,ignorecase:!1,ignoreaccents:!1,fadein:"fast",resize_timeout:500,change_timeout:150,fgcolor:{a:"#4ba3fa",c:"#a3a3a3",d:"#ff7f7f",ca:"#4b73ff",cc:"#434343",cd:"#ff4f4f"},bgcolor:"#eee",vpcolor:"rgba(0, 0, 200, 0.5)",license:"",width:"auto",height:"auto",cmsettings:{styleSelectedText:!0},lhs:function(t){},rhs:function(t){},loaded:function(){},resize:function(i){var s,r,n=t(e).parent(),h=(s="auto"==this.width?n.width():this.width)/2-16-8,o=r="auto"==this.height?n.height()-2:this.height,l=t(e);l.find(".mergely-column").css({width:h+"px"}),l.find(".mergely-column, .mergely-canvas, .mergely-margin, .mergely-column textarea, .CodeMirror-scroll, .cm-s-default").css({height:o+"px"}),l.find(".mergely-canvas").css({height:o+"px"}),l.find(".mergely-column textarea").css({width:h+"px"}),l.css({width:s,height:r,clear:"both"}),"none"===l.css("display")&&(0!=this.fadein?l.fadeIn(this.fadein):l.show()),this.resized&&this.resized()},_debug:"",resized:function(){}},i),this.element=t(e),this.lhs_cmsettings={lineWrapping:this.settings.wrap_lines,lineNumbers:this.settings.line_numbers},this.rhs_cmsettings={lineWrapping:this.settings.wrap_lines,lineNumbers:this.settings.line_numbers};var s=[];this.lhs_cmsettings.lineNumbers&&(s=["merge","CodeMirror-linenumbers"]);var r=[];this.rhs_cmsettings.lineNumbers&&(r=["merge","CodeMirror-linenumbers"]),t.extend(!0,this.lhs_cmsettings,this.settings.cmsettings,{gutters:s},this.settings.lhs_cmsettings),t.extend(!0,this.rhs_cmsettings,this.settings.cmsettings,{gutters:r},this.settings.rhs_cmsettings),this.element.bind("destroyed",t.proxy(this.teardown,this)),t.data(e,"mergely",this),this._setOptions(i)},unbind:function(){null!=this.changed_timeout&&clearTimeout(this.changed_timeout),this.editor[this.id+"-lhs"].toTextArea(),this.editor[this.id+"-rhs"].toTextArea(),t(window).off(".mergely")},destroy:function(){this.element.unbind("destroyed",this.teardown),this.teardown()},teardown:function(){this.unbind()},lhs:function(t){this.changes=[],delete this._current_diff,this.editor[this.id+"-lhs"].setValue(t)},rhs:function(t){this.changes=[],delete this._current_diff,this.editor[this.id+"-rhs"].setValue(t)},update:function(){this._changing(this.id+"-lhs",this.id+"-rhs")},unmarkup:function(){this._clear()},scrollToDiff:function(t){this.changes.length&&("next"==t?this._current_diff==this.changes.length-1?this._current_diff=0:this._current_diff=Math.min(++this._current_diff,this.changes.length-1):"prev"==t&&(0==this._current_diff?this._current_diff=this.changes.length-1:this._current_diff=Math.max(--this._current_diff,0)),this._scroll_to_change(this.changes[this._current_diff]),this._changed(this.id+"-lhs",this.id+"-rhs"))},mergeCurrentChange:function(t){this.changes.length&&("lhs"!=t||this.lhs_cmsettings.readOnly?"rhs"!=t||this.rhs_cmsettings.readOnly||this._merge_change(this.changes[this._current_diff],"lhs","rhs"):this._merge_change(this.changes[this._current_diff],"rhs","lhs"))},scrollTo:function(t,e){var i=this.editor[this.id+"-lhs"],s=this.editor[this.id+"-rhs"];"lhs"==t?(i.setCursor(e),i.centerOnCursor()):(s.setCursor(e),s.centerOnCursor())},_setOptions:function(e){if(t.extend(this.settings,e),this.settings.hasOwnProperty("rhs_margin"))if("left"==this.settings.rhs_margin)this.element.find(".mergely-margin:last-child").insertAfter(this.element.find(".mergely-canvas"));else{var i=this.element.find(".mergely-margin").last();i.appendTo(i.parent())}var s,r;this.settings.hasOwnProperty("sidebar")&&(this.settings.sidebar?this.element.find(".mergely-margin").css({display:"block"}):this.element.find(".mergely-margin").css({display:"none"})),this.settings.hasOwnProperty("wrap_lines")&&this.editor&&(s=this.editor[this.id+"-lhs"],r=this.editor[this.id+"-rhs"],s.setOption("lineWrapping",this.settings.wrap_lines),r.setOption("lineWrapping",this.settings.wrap_lines)),this.settings.hasOwnProperty("line_numbers")&&this.editor&&(s=this.editor[this.id+"-lhs"],r=this.editor[this.id+"-rhs"],s.setOption("lineNumbers",this.settings.line_numbers),r.setOption("lineNumbers",this.settings.line_numbers))},options:function(t){if(!t)return this.settings;this._setOptions(t),this.settings.autoresize&&this.resize(),this.settings.autoupdate&&this.update()},swap:function(){if(!this.lhs_cmsettings.readOnly&&!this.rhs_cmsettings.readOnly){var t=this.editor[this.id+"-lhs"],e=this.editor[this.id+"-rhs"],i=e.getValue();e.setValue(t.getValue()),t.setValue(i)}},merge:function(t){var e=this.editor[this.id+"-lhs"],i=this.editor[this.id+"-rhs"];"lhs"!=t||this.lhs_cmsettings.readOnly?this.rhs_cmsettings.readOnly||i.setValue(e.getValue()):e.setValue(i.getValue())},summary:function(){return{numChanges:this.changes.length,lhsLength:this.editor[this.id+"-lhs"].getValue().length,rhsLength:this.editor[this.id+"-rhs"].getValue().length,c:this.changes.filter((function(t){return"c"===t.op})).length,a:this.changes.filter((function(t){return"a"===t.op})).length,d:this.changes.filter((function(t){return"d"===t.op})).length}},get:function(t){var e=this.editor[this.id+"-"+t].getValue();return null==e?"":e},clear:function(t){"lhs"==t&&this.lhs_cmsettings.readOnly||("rhs"==t&&this.rhs_cmsettings.readOnly||(this.editor[this.id+"-"+t].setValue(""),delete this._current_diff))},cm:function(t){return this.editor[this.id+"-"+t]},search:function(t,e,i){var s,r=this.editor[this.id+"-lhs"],n=this.editor[this.id+"-rhs"];i="prev"==i?"findPrevious":"findNext",0!=(s="lhs"==t?r:n).getSelection().length&&this.prev_query[t]==e||(this.cursor[this.id]=s.getSearchCursor(e,{line:0,ch:0},!1),this.prev_query[t]=e);var h=this.cursor[this.id];h[i]()?s.setSelection(h.from(),h.to()):h=s.getSearchCursor(e,{line:0,ch:0},!1)},resize:function(){this.em_height=null,this.settings.resize(),this._changing(this.id+"-lhs",this.id+"-rhs"),this._set_top_offset(this.id+"-lhs")},diff:function(){var t=this.editor[this.id+"-lhs"].getValue(),e=this.editor[this.id+"-rhs"].getValue();return new s.diff(t,e,this.settings).normal_form()},bind:function(i){var s,r,n=this;this.trace("init","bind"),this.element.hide(),this.id=t(i).attr("id");try{t("#".concat(this.id))}catch(t){return void console.error("jQuery failed to find mergely: #".concat(this.id))}if(this.changed_timeout=null,this.chfns={},this.chfns[this.id+"-lhs"]=[],this.chfns[this.id+"-rhs"]=[],this.prev_query=[],this.cursor=[],this._skipscroll={},this.change_exp=new RegExp(/(\d+(?:,\d+)?)([acd])(\d+(?:,\d+)?)/),null!=t.button)s='<button title="Merge left"></button>',r='<button title="Merge right"></button>';else{var h="opacity:0.6;height:16px;background-color:#bfbfbf;cursor:pointer;text-align:center;color:#eee;border:1px solid #848484;margin-right:-15px;margin-top:-2px;";s='<div style="'+h+'" title="Merge left">&lt;</div>',r='<div style="'+h+'" title="Merge right">&gt;</div>'}this.merge_rhs_button=t(r),this.merge_lhs_button=t(s);var o=t('<div id="mergely-splash">'),l=t('<div class="mergely-margin" style="height: \''.concat("10px",'\'"><canvas id="lhs-margin" width="8px" height="\'').concat("10px","'\"></canvas></div>"));l.find("#lhs-margin").attr("id","".concat(this.id,"-lhs-margin"));var a=t("<div style=\"position:relative;width:'".concat("10px","'; height:'").concat("10px",'\'" id="editor-lhs" class="mergely-column"><textarea id="text-lhs"></textarea></div>'));a.eq(0).attr("id","".concat(this.id,"-editor-lhs")),a.find("#text-lhs").attr("id","".concat(this.id,"-lhs"));var c=t('<div class="mergely-canvas" style="height: \''.concat("10px",'\'"><canvas id="lhs-rhs-canvas" style="width:28px" width="28px" height="\'').concat("10px","'\"></canvas></div>"));c.find("#mergely-canvas").attr("id","".concat(this.id,"-mergely-canvas")),c.find("#lhs-rhs-canvas").attr("id","".concat(this.id,"-lhs-").concat(this.id,"-rhs-canvas")),this.element.append(o),this.element.append(l),this.element.append(a),this.element.append(c);var d=t('<div class="mergely-margin" style="height: \''.concat("10px",'\'"><canvas id="rhs-margin" width="8px" height="\'').concat("10px","'\"></canvas></div>"));d.find("#rhs-margin").attr("id","".concat(this.id,"-rhs-margin")),"left"==this.settings.rhs_margin&&this.element.append(d);var g,f=t("<div style=\"width:'".concat("10px","'; height:'").concat("10px",'\'" id="editor-rhs" class="mergely-column"><textarea id="text-rhs"></textarea></div>'));if(f.eq(0).attr("id","".concat(this.id,"-editor-rhs")),f.find("#text-rhs").attr("id","".concat(this.id,"-rhs")),this.element.append(f),"left"!=this.settings.rhs_margin&&this.element.append(d),this.settings.sidebar||this.element.find(".mergely-margin").css({display:"none"}),["lgpl-separate-notice","gpl-separate-notice","mpl-separate-notice","commercial"].indexOf(this.settings.license)<0){var u={lgpl:"GNU LGPL v3.0",gpl:"GNU GPL v3.0",mpl:"MPL 1.1"},p=u[this.settings.license];p||(p=u.lgpl);this.element.parent().height();var m=this.element.parent().width();this.element.find("#mergely-splash").css({position:"absolute",zIndex:"100",backgroundColor:"#fff",border:"1px solid black",height:"70px",width:"300px",left:(m-300)/2,padding:"10px 10px 0 10px",fontFamily:"arial",fontSize:"11px"}).append('<p><img width="36" height="36" alt="mergely" src="data:image/png;base64,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" style="float:left;padding-right:10px;" />This software is a Combined Work using Mergely and is covered by the '+p+' license.  For the full license, see <a target="_blank" href="http://www.mergely.com">http://www.mergely.com/license.</a></p>'),t("body").one("click",(function(){t("#mergely-splash").fadeOut(100,"linear",(function(){t("#mergely-splash").remove()}))}))}try{g=this.element.find("#".concat(this.id,"-rhs")).get(0)}catch(t){}if(g){var _;try{_=this.element.find("#".concat(this.id,"-lhs")).get(0)}catch(t){}if(_){var v=t('<div style="display:none" class="mergely current start" />').appendTo("body").css("border-top-color");this.current_diff_color=v;var y="#".concat(this.id," .CodeMirror-gutter-text { padding: 5px 0 0 0; }\n\t\t\t'#").concat(this.id," .CodeMirror-lines pre, #").concat(this.id," .CodeMirror-gutter-text pre { line-height: 18px; }\n\t\t\t'.CodeMirror-linewidget { overflow: hidden; };");this.settings.autoresize&&(y+="".concat(this.id," .CodeMirror-scroll { height: 100%; overflow: auto; }")),t('<style type="text/css">'.concat(y+="\n.CodeMirror { line-height: 18px; }","</style>")).appendTo("head");var w=this;if(w.trace("init","binding event listeners"),this.editor=[],this.editor[this.id+"-lhs"]=e.fromTextArea(_,this.lhs_cmsettings),this.editor[this.id+"-rhs"]=e.fromTextArea(g,this.rhs_cmsettings),this.editor[this.id+"-lhs"].on("change",(function(){w.settings.autoupdate&&w._changing(w.id+"-lhs",w.id+"-rhs")})),this.editor[this.id+"-lhs"].on("scroll",(function(){w._scrolling(w.id+"-lhs")})),this.editor[this.id+"-rhs"].on("change",(function(){w.settings.autoupdate&&w._changing(w.id+"-lhs",w.id+"-rhs")})),this.editor[this.id+"-rhs"].on("scroll",(function(){w._scrolling(w.id+"-rhs")})),this.settings.autoresize){var b=null,x=function(t){w.settings.resize&&w.settings.resize(t),w.resize(),w.editor[w.id+"-lhs"].refresh(),w.editor[w.id+"-rhs"].refresh()};t(window).on("resize.mergely",(function(){b&&clearTimeout(b),b=setTimeout(x,w.settings.resize_timeout)})),x(!0)}this.editor[this.id+"-lhs"].on("gutterClick",function(t,e,i,s){C.call(this,"lhs",e,s)}.bind(this)),this.editor[this.id+"-rhs"].on("gutterClick",function(t,e,i,s){C.call(this,"rhs",e,s)}.bind(this)),this.settings.lhs&&(w.trace("init","setting lhs value"),this.settings.lhs(function(t){this._initializing=!0,delete this._current_diff,this.editor[this.id+"-lhs"].getDoc().setValue(t)}.bind(this))),this.settings.rhs&&(w.trace("init","setting rhs value"),this.settings.rhs(function(t){this._initializing=!0,delete this._current_diff,this.editor[this.id+"-rhs"].getDoc().setValue(t)}.bind(this))),this.element.one("updated",(function(){n._initializing=!1,w.settings.loaded&&w.settings.loaded()})),this.trace("init","bound"),this.editor[this.id+"-lhs"].focus()}else console.error("lhs textarea not defined - Mergely not initialized properly")}else console.error("rhs textarea not defined - Mergely not initialized properly");function C(e,i,s){var r,n;if(!(s.target&&t(s.target).closest(".merge-button").length>0))for(r=0;r<this.changes.length;r++)if(i>=(n=this.changes[r])[e+"-line-from"]&&i<=n[e+"-line-to"]){this._current_diff=r,setTimeout(function(){this.scrollToDiff()}.bind(this),10);break}}},_scroll_to_change:function(t){if(t){var e=this.editor[this.id+"-lhs"],i=this.editor[this.id+"-rhs"];e.setCursor(Math.max(t["lhs-line-from"],0),0),i.setCursor(Math.max(t["rhs-line-from"],0),0),t["lhs-line-to"]>=0&&e.scrollIntoView({line:t["lhs-line-to"]}),e.focus()}},_scrolling:function(e){if(!0!==this._skipscroll[e]){if(this.changes){var i=t(this.editor[e].getScrollerElement());null==this.midway&&(this.midway=(i.height()/2+i.offset().top).toFixed(2));var s=this.editor[e].coordsChar({left:0,top:this.midway}),n=i.scrollTop(),h=i.scrollLeft();this.trace("scroll","side",e),this.trace("scroll","midway",this.midway),this.trace("scroll","midline",s),this.trace("scroll","top_to",n),this.trace("scroll","left_to",h);var o=this.id+"-lhs",l=this.id+"-rhs";for(var a in this.editor)if(this.editor.hasOwnProperty(a)&&e!=a){for(var c=e.replace(this.id+"-",""),d=a.replace(this.id+"-",""),g=0,f=null,u=!1,p=0;p<this.changes.length;++p){var m=this.changes[p];s.line>=m[c+"-line-from"]&&(f=m,s.line>=f[c+"-line-to"]&&(m.hasOwnProperty(c+"-y-start")&&m.hasOwnProperty(c+"-y-end")&&m.hasOwnProperty(d+"-y-start")&&m.hasOwnProperty(d+"-y-end")?g+=m[c+"-y-end"]-m[c+"-y-start"]-(m[d+"-y-end"]-m[d+"-y-start"]):u=!0))}var _=this.editor[a].getViewport(),v=!0;f&&(this.trace("scroll","last change before midline",f),s.line>=_.from&&s<=_.to&&(v=!1)),this.trace("scroll","scroll",v),v||u?(this.trace("scroll","scrolling other side",n-g),this._skipscroll[a]=!0,this.editor[a].scrollTo(h,n-g)):this.trace("scroll","not scrolling other side"),this.settings.autoupdate&&(r.start(),this._calculate_offsets(o,l,this.changes),this.trace("change","offsets time",r.stop()),this._markup_changes(o,l,this.changes),this.trace("change","markup time",r.stop()),this._draw_diff(o,l,this.changes),this.trace("change","draw time",r.stop())),this.trace("scroll","scrolled")}}}else this._skipscroll[e]=!1},_changing:function(t,e){this.trace("change","changing-timeout",this.changed_timeout);var i=this;null!=this.changed_timeout&&clearTimeout(this.changed_timeout),this.changed_timeout=setTimeout((function(){r.start(),i._changed(t,e),i.trace("change","total time",r.stop())}),this.settings.change_timeout)},_changed:function(t,e){this._clear(),this._diff(t,e)},_clear:function(){var t,e,i,s,n,h,o=this,l=function(){for(r.start(),s=0,h=e.lineCount();s<h;++s)e.removeLineClass(s,"background");for(s=0;s<i.length;++s)(n=i[s]).lines.length&&o.trace("change","clear text",n.lines[0].text),n.clear();e.clearGutter("merge"),o.trace("change","clear time",r.stop())};for(t in this.editor)this.editor.hasOwnProperty(t)&&(e=this.editor[t],i=o.chfns[t],e.operation(l));o.chfns[t]=[];var a=this._draw_info(this.id+"-lhs",this.id+"-rhs"),c=a.clhs.get(0).getContext("2d"),d=a.crhs.get(0).getContext("2d"),g=a.dcanvas.getContext("2d");c.beginPath(),c.fillStyle=this.settings.bgcolor,c.strokeStyle="#888",c.fillRect(0,0,6.5,a.visible_page_height),c.strokeRect(0,0,6.5,a.visible_page_height),d.beginPath(),d.fillStyle=this.settings.bgcolor,d.strokeStyle="#888",d.fillRect(0,0,6.5,a.visible_page_height),d.strokeRect(0,0,6.5,a.visible_page_height),g.beginPath(),g.fillStyle="#fff",g.fillRect(0,0,this.draw_mid_width,a.visible_page_height)},_diff:function(t,e){var i=this.editor[t].getValue(),n=this.editor[e].getValue();r.start();var h=new s.diff(i,n,this.settings);this.trace("change","diff time",r.stop()),this.changes=s.DiffParser(h.normal_form()),this.trace("change","parse time",r.stop()),void 0===this._current_diff&&this.changes.length&&(this._current_diff=0,this._initializing&&this._scroll_to_change(this.changes[0])),this.trace("change","scroll_to_change time",r.stop()),this._calculate_offsets(t,e,this.changes),this.trace("change","offsets time",r.stop()),this._markup_changes(t,e,this.changes),this.trace("change","markup time",r.stop()),this._draw_diff(t,e,this.changes),this.trace("change","draw time",r.stop()),this.element.trigger("updated")},_parse_diff:function(t,e,i){this.trace("diff","diff results:\n",i);for(var s=[],r=0,n=i.split(/\n/),h=0;h<n.length;++h)if(0!=n[h].length){var o={},l=this.change_exp.exec(n[h]);if(null!=l){var a=l[1].split(",");o["lhs-line-from"]=a[0]-1,1==a.length?o["lhs-line-to"]=a[0]-1:o["lhs-line-to"]=a[1]-1;var c=l[3].split(",");o["rhs-line-from"]=c[0]-1,1==c.length?o["rhs-line-to"]=c[0]-1:o["rhs-line-to"]=c[1]-1,o["lhs-line-from"]<0&&(o["lhs-line-from"]=0),o["lhs-line-to"]<0&&(o["lhs-line-to"]=0),o["rhs-line-from"]<0&&(o["rhs-line-from"]=0),o["rhs-line-to"]<0&&(o["rhs-line-to"]=0),o.op=l[2],s[r++]=o,this.trace("diff","change",o)}}return s},_get_viewport_side:function(t){return this.editor[t].getViewport()},_is_change_in_view:function(t,e,i){return i["".concat(t,"-line-from")]>=e.from&&i["".concat(t,"-line-from")]<=e.to||i["".concat(t,"-line-to")]>=e.from&&i["".concat(t,"-line-to")]<=e.to||e.from>=i["".concat(t,"-line-from")]&&e.to<=i["".concat(t,"-line-to")]},_set_top_offset:function(t){var e=this.editor[t].getScrollInfo().top;this.editor[t].scrollTo(null,0);var i=this.element.find(".CodeMirror-measure").first().offset().top-4;return!!i&&(this.editor[t].scrollTo(null,e),this.draw_top_offset=.5-i,!0)},_calculate_offsets:function(e,i,s){if(null==this.em_height){if(!this._set_top_offset(e))return;this.em_height=this.editor[e].defaultTextHeight(),this.em_height||(console.warn("Failed to calculate offsets, using 18 by default"),this.em_height=18),this.draw_lhs_min=.5;var r=t("#"+e+"-"+i+"-canvas");if(r.length||console.error("failed to find canvas","#"+e+"-"+i+"-canvas"),!r.width())return void console.error("canvas width is 0");this.draw_mid_width=t("#"+e+"-"+i+"-canvas").width(),this.draw_rhs_max=this.draw_mid_width-.5,this.draw_lhs_width=5,this.draw_rhs_width=5,this.trace("calc","change offsets calculated",{top_offset:this.draw_top_offset,lhs_min:this.draw_lhs_min,rhs_max:this.draw_rhs_max,lhs_width:this.draw_lhs_width,rhs_width:this.draw_rhs_width})}for(var n=this.editor[e].charCoords({line:0}),h=this.editor[i].charCoords({line:0}),o=this._get_viewport_side(e),l=(this._get_viewport_side(i),0);l<s.length;++l){var a=s[l];if(!this.settings.viewport||this._is_change_in_view(o,"lhs",a)||this._is_change_in_view(o,"rhs",a)){var c,d,g,f,u,p,m,_,v,y,w=a["lhs-line-from"]>=0?a["lhs-line-from"]:0,b=a["lhs-line-to"]>=0?a["lhs-line-to"]:0,x=a["rhs-line-from"]>=0?a["rhs-line-from"]:0,C=a["rhs-line-to"]>=0?a["rhs-line-to"]:0;this.editor[e].getOption("lineWrapping")||this.editor[i].getOption("lineWrapping")?(u=this.editor[e].cursorCoords({line:w,ch:0},"page"),_=this.editor[e].getLineHandle(w),c={top:u.top,bottom:u.top+_.height},p=this.editor[e].cursorCoords({line:b,ch:0},"page"),m=this.editor[e].getLineHandle(b),d={top:p.top,bottom:p.top+m.height},u=this.editor[i].cursorCoords({line:x,ch:0},"page"),v=this.editor[i].getLineHandle(x),g={top:u.top,bottom:u.top+v.height},p=this.editor[i].cursorCoords({line:C,ch:0},"page"),y=this.editor[i].getLineHandle(C),f={top:p.top,bottom:p.top+y.height}):(c={top:n.top+w*this.em_height,bottom:n.bottom+w*this.em_height+2},d={top:n.top+b*this.em_height,bottom:n.bottom+b*this.em_height+2},g={top:h.top+x*this.em_height,bottom:h.bottom+x*this.em_height+2},f={top:h.top+C*this.em_height,bottom:h.bottom+C*this.em_height+2}),"a"==a.op?x>0&&(c.top=c.bottom,c.bottom+=this.em_height,d=c):"d"==a.op&&w>0&&(g.top=g.bottom,g.bottom+=this.em_height,f=g),a["lhs-y-start"]=this.draw_top_offset+c.top,"c"==a.op||"d"==a.op?a["lhs-y-end"]=this.draw_top_offset+d.bottom:a["lhs-y-end"]=this.draw_top_offset+d.top,a["rhs-y-start"]=this.draw_top_offset+g.top,"c"==a.op||"a"==a.op?a["rhs-y-end"]=this.draw_top_offset+f.bottom:a["rhs-y-end"]=this.draw_top_offset+f.top,this.trace("calc","change calculated",l,a)}else delete a["lhs-y-start"],delete a["lhs-y-end"],delete a["rhs-y-start"],delete a["rhs-y-end"]}return s},_markup_changes:function(e,i,n){this.element.find(".merge-button").remove();var h=this,o=this.editor[e],l=this.editor[i],a=this._current_diff,c=this._get_viewport_side(e),d=this._get_viewport_side(i);r.start(),o.operation(function(){for(var t=0;t<n.length;++t){var e=n[t];if(this._is_change_in_view("lhs",c,e)){var i=e["lhs-line-from"]>=0?e["lhs-line-from"]:0,s=e["lhs-line-to"]>=0?e["lhs-line-to"]:0,r=e["rhs-line-from"]>=0?e["rhs-line-from"]:0,d=(e["rhs-line-to"]>=0&&e["rhs-line-to"],["mergely","lhs",e.op,"cid-"+t]);if(o.addLineClass(i,"background","start"),o.addLineClass(s,"background","end"),e["lhs-line-from"]<0&&d.push("empty"),a==t&&(i!=s&&o.addLineClass(i,"background","current"),o.addLineClass(s,"background","current")),0==i&&0==s&&0==r)o.addLineClass(i,"background",d.join(" ")),o.addLineClass(i,"background","first");else for(var g=i;g<=s;++g)o.addLineClass(g,"background",d.join(" ")),o.addLineClass(g,"background",d.join(" "));if(!l.getOption("readOnly")){var f=h.merge_rhs_button.clone();f.button&&f.button({icons:{primary:"ui-icon-triangle-1-e"},text:!1}),f.addClass("merge-button"),f.attr("id","merge-rhs-"+t),o.setGutterMarker(i,"merge",f.get(0))}}}}.bind(this)),this.trace("change","markup lhs-editor time",r.stop()),l.operation(function(){for(var t=0;t<n.length;++t){var e=n[t];if(this._is_change_in_view("rhs",d,e)){var i=e["lhs-line-from"]>=0?e["lhs-line-from"]:0,s=(e["lhs-line-to"]>=0&&e["lhs-line-to"],e["rhs-line-from"]>=0?e["rhs-line-from"]:0),r=e["rhs-line-to"]>=0?e["rhs-line-to"]:0,c=["mergely","rhs",e.op,"cid-"+t];if(l.addLineClass(s,"background","start"),l.addLineClass(r,"background","end"),e["rhs-line-from"]<0&&c.push("empty"),a==t&&(s!=r&&l.addLineClass(s,"background","current"),l.addLineClass(r,"background","current")),0==s&&0==r&&0==i)l.addLineClass(s,"background",c.join(" ")),l.addLineClass(s,"background","first");else for(var g=s;g<=r;++g)l.addLineClass(g,"background",c.join(" ")),l.addLineClass(g,"background",c.join(" "));if(!o.getOption("readOnly")){var f=h.merge_lhs_button.clone();f.button&&f.button({icons:{primary:"ui-icon-triangle-1-w"},text:!1}),f.addClass("merge-button"),f.attr("id","merge-lhs-"+t),l.setGutterMarker(s,"merge",f.get(0))}}}}.bind(this)),this.trace("change","markup rhs-editor time",r.stop());var g,f=[];for(k=0;this.settings.lcs&&k<n.length;++k){var u=n[k],p=u["lhs-line-from"]>=0?u["lhs-line-from"]:0,m=u["lhs-line-to"]>=0?u["lhs-line-to"]:0,_=u["rhs-line-from"]>=0?u["rhs-line-from"]:0,v=u["rhs-line-to"]>=0?u["rhs-line-to"]:0;if("d"==u.op){var y=p,w=m;if(this._is_change_in_view("lhs",c,u)){var b=o.lineInfo(w);b&&f.push([o,{line:y,ch:0},{line:w,ch:b.text.length},{className:"mergely ch d lhs"}])}}else if("c"==u.op)for(L=p,g=_;L>=0&&L<=m||g>=0&&g<=v;++L,++g){var x,C;if(g>v)x=o.getLine(L),f.push([o,{line:L,ch:0},{line:L,ch:x.length},{className:"mergely ch d lhs"}]);else if(L>m)C=l.getLine(g),f.push([l,{line:g,ch:0},{line:g,ch:C.length},{className:"mergely ch a rhs"}]);else x=o.getLine(L),C=l.getLine(g),new s.LCS(x,C,{ignoreaccents:!!this.settings.ignoreaccents,ignorews:!!this.settings.ignorews}).diff((function(t,e){h._is_change_in_view("rhs",d,u)&&f.push([l,{line:g,ch:t},{line:g,ch:e},{className:"mergely ch a rhs"}])}),(function(t,e){h._is_change_in_view("lhs",c,u)&&f.push([o,{line:L,ch:t},{line:L,ch:e},{className:"mergely ch d lhs"}])}))}}this.trace("change","LCS marktext time",r.stop()),o.operation((function(){for(var t=0;t<f.length;++t){var e=f[t];e[0].doc.id==o.getDoc().id&&h.chfns[h.id+"-lhs"].push(e[0].markText(e[1],e[2],e[3]))}})),l.operation((function(){for(var t=0;t<f.length;++t){var e=f[t];e[0].doc.id==l.getDoc().id&&h.chfns[h.id+"-rhs"].push(e[0].markText(e[1],e[2],e[3]))}})),this.trace("change","LCS markup time",r.stop());var A={lhs:o,rhs:l};this.element.find(".merge-button").on("click",(function(e){var i="rhs",s="lhs";t(this).parents("#"+h.id+"-editor-lhs").length&&(i="lhs",s="rhs");var r=A[i].coordsChar({left:e.pageX,top:e.pageY}),n=null,o=A[i].lineInfo(r.line);t.each(o.bgClass.split(" "),(function(t,e){if(0==e.indexOf("cid-"))return n=parseInt(e.split("-")[1],10),!1}));var l=h.changes[n];return h._merge_change(l,i,s),!1}));var M,O,k,L,P=t("#"+this.id+"-lhs ~ .CodeMirror .CodeMirror-code .CodeMirror-linenumber.CodeMirror-gutter-elt"),T=t("#"+this.id+"-rhs ~ .CodeMirror .CodeMirror-code .CodeMirror-linenumber.CodeMirror-gutter-elt");T.removeClass("mergely current"),P.removeClass("mergely current");var S=parseInt(P.eq(0).text(),10)-1,E=parseInt(P.eq(P.length-1).text(),10),V=parseInt(T.eq(0).text(),10)-1,R=parseInt(T.eq(T.length-1).text(),10);for(k=0;k<n.length;++k){if(u=n[k],a==k&&"a"!==u.op)for(M=u["lhs-line-from"],O=u["lhs-line-to"]+1,L=M;L<O;++L)L>=S&&L<=E&&P.eq(L-S).addClass("mergely current");if(a==k&&"d"!==u.op)for(M=u["rhs-line-from"],O=u["rhs-line-to"]+1,L=M;L<O;++L)L>=V&&L<=R&&T.eq(L-V).addClass("mergely current")}this.trace("change","markup buttons time",r.stop())},_merge_change:function(t,i,s){if(t){var r,n={lhs:this.editor[this.id+"-lhs"],rhs:this.editor[this.id+"-rhs"]},h=t[i+"-line-from"],o=t[i+"-line-to"],l=t[s+"-line-from"],a=t[s+"-line-to"],c=n[i].getDoc(),d=n[s].getDoc(),g=h>=0?c.getLine(h).length+1:0,f=o>=0?c.getLine(o).length+1:0,u=a>=0?d.getLine(a).length+1:0,p=l>=0?d.getLine(l).length+1:0;"c"===t.op?(r=c.getRange(e.Pos(h,0),e.Pos(o,f)),d.replaceRange(r,e.Pos(l,0),e.Pos(a,u))):"lhs"===s&&"d"===t.op||"rhs"===s&&"a"===t.op?(h>0?(r=c.getRange(e.Pos(h,g),e.Pos(o,f)),l+=1):r=c.getRange(e.Pos(0,0),e.Pos(o+1,0)),d.replaceRange(r,e.Pos(l-1,0),e.Pos(a+1,0))):("rhs"===s&&"d"===t.op||"lhs"===s&&"a"===t.op)&&(h>0?(g=c.getLine(h-1).length+1,r=c.getRange(e.Pos(h-1,g),e.Pos(o,f))):r=c.getRange(e.Pos(0,0),e.Pos(o+1,0)),l<0&&(l=0),d.replaceRange(r,e.Pos(l,p))),this._scroll_to_change(t)}},_draw_info:function(e,i){var s=t(this.editor[e].getScrollerElement()).height()+17,r=t(this.editor[e].getScrollerElement()).children(":first-child").height(),n=document.getElementById(e+"-"+i+"-canvas");if(null==n)throw"Failed to find: "+e+"-"+i+"-canvas";var h=this.element.find("#"+this.id+"-lhs-margin"),o=this.element.find("#"+this.id+"-rhs-margin");return{visible_page_height:s,gutter_height:r,visible_page_ratio:s/r,margin_ratio:s/r,lhs_scroller:t(this.editor[e].getScrollerElement()),rhs_scroller:t(this.editor[i].getScrollerElement()),lhs_lines:this.editor[e].lineCount(),rhs_lines:this.editor[i].lineCount(),dcanvas:n,clhs:h,crhs:o,lhs_xyoffset:t(h).offset(),rhs_xyoffset:t(o).offset()}},_draw_diff:function(e,i,s){var r=this._draw_info(e,i),n=r.clhs.get(0),h=r.crhs.get(0),o=r.dcanvas.getContext("2d"),l=n.getContext("2d"),a=h.getContext("2d");this.trace("draw","visible_page_height",r.visible_page_height),this.trace("draw","gutter_height",r.gutter_height),this.trace("draw","visible_page_ratio",r.visible_page_ratio),this.trace("draw","lhs-scroller-top",r.lhs_scroller.scrollTop()),this.trace("draw","rhs-scroller-top",r.rhs_scroller.scrollTop()),t.each(this.element.find("canvas"),(function(){t(this).get(0).height=r.visible_page_height})),r.clhs.unbind("click"),r.crhs.unbind("click"),l.beginPath(),l.fillStyle=this.settings.bgcolor,l.strokeStyle="#888",l.fillRect(0,0,6.5,r.visible_page_height),l.strokeRect(0,0,6.5,r.visible_page_height),a.beginPath(),a.fillStyle=this.settings.bgcolor,a.strokeStyle="#888",a.fillRect(0,0,6.5,r.visible_page_height),a.strokeRect(0,0,6.5,r.visible_page_height);for(var c=this._get_viewport_side(e),d=this._get_viewport_side(i),g=0;g<s.length;++g){var f=s[g],u=this.settings.fgcolor[f.op];this._current_diff===g&&(u=this.current_diff_color),this.trace("draw",f);var p=(f["lhs-y-start"]+r.lhs_scroller.scrollTop())*r.visible_page_ratio,m=(f["lhs-y-end"]+r.lhs_scroller.scrollTop())*r.visible_page_ratio+1,_=(f["rhs-y-start"]+r.rhs_scroller.scrollTop())*r.visible_page_ratio,v=(f["rhs-y-end"]+r.rhs_scroller.scrollTop())*r.visible_page_ratio+1;if(this.trace("draw","marker calculated",p,m,_,v),l.beginPath(),l.fillStyle=u,l.strokeStyle="#000",l.lineWidth=.5,l.fillRect(1.5,p,4.5,Math.max(m-p,5)),l.strokeRect(1.5,p,4.5,Math.max(m-p,5)),a.beginPath(),a.fillStyle=u,a.strokeStyle="#000",a.lineWidth=.5,a.fillRect(1.5,_,4.5,Math.max(v-_,5)),a.strokeRect(1.5,_,4.5,Math.max(v-_,5)),this._is_change_in_view("lhs",c,f)||this._is_change_in_view("rhs",d,f)){p=f["lhs-y-start"],m=f["lhs-y-end"],_=f["rhs-y-start"],v=f["rhs-y-end"];o.beginPath(),o.strokeStyle=u,o.lineWidth=this._current_diff==g?1.5:1;var y=this.draw_lhs_width,w=m-p-1,b=this.draw_lhs_min,x=p;o.moveTo(b,x),"Microsoft Internet Explorer"==navigator.appName?(o.lineTo(this.draw_lhs_min+this.draw_lhs_width,p),o.lineTo(this.draw_lhs_min+this.draw_lhs_width,m+1),o.lineTo(this.draw_lhs_min,m+1)):(w<=0?o.lineTo(b+y,x):(o.arcTo(b+y,x,b+y,x+3,3),o.arcTo(b+y,x+w,b+y-3,x+w,3)),o.lineTo(b,x+w)),o.stroke(),y=this.draw_rhs_width,w=v-_-1,b=this.draw_rhs_max,x=_,o.moveTo(b,x),"Microsoft Internet Explorer"==navigator.appName?(o.lineTo(this.draw_rhs_max-this.draw_rhs_width,_),o.lineTo(this.draw_rhs_max-this.draw_rhs_width,v+1),o.lineTo(this.draw_rhs_max,v+1)):(w<=0?o.lineTo(b-y,x):(o.arcTo(b-y,x,b-y,x+3,3),o.arcTo(b-y,x+w,b-3,x+w,3)),o.lineTo(b,x+w)),o.stroke();var C=this.draw_lhs_min+this.draw_lhs_width,A=p+(m+1-p)/2,M=this.draw_rhs_max-this.draw_rhs_width,O=_+(v+1-_)/2;o.moveTo(C,A),A==O?o.lineTo(M,O):o.bezierCurveTo(C+12,A-3,M-12,O-3,M,O),o.stroke()}}l.fillStyle=this.settings.vpcolor,a.fillStyle=this.settings.vpcolor;var k=r.clhs.height()*r.visible_page_ratio,L=r.lhs_scroller.scrollTop()/r.gutter_height*r.clhs.height(),P=r.crhs.height()*r.visible_page_ratio,T=r.rhs_scroller.scrollTop()/r.gutter_height*r.crhs.height();this.trace("draw","cls.height",r.clhs.height()),this.trace("draw","lhs_scroller.scrollTop()",r.lhs_scroller.scrollTop()),this.trace("draw","gutter_height",r.gutter_height),this.trace("draw","visible_page_ratio",r.visible_page_ratio),this.trace("draw","lhs from",L,"lhs to",k),this.trace("draw","rhs from",T,"rhs to",P),l.fillRect(1.5,L,4.5,k),a.fillRect(1.5,T,4.5,P),r.clhs.click((function(t){var e=t.pageY-r.lhs_xyoffset.top-k/2,i=Math.max(0,e/n.height*r.lhs_scroller.get(0).scrollHeight);r.lhs_scroller.scrollTop(i)})),r.crhs.click((function(t){var e=t.pageY-r.rhs_xyoffset.top-P/2,i=Math.max(0,e/h.height*r.rhs_scroller.get(0).scrollHeight);r.rhs_scroller.scrollTop(i)}))},trace:function(t){this.settings._debug.indexOf(t)>=0&&(arguments[0]=t+":",console.log([].slice.apply(arguments)))}}),t.pluginMaker=function(e){t.fn[e.prototype.name]=function(i){var s,r=t.makeArray(arguments),n=r.slice(1);if(this.each((function(){var h=this,o=t.data(this,e.prototype.name);if(o){if("string"==typeof i)s=o[i].apply(o,n);else if(o.update)return o.update.apply(o,r)}else{new e(this,i);t.fn["".concat(e.prototype.name,"Unregister")]=function(){t.data(h,e.prototype.name,null)}}})),null!=s)return s}},t.pluginMaker(s.mergely)}(i(2),i(3))},function(t,e){function i(t,e){for(var i=0;i<e.length;i++){var s=e[i];s.enumerable=s.enumerable||!1,s.configurable=!0,"value"in s&&(s.writable=!0),Object.defineProperty(t,s.key,s)}}var s=function(){function t(){!function(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}(this,t)}var e,s,r;return e=t,r=[{key:"start",value:function(){t.t0=Date.now()}},{key:"stop",value:function(){var e=Date.now(),i=e-t.t0;return t.t0=e,i}}],(s=null)&&i(e.prototype,s),r&&i(e,r),t}();s.t0=0,t.exports=s},function(e,i){e.exports=t},function(t,i){t.exports=e}])}));
+"use strict";
+
+(function( window, document, jQuery, CodeMirror ){
+
+var Mgly = {};
+
+Mgly.Timer = function(){
+	var self = this;
+	self.start = function() { self.t0 = new Date().getTime(); };
+	self.stop = function() {
+		var t1 = new Date().getTime();
+		var d = t1 - self.t0;
+		self.t0 = t1;
+		return d;
+	};
+	self.start();
+};
+
+Mgly.ChangeExpression = new RegExp(/(^(?![><\-])*\d+(?:,\d+)?)([acd])(\d+(?:,\d+)?)/);
+
+Mgly.DiffParser = function(diff) {
+	var changes = [];
+	var change_id = 0;
+	// parse diff
+	var diff_lines = diff.split(/\n/);
+	for (var i = 0; i < diff_lines.length; ++i) {
+		if (diff_lines[i].length == 0) continue;
+		var change = {};
+		var test = Mgly.ChangeExpression.exec(diff_lines[i]);
+		if (test == null) continue;
+		// lines are zero-based
+		var fr = test[1].split(',');
+		change['lhs-line-from'] = fr[0] - 1;
+		if (fr.length == 1) change['lhs-line-to'] = fr[0] - 1;
+		else change['lhs-line-to'] = fr[1] - 1;
+		var to = test[3].split(',');
+		change['rhs-line-from'] = to[0] - 1;
+		if (to.length == 1) change['rhs-line-to'] = to[0] - 1;
+		else change['rhs-line-to'] = to[1] - 1;
+		change['op'] = test[2];
+		changes[change_id++] = change;
+	}
+	return changes;
+};
+
+Mgly.sizeOf = function(obj) {
+	var size = 0, key;
+	for (key in obj) {
+		if (obj.hasOwnProperty(key)) size++;
+	}
+	return size;
+};
+
+Mgly.LCS = function(x, y) {
+	this.x = x.replace(/[ ]{1}/g, '\n');
+	this.y = y.replace(/[ ]{1}/g, '\n');
+};
+
+jQuery.extend(Mgly.LCS.prototype, {
+	clear: function() { this.ready = 0; },
+	diff: function(added, removed) {
+		var d = new Mgly.diff(this.x, this.y, {ignorews: false});
+		var changes = Mgly.DiffParser(d.normal_form());
+		var li = 0, lj = 0;
+		for (var i = 0; i < changes.length; ++i) {
+			var change = changes[i];
+			if (change.op != 'a') {
+				// find the starting index of the line
+				li = d.getLines('lhs').slice(0, change['lhs-line-from']).join(' ').length;
+				// get the index of the the span of the change
+				lj = change['lhs-line-to'] + 1;
+				// get the changed text
+				var lchange = d.getLines('lhs').slice(change['lhs-line-from'], lj).join(' ');
+				if (change.op == 'd') lchange += ' ';// include the leading space
+				else if (li > 0 && change.op == 'c') li += 1; // ignore leading space if not first word
+				// output the changed index and text
+				removed(li, li + lchange.length);
+			}
+			if (change.op != 'd') {
+				// find the starting index of the line
+				li = d.getLines('rhs').slice(0, change['rhs-line-from']).join(' ').length;
+				// get the index of the the span of the change
+				lj = change['rhs-line-to'] + 1;
+				// get the changed text
+				var rchange = d.getLines('rhs').slice(change['rhs-line-from'], lj).join(' ');
+				if (change.op == 'a') rchange += ' ';// include the leading space
+				else if (li > 0 && change.op == 'c') li += 1; // ignore leading space if not first word
+				// output the changed index and text
+				added(li, li + rchange.length);
+			}
+		}
+	}
+});
+
+Mgly.CodeifyText = function(settings) {
+    this._max_code = 0;
+    this._diff_codes = {};
+	this.ctxs = {};
+	this.options = {ignorews: false};
+	jQuery.extend(this, settings);
+	this.lhs = settings.lhs.split('\n');
+	this.rhs = settings.rhs.split('\n');
+};
+
+jQuery.extend(Mgly.CodeifyText.prototype, {
+	getCodes: function(side) {
+		if (!this.ctxs.hasOwnProperty(side)) {
+			var ctx = this._diff_ctx(this[side]);
+			this.ctxs[side] = ctx;
+			ctx.codes.length = Object.keys(ctx.codes).length;
+		}
+		return this.ctxs[side].codes;
+	},
+	getLines: function(side) {
+		return this.ctxs[side].lines;
+	},
+	_diff_ctx: function(lines) {
+		var ctx = {i: 0, codes: {}, lines: lines};
+		this._codeify(lines, ctx);
+		return ctx;
+	},
+	_codeify: function(lines, ctx) {
+		var code = this._max_code;
+		for (var i = 0; i < lines.length; ++i) {
+			var line = lines[i];
+			if (this.options.ignorews) {
+				line = line.replace(/\s+/g, '');
+			}
+			if (this.options.ignorecase) {
+				line = line.toLowerCase();
+			}
+			var aCode = this._diff_codes[line];
+			if (aCode != undefined) {
+				ctx.codes[i] = aCode;
+			}
+			else {
+				this._max_code++;
+				this._diff_codes[line] = this._max_code;
+				ctx.codes[i] = this._max_code;
+			}
+		}
+	}
+});
+
+Mgly.diff = function(lhs, rhs, options) {
+	var opts = jQuery.extend({ignorews: false}, options);
+	this.codeify = new Mgly.CodeifyText({
+		lhs: lhs,
+		rhs: rhs,
+		options: opts
+	});
+	var lhs_ctx = {
+		codes: this.codeify.getCodes('lhs'),
+		modified: {}
+	};
+	var rhs_ctx = {
+		codes: this.codeify.getCodes('rhs'),
+		modified: {}
+	};
+	var max = (lhs_ctx.codes.length + rhs_ctx.codes.length + 1);
+	var vector_d = [];
+	var vector_u = [];
+	this._lcs(lhs_ctx, 0, lhs_ctx.codes.length, rhs_ctx, 0, rhs_ctx.codes.length, vector_u, vector_d);
+	this._optimize(lhs_ctx);
+	this._optimize(rhs_ctx);
+	this.items = this._create_diffs(lhs_ctx, rhs_ctx);
+};
+
+jQuery.extend(Mgly.diff.prototype, {
+	changes: function() { return this.items; },
+	getLines: function(side) {
+		return this.codeify.getLines(side);
+	},
+	normal_form: function() {
+		var nf = '';
+		for (var index = 0; index < this.items.length; ++index) {
+			var item = this.items[index];
+			var lhs_str = '';
+			var rhs_str = '';
+			var change = 'c';
+			if (item.lhs_deleted_count == 0 && item.rhs_inserted_count > 0) change = 'a';
+			else if (item.lhs_deleted_count > 0 && item.rhs_inserted_count == 0) change = 'd';
+
+			if (item.lhs_deleted_count == 1) lhs_str = item.lhs_start + 1;
+			else if (item.lhs_deleted_count == 0) lhs_str = item.lhs_start;
+			else lhs_str = (item.lhs_start + 1) + ',' + (item.lhs_start + item.lhs_deleted_count);
+
+			if (item.rhs_inserted_count == 1) rhs_str = item.rhs_start + 1;
+			else if (item.rhs_inserted_count == 0) rhs_str = item.rhs_start;
+			else rhs_str = (item.rhs_start + 1) + ',' + (item.rhs_start + item.rhs_inserted_count);
+			nf += lhs_str + change + rhs_str + '\n';
+
+			var lhs_lines = this.getLines('lhs');
+			var rhs_lines = this.getLines('rhs');
+			if (rhs_lines && lhs_lines) {
+				var i;
+				// if rhs/lhs lines have been retained, output contextual diff
+				for (i = item.lhs_start; i < item.lhs_start + item.lhs_deleted_count; ++i) {
+					nf += '< ' + lhs_lines[i] + '\n';
+				}
+				if (item.rhs_inserted_count && item.lhs_deleted_count) nf += '---\n';
+				for (i = item.rhs_start; i < item.rhs_start + item.rhs_inserted_count; ++i) {
+					nf += '> ' + rhs_lines[i] + '\n';
+				}
+			}
+		}
+		return nf;
+	},
+	_lcs: function(lhs_ctx, lhs_lower, lhs_upper, rhs_ctx, rhs_lower, rhs_upper, vector_u, vector_d) {
+		while ( (lhs_lower < lhs_upper) && (rhs_lower < rhs_upper) && (lhs_ctx.codes[lhs_lower] == rhs_ctx.codes[rhs_lower]) ) {
+			++lhs_lower;
+			++rhs_lower;
+		}
+		while ( (lhs_lower < lhs_upper) && (rhs_lower < rhs_upper) && (lhs_ctx.codes[lhs_upper - 1] == rhs_ctx.codes[rhs_upper - 1]) ) {
+			--lhs_upper;
+			--rhs_upper;
+		}
+		if (lhs_lower == lhs_upper) {
+			while (rhs_lower < rhs_upper) {
+				rhs_ctx.modified[ rhs_lower++ ] = true;
+			}
+		}
+		else if (rhs_lower == rhs_upper) {
+			while (lhs_lower < lhs_upper) {
+				lhs_ctx.modified[ lhs_lower++ ] = true;
+			}
+		}
+		else {
+			var sms = this._sms(lhs_ctx, lhs_lower, lhs_upper, rhs_ctx, rhs_lower, rhs_upper, vector_u, vector_d);
+			this._lcs(lhs_ctx, lhs_lower, sms.x, rhs_ctx, rhs_lower, sms.y, vector_u, vector_d);
+			this._lcs(lhs_ctx, sms.x, lhs_upper, rhs_ctx, sms.y, rhs_upper, vector_u, vector_d);
+		}
+	},
+	_sms: function(lhs_ctx, lhs_lower, lhs_upper, rhs_ctx, rhs_lower, rhs_upper, vector_u, vector_d) {
+		var max = lhs_ctx.codes.length + rhs_ctx.codes.length + 1;
+		var kdown = lhs_lower - rhs_lower;
+		var kup = lhs_upper - rhs_upper;
+		var delta = (lhs_upper - lhs_lower) - (rhs_upper - rhs_lower);
+		var odd = (delta & 1) != 0;
+		var offset_down = max - kdown;
+		var offset_up = max - kup;
+		var maxd = ((lhs_upper - lhs_lower + rhs_upper - rhs_lower) / 2) + 1;
+		vector_d[ offset_down + kdown + 1 ] = lhs_lower;
+		vector_u[ offset_up + kup - 1 ] = lhs_upper;
+		var ret = {x:0,y:0}, d, k, x, y;
+		for (d = 0; d <= maxd; ++d) {
+			for (k = kdown - d; k <= kdown + d; k += 2) {
+				if (k == kdown - d) {
+					x = vector_d[ offset_down + k + 1 ];//down
+				}
+				else {
+					x = vector_d[ offset_down + k - 1 ] + 1;//right
+					if ((k < (kdown + d)) && (vector_d[ offset_down + k + 1 ] >= x)) {
+						x = vector_d[ offset_down + k + 1 ];//down
+					}
+				}
+				y = x - k;
+				// find the end of the furthest reaching forward D-path in diagonal k.
+				while ((x < lhs_upper) && (y < rhs_upper) && (lhs_ctx.codes[x] == rhs_ctx.codes[y])) {
+					x++; y++;
+				}
+				vector_d[ offset_down + k ] = x;
+				// overlap ?
+				if (odd && (kup - d < k) && (k < kup + d)) {
+					if (vector_u[offset_up + k] <= vector_d[offset_down + k]) {
+						ret.x = vector_d[offset_down + k];
+						ret.y = vector_d[offset_down + k] - k;
+						return (ret);
+					}
+				}
+			}
+			// Extend the reverse path.
+			for (k = kup - d; k <= kup + d; k += 2) {
+				// find the only or better starting point
+				if (k == kup + d) {
+					x = vector_u[offset_up + k - 1]; // up
+				} else {
+					x = vector_u[offset_up + k + 1] - 1; // left
+					if ((k > kup - d) && (vector_u[offset_up + k - 1] < x))
+						x = vector_u[offset_up + k - 1]; // up
+				}
+				y = x - k;
+				while ((x > lhs_lower) && (y > rhs_lower) && (lhs_ctx.codes[x - 1] == rhs_ctx.codes[y - 1])) {
+					// diagonal
+					x--;
+					y--;
+				}
+				vector_u[offset_up + k] = x;
+				// overlap ?
+				if (!odd && (kdown - d <= k) && (k <= kdown + d)) {
+					if (vector_u[offset_up + k] <= vector_d[offset_down + k]) {
+						ret.x = vector_d[offset_down + k];
+						ret.y = vector_d[offset_down + k] - k;
+						return (ret);
+					}
+				}
+			}
+		}
+		throw "the algorithm should never come here.";
+	},
+	_optimize: function(ctx) {
+		var start = 0, end = 0;
+		while (start < ctx.codes.length) {
+			while ((start < ctx.codes.length) && (ctx.modified[start] == undefined || ctx.modified[start] == false)) {
+				start++;
+			}
+			end = start;
+			while ((end < ctx.codes.length) && (ctx.modified[end] == true)) {
+				end++;
+			}
+			if ((end < ctx.codes.length) && (ctx.codes[start] == ctx.codes[end])) {
+				ctx.modified[start] = false;
+				ctx.modified[end] = true;
+			}
+			else {
+				start = end;
+			}
+		}
+	},
+	_create_diffs: function(lhs_ctx, rhs_ctx) {
+		var items = [];
+		var lhs_start = 0, rhs_start = 0;
+		var lhs_line = 0, rhs_line = 0;
+
+		while (lhs_line < lhs_ctx.codes.length || rhs_line < rhs_ctx.codes.length) {
+			if ((lhs_line < lhs_ctx.codes.length) && (!lhs_ctx.modified[lhs_line])
+				&& (rhs_line < rhs_ctx.codes.length) && (!rhs_ctx.modified[rhs_line])) {
+				// equal lines
+				lhs_line++;
+				rhs_line++;
+			}
+			else {
+				// maybe deleted and/or inserted lines
+				lhs_start = lhs_line;
+				rhs_start = rhs_line;
+
+				while (lhs_line < lhs_ctx.codes.length && (rhs_line >= rhs_ctx.codes.length || lhs_ctx.modified[lhs_line]))
+					lhs_line++;
+
+				while (rhs_line < rhs_ctx.codes.length && (lhs_line >= lhs_ctx.codes.length || rhs_ctx.modified[rhs_line]))
+					rhs_line++;
+
+				if ((lhs_start < lhs_line) || (rhs_start < rhs_line)) {
+					// store a new difference-item
+					items.push({
+						lhs_start: lhs_start,
+						rhs_start: rhs_start,
+						lhs_deleted_count: lhs_line - lhs_start,
+						rhs_inserted_count: rhs_line - rhs_start
+					});
+				}
+			}
+		}
+		return items;
+	}
+});
+
+Mgly.mergely = function(el, options) {
+	if (el) {
+		this.init(el, options);
+	}
+};
+
+jQuery.extend(Mgly.mergely.prototype, {
+	name: 'mergely',
+	//http://jupiterjs.com/news/writing-the-perfect-jquery-plugin
+	init: function(el, options) {
+		this.diffView = new Mgly.CodeMirrorDiffView(el, options);
+		this.bind(el);
+	},
+	bind: function(el) {
+		this.diffView.bind(el);
+	}
+});
+
+Mgly.CodeMirrorDiffView = function(el, options) {
+	CodeMirror.defineExtension('centerOnCursor', function() {
+		var coords = this.cursorCoords(null, 'local');
+		this.scrollTo(null,
+			(coords.y + coords.yBot) / 2 - (this.getScrollerElement().clientHeight / 2));
+	});
+	this.init(el, options);
+};
+
+jQuery.extend(Mgly.CodeMirrorDiffView.prototype, {
+	init: function(el, options) {
+		this.settings = {
+			autoupdate: true,
+			autoresize: true,
+			rhs_margin: 'right',
+			wrap_lines: false,
+			line_numbers: true,
+			lcs: true,
+			sidebar: true,
+			viewport: false,
+			ignorews: false,
+			ignorecase: false,
+			fadein: 'fast',
+			editor_width: '650px',
+			editor_height: '400px',
+			resize_timeout: 500,
+			change_timeout: 150,
+			fgcolor: {a:'#4ba3fa',c:'#a3a3a3',d:'#ff7f7f',  // color for differences (soft color)
+				ca:'#4b73ff',cc:'#434343',cd:'#ff4f4f'},    // color for currently active difference (bright color)
+			bgcolor: '#eee',
+			vpcolor: 'rgba(0, 0, 200, 0.5)',
+			lhs: function(setValue) { },
+			rhs: function(setValue) { },
+			loaded: function() { },
+			_auto_width: function(w) { return w; },
+			resize: function(init) {
+				var scrollbar = init ? 16 : 0;
+				var w = jQuery(el).parent().width() + scrollbar, h = 0;
+				if (this.width == 'auto') {
+					w = this._auto_width(w);
+				}
+				else {
+					w = this.width;
+					this.editor_width = w;
+				}
+				if (this.height == 'auto') {
+					//h = this._auto_height(h);
+					h = jQuery(el).parent().height();
+				}
+				else {
+					h = this.height;
+					this.editor_height = h;
+				}
+				var content_width = w / 2.0 - 2 * 8 - 8;
+				var content_height = h;
+				var self = jQuery(el);
+				self.find('.mergely-column').css({ width: content_width + 'px' });
+				self.find('.mergely-column, .mergely-canvas, .mergely-margin, .mergely-column textarea, .CodeMirror-scroll, .cm-s-default').css({ height: content_height + 'px' });
+				self.find('.mergely-canvas').css({ height: content_height + 'px' });
+				self.find('.mergely-column textarea').css({ width: content_width + 'px' });
+				self.css({ width: w, height: h, clear: 'both' });
+				if (self.css('display') == 'none') {
+					if (this.fadein != false) self.fadeIn(this.fadein);
+					else self.show();
+					if (this.loaded) this.loaded();
+				}
+				if (this.resized) this.resized();
+			},
+			_debug: '', //scroll,draw,calc,diff,markup,change
+			resized: function() { }
+		};
+		var cmsettings = {
+			mode: 'text/plain',
+			readOnly: false,
+			lineWrapping: this.settings.wrap_lines,
+			lineNumbers: this.settings.line_numbers,
+			gutters: ['merge', 'CodeMirror-linenumbers']
+		};
+		this.lhs_cmsettings = {};
+		this.rhs_cmsettings = {};
+
+		// save this element for faster queries
+		this.element = jQuery(el);
+
+		// save options if there are any
+		if (options && options.cmsettings) jQuery.extend(this.lhs_cmsettings, cmsettings, options.cmsettings, options.lhs_cmsettings);
+		if (options && options.cmsettings) jQuery.extend(this.rhs_cmsettings, cmsettings, options.cmsettings, options.rhs_cmsettings);
+		//if (options) jQuery.extend(this.settings, options);
+
+		// bind if the element is destroyed
+		this.element.bind('destroyed', jQuery.proxy(this.teardown, this));
+
+		// save this instance in jQuery data, binding this view to the node
+		jQuery.data(el, 'mergely', this);
+
+		this._setOptions(options);
+	},
+	unbind: function() {
+		if (this.changed_timeout != null) clearTimeout(this.changed_timeout);
+		this.editor[this.id + '-lhs'].toTextArea();
+		this.editor[this.id + '-rhs'].toTextArea();
+		jQuery(window).off('.mergely');
+	},
+	destroy: function() {
+		this.element.unbind('destroyed', this.teardown);
+		this.teardown();
+	},
+	teardown: function() {
+		this.unbind();
+	},
+	lhs: function(text) {
+		this.editor[this.id + '-lhs'].setValue(text);
+	},
+	rhs: function(text) {
+		this.editor[this.id + '-rhs'].setValue(text);
+	},
+	update: function() {
+		this._changing(this.id + '-lhs', this.id + '-rhs');
+	},
+	unmarkup: function() {
+		this._clear();
+	},
+	scrollToDiff: function(direction) {
+		if (!this.changes.length) return;
+		if (direction == 'next') {
+			if (this._current_diff == this.changes.length -1) {
+				this._current_diff = 0;
+			} else {
+				this._current_diff = Math.min(++this._current_diff, this.changes.length - 1);
+			}
+		}
+		else if (direction == 'prev') {
+			if (this._current_diff == 0) {
+				this._current_diff = this.changes.length - 1;
+			} else {
+				this._current_diff = Math.max(--this._current_diff, 0);
+			}
+		}
+		this._scroll_to_change(this.changes[this._current_diff]);
+		this._changed(this.id + '-lhs', this.id + '-rhs');
+	},
+	mergeCurrentChange: function(side) {
+		if (!this.changes.length) return;
+		if (side == 'lhs' && !this.lhs_cmsettings.readOnly) {
+			this._merge_change(this.changes[this._current_diff], 'rhs', 'lhs');
+		}
+		else if (side == 'rhs' && !this.rhs_cmsettings.readOnly) {
+			this._merge_change(this.changes[this._current_diff], 'lhs', 'rhs');
+		}
+	},
+	scrollTo: function(side, num) {
+		var le = this.editor[this.id + '-lhs'];
+		var re = this.editor[this.id + '-rhs'];
+		if (side == 'lhs') {
+			le.setCursor(num);
+			le.centerOnCursor();
+		}
+		else {
+			re.setCursor(num);
+			re.centerOnCursor();
+		}
+	},
+	_setOptions: function(opts) {
+		jQuery.extend(this.settings, opts);
+		if (this.settings.hasOwnProperty('rhs_margin')) {
+			// dynamically swap the margin
+			if (this.settings.rhs_margin == 'left') {
+				this.element.find('.mergely-margin:last-child').insertAfter(
+					this.element.find('.mergely-canvas'));
+			}
+			else {
+				var target = this.element.find('.mergely-margin').last();
+				target.appendTo(target.parent());
+			}
+		}
+		if (this.settings.hasOwnProperty('sidebar')) {
+			// dynamically enable sidebars
+			if (this.settings.sidebar) {
+				this.element.find('.mergely-margin').css({display: 'block'});
+			}
+			else {
+				this.element.find('.mergely-margin').css({display: 'none'});
+			}
+		}
+		var le, re;
+		if (this.settings.hasOwnProperty('wrap_lines')) {
+			if (this.editor) {
+				le = this.editor[this.id + '-lhs'];
+				re = this.editor[this.id + '-rhs'];
+				le.setOption('lineWrapping', this.settings.wrap_lines);
+				re.setOption('lineWrapping', this.settings.wrap_lines);
+			}
+		}
+		if (this.settings.hasOwnProperty('line_numbers')) {
+			if (this.editor) {
+				le = this.editor[this.id + '-lhs'];
+				re = this.editor[this.id + '-rhs'];
+				le.setOption('lineNumbers', this.settings.line_numbers);
+				re.setOption('lineNumbers', this.settings.line_numbers);
+			}
+		}
+	},
+	options: function(opts) {
+		if (opts) {
+			this._setOptions(opts);
+			if (this.settings.autoresize) this.resize();
+			if (this.settings.autoupdate) this.update();
+		}
+		else {
+			return this.settings;
+		}
+	},
+	swap: function() {
+		if (this.lhs_cmsettings.readOnly || this.rhs_cmsettings.readOnly) return;
+		var le = this.editor[this.id + '-lhs'];
+		var re = this.editor[this.id + '-rhs'];
+		var tmp = re.getValue();
+		re.setValue(le.getValue());
+		le.setValue(tmp);
+	},
+	merge: function(side) {
+		var le = this.editor[this.id + '-lhs'];
+		var re = this.editor[this.id + '-rhs'];
+		if (side == 'lhs' && !this.lhs_cmsettings.readOnly) le.setValue(re.getValue());
+		else if (!this.rhs_cmsettings.readOnly) re.setValue(le.getValue());
+	},
+	get: function(side) {
+		var ed = this.editor[this.id + '-' + side];
+		var t = ed.getValue();
+		if (t == undefined) return '';
+		return t;
+	},
+	clear: function(side) {
+		if (side == 'lhs' && this.lhs_cmsettings.readOnly) return;
+		if (side == 'rhs' && this.rhs_cmsettings.readOnly) return;
+		var ed = this.editor[this.id + '-' + side];
+		ed.setValue('');
+	},
+	cm: function(side) {
+		return this.editor[this.id + '-' + side];
+	},
+	search: function(side, query, direction) {
+		var le = this.editor[this.id + '-lhs'];
+		var re = this.editor[this.id + '-rhs'];
+		var editor;
+		if (side == 'lhs') editor = le;
+		else editor = re;
+		direction = (direction == 'prev') ? 'findPrevious' : 'findNext';
+		if ((editor.getSelection().length == 0) || (this.prev_query[side] != query)) {
+			this.cursor[this.id] = editor.getSearchCursor(query, { line: 0, ch: 0 }, false);
+			this.prev_query[side] = query;
+		}
+		var cursor = this.cursor[this.id];
+
+		if (cursor[direction]()) {
+			editor.setSelection(cursor.from(), cursor.to());
+		}
+		else {
+			cursor = editor.getSearchCursor(query, { line: 0, ch: 0 }, false);
+		}
+	},
+	resize: function() {
+		this.settings.resize();
+		this._changing(this.id + '-lhs', this.id + '-rhs');
+		this._set_top_offset(this.id + '-lhs');
+	},
+	diff: function() {
+		var lhs = this.editor[this.id + '-lhs'].getValue();
+		var rhs = this.editor[this.id + '-rhs'].getValue();
+		var d = new Mgly.diff(lhs, rhs, this.settings);
+		return d.normal_form();
+	},
+	bind: function(el) {
+		this.element.hide();//hide
+		this.id = jQuery(el).attr('id');
+		this.changed_timeout = null;
+		this.chfns = {};
+		this.chfns[this.id + '-lhs'] = [];
+		this.chfns[this.id + '-rhs'] = [];
+		this.prev_query = [];
+		this.cursor = [];
+		this._skipscroll = {};
+		this.change_exp = new RegExp(/(\d+(?:,\d+)?)([acd])(\d+(?:,\d+)?)/);
+		var merge_lhs_button;
+		var merge_rhs_button;
+		if (jQuery.button != undefined) {
+			//jquery ui
+			merge_lhs_button = '<button title="Merge left"></button>';
+			merge_rhs_button = '<button title="Merge right"></button>';
+		}
+		else {
+			// homebrew
+			var style = 'opacity:0.4;width:10px;height:15px;background-color:#888;cursor:pointer;text-align:center;color:#eee;border:1px solid: #222;margin-right:5px;margin-top: -2px;';
+			merge_lhs_button = '<div style="' + style + '" title="Merge left">&lt;</div>';
+			merge_rhs_button = '<div style="' + style + '" title="Merge right">&gt;</div>';
+		}
+		this.merge_rhs_button = jQuery(merge_rhs_button);
+		this.merge_lhs_button = jQuery(merge_lhs_button);
+
+		// create the textarea and canvas elements
+		var height = this.settings.editor_height;
+		var width = this.settings.editor_width;
+		this.element.append(jQuery('<div class="mergely-margin" style="height: ' + height + '"><canvas id="' + this.id + '-lhs-margin" width="8px" height="' + height + '"></canvas></div>'));
+		this.element.append(jQuery('<div style="position:relative;width:' + width + '; height:' + height + '" id="' + this.id + '-editor-lhs" class="mergely-column"><textarea style="" id="' + this.id + '-lhs"></textarea></div>'));
+		this.element.append(jQuery('<div class="mergely-canvas" style="height: ' + height + '"><canvas id="' + this.id + '-lhs-' + this.id + '-rhs-canvas" style="width:28px" width="28px" height="' + height + '"></canvas></div>'));
+		var rmargin = jQuery('<div class="mergely-margin" style="height: ' + height + '"><canvas id="' + this.id + '-rhs-margin" width="8px" height="' + height + '"></canvas></div>');
+		if (!this.settings.sidebar) {
+			this.element.find('.mergely-margin').css({display: 'none'});
+		}
+		if (this.settings.rhs_margin == 'left') {
+			this.element.append(rmargin);
+		}
+		this.element.append(jQuery('<div style="width:' + width + '; height:' + height + '" id="' + this.id + '-editor-rhs" class="mergely-column"><textarea style="" id="' + this.id + '-rhs"></textarea></div>'));
+		if (this.settings.rhs_margin != 'left') {
+			this.element.append(rmargin);
+		}
+
+		// get current diff border color
+		var color = jQuery('<div style="display:none" class="mergely current start" />').appendTo('body').css('border-top-color');
+		this.current_diff_color = color;
+
+		// codemirror
+		var cmstyle = '#' + this.id + ' .CodeMirror-gutter-text { padding: 5px 0 0 0; }' +
+			'#' + this.id + ' .CodeMirror-lines pre, ' + '#' + this.id + ' .CodeMirror-gutter-text pre { line-height: 18px; }' +
+			'.CodeMirror-linewidget { overflow: hidden; };';
+		if (this.settings.autoresize) {
+			cmstyle += this.id + ' .CodeMirror-scroll { height: 100%; overflow: auto; }';
+		}
+		// adjust the margin line height
+		cmstyle += '\n.CodeMirror { line-height: 18px; }';
+		jQuery('<style type="text/css">' + cmstyle + '</style>').appendTo('head');
+
+		//bind
+		var rhstx = this.element.find('#' + this.id + '-rhs').get(0);
+		if (!rhstx) {
+			console.error('rhs textarea not defined - Mergely not initialized properly');
+			return;
+		}
+		var lhstx = this.element.find('#' + this.id + '-lhs').get(0);
+		if (!rhstx) {
+			console.error('lhs textarea not defined - Mergely not initialized properly');
+			return;
+		}
+		var self = this;
+		this.editor = [];
+		this.editor[this.id + '-lhs'] = CodeMirror.fromTextArea(lhstx, this.lhs_cmsettings);
+		this.editor[this.id + '-rhs'] = CodeMirror.fromTextArea(rhstx, this.rhs_cmsettings);
+		this.editor[this.id + '-lhs'].on('change', function(){ if (self.settings.autoupdate) self._changing(self.id + '-lhs', self.id + '-rhs'); });
+		this.editor[this.id + '-lhs'].on('scroll', function(){ self._scrolling(self.id + '-lhs'); });
+		this.editor[this.id + '-rhs'].on('change', function(){ if (self.settings.autoupdate) self._changing(self.id + '-lhs', self.id + '-rhs'); });
+		this.editor[this.id + '-rhs'].on('scroll', function(){ self._scrolling(self.id + '-rhs'); });
+		// resize
+		if (this.settings.autoresize) {
+			var sz_timeout1 = null;
+			var sz = function(init) {
+				//self.em_height = null; //recalculate
+				if (self.settings.resize) self.settings.resize(init);
+				self.editor[self.id + '-lhs'].refresh();
+				self.editor[self.id + '-rhs'].refresh();
+				if (self.settings.autoupdate) {
+					self._changing(self.id + '-lhs', self.id + '-rhs');
+				}
+			};
+			jQuery(window).on('resize.mergely',
+				function () {
+					if (sz_timeout1) clearTimeout(sz_timeout1);
+					sz_timeout1 = setTimeout(sz, self.settings.resize_timeout);
+				}
+			);
+			sz(true);
+		}
+
+		// scrollToDiff() from gutter
+		function gutterClicked(side, line, ev) {
+			// The "Merge left/right" buttons are also located in the gutter.
+			// Don't interfere with them:
+			if (ev.target && (jQuery(ev.target).closest('.merge-button').length > 0)) {
+				return;
+			}
+
+			// See if the user clicked the line number of a difference:
+			var i, change;
+			for (i = 0; i < this.changes.length; i++) {
+				change = this.changes[i];
+				if (line >= change[side+'-line-from'] && line <= change[side+'-line-to']) {
+					this._current_diff = i;
+					// I really don't like this here - something about gutterClick does not
+					// like mutating editor here.  Need to trigger the scroll to diff from
+					// a timeout.
+					setTimeout(function() { this.scrollToDiff(); }.bind(this), 10);
+					break;
+				}
+			}
+		}
+
+		this.editor[this.id + '-lhs'].on('gutterClick', function(cm, n, gutterClass, ev) {
+			gutterClicked.call(this, 'lhs', n, ev);
+		}.bind(this));
+
+		this.editor[this.id + '-rhs'].on('gutterClick', function(cm, n, gutterClass, ev) {
+			gutterClicked.call(this, 'rhs', n, ev);
+		}.bind(this));
+
+		//bind
+		var setv;
+		if (this.settings.lhs) {
+			setv = this.editor[this.id + '-lhs'].getDoc().setValue;
+			this.settings.lhs(setv.bind(this.editor[this.id + '-lhs'].getDoc()));
+		}
+		if (this.settings.rhs) {
+			setv = this.editor[this.id + '-rhs'].getDoc().setValue;
+			this.settings.rhs(setv.bind(this.editor[this.id + '-rhs'].getDoc()));
+		}
+	},
+
+	_scroll_to_change : function(change) {
+		if (!change) return;
+		var self = this;
+		var led = self.editor[self.id+'-lhs'];
+		var red = self.editor[self.id+'-rhs'];
+		// set cursors
+		led.setCursor(Math.max(change["lhs-line-from"],0), 0); // use led.getCursor().ch ?
+		red.setCursor(Math.max(change["rhs-line-from"],0), 0);
+		led.scrollIntoView({line: change["lhs-line-to"]});
+	},
+
+	_scrolling: function(editor_name) {
+		if (this._skipscroll[editor_name] === true) {
+			// scrolling one side causes the other to event - ignore it
+			this._skipscroll[editor_name] = false;
+			return;
+		}
+		var scroller = jQuery(this.editor[editor_name].getScrollerElement());
+		if (this.midway == undefined) {
+			this.midway = (scroller.height() / 2.0 + scroller.offset().top).toFixed(2);
+		}
+		// balance-line
+		var midline = this.editor[editor_name].coordsChar({left:0, top:this.midway});
+		var top_to = scroller.scrollTop();
+		var left_to = scroller.scrollLeft();
+
+		this.trace('scroll', 'side', editor_name);
+		this.trace('scroll', 'midway', this.midway);
+		this.trace('scroll', 'midline', midline);
+		this.trace('scroll', 'top_to', top_to);
+		this.trace('scroll', 'left_to', left_to);
+
+		var editor_name1 = this.id + '-lhs';
+		var editor_name2 = this.id + '-rhs';
+
+		for (var name in this.editor) {
+			if (!this.editor.hasOwnProperty(name)) continue;
+			if (editor_name == name) continue; //same editor
+			var this_side = editor_name.replace(this.id + '-', '');
+			var other_side = name.replace(this.id + '-', '');
+			var top_adjust = 0;
+
+			// find the last change that is less than or within the midway point
+			// do not move the rhs until the lhs end point is >= the rhs end point.
+			var last_change = null;
+			var force_scroll = false;
+			for (var i = 0; i < this.changes.length; ++i) {
+				var change = this.changes[i];
+				if ((midline.line >= change[this_side+'-line-from'])) {
+					last_change = change;
+					if (midline.line >= last_change[this_side+'-line-to']) {
+						if (!change.hasOwnProperty(this_side+'-y-start') ||
+							!change.hasOwnProperty(this_side+'-y-end') ||
+							!change.hasOwnProperty(other_side+'-y-start') ||
+							!change.hasOwnProperty(other_side+'-y-end')){
+							// change outside of viewport
+							force_scroll = true;
+						}
+						else {
+							top_adjust +=
+								(change[this_side+'-y-end'] - change[this_side+'-y-start']) -
+								(change[other_side+'-y-end'] - change[other_side+'-y-start']);
+						}
+					}
+				}
+			}
+
+			var vp = this.editor[name].getViewport();
+			var scroll = true;
+			if (last_change) {
+				this.trace('scroll', 'last change before midline', last_change);
+				if (midline.line >= vp.from && midline <= vp.to) {
+					scroll = false;
+				}
+			}
+			this.trace('scroll', 'scroll', scroll);
+			if (scroll || force_scroll) {
+				// scroll the other side
+				this.trace('scroll', 'scrolling other side', top_to - top_adjust);
+				this._skipscroll[name] = true;//disable next event
+				this.editor[name].scrollTo(left_to, top_to - top_adjust);
+			}
+			else this.trace('scroll', 'not scrolling other side');
+
+			if (this.settings.autoupdate) {
+				var timer = new Mgly.Timer();
+				this._calculate_offsets(editor_name1, editor_name2, this.changes);
+				this.trace('change', 'offsets time', timer.stop());
+				this._markup_changes(editor_name1, editor_name2, this.changes);
+				this.trace('change', 'markup time', timer.stop());
+				this._draw_diff(editor_name1, editor_name2, this.changes);
+				this.trace('change', 'draw time', timer.stop());
+			}
+			this.trace('scroll', 'scrolled');
+		}
+	},
+	_changing: function(editor_name1, editor_name2) {
+		this.trace('change', 'changing-timeout', this.changed_timeout);
+		var self = this;
+		if (this.changed_timeout != null) clearTimeout(this.changed_timeout);
+		this.changed_timeout = setTimeout(function(){
+			var timer = new Mgly.Timer();
+			self._changed(editor_name1, editor_name2);
+			self.trace('change', 'total time', timer.stop());
+		}, this.settings.change_timeout);
+	},
+	_changed: function(editor_name1, editor_name2) {
+		this._clear();
+		this._diff(editor_name1, editor_name2);
+	},
+	_clear: function() {
+		var self = this, name, editor, fns, timer, i, change, l;
+
+		var clear_changes = function() {
+			timer = new Mgly.Timer();
+			for (i = 0, l = editor.lineCount(); i < l; ++i) {
+				editor.removeLineClass(i, 'background');
+			}
+			for (i = 0; i < fns.length; ++i) {
+				//var edid = editor.getDoc().id;
+				change = fns[i];
+				//if (change.doc.id != edid) continue;
+				if (change.lines.length) {
+					self.trace('change', 'clear text', change.lines[0].text);
+				}
+				change.clear();
+			}
+			editor.clearGutter('merge');
+			self.trace('change', 'clear time', timer.stop());
+		};
+
+		for (name in this.editor) {
+			if (!this.editor.hasOwnProperty(name)) continue;
+			editor = this.editor[name];
+			fns = self.chfns[name];
+			// clear editor changes
+			editor.operation(clear_changes);
+		}
+		self.chfns[name] = [];
+
+		var ex = this._draw_info(this.id + '-lhs', this.id + '-rhs');
+		var ctx_lhs = ex.clhs.get(0).getContext('2d');
+		var ctx_rhs = ex.crhs.get(0).getContext('2d');
+		var ctx = ex.dcanvas.getContext('2d');
+
+		ctx_lhs.beginPath();
+		ctx_lhs.fillStyle = this.settings.bgcolor;
+		ctx_lhs.strokeStyle = '#888';
+		ctx_lhs.fillRect(0, 0, 6.5, ex.visible_page_height);
+		ctx_lhs.strokeRect(0, 0, 6.5, ex.visible_page_height);
+
+		ctx_rhs.beginPath();
+		ctx_rhs.fillStyle = this.settings.bgcolor;
+		ctx_rhs.strokeStyle = '#888';
+		ctx_rhs.fillRect(0, 0, 6.5, ex.visible_page_height);
+		ctx_rhs.strokeRect(0, 0, 6.5, ex.visible_page_height);
+
+		ctx.beginPath();
+		ctx.fillStyle = '#fff';
+		ctx.fillRect(0, 0, this.draw_mid_width, ex.visible_page_height);
+	},
+	_diff: function(editor_name1, editor_name2) {
+		var lhs = this.editor[editor_name1].getValue();
+		var rhs = this.editor[editor_name2].getValue();
+		var timer = new Mgly.Timer();
+		var d = new Mgly.diff(lhs, rhs, this.settings);
+		this.trace('change', 'diff time', timer.stop());
+		this.changes = Mgly.DiffParser(d.normal_form());
+		this.trace('change', 'parse time', timer.stop());
+		if (this._current_diff === undefined && this.changes.length) {
+			// go to first difference on start-up
+			this._current_diff = 0;
+			this._scroll_to_change(this.changes[0]);
+		}
+		this.trace('change', 'scroll_to_change time', timer.stop());
+		this._calculate_offsets(editor_name1, editor_name2, this.changes);
+		this.trace('change', 'offsets time', timer.stop());
+		this._markup_changes(editor_name1, editor_name2, this.changes);
+		this.trace('change', 'markup time', timer.stop());
+		this._draw_diff(editor_name1, editor_name2, this.changes);
+		this.trace('change', 'draw time', timer.stop());
+	},
+	_parse_diff: function (editor_name1, editor_name2, diff) {
+		this.trace('diff', 'diff results:\n', diff);
+		var changes = [];
+		var change_id = 0;
+		// parse diff
+		var diff_lines = diff.split(/\n/);
+		for (var i = 0; i < diff_lines.length; ++i) {
+			if (diff_lines[i].length == 0) continue;
+			var change = {};
+			var test = this.change_exp.exec(diff_lines[i]);
+			if (test == null) continue;
+			// lines are zero-based
+			var fr = test[1].split(',');
+			change['lhs-line-from'] = fr[0] - 1;
+			if (fr.length == 1) change['lhs-line-to'] = fr[0] - 1;
+			else change['lhs-line-to'] = fr[1] - 1;
+			var to = test[3].split(',');
+			change['rhs-line-from'] = to[0] - 1;
+			if (to.length == 1) change['rhs-line-to'] = to[0] - 1;
+			else change['rhs-line-to'] = to[1] - 1;
+			// TODO: optimize for changes that are adds/removes
+			if (change['lhs-line-from'] < 0) change['lhs-line-from'] = 0;
+			if (change['lhs-line-to'] < 0) change['lhs-line-to'] = 0;
+			if (change['rhs-line-from'] < 0) change['rhs-line-from'] = 0;
+			if (change['rhs-line-to'] < 0) change['rhs-line-to'] = 0;
+			change['op'] = test[2];
+			changes[change_id++] = change;
+			this.trace('diff', 'change', change);
+		}
+		return changes;
+	},
+	_get_viewport: function(editor_name1, editor_name2) {
+		var lhsvp = this.editor[editor_name1].getViewport();
+		var rhsvp = this.editor[editor_name2].getViewport();
+		return {from: Math.min(lhsvp.from, rhsvp.from), to: Math.max(lhsvp.to, rhsvp.to)};
+	},
+	_is_change_in_view: function(vp, change) {
+		if (!this.settings.viewport) return true;
+		if ((change['lhs-line-from'] < vp.from && change['lhs-line-to'] < vp.to) ||
+			(change['lhs-line-from'] > vp.from && change['lhs-line-to'] > vp.to) ||
+			(change['rhs-line-from'] < vp.from && change['rhs-line-to'] < vp.to) ||
+			(change['rhs-line-from'] > vp.from && change['rhs-line-to'] > vp.to)) {
+			// if the change is outside the viewport, skip
+			return false;
+		}
+		return true;
+	},
+	_set_top_offset: function (editor_name1) {
+		// save the current scroll position of the editor
+		var saveY = this.editor[editor_name1].getScrollInfo().top;
+		// temporarily scroll to top
+		this.editor[editor_name1].scrollTo(null, 0);
+
+		// this is the distance from the top of the screen to the top of the
+		// content of the first codemirror editor
+		var topnode = this.element.find('.CodeMirror-measure').first();
+		var top_offset = topnode.offset().top - 4;
+		if(!top_offset) return false;
+
+		// restore editor's scroll position
+		this.editor[editor_name1].scrollTo(null, saveY);
+
+		this.draw_top_offset = 0.5 - top_offset;
+		return true;
+	},
+	_calculate_offsets: function (editor_name1, editor_name2, changes) {
+		if (this.em_height == null) {
+			if(!this._set_top_offset(editor_name1)) return; //try again
+			this.em_height = this.editor[editor_name1].defaultTextHeight();
+			if (!this.em_height) {
+				console.warn('Failed to calculate offsets, using 18 by default');
+				this.em_height = 18;
+			}
+			this.draw_lhs_min = 0.5;
+			var c = jQuery('#' + editor_name1 + '-' + editor_name2 + '-canvas');
+			if (!c.length) {
+				console.error('failed to find canvas', '#' + editor_name1 + '-' + editor_name2 + '-canvas');
+			}
+			if (!c.width()) {
+				console.error('canvas width is 0');
+				return;
+			}
+			this.draw_mid_width = jQuery('#' + editor_name1 + '-' + editor_name2 + '-canvas').width();
+			this.draw_rhs_max = this.draw_mid_width - 0.5; //24.5;
+			this.draw_lhs_width = 5;
+			this.draw_rhs_width = 5;
+			this.trace('calc', 'change offsets calculated', {top_offset: this.draw_top_offset, lhs_min: this.draw_lhs_min, rhs_max: this.draw_rhs_max, lhs_width: this.draw_lhs_width, rhs_width: this.draw_rhs_width});
+		}
+		var lhschc = this.editor[editor_name1].charCoords({line: 0});
+		var rhschc = this.editor[editor_name2].charCoords({line: 0});
+		var vp = this._get_viewport(editor_name1, editor_name2);
+
+		for (var i = 0; i < changes.length; ++i) {
+			var change = changes[i];
+
+			if (!this.settings.sidebar && !this._is_change_in_view(vp, change)) {
+				// if the change is outside the viewport, skip
+				delete change['lhs-y-start'];
+				delete change['lhs-y-end'];
+				delete change['rhs-y-start'];
+				delete change['rhs-y-end'];
+				continue;
+			}
+			var llf = change['lhs-line-from'] >= 0 ? change['lhs-line-from'] : 0;
+			var llt = change['lhs-line-to'] >= 0 ? change['lhs-line-to'] : 0;
+			var rlf = change['rhs-line-from'] >= 0 ? change['rhs-line-from'] : 0;
+			var rlt = change['rhs-line-to'] >= 0 ? change['rhs-line-to'] : 0;
+
+			var ls, le, rs, re, tls, tle, lhseh, lhssh, rhssh, rhseh;
+			if (this.editor[editor_name1].getOption('lineWrapping') || this.editor[editor_name2].getOption('lineWrapping')) {
+				// If using line-wrapping, we must get the height of the line
+				tls = this.editor[editor_name1].cursorCoords({line: llf, ch: 0}, 'page');
+				lhssh = this.editor[editor_name1].getLineHandle(llf);
+				ls = { top: tls.top, bottom: tls.top + lhssh.height };
+
+				tle = this.editor[editor_name1].cursorCoords({line: llt, ch: 0}, 'page');
+				lhseh = this.editor[editor_name1].getLineHandle(llt);
+				le = { top: tle.top, bottom: tle.top + lhseh.height };
+
+				tls = this.editor[editor_name2].cursorCoords({line: rlf, ch: 0}, 'page');
+				rhssh = this.editor[editor_name2].getLineHandle(rlf);
+				rs = { top: tls.top, bottom: tls.top + rhssh.height };
+
+				tle = this.editor[editor_name2].cursorCoords({line: rlt, ch: 0}, 'page');
+				rhseh = this.editor[editor_name2].getLineHandle(rlt);
+				re = { top: tle.top, bottom: tle.top + rhseh.height };
+			}
+			else {
+				// If not using line-wrapping, we can calculate the line position
+				ls = {
+					top: lhschc.top + llf * this.em_height,
+					bottom: lhschc.bottom + llf * this.em_height + 2
+				};
+				le = {
+					top: lhschc.top + llt * this.em_height,
+					bottom: lhschc.bottom + llt * this.em_height + 2
+				};
+				rs = {
+					top: rhschc.top + rlf * this.em_height,
+					bottom: rhschc.bottom + rlf * this.em_height + 2
+				};
+				re = {
+					top: rhschc.top + rlt * this.em_height,
+					bottom: rhschc.bottom + rlt * this.em_height + 2
+				};
+			}
+
+			if (change['op'] == 'a') {
+				// adds (right), normally start from the end of the lhs,
+				// except for the case when the start of the rhs is 0
+				if (rlf > 0) {
+					ls.top = ls.bottom;
+					ls.bottom += this.em_height;
+					le = ls;
+				}
+			}
+			else if (change['op'] == 'd') {
+				// deletes (left) normally finish from the end of the rhs,
+				// except for the case when the start of the lhs is 0
+				if (llf > 0) {
+					rs.top = rs.bottom;
+					rs.bottom += this.em_height;
+					re = rs;
+				}
+			}
+			change['lhs-y-start'] = this.draw_top_offset + ls.top;
+			if (change['op'] == 'c' || change['op'] == 'd') {
+				change['lhs-y-end'] = this.draw_top_offset + le.bottom;
+			}
+			else {
+				change['lhs-y-end'] = this.draw_top_offset + le.top;
+			}
+			change['rhs-y-start'] = this.draw_top_offset + rs.top;
+			if (change['op'] == 'c' || change['op'] == 'a') {
+				change['rhs-y-end'] = this.draw_top_offset + re.bottom;
+			}
+			else {
+				change['rhs-y-end'] = this.draw_top_offset + re.top;
+			}
+			this.trace('calc', 'change calculated', i, change);
+		}
+		return changes;
+	},
+	_markup_changes: function (editor_name1, editor_name2, changes) {
+		this.element.find('.merge-button').remove(); //clear
+
+		var self = this;
+		var led = this.editor[editor_name1];
+		var red = this.editor[editor_name2];
+		var current_diff = this._current_diff;
+
+		var timer = new Mgly.Timer();
+		led.operation(function() {
+			for (var i = 0; i < changes.length; ++i) {
+				var change = changes[i];
+				var llf = change['lhs-line-from'] >= 0 ? change['lhs-line-from'] : 0;
+				var llt = change['lhs-line-to'] >= 0 ? change['lhs-line-to'] : 0;
+				var rlf = change['rhs-line-from'] >= 0 ? change['rhs-line-from'] : 0;
+				var rlt = change['rhs-line-to'] >= 0 ? change['rhs-line-to'] : 0;
+
+				var clazz = ['mergely', 'lhs', change['op'], 'cid-' + i];
+				led.addLineClass(llf, 'background', 'start');
+				led.addLineClass(llt, 'background', 'end');
+
+				if (current_diff == i) {
+					if (llf != llt) {
+						led.addLineClass(llf, 'background', 'current');
+					}
+					led.addLineClass(llt, 'background', 'current');
+				}
+				if (llf == 0 && llt == 0 && rlf == 0) {
+					led.addLineClass(llf, 'background', clazz.join(' '));
+					led.addLineClass(llf, 'background', 'first');
+				}
+				else {
+					// apply change for each line in-between the changed lines
+					for (var j = llf; j <= llt; ++j) {
+						led.addLineClass(j, 'background', clazz.join(' '));
+						led.addLineClass(j, 'background', clazz.join(' '));
+					}
+				}
+
+				if (!red.getOption('readOnly')) {
+					// add widgets to lhs, if rhs is not read only
+					var rhs_button = self.merge_rhs_button.clone();
+					if (rhs_button.button) {
+						//jquery-ui support
+						rhs_button.button({icons: {primary: 'ui-icon-triangle-1-e'}, text: false});
+					}
+					rhs_button.addClass('merge-button');
+					rhs_button.attr('id', 'merge-rhs-' + i);
+					led.setGutterMarker(llf, 'merge', rhs_button.get(0));
+				}
+			}
+		});
+
+		var vp = this._get_viewport(editor_name1, editor_name2);
+
+		this.trace('change', 'markup lhs-editor time', timer.stop());
+		red.operation(function() {
+			for (var i = 0; i < changes.length; ++i) {
+				var change = changes[i];
+				var llf = change['lhs-line-from'] >= 0 ? change['lhs-line-from'] : 0;
+				var llt = change['lhs-line-to'] >= 0 ? change['lhs-line-to'] : 0;
+				var rlf = change['rhs-line-from'] >= 0 ? change['rhs-line-from'] : 0;
+				var rlt = change['rhs-line-to'] >= 0 ? change['rhs-line-to'] : 0;
+
+				if (!self._is_change_in_view(vp, change)) {
+					// if the change is outside the viewport, skip
+					continue;
+				}
+
+				var clazz = ['mergely', 'rhs', change['op'], 'cid-' + i];
+				red.addLineClass(rlf, 'background', 'start');
+				red.addLineClass(rlt, 'background', 'end');
+
+				if (current_diff == i) {
+					if (rlf != rlt) {
+						red.addLineClass(rlf, 'background', 'current');
+					}
+					red.addLineClass(rlt, 'background', 'current');
+				}
+				if (rlf == 0 && rlt == 0 && llf == 0) {
+					red.addLineClass(rlf, 'background', clazz.join(' '));
+					red.addLineClass(rlf, 'background', 'first');
+				}
+				else {
+					// apply change for each line in-between the changed lines
+					for (var j = rlf; j <= rlt; ++j) {
+						red.addLineClass(j, 'background', clazz.join(' '));
+						red.addLineClass(j, 'background', clazz.join(' '));
+					}
+				}
+
+				if (!led.getOption('readOnly')) {
+					// add widgets to rhs, if lhs is not read only
+					var lhs_button = self.merge_lhs_button.clone();
+					if (lhs_button.button) {
+						//jquery-ui support
+						lhs_button.button({icons: {primary: 'ui-icon-triangle-1-w'}, text: false});
+					}
+					lhs_button.addClass('merge-button');
+					lhs_button.attr('id', 'merge-lhs-' + i);
+					red.setGutterMarker(rlf, 'merge', lhs_button.get(0));
+				}
+			}
+		});
+		this.trace('change', 'markup rhs-editor time', timer.stop());
+
+		// mark text deleted, LCS changes
+		var marktext = [], i, j, k, p;
+		for (i = 0; this.settings.lcs && i < changes.length; ++i) {
+			var change = changes[i];
+			var llf = change['lhs-line-from'] >= 0 ? change['lhs-line-from'] : 0;
+			var llt = change['lhs-line-to'] >= 0 ? change['lhs-line-to'] : 0;
+			var rlf = change['rhs-line-from'] >= 0 ? change['rhs-line-from'] : 0;
+			var rlt = change['rhs-line-to'] >= 0 ? change['rhs-line-to'] : 0;
+
+			if (!this._is_change_in_view(vp, change)) {
+				// if the change is outside the viewport, skip
+				continue;
+			}
+			if (change['op'] == 'd') {
+				// apply delete to cross-out (left-hand side only)
+				var from = llf;
+				var to = llt;
+				var to_ln = led.lineInfo(to);
+				if (to_ln) {
+					marktext.push([led, {line:from, ch:0}, {line:to, ch:to_ln.text.length}, {className: 'mergely ch d lhs'}]);
+				}
+			}
+			else if (change['op'] == 'c') {
+				// apply LCS changes to each line
+				for (j = llf, k = rlf, p = 0;
+					 ((j >= 0) && (j <= llt)) || ((k >= 0) && (k <= rlt));
+					 ++j, ++k) {
+					var lhs_line, rhs_line;
+					if (k + p > rlt) {
+						// lhs continues past rhs, mark lhs as deleted
+						lhs_line = led.getLine( j );
+						marktext.push([led, {line:j, ch:0}, {line:j, ch:lhs_line.length}, {className: 'mergely ch d lhs'}]);
+						continue;
+					}
+					if (j + p > llt) {
+						// rhs continues past lhs, mark rhs as added
+						rhs_line = red.getLine( k );
+						marktext.push([red, {line:k, ch:0}, {line:k, ch:rhs_line.length}, {className: 'mergely ch a rhs'}]);
+						continue;
+					}
+					lhs_line = led.getLine( j );
+					rhs_line = red.getLine( k );
+					var lcs = new Mgly.LCS(lhs_line, rhs_line);
+					lcs.diff(
+						function added (from, to) {
+							marktext.push([red, {line:k, ch:from}, {line:k, ch:to}, {className: 'mergely ch a rhs'}]);
+						},
+						function removed (from, to) {
+							marktext.push([led, {line:j, ch:from}, {line:j, ch:to}, {className: 'mergely ch d lhs'}]);
+						}
+					);
+				}
+			}
+		}
+		this.trace('change', 'LCS marktext time', timer.stop());
+
+		// mark changes outside closure
+		led.operation(function() {
+			// apply lhs markup
+			for (var i = 0; i < marktext.length; ++i) {
+				var m = marktext[i];
+				if (m[0].doc.id != led.getDoc().id) continue;
+				self.chfns[self.id + '-lhs'].push(m[0].markText(m[1], m[2], m[3]));
+			}
+		});
+		red.operation(function() {
+			// apply lhs markup
+			for (var i = 0; i < marktext.length; ++i) {
+				var m = marktext[i];
+				if (m[0].doc.id != red.getDoc().id) continue;
+				self.chfns[self.id + '-rhs'].push(m[0].markText(m[1], m[2], m[3]));
+			}
+		});
+
+		this.trace('change', 'LCS markup time', timer.stop());
+
+		// merge buttons
+		var ed = {lhs:led, rhs:red};
+		this.element.find('.merge-button').on('click', function(ev){
+			// side of mouseenter
+			var side = 'rhs';
+			var oside = 'lhs';
+			var parent = jQuery(this).parents('#' + self.id + '-editor-lhs');
+			if (parent.length) {
+				side = 'lhs';
+				oside = 'rhs';
+			}
+			var pos = ed[side].coordsChar({left:ev.pageX, top:ev.pageY});
+
+			// get the change id
+			var cid = null;
+			var info = ed[side].lineInfo(pos.line);
+			jQuery.each(info.bgClass.split(' '), function(i, clazz) {
+				if (clazz.indexOf('cid-') == 0) {
+					cid = parseInt(clazz.split('-')[1], 10);
+					return false;
+				}
+			});
+			var change = self.changes[cid];
+			self._merge_change(change, side, oside);
+			return false;
+		});
+
+		// gutter markup
+		var lhsLineNumbers = jQuery('#mergely-lhs ~ .CodeMirror').find('.CodeMirror-linenumber');
+		var rhsLineNumbers = jQuery('#mergely-rhs ~ .CodeMirror').find('.CodeMirror-linenumber');
+		rhsLineNumbers.removeClass('mergely current');
+		lhsLineNumbers.removeClass('mergely current');
+		for (var i = 0; i < changes.length; ++i) {
+			if (current_diff == i && change.op !== 'd') {
+				var change = changes[i];
+				var j, jf = change['rhs-line-from'], jt = change['rhs-line-to'] + 1;
+				for (j = jf; j < jt; j++) {
+					var n = (j + 1).toString();
+					rhsLineNumbers
+						.filter(function(i, node) { return jQuery(node).text() === n; })
+					.addClass('mergely current');
+				}
+			}
+			if (current_diff == i && change.op !== 'a') {
+				var change = changes[i];
+				jf = change['lhs-line-from'], jt = change['lhs-line-to'] + 1;
+				for (j = jf; j < jt; j++) {
+					var n = (j + 1).toString();
+					lhsLineNumbers.filter(function(i, node) { return jQuery(node).text() === n; })
+					.addClass('mergely current');
+				}
+			}
+		}
+
+		this.trace('change', 'markup buttons time', timer.stop());
+	},
+	_merge_change :	function(change, side, oside) {
+		if (!change) return;
+		var led = this.editor[this.id+'-lhs'];
+		var red = this.editor[this.id+'-rhs'];
+		var ed = {lhs:led, rhs:red};
+		var i, from, to;
+
+		var text = ed[side].getRange(
+			CodeMirror.Pos(change[side + '-line-from'], 0),
+			CodeMirror.Pos(change[side + '-line-to'] + 1, 0));
+
+		if (change['op'] == 'c') {
+			ed[oside].replaceRange(text,
+				CodeMirror.Pos(change[oside + '-line-from'], 0),
+				CodeMirror.Pos(change[oside + '-line-to'] + 1, 0));
+		}
+		else if (side == 'rhs') {
+			if (change['op'] == 'a') {
+				ed[oside].replaceRange(text,
+					CodeMirror.Pos(change[oside + '-line-from'] + 1, 0),
+					CodeMirror.Pos(change[oside + '-line-to'] + 1, 0));
+			}
+			else {// 'd'
+				from = parseInt(change[oside + '-line-from'], 10);
+				to = parseInt(change[oside + '-line-to'], 10);
+				for (i = to; i >= from; --i) {
+					ed[oside].setCursor({line: i, ch: -1});
+					ed[oside].execCommand('deleteLine');
+				}
+			}
+		}
+		else if (side == 'lhs') {
+			if (change['op'] == 'a') {
+				from = parseInt(change[oside + '-line-from'], 10);
+				to = parseInt(change[oside + '-line-to'], 10);
+				for (i = to; i >= from; --i) {
+					//ed[oside].removeLine(i);
+					ed[oside].setCursor({line: i, ch: -1});
+					ed[oside].execCommand('deleteLine');
+				}
+			}
+			else {// 'd'
+				ed[oside].replaceRange( text,
+					CodeMirror.Pos(change[oside + '-line-from'] + 1, 0));
+			}
+		}
+		//reset
+		ed['lhs'].setValue(ed['lhs'].getValue());
+		ed['rhs'].setValue(ed['rhs'].getValue());
+
+		this._scroll_to_change(change);
+	},
+	_draw_info: function(editor_name1, editor_name2) {
+		var visible_page_height = jQuery(this.editor[editor_name1].getScrollerElement()).height();
+		var gutter_height = jQuery(this.editor[editor_name1].getScrollerElement()).children(':first-child').height();
+		var dcanvas = document.getElementById(editor_name1 + '-' + editor_name2 + '-canvas');
+		if (dcanvas == undefined) throw 'Failed to find: ' + editor_name1 + '-' + editor_name2 + '-canvas';
+		var clhs = this.element.find('#' + this.id + '-lhs-margin');
+		var crhs = this.element.find('#' + this.id + '-rhs-margin');
+		return {
+			visible_page_height: visible_page_height,
+			gutter_height: gutter_height,
+			visible_page_ratio: (visible_page_height / gutter_height),
+			margin_ratio: (visible_page_height / gutter_height),
+			lhs_scroller: jQuery(this.editor[editor_name1].getScrollerElement()),
+			rhs_scroller: jQuery(this.editor[editor_name2].getScrollerElement()),
+			lhs_lines: this.editor[editor_name1].lineCount(),
+			rhs_lines: this.editor[editor_name2].lineCount(),
+			dcanvas: dcanvas,
+			clhs: clhs,
+			crhs: crhs,
+			lhs_xyoffset: jQuery(clhs).offset(),
+			rhs_xyoffset: jQuery(crhs).offset()
+		};
+	},
+	_draw_diff: function(editor_name1, editor_name2, changes) {
+		var ex = this._draw_info(editor_name1, editor_name2);
+		var mcanvas_lhs = ex.clhs.get(0);
+		var mcanvas_rhs = ex.crhs.get(0);
+		var ctx = ex.dcanvas.getContext('2d');
+		var ctx_lhs = mcanvas_lhs.getContext('2d');
+		var ctx_rhs = mcanvas_rhs.getContext('2d');
+
+		this.trace('draw', 'visible_page_height', ex.visible_page_height);
+		this.trace('draw', 'gutter_height', ex.gutter_height);
+		this.trace('draw', 'visible_page_ratio', ex.visible_page_ratio);
+		this.trace('draw', 'lhs-scroller-top', ex.lhs_scroller.scrollTop());
+		this.trace('draw', 'rhs-scroller-top', ex.rhs_scroller.scrollTop());
+
+		jQuery.each(this.element.find('canvas'), function () {
+			jQuery(this).get(0).height = ex.visible_page_height;
+		});
+
+		ex.clhs.unbind('click');
+		ex.crhs.unbind('click');
+
+		ctx_lhs.beginPath();
+		ctx_lhs.fillStyle = this.settings.bgcolor;
+		ctx_lhs.strokeStyle = '#888';
+		ctx_lhs.fillRect(0, 0, 6.5, ex.visible_page_height);
+		ctx_lhs.strokeRect(0, 0, 6.5, ex.visible_page_height);
+
+		ctx_rhs.beginPath();
+		ctx_rhs.fillStyle = this.settings.bgcolor;
+		ctx_rhs.strokeStyle = '#888';
+		ctx_rhs.fillRect(0, 0, 6.5, ex.visible_page_height);
+		ctx_rhs.strokeRect(0, 0, 6.5, ex.visible_page_height);
+
+		var vp = this._get_viewport(editor_name1, editor_name2);
+		for (var i = 0; i < changes.length; ++i) {
+			var change = changes[i];
+			var fill = this.settings.fgcolor[change['op']];
+			if (this._current_diff === i) {
+				fill = this.current_diff_color;
+			}
+
+			this.trace('draw', change);
+			// margin indicators
+			var lhs_y_start = ((change['lhs-y-start'] + ex.lhs_scroller.scrollTop()) * ex.visible_page_ratio);
+			var lhs_y_end = ((change['lhs-y-end'] + ex.lhs_scroller.scrollTop()) * ex.visible_page_ratio) + 1;
+			var rhs_y_start = ((change['rhs-y-start'] + ex.rhs_scroller.scrollTop()) * ex.visible_page_ratio);
+			var rhs_y_end = ((change['rhs-y-end'] + ex.rhs_scroller.scrollTop()) * ex.visible_page_ratio) + 1;
+			this.trace('draw', 'marker calculated', lhs_y_start, lhs_y_end, rhs_y_start, rhs_y_end);
+
+			ctx_lhs.beginPath();
+			ctx_lhs.fillStyle = fill;
+			ctx_lhs.strokeStyle = '#000';
+			ctx_lhs.lineWidth = 0.5;
+			ctx_lhs.fillRect(1.5, lhs_y_start, 4.5, Math.max(lhs_y_end - lhs_y_start, 5));
+			ctx_lhs.strokeRect(1.5, lhs_y_start, 4.5, Math.max(lhs_y_end - lhs_y_start, 5));
+
+			ctx_rhs.beginPath();
+			ctx_rhs.fillStyle = fill;
+			ctx_rhs.strokeStyle = '#000';
+			ctx_rhs.lineWidth = 0.5;
+			ctx_rhs.fillRect(1.5, rhs_y_start, 4.5, Math.max(rhs_y_end - rhs_y_start, 5));
+			ctx_rhs.strokeRect(1.5, rhs_y_start, 4.5, Math.max(rhs_y_end - rhs_y_start, 5));
+
+			if (!this._is_change_in_view(vp, change)) {
+				continue;
+			}
+
+			lhs_y_start = change['lhs-y-start'];
+			lhs_y_end = change['lhs-y-end'];
+			rhs_y_start = change['rhs-y-start'];
+			rhs_y_end = change['rhs-y-end'];
+
+			var radius = 3;
+
+			// draw left box
+			ctx.beginPath();
+			ctx.strokeStyle = fill;
+			ctx.lineWidth = (this._current_diff==i) ? 1.5 : 1;
+
+			var rectWidth = this.draw_lhs_width;
+			var rectHeight = lhs_y_end - lhs_y_start - 1;
+			var rectX = this.draw_lhs_min;
+			var rectY = lhs_y_start;
+			// top and top top-right corner
+
+			// draw left box
+			ctx.moveTo(rectX, rectY);
+			if (navigator.appName == 'Microsoft Internet Explorer') {
+				// IE arcs look awful
+				ctx.lineTo(this.draw_lhs_min + this.draw_lhs_width, lhs_y_start);
+				ctx.lineTo(this.draw_lhs_min + this.draw_lhs_width, lhs_y_end + 1);
+				ctx.lineTo(this.draw_lhs_min, lhs_y_end + 1);
+			}
+			else {
+				if (rectHeight <= 0) {
+					ctx.lineTo(rectX + rectWidth, rectY);
+				}
+				else {
+					ctx.arcTo(rectX + rectWidth, rectY, rectX + rectWidth, rectY + radius, radius);
+					ctx.arcTo(rectX + rectWidth, rectY + rectHeight, rectX + rectWidth - radius, rectY + rectHeight, radius);
+				}
+				// bottom line
+				ctx.lineTo(rectX, rectY + rectHeight);
+			}
+			ctx.stroke();
+
+			rectWidth = this.draw_rhs_width;
+			rectHeight = rhs_y_end - rhs_y_start - 1;
+			rectX = this.draw_rhs_max;
+			rectY = rhs_y_start;
+
+			// draw right box
+			ctx.moveTo(rectX, rectY);
+			if (navigator.appName == 'Microsoft Internet Explorer') {
+				ctx.lineTo(this.draw_rhs_max - this.draw_rhs_width, rhs_y_start);
+				ctx.lineTo(this.draw_rhs_max - this.draw_rhs_width, rhs_y_end + 1);
+				ctx.lineTo(this.draw_rhs_max, rhs_y_end + 1);
+			}
+			else {
+				if (rectHeight <= 0) {
+					ctx.lineTo(rectX - rectWidth, rectY);
+				}
+				else {
+					ctx.arcTo(rectX - rectWidth, rectY, rectX - rectWidth, rectY + radius, radius);
+					ctx.arcTo(rectX - rectWidth, rectY + rectHeight, rectX - radius, rectY + rectHeight, radius);
+				}
+				ctx.lineTo(rectX, rectY + rectHeight);
+			}
+			ctx.stroke();
+
+			// connect boxes
+			var cx = this.draw_lhs_min + this.draw_lhs_width;
+			var cy = lhs_y_start + (lhs_y_end + 1 - lhs_y_start) / 2.0;
+			var dx = this.draw_rhs_max - this.draw_rhs_width;
+			var dy = rhs_y_start + (rhs_y_end + 1 - rhs_y_start) / 2.0;
+			ctx.moveTo(cx, cy);
+			if (cy == dy) {
+				ctx.lineTo(dx, dy);
+			}
+			else {
+				// fancy!
+				ctx.bezierCurveTo(
+					cx + 12, cy - 3, // control-1 X,Y
+					dx - 12, dy - 3, // control-2 X,Y
+					dx, dy);
+			}
+			ctx.stroke();
+		}
+
+		// visible window feedback
+		ctx_lhs.fillStyle = this.settings.vpcolor;
+		ctx_rhs.fillStyle = this.settings.vpcolor;
+
+		var lto = ex.clhs.height() * ex.visible_page_ratio;
+		var lfrom = (ex.lhs_scroller.scrollTop() / ex.gutter_height) * ex.clhs.height();
+		var rto = ex.crhs.height() * ex.visible_page_ratio;
+		var rfrom = (ex.rhs_scroller.scrollTop() / ex.gutter_height) * ex.crhs.height();
+		this.trace('draw', 'cls.height', ex.clhs.height());
+		this.trace('draw', 'lhs_scroller.scrollTop()', ex.lhs_scroller.scrollTop());
+		this.trace('draw', 'gutter_height', ex.gutter_height);
+		this.trace('draw', 'visible_page_ratio', ex.visible_page_ratio);
+		this.trace('draw', 'lhs from', lfrom, 'lhs to', lto);
+		this.trace('draw', 'rhs from', rfrom, 'rhs to', rto);
+
+		ctx_lhs.fillRect(1.5, lfrom, 4.5, lto);
+		ctx_rhs.fillRect(1.5, rfrom, 4.5, rto);
+
+		ex.clhs.click(function (ev) {
+			var y = ev.pageY - ex.lhs_xyoffset.top - (lto / 2);
+			var sto = Math.max(0, (y / mcanvas_lhs.height) * ex.lhs_scroller.get(0).scrollHeight);
+			ex.lhs_scroller.scrollTop(sto);
+		});
+		ex.crhs.click(function (ev) {
+			var y = ev.pageY - ex.rhs_xyoffset.top - (rto / 2);
+			var sto = Math.max(0, (y / mcanvas_rhs.height) * ex.rhs_scroller.get(0).scrollHeight);
+			ex.rhs_scroller.scrollTop(sto);
+		});
+	},
+	trace: function(name) {
+		if(this.settings._debug.indexOf(name) >= 0) {
+			arguments[0] = name + ':';
+			console.log([].slice.apply(arguments));
+		}
+	}
+});
+
+jQuery.pluginMaker = function(plugin) {
+	// add the plugin function as a jQuery plugin
+	jQuery.fn[plugin.prototype.name] = function(options) {
+		// get the arguments
+		var args = jQuery.makeArray(arguments),
+		after = args.slice(1);
+		var rc;
+		this.each(function() {
+			// see if we have an instance
+			var instance = jQuery.data(this, plugin.prototype.name);
+			if (instance) {
+				// call a method on the instance
+				if (typeof options == "string") {
+					rc = instance[options].apply(instance, after);
+				} else if (instance.update) {
+					// call update on the instance
+					return instance.update.apply(instance, args);
+				}
+			} else {
+				// create the plugin
+				var _plugin = new plugin(this, options);
+			}
+		});
+		if (rc != undefined) return rc;
+	};
+};
+
+// make the mergely widget
+jQuery.pluginMaker(Mgly.mergely);
+
+})( window, document, jQuery, CodeMirror );

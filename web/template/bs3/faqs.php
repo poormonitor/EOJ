@@ -59,9 +59,7 @@
                 </p>
                 <br>
                 <h2 class="ui header">个人资料</h2>
-                <p>请您在使用服务前，仔细阅读<a href='https://oldmonitor.cn/privacy.html'>隐私协议</a>，这规定了我们如何收集和使用您的信息。
-                    <br>我们依据 GB/T 35273-2020 《信息安全技术 个人信息安全规范》存储、使用您的隐私数据。
-                </p>
+                <p>我们依据 GB/T 35273-2020 《信息安全技术 个人信息安全规范》存储、使用您的隐私数据。</p>
                 <br>
                 <h2 class="ui header">返回结果说明</h2>
                 <div class="ques-view">

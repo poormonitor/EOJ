@@ -8,8 +8,8 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<link rel="icon" href="../../favicon.ico">
-	<link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/zhblue/hustoj/trunk/web/mergely/codemirror.min.css" />
-	<link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/zhblue/hustoj/trunk/web/mergely/mergely.min.css" />
+	<link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/zhblue/hustoj/trunk/web/mergely/codemirror.css" />
+	<link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/zhblue/hustoj/trunk/web/mergely/mergely.css" />
 
 	<title><?php echo $OJ_NAME ?></title>
 	<?php include("template/$OJ_TEMPLATE/css.php"); ?>
@@ -47,8 +47,8 @@
 
 		</div>
 		<?php include("template/$OJ_TEMPLATE/js.php"); ?>
-		<script type="text/javascript" src="<?php echo $OJ_CDN_URL . $path_fix?>mergely/codemirror.min.js"></script>
-		<script type="text/javascript" src="<?php echo $OJ_CDN_URL . $path_fix?>mergely/mergely.min.js"></script>
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/zhblue/hustoj/trunk/web/mergely/codemirror.min.js"></script>
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/zhblue/hustoj/trunk/web/mergely/mergely.min.js"></script>
 
 		<script type="text/javascript">
 			$(document).ready(function() {
@@ -56,7 +56,6 @@
 					width: 'auto',
 					height: 'auto',
 					cmsettings: {
-						mode: 'text/plain',
 						readOnly: false
 					},
 				});
