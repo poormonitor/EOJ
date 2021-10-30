@@ -127,7 +127,7 @@ echo "<center><h3>" . $MSG_PROBLEM . "-" . $MSG_ADD . "</h3></center>";
       $("#blank_code").show();
     })
   </script>
-  <script src='https://cdn.jsdelivr.net/npm/@adactive/bootstrap-tagsinput@0.8.2/dist/bootstrap-tagsinput.min.js'></script>
+  <script src='<?php echo $OJ_CDN_URL .  "include/" ?>bootstrap-tagsinput.min.js'></script>
   <script src="<?php echo $OJ_CDN_URL . "ace/" ?>ace.min.js"></script>
   <script src="<?php echo $OJ_CDN_URL . "ace/" ?>ext-language_tools.min.js"></script>
   <script>

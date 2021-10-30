@@ -182,8 +182,8 @@
 			$("#problemstatus").tablesorter();
 		});
 	</script>
-	<script language="javascript" type="text/javascript" src="https://cdn.jsdelivr.net/npm/highcharts@9.1.2/highcharts.js"></script>
-	<script language="JavaScript">
+    <script src="<?php echo $OJ_CDN_URL . "template/$OJ_TEMPLATE/" ?>highcharts.js"></script>
+	<script language="javaScript">
 		$(document).ready(function() {
 			var info = new Array();
 			var dt = document.getElementById("statics");

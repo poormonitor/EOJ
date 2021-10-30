@@ -13,14 +13,14 @@
 </head>
 
 <body>
-  <link href='https://cdn.jsdelivr.net/gh/zhblue/hustoj/trunk/web/highlight/styles/shCore.min.css' rel='stylesheet' type='text/css' />
-  <link href='https://cdn.jsdelivr.net/gh/zhblue/hustoj/trunk/web/highlight/styles/shThemeDefault.min.css' rel='stylesheet' type='text/css' />
-  <script src='https://cdn.jsdelivr.net/gh/zhblue/hustoj/trunk/web/highlight/scripts/shCore.min.js' type='text/javascript'></script>
-  <script src='https://cdn.jsdelivr.net/gh/zhblue/hustoj/trunk/web/highlight/scripts/shBrushCpp.min.js' type='text/javascript'></script>
+  <link href='<?php echo $OJ_CDN_URL . "highlight/" ?>styles/shCore.min.css' rel='stylesheet' type='text/css' />
+  <link href='<?php echo $OJ_CDN_URL . "highlight/" ?>styles/shThemeDefault.min.css' rel='stylesheet' type='text/css' />
+  <script src='<?php echo $OJ_CDN_URL . "highlight/" ?>scripts/shCore.min.js' type='text/javascript'></script>
+  <script src='<?php echo $OJ_CDN_URL . "highlight/" ?>scripts/shBrushCpp.min.js' type='text/javascript'></script>
   <script language='javascript'>
     function draw() {
       SyntaxHighlighter.config.bloggerMode = false;
-      SyntaxHighlighter.config.clipboardSwf = 'https://cdn.jsdelivr.net/gh/zhblue/hustoj/trunk/web/highlight/scripts/clipboard.swf';
+      SyntaxHighlighter.config.clipboardSwf = '<?php echo $OJ_CDN_URL . "highlight/" ?>scripts/clipboard.swf';
       SyntaxHighlighter.highlight();
     }
   </script>

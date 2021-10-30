@@ -58,8 +58,8 @@
     </div>
     <?php include("template/$OJ_TEMPLATE/js.php"); ?>
 
-    <script src="https://cdn.jsdelivr.net/npm/ace-builds@1.4.12/src-min-noconflict/ace.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/ace-builds@1.4.12/src-min-noconflict/ext-language_tools.js"></script>
+    <script src="<?php echo $OJ_CDN_URL . "ace/" ?>ace.js"></script>
+    <script src="<?php echo $OJ_CDN_URL .  "ace/" ?>ext-language_tools.js"></script>
     <script>
         $("#language").on("change", changeLanguage);
         //初始化对象
