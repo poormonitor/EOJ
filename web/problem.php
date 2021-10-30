@@ -88,6 +88,15 @@ if (isset($_GET['id'])) {
 		)";
 
 		$result = pdo_query($sql, $cid, $pid);
+		if (isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
+			$sql = "SELECT solution_id FROM solution WHERE `user_id`=? AND `result` = 4 AND problem_id = ?;";
+			$s_id = pdo_query($sql, $_SESSION[$OJ_NAME . '_' . 'user_id'], $result[0]['problem_id']);
+			if (count($s_id) != 0) {
+				$s_id = $s_id[0][0];
+			} else {
+				unset($s_id);
+			}
+		}
 	}
 
 	//public
