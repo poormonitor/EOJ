@@ -23,7 +23,7 @@ $stime = $row['time'];
 $smemory = $row['memory'];
 $sproblem_id = $row['problem_id'];
 $view_user_id = $suser_id = $row['user_id'];
-
+$snick = $row['nick'];
 
 
 if (isset($OJ_AUTO_SHARE) && $OJ_AUTO_SHARE && isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
@@ -53,7 +53,7 @@ if ($ok == true) {
 	ob_start();
 	echo "\n'''\n";
 	echo "=== Submission Info ===\n";
-	echo "\tProblem: $sproblem_id\n\tUser: $suser_id\n";
+	echo "\tProblem: $sproblem_id\n\tUser: $suser_id\n\tName: $snick\n";
 	echo "\tLanguage: " . $language_name[$slanguage] . "\n\tResult: " . $judge_result[$sresult] . "\n";
 	if ($sresult == 4) {
 		echo "\tTime:" . $stime . " ms\n";
