@@ -300,7 +300,7 @@ echo "<center><h3>" . "Edit-" . $MSG_CONTEST . "</h3></center>";
     </form>
   </div>
 </body>
-<script src='https://cdn.jsdelivr.net/npm/@adactive/bootstrap-tagsinput@0.8.2/dist/bootstrap-tagsinput.min.js'></script>
+<script src='<?php echo $OJ_CDN_URL ?>include/bootstrap-tagsinput.min.js'></script>
 <script>
   function set_tag(self) {
     info = $('#problem').tagsinput('items');
