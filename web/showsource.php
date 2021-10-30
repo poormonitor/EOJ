@@ -24,6 +24,7 @@ $smemory = $row['memory'];
 $sproblem_id = $row['problem_id'];
 $view_user_id = $suser_id = $row['user_id'];
 $contest_id = $row['contest_id'];
+$snick = $row['nick'];
 
 
 
