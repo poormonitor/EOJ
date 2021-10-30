@@ -33,7 +33,7 @@
 
    </div>
    <?php include("template/$OJ_TEMPLATE/js.php"); ?>
-   <script language="javascript" type="text/javascript" src="https://cdn.jsdelivr.net/npm/highcharts@9.1.2/highcharts.js"></script>
+   <script src="<?php echo $OJ_CDN_URL . "template/$OJ_TEMPLATE/" ?>highcharts.js"></script>
    <script language="JavaScript">
       $(document).ready(function() {
          var chart = {

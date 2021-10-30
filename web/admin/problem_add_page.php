@@ -21,7 +21,6 @@ echo "<center><h3>" . $MSG_PROBLEM . "-" . $MSG_ADD . "</h3></center>";
 ?>
 
 <body leftmargin="30">
-
   <div class="container">
     <form method=POST action=problem_add.php>
       <input type=hidden name=problem_id value="New Problem">
@@ -87,15 +86,15 @@ echo "<center><h3>" . $MSG_PROBLEM . "-" . $MSG_ADD . "</h3></center>";
       </p>
       <p align=left>
         <?php echo "<h4>禁用关键词</h4>" ?>
-        <input name=block style="width:100%;" class=form-control></input><br><br>
+        <input name=block data-role="tagsinput" class=form-control></input><br><br>
       </p>
       <p align=left>
         <?php echo "<h4>必须关键词</h4>" ?>
-        <input name=allow style="width:100%;" class=form-control></input><br><br>
+        <input name=allow data-role="tagsinput" class=form-control></input><br><br>
       </p>
       <p align=left>
         <?php echo "<h4>" . $MSG_SOURCE . "</h4>" ?>
-        <input name=source style="width:100%;" class=form-control></input><br><br>
+        <input name=source data-role="tagsinput" class=form-control></input><br><br>
       </p>
       <p align=left><?php echo "<h4>" . $MSG_CONTEST . "</h4>" ?>
         <select name=contest_id>
@@ -128,11 +127,12 @@ echo "<center><h3>" . $MSG_PROBLEM . "-" . $MSG_ADD . "</h3></center>";
       $("#blank_code").show();
     })
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/ace-builds@1.4.12/src-min-noconflict/ace.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/ace-builds@1.4.12/src-min-noconflict/ext-language_tools.min.js"></script>
+  <script src='<?php echo $OJ_CDN_URL .  "include/" ?>bootstrap-tagsinput.min.js'></script>
+  <script src="<?php echo $OJ_CDN_URL . "ace/" ?>ace.min.js"></script>
+  <script src="<?php echo $OJ_CDN_URL . "ace/" ?>ext-language_tools.min.js"></script>
   <script>
     ace.require("ace/ext/language_tools");
-    ace.config.set('basePath', 'https://cdn.jsdelivr.net/npm/ace-builds@1.4.12/src-min-noconflict/');
+    ace.config.set('basePath', '<?php echo $OJ_CDN_URL . "ace/" ?>');
     var editor = ace.edit("source");
     editor.setTheme("ace/theme/chrome");
     editor.setOptions({

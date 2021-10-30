@@ -14,7 +14,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_
 if (file_exists("../lang/$OJ_LANG.php"))
     require_once("../lang/$OJ_LANG.php");
 ?>
-<script src="<?php echo $OJ_CDN_URL . $path_fix . "template/$OJ_TEMPLATE/" ?>jquery.min.js"></script>
+<script src="<?php echo $OJ_CDN_URL . "template/$OJ_TEMPLATE/" ?>jquery.min.js"></script>
 <script>
     $("document").ready(function() {
         $("form").append("<div id='csrf' />");

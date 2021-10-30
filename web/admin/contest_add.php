@@ -11,7 +11,6 @@ header("Cache-control:private");
   <title>Contest Add</title>
 </head>
 <hr>
-<link rel=stylesheet href='https://cdn.jsdelivr.net/npm/@adactive/bootstrap-tagsinput@0.8.2/dist/bootstrap-tagsinput.min.css' type='text/css'>
 <?php
 require_once("../include/db_info.inc.php");
 require_once("../lang/$OJ_LANG.php");
@@ -296,7 +295,7 @@ echo "<center><h3>" . $MSG_CONTEST . "-" . $MSG_ADD . "</h3></center>";
   require_once("../oj-footer.php");
   ?>
 
-  <script src='https://cdn.jsdelivr.net/npm/@adactive/bootstrap-tagsinput@0.8.2/dist/bootstrap-tagsinput.min.js'></script>
+  <script src='<?php echo $OJ_CDN_URL .  "include/" ?>bootstrap-tagsinput.min.js'></script>
   <script>
     function get_tag(self) {
       info = $('#problem').tagsinput('items');

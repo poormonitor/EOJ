@@ -251,7 +251,7 @@
 </div>
 </div>
 <?php include("template/$OJ_TEMPLATE/js.php"); ?>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/watermark-dom@2.3.0/index.min.js"></script>
+<script src="<?php echo $OJ_CDN_URL . "template/$OJ_TEMPLATE/" ?>watermark.js"></script>
 <?php
 $info = time() . " " . $_COOKIE["PHPSESSID"];
 ?>

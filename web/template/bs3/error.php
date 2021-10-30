@@ -25,8 +25,8 @@ if (isset($view_errors_js) or isset($view_swal)) { ?>
     </style>
   </body>
 
-  <script src="https://cdn.jsdelivr.net/gh/zhblue/hustoj/trunk/web/template/bs3/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert@2.1.2/dist/sweetalert.min.js"></script>
+  <script src="<?php echo $OJ_CDN_URL . "template/$OJ_TEMPLATE/" ?>jquery.min.js"></script>
+  <script src="<?php echo $OJ_CDN_URL .  "include/" ?>sweetalert.min.js"></script>
   <script>
     <?php if (isset($view_errors_js)) {
       echo $view_errors_js;
