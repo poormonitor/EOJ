@@ -703,7 +703,7 @@ const char *getFileNameFromPath(const char *path)
 void make_diff_out_full(FILE *f1, FILE *f2, int c1, int c2, const char *path, const char *infile)
 {
 
-	execute_cmd("echo '========[%s]========='>>diff.out", getFileNameFromPath(path));
+	execute_cmd("echo '============[%s]============'>>diff.out", getFileNameFromPath(path));
 	execute_cmd("echo '------test in top 100 lines------'>>diff.out");
 	execute_cmd("head -100 %s >>diff.out", infile);
 	execute_cmd("echo '------test out top 100 lines-----'>>diff.out");
@@ -712,7 +712,7 @@ void make_diff_out_full(FILE *f1, FILE *f2, int c1, int c2, const char *path, co
 	execute_cmd("head -100 user.out>>diff.out");
 	execute_cmd("echo '------diff out 200 lines-----'>>diff.out");
 	execute_cmd("diff '%s' user.out -y|head -200>>diff.out", path);
-	execute_cmd("echo '=============================='>>diff.out");
+	execute_cmd("echo '==================================='>>diff.out");
 }
 void make_diff_out_simple(FILE *f1, FILE *f2, int c1, int c2, const char *path, const char *infile)
 {
@@ -722,7 +722,7 @@ void make_diff_out_simple(FILE *f1, FILE *f2, int c1, int c2, const char *path, 
 	execute_cmd("echo -e '\n' >> diff.out", getFileNameFromPath(path));
 	execute_cmd("echo 'Expected						      |	Yours'>>diff.out");
 	execute_cmd("diff '%s' user.out -y|head -100>>diff.out", path);
-	execute_cmd("echo -e '\n\n==============================\n'>>diff.out");
+	execute_cmd("echo -e '\n\n===================================\n'>>diff.out");
 }
 
 /*
@@ -1141,6 +1141,8 @@ void _addreinfo_http(int solution_id, const char *filename)
 }
 void addreinfo(int solution_id)
 {
+	execute_cmd("echo '\n' >> error.out");
+	execute_cmd("cat diff.out >> error.out");
 	if (http_judge)
 	{
 		_addreinfo_http(solution_id, "error.out");
@@ -1297,7 +1299,7 @@ void umount(char *work_dir)
 }
 int compile(int lang, char *work_dir)
 {
-	if (lang == 6 || lang == 16)
+	if (lang == 16)
 		return 0; // python / js don't compile
 	int pid;
 
@@ -1311,8 +1313,7 @@ int compile(int lang, char *work_dir)
 
 	const char *CP_R[] = {"ruby", "-c", "Main.rb", NULL};
 	const char *CP_B[] = {"chmod", "+rx", "Main.sh", NULL};
-	const char *CP_Y[] = {py_bin, "-c",
-						  "import py_compile; py_compile.compile(r'Main.py')", NULL};
+	const char *CP_Y[] = {py_bin, "-m", "py_compile", "Main.py", NULL};
 	const char *CP_PH[] = {"php", "-l", "Main.php", NULL};
 	const char *CP_PL[] = {"perl", "-c", "Main.pl", NULL};
 	const char *CP_CS[] = {"mcs", "-codepage:utf8", "-warn:0", "Main.cs", NULL};
@@ -2557,7 +2558,7 @@ int fix_python_mis_judge(char *work_dir, int &ACflg, int &topmemory,
 		ACflg = OJ_RE;
 	}
 
-	return comp_res1;
+	return comp_res1 || comp_res2;
 }
 
 int fix_java_mis_judge(char *work_dir, int &ACflg, int &topmemory,
@@ -2820,7 +2821,7 @@ void watch_solution(pid_t pidApp, char *infile, int &ACflg, int isspj,
 
 		if (WIFEXITED(status))
 			break;
-		if ((lang < 7 || lang == 9) && get_file_size("error.out") && !oi_mode)
+		if ((lang < 6 || lang == 9) && get_file_size("error.out") && !oi_mode)
 		{
 			ACflg = OJ_RE;
 			// addreinfo(solution_id);
