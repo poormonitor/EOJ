@@ -703,7 +703,7 @@ const char *getFileNameFromPath(const char *path)
 void make_diff_out_full(FILE *f1, FILE *f2, int c1, int c2, const char *path, const char *infile)
 {
 
-	execute_cmd("echo '============[%s]============'>>diff.out", getFileNameFromPath(path));
+	execute_cmd("echo '[%s]'>>diff.out", getFileNameFromPath(path));
 	execute_cmd("echo '------test in top 100 lines------'>>diff.out");
 	execute_cmd("head -100 %s >>diff.out", infile);
 	execute_cmd("echo '------test out top 100 lines-----'>>diff.out");
@@ -712,17 +712,17 @@ void make_diff_out_full(FILE *f1, FILE *f2, int c1, int c2, const char *path, co
 	execute_cmd("head -100 user.out>>diff.out");
 	execute_cmd("echo '------diff out 200 lines-----'>>diff.out");
 	execute_cmd("diff '%s' user.out -y|head -200>>diff.out", path);
-	execute_cmd("echo '==================================='>>diff.out");
+	execute_cmd("echo ''>>diff.out");
 }
 void make_diff_out_simple(FILE *f1, FILE *f2, int c1, int c2, const char *path, const char *infile)
 {
-	execute_cmd("echo -e '============[%s]============' >> diff.out", getFileNameFromPath(path));
-	execute_cmd("echo -e '\nInput' >> diff.out", getFileNameFromPath(path));
+	execute_cmd("echo -e '[%s]' >> diff.out", getFileNameFromPath(path));
+	execute_cmd("echo -e 'Input' >> diff.out", getFileNameFromPath(path));
 	execute_cmd("cat %s >> diff.out", infile);
-	execute_cmd("echo -e '\n' >> diff.out", getFileNameFromPath(path));
+	execute_cmd("echo -e '' >> diff.out", getFileNameFromPath(path));
 	execute_cmd("echo 'Expected						      |	Yours'>>diff.out");
 	execute_cmd("diff '%s' user.out -y|head -100>>diff.out", path);
-	execute_cmd("echo -e '\n\n===================================\n'>>diff.out");
+	execute_cmd("echo -e '\n'>>diff.out");
 }
 
 /*
@@ -3557,7 +3557,9 @@ int main(int argc, char **argv)
 		sim = 0;
 	}
 	// if(ACflg == OJ_RE)addreinfo(solution_id);
-
+	FILE *df = fopen("diff.out", "a");
+	fprintf(df, "time_space_table:\n%s\n", time_space_table);
+	fclose(df);
 	if ((oi_mode && finalACflg == OJ_RE) || ACflg == OJ_RE)
 	{
 		if (DEBUG)
@@ -3604,9 +3606,6 @@ int main(int argc, char **argv)
 		update_solution(solution_id, ACflg, usedtime, topmemory >> 10, sim,
 						sim_s_id, pass_rate);
 	}
-	FILE *df = fopen("diff.out", "a");
-	fprintf(df, "time_space_table:\n%s\n", time_space_table);
-	fclose(df);
 	if (DEBUG)
 		printf("ACflg:%d\n", ACflg);
 	if (DEBUG)
