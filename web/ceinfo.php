@@ -38,6 +38,15 @@ $id = intval($_GET['sid']);
 $sql = "SELECT * FROM `solution` WHERE `solution_id`=?";
 $result = pdo_query($sql, $id);
 $row = $result[0];
+$slanguage = $row['language'];
+$sresult = $row['result'];
+$stime = $row['time'];
+$smemory = $row['memory'];
+$sproblem_id = $row['problem_id'];
+$view_user_id = $suser_id = $row['user_id'];
+$contest_id = $row['contest_id'];
+$snick = $row['nick'];
+
 if ($row && $row['user_id'] == $_SESSION[$OJ_NAME . '_' . 'user_id']) $ok = true;
 if (isset($_SESSION[$OJ_NAME . '_' . 'source_browser'])) $ok = true;
 $view_reinfo = "";
@@ -57,6 +66,11 @@ if ($ok == true) {
 	exit(0);
 }
 
+$sql = "SELECT `source` FROM `source_code_user` WHERE `solution_id`=?";
+$result = pdo_query($sql, $id);
+$row = $result[0];
+if ($row)
+	$view_source = $row['source'];
 /////////////////////////Template
 require("template/" . $OJ_TEMPLATE . "/ceinfo.php");
 /////////////////////////Common foot
