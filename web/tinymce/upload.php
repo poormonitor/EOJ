@@ -23,7 +23,7 @@ if (preg_match("/([^\w\s\d\-_~,;:\[\]\(\).])|([\.]{2,})/", $temp['name'])) {
 }
 
 // 验证扩展名
-if (!in_array(strtolower(pathinfo($temp['name'], PATHINFO_EXTENSION)), array("gif", "jpg", "png"))) {
+if (!in_array(strtolower(pathinfo($temp['name'], PATHINFO_EXTENSION)), array("gif", "jpg", "png", "bmp"))) {
 	header("HTTP/1.1 400 Invalid extension.");
 	exit;
 }
