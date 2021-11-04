@@ -92,7 +92,7 @@ echo "<center><h3>" . "Edit-" . $MSG_PROBLEM . "</h3></center>";
           <h4>待填空代码</h4>
           <h5>单行填空请用%*%表示，多行填空用*%*表示，一个问题仅支持一个多行填空</h5>
           <textarea hidden='hidden' id='multiline' name='blank_code' autocomplete='off'></textarea>
-          <pre id=source style='height:150px;width:auto;font-size:13pt;margin-top:8px;'><?php echo htmlentities($row['blank'], ENT_QUOTES, "UTF-8") ?></pre>
+          <pre id=source style='height:300px;width:auto;font-size:13pt;margin-top:8px;'><?php echo htmlentities($row['blank'], ENT_QUOTES, "UTF-8") ?></pre>
         </div>
         </p>
         <p align=left>
