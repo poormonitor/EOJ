@@ -1886,8 +1886,9 @@ void prepare_files(char *filename, int namelen, char *infile, int &p_id,
 	sprintf(infile, "%s/data/%d/%s.in", oj_home, p_id, fname);
 	if (copy_data)
 		execute_cmd("/bin/cp '%s' %s/data.in", infile, work_dir);
+	execute_cmd("/bin/cp `ls %s/data/%d/* | grep %s | grep -v *.in | grep -v *.out` %s", oj_home, p_id, fname, work_dir);
 	execute_cmd("/bin/cp %s/data/%d/*.dic %s/ 2>/dev/null", oj_home, p_id, work_dir);
-	execute_cmd("chown judge %s/*.dic ", work_dir);
+	execute_cmd("chown judge %s/* ", work_dir);
 	sprintf(outfile, "%s/data/%d/%s.out", oj_home, p_id, fname0);
 	sprintf(userfile, "%s/run%d/user.out", oj_home, runner_id);
 }
@@ -2981,7 +2982,7 @@ void watch_solution(pid_t pidApp, char *infile, int &ACflg, int isspj,
 				sprintf(error,
 						"[ERROR] solution_id:%d called a Forbidden system call:%u [%u]\n",
 						solution_id, call_id, (unsigned int)reg.REG_SYSCALL);
-
+				ACflg = OJ_RE;
 				write_log(error);
 				print_runtimeerror(infile + strlen(oj_home) + 5, error);
 				// ptrace(PTRACE_SYSCALL, pidApp, NULL, NULL);
