@@ -1886,9 +1886,9 @@ void prepare_files(char *filename, int namelen, char *infile, int &p_id,
 	sprintf(infile, "%s/data/%d/%s.in", oj_home, p_id, fname);
 	if (copy_data)
 		execute_cmd("/bin/cp '%s' %s/data.in", infile, work_dir);
-	execute_cmd("/bin/cp `ls %s/data/%d/* | grep %s | grep -v *.in | grep -v *.out` %s", oj_home, p_id, fname, work_dir);
-	execute_cmd("/bin/cp %s/data/%d/*.dic %s/ 2>/dev/null", oj_home, p_id, work_dir);
-	execute_cmd("chown judge %s/* ", work_dir);
+	execute_cmd("/bin/cp `ls %s/data/%d/* | grep %s | grep -v -e '.*\\.in' | grep -v -e '.*\\.out'` %s", oj_home, p_id, fname, work_dir);
+	execute_cmd("/bin/cp %s/data/%d/*.dic %s 2>/dev/null", oj_home, p_id, work_dir);
+	execute_cmd("chown judge %s* ", work_dir);
 	sprintf(outfile, "%s/data/%d/%s.out", oj_home, p_id, fname0);
 	sprintf(userfile, "%s/run%d/user.out", oj_home, runner_id);
 }
@@ -2611,8 +2611,8 @@ int special_judge(char *oj_home, int problem_id, char *infile, char *outfile,
 	if (DEBUG)
 		printf("pid=%d\n", problem_id);
 	// prevent privileges settings caused spj fail in [issues686]
-	execute_cmd("chown www-data:judge %s/data/%d/spj %s %s %s", oj_home, problem_id, infile, outfile, userfile);
-	execute_cmd("chmod 750 %s/data/%d/spj %s %s %s", oj_home, problem_id, infile, outfile, userfile);
+	execute_cmd("chown www:judge %s/data/%d/spj %s %s %s", oj_home, problem_id, infile, outfile, userfile);
+	execute_cmd("chmod 0755 %s/data/%d/spj %s %s %s", oj_home, problem_id, infile, outfile, userfile);
 
 	pid = fork();
 	int ret = 0;
@@ -3173,6 +3173,15 @@ int get_test_file(char *work_dir, int p_id)
 					execute_cmd(cmd4, oj_home, p_id, oj_home, p_id);
 				}
 			}
+			if (strcmp(filename, "spj.py") == 0)
+			{
+				if (access(localfile, 0) == 0)
+				{
+					execute_cmd("touch %s/data/%d/spj", oj_home, p_id);
+					execute_cmd("echo '#! %s' >> %s/data/%d/spj", py_bin, oj_home, p_id);
+					execute_cmd("cat %s/data/%d/spj.py >> %s/data/%d/spj", oj_home, p_id, oj_home, p_id);
+				}
+			}
 		}
 	}
 	pclose(fjobs);
@@ -3506,14 +3515,11 @@ int main(int argc, char **argv)
 
 		if (pidApp == 0)
 		{
-
 			run_solution(lang, work_dir, time_lmt, usedtime, mem_lmt, infile);
 		}
 		else
 		{
-
 			// num_of_test++;
-
 			watch_solution(pidApp, infile, ACflg, isspj, userfile, outfile,
 						   solution_id, lang, topmemory, mem_lmt, usedtime, time_lmt,
 						   p_id, PEflg, work_dir);
