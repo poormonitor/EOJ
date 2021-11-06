@@ -2,7 +2,7 @@
 
 基于HUSTOJ的Python教学优化版。
 
-### 特色功能
+## 特色功能
 
 - 针对教学班的分组系统和权限管理
 - 家长查询学生作业完成情况
@@ -61,3 +61,21 @@ wget https://git.oldmonitor.cn/poormonitor/hustoj/raw/branch/master/install/inst
 4. 使用
 
    注册admin账号自动成为管理员。Enjoy it!
+
+## License
+
+原项目：[zhblue/hustoj](https://github.com/zhblue/hustoj)
+
+基于[GPL v2](https://www.gnu.org/licenses/gpl-3.0.txt) 修改和分发。
+
+This program is free software: you can redistribute it and/or modify it
+under the terms of the GNU General Public License Version 2 as 
+published by the Free Software Foundation.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
