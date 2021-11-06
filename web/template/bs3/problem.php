@@ -77,6 +77,7 @@
 							echo "<a class='btn btn-info btn-sm' href='submitpage.php?cid=$cid&pid=$pid&sid=$s_id&langmask=$langmask' role='button'>同步历史提交</a>";
 						}
 						echo "<a class='btn btn-primary btn-sm' role='button' href='contest.php?cid=$cid'>$MSG_PROBLEM$MSG_LIST</a>";
+						echo "<a class='btn btn-primary btn-sm' role='button' href=problem.php?id=$id>非比赛</a>";
 					}
 					if (isset($OJ_OI_MODE) && $OJ_OI_MODE) {
 					} else {
@@ -232,6 +233,7 @@
 										<?php
 										$cats = explode(" ", $row['source']);
 										foreach ($cats as $cat) {
+											if ($cat == "") continue;
 											$hash_num = hexdec(substr(md5($cat), 0, 7));
 											$label_theme = $color_theme[$hash_num % count($color_theme)];
 											if ($label_theme == "") $label_theme = "default";

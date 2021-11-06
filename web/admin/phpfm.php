@@ -17,12 +17,14 @@ if (!(isset($_SESSION[$OJ_NAME.'_'.'administrator'])
     header("Cache-Control: no-store");
 	header("Content-Type: text/html; charset=".$charset);
 	//@ini_set('default_charset', $charset);
+    if (@get_magic_quotes_gpc()) {
         function stripslashes_deep($value){
             return is_array($value)? array_map('stripslashes_deep', $value):$value;
         }
         $_POST = array_map('stripslashes_deep', $_POST);
         $_GET = array_map('stripslashes_deep', $_GET);
         $_COOKIE = array_map('stripslashes_deep', $_COOKIE);
+    }
 	// Server Vars
     function get_client_ip() {
         $ipaddress = '';
@@ -3239,8 +3241,8 @@ function dir_list_form() {
             }
         }
         function edit_file(arg){
-            var w = 700;
-            var h = 400;
+            var w = 800;
+            var h = 600;
             // if(confirm('".uppercase(et('Edit'))." \\' '+arg+' \\' ?'))
             window.open('".addslashes($path_info["basename"])."?action=7&current_dir=".addslashes($current_dir)."&filename='+escape(arg), '', 'width='+w+',height='+h+',fullscreen=no,scrollbars=no,resizable=yes,status=no,toolbar=no,menubar=no,location=no');
         }
@@ -4029,7 +4031,7 @@ function edit_file_form(){
     <input type=hidden name=current_dir value=\"$current_dir\">
     <input type=hidden name=filename value=\"$filename\">
     <tr><th colspan=2>".$filename."</th></tr>
-    <tr><td colspan=2><textarea name=file_data style='width:600px;height:300px;'>".html_encode($file_data)."</textarea></td></tr>
+    <tr><td colspan=2><textarea name=file_data style='width:700px;height:500px;'>".html_encode($file_data)."</textarea></td></tr>
     <tr><td><input type=button value=\"".et('Refresh')."\" onclick=\"document.edit_form_refresh.submit()\"></td><td align=right><input type=button value=\"".et('SaveFile')."\" onclick=\"go_save()\"></td></tr>
     </form>
     <form name=\"edit_form_refresh\" action=\"".$path_info["basename"]."\" method=\"post\">
@@ -4624,7 +4626,7 @@ function frameset(){
  */
 class archive
 {
-    function __construct($name)
+    function start_archive($name)
     {
         $this->options = array(
             'basedir'=>".",
@@ -4998,7 +5000,7 @@ class tar_file extends archive
 {
     function __construct($name)
     {
-        $this->archive($name);
+        $this->start_archive($name);
         $this->options['type'] = "tar";
     }
 
@@ -5269,7 +5271,7 @@ class zip_file extends archive
 {
     function __construct($name)
     {
-        $this->archive($name);
+        $this->start_archive($name);
         $this->options['type'] = "zip";
     }
 
@@ -5395,3 +5397,4 @@ class zip_file extends archive
 // +--------------------------------------------------
 // | THE END
 // +--------------------------------------------------
+?>
