@@ -77,7 +77,7 @@
 							echo "<a class='btn btn-info btn-sm' href='submitpage.php?cid=$cid&pid=$pid&sid=$s_id&langmask=$langmask' role='button'>同步历史提交</a>";
 						}
 						echo "<a class='btn btn-primary btn-sm' role='button' href='contest.php?cid=$cid'>$MSG_PROBLEM$MSG_LIST</a>";
-						echo "<a class='btn btn-primary btn-sm' role='button' href=problem.php?id=$id>非比赛</a>";
+						echo "<a class='btn btn-primary btn-sm' role='button' href=problem.php?id=$id>离开作业</a>";
 					}
 					if (isset($OJ_OI_MODE) && $OJ_OI_MODE) {
 					} else {

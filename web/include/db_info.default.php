@@ -72,8 +72,12 @@ static  $OJ_RANK_LOCK_DELAY = 3600; //赛后封榜持续时间，单位秒。根
 static  $OJ_BENCHMARK_MODE = false; //此选项将影响代码提交，不再有提交间隔限制，提交后会返回solution id
 static $OJ_CONTEST_RANK_FIX_HEADER = false; //比赛排名水平滚动时固定名单
 static  $OJ_NOIP_KEYWORD = "noip";  // 标题包含此关键词，激活noip模式，赛中不显示结果，仅保留最后一次提交。
+static  $OJ_SPONSOR = false;
+static  $OJ_SPONSOR_URL = false;
 static  $OJ_BEIAN = false;  // 如果有备案号，填写备案号
-static  $OJ_PYTHON_VER = 'Python Version 3.9.7 (default, Sep 19 2021, 11:12:51) [GCC 10.2.1 20210110]';
+static  $OJ_MPS_BEIAN = false;  // 如果有备案号，填写备案号
+static  $OJ_MPS_BEIAN_URL = false;  // 如果有备案号，填写备案号
+static  $OJ_PYTHON_VER = 'Python';
 //static  $OJ_EXAM_CONTEST_ID=1000; // 启用考试状态，填写考试比赛ID
 //static  $OJ_ON_SITE_CONTEST_ID=1000; //启用现场赛状态，填写现场赛比赛ID
 

@@ -1,11 +1,11 @@
-<div class=col-sm-1></div>
-<div id=footer class='center col-sm-2'>GPLv2 licensed by HUSTOJ <?php echo date('Y'); ?></div>
-<div id=footer class='center col-sm-2'><a id='footer' href='https://git.oldmonitor.cn/poormonitor/hustoj'>Modified under GPLv2</a></div>
-<div id=footer class='center col-sm-2'>Sponsored by <a id='footer' href='<?php echo $OJ_SPONSOR_URL ?>'><?php echo $OJ_SPONSOR ?></a></div>
-<div id=footer class='center col-sm-2'><a id='footer' href='https://beian.miit.gov.cn/'><?php echo $OJ_BEIAN ?></a></div>
-<div id=footer class='center col-sm-2'><a id='footer' target="_blank" href="<?php echo $OJ_MPS_BEIAN_URL ?>"><?php echo $OJ_MPS_BEIAN ?></a></div>
-<div class=col-sm-1></div>
-</br></br>
+<div>
+	<div id=footer class='center col-sm-2 col-sm-offset-1'>Powered by <a id='footer' href='https://git.oldmonitor.cn/poormonitor/hustoj'>HUSTOJ</a></div>
+	<div id=footer class='center col-sm-2'>Sponsored by <a id='footer' href='<?php echo $OJ_SPONSOR_URL ?>'><?php echo $OJ_SPONSOR ?></a></div>
+	<div id=footer class='center col-sm-2'><a id='footer' href='policy.html'><?php echo $MSG_POLICY ?></a></div>
+	<div id=footer class='center col-sm-2'><a id='footer' href='https://beian.miit.gov.cn/'><?php echo $OJ_BEIAN ?></a></div>
+	<div id=footer class='center col-sm-2'><a id='footer' target="_blank" href="<?php echo $OJ_MPS_BEIAN_URL ?>"><?php echo $OJ_MPS_BEIAN ?></a></div>
+</div>
+<br><br>
 <script src="<?php echo $OJ_CDN_URL . "template/$OJ_TEMPLATE/" ?>jquery.min.js"></script>
 <script src="<?php echo $OJ_CDN_URL .  "template/$OJ_TEMPLATE/" ?>bootstrap.min.js"></script>
 <script src="<?php echo $OJ_CDN_URL .  "template/$OJ_TEMPLATE/" ?>index.min.js"></script>

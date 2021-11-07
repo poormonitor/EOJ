@@ -76,32 +76,56 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
 	}
 }
 ?>
+<?php require_once("../include/set_post_key.php"); ?>
 <div class="container">
-	<b>Rejudge</b>
+	<br>
+	<h3 class='center'><b>重判</b></h3>
 	<ol>
 		<br>
-		<li><?php echo $MSG_PROBLEM ?>
+		<div class='center form-group'>
 			<form action='rejudge.php' method=post>
-				<input type=input name='rjpid' placeholder="1001"> <input type='hidden' name='do' value='do'>
-				<input type=submit value=submit>
-				<?php require_once("../include/set_post_key.php"); ?>
+				<label class='control-label'>
+					<li><?php echo $MSG_PROBLEM ?></li>
+				</label>
+				<div class='form-inline'>
+					<input type=input class='form-control' name='rjpid' placeholder="1001">
+					<input type='hidden' name='do' value='do'>
+					<input type=hidden name="postkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>">
+					<input type=submit class='form-control btn btn-default' value='<?php echo $MSG_SUBMIT; ?>'>
+				</div>
 			</form>
-		<li><?php echo $MSG_SUBMIT ?>
 			<form action='rejudge.php' method=post>
-				<input type=input name='rjsid' placeholder="1002"> <input type='hidden' name='do' value='do'>
-				<input type=hidden name="postkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>">
-				<input type=submit value=submit>
+				<label class='control-label'>
+					<li><?php echo $MSG_SUBMIT ?></li>
+				</label>
+				<div class='form-inline'>
+					<input type=input class='form-control' name='rjsid' style='%' placeholder="1001" value='<?php echo $_GET['sid'] ?>'>
+					<input type='hidden' name='do' value='do'>
+					<input type=hidden name="postkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>">
+					<input type=submit class='form-control btn btn-default' value='<?php echo $MSG_SUBMIT; ?>'>
+				</div>
 			</form>
-		<li><?php echo "Stuck on running " ?>
 			<form action='rejudge.php' method=post>
-				<input type=input name='result' placeholder="3" value="3"> <input type='hidden' name='do' value='do'>
-				<input type=hidden name="postkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>">
-				<input type=submit value=submit>
+				<label class='control-label'>
+					<li><?php echo "卡在运行中" ?></li>
+				</label>
+				<div class='form-inline'>
+					<input type=input class='form-control' name='result' placeholder="3" value="3">
+					<input type='hidden' name='do' value='do'>
+					<input type=hidden name="postkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>">
+					<input type=submit class='form-control btn btn-default' value='<?php echo $MSG_SUBMIT; ?>'>
+				</div>
 			</form>
-		<li><?php echo $MSG_CONTEST ?>
 			<form action='rejudge.php' method=post>
-				<input type=input name='rjcid' placeholder="1003"> <input type='hidden' name='do' value='do'>
-				<input type=hidden name="postkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>">
-				<input type=submit value=submit>
+				<label class='control-label'>
+					<li><?php echo $MSG_CONTEST ?></li>
+				</label>
+				<div class='form-inline'>
+					<input type=input class='form-control' name='rjcid' placeholder="1003">
+					<input type='hidden' name='do' value='do'>
+					<input type=hidden name="postkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>">
+					<input type=submit class='form-control btn btn-default' value='<?php echo $MSG_SUBMIT; ?>'>
+				</div>
 			</form>
+		</div>
 </div>
