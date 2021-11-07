@@ -17,7 +17,7 @@ div.status_explain li {
 
 .container .jumbotron {
     padding: 8px;
-    background-image: url(https://cdn.jsdelivr.net/gh/poormonitor/image@master/20210306/9570a8e4a6ee69b9e0ef5de25b729954.png);
+    background: #fff;
     border: 0px;
     box-shadow: 0 1px 0 rgba(255, 255, 255, .15) inset, 0 2px 6px rgba(0, 0, 0, .075);
 }

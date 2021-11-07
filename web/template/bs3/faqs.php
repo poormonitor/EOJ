@@ -41,11 +41,14 @@
                 <br>
                 <h2 class="ui header">评测</h2>
                 <p>
-                    Python 使用 <code><?php echo $OJ_PYTHON_VER ?></code> 编译，命令为
-                    &nbsp;<code>python3 Main.py</code>。<br>
+                    Python 使用 <code><?php echo $OJ_PYTHON_VER ?></code> 编译和运行，<br>
+                    编译命令为<code>python3 -m py_compile Main.py</code>，<br>
+                    运行命令为<code>python3 Main.py</code>。<br>
                     这里给出的编译器版本仅供参考，请以实际编译器版本为准。
                 </p>
-                <p>请使用<strong>标准输入输出</strong>。<br>
+                <p>
+                    请使用<strong>标准输入输出</strong>读入和输出。<br>
+                    或者，您可以从data.in文件中读入，并输出到user.out文件中。<br>
                     <strong>在Python中，input中的prompt字段会被输出并被认定为答案的一部分。</strong>
                 </p>
                 <br>

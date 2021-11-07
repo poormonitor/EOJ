@@ -170,7 +170,7 @@ static int time_limit_to_total = 0;
 static int total_time = 0;
 
 static int http_judge = 0;
-static int copy_data = 0;
+static int copy_data = 1;
 static char http_baseurl[BUFFER_SIZE / 10];
 static char http_apipath[BUFFER_SIZE / 10];
 static char http_loginpath[BUFFER_SIZE / 10];
