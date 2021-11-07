@@ -56,18 +56,18 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
 				<label class="col-sm-offset-3 col-sm-3 control-label"><?php echo $MSG_PRIVILEGE_TYPE ?></label>
 				<div class='col-sm-3'>
 					<select class="form-control" name="rightstr" onchange="show_value_input(this.value)">
-				
-				<?php
-				$rightarray = array("administrator", "problem_editor", "source_browser", "contest_creator", "http_judge", "password_setter", "printer", "balloon", 'problem_start', 'problem_end');
-				while (list($key, $val) = each($rightarray)) {
-					if (isset($rightstr) && ($rightstr == $val)) {
-						echo '<option value="' . $val . '" selected>' . $val . '</option>';
-					} else {
-						echo '<option value="' . $val . '">' . $val . '</option>';
-					}
-				}
-				?>
-				</select>
+
+						<?php
+						$rightarray = array("administrator", "problem_editor", "source_browser", "contest_creator", "http_judge", "password_setter", "printer", "balloon", 'problem_start', 'problem_end');
+						while (list($key, $val) = each($rightarray)) {
+							if (isset($rightstr) && ($rightstr == $val)) {
+								echo '<option value="' . $val . '" selected>' . $val . '</option>';
+							} else {
+								echo '<option value="' . $val . '">' . $val . '</option>';
+							}
+						}
+						?>
+					</select>
 				</div>
 				<br>
 				<div class="col-sm-offset-9"><input id='value_input' type="text" class="form-control" name="valuestr" value="true"></div>

@@ -19,7 +19,7 @@ $MSG_STANDING = "名次";
 $MSG_STATISTICS = "统计";
 $MSG_USERINFO = "用户信息";
 $MSG_MAIL = "短消息";
-
+$MSG_POLICY ="使用许可 & 隐私协议";
 //status.php
 $MSG_Pending = "等待";
 $MSG_Pending_Rejudging = "等待重判";
@@ -257,7 +257,7 @@ $MSG_HELP_CE = "编译错误，请点击后获得编译器的详细输出";
 $MSG_HELP_MORE_TESTDATA_LATER = "更多组测试数据，请在题目添加完成后补充";
 $MSG_HELP_ADD_FAQS = "管理员可以添加一条新闻，命名为\"faqs.$OJ_LANG\" 来取代本页内容 <a href=../faqs.php>$MSG_FAQ</a>。";
 $MSG_HELP_HUSTOJ = "感谢您选择" . $OJ_NAME . "。";
-$MSG_HELP_SPJ = "特殊裁判的使用，请参考<a href='https://cn.bing.com/search?q=hustoj+special+judge' target='_blank'>搜索hustoj special judge</a>";
+$MSG_HELP_SPJ = "在测试文件中添加 spj.cc , spj.c 或 spj.py 。运行传入参数分别为测试输入文件名，测试输出文件名，用户输出文件名。特判程序返回0为正确，1为错误。";
 $MSG_HELP_BALLOON_SCHOOL = "打印，气球帐号的School字段用于过滤任务列表，例如填zjicm则只显示帐号为zjicm开头的任务";
 
 $MSG_WARNING_LOGIN_FROM_DIFF_IP = "从不同的ip地址登录";

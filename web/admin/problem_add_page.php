@@ -70,6 +70,7 @@ echo "<center><h3>" . $MSG_PROBLEM . "-" . $MSG_ADD . "</h3></center>";
       </p>
       <p>
         <?php echo "<h4>" . $MSG_SPJ . "</h4>" ?>
+        <span><?php echo $MSG_HELP_SPJ ?></span><br>
         <?php echo "否 " ?><input type=radio name=spj value='0' checked><?php echo "/ 是 " ?><input type=radio name=spj value='1'><br><br>
       </p>
       <p>
