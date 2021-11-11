@@ -28,10 +28,9 @@
 				<nav id="page" class="center">
 					<small>
 						<ul class="pagination">
-							</li>
-							<li class="page-item"><a href="problemset.php?page=1">&lt;&lt;</a></li>
 							<?php
 							if ($page != 1) { ?>
+								<li class="page-item"><a href="problemset.php?page=1">&lt;&lt;</a></li>
 								<li class="page-item"><a href="problemset.php?page=<?php echo $page - 1 ?>">&lt;</a></li>
 							<?php } ?>
 							<?php
@@ -47,8 +46,9 @@
 							<?php
 							if ($page != $view_total_page) { ?>
 								<li class="page-item"><a href="problemset.php?page=<?php if ($page != $view_total_page) echo $page + 1 ?>">&gt;</a></li>
+								<li class="page-item"><a href="problemset.php?page=<?php echo $view_total_page ?>">&gt;&gt;</a></li>
 							<?php } ?>
-							<li class="page-item"><a href="problemset.php?page=<?php echo $view_total_page ?>">&gt;&gt;</a></li>
+
 						</ul>
 					</small>
 				</nav>

@@ -16,13 +16,13 @@ $endTime = microtime(true);
 $runTime = ($endTime - $startTime) * 1000 . ' ms';
 ?>
 <script>
+	var OJ_CDN = "<?php echo $OJ_CDN_URL ?>";
 	$(document).ready(function() {
 		$("#csrf").load("<?php echo $path_fix ?>csrf.php");
 		<?php
 		if (isset($_SESSION[$OJ_NAME . "_administrator"])) echo "admin_mod();";
 		?>
 	});
-
 	console.log("Loading used <?php echo $runTime; ?>.")
 	console.log("Thanks for choosing <?php echo $OJ_NAME; ?>.");
 </script>
