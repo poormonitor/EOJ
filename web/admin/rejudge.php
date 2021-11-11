@@ -99,7 +99,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
 					<li><?php echo $MSG_SUBMIT ?></li>
 				</label>
 				<div class='form-inline'>
-					<input type=input class='form-control' name='rjsid' style='%' placeholder="1001" value='<?php echo $_GET['sid'] ?>'>
+					<input type=input class='form-control' name='rjsid' style='%' placeholder="1001" value='<?php if (isset($_GET['sid'])) echo $_GET['sid'] ?>'>
 					<input type='hidden' name='do' value='do'>
 					<input type=hidden name="postkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>">
 					<input type=submit class='form-control btn btn-default' value='<?php echo $MSG_SUBMIT; ?>'>

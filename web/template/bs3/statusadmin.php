@@ -49,9 +49,7 @@
 					</select>&nbsp;
 
 					<?php echo $MSG_USER ?>
-					<input class="form-control" type=text size=8 name=user_id value='<?php if (!isset($gid)) {
-																							echo  htmlspecialchars($user_id, ENT_QUOTES);
-																						} ?>'>&nbsp;
+					<input class="form-control" type=text size=8 name=user_id value='<?php echo htmlspecialchars($_GET['user_id'], ENT_QUOTES); ?>'>&nbsp;
 
 					<?php
 					if (isset($cid) and $cid != 0) {

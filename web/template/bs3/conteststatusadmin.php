@@ -175,9 +175,7 @@
           }
           ?>
           <?php echo $MSG_USER ?>
-          <input class="form-control" type=text size=4 name=user_id value='<?php if (!isset($gid)) {
-                                                                              echo  htmlspecialchars($user_id, ENT_QUOTES);
-                                                                            } ?>'>&nbsp;
+          <input class="form-control" type=text size=4 name=user_id value='<?php echo htmlspecialchars($_GET['user_id'], ENT_QUOTES); ?>'>&nbsp;
           <?php echo $MSG_LANG ?>
           <select class="form-control" size="1" name="language">
             <option value="-1">All</option>

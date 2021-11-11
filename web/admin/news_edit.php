@@ -36,15 +36,18 @@ echo "<center><h3>" . $MSG_NEWS . "-" . "Edit" . "</h3></center>";
     $sql = "DELETE FROM privilege where rightstr = 'n$news_id'";
     pdo_query($sql);
 
-    if ($_POST['private']=='1') {
+    if ($_POST['private'] == '1') {
       $privilege = $_POST['gid'];
+      $privilege = join(",", $privilege);
       $sql = "update news set private = 'Y' where news_id = ?";
       pdo_query($sql, $news_id);
-      $sql = "INSERT INTO privilege (`user_id`,`rightstr`,`valuestr`,`defunct`) SELECT user_id, 'n$news_id','true','N' from users where gid in (?)";
-      pdo_query($sql, join(",", $privilege));
+      $sql = "INSERT INTO privilege (`user_id`,`rightstr`,`valuestr`,`defunct`) SELECT user_id, 'n$news_id','true','N' from users where gid in ($privilege)";
+      pdo_query($sql);
     } else {
       $sql = "update news set private = 'N' where news_id = ?";
       pdo_query($sql, $news_id);
+      $sql = "delete from privilege where rightstr = 'n$news_id'";
+      pdo_query($sql);
     }
 
     header("location:news_list.php");
@@ -79,7 +82,7 @@ echo "<center><h3>" . $MSG_NEWS . "-" . "Edit" . "</h3></center>";
     <div class='col-sm-4 col-sm-offset-4'>
       <p>
         <?php echo "<h4>" . "私有" . "</h4>" ?>
-        <?php echo "否 " ?><input type=radio name=private value='0' checked><?php echo "/ 是 " ?><input type=radio name=private value='1'><br><br>
+        <?php echo "否 " ?><input type=radio name=private value='0' <?php if ($row['private'] == 'N') echo "checked" ?>><?php echo "/ 是 " ?><input type=radio name=private value='1' <?php if ($row['private'] == 'Y') echo "checked" ?>><br><br>
       </p>
       <h4 class='control-label'><?php echo $MSG_GROUP; ?></h4>
       <select name="gid[]" class="selectpicker show-menu-arrow form-control" size=8 multiple>

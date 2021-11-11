@@ -53,7 +53,7 @@ $contest_id = intval($row['contest_id']);
 $isRE = $row['result'] == 10;
 $allow = pdo_query("select `group`.allow_view from `group` join users on users.gid=`group`.gid where users.user_id=?", $_SESSION[$OJ_NAME . '_' . 'user_id'])[0][0];
 if ($allow == "Y") {
-  $result = pdo_query("select user_id from solution where solution_id=?",$id)[0][0];
+  $result = pdo_query("select user_id from solution where solution_id=?", $id)[0][0];
   if ($result != $_SESSION[$OJ_NAME . '_' . 'user_id']) {
     $allow = "N";
   }

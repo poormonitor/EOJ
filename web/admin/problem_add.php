@@ -6,6 +6,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_
   exit(1);
 }
 
+
 require_once("../include/db_info.inc.php");
 require_once("../include/my_func.inc.php");
 require_once("../include/problem.php");

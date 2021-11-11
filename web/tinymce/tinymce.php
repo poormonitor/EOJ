@@ -1,4 +1,5 @@
-<script src="../tinymce/tinymce.min.js"></script>
+<?php $_SESSION[$OJ_NAME . '_' . 'uploadkey'] = strtoupper(substr(MD5($_SESSION[$OJ_NAME . '_' . 'user_id'] . rand(0, 9999999)), 0, 10)); ?>
+<script src="<?php echo $OJ_CDN_URL . $path_fix . "tinymce/" ?>tinymce.min.js"></script>
 <script>
     $("textarea[id^='tinymce']").each(function(index, elem) {
         tinymce.init({
@@ -73,10 +74,11 @@
                             failure('Invalid JSON: ' + xhr.responseText);
                             return;
                         }
-                        callback(json.location);
+                        callback(json.location, file.name);
                     };
                     formData = new FormData();
                     formData.append('file', file, file.name);
+                    formData.append('uploadkey', '<?php echo $_SESSION[$OJ_NAME . '_' . 'uploadkey'] ?>')
                     xhr.send(formData);
                 }
             }

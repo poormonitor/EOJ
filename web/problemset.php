@@ -19,7 +19,7 @@ $cnt = $row['upid'] - $first;
 $cnt = $cnt / $page_cnt;
 
 //remember page
-$page = "1";
+$page = 1;
 if (isset($_GET['page'])) {
 	$page = intval($_GET['page']);
 
@@ -28,7 +28,9 @@ if (isset($_GET['page'])) {
 		pdo_query($sql, $page, $_SESSION[$OJ_NAME . '_' . 'user_id']);
 	}
 } else {
-	if (isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
+	if (isset($_GET['search']) && trim($_GET['search']) != "") {
+		$page = 1;
+	} elseif (isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
 		$sql = "select volume from users where user_id=?";
 		$result = pdo_query($sql, $_SESSION[$OJ_NAME . '_' . 'user_id']);
 		$row = $result[0];
@@ -38,10 +40,9 @@ if (isset($_GET['page'])) {
 	}
 
 	if (!is_numeric($page) || $page <= 0)
-		$page = '1';
+		$page = 1;
 }
 //end of remember page
-
 $pstart = $first + $page_cnt * intval($page) - $page_cnt;
 $pend = $pstart + $page_cnt;
 
@@ -77,14 +78,13 @@ if (isset($_GET['search']) && trim($_GET['search']) != "") {
 if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {  //all problems
 	$sql = "SELECT `problem_id`,`title`,`source`,`submit`,`accepted` FROM `problem` WHERE $filter_sql ";
 } else {  //page problems (not include in contests period)
-	$now = strftime("%Y-%m-%d %H:%M", time());
 	$sql = "SELECT `problem_id`,`title`,`source`,`submit`,`accepted` FROM `problem` " .
 		"WHERE `defunct`='N' and $filter_sql AND `problem_id` NOT IN (
 		SELECT  `problem_id` 
 		FROM contest c
 			INNER JOIN  `contest_problem` cp ON c.`contest_id` = cp.`contest_id` " .
-		" AND (c.`defunct` = 'N' AND c.`start_time`<='$now' AND '$now'<c.`end_time`)" .    // option style show all non-running contest
-		//"and (c.`end_time` >  '$now'  OR c.private =1)" .    // original style , hidden all private contest problems
+		" AND (c.`defunct` = 'N' AND c.`start_time`<=NOW() AND NOW()<c.`end_time`)" .    // option style show all non-running contest
+		//"and (c.`end_time` >  NOW()  OR c.private =1)" .    // original style , hidden all private contest problems
 		")";
 }
 
@@ -96,25 +96,14 @@ if (isset($_GET['search']) && trim($_GET['search']) != "") {
 	$result = mysql_query_cache($sql);
 }
 
-if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {  //all problems
-	$sql = "SELECT count(*) FROM `problem`";
-} else {  //page problems (not include in contests period)
-	$now = strftime("%Y-%m-%d %H:%M", time());
-	$sql = "SELECT count(*) FROM `problem` " .
-		"WHERE `defunct`='N' AND `problem_id` NOT IN (
-		SELECT  `problem_id` 
-		FROM contest c
-			INNER JOIN  `contest_problem` cp ON c.`contest_id` = cp.`contest_id` " .
-		" AND (c.`defunct` = 'N' AND c.`start_time`<='$now' AND '$now'<c.`end_time`)" .    // option style show all non-running contest
-		//"and (c.`end_time` >  '$now'  OR c.private =1)" .    // original style , hidden all private contest problems
-		")";
-}
-
 if (isset($_GET['search']) && trim($_GET['search']) != "") {
+	$sql = "SELECT count(*) FROM `problem` WHERE $filter_sql";
 	$num = pdo_query($sql, $search, $search)[0][0];
 } else {
+	$sql = "SELECT count(*) FROM `problem`";
 	$num = mysql_query_cache($sql)[0][0];
 }
+
 $view_total_page = intval($num / $page_cnt) + 1;
 
 $cnt = 0;
