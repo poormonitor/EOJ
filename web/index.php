@@ -30,7 +30,7 @@ if (!isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
 		foreach ($p as $i) {
 			array_push($privilege, substr($i[0], 1));
 		}
-		$sql = "select * FROM `news` WHERE `defunct`!='Y' AND `title` NOT LIKE 'faqs%' ORDER BY `importance` ASC,`time` DESC LIMIT 50";
+		$sql = "select * FROM `news` WHERE `defunct`!='Y' AND `title` NOT LIKE 'faqs%' AND `private` = 'Y' ORDER BY `importance` ASC,`time` DESC LIMIT 50";
 		$temp = mysql_query_cache($sql);
 		foreach ($temp as $i) {
 			if ($i['private'] == 'Y' && in_array($i['news_id'], $privilege)) {
@@ -39,7 +39,7 @@ if (!isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
 		}
 	}
 } else {
-	$sql = "select * FROM `news` WHERE `defunct`!='Y' AND `title` NOT LIKE 'faqs%' ORDER BY `importance` ASC,`time` DESC LIMIT 50";
+	$sql = "select * FROM `news` WHERE `defunct`!='Y' AND `title` NOT LIKE 'faqs%' AND `private`='N' ORDER BY `importance` ASC,`time` DESC LIMIT 50";
 	$result = mysql_query_cache($sql);
 }
 
