@@ -510,9 +510,8 @@ function newrow(tab, solution) {
 function findrow(tab, solution) {
     var rows = tab[0].rows;
     for (var i = 0; i < rows.length; i++) {
-        if (rows[i].cells[1].innerHTML == solution['user_id'])
+        if (rows[i].cells[1].innerText == solution['user_id'])
             return rows[i];
-
     }
     return null;
 }
@@ -544,7 +543,7 @@ function auto_refresh() {
     for (var i = rows.length - 1; i > 0; i--) {
         var result = $(rows[i].cells[3].children[0]).attr("result");
         rows[i].cells[3].className = "td_result";
-        var sid = rows[i].cells[0].innerHTML;
+        var sid = rows[i].cells[0].innerText;
         if (result < 4) {
             window.setTimeout("fresh_result(" + sid + ")", interval);
             console.log("auto_refresh " + sid + " actived!");
@@ -558,7 +557,7 @@ function findRow(solution_id) {
     var rows = tb.rows;
     for (var i = 1; i < rows.length; i++) {
         var cell = rows[i].cells[0];
-        if (cell.innerHTML == solution_id)
+        if (cell.innerText == solution_id)
             return rows[i];
     }
 }

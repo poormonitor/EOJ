@@ -4,7 +4,6 @@ require_once('./include/const.inc.php');
 require_once('./include/memcache.php');
 require_once('./include/setlang.php');
 require_once('./include/my_func.inc.php');
-echo  $_SERVER['DOCUMENT_ROOT'];
 if (!isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
     if (isset($OJ_GUEST) && $OJ_GUEST) {
         $_SESSION[$OJ_NAME . '_' . 'user_id'] = "Guest";
@@ -25,9 +24,8 @@ if ($gid == NULL && !isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
 
 define('FM_EMBED', true);
 if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
-    define('FM_ROOT_PATH', $_SERVER['DOCUMENT_ROOT'] . "/upload/groups/");
+    define('FM_ROOT_PATH', $_SERVER['DOCUMENT_ROOT'] . "/upload/group");
 } else {
-    define('FM_ROOT_PATH', $_SERVER['DOCUMENT_ROOT'] . "/upload/groups/" . $gid);
+    define('FM_ROOT_PATH', $_SERVER['DOCUMENT_ROOT'] . "/upload/group/" . $gid);
 }
-define('FM_SELF_URL', 'files.php');
 require_once('./include/filemanager.php');
