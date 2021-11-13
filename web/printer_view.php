@@ -31,9 +31,9 @@ if($row=$result[0]){
 	$view_school=$row['school'];
    }
 }
-/////////////////////////Template
+
 require("template/".$OJ_TEMPLATE."/printer_view.php");
-/////////////////////////Common foot
+
 if(file_exists('./include/cache_end.php'))
 	require_once('./include/cache_end.php');
 ?>

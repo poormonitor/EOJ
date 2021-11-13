@@ -68,8 +68,8 @@ $row = $result[0];
 if ($row)
 	$view_source = $row['source'];
 
-/////////////////////////Template
+
 require("template/" . $OJ_TEMPLATE . "/showsource.php");
-/////////////////////////Common foot
+
 if (file_exists('./include/cache_end.php'))
 	require_once('./include/cache_end.php');

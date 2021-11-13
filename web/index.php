@@ -1,5 +1,4 @@
 <?php
-////////////////////////////Common head
 $cache_time = 30;
 $OJ_CACHE_SHARE = true;
 require_once('./include/cache_start.php');
@@ -12,7 +11,6 @@ if (isset($OJ_ON_SITE_CONTEST_ID)) {
 	header("location:contest.php?cid=" . $OJ_ON_SITE_CONTEST_ID);
 	exit();
 }
-///////////////////////////MAIN	
 
 $view_news = "";
 
@@ -77,7 +75,7 @@ foreach ($result as $row) {
 
 if (isset($chart_data_all[0][1])) $speed = ($chart_data_all[0][1] ? $chart_data_all[0][1] : 0) . '/day';
 
-/////////////////////////Template
+
 require("template/" . $OJ_TEMPLATE . "/index.php");
 if (
 	isset($OJ_LONG_LOGIN)
@@ -89,6 +87,6 @@ if (
 	echo "<script>let xhr=new XMLHttpRequest();xhr.open('GET','login.php',true);xhr.send();setTimeout('location.reload()',800);</script>";
 }
 
-/////////////////////////Common foot
+
 if (file_exists('./include/cache_end.php'))
 	require_once('./include/cache_end.php');

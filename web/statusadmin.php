@@ -530,12 +530,12 @@ for ($i = 0; $i < $rows_cnt; $i++) {
 ?>
 
 <?php
-/////////////////////////Template
+
 if (isset($cid))
   require("template/" . $OJ_TEMPLATE . "/conteststatusadmin.php");
 else
   require("template/" . $OJ_TEMPLATE . "/statusadmin.php");
-/////////////////////////Common foot
+
 if (file_exists('./include/cache_end.php'))
   require_once('./include/cache_end.php');
 ?>

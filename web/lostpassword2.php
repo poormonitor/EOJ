@@ -42,9 +42,9 @@
 
 
   require("template/" . $OJ_TEMPLATE . "/error.php");
-  /////////////////////////Template
+  
 
-  /////////////////////////Common foot
+  
   ?>
 </body>
 

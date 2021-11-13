@@ -718,7 +718,14 @@ void make_diff_out_simple(FILE *f1, FILE *f2, int c1, int c2, const char *path, 
 {
 	execute_cmd("echo -e '[%s]' >> diff.out", getFileNameFromPath(path));
 	execute_cmd("echo -e '\nInput' >> diff.out", getFileNameFromPath(path));
-	execute_cmd("cat %s >> diff.out", infile);
+	if (get_file_size(infile) <= 1024)
+	{
+		execute_cmd("cat %s >> diff.out", infile);
+	}
+	else
+	{
+		execute_cmd("echo 'File too large' >> diff.out", infile);
+	}
 	execute_cmd("echo -e '\n' >> diff.out", getFileNameFromPath(path));
 	execute_cmd("echo 'Expected						      |	Yours'>>diff.out");
 	execute_cmd("diff '%s' user.out -y|head -100>>diff.out", path);

@@ -86,7 +86,7 @@ if (isset($_SESSION[$OJ_NAME . '_' . 'source_browser']) or $allow == "Y") {
   exit(0);
 }
 
-/////////////////////////Template
+
 
 if ($OJ_SHOW_DIFF == false) {
   $view_errors = $MSG_WARNING_ACCESS_DENIED;
@@ -95,7 +95,7 @@ if ($OJ_SHOW_DIFF == false) {
 } else {
   require("template/" . $OJ_TEMPLATE . "/reinfo.php");
 }
-/////////////////////////Common foot
+
 if (file_exists('./include/cache_end.php')) {
   require_once('./include/cache_end.php');
 }

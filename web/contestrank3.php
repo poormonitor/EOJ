@@ -254,10 +254,10 @@ $gold_num=intval($team_num*0.05);
 $silver_num=intval($team_num*0.15);
 $bronze_num=intval($team_num*0.20);
 
-/////////////////////////Template
+
 require("template/".$OJ_TEMPLATE."/contestrank3.php");
 
-/////////////////////////Common foot
+
 if (file_exists('./include/cache_end.php'))
     require_once('./include/cache_end.php');
 ?>

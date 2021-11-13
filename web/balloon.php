@@ -78,7 +78,7 @@ if(isset($_SESSION[$OJ_NAME.'_'.'balloon'])){
 	require("template/".$OJ_TEMPLATE."/error.php");
 	exit(0);
  }
-/////////////////////////Template
-/////////////////////////Common foot
+
+
 ?>
 

@@ -260,7 +260,7 @@ $MSG_HELP_HUSTOJ = "感谢您选择" . $OJ_NAME . "。";
 $MSG_HELP_SPJ = "在测试文件中添加 spj.cc , spj.c 或 spj.py 。运行传入参数分别为测试输入文件名，测试输出文件名，用户输出文件名。特判程序返回0为正确，1为错误。";
 $MSG_HELP_BALLOON_SCHOOL = "打印，气球帐号的School字段用于过滤任务列表，例如填zjicm则只显示帐号为zjicm开头的任务";
 
-$MSG_WARNING_LOGIN_FROM_DIFF_IP = "从不同的ip地址登录";
+$MSG_WARNING_LOGIN_FROM_DIFF_IP = "从不同的IP地址登录";
 $MSG_WARNING_DURING_EXAM_NOT_ALLOWED = " 在考试期间不被允许 ";
 $MSG_WARNING_ACCESS_DENIED = "<div class='alert alert-danger' role='alert'>抱歉，您无法查看此消息！因为它不属于您，或者管理员设定系统状态为不显示此类信息。</div>";
 

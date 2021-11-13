@@ -192,11 +192,11 @@ if ((isset($_SESSION[$OJ_NAME.'_'.'administrator']) || isset($_SESSION[$OJ_NAME.
 	$result2 = "changed";
 }
 
-/////////////////////////Template
+
 if (isset($_GET['cid']))
   require("template/".$OJ_TEMPLATE."/user_set_ip.php");
 
-/////////////////////////Common foot
+
 if (file_exists('./include/cache_end.php') )
   require_once('./include/cache_end.php');
 ?>
