@@ -1457,6 +1457,7 @@ function dir_list_form() {
         $out .= "
             <tr>
             <td bgcolor=\"#DDDDDD\" colspan=50><nobr>
+            <input type=button onclick='javascript:window.location.href=\"problem_list.php\"' value='返回上一级'>
             <input type=button onclick=\"test_prompt(2)\" value=\"".et('CreateArq')."\">
             <input type=button onclick=\"upload()\" value=\"".et('Upload')."\">
             <b>$ip</b>

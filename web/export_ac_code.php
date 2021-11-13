@@ -17,5 +17,3 @@ $result=pdo_query($sql,$_SESSION[$OJ_NAME.'_'.'user_id']);
 	echo preg_replace("(\n)","\r\n",$row['source']);
 	echo "\r\n------------------------------------------------------\r\n";
 }
-
-?>

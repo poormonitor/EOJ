@@ -59,9 +59,9 @@ if ( isset( $_SESSION[ $OJ_NAME . '_' . 'administrator' ] ) ) {
 	$speed = ( $chart_data_all[ 0 ][ 1 ] ? $chart_data_all[ 0 ][ 1 ] : 0 ) . '/day';
 }
 
-/////////////////////////Template
+
 require( "template/" . $OJ_TEMPLATE . "/viewnews.php" );
-/////////////////////////Common foot
+
 if ( file_exists( './include/cache_end.php' ) )
 	require_once( './include/cache_end.php' );
 ?>

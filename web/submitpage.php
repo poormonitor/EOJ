@@ -171,6 +171,6 @@ if ($blank != NULL) {
 	$copy = $blank;
 	$copy = str_replace("%*%", "__________", str_replace("*%*\r\n", "...\r\n...\r\n", htmlentities($copy, ENT_QUOTES, "UTF-8")));
 }
-/////////////////////////Template
+
 require("template/" . $OJ_TEMPLATE . "/submitpage.php");
-/////////////////////////Common foot
+

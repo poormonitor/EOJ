@@ -66,7 +66,6 @@ if (isset($_GET['do'])) {
         echo "<tr>";
         echo "<td>" . $row['gid'] . "</td>";
         echo "<td>" . $row['name'] . "</td>";
-        echo "<td><a href='files.php?gid=" . $row['gid'] . "'>文件管理</a></td>";
         echo "<td><a href='group_list.php?do=do&del_group=" . $row['gid'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . "'>删除</a></td>";
         if ($row["allow_view"] == "Y") {
           echo "<td><a href='group_list.php?do=do&visiable=false&group=" . $row['gid'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . "'><span class=green>允许</span></a></td>";

@@ -247,8 +247,8 @@ for ($i = 0; $i < $rows_cnt; $i++) {
 	$first_blood[$row['num']] = $row['user_id'];
 }
 
-/////////////////////////Template
+
 require("template/" . $OJ_TEMPLATE . "/contestrank.php");
-/////////////////////////Common foot
+
 if (file_exists('./include/cache_end.php'))
 	require_once('./include/cache_end.php');

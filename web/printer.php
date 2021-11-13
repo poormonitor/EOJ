@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD']=="POST"){
 	require("template/".$OJ_TEMPLATE."/error.php");
 	exit(0);
  }
-/////////////////////////Template
-/////////////////////////Common foot
+
+
 ?>
 

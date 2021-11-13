@@ -113,8 +113,8 @@ if (time() > $view_lock_time && time() < $end_time + $OJ_RANK_LOCK_DELAY) {
 	$locked_msg = "The board has been locked.";
 }
 
-/////////////////////////Template
+
 require("template/" . $OJ_TEMPLATE . "/conteststatistics.php");
-/////////////////////////Common foot
+
 if (file_exists('./include/cache_end.php'))
 	require_once('./include/cache_end.php');

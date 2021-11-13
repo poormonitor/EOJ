@@ -193,7 +193,7 @@ if (isset($_GET['cid'])) {
 	$result2 = pdo_query($sql,$start,$end,$contest_id,$start,$end);
 }
 
-/////////////////////////Template
+
 if (isset($_GET['cid'])) {
     if (isset($_SESSION[$OJ_NAME.'_'.'administrator'])) {
     require("template/".$OJ_TEMPLATE."/suspect_list.php");
@@ -206,7 +206,7 @@ if (isset($_GET['cid'])) {
 }
   
 
-/////////////////////////Common foot
+
 if (file_exists('./include/cache_end.php') )
   require_once('./include/cache_end.php');
 ?>

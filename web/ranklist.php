@@ -136,8 +136,8 @@ $view_total = $row['mycount'];
 
 
 
-/////////////////////////Template
+
 require("template/" . $OJ_TEMPLATE . "/ranklist.php");
-/////////////////////////Common foot
+
 if (file_exists('./include/cache_end.php'))
     require_once('./include/cache_end.php');

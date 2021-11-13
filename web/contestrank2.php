@@ -179,10 +179,10 @@ foreach ($fb as $row) {
   $first_blood[$row['num']] = $row['user_id'];
 }
 
-/////////////////////////Template
+
 require("template/" . $OJ_TEMPLATE . "/contestrank2.php");
 
 
-/////////////////////////Common foot
+
 //if (file_exists('./include/cache_end.php'))
   //require_once('./include/cache_end.php');

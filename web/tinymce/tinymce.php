@@ -1,12 +1,12 @@
 <?php $_SESSION[$OJ_NAME . '_' . 'uploadkey'] = strtoupper(substr(MD5($_SESSION[$OJ_NAME . '_' . 'user_id'] . rand(0, 9999999)), 0, 10)); ?>
 <script src="<?php echo $OJ_CDN_URL . $path_fix . "tinymce/" ?>tinymce.min.js"></script>
 <script>
-    $("textarea[id^='tinymce']").each(function(index, elem) {
+    $("textarea[id^='tinymce']").each(async function(index, elem) {
         tinymce.init({
             selector: "#tinymce" + index,
             language: 'zh_CN',
             inline: false,
-            plugins: 'paste print preview searchreplace autolink directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor insertdatetime advlist lists wordcount imagetools textpattern help emoticons autosave autoresize',
+            plugins: 'paste print preview searchreplace autolink directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor insertdatetime advlist lists wordcount textpattern help emoticons autosave autoresize',
             toolbar: 'code undo redo restoredraft | cut copy paste pastetext | forecolor backcolor bold italic underline strikethrough anchor | alignleft aligncenter alignright alignjustify outdent indent | \
                      formatselect fontselect fontsizeselect | bullist numlist | blockquote subscript superscript removeformat | \
                      table image media charmap emoticons hr pagebreak insertdatetime print preview | fullscreen | lineheight link',
@@ -74,7 +74,7 @@
                             failure('Invalid JSON: ' + xhr.responseText);
                             return;
                         }
-                        callback(json.location, file.name);
+                        callback(json.location, {text: file.name});
                     };
                     formData = new FormData();
                     formData.append('file', file, file.name);

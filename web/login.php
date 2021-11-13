@@ -16,7 +16,7 @@
 		}
 	</style>
 
-	<?php require_once("./include/db_info.inc.php");?>
+	<?php require_once("./include/db_info.inc.php"); ?>
 
 	<script src="<?php echo $OJ_CDN_URL . "template/$OJ_TEMPLATE/" ?>jquery.min.js"></script>
 	<script src="<?php echo $OJ_CDN_URL .  "include/" ?>sweetalert.min.js"></script>
@@ -80,6 +80,13 @@
 			else
 				$_SESSION[$OJ_NAME . '_' . $row['rightstr']] = true;
 		}
+
+		$sql = "SELECT gid FROM `users` WHERE `user_id`=?";
+		$result = pdo_query($sql, $login);
+		if ($result[0][0] != NULL) {
+			$_SESSION[$OJ_NAME . '_' . "gid"] = $result[0][0];
+		}
+		
 		if (isset($_SESSION[$OJ_NAME . '_vip'])) {  // VIP mark can access all [VIP] marked contest
 			$sql = "select contest_id from contest where title like '%[VIP]%'";
 			$result = pdo_query($sql);

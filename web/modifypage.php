@@ -18,8 +18,8 @@ $result = pdo_query($sql, $_SESSION[$OJ_NAME . '_' . 'user_id']);
 $row = $result[0];
 
 
-/////////////////////////Template
+
 require("template/" . $OJ_TEMPLATE . "/modifypage.php");
-/////////////////////////Common foot
+
 if (file_exists('./include/cache_end.php'))
 	require_once('./include/cache_end.php');
