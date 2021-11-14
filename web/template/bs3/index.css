@@ -24,7 +24,7 @@ div.status_explain li {
 
 @font-face {
     font-family: 'SourceHanSansCN-Medium';
-    src: url('https://cdn.jsdelivr.net/gh/DeronW/minify-font@master/dest/SourceHanSansCN-Medium.ttf');
+    src: url('../../include/SourceHanSansCN-Medium.woff');
 }
 
 body {
