@@ -126,7 +126,12 @@ require_once(dirname(__FILE__) . "/pdo.php");
 // use db
 //pdo_query("set names utf8");	
 
-
+//找回密码发件邮箱
+static  $smtpserver = ""; //SMTP服务器
+static  $smtpserverport = 465; //SMTP服务器端口
+static  $smtpusermail = ""; //SMTP服务器的用户邮箱
+static  $smtpuser = ""; //SMTP服务器的用户帐号
+static  $smtppass = ""; //SMTP服务器的用户密码
 
 //sychronize php and mysql server with timezone settings, dafault setting for China
 //if you are not from China, comment out these two lines or modify them.
