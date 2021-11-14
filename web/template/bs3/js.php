@@ -6,6 +6,7 @@
 	<div id=footer class='center col-sm-2'><a id='footer' target="_blank" href="<?php echo $OJ_MPS_BEIAN_URL ?>"><?php echo $OJ_MPS_BEIAN ?></a></div>
 </div>
 <br><br>
+<script src="<?php echo $OJ_CDN_URL .  "include/" ?>webfontloader.js"></script>
 <script src="<?php echo $OJ_CDN_URL . "template/$OJ_TEMPLATE/" ?>jquery.min.js"></script>
 <script src="<?php echo $OJ_CDN_URL .  "template/$OJ_TEMPLATE/" ?>bootstrap.min.js"></script>
 <script src="<?php echo $OJ_CDN_URL .  "template/$OJ_TEMPLATE/" ?>index.min.js"></script>
@@ -22,6 +23,11 @@ $runTime = ($endTime - $startTime) * 1000 . ' ms';
 		<?php
 		if (isset($_SESSION[$OJ_NAME . "_administrator"])) echo "admin_mod();";
 		?>
+	});
+	WebFont.load({
+		google: {
+			families: ['Noto Sans Simplified Chinese']
+		}
 	});
 	console.log("Loading used <?php echo $runTime; ?>.")
 	console.log("Thanks for choosing <?php echo $OJ_NAME; ?>.");

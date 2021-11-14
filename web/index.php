@@ -18,26 +18,21 @@ $view_news .= "<div class='panel panel-default news' style='margin:0 auto;'>";
 $view_news .= "<div class='panel-heading'><h3>" . $MSG_NEWS . "<h3></div>";
 $view_news .= "<div class='panel-body'>";
 
-
 if (!isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
-	$sql = "select * FROM `news` WHERE `defunct`!='Y' AND `title` NOT LIKE 'faqs%' AND `private` = 'N' ORDER BY `importance` ASC,`time` DESC LIMIT 50";
-	$result = mysql_query_cache($sql);
+	$result = array();
 	if (isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
-		$p = pdo_query("select rightstr from privilege where user_id = ? and rightstr like 'n%'", $_SESSION[$OJ_NAME . '_' . 'user_id']);
-		$privilege = array();
-		foreach ($p as $i) {
-			array_push($privilege, substr($i[0], 1));
-		}
 		$sql = "select * FROM `news` WHERE `defunct`!='Y' AND `title` NOT LIKE 'faqs%' AND `private` = 'Y' ORDER BY `importance` ASC,`time` DESC LIMIT 50";
 		$temp = mysql_query_cache($sql);
 		foreach ($temp as $i) {
-			if ($i['private'] == 'Y' && in_array($i['news_id'], $privilege)) {
+			if (isset($_SESSION[$OJ_NAME . '_' . "n" . $i['news_id']])) {
 				array_push($result, $i);
 			}
 		}
 	}
+	$sql = "select * FROM `news` WHERE `defunct`!='Y' AND `title` NOT LIKE 'faqs%' AND `private` = 'N' ORDER BY `importance` ASC,`time` DESC LIMIT 50";
+	$result = array_merge($result, mysql_query_cache($sql));
 } else {
-	$sql = "select * FROM `news` WHERE `defunct`!='Y' AND `title` NOT LIKE 'faqs%' AND `private`='N' ORDER BY `importance` ASC,`time` DESC LIMIT 50";
+	$sql = "select * FROM `news` WHERE `defunct`!='Y' AND `title` NOT LIKE 'faqs%' ORDER BY `importance` ASC,`time` DESC LIMIT 50";
 	$result = mysql_query_cache($sql);
 }
 
