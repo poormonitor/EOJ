@@ -36,12 +36,8 @@
 
         require_once("include/email.class.php");
         //******************** 配置信息 ********************************
-        $smtpserver = "ssl://smtp.exmail.qq.com"; //SMTP服务器
-        $smtpserverport = 465; //SMTP服务器端口
-        $smtpusermail = "oj@oldmonitor.cn"; //SMTP服务器的用户邮箱
+        //在include/db_info.inc.php中配置
         $smtpemailto = $row['email']; //发送给谁
-        $smtpuser = "oj@oldmonitor.cn"; //SMTP服务器的用户帐号
-        $smtppass = "Poormonitor7923"; //SMTP服务器的用户密码
         $mailtitle = $OJ_NAME . "密码重置激活"; //邮件主题
         $mailcontent = "$lost_user_id:\n您好！\n您在" . $OJ_NAME . "选择了找回密码服务,为了验证您的身份,请将下面字串输入口令重置页面以确认身份:\n" . $_SESSION[$OJ_NAME . '_' . 'lost_key'] . "\n请注意，这则密码将会在重置成功后成为您的临时密码。\n\n" . $OJ_NAME; //邮件内容
         $mailtype = "TXT"; //邮件格式（HTML/TXT）,TXT为文本邮件
