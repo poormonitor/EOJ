@@ -24,11 +24,11 @@ div.status_explain li {
 
 @font-face {
     font-family: 'SourceHanSansCN-Medium';
-    src: url('../../include/SourceHanSansCN-Medium.woff');
+    src: url("SourceHanSansCN-Medium.woff");
 }
 
 body {
-    font-family: 'SourceHanSansCN-Medium' !important;
+    font-family: "SourceHanSansCN-Medium" !important;
 }
 
 .panel-default >.panel-body {
