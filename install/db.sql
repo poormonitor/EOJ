@@ -1,3 +1,4 @@
+-- Adminer 4.8.1 MySQL 5.5.5-10.6.4-MariaDB-log dump
 
 SET NAMES utf8;
 SET time_zone = '+00:00';
@@ -115,9 +116,10 @@ CREATE TABLE `news` (
   `user_id` varchar(48) NOT NULL DEFAULT '' COMMENT 'user_id',
   `title` varchar(200) NOT NULL DEFAULT '',
   `content` text NOT NULL,
-  `time` datetime NOT NULL DEFAULT '2016-05-13 19:24:00',
+  `time` datetime NOT NULL DEFAULT current_timestamp(),
   `importance` tinyint(4) NOT NULL DEFAULT 0,
   `defunct` char(1) NOT NULL DEFAULT 'N',
+  `private` char(1) DEFAULT 'N',
   PRIMARY KEY (`news_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -333,5 +335,5 @@ CREATE TABLE `users` (
   KEY `GID_KEY` (`gid`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `privilege` (`user_id`, `rightstr`, `valuestr`, `defunct`) VALUES
-('admin',	'source_browser',	'true',	'N');
+
+-- 2021-11-20 01:47:51

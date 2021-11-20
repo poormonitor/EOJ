@@ -123,9 +123,13 @@ function CopyToClipboard(input) {
     }
 
     if (success) {
-        swal("复制成功！");
+        setTimeout(function() {
+            swal("复制成功！");
+        }, 1000);
     } else {
-        swal("浏览器不允许网页使用剪切板！");
+        setTimeout(function() {
+            swal("浏览器不允许网页使用剪切板！");
+        }, 1000);
     }
 }
 
