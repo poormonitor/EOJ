@@ -57,7 +57,6 @@ if (isset($_GET['do'])) {
       <tr>
         <td>GID</td>
         <td>组名</td>
-        <td>文件管理</td>
         <td>删除</td>
         <td>查看错误</td>
       </tr>

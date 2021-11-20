@@ -82,7 +82,10 @@ echo "<center><h3>" . "Edit-" . $MSG_PROBLEM . "</h3></center>";
         <p>
           <?php echo "<h4>" . $MSG_SPJ . "</h4>" ?>
           <span><?php echo $MSG_HELP_SPJ ?></span><br>
-          <?php echo "否 " ?><input type=radio name=spj value='0' checked><?php echo "/ 是 " ?><input type=radio name=spj value='1'><br><br>
+          <?php echo "否 " ?><input type=radio name=spj value='0' checked>
+          <?php echo "/ 结束后特判 " ?><input type=radio name=spj value='1'>
+          <?php echo "/ 运行时特判 " ?><input type=radio name=spj value='2'>
+          <br><br>
         </p>
         <p>
           <?php echo "<h4>" . "代码填空" . "</h4>" ?>
