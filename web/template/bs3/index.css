@@ -103,7 +103,7 @@ body {
     }
     .main-container,
     pre#code {
-        margin: 0 auto;
+        margin: 5px;
     }
 }
 
