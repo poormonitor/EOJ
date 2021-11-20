@@ -2838,12 +2838,11 @@ void watch_solution(pid_t pidApp, char *infile, int &ACflg, int isspj,
 
 		wait4(pidApp, &status, __WALL, &ruse);
 		if (first)
-		{ //
-			ptrace(PTRACE_SETOPTIONS, pidApp, NULL, PTRACE_O_TRACESYSGOOD | PTRACE_O_TRACEEXIT
-				   //	|PTRACE_O_EXITKILL
-				   //	|PTRACE_O_TRACECLONE
-				   //	|PTRACE_O_TRACEFORK
-				   //	|PTRACE_O_TRACEVFORK
+		{
+			ptrace(PTRACE_SETOPTIONS, pidApp, NULL, PTRACE_O_TRACESYSGOOD | PTRACE_O_TRACEEXIT | PTRACE_O_EXITKILL
+				   //	| PTRACE_O_TRACECLONE
+				   //   | PTRACE_O_TRACEFORK
+				   //	| PTRACE_O_TRACEVFORK
 			);
 		}
 
@@ -2871,7 +2870,7 @@ void watch_solution(pid_t pidApp, char *infile, int &ACflg, int isspj,
 
 		if (WIFEXITED(status))
 			break;
-		if ((lang < 7 || lang == 9) && get_file_size("error.out") && !oi_mode)
+		if (!isspj && (lang < 7 || lang == 9) && get_file_size("error.out") && !oi_mode)
 		{
 			ACflg = OJ_RE;
 			// addreinfo(solution_id);
@@ -3047,9 +3046,29 @@ void watch_solution(pid_t pidApp, char *infile, int &ACflg, int isspj,
 		time(&end);
 		if (isspj == 2 && difftime(end, start) >= spj2_maxtime)
 		{
+			if (DEBUG)
+				printf("SPJ type 2\n");
 			int ret;
-			ret = execute_cmd("%s/data/%d/spj %s %s %s", oj_home, p_id, infile, outfile, userfile);
-			printf("Result of special judge: %d\n", ret);
+			pid_t spj;
+			spj = fork();
+			if (spj == 0)
+			{
+				ret = execute_cmd("%s/data/%d/spj %s %s %s", oj_home, p_id, infile, outfile, userfile);
+				if (!ret)
+				{
+					exit(0);
+				}
+				else
+				{
+					exit(1);
+				}
+			}
+			else
+			{
+				ptrace(PTRACE_KILL, pidApp, NULL, NULL);
+			}
+			if (DEBUG)
+				printf("Result of special judge: %d\n", ret);
 			if (ret)
 			{
 				ACflg = OJ_WA;
@@ -3473,6 +3492,8 @@ int main(int argc, char **argv)
 
 
 */
+	if (DEBUG)
+		printf("SPJ type: %d\n", isspj);
 
 	int ACflg, PEflg;
 	ACflg = PEflg = OJ_AC;
