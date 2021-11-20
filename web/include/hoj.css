@@ -45,7 +45,6 @@ h2 {
     color: #FFFFFF;
     font-weight: bold;
     white-space: nowrap;
-    background: url("../image/menu_bg.png");
 }
 
 .toprow a {
@@ -75,8 +74,7 @@ h2 {
 }
 
 body {
-    background-color: #FFFFFF;
-    background-image: url(https://cdn.jsdelivr.net/gh/poormonitor/image@master/20210306/9570a8e4a6ee69b9e0ef5de25b729954.png);
+    background: #FFF;
     font-size: 24px;
     line-height: 48px;
 }
@@ -170,7 +168,6 @@ div.content {
 }
 
 #menu {
-    background: url("../image/menu_bg.png") repeat scroll 0 0 transparent;
     font-weight: bold;
     height: 35px;
     position: static;

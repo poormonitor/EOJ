@@ -241,6 +241,14 @@ if (isset($OJ_LANG)) {
           </td>
         </tr>
         <tr>
+          <td>
+            <center><a class='btn btn-danger btn-sm' href="pip.php" target="main"><b><?php echo $MSG_SYSTEM . "-" . "模块安装" ?></b></a></center>
+          </td>
+          <td>
+            <p>安装模块</p>
+          </td>
+        </tr>
+        <tr>
           <td><a class='btn btn-block btn-sm' href="https://github.com/zhblue/hustoj/" target="_blank"><b>HUSTOJ</b></a></td>
           <td>
             <p>HUSTOJ</p>

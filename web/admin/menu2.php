@@ -104,6 +104,7 @@ $OJ_TEMPLATE = "bs3";
             <a class="dropdown-item btn-sm" href="source_give.php" target="main" title="<?php echo $MSG_HELP_GIVESOURCE ?>"><b><?php echo $MSG_SYSTEM . "-" . $MSG_GIVESOURCE ?></b></a>
             <a class="dropdown-item btn-sm" href="../online.php" target="main"><b><?php echo $MSG_SYSTEM . "-" . $MSG_HELP_ONLINE ?></b></a>
             <a class="dropdown-item btn-sm" href="update_db.php" target="main" title="<?php echo $MSG_HELP_UPDATE_DATABASE ?>"><b><?php echo $MSG_SYSTEM . "-" . $MSG_UPDATE_DATABASE ?></b></a>
+            <a class="dropdown-item btn-sm" href="pip.php" target="main" title="模块安装"><b><?php echo $MSG_SYSTEM . "-" . "模块安装" ?></b></a>
           </div>
         </div>
       <?php } ?>
