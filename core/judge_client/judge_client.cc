@@ -2392,13 +2392,13 @@ void copy_js_runtime(char *work_dir)
 	execute_cmd("/bin/cp /usr/bin/nodejs %s/", work_dir);
 }
 void run_solution(int &lang, char *work_dir, double &time_lmt, int &usedtime,
-				  int &mem_lmt, char *data_file_path)
+				  int &mem_lmt, char *data_file_path, int isspj)
 {
 	char *const envp[] = {(char *const)"PYTHONIOENCODING=utf-8",
 						  (char *const)"LANG=zh_CN.UTF-8",
 						  (char *const)"LANGUAGE=zh_CN.UTF-8",
 						  (char *const)"LC_ALL=zh_CN.utf-8", NULL};
-	if (nice(19))
+	if (nice(10))
 		printf("renice fail... \n");
 	// now the user is "judger"
 	if (chdir(work_dir))
@@ -3049,24 +3049,9 @@ void watch_solution(pid_t pidApp, char *infile, int &ACflg, int isspj,
 			if (DEBUG)
 				printf("SPJ type 2\n");
 			int ret;
-			pid_t spj;
-			spj = fork();
-			if (spj == 0)
-			{
-				ret = execute_cmd("%s/data/%d/spj %s %s %s", oj_home, p_id, infile, outfile, userfile);
-				if (!ret)
-				{
-					exit(0);
-				}
-				else
-				{
-					exit(1);
-				}
-			}
-			else
-			{
-				ptrace(PTRACE_KILL, pidApp, NULL, NULL);
-			}
+			nice(15);
+			ret = execute_cmd("%s/data/%d/spj %s %s %s", oj_home, p_id, infile, outfile, userfile);
+
 			if (DEBUG)
 				printf("Result of special judge: %d\n", ret);
 			if (ret)
@@ -3544,7 +3529,7 @@ int main(int argc, char **argv)
 
 		if (pidApp == 0)
 		{
-			run_solution(lang, work_dir, time_lmt, usedtime, mem_lmt, (char *)"data.in");
+			run_solution(lang, work_dir, time_lmt, usedtime, mem_lmt, (char *)"data.in", isspj);
 		}
 		else
 		{
@@ -3610,7 +3595,7 @@ int main(int argc, char **argv)
 
 		if (pidApp == 0)
 		{
-			run_solution(lang, work_dir, time_lmt, usedtime, mem_lmt, infile);
+			run_solution(lang, work_dir, time_lmt, usedtime, mem_lmt, infile, isspj);
 		}
 		else
 		{
