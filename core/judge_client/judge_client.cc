@@ -1880,7 +1880,7 @@ char *escape(char s[], char t[])
 	return s;
 }
 
-void prepare_judge(char *oj_home, int p_id)
+void prepare_spj(char *oj_home, int p_id)
 {
 	int isexist = execute_cmd("ls %s/data/%d/spj", oj_home, p_id);
 	if (!isexist)
@@ -1937,7 +1937,7 @@ void prepare_files(char *filename, int namelen, char *infile, int &p_id,
 	sprintf(userfile, "%s/run%d/user.out", oj_home, runner_id);
 	if (isspj)
 	{
-		prepare_judge(oj_home, p_id);
+		prepare_spj(oj_home, p_id);
 	}
 }
 
@@ -2398,8 +2398,7 @@ void run_solution(int &lang, char *work_dir, double &time_lmt, int &usedtime,
 						  (char *const)"LANG=zh_CN.UTF-8",
 						  (char *const)"LANGUAGE=zh_CN.UTF-8",
 						  (char *const)"LC_ALL=zh_CN.utf-8", NULL};
-	if (nice(10))
-		printf("renice fail... \n");
+	nice(5);
 	// now the user is "judger"
 	if (chdir(work_dir))
 		exit(-4);
@@ -2666,6 +2665,7 @@ int special_judge(char *oj_home, int problem_id, char *infile, char *outfile,
 	int ret = 0;
 	if (pid == 0)
 	{
+		nice(15);
 		while (setgid(1536) != 0)
 			sleep(1);
 		while (setuid(1536) != 0)
@@ -2698,7 +2698,17 @@ int special_judge(char *oj_home, int problem_id, char *infile, char *outfile,
 	else
 	{
 		int status;
-
+		time_t start = time(NULL);
+		time_t end;
+		while (1)
+		{
+			end = time(NULL);
+			if (end - start > 1)
+			{
+				ptrace(PTRACE_KILL, pid, NULL, NULL);
+				break;
+			}
+		}
 		waitpid(pid, &status, 0);
 		ret = WEXITSTATUS(status);
 		if (DEBUG)
@@ -3049,8 +3059,9 @@ void watch_solution(pid_t pidApp, char *infile, int &ACflg, int isspj,
 			if (DEBUG)
 				printf("SPJ type 2\n");
 			int ret;
-			nice(15);
-			ret = execute_cmd("%s/data/%d/spj %s %s %s", oj_home, p_id, infile, outfile, userfile);
+			nice(10);
+			
+			ret = special_judge(oj_home, p_id, infile, outfile, userfile);
 
 			if (DEBUG)
 				printf("Result of special judge: %d\n", ret);
@@ -3069,6 +3080,13 @@ void watch_solution(pid_t pidApp, char *infile, int &ACflg, int isspj,
 	}
 	usedtime += (ruse.ru_utime.tv_sec * 1000 + ruse.ru_utime.tv_usec / 1000) * cpu_compensation;
 	usedtime += (ruse.ru_stime.tv_sec * 1000 + ruse.ru_stime.tv_usec / 1000) * cpu_compensation;
+	if (usedtime > time_lmt * 2000)
+	{
+		ptrace(PTRACE_KILL, pidApp, NULL, NULL);
+		ACflg = OJ_TL;
+		if (DEBUG)
+			printf("TLE:%d\n", usedtime);
+	}
 
 	// clean_session(pidApp);
 }
