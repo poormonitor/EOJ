@@ -213,10 +213,10 @@
 								</div>
 								<div class='panel-body content'>
 									<?php if ($row['block'] != NULL) { ?>
-										<div style='margin-top:10px;'>禁用: <span class='label label-danger'><?php echo str_replace(" ", "</span>&nbsp;<span class='label label-danger'>", $row['block']); ?></span></div>
+										<div style='margin-top:10px;'>禁用: <span style='margin:0px 2px 0px 2px' class='label label-danger'><?php echo str_replace(" ", "</span>&nbsp;<span style='margin:0px 2px 0px 2px' class='label label-danger'>", $row['block']); ?></span></div>
 									<?php }
 									if ($row['allow'] != NULL) { ?>
-										<div style='margin-top:10px;'>必用: <span class='label label-success'><?php echo str_replace(" ", "</span><span class='label label-success'>", $row['allow']); ?></span></div>
+										<div style='margin-top:10px;'>必用: <span style='margin:0px 2px 0px 2px' class='label label-success'><?php echo str_replace(" ", "</span><span style='margin:0px 2px 0px 2px' class='label label-success'>", $row['allow']); ?></span></div>
 									<?php } ?>
 								</div>
 							</div>
