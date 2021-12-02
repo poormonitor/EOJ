@@ -2836,10 +2836,11 @@ void watch_solution(pid_t pidApp, char *infile, int &ACflg, int isspj,
 	if (DEBUG)
 		printf("pid=%d judging %s\n", pidApp, infile);
 
-	int status, sig, exitcode;
+	int status, sig, exitcode, ret;
 	struct user_regs_struct reg;
 	struct rusage ruse;
 	int first = true;
+	pid_t forked;
 	time_t start, end;
 	time(&start);
 	while (1)
@@ -3052,29 +3053,40 @@ void watch_solution(pid_t pidApp, char *infile, int &ACflg, int isspj,
 		}
 #endif
 		ptrace(PTRACE_SYSCALL, pidApp, NULL, NULL);
-		first = false;
+
 		time(&end);
 		if (isspj == 2 && difftime(end, start) >= spj2_maxtime)
 		{
 			if (DEBUG)
 				printf("SPJ type 2\n");
-			int ret;
-			nice(10);
-			
-			ret = special_judge(oj_home, p_id, infile, outfile, userfile);
+			if (first)
+			{
+				forked = fork();
 
-			if (DEBUG)
-				printf("Result of special judge: %d\n", ret);
-			if (ret)
-			{
-				ACflg = OJ_WA;
+				if (forked == 0)
+				{
+					ret = special_judge(oj_home, p_id, infile, outfile, userfile);
+					if (ret)
+						exit(1);
+					exit(0);
+				}
 			}
-			else
+			wait4(forked, &ret, __WALL, &ruse);
+			if (WIFEXITED(ret))
 			{
-				ACflg = OJ_AC;
+				if (DEBUG)
+					printf("Result of special judge: %d\n", ret);
+				if (ret)
+				{
+					ACflg = OJ_WA;
+				}
+				else
+				{
+					ACflg = OJ_AC;
+				}
+				ptrace(PTRACE_KILL, pidApp, NULL, NULL);
+				break;
 			}
-			ptrace(PTRACE_KILL, pidApp, NULL, NULL);
-			break;
 		}
 		// usleep(1);
 	}
@@ -3087,6 +3099,7 @@ void watch_solution(pid_t pidApp, char *infile, int &ACflg, int isspj,
 		if (DEBUG)
 			printf("TLE:%d\n", usedtime);
 	}
+	first = false;
 
 	// clean_session(pidApp);
 }
