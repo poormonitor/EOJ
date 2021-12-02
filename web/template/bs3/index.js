@@ -123,13 +123,15 @@ function CopyToClipboard(input) {
     }
 
     if (success) {
-        setTimeout(function() {
-            swal("复制成功！");
-        }, 1000);
+        swal({
+            text: "复制成功！",
+            timer: 1000
+        });
     } else {
-        setTimeout(function() {
-            swal("浏览器不允许网页使用剪切板！");
-        }, 1000);
+        swal({
+            text: "浏览器不允许网页使用剪切板！",
+            timer: 1000
+        });
     }
 }
 
@@ -636,4 +638,8 @@ function http_judge(btn) {
         };
     })
     return false;
+}
+
+function del_label(elem, problem) {
+
 }
