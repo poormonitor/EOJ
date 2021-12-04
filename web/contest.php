@@ -160,18 +160,6 @@
 			$view_errors .= "<a href=contestrank-oi.php?cid=$view_cid class='btn btn-primary btn-sm'>OI$MSG_STANDING</a>";
 			$view_errors .= "<a href=conteststatistics.php?cid=$view_cid class='btn btn-primary btn-sm'>$MSG_STATISTICS</a>";
 			$view_errors .= "</div>";
-
-			$view_errors .= "<br><br>";
-			$view_errors .= "<table align=center width=80%>";
-			$view_errors .= "<tr align='center'>";
-			$view_errors .= "<td>";
-			$view_errors .= "<form class=form-inline method=post action=contest.php?cid=$cid>";
-			$view_errors .= "<input class='input-mini form-control' type=password name=password value='' placeholder=$MSG_CONTEST-$MSG_PASSWORD>&nbsp;";
-			$view_errors .= "<button class='form-control'>$MSG_SUBMIT</button>";
-			$view_errors .= "</form>";
-			$view_errors .= "</td>";
-			$view_errors .= "</tr>";
-			$view_errors .= "</table>";
 			$view_errors .= "<br>";
 			require("template/" . $OJ_TEMPLATE . "/error.php");
 			exit(0);

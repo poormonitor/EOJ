@@ -62,22 +62,27 @@
 						</tbody>
 					</table>
 				</div>
-				<div style='margin:8px;'>
+				<div style='margin:8px;' class="form-inline">
 					<?php
 					if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
-						echo "<form>IP<input type='text' name='search' style='margin:5px;'><input type='submit' value='$MSG_SEARCH' ></form>";
 					?>
+						<form>IP
+							<input type='text' class="form-control" name='search' style='margin:5px;'>
+							<input type='submit' class="form-control" value='<?php echo $MSG_SEARCH ?>'>
+						</form>
 				</div>
 				<div class='table-responsive'>
 					<table class='table table-condensed' style='width:auto;'>
-						<tbody>
-							<tr class=toprow align=center>
-								<td>UserID
-								<td>Password
-								<td>IP
-								<td>Time
-								<td>IP info
+						<thead>
+							<tr class='toprow center'>
+								<th>UserID</th>
+								<th>Password</th>
+								<th>IP</th>
+								<th>Time</th>
+								<th>IP info</th>
 							</tr>
+						</thead>
+						<tbody>
 							<?php
 							$cnt = 0;
 							foreach ($view_online as $row) {

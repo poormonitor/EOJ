@@ -45,9 +45,10 @@
 					</div>
 				<?php } ?>
 				<div style='text-align:center;'>
-					<span class="col-sm-4 col-sm-offset-4" id='footer' style='margin-bottom:10px;'>登录即代表您同意
+					<span class="col-sm-4 col-sm-offset-4" id='footer'>登录即代表您同意
 						<a href="policy.html" id='footer'> 使用许可和隐私协议 </a>。
 					</span>
+					<br><br>
 				</div>
 				<div class="form-group">
 					<div class="col-sm-offset-4 col-sm-2">
