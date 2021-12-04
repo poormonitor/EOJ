@@ -46,7 +46,7 @@
           </div>
           <div class="form-group">
             <div class="col-sm-offset-4 col-sm-4">
-              <input name="submit_btn" type="submit" class="btn btn-default btn-block" value="Submit">
+              <input name="submit_btn" type="submit" class="btn btn-default btn-block" value="<?php echo $MSG_SUBMIT;?>">
             </div>
           </div>
         </form>
