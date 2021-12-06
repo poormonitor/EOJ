@@ -177,11 +177,12 @@ if ($langmask & (1 << $language)) {
 }
 
 $c_pid = $id;
-if ($c_pid < 0){
-  $c_pid = - $c_pid;
+if ($c_pid < 0) {
+  $c_pid = -$c_pid;
 }
-$code = pdo_query("select blank from problem where problem_id=?", $c_pid)[0][0];
-if ($code != NULL) {
+$code = pdo_query("select blank from prolem where problem_id=?", $c_pid);
+if (count($code) != 0) {
+  $code = $code[0][0];
   if (isset($_POST['code1']) || isset($_POST['multiline'])) {
     for ($i = 1; isset($_POST['code' . $i]); $i++) {
       $code = str_replace_limit("%*%", $_POST['code' . $i], $code, 1);
@@ -196,7 +197,7 @@ if ($code != NULL) {
     $code = preg_quote($code);
     $code = str_replace("%\*%", ".*", $code);
     $code = str_replace("\*%\*", "[\s\S]*", $code);
-    if (preg_match("#".$code."#",$_POST['source'])) {
+    if (preg_match("#" . $code . "#", $_POST['source'])) {
       $source = $_POST['source'];
       $input_text = "";
     } else {
@@ -223,20 +224,47 @@ $block = $row[1];
 
 $flag2 = True;
 $flag1 = True;
+
 if ($allow != NULL) {
   foreach (explode(" ", $allow) as $i) {
-    if (substr_count($source, $i) == 0) {
-      $flag1 = False;
+    if (substr_count($i, "||") != 0) {
+      $temp_flag = False;
+      foreach (explode("||", $i) as $j) {
+        if (substr_count($source, $j) != 0) {
+          $temp_flag = True;
+        }
+      }
+      if (!$temp_flag) {
+        $flag1 = False;
+      }
+    } else {
+      if (substr_count($source, $i) == 0) {
+        $flag1 = False;
+      }
     }
   }
 }
+
 if ($block != NULL) {
   foreach (explode(" ", $block) as $i) {
-    if (substr_count($source, $i) != 0) {
-      $flag2 = False;
+    if (substr_count($i, "||") != 0) {
+      $temp_flag = False;
+      foreach (explode($i, "||") as $j) {
+        if (substr_count($source, $j) == 0) {
+          $temp_flag = True;
+        }
+      }
+      if (!$temp_flag) {
+        $flag2 = False;
+      }
+    } else {
+      if (substr_count($source, $i) != 0) {
+        $flag2 = False;
+      }
     }
   }
 }
+
 if (!$flag1 or !$flag2) {
   $err_str = $err_str . "代码中有禁用的关键词或没有使用必须的关键词！";
   $err_cnt++;
@@ -323,7 +351,7 @@ if (!$OJ_BENCHMARK_MODE) {
   $res = pdo_query($sql, $user_id, $now);
 
   if (count($res) == 1) {
-    $view_errors = $MSG_BREAK_TIME . "<br>";
+    $view_swal = $MSG_BREAK_TIME;
     require "template/" . $OJ_TEMPLATE . "/error.php";
     exit(0);
   }

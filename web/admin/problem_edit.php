@@ -101,10 +101,12 @@ echo "<center><h3>" . "Edit-" . $MSG_PROBLEM . "</h3></center>";
         </p>
         <p align=left>
           <?php echo "<h4>禁用关键词</h4>" ?>
+          <h5>"||"分隔，关系为或；回车分隔，关系为与</h5>
           <input name=block class="form-control" data-role="tagsinput" value='<?php echo htmlentities(join(",", explode(" ", $row['block'])), ENT_QUOTES, "UTF-8") ?>'></input><br><br>
         </p>
         <p align=left>
           <?php echo "<h4>必须关键词</h4>" ?>
+          <h5>"||"分隔，关系为或；回车分隔，关系为与</h5>
           <input name=allow class="form-control" data-role="tagsinput" value='<?php echo htmlentities(join(",", explode(" ", $row['allow'])), ENT_QUOTES, "UTF-8") ?>'></input><br><br>
         </p>
         <p align=left>

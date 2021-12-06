@@ -90,10 +90,12 @@ echo "<center><h3>" . $MSG_PROBLEM . "-" . $MSG_ADD . "</h3></center>";
       </p>
       <p align=left>
         <?php echo "<h4>禁用关键词</h4>" ?>
+        <h5>"||"分隔，关系为或；回车分隔，关系为与</h5>
         <input name=block data-role="tagsinput" class=form-control></input><br><br>
       </p>
       <p align=left>
         <?php echo "<h4>必须关键词</h4>" ?>
+        <h5>"||"分隔，关系为或；回车分隔，关系为与</h5>
         <input name=allow data-role="tagsinput" class=form-control></input><br><br>
       </p>
       <p align=left>
