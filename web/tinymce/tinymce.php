@@ -1,7 +1,7 @@
 <?php $_SESSION[$OJ_NAME . '_' . 'uploadkey'] = strtoupper(substr(MD5($_SESSION[$OJ_NAME . '_' . 'user_id'] . rand(0, 9999999)), 0, 10)); ?>
 <script src="<?php echo $OJ_CDN_URL . $path_fix . "tinymce/" ?>tinymce.min.js"></script>
 <script>
-    $("textarea[id^='tinymce']").each(async function(index, elem) {
+    $("textarea[id^='tinymce']").each(function(index, elem) {
         tinymce.init({
             selector: "#tinymce" + index,
             language: 'zh_CN',
