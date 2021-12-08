@@ -87,7 +87,8 @@ if (isset($_GET['sid'])) {
 		$sql = "SELECT langmask FROM contest WHERE contest_id=?";
 
 		$result = pdo_query($sql, $cid);
-		$row = $result[0];
+		if (count($result))
+			$row = $result[0];
 
 		if ($row)
 			$_GET['langmask'] = $row['langmask'];
@@ -154,6 +155,7 @@ if ($row[0] > 10) {
 }
 $blank = pdo_query("select blank from problem where problem_id=?", $problem_id)[0][0];
 $no_blank = (isset($_GET["blank"]) and $_GET["blank"] == 'false');
+$multiline = false;
 if (isset($sid)) {
 	$no_blank = true;
 }
@@ -161,12 +163,13 @@ if ($blank != NULL) {
 	$code = $blank;
 	$code = htmlentities($code, ENT_QUOTES, "UTF-8");
 	$num = substr_count($blank, "%*%");
-	for ($i = 1; $i <= $num; $i++) {
-		$code = str_replace_limit("%*%", "<input name='code" . $i . "' style='margin-top:3px;margin-bottom:3px;' autocomplete='off'></input>", $code, 1);
+	for ($i = 0; $i < $num; $i++) {
+		$code = str_replace_limit("%*%", "<input name='code$i' style='margin-top:3px;margin-bottom:3px;' autocomplete='off'></input>", $code, 1);
 	}
 	$num = substr_count($blank, "*%*");
-	if ($num != 0) {
-		$code = str_replace_limit("*%*\r\n", "<textarea hidden='hidden' id='multiline' name='multiline' autocomplete='off'></textarea><pre id=source style='height:150px;width:auto;font-size:13pt;margin-top:8px;'></pre>", $code, 1);
+	for ($i = 0; $i < $num; $i++) {
+		$code = str_replace_limit("*%*\r\n", "<textarea hidden='hidden' id='multiline$i' name='multiline$i' autocomplete='off'></textarea><pre id='source$i' style='height:150px;width:auto;font-size:13pt;margin-top:8px;'></pre>", $code, 1);
+		$multiline = true;
 	}
 	$copy = $blank;
 	$copy = str_replace("%*%", "__________", str_replace("*%*\r\n", "...\r\n...\r\n", htmlentities($copy, ENT_QUOTES, "UTF-8")));

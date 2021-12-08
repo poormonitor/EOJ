@@ -183,18 +183,19 @@ if ($c_pid < 0) {
 $code = pdo_query("select blank from problem where problem_id=?", $c_pid);
 if (count($code) != 0) {
   $code = $code[0][0];
-  if (isset($_POST['code1']) || isset($_POST['multiline'])) {
-    for ($i = 1; isset($_POST['code' . $i]); $i++) {
+  if (isset($_POST['code0']) || isset($_POST['multiline0'])) {
+    $code = str_replace("\t", "    ", $code);
+    for ($i = 0; isset($_POST['code' . $i]); $i++) {
       $code = str_replace_limit("%*%", $_POST['code' . $i], $code, 1);
     }
-    if (isset($_POST['multiline'])) {
+    for ($i = 0; isset($_POST['multiline' . $i]); $i++) {
       preg_match("/\n.*\*%\*/m", $code, $matches);
       $len = strlen($matches[0]) - 4;
-      $multiline = $_POST['multiline'];
-      $mutliline = str_replace("\n", " " * $len + "\n", $multiline);
+      $multiline = str_replace("\n", str_repeat(" ", $len), $_POST['multiline' . $i]);
       $code = str_replace_limit("*%*", $multiline, $code, 1);
     }
-    $code = str_replace("\t", "    ", $code);
+    echo $code;
+    exit(0);
     $source = $code;
     $input_text = $code;
   } else {

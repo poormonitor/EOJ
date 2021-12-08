@@ -94,7 +94,7 @@ echo "<center><h3>" . "Edit-" . $MSG_PROBLEM . "</h3></center>";
         <p>
         <div id='blank_code'>
           <h4>待填空代码</h4>
-          <h5>单行填空请用%*%表示，多行填空用*%*表示，一个问题仅支持一个多行填空</h5>
+          <h5>单行填空请用%*%表示，多行填空用*%*表示</h5>
           <textarea hidden='hidden' id='multiline' name='blank_code' autocomplete='off'></textarea>
           <pre id=source style='height:300px;width:auto;font-size:13pt;margin-top:8px;'><?php echo htmlentities($row['blank'], ENT_QUOTES, "UTF-8") ?></pre>
         </div>
@@ -224,8 +224,8 @@ echo "<center><h3>" . "Edit-" . $MSG_PROBLEM . "</h3></center>";
   })
 </script>
 <script src='<?php echo $OJ_CDN_URL .  "include/" ?>bootstrap-tagsinput.min.js'></script>
-<script src="<?php echo $OJ_CDN_URL . "ace/" ?>ace.min.js"></script>
-<script src="<?php echo $OJ_CDN_URL . "ace/" ?>ext-language_tools.min.js"></script>
+<script src="<?php echo $OJ_CDN_URL . "ace/" ?>ace.js"></script>
+<script src="<?php echo $OJ_CDN_URL . "ace/" ?>ext-language_tools.js"></script>
 <script>
   ace.require("ace/ext/language_tools");
   ace.config.set('basePath', '<?php echo $OJ_CDN_URL . "ace/" ?>');

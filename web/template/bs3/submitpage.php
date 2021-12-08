@@ -257,21 +257,24 @@
     <script src="<?php echo $OJ_CDN_URL . "ace/" ?>ace.js"></script>
     <script src="<?php echo $OJ_CDN_URL .  "ace/" ?>ext-language_tools.js"></script>
     <script>
-      <?php if (isset($code) && isset($no_blank) && !$no_blank) { ?>
-        ace.require("ace/ext/language_tools");
-        var editor = ace.edit("source");
-        editor.setTheme("ace/theme/chrome");
-        switchLang(<?php echo isset($lastlang) ? $lastlang : 6;  ?>);
-        editor.setOptions({
-          enableBasicAutocompletion: true,
-          enableSnippets: true,
-          enableLiveAutocompletion: true
-        });
-        editor.session.setTabSize(4);
-        editor.renderer.setShowGutter(false);
-        editor.session.on('change', function(delta) {
-          $("textarea[name=multiline]").val(editor.getValue())
-        });
+      <?php if (isset($code) && $multiline && (!isset($no_blank) || !$no_blank)) { ?>
+        var editors = Array();
+        $("pre[id^='source']").each(function(index, elem) {
+          ace.require("ace/ext/language_tools");
+          editors[index] = ace.edit("source" + index);
+          editors[index].setTheme("ace/theme/chrome");
+          switchLangs(<?php echo isset($lastlang) ? $lastlang : 6;  ?>);
+          editors[index].setOptions({
+            enableBasicAutocompletion: true,
+            enableSnippets: true,
+            enableLiveAutocompletion: true
+          });
+          editors[index].session.setTabSize(4);
+          editors[index].renderer.setShowGutter(false);
+          editors[index].session.on('change', function(delta) {
+            $("textarea[name=multiline" + index + "]").val(editors[index].getValue())
+          });
+        })
       <?php } else { ?>
         ace.require("ace/ext/language_tools");
         var editor = ace.edit("source");
