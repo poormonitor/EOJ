@@ -363,6 +363,13 @@ function switchLang(lang) {
     editor.getSession().setMode("ace/mode/" + langnames[lang]);
 }
 
+function switchLangs(lang) {
+    var langnames = new Array("c_cpp", "c_cpp", "pascal", "java", "ruby", "sh", "python", "php", "perl", "csharp", "objectivec", "vbscript", "scheme", "c_cpp", "c_cpp", "lua", "javascript", "golang");
+    editors.forEach(function(elem) {
+        elem.getSession().setMode("ace/mode/" + langnames[lang])
+    });
+}
+
 function replay() {
     replay_index = 0;
     window.setTimeout("add()", 1000);
@@ -638,8 +645,4 @@ function http_judge(btn) {
         };
     })
     return false;
-}
-
-function del_label(elem, problem) {
-
 }
