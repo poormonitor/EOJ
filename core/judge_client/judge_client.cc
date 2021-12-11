@@ -2880,7 +2880,11 @@ void watch_solution(pid_t pidApp, char *infile, int &ACflg, int isspj,
 		// sig = status >> 8;/*status >> 8 EXITCODE*/
 
 		if (WIFEXITED(status))
+		{
+			if (isspj == 2)
+				ACflg == OJ_RE;
 			break;
+		}
 		if (!isspj && (lang < 7 || lang == 9) && get_file_size("error.out") && !oi_mode)
 		{
 			ACflg = OJ_RE;

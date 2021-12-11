@@ -180,7 +180,7 @@ $c_pid = $id;
 if ($c_pid < 0) {
   $c_pid = -$c_pid;
 }
-$code = pdo_query("select blank from prolem where problem_id=?", $c_pid);
+$code = pdo_query("select blank from problem where problem_id=?", $c_pid);
 if (count($code) != 0) {
   $code = $code[0][0];
   if (isset($_POST['code1']) || isset($_POST['multiline'])) {
@@ -188,7 +188,11 @@ if (count($code) != 0) {
       $code = str_replace_limit("%*%", $_POST['code' . $i], $code, 1);
     }
     if (isset($_POST['multiline'])) {
-      $code = str_replace_limit("*%*", $_POST['multiline'], $code, 1);
+      preg_match("/\n.*\*%\*/m", $code, $matches);
+      $len = strlen($matches[0]) - 4;
+      $multiline = $_POST['multiline'];
+      $mutliline = str_replace("\n", " " * $len + "\n", $multiline);
+      $code = str_replace_limit("*%*", $multiline, $code, 1);
     }
     $code = str_replace("\t", "    ", $code);
     $source = $code;

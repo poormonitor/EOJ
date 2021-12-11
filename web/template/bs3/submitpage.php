@@ -257,22 +257,32 @@
     <script src="<?php echo $OJ_CDN_URL . "ace/" ?>ace.js"></script>
     <script src="<?php echo $OJ_CDN_URL .  "ace/" ?>ext-language_tools.js"></script>
     <script>
-      ace.require("ace/ext/language_tools");
-      var editor = ace.edit("source");
-      editor.setTheme("ace/theme/chrome");
-      switchLang(<?php echo isset($lastlang) ? $lastlang : 6;  ?>);
-      editor.setOptions({
-        enableBasicAutocompletion: true,
-        enableSnippets: true,
-        enableLiveAutocompletion: true
-      });
-      editor.session.setTabSize(4);
-      <?php
-      if (isset($code) && !$no_blank) { ?>
+      <?php if (isset($code) && isset($no_blank) && !$no_blank) { ?>
+        ace.require("ace/ext/language_tools");
+        var editor = ace.edit("source");
+        editor.setTheme("ace/theme/chrome");
+        switchLang(<?php echo isset($lastlang) ? $lastlang : 6;  ?>);
+        editor.setOptions({
+          enableBasicAutocompletion: true,
+          enableSnippets: true,
+          enableLiveAutocompletion: true
+        });
+        editor.session.setTabSize(4);
         editor.renderer.setShowGutter(false);
         editor.session.on('change', function(delta) {
           $("textarea[name=multiline]").val(editor.getValue())
         });
+      <?php } else { ?>
+        ace.require("ace/ext/language_tools");
+        var editor = ace.edit("source");
+        editor.setTheme("ace/theme/chrome");
+        switchLang(<?php echo isset($lastlang) ? $lastlang : 6;  ?>);
+        editor.setOptions({
+          enableBasicAutocompletion: true,
+          enableSnippets: true,
+          enableLiveAutocompletion: true
+        });
+        editor.session.setTabSize(4);
       <?php } ?>
     </script>
   <?php } ?>
