@@ -134,8 +134,8 @@ echo "<center><h3>" . $MSG_PROBLEM . "-" . $MSG_ADD . "</h3></center>";
     })
   </script>
   <script src='<?php echo $OJ_CDN_URL .  "include/" ?>bootstrap-tagsinput.min.js'></script>
-  <script src="<?php echo $OJ_CDN_URL . "ace/" ?>ace.min.js"></script>
-  <script src="<?php echo $OJ_CDN_URL . "ace/" ?>ext-language_tools.min.js"></script>
+  <script src="<?php echo $OJ_CDN_URL . "ace/" ?>ace.js"></script>
+  <script src="<?php echo $OJ_CDN_URL . "ace/" ?>ext-language_tools.js"></script>
   <script>
     ace.require("ace/ext/language_tools");
     ace.config.set('basePath', '<?php echo $OJ_CDN_URL . "ace/" ?>');
