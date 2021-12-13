@@ -194,8 +194,6 @@ if (count($code) != 0) {
       $multiline = str_replace("\n", str_repeat(" ", $len), $_POST['multiline' . $i]);
       $code = str_replace_limit("*%*", $multiline, $code, 1);
     }
-    echo $code;
-    exit(0);
     $source = $code;
     $input_text = $code;
   } else {
