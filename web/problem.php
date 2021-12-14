@@ -130,12 +130,16 @@ if ($flag) {
 	$row['accepted'] = '<font color="red"> ? </font>';
 }
 
-preg_match("/\n.*\*%\*/m", $row["blank"], $matches);
-$len = strlen($matches[0]) - 4;
-$blank = str_replace("%*%", "__________", str_replace("*%*\r\n", "...\r\n" . str_repeat(" ", $len) . "...\r\n", htmlentities($row["blank"], ENT_QUOTES, "UTF-8")));
+if ($row["blank"]) {
+	preg_match("/\n.*\*%\*/m", $row["blank"], $matches);
+	$len = max(strlen($matches[0]) - 4, 0);
+	$blank = str_replace("%*%", "__________", str_replace("*%*\r\n", "...\r\n" . str_repeat(" ", $len) . "...\r\n", htmlentities($row["blank"], ENT_QUOTES, "UTF-8")));
+}
 
-$block = str_replace(" ", "</span>&nbsp;<span style='margin:0px 2px 0px 2px' class='label label-danger'>", $row['block']);
-$allow = str_replace(" ", "</span><span style='margin:0px 2px 0px 2px' class='label label-success'>", $row['allow']);
+if ($row['block'])
+	$block = str_replace(" ", "</span>&nbsp;<span style='margin:0px 2px 0px 2px' class='label label-danger'>", $row['block']);
+if ($row['allow'])
+	$allow = str_replace(" ", "</span><span style='margin:0px 2px 0px 2px' class='label label-success'>", $row['allow']);
 
 require("template/" . $OJ_TEMPLATE . "/problem.php");
 

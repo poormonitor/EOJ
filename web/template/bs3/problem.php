@@ -205,7 +205,7 @@
 							</div>
 						<?php
 						}
-						if ($row['blank'] != NULL) { ?>
+						if ($row['blank']) { ?>
 							<div class='panel panel-default'>
 								<div class='panel-heading'>
 									<h4>
@@ -219,7 +219,7 @@
 							</div>
 						<?php
 						}
-						if ($row['allow'] != NULL or $row['block'] != NULL) { ?>
+						if ($row['allow'] || $row['block']) { ?>
 							<div class='panel panel-default'>
 								<div class='panel-heading'>
 									<h4>
@@ -227,10 +227,10 @@
 									</h4>
 								</div>
 								<div class='panel-body content'>
-									<?php if ($row['block'] != NULL) { ?>
+									<?php if ($row['block']) { ?>
 										<div style='margin-top:10px;'>禁用: <span style='margin:0px 2px 0px 2px' class='label label-danger'><?php echo $block; ?></span></div>
 									<?php }
-									if ($row['allow'] != NULL) { ?>
+									if ($row['allow']) { ?>
 										<div style='margin-top:10px;'>必用: <span style='margin:0px 2px 0px 2px' class='label label-success'><?php echo $allow; ?></span></div>
 									<?php } ?>
 								</div>
@@ -238,7 +238,7 @@
 						<?php
 						}
 						if ($pr_flag) { ?>
-							<?php if ($row['source'] != '') { ?>
+							<?php if ($row['source']) { ?>
 								<div class='panel panel-default'>
 									<div class='panel-heading'>
 										<h4>

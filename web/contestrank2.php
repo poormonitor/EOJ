@@ -49,8 +49,8 @@ class TM
 function s_cmp($A, $B)
 {
   //      echo "Cmp....<br>";
-  if ($A->solved != $B->solved) return $A->solved < $B->solved;
-  else return $A->time > $B->time;
+  if ($A->solved != $B->solved) return $A->solved < $B->solved ? 1 : -1;
+  else return $A->time > $B->time ? 1 : -1;
 }
 
 // contest start time

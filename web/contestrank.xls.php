@@ -71,11 +71,11 @@ class TM
 function s_cmp($A, $B)
 {
 	if ($A->solved == 0 && $B->solved == 0)
-		return array_sum($A->p_wa_num) < array_sum($B->p_wa_num);
+		return array_sum($A->p_wa_num) < array_sum($B->p_wa_num) ? 1 : -1;
 	if ($A->solved != $B->solved)
-		return $A->solved < $B->solved;
+		return $A->solved < $B->solved ? 1 : -1;
 	else
-		return $A->time > $B->time;
+		return $A->time > $B->time ? 1 : -1;
 }
 
 function normalDistribution($x,  $u,  $s)
