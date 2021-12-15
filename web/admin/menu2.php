@@ -120,7 +120,7 @@ $OJ_TEMPLATE = "bs3";
     <br><a class='btn btn-block btn-sm' href="http://tk.hustoj.com" target="_blank"><b>自助题库</b></a>
   <?php } ?>
 
-  <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) && !$OJ_SAE) { ?>
+  <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) { ?>
     <a href="problem_changeid.php" target="main" title="Danger,Use it on your own risk">
       <font color="eeeeee">ReOrderProblem</font>
     </a>
