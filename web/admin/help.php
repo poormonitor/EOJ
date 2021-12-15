@@ -278,7 +278,7 @@ if (isset($OJ_LANG)) {
     </tbody>
   </table>
 
-  <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) && !$OJ_SAE) { ?>
+  <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) { ?>
     <a href="problem_changeid.php" target="main" title="Danger,Use it on your own risk">
       <font color="eeeeee">ReOrderProblem</font>
     </a>

@@ -55,15 +55,14 @@ function writable($path)
 }
 
 $show_form = true;
-if (!isset($OJ_SAE) || !$OJ_SAE) {
-	if (!writable($OJ_DATA)) {
-		echo " You need to add  $OJ_DATA into your open_basedir setting of php.ini,<br>
+if (!writable($OJ_DATA)) {
+	echo " You need to add  $OJ_DATA into your open_basedir setting of php.ini,<br>
 					or you need to execute:<br>
 					   <b>chmod 775 -R $OJ_DATA && chgrp -R www-data $OJ_DATA</b><br>
 					you can't use import function at this time.<br>";
-		$show_form = false;
-	}
+	$show_form = false;
 }
+
 if ($show_form) {
 ?>
 	<br>

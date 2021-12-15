@@ -11,7 +11,7 @@ echo "<center><h3>" . $MSG_NEWS . "-" . $MSG_SETMESSAGE . "</h3></center>";
 if (isset($_POST['do'])) {
   require_once("../include/check_post_key.php");
 
-  $fp = fopen($OJ_SAE ? "saestor://web/msg.txt" : "msg.txt", "w");
+  $fp = fopen("msg.txt", "w");
   $msg = $_POST['msg'];
 
   $msg = str_replace("<p>", "", $msg);
@@ -26,7 +26,7 @@ if (isset($_POST['do'])) {
   echo "<center><h4 class='text-danger'>Message Updated At " . date('Y-m-d h:i:s') . "</h4></center>";
 }
 
-$msg = file_get_contents($OJ_SAE ? "saestor://web/msg.txt" : "msg.txt");
+$msg = file_get_contents("msg.txt");
 
 ?>
 
