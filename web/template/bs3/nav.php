@@ -2,8 +2,7 @@
 if (stripos($_SERVER['REQUEST_URI'], "template") !== false) exit();
 $url = basename($_SERVER['REQUEST_URI']);
 $dir = basename(getcwd());
-if ($dir == "discuss3") $path_fix = "../";
-else $path_fix = "";
+$path_fix = "";
 if (isset($OJ_NEED_LOGIN) && $OJ_NEED_LOGIN && ($url != 'loginpage.php' &&
   $url != 'lostpassword.php' &&
   $url != 'lostpassword2.php' &&
