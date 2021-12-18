@@ -63,7 +63,6 @@ static  $OJ_RANK_LOCK_PERCENT = 0; //比赛封榜时间比例
 static  $OJ_SHOW_DIFF = true; //是否显示WA的对比说明
 static  $OJ_DOWNLOAD = false; //是否允许下载WA的测试数据
 static  $OJ_TEST_RUN = true; //提交界面是否允许测试运行
-static  $OJ_MATHJAX = false;  // 激活mathjax
 static  $OJ_ENCODE_SUBMIT = false; //是否启用base64编码提交的功能，用来回避WAF防火墙误拦截。
 static  $OJ_OI_1_SOLUTION_ONLY = false; //比赛是否采用noip中的仅保留最后一次提交的规则。true则在新提交发生时，将本场比赛该题老的提交删除。
 static  $OJ_OI_MODE = false; //是否开启OI比赛模式，禁用排名、状态、统计、用户信息、内邮、论坛等。
