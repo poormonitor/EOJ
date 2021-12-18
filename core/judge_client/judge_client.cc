@@ -2882,7 +2882,12 @@ void watch_solution(pid_t pidApp, char *infile, int &ACflg, int isspj,
 		if (WIFEXITED(status))
 		{
 			if (isspj == 2)
-				ACflg == OJ_RE;
+			{
+				ACflg = OJ_RE;
+				if (DEBUG)
+					printf("Exit before judge, RE\n");
+			}
+
 			break;
 		}
 		if (!isspj && (lang < 7 || lang == 9) && get_file_size("error.out") && !oi_mode)
