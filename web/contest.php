@@ -252,7 +252,7 @@
 			$len = mb_strlen($OJ_NAME . '_');
 
 			foreach ($_SESSION as $key => $value) {
-				if (($key[$len] == 'm' || $key[$len] == 'c') && intval(mb_substr($key, $len + 1)) > 0) {
+				if (strlen($key) >= $len && ($key[$len] == 'm' || $key[$len] == 'c') && intval(mb_substr($key, $len + 1)) > 0) {
 					//echo substr($key,1)."<br>";
 					$mycontests .= "," . intval(mb_substr($key, $len + 1));
 				}
@@ -328,12 +328,12 @@
 		}
 	}
 
-	
+
 	if (isset($_GET['cid']))
 		require("template/" . $OJ_TEMPLATE . "/contest.php");
 	else
 		require("template/" . $OJ_TEMPLATE . "/contestset.php");
-	
+
 	if (file_exists('./include/cache_end.php'))
 		require_once('./include/cache_end.php');
 	?>
