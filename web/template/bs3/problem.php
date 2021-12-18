@@ -15,30 +15,45 @@
 
 	<?php include("template/$OJ_TEMPLATE/css.php"); ?>
 
-
-	<?php if (isset($OJ_MATHJAX) && $OJ_MATHJAX) { ?>
-		<!--以下为了加载公式的使用而既加入-->
-		<script>
-			MathJax = {
-				tex: {
-					inlineMath: [
-						['$', '$'],
-						['\\(', '\\)']
-					]
-				}
-			};
-		</script>
-		<script id="MathJax-script" async src="<?php echo $OJ_CDN_URL . "template/$OJ_TEMPLATE/" ?>tex-chtml.js"></script>
-		<style>
-			.jumbotron1 {
-				font-size: 18px;
-			}
-		</style>
-
-	<?php
-	} ?>
-
-	<!--数学公式js加载完毕-->
+	<link rel="stylesheet" href="<?php echo $OJ_CDN_URL . "katex/" ?>katex.min.css">
+	<script defer src="<?php echo $OJ_CDN_URL . "katex/" ?>katex.min.js"></script>
+	<script defer src="<?php echo $OJ_CDN_URL . "katex/" ?>contrib/auto-render.min.js"></script>
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+			renderMathInElement(document.body, {
+				// customised options
+				// • auto-render specific keys, e.g.:
+				delimiters: [{
+						left: '$$',
+						right: '$$',
+						display: true
+					},
+					{
+						left: '$',
+						right: '$',
+						display: false
+					},
+					{
+						left: '\\(',
+						right: '\\)',
+						display: false
+					},
+					{
+						left: '\\[',
+						right: '\\]',
+						display: true
+					}
+				],
+				// • rendering keys, e.g.:
+				throwOnError: false
+			});
+		});
+	</script>
+	<style>
+		.jumbotron1 {
+			font-size: 18px;
+		}
+	</style>
 </head>
 
 
