@@ -1,18 +1,18 @@
 @media (prefers-color-scheme: dark) {
     .btn {
-        filter: invert(1) hue-rotate(180deg);
+        filter: invert(1) hue-rotate(180deg) !important;
     }
     .btn-secondary,
     .btn-block {
-        color: #000;
-        filter: invert(0);
+        color: #000 !important;
+        filter: invert(0) !important;
         background-color: #d5d5d5;
     }
     .dropdown-item {
-        filter: invert(0);
+        filter: invert(0) !important;
     }
     .table {
-        background-color: #e2e2e2;
+        background-color: #e2e2e2 !important;
     }
 }
 

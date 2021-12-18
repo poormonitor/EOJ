@@ -26,13 +26,13 @@ echo "<center><h3>" . $MSG_PROBLEM . "-" . $MSG_ADD . "</h3></center>";
       <input type=hidden name=problem_id value="New Problem">
       <p align=left>
         <?php echo "<h3>" . $MSG_TITLE . "</h3>" ?>
-        <input class="input input-xxlarge" style="width:100%;" type=text name=title><br><br>
+        <input class="input form-control" style="width:100%;" type=text name=title>
       </p>
       <p align=left>
         <?php echo $MSG_Time_Limit ?><br>
-        <input class="input input-mini" type=text name=time_limit size=20 value=1> sec<br><br>
+        <input class="input" type=text name=time_limit size=20 value=1> sec<br><br>
         <?php echo $MSG_Memory_Limit ?><br>
-        <input class="input input-mini" type=text name=memory_limit size=20 value=128> MB<br><br>
+        <input class="input" type=text name=memory_limit size=20 value=128> MB<br><br>
       </p>
       <p align=left>
         <?php echo "<h4>" . $MSG_Description . "</h4>" ?>
