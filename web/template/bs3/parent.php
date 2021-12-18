@@ -72,7 +72,7 @@
 <br>
 <div class='table-responsive'>
   <?php
-  if (count($user) != 1) {
+  if (is_array($user)) {
     if (count($user) == 0) {
       echo ("<h3>未找到！</h3><br>");
       echo ("<h4>提示：学生学号组成如下：20（入学年份）+ 1（贡院）+ 01（班级）+01（班内编号）。</h4>");
