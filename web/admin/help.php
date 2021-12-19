@@ -149,6 +149,14 @@ if (isset($OJ_LANG)) {
         </tr>
         <tr>
           <td>
+            <center><a class='btn btn-success btn-sm' href="problem_list_2.php" target="main"><b><?php echo $MSG_PROBLEM . "-" . "第二题库" ?></b></a></center>
+          </td>
+          <td>
+            <p>存放一些题目但并不在前台展示，可以随时转换到前台。</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
             <center><a class='btn btn-success btn-sm' href="problem_import.php" target="main"><b><?php echo $MSG_PROBLEM . "-" . $MSG_IMPORT ?></b></a></center>
           </td>
           <td>
