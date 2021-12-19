@@ -12,12 +12,13 @@ date_default_timezone_set("Asia/Shanghai");
 static 	$DB_HOST = "localhost";  //数据库服务器ip或域名
 static 	$DB_NAME = "jol";   //数据库名
 static 	$DB_USER = "jol";  //数据库账户
-static 	$DB_PASS = "eXXiCtBJRKatEaN4";  //数据库密码
+static 	$DB_PASS = "";  //数据库密码
 
-static 	$OJ_NAME = "Hangzhou High School OJ";  //左上角显示的系统名称
+static 	$OJ_NAME = "HUSTOJ";  //左上角显示的系统名称
 static 	$OJ_HOME = "./";    //主页目录
-static 	$OJ_ADMIN = "admin@oldmonitor.cn";  //管理员email
+static 	$OJ_ADMIN = "root@localhost";  //管理员email
 static 	$OJ_DATA = "/home/judge/data";  //测试数据目录
+static 	$OJ_BBS = false; //设为"discuss3" 启用， "bbs" for phpBB3 bridge or "discuss" for mini-forum or false for close any 
 static  $OJ_ONLINE = true;  //是否记录在线情况
 static  $OJ_LANG = "cn";  //默认语言
 static  $OJ_SIM = true;  //显示相似度
@@ -42,12 +43,12 @@ static  $OJ_REDIS = false;   //使用REDIS队列
 static  $OJ_REDISSERVER = "127.0.0.1";
 static  $OJ_REDISPORT = 6379;
 static  $OJ_REDISQNAME = "hustoj";
-static  $OJ_CDN_URL = "https://cdn.jsdelivr.net/gh/zhblue/hustoj/trunk/web/";
+static  $OJ_CDN_URL = ""; // https://cdn.jsdelivr.net/gh/poormonitor/hustoj/web/
 static  $OJ_TEMPLATE = "bs3"; //使用的默认模板, [bs3 ie ace sweet sae mario] work with discuss3, [classic bs] work with discuss
 //if(isset($_GET['tp'])) $OJ_TEMPLATE=$_GET['tp'];
 if ($OJ_TEMPLATE == "classic") $OJ_CSS = "hoj.css";
 static  $OJ_BLOCK_START_TIME = 0; //开始禁用系统
-static  $OJ_BLOCK_END_TIME = 6; //启用系统
+static  $OJ_BLOCK_END_TIME = 0; //启用系统
 static  $OJ_LOGIN_MOD = "hustoj";
 static  $OJ_REGISTER = false; //允许注册新用户
 static  $OJ_REG_NEED_CONFIRM = false; //新注册用户需要审核
@@ -66,11 +67,11 @@ static  $OJ_RANK_LOCK_DELAY = 3600; //赛后封榜持续时间，单位秒。根
 static  $OJ_BENCHMARK_MODE = false; //此选项将影响代码提交，不再有提交间隔限制，提交后会返回solution id
 static  $OJ_CONTEST_RANK_FIX_HEADER = false; //比赛排名水平滚动时固定名单
 static  $OJ_NOIP_KEYWORD = "noip";  // 标题包含此关键词，激活noip模式，赛中不显示结果，仅保留最后一次提交。
-static  $OJ_SPONSOR = false;
-static  $OJ_SPONSOR_URL = false;
-static  $OJ_BEIAN = false;  // 如果有备案号，填写备案号
-static  $OJ_MPS_BEIAN = false;  // 如果有备案号，填写备案号
-static  $OJ_MPS_BEIAN_URL = false;  // 如果有备案号，填写备案号
+static  $OJ_SPONSOR = '';
+static  $OJ_SPONSOR_URL = '';
+static  $OJ_BEIAN = '';  // 如果有备案号，填写备案号
+static  $OJ_MPS_BEIAN = '';  // 如果有备案号，填写备案号
+static  $OJ_MPS_BEIAN_URL = '';  // 如果有备案号，填写备案号
 static  $OJ_PYTHON_VER = 'Python';
 //static  $OJ_EXAM_CONTEST_ID=1000; // 启用考试状态，填写考试比赛ID
 //static  $OJ_ON_SITE_CONTEST_ID=1000; //启用现场赛状态，填写现场赛比赛ID
@@ -98,7 +99,6 @@ require_once(dirname(__FILE__) . "/pdo.php");
 // use db
 //pdo_query("set names utf8");	
 
-//找回密码发件邮箱
 static  $smtpserver = ""; //SMTP服务器
 static  $smtpserverport = 465; //SMTP服务器端口
 static  $smtpusermail = ""; //SMTP服务器的用户邮箱

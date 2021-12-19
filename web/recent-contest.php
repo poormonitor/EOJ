@@ -10,4 +10,3 @@ require( "template/" . $OJ_TEMPLATE . "/recent-contest.php" );
 
 if ( file_exists( './include/cache_end.php' ) )
 	require_once( './include/cache_end.php' );
-?>
