@@ -72,6 +72,7 @@ $OJ_TEMPLATE = "bs3";
           <?php }
           if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor'])) { ?>
             <a class="dropdown-item btn-sm" href="problem_add_page.php" target="main" title="<?php echo html_entity_decode($MSG_HELP_ADD_PROBLEM) ?>"><b><?php echo $MSG_PROBLEM . "-" . $MSG_ADD ?></b></a>
+            <a class="dropdown-item btn-sm" href="problem_list_2.php" target="main" title="存放一些题目但并不在前台展示，可以随时转换到前台。"><b><?php echo $MSG_PROBLEM . "-" . "第二题库" ?></b></a>
             <a class="dropdown-item btn-sm" href="problem_import.php" target="main" title="<?php echo $MSG_HELP_IMPORT_PROBLEM ?>"><b><?php echo $MSG_PROBLEM . "-" . $MSG_IMPORT ?></b></a>
             <a class="dropdown-item btn-sm" href="problem_export.php" target="main" title="<?php echo $MSG_HELP_EXPORT_PROBLEM ?>"><b><?php echo $MSG_PROBLEM . "-" . $MSG_EXPORT ?></b></a>
           <?php } ?>

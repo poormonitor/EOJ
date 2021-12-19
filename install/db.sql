@@ -4,13 +4,11 @@ SET NAMES utf8;
 SET time_zone = '+00:00';
 SET foreign_key_checks = 0;
 
-DROP DATABASE IF EXISTS `jol`;
 CREATE DATABASE `jol` /*!40100 DEFAULT CHARACTER SET utf8mb3 */;
 USE `jol`;
 
 SET NAMES utf8mb4;
 
-DROP TABLE IF EXISTS `balloon`;
 CREATE TABLE `balloon` (
   `balloon_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` char(48) NOT NULL,
@@ -22,7 +20,6 @@ CREATE TABLE `balloon` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
-DROP TABLE IF EXISTS `compileinfo`;
 CREATE TABLE `compileinfo` (
   `solution_id` int(11) NOT NULL DEFAULT 0,
   `error` text DEFAULT NULL,
@@ -30,7 +27,6 @@ CREATE TABLE `compileinfo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
-DROP TABLE IF EXISTS `contest`;
 CREATE TABLE `contest` (
   `contest_id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) DEFAULT NULL,
@@ -46,7 +42,6 @@ CREATE TABLE `contest` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
-DROP TABLE IF EXISTS `contest_problem`;
 CREATE TABLE `contest_problem` (
   `problem_id` int(11) NOT NULL DEFAULT 0,
   `contest_id` int(11) DEFAULT NULL,
@@ -58,7 +53,6 @@ CREATE TABLE `contest_problem` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
-DROP TABLE IF EXISTS `custominput`;
 CREATE TABLE `custominput` (
   `solution_id` int(11) NOT NULL DEFAULT 0,
   `input_text` text DEFAULT NULL,
@@ -66,7 +60,6 @@ CREATE TABLE `custominput` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
-DROP TABLE IF EXISTS `group`;
 CREATE TABLE `group` (
   `gid` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) DEFAULT NULL,
@@ -75,7 +68,6 @@ CREATE TABLE `group` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 
-DROP TABLE IF EXISTS `ip`;
 CREATE TABLE `ip` (
   `ip` varchar(50) NOT NULL,
   `type` varchar(50) DEFAULT NULL,
@@ -83,7 +75,6 @@ CREATE TABLE `ip` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 
-DROP TABLE IF EXISTS `loginlog`;
 CREATE TABLE `loginlog` (
   `user_id` varchar(48) NOT NULL DEFAULT '',
   `password` varchar(40) DEFAULT NULL,
@@ -94,7 +85,6 @@ CREATE TABLE `loginlog` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
-DROP TABLE IF EXISTS `mail`;
 CREATE TABLE `mail` (
   `mail_id` int(11) NOT NULL AUTO_INCREMENT,
   `to_user` varchar(48) NOT NULL DEFAULT '' COMMENT 'user_id',
@@ -110,7 +100,6 @@ CREATE TABLE `mail` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
-DROP TABLE IF EXISTS `news`;
 CREATE TABLE `news` (
   `news_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` varchar(48) NOT NULL DEFAULT '' COMMENT 'user_id',
@@ -124,7 +113,6 @@ CREATE TABLE `news` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
-DROP TABLE IF EXISTS `online`;
 CREATE TABLE `online` (
   `hash` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
   `ip` varchar(46) CHARACTER SET utf8mb4 NOT NULL DEFAULT '',
@@ -138,7 +126,6 @@ CREATE TABLE `online` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
-DROP TABLE IF EXISTS `printer`;
 CREATE TABLE `printer` (
   `printer_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` char(48) NOT NULL,
@@ -151,7 +138,6 @@ CREATE TABLE `printer` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
-DROP TABLE IF EXISTS `privilege`;
 CREATE TABLE `privilege` (
   `user_id` char(48) NOT NULL DEFAULT '',
   `rightstr` char(30) NOT NULL DEFAULT '',
@@ -163,7 +149,6 @@ CREATE TABLE `privilege` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
-DROP TABLE IF EXISTS `problem`;
 CREATE TABLE `problem` (
   `problem_id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(200) NOT NULL DEFAULT '',
@@ -189,7 +174,22 @@ CREATE TABLE `problem` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
-DROP TABLE IF EXISTS `reply`;
+CREATE TABLE `problem_2` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `time` float DEFAULT NULL,
+  `memory` int(11) DEFAULT NULL,
+  `tag` varchar(100) DEFAULT NULL,
+  `sample_input` text DEFAULT NULL,
+  `sample_output` text DEFAULT NULL,
+  `source` varchar(100) DEFAULT NULL,
+  `spj` int(11) DEFAULT NULL,
+  `hint` text DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
 CREATE TABLE `reply` (
   `rid` int(11) NOT NULL AUTO_INCREMENT,
   `author_id` varchar(48) NOT NULL DEFAULT '' COMMENT 'user_id',
@@ -203,7 +203,6 @@ CREATE TABLE `reply` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
-DROP TABLE IF EXISTS `runtimeinfo`;
 CREATE TABLE `runtimeinfo` (
   `solution_id` int(11) NOT NULL DEFAULT 0,
   `error` text DEFAULT NULL,
@@ -211,7 +210,6 @@ CREATE TABLE `runtimeinfo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
-DROP TABLE IF EXISTS `share_code`;
 CREATE TABLE `share_code` (
   `share_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` varchar(48) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -223,7 +221,6 @@ CREATE TABLE `share_code` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
-DROP TABLE IF EXISTS `sim`;
 CREATE TABLE `sim` (
   `s_id` int(11) NOT NULL,
   `sim_s_id` int(11) DEFAULT NULL,
@@ -256,7 +253,6 @@ END;;
 
 DELIMITER ;
 
-DROP TABLE IF EXISTS `solution`;
 CREATE TABLE `solution` (
   `solution_id` int(11) NOT NULL AUTO_INCREMENT,
   `problem_id` int(11) NOT NULL DEFAULT 0,
@@ -284,7 +280,6 @@ CREATE TABLE `solution` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 ROW_FORMAT=FIXED;
 
 
-DROP TABLE IF EXISTS `source_code`;
 CREATE TABLE `source_code` (
   `solution_id` int(11) NOT NULL,
   `source` text NOT NULL,
@@ -292,7 +287,6 @@ CREATE TABLE `source_code` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
-DROP TABLE IF EXISTS `source_code_user`;
 CREATE TABLE `source_code_user` (
   `solution_id` int(11) NOT NULL,
   `source` text NOT NULL,
@@ -300,7 +294,6 @@ CREATE TABLE `source_code_user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
-DROP TABLE IF EXISTS `topic`;
 CREATE TABLE `topic` (
   `tid` int(11) NOT NULL AUTO_INCREMENT,
   `title` varbinary(60) NOT NULL,
@@ -314,7 +307,6 @@ CREATE TABLE `topic` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
-DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `user_id` varchar(48) NOT NULL DEFAULT '' COMMENT 'user_id',
   `email` varchar(100) DEFAULT NULL,
@@ -336,4 +328,4 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
--- 2021-11-20 01:47:51
+-- 2021-12-19 08:15:26
