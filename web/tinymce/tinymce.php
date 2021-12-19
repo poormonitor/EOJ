@@ -26,6 +26,10 @@
                 }
             ],
             extended_valid_elements: 'script[src]',
+            mathjax: {
+                lib: "<?php echo $OJ_CDN_URL?>tinymce/plugins/mathjax/tex-mml-chtml.js",
+                symbols: {start: '$', end: '$'}
+            },
             template_cdate_format: '[CDATE: %m/%d/%Y : %H:%M:%S]',
             template_mdate_format: '[MDATE: %m/%d/%Y : %H:%M:%S]',
             autosave_ask_before_unload: false,
@@ -76,7 +80,9 @@
                             failure('Invalid JSON: ' + xhr.responseText);
                             return;
                         }
-                        callback(json.location, {text: file.name});
+                        callback(json.location, {
+                            text: file.name
+                        });
                     };
                     formData = new FormData();
                     formData.append('file', file, file.name);
