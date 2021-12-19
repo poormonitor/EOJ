@@ -13,17 +13,16 @@ if (isset($OJ_LANG)) {
 }
 
 if (isset($_GET["query"]) && trim($_GET["query"]) == "false") {
-    $view_error = "";
+    $no_query = false;
     require_once("template/" . $OJ_TEMPLATE . "/parent.php");
     exit(0);
 }
 if (!isset($_SESSION[$OJ_NAME . '_' . "user_id"]) && $_SESSION[$OJ_NAME . "_" . "vcode"] != trim($_GET["vcode"])) {
-    $view_error = "验证码错误！";
-    require_once("template/" . $OJ_TEMPLATE . "/parent.php");
+    $view_swal = "验证码错误！";
+    $error_location = "parent.php?query=false";
+    require_once("template/" . $OJ_TEMPLATE . "/error.php");
     exit(0);
 }
-
-require_once('./include/memcache.php');
 require_once('./include/cache_start.php');
 
 $contest = pdo_query("SELECT `contest`.contest_id FROM `contest_problem` JOIN `contest` ON `contest_problem`.`contest_id` = `contest`.`contest_id` WHERE `contest`.`defunct` != 'Y' AND `contest`.`private` = 0 GROUP BY contest_id");
@@ -38,9 +37,9 @@ if (isset($_GET['user']) and $_GET['user'] != '') {
         array_push($user_array, $m[0]);
     }
     $user_str = join("','", $user_array);
-    $nick = pdo_query("select `nick` from `users` where `user_id` IN ('$user_str') ORDER BY `user_id` ASC;", $user_str);
-    $group = pdo_query("select `group`.`name` from `users` join `group` on `users`.`gid` = `group`.`gid` where `user_id` IN ('$user_str') ORDER BY `user_id` ASC;", $user_str);
-    $school = pdo_query("select `school` from `users` where `user_id` IN ('$user_str') ORDER BY `user_id` ASC;", $user_str);
+    $nick = pdo_query("select `nick` from `users` where `user_id` IN (?) ORDER BY `user_id` ASC;", $user_str);
+    $group = pdo_query("select `group`.`name` from `users` join `group` on `users`.`gid` = `group`.`gid` where `user_id` IN (?) ORDER BY `user_id` ASC;", $user_str);
+    $school = pdo_query("select `school` from `users` where `user_id` IN (?) ORDER BY `user_id` ASC;", $user_str);
     $contest_array = array();
     if (count($user) != 1) {
         require_once("template/" . $OJ_TEMPLATE . "/parent.php");
@@ -48,10 +47,12 @@ if (isset($_GET['user']) and $_GET['user'] != '') {
     }
     $user = $user[0][0];
 } else {
-    $view_error = "没有选择用户！";
-    require_once("template/" . $OJ_TEMPLATE . "/parent.php");
+    $view_swal = "没有输入用户！";
+    $error_location = "parent.php?query=false";
+    require_once("template/" . $OJ_TEMPLATE . "/error.php");
     exit(0);
 }
+
 if (isset($_SESSION[$OJ_NAME . '_' . "last_parent_user"]) && $_SESSION[$OJ_NAME . '_' . "last_parent_user"] != $user) {
     $_SESSION[$OJ_NAME . '_' . "vcode"] = '';
 }
@@ -65,6 +66,7 @@ foreach ($contests_private as $i) {
         array_push($contest, array($cid));
     }
 }
+
 foreach ($contest as $i) {
     array_push($contest_array, $i[0]);
 }
@@ -94,6 +96,7 @@ foreach ($contest_array as $i) {
     array_push($basic, $problem);
     array_push($contests, $basic);
 }
+
 require_once("template/" . $OJ_TEMPLATE . "/parent.php");
 if (file_exists('./include/cache_end.php'))
     require_once('./include/cache_end.php');
