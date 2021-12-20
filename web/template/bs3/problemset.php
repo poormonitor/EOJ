@@ -120,7 +120,7 @@
 	</div>
 
 	<?php include("template/$OJ_TEMPLATE/js.php"); ?>
-	<script type="text/javascript" src="<?php echo $OJ_CDN_URL . $path_fix ?>include/jquery.tablesorter.min.js"></script>
+	<script type="text/javascript" src="<?php echo $OJ_CDN_URL ?>include/jquery.tablesorter.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$("#problemset").tablesorter();

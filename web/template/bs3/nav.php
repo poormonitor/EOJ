@@ -1,19 +1,17 @@
 <?php
 if (stripos($_SERVER['REQUEST_URI'], "template") !== false) exit();
 $url = basename($_SERVER['REQUEST_URI']);
-$dir = basename(getcwd());
-$path_fix = "";
 if (isset($OJ_NEED_LOGIN) && $OJ_NEED_LOGIN && ($url != 'loginpage.php' &&
   $url != 'lostpassword.php' &&
   $url != 'lostpassword2.php' &&
   $url != 'registerpage.php') && !isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
 
-  header("location:" . $path_fix . "loginpage.php");
+  header("location:" . "loginpage.php");
   exit();
 }
 $_SESSION[$OJ_NAME . '_' . 'profile_csrf'] = rand();
 if ($OJ_ONLINE) {
-  require_once($path_fix . 'include/online.php');
+  require_once('include/online.php');
   $on = new online();
 }
 ?>
@@ -38,7 +36,7 @@ if ($OJ_ONLINE) {
 
         <?php if (!isset($OJ_ON_SITE_CONTEST_ID)) { ?>
           <li <?php if ($url == "faqs.php") echo " $ACTIVE"; ?>>
-            <a href="<?php echo $path_fix ?>faqs.php">
+            <a href="faqs.php">
               <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> <?php echo $MSG_FAQ ?>
             </a>
           </li>
@@ -47,37 +45,31 @@ if ($OJ_ONLINE) {
 
         <?php if (isset($OJ_PRINTER) && $OJ_PRINTER) { ?>
           <li <?php if ($url == "printer.php") echo " $ACTIVE"; ?>>
-            <a href="<?php echo $path_fix ?>printer.php">
+            <a href="printer.php">
               <span class="glyphicon glyphicon-print" aria-hidden="true"></span> <?php echo $MSG_PRINTER ?>
             </a>
           </li>
         <?php } ?>
 
         <?php if (!isset($OJ_ON_SITE_CONTEST_ID)) { ?>
-          <?php if (isset($OJ_BBS) && $OJ_BBS) { ?>
-            <li <?php if ($dir == "discuss3") echo " $ACTIVE"; ?>>
-              <a href="<?php echo $path_fix ?>bbs.php"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span><?php echo $MSG_BBS ?></a>
-            </li>
-          <?php } ?>
-
           <li <?php if ($url == "problemset.php") echo " $ACTIVE"; ?>>
-            <a href="<?php echo $path_fix ?>problemset.php"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> <?php echo $MSG_PROBLEMS ?></a>
+            <a href="problemset.php"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> <?php echo $MSG_PROBLEMS ?></a>
           </li>
           <li <?php if ($url == "category.php") echo " $ACTIVE"; ?>>
-            <a href="<?php echo $path_fix ?>category.php"><span class="glyphicon glyphicon-th" aria-hidden="true"></span> <?php echo $MSG_SOURCE ?></a>
+            <a href="category.php"><span class="glyphicon glyphicon-th" aria-hidden="true"></span> <?php echo $MSG_SOURCE ?></a>
           </li>
           <li <?php if ($url == "status.php") echo " $ACTIVE"; ?>>
-            <a href="<?php echo $path_fix ?>status.php"><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span> <?php echo $MSG_STATUS ?></a>
+            <a href="status.php"><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span> <?php echo $MSG_STATUS ?></a>
           </li>
           <li <?php if ($url == "ranklist.php") echo " $ACTIVE"; ?>>
-            <a href="<?php echo $path_fix ?>ranklist.php"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> <?php echo $MSG_RANKLIST ?></a>
+            <a href="ranklist.php"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> <?php echo $MSG_RANKLIST ?></a>
           </li>
           <li <?php if ($url == "contest.php") echo " $ACTIVE"; ?>>
-            <a href="<?php echo $path_fix ?>contest.php"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> <?php echo $MSG_CONTEST ?></a>
+            <a href="contest.php"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> <?php echo $MSG_CONTEST ?></a>
           </li>
         <?php } else { ?>
           <li <?php if ($url == "contest.php") echo " $ACTIVE"; ?>>
-            <a href="<?php echo $path_fix ?>contest.php"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> <?php echo $MSG_CONTEST ?></a>
+            <a href="contest.php"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> <?php echo $MSG_CONTEST ?></a>
           </li>
         <?php } ?>
 
@@ -103,7 +95,7 @@ if ($OJ_ONLINE) {
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span id="profile">Login</span><span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <script src="<?php echo $path_fix . "template/$OJ_TEMPLATE/profile.php?profile_csrf=" . $_SESSION[$OJ_NAME . '_' . 'profile_csrf']; ?>"></script>
+            <script src="<?php echo "template/$OJ_TEMPLATE/profile.php?profile_csrf=" . $_SESSION[$OJ_NAME . '_' . 'profile_csrf']; ?>"></script>
             <!--<li><a href="../navbar-fixed-top/">Fixed top</a></li>-->
           </ul>
         </li>

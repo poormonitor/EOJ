@@ -47,8 +47,8 @@
 
 		</div>
 		<?php include("template/$OJ_TEMPLATE/js.php"); ?>
-		<script type="text/javascript" src="<?php echo $OJ_CDN_URL . $path_fix?>mergely/codemirror.min.js"></script>
-		<script type="text/javascript" src="<?php echo $OJ_CDN_URL . $path_fix?>mergely/mergely.min.js"></script>
+		<script type="text/javascript" src="<?php echo $OJ_CDN_URL?>mergely/codemirror.min.js"></script>
+		<script type="text/javascript" src="<?php echo $OJ_CDN_URL?>mergely/mergely.min.js"></script>
 
 		<script type="text/javascript">
 			$(document).ready(function() {
