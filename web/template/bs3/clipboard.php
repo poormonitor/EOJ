@@ -43,8 +43,8 @@
   </div>
   <?php include("template/$OJ_TEMPLATE/js.php"); ?>
 
-  <script src="<?php echo $OJ_CDN_URL . $path_fix . "ace/" ?>ace.js"></script>
-  <script src="<?php echo $OJ_CDN_URL . $path_fix . "ace/" ?>ext-language_tools.js"></script>
+  <script src="<?php echo $OJ_CDN_URL . "ace/" ?>ace.js"></script>
+  <script src="<?php echo $OJ_CDN_URL . "ace/" ?>ext-language_tools.js"></script>
   <script>
     ace.require("ace/ext/language_tools");
     var editor = ace.edit("source");

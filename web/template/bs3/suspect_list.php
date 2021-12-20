@@ -179,7 +179,7 @@
 
 <?php include("template/$OJ_TEMPLATE/js.php");?>      
 
-<script src="<?php echo $OJ_CDN_URL . $path_fix ?>include/sortTable.min.js"></script>
+<script src="<?php echo $OJ_CDN_URL ?>include/sortTable.min.js"></script>
 
 <script>
   var diff = new Date("<?php echo date("Y/m/d H:i:s")?>").getTime()-new Date().getTime();
