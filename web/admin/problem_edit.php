@@ -166,10 +166,6 @@ echo "<center><h3>" . "Edit-" . $MSG_PROBLEM . "</h3></center>";
       $block = join(" ", explode(",", trim($_POST['block'])));
 
       $title = ($title);
-      $description = RemoveXSS($description);
-      $input = RemoveXSS($input);
-      $output = RemoveXSS($output);
-      $hint = RemoveXSS($hint);
       $basedir = $OJ_DATA . "/$id";
 
       echo "题目已更新！<br>";
