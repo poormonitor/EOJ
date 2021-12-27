@@ -52,11 +52,6 @@ $block = join(" ", explode(",", trim($_POST['block'])));
 
 $spj = $_POST['spj'];
 
-$title = RemoveXSS($title);
-$description = RemoveXSS($description);
-$input = RemoveXSS($input);
-$output = RemoveXSS($output);
-$hint = RemoveXSS($hint);
 //echo "->".$OJ_DATA."<-"; 
 $pid = addproblem($title, $time_limit, $memory_limit, $description, $input, $output, $sample_input, $sample_output, $hint, $source, $spj, $OJ_DATA);
 $basedir = "$OJ_DATA/$pid";
