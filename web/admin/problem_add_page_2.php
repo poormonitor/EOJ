@@ -31,7 +31,7 @@ echo "<center><h3>" . $MSG_PROBLEM . "-" . $MSG_ADD . "</h3></center>";
       ?>
 
       <p align=left>
-      <h3>原id : <?php echo $row['id'] ?></h3>
+      <h3>来源 : <?php echo $row['source'] ?></h3>
       <?php echo "<h3>" . $MSG_TITLE . "</h3>" ?>
       <input class="input form-control" style="width:100%;" type=text name=title value='<?php echo htmlentities($row['title'], ENT_QUOTES, "UTF-8") ?>'>
       </p>
@@ -50,12 +50,12 @@ echo "<center><h3>" . $MSG_PROBLEM . "-" . $MSG_ADD . "</h3></center>";
 
       <p align=left>
         <?php echo "<h4>" . $MSG_Input . "</h4>" ?>
-        <textarea id="tinymce1" rows=13 name=input cols=80></textarea><br>
+        <textarea id="tinymce1" rows=13 name=input cols=80><?php echo htmlentities($row['input'], ENT_QUOTES, "UTF-8") ?></textarea><br>
       </p>
 
       <p align=left>
         <?php echo "<h4>" . $MSG_Output . "</h4>" ?>
-        <textarea id="tinymce2" rows=13 name=output cols=80></textarea><br>
+        <textarea id="tinymce2" rows=13 name=output cols=80><?php echo htmlentities($row['output'], ENT_QUOTES, "UTF-8") ?></textarea><br>
       </p>
 
       <p align=left>

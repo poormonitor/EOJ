@@ -87,9 +87,10 @@ static  $OJ_RECENT_CONTEST = true; // "http://algcontest.rainng.com/contests.jso
 static $OJ_ON_SITE_TEAM_TOTAL = 0;
 
 $time = date("H", time());
-if (($OJ_BLOCK_START_TIME < $OJ_BLOCK_END_TIME && $time >= $OJ_BLOCK_START_TIME && $time <= $OJ_BLOCK_END_TIME - 1) ||
-	($OJ_BLOCK_START_TIME > $OJ_BLOCK_END_TIME && ($time >= $OJ_BLOCK_START_TIME || $time <= $OJ_BLOCK_END_TIME - 1))
+if (($OJ_BLOCK_START_TIME < $OJ_BLOCK_END_TIME && $time >= $OJ_BLOCK_START_TIME && $time < $OJ_BLOCK_END_TIME - 1) ||
+	($OJ_BLOCK_START_TIME > $OJ_BLOCK_END_TIME && ($time >= $OJ_BLOCK_START_TIME || $time < $OJ_BLOCK_END_TIME - 1))
 ) {
+	header("Cache-Control: no-cache, must-revalidate");
 	require(dirname(__FILE__) . "/../index.html");
 	exit(0);
 }
