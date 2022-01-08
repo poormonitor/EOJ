@@ -68,9 +68,9 @@ function submitSolution($pid, $solution, $language)
 ?>
 
 <hr>
-&nbsp;&nbsp;- Import Problem ... <br>
+&nbsp;&nbsp;- Import Problem ... <br />
 &nbsp;&nbsp;- 如果导入失败，请参考 <a href="https://github.com/zhblue/hustoj/blob/master/wiki/FAQ.md#%E5%90%8E%E5%8F%B0%E5%AF%BC%E5%85%A5%E9%97%AE%E9%A2%98%E5%A4%B1%E8%B4%A5" target="_blank">FAQ</a>。
-<br><br>
+<br /><br />
 
 <?php
 function getValue($Node, $TagName)
@@ -250,7 +250,7 @@ function import_fps($tempfile)
           ////system( " gcc -o $basedir/spj $basedir/spj.c  ");
 
           if (!file_exists("$basedir/spj")) {
-            echo "you need to compile $basedir/spj.cc for spj[  g++ -o $basedir/spj $basedir/spj.cc   ]<br> and rejudge $pid";
+            echo "you need to compile $basedir/spj.cc for spj[  g++ -o $basedir/spj $basedir/spj.cc   ]<br /> and rejudge $pid";
           } else {
             unlink("$basedir/spj.cc");
           }
@@ -274,7 +274,7 @@ function import_fps($tempfile)
       $prepends = $searchNode->children()->append;
       mkpta($pid, $prepends, "append");
     } else {
-      echo "<br>&nbsp;&nbsp;- <span class=red>$title is already in this OJ</span>";
+      echo "<br />&nbsp;&nbsp;- <span class=red>$title is already in this OJ</span>";
     }
   }
 
@@ -294,7 +294,7 @@ function import_fps($tempfile)
 
   if ($spid > 0) {
     require_once("../include/set_get_key.php");
-    //echo "<br><a class=blue href=contest_add.php?spid=$spid&getkey=".$_SESSION[$OJ_NAME.'_'.'getkey'].">Use these problems to create a contest.</a>";
+    //echo "<br /><a class=blue href=contest_add.php?spid=$spid&getkey=".$_SESSION[$OJ_NAME.'_'.'getkey'].">Use these problems to create a contest.</a>";
   }
 }
 

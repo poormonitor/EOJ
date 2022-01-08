@@ -32,11 +32,11 @@ $msg = file_get_contents("msg.txt");
 
 <div class="container">
   <form action='setmsg.php' method='post'>
-    <textarea name='msg' id="tinymce0"><?php echo $msg ?></textarea><br>
+    <textarea name='msg' id="tinymce0"><?php echo $msg ?></textarea><br />
     <input type='hidden' name='do' value='do'>
     <center><input type='submit' value='<?php echo $MSG_SAVE ?>'></center>
-    <!--    <br>
-      如果升级无法修改公告，发送“修改公告”到微信公众号onlinejudge看解决方案。<br>
+    <!--    <br />
+      如果升级无法修改公告，发送“修改公告”到微信公众号onlinejudge看解决方案。<br />
       if this does not work, try run "sudo chown -R www-data /home/judge/src/web " in terminal.
 -->
     <?php require_once("../include/set_post_key.php"); ?>

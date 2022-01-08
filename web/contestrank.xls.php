@@ -35,7 +35,7 @@ class TM
 			return;
 		}
 		global $OJ_CE_PENALTY;
-		//		echo "Add $pid $sec $res<br>";
+		//		echo "Add $pid $sec $res<br />";
 
 		if (isset($this->p_ac_sec[$pid]) && $this->p_ac_sec[$pid] > 0)
 			return;
@@ -62,8 +62,8 @@ class TM
 				$this->mark -= intval($mark_per_problem * .8);
 			//			if($this->mark<$mark_base)
 			//				$this->mark=$mark_base;
-			//			echo "Time:".$this->time."<br>";
-			//			echo "Solved:".$this->solved."<br>";
+			//			echo "Time:".$this->time."<br />";
+			//			echo "Solved:".$this->solved."<br />";
 		}
 	}
 }

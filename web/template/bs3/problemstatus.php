@@ -25,7 +25,7 @@
 		<div class="jumbotron">
 
 			<center>
-				<h3><?php echo $MSG_PROBLEM . " : " . $id . " " . $MSG_STATISTICS ?></h3><br>
+				<h3><?php echo $MSG_PROBLEM . " : " . $id . " " . $MSG_STATISTICS ?></h3><br />
 				<div class='row'>
 					<div class='col-md-4'>
 						<table id="statics" class="table-hover table-striped" align=center width=90%>
@@ -61,27 +61,27 @@
 							</tr>
 						</table>
 
-						<br>
+						<br />
 
 						<?php if (isset($view_recommand)) { ?>
 							<table id=recommand class="table-hover table-striped" align=center width=90%>
 								<tr>
 									<td class='text-center'>
 										Recommended Next Problem
-										<br>
+										<br />
 										<?php
 										$cnt = 1;
 										foreach ($view_recommand as $row) {
 											echo "<a href=problem.php?id=$row[0]>$row[0]</a>&nbsp;";
 											if ($cnt % 5 == 0)
-												echo "<br>";
+												echo "<br />";
 											$cnt++;
 										}
 										?>
 									</td>
 								</tr>
 							</table>
-							<br>
+							<br />
 						<?php } ?>
 					</div>
 					<div class='col-md-8'>
@@ -147,7 +147,7 @@
 							</table>
 						</div>
 
-						<br>
+						<br />
 
 						<center>
 							<ul class='pagination'>

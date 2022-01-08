@@ -40,7 +40,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
 		<form method="post" class="form-horizontal">
 			<?php require_once("../include/set_post_key.php"); ?>
 			<center><label class="text-info"><?php echo $MSG_HELP_ADD_PRIVILEGE ?></label></center>
-			<br>
+			<br />
 			<div class="form-group">
 				<label class="col-sm-offset-3 col-sm-3 control-label"><?php echo $MSG_USER_ID ?></label>
 				<?php if (isset($_GET['uid'])) { ?>
@@ -69,7 +69,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
 						?>
 					</select>
 				</div>
-				<br>
+				<br />
 				<div class="col-sm-offset-9"><input id='value_input' type="text" class="form-control" name="valuestr" value="true"></div>
 			</div>
 			<script>
@@ -98,7 +98,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
 		</form>
 	</div>
 
-	<br>
+	<br />
 
 	<div>
 		<form method="post" class="form-horizontal">
@@ -133,7 +133,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
 		</form>
 	</div>
 
-	<br>
+	<br />
 
 	<div>
 		<form method="post" class="form-horizontal">

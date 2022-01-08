@@ -26,7 +26,7 @@
         <?php
         if (isset($no_query)) {
         ?>
-          <br><br>
+          <br /><br />
           <table align=center width=80%>
             <tr align='center'>
               <td>
@@ -38,7 +38,7 @@
               </td>
             </tr>
           </table>
-          <br><br>
+          <br /><br />
       </div>
     </div>
   </div>
@@ -62,12 +62,12 @@
     </td>
   </tr>
 </table>
-<br>
+<br />
 <div class='table-responsive'>
   <?php
   if (is_array($user)) {
     if (count($user) == 0) {
-      echo ("<h3>未找到！</h3><br>");
+      echo ("<h3>未找到！</h3><br />");
       echo ("<h4>提示：学生学号组成如下：20（入学年份）+ 1（贡院）+ 01（班级）+01（班内编号）。</h4>");
       echo ("<h4>如 2010101，代表20级贡院1班1号。</h4>");
       echo ("</div></div></div>");
@@ -75,7 +75,7 @@
       echo ("</body></html>");
       exit(0);
     } elseif (count($user) != 1) {
-      echo ("<h3>有多个匹配，请选择！</h3><br>");
+      echo ("<h3>有多个匹配，请选择！</h3><br />");
       for ($i = 0; $i < count($user); $i++) {
         echo ("<table class='table'><tbody><tr>");
         $uid = $user[$i][0];

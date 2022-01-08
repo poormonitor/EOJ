@@ -268,7 +268,7 @@ tinymce.addI18n('zh_CN', {
     "Error": "错误",
     "Warn": "警告",
     "Valid": "有效",
-    "To open the popup, press Shift+Enter": "此快捷为软回车（插入<br>）",
+    "To open the popup, press Shift+Enter": "此快捷为软回车（插入<br />）",
     "Rich Text Area. Press ALT-0 for help.": "编辑区. 按Alt+0键打开帮助",
     "System Font": "默认字体",
     "Failed to upload image: {0}": "图片上传失败: {0}",

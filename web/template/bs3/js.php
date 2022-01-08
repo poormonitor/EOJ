@@ -11,7 +11,7 @@
 		<div id=footer class='center col-sm-2'><a id='footer' target="_blank" href="<?php echo $OJ_MPS_BEIAN_URL ?>"><?php echo $OJ_MPS_BEIAN ?></a></div>
 	<?php } ?>
 </div>
-<br><br>
+<br /><br />
 <script src="<?php echo $OJ_CDN_URL . "template/$OJ_TEMPLATE/" ?>jquery.min.js"></script>
 <script src="<?php echo $OJ_CDN_URL . "template/$OJ_TEMPLATE/" ?>bootstrap.min.js"></script>
 <script src="<?php echo $OJ_CDN_URL . "template/$OJ_TEMPLATE/" ?>index.min.js"></script>

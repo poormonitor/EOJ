@@ -57,7 +57,7 @@ if (isset($OJ_LANG)) {
 		</center>
 	</div>
 
-	<br><br>
+	<br /><br />
 	
 	<?php
 	$start = pdo_query("select start_time from contest where contest_id=?",$contest_id)[0][0];

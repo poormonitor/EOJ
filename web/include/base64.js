@@ -118,7 +118,7 @@ function utf8to16(str) {
 }
 // 
 //var de = encode64(utf16to8("source"));
-//document.writeln(de+"<br>");
+//document.writeln(de+"<br />");
 //var ee = utf8to16(decode64(de))
 //document.writeln(ee);
 //

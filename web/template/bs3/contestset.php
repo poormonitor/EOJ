@@ -20,7 +20,7 @@
     <?php include("template/$OJ_TEMPLATE/nav.php"); ?>
     <!-- Main component for a primary marketing message or call to action -->
     <div class="jumbotron">
-      <br><br>
+      <br /><br />
       <table align=center width=80%>
         <tr align='center'>
           <td>
@@ -32,7 +32,7 @@
           </td>
         </tr>
       </table>
-      <br>
+      <br />
       <table align=center width=80%>
         <tr align='center'>
           <td>
@@ -43,11 +43,11 @@
           </td>
         </tr>
       </table>
-      <br>
+      <br />
 
       <center>
         <h3><?php echo $MSG_SERVER_TIME ?> <span id=nowdate></span></h3>
-      </center><br>
+      </center><br />
       <div class="table-responsive">
         <table class='table table-striped' width=90%>
           <thead>
