@@ -20,7 +20,7 @@ $OJ_TEMPLATE = "bs3";
   <a class='btn btn-block btn-sm' href="help.php" target="main" title="<?php echo $MSG_ADMIN ?>"><b><?php echo $MSG_ADMIN ?></b></a>
   <hr>
 
-  <a class='btn btn-block btn-sm' href="../status.php" target="_top" title="<?php echo $MSG_HELP_SEEOJ ?>"><b><?php echo $MSG_SEEOJ ?></b></a><br>
+  <a class='btn btn-block btn-sm' href="../status.php" target="_top" title="<?php echo $MSG_HELP_SEEOJ ?>"><b><?php echo $MSG_SEEOJ ?></b></a><br />
 
   <center>
     <div class="btn-group-vertical" role="menu">
@@ -114,11 +114,11 @@ $OJ_TEMPLATE = "bs3";
   </center>
 
   <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) { ?>
-    <br><a class='btn btn-block btn-sm' href="https://github.com/zhblue/hustoj/" target="_blank"><b>HUSTOJ</b></a>
-    <br>
+    <br /><a class='btn btn-block btn-sm' href="https://github.com/zhblue/hustoj/" target="_blank"><b>HUSTOJ</b></a>
+    <br />
     <center><a class="btn btn-block btn-sm" target='_blank' href="https://github.com/zhblue/hustoj/blob/master/wiki/FAQ.md"><?php echo $MSG_ADMIN . " " . $MSG_FAQ ?></a></center>
-    <br><a class='btn btn-block btn-sm' href="https://github.com/zhblue/freeproblemset/" target="_blank"><b>FreeProblemSet</b></a>
-    <br><a class='btn btn-block btn-sm' href="http://tk.hustoj.com" target="_blank"><b>自助题库</b></a>
+    <br /><a class='btn btn-block btn-sm' href="https://github.com/zhblue/freeproblemset/" target="_blank"><b>FreeProblemSet</b></a>
+    <br /><a class='btn btn-block btn-sm' href="http://tk.hustoj.com" target="_blank"><b>自助题库</b></a>
   <?php } ?>
 
   <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) { ?>

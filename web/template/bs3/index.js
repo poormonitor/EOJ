@@ -537,7 +537,7 @@ function explain() {
         var exp = exps[i];
         var ret = pat.exec(errmsg);
         if (ret) {
-            expmsg += ret + " : " + exp + "<br><hr />";
+            expmsg += ret + " : " + exp + "<br /><hr />";
         }
     }
     document.getElementById("errexp").innerHTML = expmsg;

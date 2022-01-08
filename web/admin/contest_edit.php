@@ -174,7 +174,7 @@ echo "<center><h3>" . "Edit-" . $MSG_CONTEST . "</h3></center>";
       <input type=hidden name='cid' value=<?php echo $cid ?>>
       <p align=left>
         <?php echo "<h3>" . $MSG_CONTEST . "-" . $MSG_TITLE . "</h3>" ?>
-        <input class="input input-xxlarge" style="width:100%;" type=text name=title value="<?php echo $title ?>"><br><br>
+        <input class="input input-xxlarge" style="width:100%;" type=text name=title value="<?php echo $title ?>"><br /><br />
       </p>
       <p align=left>
         <?php echo $MSG_CONTEST . $MSG_Start ?>:
@@ -188,10 +188,10 @@ echo "<center><h3>" . "Edit-" . $MSG_CONTEST . "</h3></center>";
         Hour: <input class=input-mini type=text name=ehour size=2 value='<?php echo substr($endtime, 11, 2) ?>'>&nbsp;
         Minute: <input class=input-mini type=text name=eminute value='<?php echo substr($endtime, 14, 2) ?>' size=2>
       </p>
-      <br>
+      <br />
       <p align=left>
-        <?php echo $MSG_CONTEST . "-" . $MSG_PROBLEM_ID ?><br>
-        <?php echo $MSG_PLS_ADD ?><br>
+        <?php echo $MSG_CONTEST . "-" . $MSG_PROBLEM_ID ?><br />
+        <?php echo $MSG_PLS_ADD ?><br />
         <select name='problem[]' id='multiple_problem' size="10" class="selectpicker show-menu-arrow form-control" multiple style='margin-top:10px;'>
           <?php
           $all = explode(",", $plist);
@@ -209,25 +209,25 @@ echo "<center><h3>" . "Edit-" . $MSG_CONTEST . "</h3></center>";
           }
 
           ?></select>
-        <br>
+        <br />
       </p>
       <p align=left>
-        手动输入<br>
+        手动输入<br />
         <input id='problem' data-role="tagsinput" class='form-control' style='margin-top:10px;' onchange='return set_tag(this)'></input>
       </p>
-      <br>
+      <br />
       <p align=left>
         <?php echo "<h4>" . $MSG_CONTEST . "-" . $MSG_Description . "</h4>" ?>
         <textarea id="tinymce0" rows=13 name=description cols=80>
         <?php echo htmlentities($description, ENT_QUOTES, 'UTF-8') ?>
       </textarea>
-        <br>
+        <br />
       <table width="100%">
         <tr>
           <td rowspan=2>
             <p aligh=left>
-              <?php echo $MSG_CONTEST . "-" . $MSG_LANG ?><br>
-              <?php echo $MSG_PLS_ADD ?><br>
+              <?php echo $MSG_CONTEST . "-" . $MSG_LANG ?><br />
+              <?php echo $MSG_PLS_ADD ?><br />
               <select name="lang[]" multiple="multiple" style="height:220px;margin-top:10px;" class='selectpicker show-menu-arrow form-control'>
                 <?php
                 $lang_count = count($language_ext);
@@ -264,7 +264,7 @@ echo "<center><h3>" . "Edit-" . $MSG_CONTEST . "</h3></center>";
           <td height="*" style="padding:20px;">
             <p align=left>
               <?php echo $MSG_CONTEST . "-" . $MSG_GROUP ?>
-              <br>
+              <br />
               <select name="gid[]" class="selectpicker show-menu-arrow form-control" size=8 multiple>
                 <?php
                 $cid = intval($_GET['cid']);

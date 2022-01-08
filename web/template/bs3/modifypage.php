@@ -64,7 +64,7 @@
         </div>
       </form>
 
-      <a class='btn btn-success btn-sm' style='margin:10px;' href=export_ac_code.php>下载所有通过的代码</a><br>
+      <a class='btn btn-success btn-sm' style='margin:10px;' href=export_ac_code.php>下载所有通过的代码</a><br />
     </div>
   </div>
   <?php include("template/$OJ_TEMPLATE/js.php"); ?>

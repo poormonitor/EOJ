@@ -106,7 +106,7 @@
                 </div>
             </div>
             <center>
-                <br>
+                <br />
                 <?php
                 if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
                 ?>
@@ -192,7 +192,7 @@
                 min: 0
             };
             var tooltip = {
-                headerFormat: '<b>{series.name}</b><br>',
+                headerFormat: '<b>{series.name}</b><br />',
                 pointFormat: '{point.x:%e. %b}: {point.y:.2f} times'
             };
             var plotOptions = {

@@ -114,7 +114,7 @@ if(isset($_POST['idlist']) && isset($_POST['pwdlist']) && isset($_POST['nicklist
 		<div class="row">
 		<br/>
 		<?php require_once("../include/set_post_key.php");?>
-		<input type=submit value=Generate><br>
+		<input type=submit value=Generate><br />
 		</div>
 	</form>
 

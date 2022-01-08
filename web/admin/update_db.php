@@ -36,7 +36,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
 
   <?php if (file_exists("update_pw.php")) {  ?>
     <b>更新密码</b>
-    用于保证用户数据安全。<br>
+    用于保证用户数据安全。<br />
     <a class='btn btn-info' href="update_pw.php">更新</a>
     * 请只执行一次！
   <?php } ?>

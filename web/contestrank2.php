@@ -25,7 +25,7 @@ class TM
   }
   function Add($pid, $sec, $res)
   {
-    //              echo "Add $pid $sec $res<br>";
+    //              echo "Add $pid $sec $res<br />";
     if (isset($this->p_ac_sec[$pid]) && $this->p_ac_sec[$pid] > 0)
       return;
     if ($res != 4) {
@@ -40,15 +40,15 @@ class TM
       $this->solved++;
       if (!isset($this->p_wa_num[$pid])) $this->p_wa_num[$pid] = 0;
       $this->time += $sec + $this->p_wa_num[$pid] * 1200;
-      //                      echo "Time:".$this->time."<br>";
-      //                      echo "Solved:".$this->solved."<br>";
+      //                      echo "Time:".$this->time."<br />";
+      //                      echo "Solved:".$this->solved."<br />";
     }
   }
 }
 
 function s_cmp($A, $B)
 {
-  //      echo "Cmp....<br>";
+  //      echo "Cmp....<br />";
   if ($A->solved != $B->solved) return $A->solved < $B->solved ? 1 : -1;
   else return $A->time > $B->time ? 1 : -1;
 }

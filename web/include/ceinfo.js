@@ -146,7 +146,7 @@ function ceinfo(){
         //console.log(keyword);
         keyword=encodeURIComponent(keyword);
         //console.log(keyword);
-        expmsg+="<br><a target='_blank' href='https://www.baidu.com/s?wd="+keyword+"'>问问度娘</a><hr>\n";
+        expmsg+="<br /><a target='_blank' href='https://www.baidu.com/s?wd="+keyword+"'>问问度娘</a><hr>\n";
 	for(var i=0;i<pats.length;i++){
 		var pat=pats[i];
 		var exp=exps[i];

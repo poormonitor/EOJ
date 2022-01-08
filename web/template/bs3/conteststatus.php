@@ -77,9 +77,9 @@
             <p>
               <?php echo $view_description ?>
             </p>
-            <br>
+            <br />
             <?php echo $MSG_SERVER_TIME ?> : <span id=nowdate> <?php echo date("Y-m-d H:i:s") ?></span>
-            <br>
+            <br />
 
             <?php if (isset($OJ_RANK_LOCK_PERCENT) && $OJ_RANK_LOCK_PERCENT != 0) { ?>
               Lock Board Time: <?php echo date("Y-m-d H:i:s", $view_lock_time) ?><br />
@@ -96,7 +96,7 @@
             }
             ?>
 
-            <br><br>
+            <br /><br />
 
             <?php echo $MSG_CONTEST_STATUS ?> :
 
@@ -118,12 +118,12 @@
               echo "<span class=text-danger>" . $MSG_Private . "</span>";
             ?>
 
-            <br>
+            <br />
 
             <?php echo $MSG_START_TIME ?> : <?php echo $view_start_time ?>
-            <br>
+            <br />
             <?php echo $MSG_END_TIME ?> : <?php echo $view_end_time ?>
-            <br><br>
+            <br /><br />
 
             <div class="btn-group">
               <a href="contest.php?cid=<?php echo $cid ?>" class="btn btn-primary btn-sm"><?php echo $MSG_PROBLEMS ?></a>
@@ -141,7 +141,7 @@
         </center>
       <?php } ?>
 
-      <br>
+      <br />
       <div align=center class="input-append">
         <form id=simform class=form-inline action="status.php" method="get">
           <?php echo $MSG_PROBLEM_ID ?>
@@ -238,7 +238,7 @@
         </form>
         </form>
       </div>
-      <br>
+      <br />
 
       <div id=center class="table-responsive">
         <table id=result-tab class="table table-striped content-box-header" align=center width=80%>
