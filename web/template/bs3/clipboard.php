@@ -28,9 +28,13 @@
       <center>
         <form id=frmSolution action="clipboard.php" method="post">
           <h3 style='text-align:center;'>剪切板</h3>
-          <?php if (isset($flag)) { ?>
-            <br /><span class='alert alert-success'>成功</span><br /><br />
-          <?php } ?>
+          <?php if (isset($flag)) {
+            if ($flag) { ?>
+              <br /><span class='alert alert-success'>成功</span><br /><br />
+            <?php } else { ?>
+              <br /><span class='alert alert-success'>失败</span><br /><br />
+          <?php }
+          } ?>
           <div id='container_status'>
             <pre style="width:80%;height:600;font-size:13pt;margin:8px;" cols=180 rows=20 id="source"><?php if (isset($content)) echo htmlentities($content, ENT_QUOTES, "UTF-8") ?></pre>
             <textarea name='content' style='display:none;'><?php if (isset($content)) echo htmlentities($content, ENT_QUOTES, "UTF-8") ?></textarea>
