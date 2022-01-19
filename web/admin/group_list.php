@@ -77,7 +77,7 @@ if (isset($_GET['do'])) {
     </table>
   </center>
 </div>
-<br><br>
+<br /><br />
 <center>
   <form action=group_list.php class="form-search form-inline">
     <input type="text" name=group_name class="form-control search-query" placeholder="<?php echo $MSG_GROUP ?>">

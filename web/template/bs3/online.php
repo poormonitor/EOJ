@@ -44,7 +44,7 @@
 										<td class="ip">
 											<?php $l = $ip->getlocation($u['ip']);
 											// echo $u->ip.'<br />';
-											echo $u['ip'] . "<br>";
+											echo $u['ip'] . "<br />";
 											if (strlen(trim($l['area'])) == 0)
 												echo $l['country'];
 											else

@@ -37,7 +37,7 @@ if(isset($_SESSION[$OJ_NAME.'_'.'balloon'])){
 			//echo $sql;
 		     if(count(pdo_query($sql,$user_id,$cid,$pid))==0){
 			$sql="insert into balloon(user_id,sid,cid,pid,status) value(?,?,?,?,0)";
-//			echo $sql."<br>".$user_id." ".$sid." ".$cid." ".$pid;
+//			echo $sql."<br />".$user_id." ".$sid." ".$cid." ".$pid;
 			pdo_query($sql,$user_id,$sid,$cid,$pid);
 		     }		     
 		}

@@ -36,7 +36,7 @@ class TM
     if ($pid == NULL) {
       return;
     }
-    //              echo "Add $pid $sec $res<br>";
+    //              echo "Add $pid $sec $res<br />";
     if (isset($this->p_ac_sec[$pid]) && $this->p_ac_sec[$pid] > 0)
       return;
     if ($res * 100 < 99) {
@@ -67,8 +67,8 @@ class TM
 
       $this->total += 100;
       $this->time += $sec + $this->p_wa_num[$pid] * 1200;
-      //                      echo "Time:".$this->time."<br>";
-      //                      echo "Solved:".$this->solved."<br>";
+      //                      echo "Time:".$this->time."<br />";
+      //                      echo "Solved:".$this->solved."<br />";
     }
   }
 }
@@ -125,13 +125,13 @@ if ($rows_cnt > 0) {
   $title = $row['title'];
 }
 if ($start_time == 0) {
-  $view_errors = "<h2>不存在作业</h2><br><span class='alert alert-danger'>作业不存在！请检查作业编号是否正确</span>";
+  $view_errors = "<h2>不存在作业</h2><br /><span class='alert alert-danger'>作业不存在！请检查作业编号是否正确</span>";
   require("template/" . $OJ_TEMPLATE . "/error.php");
   exit(0);
 }
 
 if ($start_time > time()) {
-  $view_errors = "<h2>信息不存在</h2><br><span class='alert alert-danger'>" . $MSG_PRIVATE_WARNING . "</span>";
+  $view_errors = "<h2>信息不存在</h2><br /><span class='alert alert-danger'>" . $MSG_PRIVATE_WARNING . "</span>";
   require("template/" . $OJ_TEMPLATE . "/error.php");
   exit(0);
 }

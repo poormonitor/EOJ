@@ -78,10 +78,10 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
 ?>
 <?php require_once("../include/set_post_key.php"); ?>
 <div class="container">
-	<br>
+	<br />
 	<h3 class='center'><b>重判</b></h3>
 	<ol>
-		<br>
+		<br />
 		<div class='center form-group'>
 			<form action='rejudge.php' method=post>
 				<label class='control-label'>

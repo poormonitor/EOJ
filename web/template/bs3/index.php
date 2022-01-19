@@ -28,7 +28,7 @@
             </center>
          </p>
          <?php echo $view_news ?>
-         <br>
+         <br />
       </div>
 
    </div>
@@ -62,7 +62,7 @@
             min: 0
          };
          var tooltip = {
-            headerFormat: '<b>{series.name}</b><br>',
+            headerFormat: '<b>{series.name}</b><br />',
             pointFormat: '{point.x:%e. %b}: {point.y:.2f} times'
          };
          var plotOptions = {

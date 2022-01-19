@@ -82,7 +82,7 @@ echo "<center><h3>" . $MSG_NEWS . "-" . "Edit" . "</h3></center>";
     <div class='col-sm-4 col-sm-offset-4'>
       <p>
         <?php echo "<h4>" . "私有" . "</h4>" ?>
-        <?php echo "否 " ?><input type=radio name=private value='0' <?php if ($row['private'] == 'N') echo "checked" ?>><?php echo "/ 是 " ?><input type=radio name=private value='1' <?php if ($row['private'] == 'Y') echo "checked" ?>><br><br>
+        <?php echo "否 " ?><input type=radio name=private value='0' <?php if ($row['private'] == 'N') echo "checked" ?>><?php echo "/ 是 " ?><input type=radio name=private value='1' <?php if ($row['private'] == 'Y') echo "checked" ?>><br /><br />
       </p>
       <h4 class='control-label'><?php echo $MSG_GROUP; ?></h4>
       <select name="gid[]" class="selectpicker show-menu-arrow form-control" size=8 multiple>
@@ -105,10 +105,10 @@ echo "<center><h3>" . $MSG_NEWS . "-" . "Edit" . "</h3></center>";
           }
         }
         ?>
-      </select><br>
+      </select><br />
       <?php require_once("../include/set_post_key.php"); ?>
       <button name="submit" type="submit" class="btn btn-default btn-block"><?php echo $MSG_SAVE ?></button>
     </div>
   </form>
-</div><br><br>
+</div><br /><br />
 <?php require_once('../tinymce/tinymce.php'); ?>
