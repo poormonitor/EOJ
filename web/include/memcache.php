@@ -46,7 +46,7 @@ function mysql_query_cache($sql, $linkIdentifier = false, $timeout = 4)
         //如果开启了服务器的话，数据将会被缓存到memcached服务器中
         if (!setCache(md5($OJ_NAME . $_SERVER['HTTP_HOST'] . "mysql_query" . $sql), $cache, $timeout)) {
             # If we get here, there isn’t a memcache daemon running or responding
-            if ($OJ_MEMCACHE) echo "You can run these command to get faster speed:<br>sudo apt-get install memcached<br>sudo apt-get install php5-memcache<br>sudo apt-get install php-memcache";
+            if ($OJ_MEMCACHE) echo "You can run these command to get faster speed:<br />sudo apt-get install memcached<br />sudo apt-get install php5-memcache<br />sudo apt-get install php-memcache";
         }
     }
 

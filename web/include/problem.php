@@ -5,7 +5,7 @@ function addproblem($title, $time_limit, $memory_limit, $description, $input, $o
   //echo $sql;
   $pid = pdo_query($sql, $title, $time_limit, $memory_limit, $description, $input, $output, $sample_input, $sample_output, $hint, $source, $spj);
 
-  echo "&nbsp;&nbsp;- 问题 $pid 已添加！<br>";
+  echo "&nbsp;&nbsp;- 问题 $pid 已添加！<br />";
 
   if (isset($_POST['contest_id']) && intval($_POST['contest_id'])>0) {
     $cid = intval($_POST['contest_id']);

@@ -30,19 +30,19 @@
 
         <form id=frmSolution action="submit.php" method="post" onsubmit='do_submit()'>
           <?php if (isset($id)) { ?>
-            <br>
+            <br />
             <?php echo $MSG_PROBLEM_ID . " : " ?> <span class=blue><?php echo $id ?></span>
-            <br>
+            <br />
             <input id=problem_id type='hidden' value='<?php echo $id ?>' name="id">
-            <br>
+            <br />
           <?php } else {
             //$PID="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             //if ($pid>25) $pid=25;
           ?>
-            <br>
+            <br />
             <?php echo $MSG_PROBLEM_ID . " : " ?> <span class=blue><?php echo chr($pid + ord('A')) ?></span>
-            <br>比赛编号 : <span class=blue> <?php echo $cid ?> </span>
-            <br>
+            <br />比赛编号 : <span class=blue> <?php echo $cid ?> </span>
+            <br />
             <input id="cid" type='hidden' value='<?php echo $cid ?>' name="cid">
             <input id="pid" type='hidden' value='<?php echo $pid ?>' name="pid">
           <?php } ?>
@@ -70,7 +70,7 @@
             </select>
           </span>
           <?php if (isset($code) and !$no_blank) { ?>
-            <br></br>
+            <br /></br>
             <pre id='copy' class='alert alert-error' style='text-align:left;display:none;'><?php echo $copy; ?></pre>
             <div class='btn-group'><a class='btn btn-sm btn-info' href='javascript:CopyToClipboard($("#copy").text())'>复制</a>
               <a class='btn btn-sm btn-info' href='<?php echo $_SERVER['REQUEST_URI']; ?>&blank=false'>直接填写</a>
@@ -83,7 +83,7 @@
       <?php } else { ?>
         <?php if (isset($code) and $no_blank) { ?>
           <pre id='copy' class='alert alert-error' style='text-align:left;display:none;'><?php echo $copy; ?></pre>
-          <br></br>
+          <br /></br>
           <div class='btn-group' style='margin-bottom:10px;'>
             <a class='btn btn-sm btn-info' href='javascript:CopyToClipboard($("#copy").text())'>复制</a>
             <?php if (!isset($sid)) { ?>
@@ -137,7 +137,7 @@
         <input id="Submit" class="btn btn-info btn-sm" type=button value="<?php echo $MSG_SUBMIT ?>" onclick="do_submit();" style='margin:6px;'>
       <?php } ?>
       </form>
-      <br>
+      <br />
       </center>
     </div>
   </div>

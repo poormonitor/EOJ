@@ -56,7 +56,7 @@ if (isset($OJ_LANG)) {
     </div>
     <div>
       <?php echo "( Add new user newline )" ?>
-      <br><br>
+      <br /><br />
       <table width="100%">
         <tr>
           <td height="*">

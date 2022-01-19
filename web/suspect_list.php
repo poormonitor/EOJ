@@ -136,10 +136,10 @@ if (isset($_GET['cid'])) {
 			$view_errors = "<center>";
 			$view_errors .= "<h3>$MSG_CONTEST_ID : $view_cid - $view_title</h3>";
 			$view_errors .= "<p>$view_description</p>";
-			$view_errors .= "<br>";
+			$view_errors .= "<br />";
 			$view_errors .= "<span class=text-success>$MSG_TIME_WARNING</span>";
 			$view_errors .= "</center>";
-			$view_errors .= "<br><br>";
+			$view_errors .= "<br /><br />";
 
 			require("template/".$OJ_TEMPLATE."/error.php");
 			exit(0);
@@ -152,14 +152,14 @@ if (isset($_GET['cid'])) {
 		$view_errors .= "<p>$view_description</p>";
 		$view_errors .= "<span class=text-danger>$MSG_PRIVATE_WARNING</span>";
 
-		$view_errors .= "<br><br>";
+		$view_errors .= "<br /><br />";
 
 		$view_errors .= "<div class='btn-group'>";
 		$view_errors .= "<a href=contestrank.php?cid=$view_cid class='btn btn-primary'>$MSG_STANDING</a>";
 		$view_errors .= "<a href=contestrank-oi.php?cid=$view_cid class='btn btn-primary'>OI$MSG_STANDING</a>";
 		$view_errors .= "<a href=conteststatistics.php?cid=$view_cid class='btn btn-primary'>$MSG_STATISTICS</a>";
 		$view_errors .= "</div>";
-		$view_errors .= "<br>";
+		$view_errors .= "<br />";
 
 		require("template/".$OJ_TEMPLATE."/error.php");
 		exit(0);

@@ -65,11 +65,11 @@ if (!(isset($_SESSION[$OJ_NAME.'_'.'administrator']) || isset($_SESSION[$OJ_NAME
 <b>TeamGenerator:</b>
 	
 	<form action='team_generate.php' method=post>
-	    Prefix:<input type='test' name='prefix' value='team' placeholder="Team"><br>
-		Generate<input class="input-mini" type=input name='teamnumber' value=5 size=3 >Teams.<br>
+	    Prefix:<input type='test' name='prefix' value='team' placeholder="Team"><br />
+		Generate<input class="input-mini" type=input name='teamnumber' value=5 size=3 >Teams.<br />
                 Users:<textarea name="ulist" rows="12" cols="40" placeholder="Preset nicknames of the teams. One name per line."></textarea>
 		<?php require_once("../include/set_post_key.php");?>
-		<input type=submit value=Generate><br>
+		<input type=submit value=Generate><br />
 	</form>
 	<span style="color:red;font-weight:bold">以相同的前缀生成账号，将覆盖昵称和密码，请谨慎操作！</span>
 

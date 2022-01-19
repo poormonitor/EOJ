@@ -29,7 +29,7 @@
         <form id=frmSolution action="clipboard.php" method="post">
           <h3 style='text-align:center;'>剪切板</h3>
           <?php if (isset($flag)) { ?>
-            <br><span class='alert alert-success'>成功</span><br><br>
+            <br /><span class='alert alert-success'>成功</span><br /><br />
           <?php } ?>
           <div id='container_status'>
             <pre style="width:80%;height:600;font-size:13pt;margin:8px;" cols=180 rows=20 id="source"><?php if (isset($content)) echo htmlentities($content, ENT_QUOTES, "UTF-8") ?></pre>
@@ -37,7 +37,7 @@
           </div>
           <input id="Submit" class="btn btn-info btn-sm" type=submit value="<?php echo $MSG_SUBMIT; ?>" style="margin:6px;">
         </form>
-        <br>
+        <br />
       </center>
     </div>
   </div>

@@ -10,7 +10,7 @@ if (isset($OJ_LANG)) {
 </head>
 
 <body>
-  <br>
+  <br />
   <table class="table" style='width:95%;margin:0 auto;'>
     <tbody>
       <tr>
