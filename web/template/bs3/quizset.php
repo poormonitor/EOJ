@@ -25,7 +25,7 @@
         <tr align='center'>
           <td>
             <form class=form-inline method=post action=contest.php>
-              <input class="form-control" name=keyword value="<?php if (isset($_POST['keyword'])) echo htmlentities($_POST['keyword'], ENT_QUOTES, "UTF-8") ?>" placeholder="<?php echo $MSG_CONTEST_NAME ?>">
+              <input class="form-control" name=keyword value="<?php if (isset($_POST['keyword'])) echo htmlentities($_POST['keyword'], ENT_QUOTES, "UTF-8") ?>" placeholder="<?php echo $MSG_QUIZ_NAME ?>">
               <button class="form-control" type=submit><?php echo $MSG_SEARCH ?></button>
             </form>
           </td>
@@ -40,17 +40,17 @@
         <table class='table table-striped' width=90%>
           <thead>
             <tr class=toprow align=center>
-              <td><?php echo $MSG_CONTEST_ID ?></td>
-              <td><?php echo $MSG_CONTEST_NAME ?></td>
-              <td><?php echo $MSG_CONTEST_STATUS ?></td>
-              <td><?php echo $MSG_CONTEST_OPEN ?></td>
-              <td><?php echo $MSG_CONTEST_CREATOR ?></td>
+              <td><?php echo $MSG_QUIZ_ID ?></td>
+              <td><?php echo $MSG_QUIZ_NAME ?></td>
+              <td><?php echo $MSG_QUIZ_STATUS ?></td>
+              <td><?php echo $MSG_QUIZ_OPEN ?></td>
+              <td><?php echo $MSG_QUIZ_CREATOR ?></td>
             </tr>
           </thead>
           <tbody align='center'>
             <?php
             $cnt = 0;
-            foreach ($view_contest as $row) {
+            foreach ($view_quiz as $row) {
               if ($cnt)
                 echo "<tr class='oddrow'>";
               else
@@ -73,10 +73,10 @@
       <nav class="center">
         <small>
           <ul class="pagination">
-            <li class="page-item"><a href="contest.php?page=1">&lt;&lt;</a></li>
+            <li class="page-item"><a href="quiz.php?page=1">&lt;&lt;</a></li>
             <?php
             if ($page != 1) { ?>
-              <li class="page-item"><a href="contest.php?page=<?php echo $page - 1 ?>">&lt;</a></li>
+              <li class="page-item"><a href="quiz.php?page=<?php echo $page - 1 ?>">&lt;</a></li>
             <?php } ?>
             <?php
             if (!isset($page)) $page = 1;
@@ -90,9 +90,9 @@
             ?>
             <?php
             if ($page != $view_total_page) { ?>
-              <li class="page-item"><a href="contest.php?page=<?php if ($page != $view_total_page) echo $page + 1 ?>">&gt;</a></li>
+              <li class="page-item"><a href="quiz.php?page=<?php if ($page != $view_total_page) echo $page + 1 ?>">&gt;</a></li>
             <?php } ?>
-            <li class="page-item"><a href="contest.php?page=<?php echo $view_total_page ?>">&gt;&gt;</a></li>
+            <li class="page-item"><a href="quiz.php?page=<?php echo $view_total_page ?>">&gt;&gt;</a></li>
           </ul>
         </small>
       </nav>
