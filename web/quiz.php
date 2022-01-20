@@ -158,12 +158,17 @@ if (isset($_GET['qid'])) {
     }
 
     $answered = false;
-    if (isset($_SESSION["user_id"])) {
-        $sql = "SELECT * FROM `answer` WHERE `quiz_id`=? AND `user_id`=?";
-        $answer = pdo_query($sql, $_SESSION["user_id"]);
+    if (isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
+        $sql = "SELECT * FROM `answer` WHERE `answer`.`quiz_id`=? AND `answer`.`user_id`=?";
+
+        $answer = pdo_query($sql, $qid, $_SESSION[$OJ_NAME . '_' . 'user_id']);
         $rows_cnt = count($answer);
         if ($rows_cnt) {
             $answered = true;
+            $sql = "SELECT * FROM `quiz` WHERE `quiz_id`=?";
+            $result = pdo_query($sql, $qid);
+            $quiz = $result[0];
+            $answer = $answer[0];
         }
     }
 } else {
@@ -185,6 +190,7 @@ if (isset($_GET['qid'])) {
 
     $sql = "SELECT * FROM `quiz` WHERE `defunct`='N' ORDER BY `quiz_id` DESC LIMIT 1000";
 
+    $wheremy = "";
     if ($keyword) {
         $sql = "SELECT *  FROM quiz WHERE quiz.defunct='N' AND quiz.title LIKE ? $wheremy  ORDER BY quiz_id DESC";
         $total = count(pdo_query($sql, $keyword));

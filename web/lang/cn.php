@@ -151,8 +151,14 @@ $MSG_QUIZ_CREATOR="创建者";
 $MSG_QUIZ_ANS="答题";
 $MSG_QUIZ_SCORE="得分";
 $MSG_QUIZ_PROBLEM="题目";
+$MSG_YOUR_ANSWER="您的答案";
+$MSG_CORRECT_ANSWER="正确答案";
+$MSG_SCORE="分值";
 $MSG_PLEASE_ANSWER_ALL_QUESTIONS="请检查所有问题是否都回答";
-
+$MSG_NO_SUCH_QUIZ="您请求的测试不存在。这可能是因为测试本身不存在或您尚未被邀请";
+$MSG_ALREADY_SUBMIT="您已经提交过了，不能再次提交。";
+$MSG_TYPE="类型";
+$MSG_QUIZ_TYPE=array("单选","多选","填空（机器阅卷）","简答（人工阅卷）");
 
 //admin menu
 $MSG_SEEOJ = "查看前台";
