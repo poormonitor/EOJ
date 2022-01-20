@@ -21,7 +21,7 @@
 
 ?>
 
-<body leftmargin="30" >
+<body >
   <div class="container">
     <br /><br />
     - Export Problem XML<br /><br />

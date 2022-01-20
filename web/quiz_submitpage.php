@@ -49,7 +49,7 @@ if (isset($_GET['qid'])) {
         exit(0);
     }
     $result = $result[0];
-    $question = explode("@*@", $result['question']);
+    $question = explode("<sep />", $result['question']);
     $type = explode("/", $result['type']);
     $score = explode("/", $result['score']);
     /*

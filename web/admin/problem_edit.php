@@ -20,7 +20,7 @@ echo "<center><h3>" . "Edit-" . $MSG_PROBLEM . "</h3></center>";
 
 ?>
 
-<body leftmargin="30">
+<body>
   <div class="container">
     <?php
     if (isset($_GET['id'])) {; //require_once("../include/check_get_key.php");

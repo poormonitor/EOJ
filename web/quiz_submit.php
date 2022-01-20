@@ -104,7 +104,7 @@ $result_score = join("/", $auto);
 
 $sql = "INSERT INTO `answer`(`quiz_id`, `user_id`, `answer`, `score`, `in_date`, `total`) VALUES (?,?,?,?,now(),?)";
 $ans = pdo_query($sql, $id, $_SESSION[$OJ_NAME . '_' . 'user_id'], $answer, $result_score, $total);
-$statusURI = "quiz.php?qid=" . $quiz_id;
+$statusURI = "quiz.php?qid=" . $id;
 header("Location: $statusURI");
 
 ?>
