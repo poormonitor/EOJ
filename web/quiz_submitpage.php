@@ -22,6 +22,17 @@ if (!isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
 $problem_id = 1000;
 if (isset($_GET['qid'])) {
     $id = intval($_GET['qid']);
+
+    $sql = "SELECT * FROM `answer` WHERE `quiz_id`=? AND `user_id`=?";
+    $answered = pdo_query($sql, $id, $_SESSION[$OJ_NAME . '_' . 'user_id']);
+    $rows_cnt = count($answered);
+    if ($rows_cnt) {
+        $view_swal = $MSG_ALREADY_SUBMIT;
+        $error_location = "quiz.php?qid=$id";
+        require("template/" . $OJ_TEMPLATE . "/error.php");
+        exit(0);
+    }
+    
     if (
         isset($_SESSION[$OJ_NAME . '_' . 'administrator']) ||
         isset($_SESSION[$OJ_NAME . '_' . 'contest_creator']) ||
@@ -40,11 +51,13 @@ if (isset($_GET['qid'])) {
     $result = $result[0];
     $question = explode("@*@", $result['question']);
     $type = explode("/", $result['type']);
+    $score = explode("/", $result['score']);
     /*
     defination of type:
     0: single choice
     1: multiple choice
     2: short answer
+    3: human judge
     */
 } else {
     $view_swal = "题目不存在！";
