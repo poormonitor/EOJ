@@ -62,6 +62,12 @@ if (isset($OJ_LANG)) {
       <button type="submit" class="form-control"><?php echo $MSG_SEARCH ?></button>
     </form>
   </center>
+  <center>
+    <form action=quiz_add.php method='GET' class="form-search form-inline">
+      <input type="text" name='num' class="form-control search-query" required placeholder="<?php echo $MSG_INQUERY_NUMBER ?>">
+      <button type="submit" class="form-control"><?php echo $MSG_ADD ?></button>
+    </form>
+  </center>
 
   <center>
     <table width=100% border=1 style="text-align:center;">
@@ -116,3 +122,4 @@ if (isset($OJ_LANG)) {
   ?>
 
 </div>
+<br />

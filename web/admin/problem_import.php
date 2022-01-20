@@ -35,7 +35,7 @@ echo "<center><h3>" . $MSG_PROBLEM . "-" . $MSG_IMPORT . "</h3></center>";
 
 ?>
 
-<body leftmargin="30">
+<body>
   <div class="container">
     <br /><br />
     <?php

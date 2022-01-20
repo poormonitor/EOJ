@@ -107,7 +107,7 @@
                   $correct = explode("/", $quiz['correct_answer']);
                   for ($i = 0; $i < count($type); $i++) {
                     echo "<tr>";
-                    echo "<td>" . $i . "</td>";
+                    echo "<td>" . ($i + 1) . "</td>";
                     echo "<td>" . $MSG_QUIZ_TYPE[intval($type[$i])] . "</td>";
                     echo "<td>" . $my_answer[$i] . "</td>";
                     echo "<td>" . $correct[$i] . "</td>";

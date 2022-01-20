@@ -95,6 +95,17 @@ $OJ_TEMPLATE = "bs3";
         </div>
       </div>
 
+      <div class="btn-group" role="menu">
+        <button type="button" class="btn btn-secondary dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <?php echo $MSG_QUIZ . "-" . $MSG_ADMIN ?> <span class="caret"></span>
+        </button>
+        <div class="dropdown-menu">
+          <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator'])) { ?>
+            <a class="dropdown-item btn-sm" href="quiz_list.php" target="main" title="<?php echo $MSG_HELP_QUIZ ?>"><b><?php echo $MSG_QUIZ . "-" . $MSG_LIST ?></b></a>
+          <?php } ?>
+        </div>
+      </div>
+
       <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) { ?>
         <div class="btn-group" role="menu">
           <button type="button" class="btn btn-secondary dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

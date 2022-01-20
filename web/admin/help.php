@@ -214,6 +214,16 @@ if (isset($OJ_LANG)) {
           </td>
         </tr>
       <?php } ?>
+      <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator'])) { ?>
+        <tr>
+          <td>
+            <center><a class='btn btn-info btn-sm' href="quiz_list.php" target="main"><b><?php echo $MSG_QUIZ . "-" . $MSG_LIST ?></b></a></center>
+          </td>
+          <td>
+            <p><?php echo $MSG_HELP_QUIZ ?></p>
+          </td>
+        </tr>
+      <?php } ?>
 
       <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) { ?>
         <tr>

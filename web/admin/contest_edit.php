@@ -22,7 +22,7 @@ echo "<center><h3>" . "Edit-" . $MSG_CONTEST . "</h3></center>";
 
 ?>
 
-<body leftmargin="30">
+<body>
   <style>
     input[type=date],
     input[type=time],

@@ -126,3 +126,4 @@ if (!(isset($_GET['keyword']) && $_GET['keyword'] != "")) {
 ?>
 
 </div>
+<br />
