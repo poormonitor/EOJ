@@ -140,6 +140,20 @@ $MSG_Memory_Limit = "内存限制";
 $MSG_EDIT = "编辑";
 $MSG_TESTDATA = "测试数据";
 
+//quiz.php
+$MSG_QUIZ="测试";
+$MSG_QUIZ_ID="测试编号";
+$MSG_QUIZ_TITLE="测试标题";
+$MSG_QUIZ_NAME="测试名称";
+$MSG_QUIZ_STATUS="测试状态";
+$MSG_QUIZ_OPEN="开放";
+$MSG_QUIZ_CREATOR="创建者";
+$MSG_QUIZ_ANS="答题";
+$MSG_QUIZ_SCORE="得分";
+$MSG_QUIZ_PROBLEM="题目";
+$MSG_PLEASE_ANSWER_ALL_QUESTIONS="请检查所有问题是否都回答";
+
+
 //admin menu
 $MSG_SEEOJ = "查看前台";
 $MSG_ADD = "添加";

@@ -67,6 +67,9 @@ if ($OJ_ONLINE) {
           <li <?php if ($url == "contest.php") echo " $ACTIVE"; ?>>
             <a href="contest.php"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> <?php echo $MSG_CONTEST ?></a>
           </li>
+          <li <?php if ($url == "quiz.php") echo " $ACTIVE"; ?>>
+            <a href="quiz.php"><span class="glyphicon glyphicon-check" aria-hidden="true"></span> <?php echo $MSG_QUIZ ?></a>
+          </li>
         <?php } else { ?>
           <li <?php if ($url == "contest.php") echo " $ACTIVE"; ?>>
             <a href="contest.php"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> <?php echo $MSG_CONTEST ?></a>
@@ -76,20 +79,6 @@ if ($OJ_ONLINE) {
         <?php if (isset($_GET['cid'])) {
           $cid = intval($_GET['cid']);
         } ?>
-
-        <!--<li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                  <li><a href="#">Action</a></li>
-                  <li><a href="#">Another action</a></li>
-                  <li><a href="#">Something else here</a></li>
-                  <li class="divider"></li>
-                  <li class="dropdown-header">Nav header</li>
-                  <li><a href="#">Separated link</a></li>
-                  <li><a href="#">One more separated link</a></li>
-                </ul>
-              </li>
-  -->
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
