@@ -74,20 +74,56 @@
           <?php if (!$answered) { ?>
             <a class="btn btn-sm btn-primary" href="quiz_submitpage.php?qid=<?php echo $view_qid ?>"><?php echo $MSG_QUIZ_ANS; ?></a>
           <?php } else { ?>
-            <div id="statistic">
-              <table>
+            <div id="statistic" class="table-responsive main-container">
+              <table class="table">
                 <thead>
-                  <th>
-                    <tr>
-                    <?php echo $MSG_QUIZ_SCORE; ?>
-                    </tr>
-                  </th>
+                  <tr>
+                    <th>
+                      <?php echo $MSG_QUIZ_PROBLEM; ?>
+                    </th>
+                    <th>
+                      <?php echo $MSG_TYPE; ?>
+                    </th>
+                    <th>
+                      <?php echo $MSG_YOUR_ANSWER; ?>
+                    </th>
+                    <th>
+                      <?php echo $MSG_CORRECT_ANSWER; ?>
+                    </th>
+                    <th>
+                      <?php echo $MSG_SCORE; ?>
+                    </th>
+                    <th>
+                      <?php echo $MSG_QUIZ_SCORE; ?>
+                    </th>
+                  </tr>
                 </thead>
                 <tbody>
+                  <?php
+                  $type = explode("/", $quiz['type']);
+                  $my_score = explode("/", $answer['score']);
+                  $score = explode("/", $quiz['score']);
+                  $my_answer = explode("/", $answer['answer']);
+                  $correct = explode("/", $quiz['correct_answer']);
+                  for ($i = 0; $i < count($type); $i++) {
+                    echo "<tr>";
+                    echo "<td>" . $i . "</td>";
+                    echo "<td>" . $MSG_QUIZ_TYPE[intval($type[$i])] . "</td>";
+                    echo "<td>" . $my_answer[$i] . "</td>";
+                    echo "<td>" . $correct[$i] . "</td>";
+                    echo "<td>" . $score[$i] . "</td>";
+                    echo "<td>" . $my_score[$i] . "</td>";
+                    echo "</tr>";
+                  }
+                  ?>
                   <tr>
-                    <td>
-                      <?php echo $answer["score"]; ?>
-                    </td>
+                    <th><?php echo $MSG_QUIZ_SCORE ?></th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><?php echo $answer['total'] ?></td>
+                  </tr>
                 </tbody>
               </table>
             </div>
