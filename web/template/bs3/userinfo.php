@@ -58,7 +58,7 @@
                                     echo "<tr ><td>" . $jresult[$row[0]] . "</td><td align=center><a href=status.php?user_id=$user&jresult=" . $row[0] . " >" . $row[1] . "</a></td></tr>";
                                 }
                                 //}
-                                echo "<tr id=pie ><td>Statistics</td><td style='width:20%;height:150px;padding:0px;'><div id='container_pie' style='height:150px;width:100%;'></div></td></tr>";
+                                echo "<tr id=pie ><td>$MSG_STATISTICS</td><td style='width:20%;height:150px;padding:0px;'><div id='container_pie' style='height:150px;width:100%;'></div></td></tr>";
                                 ?>
                                 <?php
                                 if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
@@ -66,7 +66,7 @@
                                 }
                                 ?>
                                 <tr>
-                                    <td>School:
+                                    <td><?php echo $MSG_SCHOOL ?>:
                                     <td align=center><?php echo $school ?>
                                 </tr>
                             </tbody>
@@ -78,7 +78,7 @@
                         <table class="table table-striped" id='submission' width=70%>
                             <thead>
                                 <tr>
-                                    <th style='text-align:center; width:80%;'>已解决的问题</th>
+                                    <th style='text-align:center; width:80%;'><?php echo $MSG_SOVLED ?></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -86,7 +86,7 @@
                                     <td rowspan=14 align=center style='background-color:#fff;'>
                                         <script language='javascript'>
                                             function p(id, c) {
-                                                document.write("<a href=problem.php?id=" + id + ">" + id + " </a>(<a href='status.php?user_id=<?php echo $user ?>&problem_id=" + id + "'>" + c + "</a>)");
+                                                document.write("<a href=problem.php?id=" + id + ">" + id + " </a>(<a href='status.php?user_id=<?php echo $user ?>&problem_id=" + id + "'>" + c + "</a>)&nbsp;&nbsp;");
 
                                             }
                                             <?php $sql = "SELECT `problem_id`,count(1) from solution where `user_id`=? and result=4 group by `problem_id` ORDER BY `problem_id` ASC";
