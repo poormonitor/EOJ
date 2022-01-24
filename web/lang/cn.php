@@ -107,7 +107,7 @@ $MSG_BREAK_TIME = "您不应在10秒钟内提交超过1次的申请";
 
 //ranklist.php
 $MSG_Number = "名次";
-$MSG_NICK = "昵称";
+$MSG_NICK = "姓名";
 $MSG_SOVLED = "解决";
 $MSG_RATIO = "比率";
 $MSG_DAY = "日排行";
@@ -154,12 +154,29 @@ $MSG_QUIZ_PROBLEM="题目";
 $MSG_YOUR_ANSWER="您的答案";
 $MSG_CORRECT_ANSWER="正确答案";
 $MSG_SCORE="分值";
+$MSG_SCORE_SUM="总分";
 $MSG_PLEASE_ANSWER_ALL_QUESTIONS="请检查所有问题是否都回答";
 $MSG_NO_SUCH_QUIZ="您请求的测试不存在。这可能是因为测试本身不存在或您尚未被邀请";
 $MSG_ALREADY_SUBMIT="您已经提交过了，不能再次提交。";
 $MSG_TYPE="类型";
 $MSG_QUIZ_TYPE=array("单选","多选","填空（机器阅卷）","简答（人工阅卷）");
 $MSG_INQUERY_NUMBER = "试题数量";
+$MSG_NOT_FINISHED="该用户尚未完成";
+
+// quiz analysis
+$MSG_ANALYSIS="分析";
+$MSG_ANSWERED_NUMBER="已答人数";
+$MSG_SCORE_ANALYSIS="分数分析";
+$MSG_CHOICE_ANALYSIS="选项分析";
+$MSG_AVERAGE_SCORE="平均分";
+$MSG_CORRECT_RATE="正答率";
+$MSG_SCORE_RATE="得分率";
+$MSG_MAX_SCORE="最高分";
+$MSG_MIN_SCORE="最低分";
+$MSG_SCORE_DIFF="区分度";
+$MSG_SUBMITTED="已提交";
+$MSG_NOT_SUBMITTED="未提交";
+
 
 //admin menu
 $MSG_SEEOJ = "查看前台";
