@@ -89,7 +89,7 @@ header("Cache-control:private");
                         <?php echo $ana->get_answered_num() ?>
                     </td>
                     <td>
-                        <?php echo $ana->get_average() ?>
+                        <?php echo round($ana->get_average(), 3) ?>
                     </td>
                     <td>
                         <?php echo max($ana->sum_score) ?>
@@ -98,7 +98,7 @@ header("Cache-control:private");
                         <?php echo min($ana->sum_score) ?>
                     </td>
                     <td>
-                        <?php echo $ana->get_diff() ?>
+                        <?php echo round($ana->get_diff(), 3) ?>
                     </td>
                 </tr>
             </tbody>
@@ -167,8 +167,8 @@ header("Cache-control:private");
                     </script>
                     <?php
                     echo "</td>";
-                    echo "<td>" . $ana->get_problem_average($i) . "</td>";
-                    echo "<td>" . $ana->get_problem_average($i) / $score[$i] . "</td>";
+                    echo "<td>" . round($ana->get_problem_average($i), 3) . "</td>";
+                    echo "<td>" . round($ana->get_problem_average($i) / $score[$i], 3) . "</td>";
                     echo "<td>";
                     ?>
                     <div id='choice<?php echo $i ?>' style="width:160px;height:160px;"></div>
@@ -208,7 +208,7 @@ header("Cache-control:private");
                     </script>
                 <?php
                     echo "</td>";
-                    echo "<td>" . $ana->get_choice_rate($i, $answer[$i]) . "</td>";
+                    echo "<td>" . round($ana->get_choice_rate($i, $answer[$i]), 3) . "</td>";
                     echo "</tr>";
                 }
                 ?>
