@@ -12,7 +12,7 @@ if (isset($view_errors_js) || isset($view_swal)) { ?>
     <link rel="icon" href="../../favicon.ico">
 
     <title><?php echo $OJ_NAME ?></title>
-    <?php include("template/$OJ_TEMPLATE/css.php"); ?>
+    <?php include(dirname(__FILE__) . "/css.php"); ?>
   </head>
 
   <body>

@@ -223,6 +223,14 @@ if (isset($OJ_LANG)) {
             <p><?php echo $MSG_HELP_QUIZ ?></p>
           </td>
         </tr>
+        <tr>
+          <td>
+            <center><a class='btn btn-info btn-sm' href="quiz_add.php" target="main"><b><?php echo $MSG_QUIZ . "-" . $MSG_ADD ?></b></a></center>
+          </td>
+          <td>
+            <p><?php echo $MSG_HELP_QUIZ_ADD ?></p>
+          </td>
+        </tr>
       <?php } ?>
 
       <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) { ?>

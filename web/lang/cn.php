@@ -160,6 +160,7 @@ $MSG_NO_SUCH_QUIZ="您请求的测试不存在。这可能是因为测试本身�
 $MSG_ALREADY_SUBMIT="您已经提交过了，不能再次提交。";
 $MSG_TYPE="类型";
 $MSG_QUIZ_TYPE=array("单选","多选","填空（机器阅卷）","简答（人工阅卷）");
+$MSG_INPUT_NUMBER="请输入试题数量";
 $MSG_INQUERY_NUMBER = "试题数量";
 $MSG_NOT_FINISHED="该用户尚未完成";
 
@@ -274,7 +275,8 @@ $MSG_HELP_TEAMGENERATOR = "批量生成大量作业帐号、密码，用于来�
 $MSG_HELP_SETMESSAGE = "设置滚动公告内容";
 $MSG_HELP_SETPASSWORD = "重设指定用户的密码，对于管理员帐号需要先降级为普通用户才能修改。";
 $MSG_HELP_REJUDGE = "重判指定的题目、提交或作业。";
-$MSG_HELP_QUIZ = "查看，创建或修改支持单选多选和填空的测试。";
+$MSG_HELP_QUIZ = "查看或修改支持单选多选和填空的测试。";
+$MSG_HELP_QUIZ_ADD = "创建支持单选多选和填空的测试。";
 $MSG_HELP_ADD_PRIVILEGE = "给指定用户增加权限，包括管理员、题目添加者、作业组织者、作业参加者、代码查看者、手动判题、远程判题、打印员、气球发放员等权限。";
 $MSG_HELP_ADD_CONTEST_USER = "给用户添加单个作业权限。";
 $MSG_HELP_ADD_SOLUTION_VIEW = "给用户添加单个题目的答案查看权限。";

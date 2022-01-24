@@ -102,6 +102,7 @@ $OJ_TEMPLATE = "bs3";
         <div class="dropdown-menu">
           <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator'])) { ?>
             <a class="dropdown-item btn-sm" href="quiz_list.php" target="main" title="<?php echo $MSG_HELP_QUIZ ?>"><b><?php echo $MSG_QUIZ . "-" . $MSG_LIST ?></b></a>
+            <a class="dropdown-item btn-sm" href="quiz_add.php" target="main" title="<?php echo $MSG_HELP_QUIZ_ADD ?>"><b><?php echo $MSG_QUIZ . "-" . $MSG_ADD ?></b></a>
           <?php } ?>
         </div>
       </div>

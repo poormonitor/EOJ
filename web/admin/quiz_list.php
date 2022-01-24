@@ -76,6 +76,7 @@ if (isset($OJ_LANG)) {
         <td>状态</td>
         <td>编辑</td>
         <td>复制</td>
+        <td><?php echo $MSG_ANALYSIS ?></td>
       </tr>
       <?php
       foreach ($result as $row) {
@@ -93,6 +94,7 @@ if (isset($OJ_LANG)) {
         } else {
           echo "<td colspan=5 align=right><a href=quiz_add.php?qid=" . $row['quiz_id'] . ">复制</a><td>";
         }
+        echo "<td><a href=quiz_analysis.php?qid=" . $row['quiz_id'] . ">" . $MSG_ANALYSIS . "</a></td>";
         echo "</tr>";
       }
       ?>
