@@ -22,22 +22,13 @@ div.status_explain li {
     box-shadow: 0 1px 0 rgba(255, 255, 255, .15) inset, 0 2px 6px rgba(0, 0, 0, .075);
 }
 
-@font-face {
-    font-family: 'SourceHanSansCN-Medium';
-    src: url("SourceHanSansCN-Medium.woff");
-}
-
-body {
-    font-family: "SourceHanSansCN-Medium" !important;
-}
-
-.panel-default >.panel-body {
+.panel-default>.panel-body {
     box-shadow: 0 1px 0 rgba(255, 255, 255, .15) inset, 0 2px 6px rgba(0, 0, 0, .075);
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
 }
 
-.panel-default > .panel-heading {
+.panel-default>.panel-heading {
     background-image: linear-gradient(240deg, #fff 0, #f2f2f2 100%);
     border: 0px;
     background-image: linear-gradient(240deg, #fff 0, #eee 100%);
@@ -45,7 +36,7 @@ body {
     border-top-right-radius: 10px;
 }
 
-.panel-default > .panel-footer {
+.panel-default>.panel-footer {
     background-image: linear-gradient(240deg, #fff 0, #f2f2f2 100%);
     border: 0px;
 }
@@ -59,7 +50,7 @@ body {
     white-space: nowrap;
 }
 
-.table-striped > tbody > tr:nth-child(2n+1) {
+.table-striped>tbody>tr:nth-child(2n+1) {
     background-color: #fff;
 }
 
@@ -68,39 +59,49 @@ body {
         filter: invert(1) hue-rotate(180deg);
         background: #242424 !important;
     }
+
     .jumbotron {
         filter: brightness(90%);
     }
+
     img {
         filter: invert(1) hue-rotate(180deg);
     }
+
     .btn-sm {
         color: #fff;
         filter: invert(1) hue-rotate(180deg) brightness(140%);
     }
+
     .label {
         color: #fff;
         filter: invert(1) hue-rotate(180deg) brightness(120%);
     }
+
     .label-info {
         background-color: #1AA2CB !important;
     }
+
     .navbar-default {
         background: #E5E5E5 !important;
     }
+
     .dropdown-menu {
         background: #E5E5E5 !important;
     }
 }
 
 @media (max-width: 575.98px) {
+
     .news,
     #container {
         width: auto;
     }
+
     #container_status {
         width: auto;
     }
+
     .main-container,
     pre#code {
         margin: 5px;
@@ -108,13 +109,16 @@ body {
 }
 
 @media (min-width: 576px) and (max-width: 767.98px) {
+
     .news,
     #container {
         width: 95%;
     }
+
     #container_status {
         width: 90%;
     }
+
     .main-container,
     pre#code {
         margin: 10px;
@@ -122,13 +126,16 @@ body {
 }
 
 @media (min-width: 768px) and (max-width: 991.98px) {
+
     .news,
     #container {
         width: 90%;
     }
+
     #container_status {
         width: 80%;
     }
+
     .main-container,
     pre#code {
         margin: 20px;
@@ -136,13 +143,16 @@ body {
 }
 
 @media (min-width: 992px) {
+
     .news,
     #container {
         width: 80%;
     }
+
     #container_status {
         width: 70%;
     }
+
     .main-container,
     pre#code {
         margin: 30px;
