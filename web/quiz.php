@@ -159,9 +159,17 @@ if (isset($_GET['qid'])) {
 
     $answered = false;
     if (isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
-        $sql = "SELECT * FROM `answer` WHERE `answer`.`quiz_id`=? AND `answer`.`user_id`=?";
+        $not_my = false;
+        if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) && isset($_GET['user_id'])) {
+            $user_id = $_GET['user_id'];
+            $not_my = true;
+        } else {
+            $user_id = $_SESSION[$OJ_NAME . '_' . 'user_id'];
+        }
+        $sql = "SELECT * FROM `answer` JOIN `users` ON `users`.`user_id` = `answer`.`user_id`
+                WHERE `answer`.`quiz_id`=? AND `answer`.`user_id`=?";
 
-        $answer = pdo_query($sql, $qid, $_SESSION[$OJ_NAME . '_' . 'user_id']);
+        $answer = pdo_query($sql, $qid, $user_id);
         $rows_cnt = count($answer);
         if ($rows_cnt) {
             $answered = true;
@@ -169,6 +177,13 @@ if (isset($_GET['qid'])) {
             $result = pdo_query($sql, $qid);
             $quiz = $result[0];
             $answer = $answer[0];
+        } else {
+            if ($not_my) {
+                $view_swal = $MSG_NOT_FINISHED;
+                $error_location = "admin/quiz_analysis.php?qid=$qid";
+                require("template/" . $OJ_TEMPLATE . "/error.php");
+                exit(0);
+            }
         }
     }
 } else {

@@ -3,10 +3,6 @@ require_once("../include/db_info.inc.php");
 require_once("../lang/$OJ_LANG.php");
 require_once("../include/const.inc.php");
 require_once("admin-header.php");
-if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator']))) {
-  echo "<a href='../loginpage.php'>Please Login First!</a>";
-  exit(1);
-}
 $description = "";
 if (isset($_POST['qid'])) {
   require_once("../include/check_post_key.php");
@@ -98,6 +94,8 @@ if (isset($_POST['qid'])) {
   $answer = explode("/", $row['correct_answer']);
   $score = explode("/", $row['score']);
   $num = count($type);
+  $starttime = $row['start_time'];
+  $endtime = $row['end_time'];
 
   $ulist = "";
   $sql = "SELECT `users`.`gid` FROM `privilege` JOIN `users` ON `privilege`.user_id = `users`.user_id 
@@ -129,7 +127,7 @@ header("Cache-control:private");
 
 </head>
 <hr>
-<?php echo "<center><h3>" . $MSG_QUIZ . "-" . $MSG_ADD . "</h3></center>"; ?>
+<?php echo "<center><h3>" . $MSG_QUIZ . "-" . $MSG_EDIT . "</h3></center>"; ?>
 
 <body>
   <style>
@@ -146,20 +144,18 @@ header("Cache-control:private");
         <input type='hidden' name='qid' value='<?php echo $qid; ?>'>
         <?php echo "<h3>" . $MSG_QUIZ . "-" . $MSG_TITLE . "</h3>" ?>
         <input class="input form-control" style="width:100%;" type=text name=title value="<?php echo isset($title) ? $title : "" ?>"><br /><br />
-      </p>
-      <div style="margin-bottom: 5px;">
+      <p align=left>
         <?php echo $MSG_QUIZ . $MSG_Start ?>:
-        <input class=input-large type=date name='startdate' value='<?php echo date('Y') . '-' . date('m') . '-' . date('d') ?>'>
-        Hour: <input class=input-mini type=text name=shour size=2 value=<?php echo date('H') ?>>&nbsp;
-        Minute: <input class=input-mini type=text name=sminute value=00 size=2>
-      </div>
-      <div>
+        <input class=input-large type=date name='startdate' value='<?php echo substr($starttime, 0, 10) ?>' size=4>
+        Hour: <input class=input-mini type=text name=shour size=2 value='<?php echo substr($starttime, 11, 2) ?>'>&nbsp;
+        Minute: <input class=input-mini type=text name=sminute value='<?php echo substr($starttime, 14, 2) ?>' size=2>
+      </p>
+      <p align=left>
         <?php echo $MSG_QUIZ . $MSG_End ?>:
-        <input class=input-large type=date name='enddate' value='<?php echo date('Y') . '-' . date('m') . '-' . date('d') ?>'>
-        Hour: <input class=input-mini type=text name=ehour size=2 value=<?php echo (date('H') + 4) % 24 ?>>&nbsp;
-        Minute: <input class=input-mini type=text name=eminute value=00 size=2>
-      </div>
-      <br />
+        <input class=input-large type=date name='enddate' value='<?php echo substr($endtime, 0, 10) ?>' size=4>
+        Hour: <input class=input-mini type=text name=ehour size=2 value='<?php echo substr($endtime, 11, 2) ?>'>&nbsp;
+        Minute: <input class=input-mini type=text name=eminute value='<?php echo substr($endtime, 14, 2) ?>' size=2>
+      </p>
       <p align=left>
         <?php echo "<h4>" . $MSG_QUIZ . "-" . $MSG_Description . "</h4>" ?>
         <textarea id="tinymce0" rows=13 name=description cols=80><?php echo isset($description) ? $description : "" ?></textarea>

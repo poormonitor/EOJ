@@ -253,3 +253,124 @@ function auto_judge_quiz(
   }
   return $result;
 }
+
+class Answer
+{
+  var array $choice;
+  var array $score;
+  var string $user;
+  var string $nick;
+  var int $total;
+  function __construct(array $choice, array $score, string $user, string $nick, int $total)
+  {
+    $this->choice = $choice;
+    $this->score = array_map("intval", $score);
+    $this->user = $user;
+    $this->nick = $nick;
+    $this->total = $total;
+  }
+}
+
+class Analysis
+{
+  var int $num;
+  var array $type;
+  var array $score;
+  var array $f_score;
+  var array $sum_score;
+  var array $choices;
+  var int $answered = 0;
+
+  function __construct(array $type, array $score)
+  {
+    $this->num = count($type);
+    $this->type = $type;
+    $this->score = $score;
+    for ($i = 0; $i < $this->num; $i++) {
+      $this->f_score[$i] = array();
+      if ($this->type[$i] == 0 || $this->type[$i] == 1) {
+        $this->choices[$i] = array("A" => 0, "B" => 0, "C" => 0, "D" => 0);
+      } else {
+        $this->choices[$i] = array();
+      }
+    }
+  }
+  function add_answer(Answer $answer)
+  {
+    for ($i = 0; $i < $this->num; $i++) {
+      if ($this->type[$i] == 0) {
+        $this->choices[$i][$answer->choice[$i]] += 1;
+      } elseif ($this->type[$i] == 1) {
+        foreach (str_split($answer->choice[$i]) as $j) {
+          $this->choices[$i][$j] += 1;
+        }
+      } elseif ($this->type[$i] == 2) {
+        $this->choices[$i][$answer->choice[$i]] += $answer->score[$i];
+      }
+      if (isset($this->f_score[$i][$answer->score[$i]])) {
+        $this->f_score[$i][$answer->score[$i]] += 1;
+      } else {
+        $this->f_score[$i][$answer->score[$i]] = 1;
+      }
+    }
+    $this->sum_score[$answer->user] = $answer->total;
+    $this->answered += 1;
+  }
+  function get_problem_average(int $problem_id): float
+  {
+    $sum = 0;
+    $num = 0;
+    foreach ($this->f_score[$problem_id] as $key => $value) {
+      $sum += $key * $value;
+      $num += $value;
+    }
+    return $sum / $num;
+  }
+  function get_average()
+  {
+    return array_sum($this->sum_score) / $this->answered;
+  }
+  function get_answered_num(): int
+  {
+    return $this->answered;
+  }
+  function get_choice_num(int $problem_id): array
+  {
+    if ($this->type[$problem_id] == 0 || $this->type[$problem_id] == 1) {
+      return $this->choices[$problem_id];
+    }
+    return array();
+  }
+  function get_score_num(int $problem_id): array
+  {
+    return $this->f_score[$problem_id];
+  }
+  function get_choice_rate(int $problem_id, string $ans): float
+  {
+    $correct = $this->choices[$problem_id][$ans];
+    return $correct / $this->answered;
+  }
+  function get_diff()
+  {
+    if ($this->answered * 0.27 < 1) {
+      return 1;
+    }
+    $sum = 0;
+    krsort($this->sum_score);
+    $high = 0;
+    $high_num = 0;
+    for ($i = 0; $i < $this->answered * 0.27; $i++) {
+      $high += $this->sum_score[$i];
+      $high_num += 1;
+    }
+    $high_average = $high / $high_num;
+    $low = 0;
+    $low_num = 0;
+    for ($i = $this->answered - 1; $i > $this->answered * 0.73 - 1; $i--) {
+      $low += $this->sum_score[$i];
+      $low_num += 1;
+    }
+    $low_average = $low / $low_num;
+    return ($high_average - $low_average) / array_sum($this->score);
+  }
+}

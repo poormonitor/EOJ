@@ -111,9 +111,9 @@
                 if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
                 ?>
                     <div class='table-responsive'>
-                        <table class='table table-bordered table-condensed' style='width:auto;'>
+                        <table class='table table-condensed' style='width:auto;'>
                             <thead>
-                                <tr class=toprow>
+                                <tr>
                                     <th style='text-align:center;'>&nbsp;UserID&nbsp;</th>
                                     <th style='text-align:center;'>&nbsp;Password&nbsp;</th>
                                     <th style='text-align:center;'>&nbsp;IP&nbsp;</th>
@@ -136,7 +136,10 @@
                                         echo "\t" . $row[$i];
                                         echo "</td>";
                                     }
-                                    echo "<td style='text-align:center;'><a href='https://www.ipip.net/ip/$row[2].html'  target='view_window'>" . $ip->getlocation($row[2])["country"] . " " . $ip->getlocation($row[2])["area"] . "</a></td>";
+                                    echo "<td style='text-align:center;'>
+                                        <a href='https://www.ipip.net/ip/$row[2].html' target='view_window'>"
+                                        . $ip->getlocation($row[2])["country"] . " " . $ip->getlocation($row[2])["area"]
+                                        . "</a></td>";
                                     echo "</tr>";
                                     $cnt = 1 - $cnt;
                                 }
