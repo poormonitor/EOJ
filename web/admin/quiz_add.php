@@ -109,15 +109,12 @@ if (isset($_POST['startdate'])) {
     $num = intval($_GET['num']);
   }
   if (!isset($num)) {
-    header("Location: quiz_list.php");
+    $unknown = true;
+    $num = 0;
   }
 
-?>
-
-  <!DOCTYPE html>
-  <?php
   header("Cache-control:private");
-  ?>
+?>
   <html>
 
   <head>
@@ -242,7 +239,29 @@ if (isset($_POST['startdate'])) {
 
   <?php }
 require_once("../oj-footer.php");
-require_once('../tinymce/tinymce.php'); ?>
+require_once('../tinymce/tinymce.php');
+if (isset($unknown)) { ?>
+    <script src="<?php echo $OJ_CDN_URL .  "include/" ?>sweetalert.min.js"></script>
+    <script>
+      function warning() {
+        swal('<?php echo $MSG_INPUT_NUMBER ?>', {
+        content: {
+          element: 'input',
+          attributes: {
+            placeholder: '<?php echo $MSG_INQUERY_NUMBER ?>',
+          },
+        },
+      }).then((value) => {
+        if (value) {
+          window.location.href = 'quiz_add.php?num=' + value;
+        } else {
+          warning();
+        }
+      });
+      }
+      warning();
+    </script>
+  <?php } ?>
   </body>
 
   </html>

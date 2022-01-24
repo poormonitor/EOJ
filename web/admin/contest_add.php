@@ -1,5 +1,11 @@
 <?php
 header("Cache-control:private");
+require_once("../include/db_info.inc.php");
+require_once("../lang/$OJ_LANG.php");
+require_once("../include/const.inc.php");
+require_once("admin-header.php");
+echo "<center><h3>" . $MSG_CONTEST . "-" . $MSG_ADD . "</h3></center>";
+
 ?>
 <html>
 
@@ -11,14 +17,6 @@ header("Cache-control:private");
   <title>Contest Add</title>
 </head>
 <hr>
-<?php
-require_once("../include/db_info.inc.php");
-require_once("../lang/$OJ_LANG.php");
-require_once("../include/const.inc.php");
-require_once("admin-header.php");
-echo "<center><h3>" . $MSG_CONTEST . "-" . $MSG_ADD . "</h3></center>";
-
-?>
 
 <body>
   <style>
@@ -168,7 +166,7 @@ echo "<center><h3>" . $MSG_CONTEST . "-" . $MSG_ADD . "</h3></center>";
       }
     }
 
-    
+
   ?>
 
     <div class="container">
