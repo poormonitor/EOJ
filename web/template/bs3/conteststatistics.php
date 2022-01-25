@@ -298,7 +298,7 @@
 				<br /><br />
 
 				<table>
-					<div id=submission style="width:85%;height:400px"></div>
+					<div id='container_status' style="width:80%;height:300px;"></div>
 				</table>
 
 			</center>
@@ -313,74 +313,66 @@
 			$("#cs").tablesorter();
 		});
 	</script>
-	<script src="<?php echo $OJ_CDN_URL . "template/$OJ_TEMPLATE/" ?>highcharts.js"></script>
+	<script src="<?php echo $OJ_CDN_URL . "template/$OJ_TEMPLATE/" ?>echarts.min.js"></script>
 	<script type="text/javascript">
-		$(document).ready(function() {
-			var d1 = [];
-			var d2 = [];
-			<?php
-			foreach ($chart_data_all as $k => $d) { ?>
-				d1.push([<?php echo $k ?>, <?php echo $d ?>]);
-			<?php } ?>
-			<?php foreach ($chart_data_ac as $k => $d) { ?>
-				d2.push([<?php echo $k ?>, <?php echo $d ?>]);
-			<?php } ?>
-			var chart = {
-				type: 'spline'
-			};
-			var title = {
-				text: 'Submission Information'
-			};
-			var subtitle = {
-				text: 'Recent'
-			};
-			var xAxis = {
-				type: 'datetime',
-				dateTimeLabelFormats: { // don't display the dummy year
-					month: '%e. %b',
-					year: '%b'
-				},
-				title: {
-					text: 'Date'
+		var statusChart = echarts.init(document.getElementById('container_status'));
+		var statusOption = {
+			title: {
+				text: "Recent Submission",
+				textStyle: {
+					align: "center"
 				}
-			};
-			var yAxis = {
-				title: {
-					text: 'Submit (Times)'
-				},
-				min: 0
-			};
-			var tooltip = {
-				headerFormat: '<b>{series.name}</b><br />',
-				pointFormat: '{point.x:%e. %b}: {point.y:.2f} times'
-			};
-			var plotOptions = {
-				spline: {
-					marker: {
-						enabled: true
+			},
+			legend: [{
+				data: ['<?php echo $MSG_TOTAL ?>', '<?php echo $MSG_ACCEPTED ?>']
+			}],
+			grid: {
+				left: '1%',
+				right: '1%',
+				bottom: '10%',
+				containLabel: true
+			},
+			tooltip: {
+				trigger: 'axis',
+				formatter: function(params) {
+					var text = '--'
+					if (params && params.length) {
+						text = params[0].data[0]
+						params.forEach(item => {
+							var dotHtml = item.marker
+							text += `<div style='text-align:left'>${dotHtml}${item.seriesName} : ${item.data[1] ? item.data[1] : '-'}</div>`
+						})
 					}
+					return text
 				}
-			};
-			var series = [{
-				name: '<?php echo $MSG_SUBMIT ?>',
-				data: d1
+			},
+			xAxis: {
+				type: 'time',
+			},
+			yAxis: {
+				type: 'value'
+			},
+			textStyle: {
+				fontFamily: "SourceHanSansCN-Medium"
+			},
+			series: [{
+				data: <?php echo json_encode($chart_data_all) ?>,
+				type: 'line',
+				name: '<?php echo $MSG_TOTAL ?>',
+				color: '#4B4B4B',
+				smooth: true
 			}, {
-				name: '<?php echo $MSG_SOVLED ?>',
-				data: d2
-			}];
-
-			var json = {};
-			json.chart = chart;
-			json.title = title;
-			json.subtitle = subtitle;
-			json.tooltip = tooltip;
-			json.xAxis = xAxis;
-			json.yAxis = yAxis;
-			json.series = series;
-			json.plotOptions = plotOptions;
-			$('#submission').highcharts(json);
-
-		});
+				data: <?php echo json_encode($chart_data_ac) ?>,
+				type: 'line',
+				name: '<?php echo $MSG_ACCEPTED ?>',
+				color: '#22D35E',
+				smooth: true
+			}]
+		};
+		statusChart.setOption(statusOption);
+		window.onresize = function() {
+			statusChart.resize();
+		};
 	</script>
 
 	<script>

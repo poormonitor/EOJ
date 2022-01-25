@@ -85,22 +85,23 @@ $view_userstat = array();
 if ($row = $result[0]) {
 	$res = $row[0];
 }
-$sql =   "SELECT floor(UNIX_TIMESTAMP((in_date))/$res)*$res*1000 md,count(1) c FROM `solution` where  `contest_id`=?  group by md order by md asc ";
+$sql =   "SELECT date(in_date) md,count(1) c FROM `solution` where  `contest_id`=?  group by md order by md asc ";
 $result = pdo_query($sql, $cid);
 $chart_data_all = array();
 //echo $sql;
 foreach ($result as $row) {
-	$chart_data_all[$row['md']] = $row['c'];
+	array_push($chart_data_all, array($row['md'], intval($row['c'])));
 }
 
-$sql =   "SELECT floor(UNIX_TIMESTAMP((in_date))/$res)*$res*1000 md,count(1) c FROM `solution` where  `contest_id`=? and result=4 group by md order by md asc ";
+$sql =   "SELECT date(in_date) md,count(1) c FROM `solution` where  `contest_id`=? and result=4 group by md order by md asc ";
 $result = pdo_query($sql, $cid); //mysql_escape_string($sql));
 $chart_data_ac = array();
 //echo $sql;
 
 foreach ($result as $row) {
-	$chart_data_ac[$row['md']] = $row['c'];
+	array_push($chart_data_ac, array($row['md'], intval($row['c'])));
 }
+
 $start_time = intval(pdo_query("select UNIX_TIMESTAMP(start_time) from contest where contest_id=?", $cid)[0][0]);
 
 if (!isset($OJ_RANK_LOCK_PERCENT)) $OJ_RANK_LOCK_PERCENT = 0;

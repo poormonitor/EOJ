@@ -50,22 +50,22 @@ $view_news .= "</div></div>";
 
 $view_apc_info = "";
 
-$sql = "SELECT UNIX_TIMESTAMP(date(in_date))*1000 md,count(1) c FROM (select * from solution order by solution_id desc limit 8000) solution  where result<13 group by md order by md asc limit 200";
+$sql = "SELECT date(in_date) md,count(1) c FROM (select * from solution order by solution_id desc limit 8000) solution  where result<13 group by md order by md asc limit 200";
 $result = mysql_query_cache($sql); //mysql_escape_string($sql));
 $chart_data_all = array();
 //echo $sql;
 
 foreach ($result as $row) {
-	array_push($chart_data_all, array(intval($row['md']), intval($row['c'])));
+	array_push($chart_data_all, array($row['md'], intval($row['c'])));
 }
 
-$sql = "SELECT UNIX_TIMESTAMP(date(in_date))*1000 md,count(1) c FROM  (select * from solution order by solution_id desc limit 8000) solution where result=4 group by md order by md asc limit 200";
+$sql = "SELECT date(in_date) md,count(1) c FROM  (select * from solution order by solution_id desc limit 8000) solution where result=4 group by md order by md asc limit 200";
 $result = mysql_query_cache($sql); //mysql_escape_string($sql));
 $chart_data_ac = array();
 //echo $sql;
 
 foreach ($result as $row) {
-	array_push($chart_data_ac, array(intval($row['md']), intval($row['c'])));
+	array_push($chart_data_ac, array($row['md'], intval($row['c'])));
 }
 
 if (isset(end($chart_data_all)[1])) $speed = (end($chart_data_all)[1] ? end($chart_data_all)[1] : 0) . '/day';

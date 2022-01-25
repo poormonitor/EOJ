@@ -85,26 +85,23 @@ foreach ($result as $row) {
 }
 
 
-$sql =	"SELECT UNIX_TIMESTAMP(date(in_date))*1000 md,count(1) c FROM `solution` where  `user_id`=?  group by md order by md asc ";
+$sql =	"SELECT date(in_date) md,count(1) c FROM `solution` where  `user_id`=?  group by md order by md asc ";
 $result = pdo_query($sql, $user); //mysql_escape_string($sql));
 $chart_data_all = array();
 //echo $sql;
 
 foreach ($result as $row) {
-	$chart_data_all[$row['md']] = $row['c'];
+	array_push($chart_data_all, array($row['md'], intval($row['c'])));
 }
 
-$sql =	"SELECT UNIX_TIMESTAMP(date(in_date))*1000 md,count(1) c FROM `solution` where  `user_id`=? and result=4 group by md order by md asc ";
+$sql =	"SELECT date(in_date) md,count(1) c FROM `solution` where  `user_id`=? and result=4 group by md order by md asc ";
 $result = pdo_query($sql, $user); //mysql_escape_string($sql));
 $chart_data_ac = array();
 //echo $sql;
 
 foreach ($result as $row) {
-	$chart_data_ac[$row['md']] = $row['c'];
+	array_push($chart_data_ac, array($row['md'], intval($row['c'])));
 }
-
-
-
 
 require("template/" . $OJ_TEMPLATE . "/userinfo.php");
 
