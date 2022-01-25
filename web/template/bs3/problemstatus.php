@@ -28,7 +28,7 @@
 				<h3><?php echo $MSG_PROBLEM . " : " . $id . " " . $MSG_STATISTICS ?></h3><br />
 				<div class='row'>
 					<div class='col-md-4'>
-						<table id="statics" class="table-hover table-striped" align=center width=90%>
+						<table id="statics" class="table-hover table-striped" width=90%>
 							<?php
 							$cnt = 0;
 							foreach ($view_problem as $row) {
@@ -38,11 +38,7 @@
 									echo "<tr class='evenrow'>";
 								$i = 1;
 								foreach ($row as $table_cell) {
-									if ($i == 1)
-										echo "<td class='text-center'>";
-									else
-										echo "<td class='text-center'>";
-
+									echo "<td style='text-align:center;width:50%;'>";
 									echo $table_cell;
 									echo "</td>";
 									$i++;
@@ -55,7 +51,7 @@
 							<tr id=pie bgcolor=white>
 								<td colspan=2>
 									<center>
-										<div id='container_pie' style='position:relative; height:200px; width:300px;'></div>
+										<div id='container_pie' style='position:relative;height:200px;width:auto;margin:20px 0px 10px;'></div>
 									</center>
 								</td>
 							</tr>
@@ -182,69 +178,55 @@
 			$("#problemstatus").tablesorter();
 		});
 	</script>
-    <script src="<?php echo $OJ_CDN_URL . "template/$OJ_TEMPLATE/" ?>highcharts.js"></script>
-	<script language="javaScript">
-		$(document).ready(function() {
-			var info = new Array();
-			var dt = document.getElementById("statics");
-			var data = dt.rows;
-			var n;
-			var m;
-			for (var i = 3; dt.rows[i].id != "pie"; i++) {
-				m = dt.rows[i].cells[0].innerHTML
-				n = dt.rows[i].cells[1];
-				n = n.innerText || n.textContent;
-				n = parseInt(n);
-				if (m == "<?php echo $MSG_AC ?>") {
-					info.push({
-						name: m,
-						y: n,
-						sliced: true,
-						selected: true
-					});
-				} else {
-					info.push([m, n]);
-				}
-			}
-			var chart = {
-				backgroundColor: 'rgba(0,0,0,0)',
-				plotBackgroundColor: null,
-				plotBorderWidth: null,
-				plotShadow: false
-			};
-			var title = {
-				text: ''
-			};
-			var tooltip = {
-				pointFormat: '<b>{point.percentage:.1f}%</b>'
-			};
-			var plotOptions = {
-				pie: {
-					allowPointSelect: true,
-					cursor: 'pointer',
-					dataLabels: {
-						enabled: true,
-						format: '<b>{point.name}</b>',
-						style: {
-							color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-						}
-					}
-				}
-			};
-			var series = [{
+	<script src="<?php echo $OJ_CDN_URL . "template/$OJ_TEMPLATE/" ?>echarts.min.js"></script>
+	<script type="text/javascript">
+		var info = new Array();
+		var dt = document.getElementById("statics");
+		var data = dt.rows;
+		var n;
+		var m;
+		var rate;
+		var total = parseInt(dt.rows[0].cells[1].innerText);
+		for (var i = 3; dt.rows[i].id != "pie"; i++) {
+			m = dt.rows[i].cells[0].innerHTML
+			n = dt.rows[i].cells[1];
+			n = n.innerText || n.textContent;
+			n = parseInt(n);
+			rate = Math.round(n / total * 1000) / 10;
+			info.push({
+				name: m + ` (${rate}%)`,
+				value: n
+			});
+		}
+		var pieChart = echarts.init(document.getElementById('container_pie'));
+		var pieOption = {
+			grid: {
+				left: '1%',
+				right: '1%',
+				bottom: '1%',
+				containLabel: true
+			},
+			tooltip: {
+				trigger: 'item'
+			},
+			textStyle: {
+				fontFamily: "SourceHanSansCN-Medium"
+			},
+			series: [{
+				radius: ["40%", "80%"],
+				itemStyle: {
+					borderRadius: 10,
+					borderColor: '#fff',
+					borderWidth: 2
+				},
 				type: 'pie',
-				name: '',
 				data: info
-			}];
-
-			var json = {};
-			json.chart = chart;
-			json.title = title;
-			json.tooltip = tooltip;
-			json.series = series;
-			json.plotOptions = plotOptions;
-			$('#container_pie').highcharts(json);
-		});
+			}]
+		};
+		pieChart.setOption(pieOption);
+		window.onresize = function() {
+			pieChart.resize();
+		};
 	</script>
 </body>
 

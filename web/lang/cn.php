@@ -1,5 +1,9 @@
 <?php
 $MSG_GROUP = "组";
+//index.php
+$MSG_RECENT_SUBMISSION = "最近提交";
+$MSG_TOTAL="全部提交";
+$MSG_ACCEPTED="正确提交";
 //oj-header.php
 $MSG_FAQ = "常见问答";
 $MSG_BBS = "讨论版";

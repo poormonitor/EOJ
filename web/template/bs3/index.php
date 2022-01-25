@@ -24,7 +24,7 @@
          <p>
             <center> Recent submission :
                <?php echo $speed ?> .
-               <div id="container" style="height: 400px; margin: 0 auto"></div>
+               <div id="container" style="height:300px;margin:2em auto 3em;"></div>
             </center>
          </p>
          <?php echo $view_news ?>
@@ -33,65 +33,66 @@
 
    </div>
    <?php include("template/$OJ_TEMPLATE/js.php"); ?>
-   <script src="<?php echo $OJ_CDN_URL . "template/$OJ_TEMPLATE/" ?>highcharts.js"></script>
-   <script language="JavaScript">
-      $(document).ready(function() {
-         var chart = {
-            type: 'spline'
-         };
-         var title = {
-            text: 'Submission Information'
-         };
-         var subtitle = {
-            text: 'Recent'
-         };
-         var xAxis = {
-            type: 'datetime',
-            dateTimeLabelFormats: { // don't display the dummy year
-               month: '%e. %b',
-               year: '%b'
-            },
-            title: {
-               text: 'Date'
+   <script src="<?php echo $OJ_CDN_URL . "template/$OJ_TEMPLATE/" ?>echarts.min.js"></script>
+   <script>
+      var statusChart = echarts.init(document.getElementById('container'));
+      var option = {
+         title: {
+            text: "Recent Submission",
+            textStyle: {
+               align: "center"
             }
-         };
-         var yAxis = {
-            title: {
-               text: ''
-            },
-            min: 0
-         };
-         var tooltip = {
-            headerFormat: '<b>{series.name}</b><br />',
-            pointFormat: '{point.x:%e. %b}: {point.y:.2f} times'
-         };
-         var plotOptions = {
-            spline: {
-               marker: {
-                  enabled: true
-               }
+         },
+         legend: [{
+            data: ['<?php echo $MSG_TOTAL ?>', '<?php echo $MSG_ACCEPTED ?>']
+         }],
+         grid: {
+            left: '1%',
+            right: '1%',
+            bottom: '1%',
+            containLabel: true
+         },
+         tooltip: {
+          trigger: 'axis',
+          formatter: function(params) {
+            var text = '--'
+            if (params && params.length) {
+              text = params[0].data[0] 
+              params.forEach(item => {
+                var dotHtml = item.marker
+                text += `<div style='text-align:left'>${dotHtml}${item.seriesName} : ${item.data[1] ? item.data[1] : '-'}</div>`
+              })
             }
-         };
-         var series = [{
-            name: '<?php echo $MSG_SUBMIT ?>',
-            data: <?php echo json_encode($chart_data_all) ?>
+            return text
+          }
+      },
+         xAxis: {
+            type: 'time',
+         },
+         yAxis: {
+            type: 'value'
+         },
+         textStyle:{
+            fontFamily:"SourceHanSansCN-Medium"
+         },
+         series: [{
+            data: <?php echo json_encode($chart_data_all) ?>,
+            type: 'line',
+            name: '<?php echo $MSG_TOTAL ?>',
+            color: '#4B4B4B',
+            smooth: true
          }, {
-            name: '<?php echo $MSG_SOVLED ?>',
-            data: <?php echo json_encode($chart_data_ac) ?>
-         }];
-
-         var json = {};
-         json.chart = chart;
-         json.title = title;
-         json.subtitle = subtitle;
-         json.tooltip = tooltip;
-         json.xAxis = xAxis;
-         json.yAxis = yAxis;
-         json.series = series;
-         json.plotOptions = plotOptions;
-         $('#container').highcharts(json);
-
-      });
+            data: <?php echo json_encode($chart_data_ac) ?>,
+            type: 'line',
+            name: '<?php echo $MSG_ACCEPTED ?>',
+            color: '#22D35E',
+            smooth: true
+         }]
+      };
+      statusChart.setOption(option);
+      window.onresize = function() {
+         statusChart.resize();
+      };
    </script>
 </body>
 

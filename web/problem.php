@@ -132,7 +132,7 @@ if ($flag) {
 
 if ($row["blank"]) {
 	preg_match("/\n.*\*%\*/m", $row["blank"], $matches);
-	$len = max(strlen($matches[0]) - 4, 0);
+	$len = $matches ? max(strlen($matches[0]) - 4, 0) : 0;
 	$blank = str_replace("%*%", "__________", str_replace("*%*\r\n", "...\r\n" . str_repeat(" ", $len) . "...\r\n", htmlentities($row["blank"], ENT_QUOTES, "UTF-8")));
 }
 

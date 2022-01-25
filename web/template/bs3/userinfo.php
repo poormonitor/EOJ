@@ -58,8 +58,13 @@
                                     echo "<tr ><td>" . $jresult[$row[0]] . "</td><td align=center><a href=status.php?user_id=$user&jresult=" . $row[0] . " >" . $row[1] . "</a></td></tr>";
                                 }
                                 //}
-                                echo "<tr id=pie ><td>$MSG_STATISTICS</td><td style='width:20%;height:150px;padding:0px;'><div id='container_pie' style='height:150px;width:100%;'></div></td></tr>";
                                 ?>
+                                <tr id='pie'>
+                                    <td><?php echo $MSG_STATISTICS ?></td>
+                                    <td style='width:20%;height:150px;'>
+                                        <div id='container_pie' style='height:150px;width:100%;margin-left:10%;'></div>
+                                    </td>
+                                </tr>
                                 <?php
                                 if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
                                     echo "<tr ><td>$MSG_GROUP:<td align=center>$group_name</tr>";
@@ -78,7 +83,7 @@
                         <table class="table table-striped" id='submission' width=70%>
                             <thead>
                                 <tr>
-                                    <th style='text-align:center; width:80%;'><?php echo $MSG_SOVLED ?></th>
+                                    <th style='text-align:center;width:80%;'><?php echo $MSG_SOVLED ?></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -97,7 +102,7 @@
 
                                             ?>
                                         </script>
-                                        <div id="container_status" style="height: 100%; margin: 0 auto"></div>
+                                        <div id="container_status" style="height: 300px; margin: 1em auto 1em"></div>
                                     </td>
                                 </tr>
                             </tbody>
@@ -156,143 +161,113 @@
     </div>
     <?php include("template/$OJ_TEMPLATE/js.php"); ?>
     </script>
-    <script src="<?php echo $OJ_CDN_URL . "template/$OJ_TEMPLATE/" ?>highcharts.js"></script>
-    <script language="JavaScript">
-        $(document).ready(function() {
-            var d1 = [];
-            var d2 = [];
-            <?php
-            foreach ($chart_data_all as $k => $d) { ?>
-                d1.push([<?php echo $k ?>, <?php echo $d ?>]);
-            <?php } ?>
-            <?php foreach ($chart_data_ac as $k => $d) { ?>
-                d2.push([<?php echo $k ?>, <?php echo $d ?>]);
-            <?php } ?>
-            var chart = {
-                backgroundColor: 'rgba(0,0,0,0)',
-                type: 'spline'
-            };
-            var title = {
-                text: 'Submission Information'
-            };
-            var subtitle = {
-                text: 'Recent'
-            };
-            var xAxis = {
-                type: 'datetime',
-                dateTimeLabelFormats: { // don't display the dummy year
-                    month: '%e. %b',
-                    year: '%b'
-                },
-                title: {
-                    text: 'Date'
+    <script src="<?php echo $OJ_CDN_URL . "template/$OJ_TEMPLATE/" ?>echarts.min.js"></script>
+    <script>
+        var statusChart = echarts.init(document.getElementById('container_status'));
+        var statusOption = {
+            title: {
+                text: "Recent Submission",
+                textStyle: {
+                    align: "center"
                 }
-            };
-            var yAxis = {
-                title: {
-                    text: 'Submit (Times)'
-                },
-                min: 0
-            };
-            var tooltip = {
-                headerFormat: '<b>{series.name}</b><br />',
-                pointFormat: '{point.x:%e. %b}: {point.y:.2f} times'
-            };
-            var plotOptions = {
-                spline: {
-                    marker: {
-                        enabled: true
+            },
+            legend: [{
+                data: ['<?php echo $MSG_TOTAL ?>', '<?php echo $MSG_ACCEPTED ?>']
+            }],
+            grid: {
+                left: '1%',
+                right: '1%',
+                bottom: '1%',
+                containLabel: true
+            },
+            tooltip: {
+                trigger: 'axis',
+                formatter: function(params) {
+                    var text = '--'
+                    if (params && params.length) {
+                        text = params[0].data[0]
+                        params.forEach(item => {
+                            var dotHtml = item.marker
+                            text += `<div style='text-align:left'>${dotHtml}${item.seriesName} : ${item.data[1] ? item.data[1] : '-'}</div>`
+                        })
                     }
+                    return text
                 }
-            };
-
-            var series = [{
-                name: '<?php echo $MSG_SUBMIT ?>',
-                data: d1
+            },
+            xAxis: {
+                type: 'time',
+            },
+            yAxis: {
+                type: 'value'
+            },
+            textStyle: {
+                fontFamily: "SourceHanSansCN-Medium"
+            },
+            series: [{
+                data: <?php echo json_encode($chart_data_all) ?>,
+                type: 'line',
+                name: '<?php echo $MSG_TOTAL ?>',
+                color: '#4B4B4B',
+                smooth: true
             }, {
-                name: '<?php echo $MSG_SOVLED ?>',
-                data: d2
-            }];
+                data: <?php echo json_encode($chart_data_ac) ?>,
+                type: 'line',
+                name: '<?php echo $MSG_ACCEPTED ?>',
+                color: '#22D35E',
+                smooth: true
+            }]
+        };
+        statusChart.setOption(statusOption);
 
-            var json = {};
-            json.chart = chart;
-            json.title = title;
-            json.subtitle = subtitle;
-            json.tooltip = tooltip;
-            json.xAxis = xAxis;
-            json.yAxis = yAxis;
-            json.series = series;
-            json.plotOptions = plotOptions;
-            $('#container_status').highcharts(json);
-
-        });
-    </script>
-
-
-    <script language="JavaScript">
-        $(document).ready(function() {
-            var info = new Array();
-            var dt = document.getElementById("statics");
-            var data = dt.rows;
-            var n;
-            var m;
-            for (var i = 4; dt.rows[i].id != "pie"; i++) {
-                n = dt.rows[i].cells[0];
-                n = n.innerText || n.textContent;
-                m = dt.rows[i].cells[1].firstChild;
-                m = m.innerText || m.textContent;
-                m = parseInt(m);
-                if (n == "<?php echo $MSG_AC ?>") {
-                    info.push({
-                        name: n,
-                        y: m,
-                        sliced: true,
-                        selected: true,
-                        color: "#5cb85c"
-                    });
-                } else {
-                    info.push([n, m]);
-                }
-            }
-            var chart = {
-                backgroundColor: 'rgba(0,0,0,0)',
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false
-            };
-            var title = {
-                text: ''
-            };
-            var tooltip = {
-                pointFormat: '<b>{point.percentage:.1f}%</b>'
-            };
-            var plotOptions = {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: true,
-                        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                        style: {
-                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                        }
-                    }
-                }
-            };
-            var series = [{
+        var info = new Array();
+        var dt = document.getElementById("statics");
+        var data = dt.rows;
+        var n;
+        var m;
+        var rate;
+        var total = parseInt(dt.rows[3].cells[1].innerText);
+        for (var i = 4; dt.rows[i].id != "container_pie"; i++) {
+            n = dt.rows[i].cells[0];
+            n = n.innerText || n.textContent;
+            m = dt.rows[i].cells[1].firstChild;
+            m = m.innerText || m.textContent;
+            m = parseInt(m);
+            rate = Math.round(m / total * 1000) / 10;
+            info.push({
+                name: n + ` (${rate}%)`,
+                value: m
+            });
+        }
+        var pieChart = echarts.init(document.getElementById('container_pie'));
+        var pieOption = {
+            grid: {
+                left: '1%',
+                right: '1%',
+                bottom: '1%',
+                containLabel: true
+            },
+            tooltip: {
+                trigger: 'item'
+            },
+            textStyle: {
+                fontFamily: "SourceHanSansCN-Medium"
+            },
+            series: [{
+                radius: ["40%", "80%"],
+                itemStyle: {
+                    borderRadius: 10,
+                    borderColor: '#fff',
+                    borderWidth: 2
+                },
                 type: 'pie',
-                name: '',
                 data: info
-            }];
-
-            var json = {};
-            json.chart = chart;
-            json.title = title;
-            json.tooltip = tooltip;
-            json.series = series;
-            json.plotOptions = plotOptions;
-            $('#container_pie').highcharts(json);
-        });
+            }]
+        };
+        pieChart.setOption(pieOption);
+        window.onresize = function() {
+            statusChart.resize();
+            pieChart.resize();
+        };
     </script>
 </body>
 
