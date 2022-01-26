@@ -68,7 +68,7 @@ foreach ($result as $row) {
 	array_push($chart_data_ac, array($row['md'], intval($row['c'])));
 }
 
-if (isset(end($chart_data_all)[1])) $speed = (end($chart_data_all)[1] ? end($chart_data_all)[1] : 0) . '/day';
+if (isset(end($chart_data_all)[1])) $speed = (end($chart_data_all)[1] ? end($chart_data_all)[1] : 0) . ' / ' . $MSG_DAYS;
 
 
 require("template/" . $OJ_TEMPLATE . "/index.php");

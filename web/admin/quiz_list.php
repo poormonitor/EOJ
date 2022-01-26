@@ -76,6 +76,7 @@ if (isset($OJ_LANG)) {
         <td>状态</td>
         <td>编辑</td>
         <td>复制</td>
+        <td><?php echo $MSG_REJUDGE ?></td>
         <td><?php echo $MSG_QUIZ_JUDGE ?></td>
         <td><?php echo $MSG_ANALYSIS ?></td>
       </tr>
@@ -95,6 +96,7 @@ if (isset($OJ_LANG)) {
         } else {
           echo "<td colspan=5 align=right><a href=quiz_add.php?qid=" . $row['quiz_id'] . ">复制</a><td>";
         }
+        echo "<td><a href=quiz_rejudge.php?qid=" . $row['quiz_id'] . ">" . $MSG_REJUDGE . "</a></td>";
         echo "<td><a href=quiz_judge.php?qid=" . $row['quiz_id'] . ">" . $MSG_QUIZ_JUDGE . "</a></td>";
         echo "<td><a href=quiz_analysis.php?qid=" . $row['quiz_id'] . ">" . $MSG_ANALYSIS . "</a></td>";
         echo "</tr>";
@@ -123,3 +125,13 @@ if (isset($OJ_LANG)) {
 
 </div>
 <br />
+<?php if (isset($_GET['judge_over'])) { ?>
+  <script src="<?php echo $OJ_CDN_URL . "include/" ?>sweetalert.min.js"></script>
+  <script>
+    swal({
+      title: '<?php echo $MSG_JUDGE_OVER ?>',
+      icon: 'success',
+      timer: 1500,
+    })
+  </script>
+<?php } ?>

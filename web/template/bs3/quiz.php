@@ -71,6 +71,15 @@
           <br />
           <?php echo $MSG_END_TIME ?> : <?php echo $view_end_time ?>
           <br /><br />
+
+          <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator'])) { ?>
+            <div class="btn-group">
+              <a href="admin/quiz_analysis.php?qid=<?php echo $view_qid ?>" class="btn btn-primary btn-sm"><?php echo $MSG_ANALYSIS ?></a>
+              <a target="_blank" href="admin/quiz_judge.php?qid=<?php echo $view_qid ?>" class="btn btn-primary btn-sm"><?php echo $MSG_QUIZ_JUDGE ?></a>
+              <a target="_blank" href="admin/quiz_edit.php?qid=<?php echo $view_qid ?>" class="btn btn-primary btn-sm"><?php echo $MSG_EDIT ?></a>
+            </div>
+          <?php } ?>
+
           <?php if (!$answered) { ?>
             <a class="btn btn-sm btn-primary" href="quiz_submitpage.php?qid=<?php echo $view_qid ?>"><?php echo $MSG_QUIZ_ANS; ?></a>
           <?php } else { ?>
@@ -98,27 +107,13 @@
               <table class="table">
                 <thead>
                   <tr>
-                    <th>
-                      <?php echo $MSG_QUIZ_PROBLEM; ?>
-                    </th>
-                    <th>
-                      <?php echo $MSG_Description; ?>
-                    </th>
-                    <th>
-                      <?php echo $MSG_TYPE; ?>
-                    </th>
-                    <th>
-                      <?php echo $MSG_YOUR_ANSWER; ?>
-                    </th>
-                    <th>
-                      <?php echo $MSG_CORRECT_ANSWER; ?>
-                    </th>
-                    <th>
-                      <?php echo $MSG_SCORE; ?>
-                    </th>
-                    <th>
-                      <?php echo $MSG_QUIZ_SCORE; ?>
-                    </th>
+                    <th><?php echo $MSG_QUIZ_PROBLEM; ?></th>
+                    <th><?php echo $MSG_Description; ?></th>
+                    <th><?php echo $MSG_TYPE; ?></th>
+                    <th><?php echo $MSG_YOUR_ANSWER; ?></th>
+                    <th><?php echo $MSG_CORRECT_ANSWER; ?></th>
+                    <th><?php echo $MSG_SCORE; ?></th>
+                    <th><?php echo $MSG_QUIZ_SCORE; ?></th>
                   </tr>
                 </thead>
                 <tbody>
