@@ -65,11 +65,17 @@ if (isset($_POST['qid'])) {
     $result = $result[0];
     $question = explode("@*@", $result['question']);
     $type = explode("/", $result['type']);
+    $type = array_map('intval', $type);
+    $score = explode("/", $result['score']);
+    $score = array_map('intval', $score);
+    $correct_answer = explode("/", $result['correct_answer']);
+
     /*
     defination of type:
     0: single choice
     1: multiple choice
     2: short answer
+    3: long answer (human judge)
     */
 } else {
     $view_swal = "题目不存在！";
@@ -84,6 +90,7 @@ for ($i = 1; isset($_POST["q$i"]); $i++) {
         case 0:
         case 2:
         case 3:
+            $answer = trim($answer);
             break;
         case 1:
             sort($answer);
@@ -94,16 +101,14 @@ for ($i = 1; isset($_POST["q$i"]); $i++) {
 }
 
 $answer = join("/", $answer_sheet);
-
-$correct_answer = explode("/", $result['correct_answer']);
-$score = explode("/", $result['score']);
-
 $auto = auto_judge_quiz($correct_answer, $answer_sheet, $score, $type);
+
 $total = array_sum($auto);
 $result_score = join("/", $auto);
 
-$sql = "INSERT INTO `answer`(`quiz_id`, `user_id`, `answer`, `score`, `in_date`, `total`) VALUES (?,?,?,?,now(),?)";
-$ans = pdo_query($sql, $id, $_SESSION[$OJ_NAME . '_' . 'user_id'], $answer, $result_score, $total);
+$judged = in_array(3, $type) ? 0 : 1;
+$sql = "INSERT INTO `answer`(`quiz_id`, `user_id`, `answer`, `score`, `in_date`, `total`, `judged`) VALUES (?,?,?,?,now(),?,?)";
+$ans = pdo_query($sql, $id, $_SESSION[$OJ_NAME . '_' . 'user_id'], $answer, $result_score, $total, $judged);
 $statusURI = "quiz.php?qid=" . $id;
 header("Location: $statusURI");
 

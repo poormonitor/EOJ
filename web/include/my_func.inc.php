@@ -215,39 +215,44 @@ function auto_judge_quiz(
   array $user_answer,
   array $correct_answer,
   array $score,
-  array $type
+  array $type,
+  array $origin = array()
 ): array {
   $result = array();
   for ($i = 0; $i < count($type); $i++) {
-    $n_type = $type[$i];
+    $n_type = intval($type[$i]);
+    $c_score = intval($score[$i]);
     $c_answer = $correct_answer[$i];
     $u_answer = $user_answer[$i];
-    $c_score = intval($score[$i]);
     switch ($n_type) {
       case 2:
       case 0:
         if ($c_answer == $u_answer) {
-          $result[$i] = intval($c_score);
+          $result[$i] = $c_score;
         } else {
           $result[$i] = 0;
         }
         break;
       case 1:
         $flag = false;
-        foreach (str_split($u_answer) as $i) {
-          if (strpos($c_answer, $i) == false) {
+        foreach (str_split($u_answer) as $k) {
+          if (strpos($c_answer, $k) === false) {
             $flag = true;
           }
-          if ($flag || $u_answer) {
-            $result[$i] = 0;
-          } elseif ($u_answer == $c_answer) {
-            $result[$i] = intval($c_score);
-          } else {
-            $result[$i] = round(intval($c_score) / 2);
-          }
+        }
+        if ($flag || !strlen($u_answer)) {
+          $result[$i] = 0;
+        } elseif ($u_answer == $c_answer) {
+          $result[$i] = $c_score;
+        } else {
+          $result[$i] = round($c_score / 2);
         }
         break;
       case 3:
+        if (count($origin))
+          $result[$i] = intval($origin[$i]);
+        else
+          $result[$i] = 0;
         break;
     }
   }

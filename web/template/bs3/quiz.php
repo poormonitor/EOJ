@@ -82,6 +82,7 @@
                     <th><?php echo $MSG_NICK ?></th>
                     <th><?php echo $MSG_SUBMIT_TIME ?></th>
                     <th><?php echo $MSG_SCORE_SUM ?></th>
+                    <th><?php echo $MSG_IS_JUDGED ?></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -90,6 +91,7 @@
                     <td><?php echo $answer["nick"] ?></td>
                     <td><?php echo $answer["in_date"] ?></td>
                     <td><?php echo $answer["total"] ?></td>
+                    <td><?php echo $answer["judged"] ? $MSG_TRUE_FALSE[true] : $MSG_TRUE_FALSE[false] ?></td>
                   </tr>
                 </tbody>
               </table>
@@ -136,7 +138,11 @@
                     echo "<td>" . $my_answer[$i] . "</td>";
                     echo "<td>" . $correct[$i] . "</td>";
                     echo "<td>" . $score[$i] . "</td>";
-                    echo "<td>" . $my_score[$i] . "</td>";
+                    if ($answer['judged'] || $type[$i] != '3') {
+                      echo "<td>" . $my_score[$i] . "</td>";
+                    } else {
+                      echo "<td>" . $MSG_NOT_JUDGED . "</td>";
+                    }
                     echo "</tr>";
                   }
                   ?>
@@ -146,7 +152,7 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td><?php echo $answer['total'] ?></td>
+                    <td><?php echo $quiz_total ?></td>
                     <td><?php echo $answer['total'] ?></td>
                   </tr>
                 </tbody>

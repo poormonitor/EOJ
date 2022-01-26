@@ -1,9 +1,10 @@
 <?php
+$MSG_TRUE_FALSE = array(true => '是', false => '否');
 $MSG_GROUP = "组";
 //index.php
 $MSG_RECENT_SUBMISSION = "最近提交";
-$MSG_TOTAL="全部提交";
-$MSG_ACCEPTED="正确提交";
+$MSG_TOTAL = "全部提交";
+$MSG_ACCEPTED = "正确提交";
 //oj-header.php
 $MSG_FAQ = "常见问答";
 $MSG_BBS = "讨论版";
@@ -23,7 +24,7 @@ $MSG_STANDING = "名次";
 $MSG_STATISTICS = "统计";
 $MSG_USERINFO = "用户信息";
 $MSG_MAIL = "短消息";
-$MSG_POLICY ="使用许可 & 隐私协议";
+$MSG_POLICY = "使用许可 & 隐私协议";
 //status.php
 $MSG_Pending = "等待";
 $MSG_Pending_Rejudging = "等待重判";
@@ -96,7 +97,7 @@ $MSG_SUBMIT_NUM = "提交量";
 $MSG_SUBMIT = "提交";
 
 //submit.php
-$MSG_NO_SUCH_CONTEST='您请求的作业不存在。这可能是因为作业本身不存在或您尚未被邀请';
+$MSG_NO_SUCH_CONTEST = '您请求的作业不存在。这可能是因为作业本身不存在或您尚未被邀请';
 $MSG_TEST_RUN = "测试运行";
 $MSG_VCODE_WRONG = "验证码错误！";
 $MSG_LINK_ERROR = "在哪里可以找到此链接？ 没有这个问题。";
@@ -145,42 +146,48 @@ $MSG_EDIT = "编辑";
 $MSG_TESTDATA = "测试数据";
 
 //quiz.php
-$MSG_QUIZ="测试";
-$MSG_QUIZ_ID="测试编号";
-$MSG_QUIZ_TITLE="测试标题";
-$MSG_QUIZ_NAME="测试名称";
-$MSG_QUIZ_STATUS="测试状态";
-$MSG_QUIZ_OPEN="开放";
-$MSG_QUIZ_CREATOR="创建者";
-$MSG_QUIZ_ANS="答题";
-$MSG_QUIZ_SCORE="得分";
-$MSG_QUIZ_PROBLEM="题目";
-$MSG_YOUR_ANSWER="您的答案";
-$MSG_CORRECT_ANSWER="正确答案";
-$MSG_SCORE="分值";
-$MSG_SCORE_SUM="总分";
-$MSG_PLEASE_ANSWER_ALL_QUESTIONS="请检查所有问题是否都回答";
-$MSG_NO_SUCH_QUIZ="您请求的测试不存在。这可能是因为测试本身不存在或您尚未被邀请";
-$MSG_ALREADY_SUBMIT="您已经提交过了，不能再次提交。";
-$MSG_TYPE="类型";
-$MSG_QUIZ_TYPE=array("单选","多选","填空（机器阅卷）","简答（人工阅卷）");
-$MSG_INPUT_NUMBER="请输入试题数量";
+$MSG_QUIZ = "测试";
+$MSG_QUIZ_ID = "测试编号";
+$MSG_QUIZ_TITLE = "测试标题";
+$MSG_QUIZ_NAME = "测试名称";
+$MSG_QUIZ_STATUS = "测试状态";
+$MSG_QUIZ_OPEN = "开放";
+$MSG_QUIZ_CREATOR = "创建者";
+$MSG_QUIZ_ANS = "答题";
+$MSG_QUIZ_SCORE = "得分";
+$MSG_QUIZ_PROBLEM = "题目";
+$MSG_QUIZ_PROBLEM_INFORMATION= "题目信息";
+$MSG_QUIZ_ANSWER= "答案";
+$MSG_YOUR_ANSWER = "您的答案";
+$MSG_CORRECT_ANSWER = "参考答案";
+$MSG_SCORE = "分值";
+$MSG_SCORE_SUM = "总分";
+$MSG_PLEASE_ANSWER_ALL_QUESTIONS = "请检查所有问题是否都回答";
+$MSG_NO_SUCH_QUIZ = "您请求的测试不存在。这可能是因为测试本身不存在或您尚未被邀请";
+$MSG_ALREADY_SUBMIT = "您已经提交过了，不能再次提交。";
+$MSG_TYPE = "类型";
+$MSG_QUIZ_TYPE = array("单选", "多选", "填空（机器阅卷）", "简答（人工阅卷）");
+$MSG_INPUT_NUMBER = "请输入试题数量";
 $MSG_INQUERY_NUMBER = "试题数量";
-$MSG_NOT_FINISHED="该用户尚未完成";
+$MSG_NOT_FINISHED = "该用户尚未完成";
+$MSG_IS_JUDGED = "是否阅完";
+$MSG_NOT_JUDGED= "未阅";
 
+$MSG_QUIZ_JUDGE = "批改";
+$MSG_ANSWER_ID = "答案编号";
 // quiz analysis
-$MSG_ANALYSIS="分析";
-$MSG_ANSWERED_NUMBER="已答人数";
-$MSG_SCORE_ANALYSIS="分数分析";
-$MSG_CHOICE_ANALYSIS="选项分析";
-$MSG_AVERAGE_SCORE="平均分";
-$MSG_CORRECT_RATE="正答率";
-$MSG_SCORE_RATE="得分率";
-$MSG_MAX_SCORE="最高分";
-$MSG_MIN_SCORE="最低分";
-$MSG_SCORE_DIFF="区分度";
-$MSG_SUBMITTED="已提交";
-$MSG_NOT_SUBMITTED="未提交";
+$MSG_ANALYSIS = "分析";
+$MSG_ANSWERED_NUMBER = "已答人数";
+$MSG_SCORE_ANALYSIS = "分数分析";
+$MSG_CHOICE_ANALYSIS = "选项分析";
+$MSG_AVERAGE_SCORE = "平均分";
+$MSG_CORRECT_RATE = "正答率";
+$MSG_SCORE_RATE = "得分率";
+$MSG_MAX_SCORE = "最高分";
+$MSG_MIN_SCORE = "最低分";
+$MSG_SCORE_DIFF = "区分度";
+$MSG_SUBMITTED = "已提交";
+$MSG_NOT_SUBMITTED = "未提交";
 
 
 //admin menu
