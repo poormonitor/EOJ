@@ -29,7 +29,7 @@ if (isset($_POST['qid'])) {
         }
     }
     $n_score = join("/", $n_score);
-    $sql = "UPDATE `answer` SET `score`=?, `judged`=1 WHERE `aid`=?";
+    $sql = "UPDATE `answer` SET `score`=?, `judged`=1, `judgetime`=NOW() WHERE `aid`=?";
     pdo_query($sql, $n_score, $aid);
     //exit(0);
     header("Location: quiz_judge.php?qid=$qid");
@@ -53,13 +53,15 @@ if (isset($_POST['qid'])) {
 
     $sql = "SELECT * FROM `answer` WHERE `quiz_id`=? AND `judged` = 0 ORDER BY `aid` ASC LIMIT 1";
     $result = pdo_query($sql, $qid);
+    $sql = "SELECT COUNT(*) FROM `answer` WHERE `quiz_id`=? AND `judged`=0";
+    $left = intval(pdo_query($sql, $qid)[0][0]);
     if ($result) {
         $row = $result[0];
         $aid = $row['aid'];
         $answer = $row['answer'];
         $answer = explode("/", $answer);
     } else {
-        header("Location: quiz_list.php");
+        header("Location: quiz_list.php?judge_over=true");
         exit(0);
     }
 } else {
@@ -99,8 +101,10 @@ header("Cache-control:private");
         <form method=POST>
             <p align=left>
                 <input type='hidden' name='qid' value='<?php echo $qid; ?>'>
-                <?php echo "<h3>" . $MSG_QUIZ . "-" . $MSG_QUIZ_ID . ":" . $qid . "</h3>" ?>
+            <h3><?php echo $MSG_QUIZ . "-" . $MSG_QUIZ_ID . ":" . $qid ?></h3>
+            <h3><?php echo $MSG_JUDGE_LEFT ?> : <?php echo $left ?></h3>
             </p>
+            <br />
             <p>
                 <?php
                 for ($i = 0; $i < $num; $i++) {

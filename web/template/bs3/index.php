@@ -22,7 +22,7 @@
       <?php include("template/$OJ_TEMPLATE/nav.php"); ?>
       <div class="jumbotron">
          <p>
-            <center> Recent submission :
+            <center> <?php echo $MSG_RECENT_SUBMISSION ?> :
                <?php echo $speed ?> .
                <div id="container" style="height:300px;margin:2em auto 3em;"></div>
             </center>
@@ -38,10 +38,7 @@
       var statusChart = echarts.init(document.getElementById('container'));
       var option = {
          title: {
-            text: "Recent Submission",
-            textStyle: {
-               align: "center"
-            }
+            text: "<?php echo $MSG_RECENT_SUBMISSION ?>",
          },
          legend: [{
             data: ['<?php echo $MSG_TOTAL ?>', '<?php echo $MSG_ACCEPTED ?>']
@@ -53,27 +50,27 @@
             containLabel: true
          },
          tooltip: {
-          trigger: 'axis',
-          formatter: function(params) {
-            var text = '--'
-            if (params && params.length) {
-              text = params[0].data[0] 
-              params.forEach(item => {
-                var dotHtml = item.marker
-                text += `<div style='text-align:left'>${dotHtml}${item.seriesName} : ${item.data[1] ? item.data[1] : '-'}</div>`
-              })
+            trigger: 'axis',
+            formatter: function(params) {
+               var text = '--'
+               if (params && params.length) {
+                  text = params[0].data[0]
+                  params.forEach(item => {
+                     var dotHtml = item.marker
+                     text += `<div style='text-align:left'>${dotHtml}${item.seriesName} : ${item.data[1] ? item.data[1] : '-'}</div>`
+                  })
+               }
+               return text
             }
-            return text
-          }
-      },
+         },
          xAxis: {
             type: 'time',
          },
          yAxis: {
             type: 'value'
          },
-         textStyle:{
-            fontFamily:"SourceHanSansCN-Medium"
+         textStyle: {
+            fontFamily: "SourceHanSansCN-Medium"
          },
          series: [{
             data: <?php echo json_encode($chart_data_all) ?>,

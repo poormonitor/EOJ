@@ -166,10 +166,7 @@
         var statusChart = echarts.init(document.getElementById('container_status'));
         var statusOption = {
             title: {
-                text: "Recent Submission",
-                textStyle: {
-                    align: "center"
-                }
+                text: "<?php echo $MSG_RECENT_SUBMISSION ?>",
             },
             legend: [{
                 data: ['<?php echo $MSG_TOTAL ?>', '<?php echo $MSG_ACCEPTED ?>']
