@@ -62,25 +62,32 @@
                     echo "<div class='col-sm-3'>";
                     echo "<div class='form-group'>";
                     echo "<br />";
-                    echo "<label class='form-control' for='q$op$i'><input type='checkbox' name='q$i"."[]"."' id='q$op$i' value='$op'>&nbsp;&nbsp;$op</label>";
+                    echo "<label class='form-control' for='q$op$i'><input type='checkbox' name='q$i" . "[]" . "' id='q$op$i' value='$op'>&nbsp;&nbsp;$op</label>";
                     echo "</div>";
                     echo "</div>";
                   }
                   echo "</div>";
                   break;
                 case 2:
-                case 3:
                   echo "<div class='form-group' id='2'>";
+                  echo "<input class='form-control' name='q$i' id='q$i'></input>";
+                  echo "</div>";
+                  break;
+                case 3:
+                  echo "<div class='form-group' id='3'>";
                   echo "<textarea class='form-control' name='q$i' id='q$i' rows='5'></textarea>";
                   echo "</div>";
                   break;
               }
               echo "</div>";
+              echo "</div>";
               echo "<br />";
             } ?>
           </div>
           <br />
-          <button type="submit" class="btn btn-default"><?php echo $MSG_SUBMIT; ?></button>
+          <div>
+            <button type="submit" class="btn btn-default"><?php echo $MSG_SUBMIT; ?></button>
+          </div>
           <br />
         </form>
         <br />

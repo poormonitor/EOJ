@@ -132,6 +132,7 @@ if (isset($_GET['qid'])) {
         $view_title = $row['title'];
         $view_start_time = $row['start_time'];
         $view_end_time = $row['end_time'];
+        $quiz_total = array_sum(array_map("intval", explode("/", $row['score'])));
 
         if (!isset($_SESSION[$OJ_NAME . '_' . 'administrator']) && $now < $start_time) {
             $view_errors = "<center>";
