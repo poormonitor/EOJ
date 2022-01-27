@@ -88,6 +88,7 @@ if (isset($_GET['id'])) {
 		)";
 
 		$result = pdo_query($sql, $cid, $pid);
+		$id = $result[0]['problem_id'];
 		if (isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
 			$sql = "SELECT solution_id FROM solution WHERE `user_id`=? AND `result` = 4 AND problem_id = ?;";
 			$s_id = pdo_query($sql, $_SESSION[$OJ_NAME . '_' . 'user_id'], $result[0]['problem_id']);
@@ -142,11 +143,11 @@ if ($row['allow'])
 	$allow = str_replace(" ", "</span><span style='margin:0px 2px 0px 2px' class='label label-success'>", $row['allow']);
 
 if ($OJ_MEMCACHE) {
-	$sql = "select user_id from privilege where rightstr='p$id'  LIMIT 1";
+	$sql = "select user_id from privilege where rightstr='p$id' LIMIT 1";
 	require("./include/memcache.php");
 	$result = mysql_query_cache($sql);
 } else {
-	$sql = "select user_id from privilege where rightstr=?  LIMIT 1";
+	$sql = "select user_id from privilege where rightstr=? LIMIT 1";
 	$result = pdo_query($sql, "p" . $id);
 }
 $creator = count($result) ? $result[0][0] : "admin";
