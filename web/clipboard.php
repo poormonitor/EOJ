@@ -12,7 +12,7 @@ if (!isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
 		$_SESSION[$OJ_NAME . '_' . 'user_id'] = "Guest";
 	} else {
 		$view_errors_js = "swal('$MSG_NOT_LOGINED','$MSG_Login','error').then((onConfirm)=>{window.location.href='loginpage.php'})";
-		require("template/" . $OJ_TEMPLATE . "/error.php");
+		require("template/error.php");
 		exit(0);
 	}
 }
@@ -30,4 +30,4 @@ $result = pdo_query($sql,  $_SESSION[$OJ_NAME . '_' . 'user_id']);
 if ($result[0][0] != NULL) {
 	$content = $result[0][0];
 }
-require("template/" . $OJ_TEMPLATE . "/clipboard.php");
+require("template/clipboard.php");

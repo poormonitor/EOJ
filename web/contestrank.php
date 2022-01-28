@@ -124,13 +124,13 @@ if ($rows_cnt > 0) {
 if (!$OJ_MEMCACHE)
 	if ($start_time == 0) {
 		$view_swal = $MSG_NOT_EXISTED;
-		require("template/" . $OJ_TEMPLATE . "/error.php");
+		require("template/error.php");
 		exit(0);
 	}
 
 if ($start_time > time()) {
 	$view_swal = $MSG_PRIVATE_WARNING;
-	require("template/" . $OJ_TEMPLATE . "/error.php");
+	require("template/error.php");
 	exit(0);
 }
 
@@ -143,7 +143,7 @@ if (
 ) $noip = false;
 if ($noip) {
 	$view_errors =  "<h2>$MSG_NOIP_WARNING</h2>";
-	require("template/" . $OJ_TEMPLATE . "/error.php");
+	require("template/error.php");
 	exit(0);
 }
 
@@ -248,7 +248,7 @@ for ($i = 0; $i < $rows_cnt; $i++) {
 }
 
 
-require("template/" . $OJ_TEMPLATE . "/contestrank.php");
+require("template/contestrank.php");
 
 if (file_exists('./include/cache_end.php'))
 	require_once('./include/cache_end.php');

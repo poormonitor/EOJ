@@ -7,7 +7,7 @@
  if (!isset($_SESSION[$OJ_NAME.'_'.'user_id'])){
 
 	$view_errors= "<a href=loginpage.php>$MSG_Login</a>";
-	require("template/".$OJ_TEMPLATE."/error.php");
+	require("template/error.php");
 	exit(0);
 //	$_SESSION[$OJ_NAME.'_'.'user_id']="Guest";
  }
@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD']=="POST"){
 			
 			$i++;
 		}
-		require("template/".$OJ_TEMPLATE."/printer_list.php");
+		require("template/printer_list.php");
 		exit(0);
 	}else{
 		if(isset($_POST['content'])){
@@ -46,11 +46,11 @@ if ($_SERVER['REQUEST_METHOD']=="POST"){
 			$view_errors= "$MSG_PRINT_PENDING";
 			$view_errors.= "...<br />";
 			$view_errors.= "$MSG_PRINT_WAITING";
-		        require("template/".$OJ_TEMPLATE."/error.php");
+		        require("template/error.php");
 
 
 		}else{
-			require("template/".$OJ_TEMPLATE."/printer_add.php");
+			require("template/printer_add.php");
 			exit(0);
 		}
 
@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD']=="POST"){
  }else{
 
 	$view_errors= "$MSG_PRINTER not available!";
-	require("template/".$OJ_TEMPLATE."/error.php");
+	require("template/error.php");
 	exit(0);
  }
 

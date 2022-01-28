@@ -85,11 +85,10 @@ require_once("./include/const.inc.php");
 
 if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'source_browser']))) {
   $view_errors = $MSG_WARNING_ACCESS_DENIED;
-  require("template/" . $OJ_TEMPLATE . "/error.php");
+  require("template/error.php");
   exit(0);
 }
-if ($OJ_TEMPLATE != "classic")
-  $judge_color = array("label label-info", "label label-info", "label label-warning", "label label-warning", "label label-success", "label label-danger", "label label-danger", "label label-warning", "label label-warning", "label label-warning", "label label-warning", "label label-warning", "label label-warning", "label label-info");
+$judge_color = array("label label-info", "label label-info", "label label-warning", "label label-warning", "label label-success", "label label-danger", "label label-danger", "label label-warning", "label label-warning", "label label-warning", "label label-warning", "label label-warning", "label label-warning", "label label-info");
 
 $str2 = "";
 $lock = false;
@@ -125,7 +124,7 @@ if (isset($_GET['cid']) and $_GET['cid'] != "" and $_GET['cid'] != "0") {
       $refererUrl = parse_url($_SERVER['HTTP_REFERER']);
       if ($refererUrl['path'] == "/submitpage.php")
         $view_errors = "<h2>提交成功!</h2><a href=\"contest.php?cid=$cid\">返回比赛</a></h2>";
-      require("template/" . $OJ_TEMPLATE . "/error.php");
+      require("template/error.php");
       exit(0);
     }
   }
@@ -236,7 +235,7 @@ if (isset($_GET['user_id'])) {
 if ($user_id == "" and $problem_id == "" and (!isset($cid) or $cid == "")) {
   $view_errors = "<div class='alert alert-danger' role='alert'>参数未设。查询不会进行。</div>";
   $view_status = array();
-  require("template/" . $OJ_TEMPLATE . "/statusadmin.php");
+  require("template/statusadmin.php");
   exit(0);
 }
 
@@ -333,7 +332,7 @@ for ($i = 0; $i < $rows_cnt; $i++) {
   } else {
     $view_status[$i][0] = $sid;
   }
-  
+
   if ($row['contest_id'] > 0) {
     if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']))
       $view_status[$i][1] = "<a href='contestrank.php?cid=" . $row['contest_id'] . "&user_id=" . $row['user_id'] . "#" . $row['user_id'] . "' title='" . $row['ip'] . "'>" . $row['user_id'] . " " . $row['nick'] . "</a>";
@@ -532,9 +531,9 @@ for ($i = 0; $i < $rows_cnt; $i++) {
 <?php
 
 if (isset($cid))
-  require("template/" . $OJ_TEMPLATE . "/conteststatusadmin.php");
+  require("template/conteststatusadmin.php");
 else
-  require("template/" . $OJ_TEMPLATE . "/statusadmin.php");
+  require("template/statusadmin.php");
 
 if (file_exists('./include/cache_end.php'))
   require_once('./include/cache_end.php');

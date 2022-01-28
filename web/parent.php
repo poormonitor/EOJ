@@ -14,13 +14,13 @@ if (isset($OJ_LANG)) {
 
 if (isset($_GET["query"]) && trim($_GET["query"]) == "false") {
     $no_query = false;
-    require_once("template/" . $OJ_TEMPLATE . "/parent.php");
+    require_once("template/parent.php");
     exit(0);
 }
 if (!isset($_SESSION[$OJ_NAME . '_' . "user_id"]) && $_SESSION[$OJ_NAME . "_" . "vcode"] != trim($_GET["vcode"])) {
     $view_swal = "验证码错误！";
     $error_location = "parent.php?query=false";
-    require_once("template/" . $OJ_TEMPLATE . "/error.php");
+    require_once("template/error.php");
     exit(0);
 }
 require_once('./include/cache_start.php');
@@ -42,14 +42,14 @@ if (isset($_GET['user']) and $_GET['user'] != '') {
     $school = pdo_query("select `school` from `users` where `user_id` IN (?) ORDER BY `user_id` ASC;", $user_str);
     $contest_array = array();
     if (count($user) != 1) {
-        require_once("template/" . $OJ_TEMPLATE . "/parent.php");
+        require_once("template/parent.php");
         exit(0);
     }
     $user = $user[0][0];
 } else {
     $view_swal = "没有输入用户！";
     $error_location = "parent.php?query=false";
-    require_once("template/" . $OJ_TEMPLATE . "/error.php");
+    require_once("template/error.php");
     exit(0);
 }
 
@@ -97,6 +97,6 @@ foreach ($contest_array as $i) {
     array_push($contests, $basic);
 }
 
-require_once("template/" . $OJ_TEMPLATE . "/parent.php");
+require_once("template/parent.php");
 if (file_exists('./include/cache_end.php'))
     require_once('./include/cache_end.php');

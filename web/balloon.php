@@ -7,7 +7,7 @@
  if (!isset($_SESSION[$OJ_NAME.'_'.'user_id'])){
 
 	$view_errors= "<a href=loginpage.php>$MSG_Login</a>";
-	require("template/".$OJ_TEMPLATE."/error.php");
+	require("template/error.php");
 	exit(0);
 //	$_SESSION[$OJ_NAME.'_'.'user_id']="Guest";
  }
@@ -69,13 +69,13 @@ if(isset($_SESSION[$OJ_NAME.'_'.'balloon'])){
 			
 			$i++;
 		}
-		require("template/".$OJ_TEMPLATE."/balloon_list.php");
+		require("template/balloon_list.php");
 		exit(0);
 
  }else{
 
 	$view_errors= "$MSG_BALLOON not available!";
-	require("template/".$OJ_TEMPLATE."/error.php");
+	require("template/error.php");
 	exit(0);
  }
 

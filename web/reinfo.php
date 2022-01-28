@@ -38,7 +38,7 @@ function is_valid($str2)
 
 if (!isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
   $view_errors = $MSG_WARNING_ACCESS_DENIED;
-  require("template/" . $OJ_TEMPLATE . "/error.php");
+  require("template/error.php");
   exit(0);
 }
 
@@ -82,7 +82,7 @@ if (isset($_SESSION[$OJ_NAME . '_' . 'source_browser']) or $allow == "Y") {
   }
 } else {
   $view_errors = $MSG_WARNING_ACCESS_DENIED;
-  require("template/" . $OJ_TEMPLATE . "/error.php");
+  require("template/error.php");
   exit(0);
 }
 
@@ -90,10 +90,10 @@ if (isset($_SESSION[$OJ_NAME . '_' . 'source_browser']) or $allow == "Y") {
 
 if ($OJ_SHOW_DIFF == false) {
   $view_errors = $MSG_WARNING_ACCESS_DENIED;
-  require("template/" . $OJ_TEMPLATE . "/error.php");
+  require("template/error.php");
   exit(0);
 } else {
-  require("template/" . $OJ_TEMPLATE . "/reinfo.php");
+  require("template/reinfo.php");
 }
 
 if (file_exists('./include/cache_end.php')) {

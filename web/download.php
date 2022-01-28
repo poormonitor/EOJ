@@ -3,7 +3,7 @@
 require_once('./include/db_info.inc.php');
 if ((!isset($OJ_DOWNLOAD)) || !$OJ_DOWNLOAD) {
     $view_errors = "Download Disabled!";
-    require("template/" . $OJ_TEMPLATE . "/error.php");
+    require("template/error.php");
     exit(0);
 }
 $sid = intval($_GET['sid']);
@@ -19,7 +19,7 @@ if (count($data) > 0) {
     if (!(isset($_SESSION[$OJ_NAME . '_' . 'user_id']) && $uid == $_SESSION[$OJ_NAME . '_' . 'user_id']
         || isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
         $view_errors = "not your submission";
-        require("template/" . $OJ_TEMPLATE . "/error.php");
+        require("template/error.php");
         exit(0);
     }
     if (isset($OJ_NOIP_KEYWORD) && $OJ_NOIP_KEYWORD) {
@@ -29,7 +29,7 @@ if (count($data) > 0) {
         $flag = count($rrs) > 0;
         if ($flag) {
             $view_errors = "<h2> $MSG_NOIP_WARNING </h2>";
-            require("template/" . $OJ_TEMPLATE . "/error.php");
+            require("template/error.php");
             exit(0);
         }
     }

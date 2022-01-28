@@ -44,9 +44,6 @@ static  $OJ_REDISSERVER = "127.0.0.1";
 static  $OJ_REDISPORT = 6379;
 static  $OJ_REDISQNAME = "hustoj";
 static  $OJ_CDN_URL = ""; // https://cdn.jsdelivr.net/gh/poormonitor/hustoj/web/
-static  $OJ_TEMPLATE = "bs3"; //使用的默认模板, [bs3 ie ace sweet sae mario] work with discuss3, [classic bs] work with discuss
-//if(isset($_GET['tp'])) $OJ_TEMPLATE=$_GET['tp'];
-if ($OJ_TEMPLATE == "classic") $OJ_CSS = "hoj.css";
 static  $OJ_BLOCK_START_TIME = 0; //开始禁用系统
 static  $OJ_BLOCK_END_TIME = 0; //启用系统
 static  $OJ_LOGIN_MOD = "hustoj";

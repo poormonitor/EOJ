@@ -84,8 +84,7 @@ if (isset($OJ_LANG)) {
 
 require_once("./include/const.inc.php");
 
-if ($OJ_TEMPLATE != "classic")
-  $judge_color = array("label label-info", "label label-info", "label label-warning", "label label-warning", "label label-success", "label label-danger", "label label-danger", "label label-warning", "label label-warning", "label label-warning", "label label-warning", "label label-warning", "label label-warning", "label label-info");
+$judge_color = array("label label-info", "label label-info", "label label-warning", "label label-warning", "label label-success", "label label-danger", "label label-danger", "label label-warning", "label label-warning", "label label-warning", "label label-warning", "label label-warning", "label label-warning", "label label-info");
 
 $str2 = "";
 $lock = false;
@@ -121,7 +120,7 @@ if (isset($_GET['cid'])) {
       $refererUrl = parse_url($_SERVER['HTTP_REFERER']);
       if ($refererUrl['path'] == "/submitpage.php")
         $view_errors = "<h2>提交成功!</h2><a href=\"contest.php?cid=$cid\">返回比赛</a></h2>";
-      require("template/" . $OJ_TEMPLATE . "/error.php");
+      require("template/error.php");
       exit(0);
     }
   }
@@ -483,9 +482,9 @@ for ($i = 0; $i < $rows_cnt; $i++) {
 <?php
 
 if (isset($_GET['cid']))
-  require("template/" . $OJ_TEMPLATE . "/conteststatus.php");
+  require("template/conteststatus.php");
 else
-  require("template/" . $OJ_TEMPLATE . "/status.php");
+  require("template/status.php");
 
 if (file_exists('./include/cache_end.php'))
   require_once('./include/cache_end.php');

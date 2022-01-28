@@ -14,7 +14,7 @@ if (!isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
 require_once("./include/const.inc.php");
 if (!isset($_GET['sid'])) {
 	$view_swal = $MSG_NOT_EXISTED;
-	require("template/" . $OJ_TEMPLATE . "/error.php");
+	require("template/error.php");
 	exit(0);
 }
 function is_valid($str2)
@@ -29,7 +29,7 @@ function is_valid($str2)
 }
 if (!isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
 	$view_swal = $MSG_WARNING_ACCESS_DENIED;
-	require("template/" . $OJ_TEMPLATE . "/error.php");
+	require("template/error.php");
 	exit(0);
 }
 
@@ -62,7 +62,7 @@ if ($ok == true) {
 } else {
 
 	$view_errors = $MSG_WARNING_ACCESS_DENIED;
-	require("template/" . $OJ_TEMPLATE . "/error.php");
+	require("template/error.php");
 	exit(0);
 }
 
@@ -72,7 +72,7 @@ $row = $result[0];
 if ($row)
 	$view_source = $row['source'];
 
-require("template/" . $OJ_TEMPLATE . "/ceinfo.php");
+require("template/ceinfo.php");
 
 if (file_exists('./include/cache_end.php'))
 	require_once('./include/cache_end.php');

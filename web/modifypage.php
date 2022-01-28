@@ -9,7 +9,7 @@ $view_title = "Welcome To Online Judge";
 if (!isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
 	$view_swal = "请先登录";
 	$error_location = "loginpage.php";
-	require("template/" . $OJ_TEMPLATE . "/error.php");
+	require("template/error.php");
 	exit(0);
 }
 
@@ -19,7 +19,7 @@ $row = $result[0];
 
 
 
-require("template/" . $OJ_TEMPLATE . "/modifypage.php");
+require("template/modifypage.php");
 
 if (file_exists('./include/cache_end.php'))
 	require_once('./include/cache_end.php');

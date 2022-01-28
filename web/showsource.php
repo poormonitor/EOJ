@@ -9,7 +9,7 @@ $view_title = "Source Code";
 require_once("./include/const.inc.php");
 if (!isset($_GET['id'])) {
 	$view_errors = "No such code!\n";
-	require("template/" . $OJ_TEMPLATE . "/error.php");
+	require("template/error.php");
 	exit(0);
 }
 $ok = false;
@@ -69,7 +69,7 @@ if ($row)
 	$view_source = $row['source'];
 
 
-require("template/" . $OJ_TEMPLATE . "/showsource.php");
+require("template/showsource.php");
 
 if (file_exists('./include/cache_end.php'))
 	require_once('./include/cache_end.php');

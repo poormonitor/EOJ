@@ -3,7 +3,7 @@ session_start();
 require_once "include/db_info.inc.php";
 require_once "include/my_func.inc.php";
 
-if (isset($OJ_CSRF) && $OJ_CSRF && $OJ_TEMPLATE == "bs3" && !isset($_SESSION[$OJ_NAME . '_' . 'http_judge']))
+if (isset($OJ_CSRF) && $OJ_CSRF && !isset($_SESSION[$OJ_NAME . '_' . 'http_judge']))
   require_once(dirname(__FILE__) . "/include/csrf_check.php");
 
 if (!isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
@@ -45,7 +45,7 @@ if (!$OJ_BENCHMARK_MODE) {
     if (isset($_GET['ajax'])) {
       echo "-1";
     } else {
-      require "template/" . $OJ_TEMPLATE . "/error.php";
+      require "template/error.php";
     }
     exit(0);
   }
@@ -68,7 +68,7 @@ if (isset($_POST['cid'])) {
 $res = mysql_query_cache($sql);
 if (isset($res) && count($res) < 1 && !isset($_SESSION[$OJ_NAME . '_' . 'administrator']) && !((isset($cid) && $cid <= 0) || (isset($id) && $id <= 0))) {
   $view_errors = $MSG_LINK_ERROR . "<br />";
-  require "template/" . $OJ_TEMPLATE . "/error.php";
+  require "template/error.php";
   exit(0);
 }
 
@@ -80,7 +80,7 @@ if (false && $res[0][1] != 'N' && !isset($_SESSION[$OJ_NAME . '_' . 'administrat
   if (isset($_POST['ajax'])) {
     echo $view_errors;
   } else {
-    require "template/" . $OJ_TEMPLATE . "/error.php";
+    require "template/error.php";
   }
   exit(0);
 }
@@ -113,7 +113,7 @@ if (isset($_POST['id'])) {
   if ($rows_cnt != 1) {
     $view_errors .= $MSG_NOT_IN_CONTEST;
 
-    require "template/" . $OJ_TEMPLATE . "/error.php";
+    require "template/error.php";
     exit(0);
   } else {
     $row = $result[0];
@@ -130,7 +130,7 @@ if (isset($_POST['id'])) {
 
       if ($ccnt == 0 && !isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
         $view_errors = $MSG_NOT_INVITED . "\n";
-        require "template/" . $OJ_TEMPLATE . "/error.php";
+        require "template/error.php";
         exit(0);
       }
     }
@@ -143,7 +143,7 @@ if (isset($_POST['id'])) {
 
   if ($rows_cnt != 1) {
     $view_errors = $MSG_NO_PROBLEM . "\n";
-    require "template/" . $OJ_TEMPLATE . "/error.php";
+    require "template/error.php";
     exit(0);
   } else {
     $row = $result[0];
@@ -157,7 +157,7 @@ if (isset($_POST['id'])) {
   $id = 0;
   /*
   $view_errors= "No Such Problem!\n";
-  require("template/".$OJ_TEMPLATE."/error.php");
+  require("template/error.php");
   exit(0);
   */
   $langmask = $OJ_LANGMASK;
@@ -172,7 +172,7 @@ $language = strval($language);
 
 if ($langmask & (1 << $language)) {
   $view_errors = $MSG_NO_PLS . "\n[$language][$langmask][" . ($langmask & (1 << $language)) . "]";
-  require "template/" . $OJ_TEMPLATE . "/error.php";
+  require "template/error.php";
   exit(0);
 }
 
@@ -211,7 +211,7 @@ if (count($code) != 0) {
       if (isset($_GET['ajax'])) {
         echo "-2";
       } else {
-        require "template/" . $OJ_TEMPLATE . "/error.php";
+        require "template/error.php";
       }
       exit(0);
     }
@@ -276,7 +276,7 @@ if (!$flag1 or !$flag2) {
   if (isset($_GET['ajax'])) {
     echo "-3";
   } else {
-    require "template/" . $OJ_TEMPLATE . "/error.php";
+    require "template/error.php";
   }
   exit(0);
 }
@@ -337,13 +337,13 @@ if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
 
 if ($len < 2) {
   $view_errors = $MSG_TOO_SHORT . "<br />";
-  require "template/" . $OJ_TEMPLATE . "/error.php";
+  require "template/error.php";
   exit(0);
 }
 
 if ($len > 65536) {
   $view_errors = $MSG_TOO_LONG . "<br />";
-  require "template/" . $OJ_TEMPLATE . "/error.php";
+  require "template/error.php";
   exit(0);
 }
 
@@ -355,7 +355,7 @@ if (!$OJ_BENCHMARK_MODE) {
 
   if (count($res) == 1) {
     $view_swal = $MSG_BREAK_TIME;
-    require "template/" . $OJ_TEMPLATE . "/error.php";
+    require "template/error.php";
     exit(0);
   }
 }

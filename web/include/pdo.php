@@ -5,7 +5,7 @@ function pdo_query($sql)
 	$args = func_get_args();       //获得传入的所有参数的数组
 	$args = array_slice($args, 1, --$num_args);
 
-	global $DB_HOST, $DB_NAME, $DB_USER, $DB_PASS, $dbh, $OJ_TEMPLATE;
+	global $DB_HOST, $DB_NAME, $DB_USER, $DB_PASS, $dbh;
 	try {
 		if (!$dbh) {
 			$dbh = new PDO("mysql:host=" . $DB_HOST . ';dbname=' . $DB_NAME, $DB_USER, $DB_PASS, array(PDO::ATTR_PERSISTENT => true, PDO::MYSQL_ATTR_INIT_COMMAND => "set names utf8"));
@@ -28,7 +28,7 @@ function pdo_query($sql)
 			$view_errors = "Database account/password fail, check db_info.inc.php<br />\n数据库账户密码错误，请检查配置文件db_info.inc.php";
 		else
 			$view_errors = "SQL error,check your sql and /var/log/nginx/error.log !";
-		require("template/" . $OJ_TEMPLATE . "/error.php");
+		require("template/error.php");
 		exit(0);
 	}
 }

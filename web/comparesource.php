@@ -9,7 +9,7 @@
 require_once("./include/const.inc.php");
 if (!isset($_GET['left'])){
 	$view_errors= "No such code!\n";
-	require("template/".$OJ_TEMPLATE."/error.php");
+	require("template/error.php");
 	exit(0);
 }
 $ok=false;
@@ -44,7 +44,7 @@ if (isset($_SESSION[$OJ_NAME.'_'.'source_browser'])) $ok=true;
 			$view_source=$row['source'];
 
 
-require("template/".$OJ_TEMPLATE."/comparesource.php");
+require("template/comparesource.php");
 
 if(file_exists('./include/cache_end.php'))
 	require_once('./include/cache_end.php');

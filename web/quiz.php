@@ -107,7 +107,7 @@ if (isset($_GET['qid'])) {
     if ($rows_cnt == 0) {
         $view_error_title = "测试不存在！";
         $view_errors = "当前测试不存在，请您检查编号是否正确。";
-        require("template/" . $OJ_TEMPLATE . "/error.php");
+        require("template/error.php");
         exit(0);
     } else {
         $row = $result[0];
@@ -143,7 +143,7 @@ if (isset($_GET['qid'])) {
             $view_errors .= "</center>";
             $view_errors .= "<br /><br />";
 
-            require("template/" . $OJ_TEMPLATE . "/error.php");
+            require("template/error.php");
             exit(0);
         }
     }
@@ -154,7 +154,7 @@ if (isset($_GET['qid'])) {
         $view_errors .= "<p>$view_description</p>";
         $view_errors .= "<span class=text-danger>$MSG_PRIVATE_WARNING</span>";
         $view_errors .= "<br />";
-        require("template/" . $OJ_TEMPLATE . "/error.php");
+        require("template/error.php");
         exit(0);
     }
 
@@ -182,7 +182,7 @@ if (isset($_GET['qid'])) {
             if ($not_my) {
                 $view_swal = $MSG_NOT_FINISHED;
                 $error_location = "admin/quiz_analysis.php?qid=$qid";
-                require("template/" . $OJ_TEMPLATE . "/error.php");
+                require("template/error.php");
                 exit(0);
             }
         }
@@ -265,9 +265,9 @@ if (isset($_GET['qid'])) {
 
 
 if (isset($_GET['qid']))
-    require("template/" . $OJ_TEMPLATE . "/quiz.php");
+    require("template/quiz.php");
 else
-    require("template/" . $OJ_TEMPLATE . "/quizset.php");
+    require("template/quizset.php");
 
 if (file_exists('./include/cache_end.php'))
     require_once('./include/cache_end.php');

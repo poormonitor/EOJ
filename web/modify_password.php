@@ -16,7 +16,7 @@
 </head>
 
 <body>
-	<script src="<?php echo $OJ_CDN_URL . "template/$OJ_TEMPLATE/" ?>jquery.min.js"></script>
+	<script src="<?php echo $OJ_CDN_URL . "template/" ?>jquery.min.js"></script>
 	<script src="<?php echo $OJ_CDN_URL .  "include/" ?>sweetalert.min.js"></script>
 	<?php
 	$cache_time = 10;
@@ -32,7 +32,7 @@
 		(isset($OJ_ON_SITE_CONTEST_ID) && $OJ_ON_SITE_CONTEST_ID > 0)
 	) {
 		$view_errors = $MSG_MODIFY_NOT_ALLOWED_FOR_EXAM;
-		require("template/" . $OJ_TEMPLATE . "/error.php");
+		require("template/error.php");
 		exit();
 	}
 	$err_str = "";

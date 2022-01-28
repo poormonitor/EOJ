@@ -8,7 +8,7 @@
 </head>
 
 <body>
-  <script src="<?php echo $OJ_CDN_URL . "template/$OJ_TEMPLATE/" ?>jquery.min.js"></script>
+  <script src="<?php echo $OJ_CDN_URL . "template/" ?>jquery.min.js"></script>
   <script src="<?php echo $OJ_CDN_URL .  "include/" ?>sweetalert.min.js"></script>
 
   <?php
@@ -41,7 +41,7 @@
   }
 
 
-  require("template/" . $OJ_TEMPLATE . "/error.php");
+  require("template/error.php");
   
 
   

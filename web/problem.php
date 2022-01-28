@@ -55,7 +55,7 @@ if (isset($_GET['id'])) {
 	$rows_cnt = count($result);
 	if ($rows_cnt == 0) {
 		$view_swal = "作业不存在！";
-		require("template/" . $OJ_TEMPLATE . "/error.php");
+		require("template/error.php");
 		exit(0);
 	}
 
@@ -77,7 +77,7 @@ if (isset($_GET['id'])) {
 	if ($ok_cnt != 1) {
 		//not started
 		$view_swal = "作业不存在！";
-		require("template/" . $OJ_TEMPLATE . "/error.php");
+		require("template/error.php");
 		exit(0);
 	} else {
 		//started
@@ -103,20 +103,20 @@ if (isset($_GET['id'])) {
 	//public
 	if (!$contest_ok) {
 		$view_swal = "您未被邀请！";
-		require("template/" . $OJ_TEMPLATE . "/error.php");
+		require("template/error.php");
 		exit(0);
 	}
 
 	$co_flag = true;
 } else {
 	$view_swal = "$MSG_NO_SUCH_PROBLEM";
-	require("template/" . $OJ_TEMPLATE . "/error.php");
+	require("template/error.php");
 	exit(0);
 }
 
 if (count($result) != 1) {
 	$view_swal = "$MSG_NO_SUCH_PROBLEM";
-	require("template/" . $OJ_TEMPLATE . "/error.php");
+	require("template/error.php");
 	exit(0);
 } else {
 	$row = $result[0];
@@ -152,7 +152,7 @@ if ($OJ_MEMCACHE) {
 }
 $creator = count($result) ? $result[0][0] : "admin";
 
-require("template/" . $OJ_TEMPLATE . "/problem.php");
+require("template/problem.php");
 
 //if(file_exists('./include/cache_end.php'))
 	//require_once('./include/cache_end.php');

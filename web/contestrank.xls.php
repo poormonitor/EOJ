@@ -167,7 +167,7 @@ if (
 ) $noip = false;
 if ($noip) {
 	$view_errors =  "<h2>$MSG_NOIP_WARNING</h2>";
-	require("template/" . $OJ_TEMPLATE . "/error.php");
+	require("template/error.php");
 	exit(0);
 }
 if (!isset($OJ_RANK_LOCK_PERCENT)) $OJ_RANK_LOCK_PERCENT = 0;

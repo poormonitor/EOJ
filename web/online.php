@@ -51,7 +51,7 @@ foreach ($result as $row) {
 }
 
 
-require("template/" . $OJ_TEMPLATE . "/online.php");
+require("template/online.php");
 
 if (file_exists('./include/cache_end.php'))
 	require_once('./include/cache_end.php');

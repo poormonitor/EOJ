@@ -27,5 +27,5 @@
    
    
    
-	require("template/".$OJ_TEMPLATE."/oj-header.php");
+	require("template/oj-header.php");
 ?>
