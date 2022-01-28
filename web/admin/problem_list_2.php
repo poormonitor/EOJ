@@ -53,8 +53,8 @@ require_once("../include/set_get_key.php");
     </form>
   </center>
   <br />
-  <center>
-    <table width=100% class='center table table-bordered table-condensed'>
+  <div class='table-responsive'>
+    <table width=100% class='center table table-condensed'>
       <thead>
         <tr>
           <th class='center'><?php echo $MSG_PROBLEM_ID ?></th>
@@ -82,7 +82,7 @@ require_once("../include/set_get_key.php");
         ?>
       </tbody>
     </table>
-  </center>
+  </div>
 
   <script src='<?php echo $OJ_CDN_URL . "template/bs3/" ?>jquery.min.js'></script>
 </div>

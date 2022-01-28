@@ -51,8 +51,8 @@ if (isset($_GET['do'])) {
     </form>
   </center>
   <br />
-  <center>
-    <table width=100% class='center table table-bordered table-condensed'>
+  <div class='table-responsive'>
+    <table width=100% class='center table table-condensed'>
       <thead>
         <tr>
           <th class='center'>GID</th>
@@ -78,7 +78,7 @@ if (isset($_GET['do'])) {
         } ?>
       </tbody>
     </table>
-  </center>
+  </div>
 </div>
 <br /><br />
 <?php

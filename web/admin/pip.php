@@ -32,7 +32,7 @@ if (isset($_GET['do'])) {
 
   <br />
   <center>
-    <table width=100% class='center table table-bordered table-condensed'>
+    <table width=100% class='center table table-condensed'>
       <thead>
         <tr>
           <th class='center'><?php echo $MSG_MODULE ?></th>
