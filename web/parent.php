@@ -18,7 +18,7 @@ if (isset($_GET["query"]) && trim($_GET["query"]) == "false") {
     exit(0);
 }
 if (!isset($_SESSION[$OJ_NAME . '_' . "user_id"]) && $_SESSION[$OJ_NAME . "_" . "vcode"] != trim($_GET["vcode"])) {
-    $view_swal = "验证码错误！";
+    $view_swal = "$MSG_VCODE_WRONG！";
     $error_location = "parent.php?query=false";
     require_once("template/error.php");
     exit(0);

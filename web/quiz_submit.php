@@ -11,7 +11,7 @@ if (!isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
     if (isset($OJ_GUEST) && $OJ_GUEST) {
         $_SESSION[$OJ_NAME . '_' . 'user_id'] = "Guest";
     } else {
-        $view_swal = "需要登陆";
+        $view_swal = $MSG_NOT_LOGINED;
         $error_location = "loginpage.php";
         require("template/error.php");
         exit(0);
@@ -27,7 +27,7 @@ $err_cnt = 0;
 
 if ($OJ_VCODE && ($_SESSION[$OJ_NAME . '_' . "vcode"] == null || $vcode != $_SESSION[$OJ_NAME . '_' . "vcode"] || $vcode == "" || $vcode == null)) {
     $_SESSION[$OJ_NAME . '_' . "vcode"] = null;
-    $view_swal .= "验证码错误！";
+    $view_swal = $MSG_VCODE_WRONG;
     require "template/error.php";
     exit(0);
 }
@@ -78,7 +78,7 @@ if (isset($_POST['qid'])) {
     3: long answer (human judge)
     */
 } else {
-    $view_swal = "题目不存在！";
+    $view_swal = "$MSG_NOT_EXISTED";
     require("template/error.php");
     exit(0);
 }
@@ -107,7 +107,10 @@ $total = array_sum($auto);
 $result_score = join("/", $auto);
 
 $judged = in_array(3, $type) ? 0 : 1;
-$sql = "INSERT INTO `answer`(`quiz_id`, `user_id`, `answer`, `score`, `in_date`, `total`, `judged`) VALUES (?,?,?,?,now(),?,?)";
+if ($judged)
+    $sql = "INSERT INTO `answer`(`quiz_id`, `user_id`, `answer`, `score`, `in_date`, `total`, `judged`) VALUES (?,?,?,?,now(),?,?)";
+else
+    $sql = "INSERT INTO `answer`(`quiz_id`, `user_id`, `answer`, `score`, `in_date`, `total`, `judged`, `judgetime`) VALUES (?,?,?,?,now(),?,?,now())";
 $ans = pdo_query($sql, $id, $_SESSION[$OJ_NAME . '_' . 'user_id'], $answer, $result_score, $total, $judged);
 $statusURI = "quiz.php?qid=" . $id;
 header("Location: $statusURI");

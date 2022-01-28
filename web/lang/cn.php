@@ -120,7 +120,7 @@ $MSG_SUBMIT = "提交";
 //submit.php
 $MSG_NO_SUCH_CONTEST = '您请求的作业不存在。这可能是因为作业本身不存在或您尚未被邀请';
 $MSG_TEST_RUN = "测试运行";
-$MSG_VCODE_WRONG = "验证码错误！";
+$MSG_VCODE_WRONG = "验证码错误";
 $MSG_LINK_ERROR = "在哪里可以找到此链接？ 没有这个问题。";
 $MSG_PROBLEM_RESERVED = "问题已禁用。";
 $MSG_NOT_IN_CONTEST = "您不能立即提交，因为您没有被作业邀请或作业没有进行！";

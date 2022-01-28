@@ -309,7 +309,7 @@ class Analysis
         $this->f_score[$i][$answer->score[$i]] = 1;
       }
     }
-    $this->sum_score[$answer->user] = $answer->total;
+    $this->sum_score[] = $answer->total;
     $this->answered += 1;
   }
   function get_problem_average(int $problem_id): float
@@ -348,8 +348,7 @@ class Analysis
     if ($this->answered * 0.27 < 1) {
       return 1;
     }
-    $sum = 0;
-    krsort($this->sum_score);
+    rsort($this->sum_score);
     $high = 0;
     $high_num = 0;
     for ($i = 0; $i < $this->answered * 0.27; $i++) {

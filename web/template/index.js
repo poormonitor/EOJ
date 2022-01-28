@@ -247,7 +247,7 @@ function fresh_test_result(solution_id) {
     var tb = window.document.getElementById('result');
     switch (solution_id) {
         case "-1":
-            swal("验证码错误！");
+            swal("$MSG_VCODE_WRONG！");
             tb.innerHTML = "状态";
             if ($("#vcode") != null) $("#vcode").click();
             return;
