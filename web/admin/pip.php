@@ -63,7 +63,7 @@ if (isset($_GET['do'])) {
     </table>
   </center>
 </div>
-<br /><br />
+<br />
 <center>
   <form action=pip.php class="form-search form-inline">
     <input type="text" name="module" class="form-control search-query" placeholder="<?php echo $MSG_MODULE ?>">

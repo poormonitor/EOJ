@@ -80,10 +80,8 @@ header("Cache-control: private");
         <div class='jumbotron'>
             <div class='row'>
                 <div class='col-sm-2'>
-
                     <hr>
                     <a class='btn btn-default btn-block btn-sm' href="./" title="<?php echo $MSG_ADMIN ?>"><b><?php echo $MSG_ADMIN ?></b></a>
-                    <hr>
                     <a class='btn btn-default btn-block btn-sm' href="../status.php" title="<?php echo $MSG_HELP_SEEOJ ?>"><b><?php echo $MSG_SEEOJ ?></b></a><br />
                     <div class='middle'>
                         <div class="btn-group-vertical" role="menu">
@@ -113,7 +111,7 @@ header("Cache-control: private");
                                         <li><a class="dropdown-item btn-sm" href="changepass.php" title="<?php echo $MSG_HELP_SETPASSWORD ?>"><b><?php echo $MSG_USER . "-" . $MSG_SETPASSWORD ?></b></a></li>
                                     <?php } ?>
                                     <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) { ?>
-                                        <li><a class="dropdown-item btn-sm" href="class_update.php" title="<?php echo $MSG_HELP_EDIT_SCHOOL ?>"><b><?php echo $MSG_USER . "-" . $MSG_EDIT ."-". $MSG_SCHOOL ?></b></a></li>
+                                        <li><a class="dropdown-item btn-sm" href="class_update.php" title="<?php echo $MSG_HELP_EDIT_SCHOOL ?>"><b><?php echo $MSG_USER . "-" . $MSG_EDIT . "-" . $MSG_SCHOOL ?></b></a></li>
                                         <li><a class="dropdown-item btn-sm" href="user_set_nick.php" title="<?php echo $MSG_HELP_EDIT_NICK ?>"><b><?php echo $MSG_USER . "-" . $MSG_NICK ?></b></a>
                                         <li><a class="dropdown-item btn-sm" href="privilege_list.php" title="<?php echo $MSG_HELP_PRIVILEGE_LIST ?>"><b><?php echo $MSG_USER . "-" . $MSG_PRIVILEGE . "-" . $MSG_LIST ?></b></a></li>
                                         <li><a class="dropdown-item btn-sm" href="privilege_add.php" title="<?php echo $MSG_HELP_ADD_PRIVILEGE ?>"><b><?php echo $MSG_USER . "-" . $MSG_PRIVILEGE . "-" . $MSG_ADD ?></b></a></li>
@@ -190,6 +188,6 @@ header("Cache-control: private");
                             <font color="eeeeee">ReOrderProblem</font>
                         </a>
                     <?php } ?>
-
+                    <hr>
                 </div>
                 <div class='col-sm-10'>
