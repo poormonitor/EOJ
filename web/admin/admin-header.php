@@ -7,7 +7,8 @@ if (file_exists("../lang/$OJ_LANG.php"))
 
 if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor']) || isset($_SESSION[$OJ_NAME . '_' . 'password_setter']))) {
     $view_swal = "{title:'$MSG_NOT_LOGINED',icon:'error'}";
-    exit(1);
+    require("../template/$OJ_TEMPLATE/error.php");
+    exit(0);
 }
 $url = basename($_SERVER['REQUEST_URI']);
 $ACTIVE = "class='active'";
