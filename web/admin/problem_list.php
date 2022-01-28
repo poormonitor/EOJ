@@ -66,8 +66,8 @@ echo "</select>";
 */
   ?>
 
-  <center>
-    <table width=100% class='center table table-bordered table-condensed'>
+  <div class='table-responsive'>
+    <table width=100% class='center table table-condensed table-bordered'>
       <form method=post action=contest_add.php>
         <thead>
           <tr>
@@ -117,7 +117,7 @@ echo "</select>";
         </tr>
       </form>
     </table>
-  </center>
+  </div>
 
   <script src='<?php echo $OJ_CDN_URL . "template/bs3/" ?>jquery.min.js'></script>
 

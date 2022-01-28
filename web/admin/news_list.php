@@ -53,8 +53,8 @@ require_once("../include/set_get_key.php");
     </form>
   </center>
   <br />
-  <center>
-    <table width=100% class='center table table-bordered table-condensed'>
+  <div class='table-responsive'>
+    <table width=100% class='center table table-condensed'>
       <thead>
         <tr style='height:22px;'>
           <th class='center'>ID</th>
@@ -78,7 +78,7 @@ require_once("../include/set_get_key.php");
         ?>
       </tbody>
     </table>
-  </center>
+  </div>
 
   <?php
   if (!(isset($_GET['keyword']) && $_GET['keyword'] != "")) {
