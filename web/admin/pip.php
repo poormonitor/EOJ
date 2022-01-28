@@ -47,7 +47,6 @@ if (isset($_GET['do'])) {
         $getkey = $_SESSION[$OJ_NAME . '_' . 'getkey'];
 
         $src = shell_exec($OJ_PY_BIN . " -m pip list --format=json");
-        echo $src;
         $json = json_decode($src);
         foreach ($json as $i) {
           $name = $i->name;

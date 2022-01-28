@@ -46,12 +46,12 @@
 	$nick = trim($_POST['nick']);
 	$len = strlen($nick);
 	if ($len > 100) {
-		$err_str = $err_str . "昵称太长!";
+		$err_str = $err_str . $MSG_NICK_TOO_LONG . " ";
 		$err_cnt++;
 	} else if ($len == 0) $nick = $user_id;
 	$len = strlen($_POST['school']);
 	if ($len > 100) {
-		$err_str = $err_str . "学校太长";
+		$err_str = $err_str . $MSG_SCHOOL_TOO_LONG . " ";
 		$err_cnt++;
 	}
 	if ($err_cnt > 0) {
@@ -72,7 +72,7 @@
 	pdo_query($sql, $nick, $school, $user_id);
 	?>
 	<script>
-		swal("修改成功！").then((onConfirm) => {
+		swal(<?php echo $MSG_SUCCESS ?>).then((onConfirm) => {
 			history.go(-1);
 		})
 	</script>

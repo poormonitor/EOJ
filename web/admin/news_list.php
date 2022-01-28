@@ -58,10 +58,10 @@ require_once("../include/set_get_key.php");
       <thead>
         <tr style='height:22px;'>
           <th class='center'>ID</th>
-          <th class='center'>标题</th>
-          <th class='center'>最后更新</th>
-          <th class='center'>状态</th>
-          <th class='center'>复制</th>
+          <th class='center'><?php echo $MSG_TITLE ?></th>
+          <th class='center'><?php echo $MSG_LAST_UPDATE ?></th>
+          <th class='center'><?php echo $MSG_STATUS ?></th>
+          <th class='center'><?php echo $MSG_COPY ?></th>
         </tr>
       </thead>
       <tbody>

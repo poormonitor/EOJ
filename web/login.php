@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>登录</title>
+	<title><?php echo $MSG_LOGIN ?></title>
 </head>
 
 <body>
@@ -34,7 +34,7 @@
 		if ($C_check[strlen($C_check) - 1] != $C_num) {
 			setcookie($OJ_NAME . "_check", "", 0);
 			setcookie($OJ_NAME . "_user", "", 0);
-			echo "<script>\nswal('Cookie 错误 (-1)').then((onConfirm)=>{history.go(-1);});\n</script>";
+			echo "<script>\nswal('Cookie $MSG_ERROR (-1)').then((onConfirm)=>{history.go(-1);});\n</script>";
 			exit(0);
 		}
 		$C_info = pdo_query("SELECT `password`,`accesstime` FROM `users` WHERE `user_id`=? and defunct='N'", $C_user)[0];
@@ -48,7 +48,7 @@
 		else {
 			setcookie($OJ_NAME . "_check", "", 0);
 			setcookie($OJ_NAME . "_user", "", 0);
-			echo "<script>\nswal('Cookie 错误 (-2)').then((onConfirm)=>{history.go(-1);});\n</script>";
+			echo "<script>\nswal('Cookie $MSG_ERROR (-2)').then((onConfirm)=>{history.go(-1);});\n</script>";
 			exit(0);
 		}
 	}
@@ -57,7 +57,7 @@
 		if (isset($_POST['vcode'])) $vcode = trim($_POST['vcode']);
 		if ($OJ_VCODE && ($vcode != $_SESSION[$OJ_NAME . '_' . "vcode"] || $vcode == "" || $vcode == null)) {
 			echo "<script language='javascript'>\n";
-			echo "swal('错误','验证码错误！','error).then((onConfirm)=>{history.go(-1);});\n";
+			echo "swal('$MSG_ERROR','$MSG_VCODE_WRONG','error).then((onConfirm)=>{history.go(-1);});\n";
 			echo "</script>";
 			exit(0);
 		}
@@ -122,7 +122,7 @@
 			require("template/" . $OJ_TEMPLATE . "/error.php");
 		} else {
 			echo "<script language='javascript'>\n";
-			echo "swal('错误','用户名或密码错误！','error').then((onConfirm)=>{history.go(-1);});\n";
+			echo "swal('$MSG_ERROR','$MSG_UP_WRONG','error').then((onConfirm)=>{history.go(-1);});\n";
 			echo "</script>";
 		}
 	}

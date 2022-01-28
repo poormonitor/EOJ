@@ -76,12 +76,12 @@ echo "</select>";
             </th>
             <th class='center'><?php echo $MSG_TITLE ?></th>
             <th class='center'><?php echo $MSG_AC ?></th>
-            <th class='center'>编辑时间</th>
+            <th class='center'><?php echo $MSG_EDIT_TIME ?></th>
             <?php
             if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor'])) {
               if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor']))
-                echo "<th class='center'>状态</th>";
-              echo "<th class='center'>编辑</th><th class='center'>测试数据</th>";
+                echo "<th class='center'>$MSG_STATUS</th>";
+              echo "<th class='center'>$MSG_EDIT</th><th class='center'>$MSG_TESTDATA</th>";
             }
             ?>
           </tr>
@@ -95,23 +95,23 @@ echo "</select>";
           echo "<td>" . $row['in_date'] . "</td>";
           if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor'])) {
             if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor'])) {
-              echo "<td><a href=problem_df_change.php?id=" . $row['problem_id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">" . ($row['defunct'] == "N" ? "<span titlc='click to reserve it' class=green>可用</span>" : "<span class=red title='click to be available'>禁用</span>") . "</a>";
+              echo "<td><a href=problem_df_change.php?id=" . $row['problem_id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">" . ($row['defunct'] == "N" ? "<span titlc='click to reserve it' class=green>$MSG_ENABLED</span>" : "<span class=red title='click to be available'>$MSG_DISABLED</span>") . "</a>";
             }
             if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . "p" . $row['problem_id']]) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor'])) {
-              echo "<td><a href=problem_edit.php?id=" . $row['problem_id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">编辑</a>";
-              echo "<td><a href='javascript:phpfm(" . $row['problem_id'] . ");'>测试数据</a>";
+              echo "<td><a href=problem_edit.php?id=" . $row['problem_id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">$MSG_EDIT</a>";
+              echo "<td><a href='javascript:phpfm(" . $row['problem_id'] . ");'>$MSG_TESTDATA</a>";
             }
           }
           echo "</tr>";
         }
         ?>
         <tr>
-          <td colspan=2 style="height:40px;">设为</td>
+          <td colspan=2 style="height:40px;"><?php echo $MSG_SET_TO ?></td>
           <td colspan=6>
             <div class='form-inline'>
-              <input class='form-control' type=submit name='problem2contest' value='加入作业'>&nbsp;
-              <input class='form-control' type=submit name='enable' value='启用' onclick='$("form").attr("action","problem_df_change.php")'>&nbsp;
-              <input class='form-control' type=submit name='disable' value='禁用' onclick='$("form").attr("action","problem_df_change.php")'>
+              <input class='form-control' type=submit name='problem2contest' value='<?php echo $MSG_ADD_TO_CONTEST ?>'>&nbsp;
+              <input class='form-control' type=submit name='enable' value='<?php echo $MSG_ENABLE ?>' onclick='$("form").attr("action","problem_df_change.php")'>&nbsp;
+              <input class='form-control' type=submit name='disable' value='<?php echo $MSG_DISABLE ?>' onclick='$("form").attr("action","problem_df_change.php")'>
             </div>
           </td>
         </tr>

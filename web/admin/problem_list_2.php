@@ -62,7 +62,7 @@ require_once("../include/set_get_key.php");
           <th class='center'><?php echo $MSG_SOURCE ?></th>
           <?php
           if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor'])) {
-            echo "<th class='center'>编辑</th>";
+            echo "<th class='center'>$MSG_EDIT</th>";
           }
           ?>
         </tr>
@@ -75,7 +75,7 @@ require_once("../include/set_get_key.php");
           echo "<td>" . $row['title'] . "</td>";
           echo "<td>" . $row['tag'] . "</td>";
           if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor'])) {
-            echo "<td><a href=problem_add_page_2.php?id=" . $row['id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">编辑</a>";
+            echo "<td><a href=problem_add_page_2.php?id=" . $row['id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">$MSG_EDIT</a>";
           }
           echo "</tr>";
         }
