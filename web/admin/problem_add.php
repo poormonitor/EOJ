@@ -78,7 +78,9 @@ echo "&nbsp;&nbsp;- <a href='javascript:phpfm($pid);'>添加更多的测试数�
 /*  */
 ?>
 
-<script src='../template/bs3/jquery.min.js'></script>
+<?php
+require_once("admin-footer.php");
+?>
 <script>
   function phpfm(pid) {
     //alert(pid);
@@ -93,6 +95,3 @@ echo "&nbsp;&nbsp;- <a href='javascript:phpfm($pid);'>添加更多的测试数�
     });
   }
 </script>
-<?php
-require_once("admin-footer.php");
-?>

@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+    <link rel="icon" href="favicon.ico">
 
     <title><?php echo $OJ_NAME?></title>  
     <?php include("template/css.php");?>	    
@@ -25,7 +25,7 @@
 	 <form action="printer.php" method="post"  onsubmit="return confirm('Delete All Tasks?');">
                 <input type="hidden" name="clean" >
                 <input type="submit" class='btn btn-danger' value="Clean">
-		<?php require_once(dirname(__FILE__)."/../../include/set_post_key.php")?>
+		<?php require_once(dirname(__FILE__)."/../include/set_post_key.php")?>
         </form>
 
 	<table class="table table-striped content-box-header">

@@ -4,7 +4,7 @@ header("Cache-Control: no-cache");
 header("Pragma: no-cache");
 header("content-type:application/javascript");
 
-require_once("../../include/db_info.inc.php");
+require_once("../include/db_info.inc.php");
 
 if (isset($_SESSION[$OJ_NAME . '_' . 'profile_csrf']) && $_GET['profile_csrf'] != $_SESSION[$OJ_NAME . '_' . 'profile_csrf']) {
   //    echo "<!--".$_SESSION[$OJ_NAME.'_'.'profile_csrf']."-->";
@@ -13,9 +13,9 @@ if (isset($_SESSION[$OJ_NAME . '_' . 'profile_csrf']) && $_GET['profile_csrf'] !
   $_SESSION[$OJ_NAME . '_' . 'profile_csrf'] = "";
 }
 if (isset($OJ_LANG)) {
-  require_once("../../lang/$OJ_LANG.php");
+  require_once("../lang/$OJ_LANG.php");
 } else {
-  require_once("../../lang/en.php");
+  require_once("../lang/cn.php");
 }
 
 function checkmail()

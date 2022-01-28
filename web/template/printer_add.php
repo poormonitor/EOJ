@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
   <meta name="author" content="">
-  <link rel="icon" href="../../favicon.ico">
+  <link rel="icon" href="favicon.ico">
 
   <title><?php echo $OJ_NAME ?></title>
   <?php include("template/css.php"); ?>
@@ -27,7 +27,7 @@
           <textarea style="width:80%" cols=180 rows=20 id="source" name="content">
 </textarea><br />
           <input type="submit" value="<?php echo $MSG_PRINTER ?>">
-          <?php require_once(dirname(__FILE__) . "/../../include/set_post_key.php") ?>
+          <?php require_once(dirname(__FILE__) . "/../include/set_post_key.php") ?>
         </form>
       </center>
     </div>
