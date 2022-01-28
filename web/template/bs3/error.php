@@ -16,14 +16,6 @@ if (isset($view_errors_js) || isset($view_swal)) { ?>
   </head>
 
   <body>
-    <style>
-      @media (prefers-color-scheme: dark) {
-        body {
-          height: auto;
-          background: #242424;
-        }
-      }
-    </style>
   </body>
 
   <script src="<?php echo $OJ_CDN_URL . "template/$OJ_TEMPLATE/" ?>jquery.min.js"></script>
@@ -37,6 +29,8 @@ if (isset($view_errors_js) || isset($view_swal)) { ?>
     } else {
       $error_location = "history.go(-1)";
     }
+    if (isset($view_swal_params))
+      echo "swal($view_swal_params);";
     if (isset($view_swal)) {
       echo "swal('$view_swal').then((onConfirm)=>{" . $error_location . ";});";
     }
@@ -48,7 +42,7 @@ if (isset($view_errors_js) || isset($view_swal)) { ?>
 <?php } else { ?>
 
   <!DOCTYPE html>
-  <html lang="en">
+  <html>
 
   <head>
     <meta charset="utf-8">
