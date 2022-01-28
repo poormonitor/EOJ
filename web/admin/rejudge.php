@@ -1,9 +1,5 @@
 <?php require("admin-header.php");
-
-if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
-	echo "<a href='../loginpage.php'>Please Login First!</a>";
-	exit(1);
-} ?>
+?>
 <?php if (isset($_POST['do'])) {
 	require_once("../include/check_post_key.php");
 	if (isset($_POST['rjpid'])) {
@@ -82,50 +78,60 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
 	<h3 class='center'><b>重判</b></h3>
 	<ol>
 		<br />
-		<div class='center form-group'>
-			<form action='rejudge.php' method=post>
-				<label class='control-label'>
-					<li><?php echo $MSG_PROBLEM ?></li>
+		<div class='center form-horizontal'>
+			<form action='rejudge.php' method=post class='form-group'>
+				<label class='control-label col-sm-4'>
+					<?php echo $MSG_PROBLEM ?>
 				</label>
-				<div class='form-inline'>
+				<div class='col-sm-4'>
 					<input type=input class='form-control' name='rjpid' placeholder="1001">
 					<input type='hidden' name='do' value='do'>
 					<input type=hidden name="postkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>">
+					<br />
 					<input type=submit class='form-control btn btn-default' value='<?php echo $MSG_SUBMIT; ?>'>
 				</div>
 			</form>
-			<form action='rejudge.php' method=post>
-				<label class='control-label'>
-					<li><?php echo $MSG_SUBMIT ?></li>
+			<br />
+			<form action='rejudge.php' method=post class='form-group'>
+				<label class='control-label col-sm-4'>
+					<?php echo $MSG_SUBMIT ?>
 				</label>
-				<div class='form-inline'>
+				<div class='col-sm-4'>
 					<input type=input class='form-control' name='rjsid' style='%' placeholder="1001" value='<?php if (isset($_GET['sid'])) echo $_GET['sid'] ?>'>
 					<input type='hidden' name='do' value='do'>
 					<input type=hidden name="postkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>">
+					<br />
 					<input type=submit class='form-control btn btn-default' value='<?php echo $MSG_SUBMIT; ?>'>
 				</div>
 			</form>
-			<form action='rejudge.php' method=post>
-				<label class='control-label'>
-					<li><?php echo "卡在运行中" ?></li>
+			<br />
+			<form action='rejudge.php' method=post class='form-group'>
+				<label class='control-label col-sm-4'>
+					<?php echo "卡在运行中" ?>
 				</label>
-				<div class='form-inline'>
+				<div class='col-sm-4'>
 					<input type=input class='form-control' name='result' placeholder="3" value="3">
 					<input type='hidden' name='do' value='do'>
 					<input type=hidden name="postkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>">
+					<br />
 					<input type=submit class='form-control btn btn-default' value='<?php echo $MSG_SUBMIT; ?>'>
 				</div>
 			</form>
-			<form action='rejudge.php' method=post>
-				<label class='control-label'>
-					<li><?php echo $MSG_CONTEST ?></li>
+			<br />
+			<form action='rejudge.php' method=post class='form-group'>
+				<label class='control-label col-sm-4'>
+					<?php echo $MSG_CONTEST ?>
 				</label>
-				<div class='form-inline'>
+				<div class='col-sm-4'>
 					<input type=input class='form-control' name='rjcid' placeholder="1003">
 					<input type='hidden' name='do' value='do'>
 					<input type=hidden name="postkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>">
+					<br />
 					<input type=submit class='form-control btn btn-default' value='<?php echo $MSG_SUBMIT; ?>'>
 				</div>
 			</form>
 		</div>
 </div>
+<?php
+require_once("admin-footer.php");
+?>

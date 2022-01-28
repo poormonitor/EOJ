@@ -1,17 +1,5 @@
 <?php require_once("admin-header.php");
-
-if (!(isset($_SESSION[$OJ_NAME.'_'.'administrator']))){
-  echo "<a href='../loginpage.php'>Please Login First!</a>";
-  exit(1);
-}
-
-if(isset($OJ_LANG)){
-  require_once("../lang/$OJ_LANG.php");
-}
 ?>
-
-<title>User Nick</title>
-<hr>
 <center><h3><?php echo $MSG_USER."-".$MSG_NICK?></h3></center>
 
 <div class='container'>
@@ -63,18 +51,17 @@ if(isset($_POST['do'])){
     <label class="col-sm"><?php echo $MSG_USER_ID?> <?php echo $MSG_NICK?></label>
   </div>
   <div>
-    <br />
     <table width="100%">
       <tr>
         <td height="*">
           <p align=left>
-            <textarea name='ulist' rows='10' style='width:100%;' placeholder='userid1 nick1<?php echo "\n"?>userid2 nick2<?php echo "\n"?>userid3 nick3<?php echo "\n"?>'><?php if(isset($ulist)){ echo $ulist;}?></textarea>
+            <textarea class='form-control' name='ulist' rows='10' style='width:100%;' placeholder='userid1 nick1<?php echo "\n"?>userid2 nick2<?php echo "\n"?>userid3 nick3<?php echo "\n"?>'><?php if(isset($ulist)){ echo $ulist;}?></textarea>
           </p>
         </td>
       </tr>
     </table>
   </div>
-
+  <br />
   <div class="form-group">
     <?php require_once("../include/set_post_key.php");?>
     <div class="col-sm-offset-4 col-sm-2">
@@ -89,4 +76,6 @@ if(isset($_POST['do'])){
 
 </div>
 
-
+<?php
+require_once("admin-footer.php");
+?>

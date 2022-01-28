@@ -3,13 +3,6 @@ require("admin-header.php");
 require_once("../include/db_info.inc.php");
 require_once("../include/my_func.inc.php");
 
-if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'password_setter']))) {
-  echo "<a href='../loginpage.php'>Please Login First!</a>";
-  exit(1);
-}
-if (isset($OJ_LANG)) {
-  require_once("../lang/$OJ_LANG.php");
-}
 if (isset($_GET['do'])) {
   if (isset($_GET["group_name"])) {
     require_once("../include/check_get_key.php");
@@ -40,8 +33,6 @@ if (isset($_GET['do'])) {
   }
 }
 ?>
-<title>Group List</title>
-<hr>
 <center>
   <h3><?php echo $MSG_GROUP . "-" . $MSG_LIST ?></h3>
 </center>
@@ -53,35 +44,43 @@ if (isset($_GET['do'])) {
   $result = pdo_query($sql);
   ?>
   <center>
-    <table width=100% border=1 style="text-align:center;">
-      <tr>
-        <td>GID</td>
-        <td>组名</td>
-        <td>删除</td>
-        <td>查看错误</td>
-      </tr>
-      <?php
-      foreach ($result as $row) {
-        echo "<tr>";
-        echo "<td>" . $row['gid'] . "</td>";
-        echo "<td>" . $row['name'] . "</td>";
-        echo "<td><a href='group_list.php?do=do&del_group=" . $row['gid'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . "'>删除</a></td>";
-        if ($row["allow_view"] == "Y") {
-          echo "<td><a href='group_list.php?do=do&visiable=false&group=" . $row['gid'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . "'><span class=green>允许</span></a></td>";
-        } else {
-          echo "<td><a href='group_list.php?do=do&visiable=true&group=" . $row['gid'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . "'><span class=red>禁止</span></a></td>";
-        }
+    <form action=group_list.php class="form-search form-inline">
+      <input type="text" name=group_name class="form-control search-query" placeholder="<?php echo $MSG_GROUP ?>">
+      <input type=hidden name="getkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'getkey'] ?>">
+      <button name="do" value="do" type="submit" class="form-control"><?php echo $MSG_ADD ?></button>
+    </form>
+  </center>
+  <br />
+  <center>
+    <table width=100% class='center table table-bordered table-condensed'>
+      <thead>
+        <tr>
+          <th class='center'>GID</th>
+          <th class='center'>组名</th>
+          <th class='center'>删除</th>
+          <th class='center'>查看错误</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+        foreach ($result as $row) {
+          echo "<tr>";
+          echo "<td>" . $row['gid'] . "</td>";
+          echo "<td>" . $row['name'] . "</td>";
+          echo "<td><a href='group_list.php?do=do&del_group=" . $row['gid'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . "'>删除</a></td>";
+          if ($row["allow_view"] == "Y") {
+            echo "<td><a href='group_list.php?do=do&visiable=false&group=" . $row['gid'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . "'><span class=green>允许</span></a></td>";
+          } else {
+            echo "<td><a href='group_list.php?do=do&visiable=true&group=" . $row['gid'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . "'><span class=red>禁止</span></a></td>";
+          }
 
-        echo "</tr>";
-      } ?>
+          echo "</tr>";
+        } ?>
+      </tbody>
     </table>
   </center>
 </div>
 <br /><br />
-<center>
-  <form action=group_list.php class="form-search form-inline">
-    <input type="text" name=group_name class="form-control search-query" placeholder="<?php echo $MSG_GROUP ?>">
-    <input type=hidden name="getkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'getkey'] ?>">
-    <button name="do" value="do" type="submit" class="form-control"><?php echo $MSG_ADD ?></button>
-  </form>
-</center>
+<?php
+require_once("admin-footer.php");
+?>

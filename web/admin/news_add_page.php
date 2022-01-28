@@ -1,14 +1,7 @@
 <?php
 require_once("admin-header.php");
-if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
-  echo "<a href='../loginpage.php'>Please Login First!</a>";
-  exit(1);
-}
 
-echo "<hr>";
 echo "<center><h3>" . $MSG_NEWS . "-" . $MSG_ADD . "</h3></center>";
-
-
 ?>
 
 <?php
@@ -26,8 +19,10 @@ if (isset($_GET['cid'])) {
 <div class="container">
   <form method=POST action=news_add.php>
     <p align=left>
-      <label class="col control-label"><?php echo $MSG_TITLE ?></label>
-      <input type=text name=title size=71 value='<?php echo isset($title) ? $title . "-Copy" : "" ?>'>
+    <div class='form-inline'>
+      <label class="col control-label"><?php echo $MSG_TITLE ?></label>&nbsp;&nbsp;
+      <input class='form-control' type=text name=title size=71 value='<?php echo isset($title) ? $title . "-Copy" : "" ?>'>
+    </div>
     </p>
     <p align=left>
       <textarea id="tinymce0" name=content>
@@ -68,5 +63,9 @@ if (isset($_GET['cid'])) {
     </div>
     <?php require_once("../include/set_post_key.php"); ?>
   </form>
-</div><br /><br />
+</div>
+<br /><br />
+<?php
+require_once("admin-footer.php");
+?>
 <?php require_once('../tinymce/tinymce.php'); ?>

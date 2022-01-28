@@ -223,7 +223,7 @@
         var m;
         var rate;
         var total = parseInt(dt.rows[3].cells[1].innerText);
-        for (var i = 4; dt.rows[i].id != "container_pie"; i++) {
+        for (var i = 4; dt.rows[i].id != "pie"; i++) {
             n = dt.rows[i].cells[0];
             n = n.innerText || n.textContent;
             m = dt.rows[i].cells[1].firstChild;

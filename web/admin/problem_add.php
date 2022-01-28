@@ -1,11 +1,6 @@
 <?php
 require_once("admin-header.php");
 require_once("../include/check_post_key.php");
-if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor']))) {
-  echo "<a href='../loginpage.php'>Please Login First!</a>";
-  exit(1);
-}
-
 
 require_once("../include/db_info.inc.php");
 require_once("../include/my_func.inc.php");
@@ -98,3 +93,6 @@ echo "&nbsp;&nbsp;- <a href='javascript:phpfm($pid);'>添加更多的测试数�
     });
   }
 </script>
+<?php
+require_once("admin-footer.php");
+?>

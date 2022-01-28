@@ -1,6 +1,11 @@
 <?php
 $MSG_TRUE_FALSE = array(true => '是', false => '否');
 $MSG_GROUP = "组";
+$MSG_FROM = "从";
+$MSG_TO = "到";
+
+$MSG_NOT_LOGINED = "您还没有登录";
+$MSG_DELETE="删除";
 //index.php
 $MSG_RECENT_SUBMISSION = "最近提交";
 $MSG_TOTAL = "全部提交";
@@ -204,7 +209,16 @@ $MSG_NEWS = "新闻";
 $MSG_CONTENTS = "内容";
 $MSG_SAVE = "保存";
 
+$MSG_MODULE = "模块";
+$MSG_VERSION = "版本";
+$MSG_UPGRADE = "升级";
+$MSG_UNINSTALL = "卸载";
+$MSG_MODULE_INSTALL = "安装模块";
+$MSG_MODULE_INSTALLED = "已安装模块";
 $MSG_TEAMGENERATOR = "比赛队帐号生成器";
+$MSG_PREFIX="前缀";
+$MSG_TEAM_NUMBER="队伍数量";
+$MSG_USER_LIST="用户列表";
 $MSG_SETMESSAGE = "设置公告";
 $MSG_SETPASSWORD = "修改密码";
 $MSG_REJUDGE = "重判题目";
@@ -276,6 +290,11 @@ $MSG_BALLOON = "气球";
 $MSG_BALLOON_DONE = "气球已发放";
 $MSG_BALLOON_PENDING = "气球待发放";
 
+$MSG_HELP_MODULE=
+$MSG_HELP_EDIT_SCHOOL="根据规则批量修改用户的班级。";
+$MSG_HELP_EDIT_NICK="批量修改用户的昵称。";
+$MSG_HELP_LIST_GROUP="查看已有用户组，并可添加新的用户组。";
+$MSG_HELP_CHANGE_GROUP="将用户批量加入用户组，或批量删除用户的用户组信息。";
 $MSG_HELP_SEEOJ = "跳转回到前台";
 $MSG_HELP_ADD_NEWS = "添加首页显示的新闻";
 $MSG_HELP_NEWS_LIST = "管理已经发布的新闻";

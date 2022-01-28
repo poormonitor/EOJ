@@ -1,12 +1,4 @@
-<?php require("admin-header.php");
-
-if (isset($OJ_LANG)) {
-	require_once("../lang/$OJ_LANG.php");
-}
-?>
-
-<title>User Set IP</title>
-<hr>
+<?php require("admin-header.php");?>
 <center><h3><?php echo $MSG_SET_LOGIN_IP?></h3></center>
 
 <div class='container'>
@@ -28,25 +20,25 @@ if(isset($_POST['do'])){
 	echo "<center><h4 class='text-danger'>User ".$_POST['user_id']."'s Login IP Changed!</h4></center>";
 }
 ?>
-
+<br />
 <form action=user_set_ip.php method=post class="form-horizontal">
 	<div class="form-group">
-		<label class="col-sm-offset-3 col-sm-3 control-label"><?php echo $MSG_USER_ID?></label>
+		<label class="col-sm-offset-1 col-sm-3 control-label"><?php echo $MSG_USER_ID?></label>
 		<?php if(isset($_GET['uid'])) { ?>
-		<div class="col-sm-3"><input name="user_id" class="form-control" value="<?php echo $_GET['uid']?>" type="text" required ></div>
+		<div class="col-sm-4"><input name="user_id" class="form-control" value="<?php echo $_GET['uid']?>" type="text" required ></div>
   	<?php } else if(isset($_POST['user_id'])) { ?>
-		<div class="col-sm-3"><input name="user_id" class="form-control" value="<?php echo $_POST['user_id']?>" type="text" required ></div>
+		<div class="col-sm-4"><input name="user_id" class="form-control" value="<?php echo $_POST['user_id']?>" type="text" required ></div>
 		<?php } else { ?>
-		<div class="col-sm-3"><input name="user_id" class="form-control" placeholder="<?php echo $MSG_USER_ID."*"?>" type="text" required ></div>
+		<div class="col-sm-4"><input name="user_id" class="form-control" placeholder="<?php echo $MSG_USER_ID."*"?>" type="text" required ></div>
 		<?php } ?>
 	</div>
 
 	<div class="form-group">
-		<label class="col-sm-offset-3 col-sm-3 control-label"><?php echo "New IP"?></label>
+		<label class="col-sm-offset-1 col-sm-3 control-label"><?php echo "New IP"?></label>
 		<?php if(isset($_POST['ip'])) { ?>
-		<div class="col-sm-3"><input name="ip" class="form-control" value="<?php echo $_POST['ip']?>" type="text"  autocomplete="off" required ></div>
+		<div class="col-sm-4"><input name="ip" class="form-control" value="<?php echo $_POST['ip']?>" type="text"  autocomplete="off" required ></div>
 		<?php } else { ?>
-		<div class="col-sm-3"><input name="ip" class="form-control" placeholder="<?php echo "?.?.?.?*"?>" type="text"  autocomplete="off" required ></div>
+		<div class="col-sm-4"><input name="ip" class="form-control" placeholder="<?php echo "?.?.?.?*"?>" type="text"  autocomplete="off" required ></div>
 		<?php } ?>
 	</div>
 
@@ -62,7 +54,6 @@ if(isset($_POST['do'])){
 </form>
 
 </div>
-
 <?php
-require("../oj-footer.php");
+require_once("admin-footer.php");
 ?>

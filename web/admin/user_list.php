@@ -2,18 +2,8 @@
 require("admin-header.php");
 require_once("../include/set_get_key.php");
 
-if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'password_setter']))) {
-  echo "<a href='../loginpage.php'>Please Login First!</a>";
-  exit(1);
-}
-
-if (isset($OJ_LANG)) {
-  require_once("../lang/$OJ_LANG.php");
-}
 ?>
 
-<title>User List</title>
-<hr>
 <center>
   <h3><?php echo $MSG_USER . "-" . $MSG_LIST ?></h3>
 </center>
@@ -62,38 +52,43 @@ if (isset($OJ_LANG)) {
       <button type="submit" class="form-control"><?php echo $MSG_SEARCH ?></button>
     </form>
   </center>
+  <br />
 
   <center>
-    <table width=100% border=1 style="text-align:center;">
-      <tr>
-        <td>ID</td>
-        <td>姓名</td>
-        <td>班级</td>
-        <td>用户组</td>
-        <td>最近登录</td>
-        <td>注册时间</td>
-        <td>状态</td>
-        <td>密码</td>
-        <td>权限</td>
-      </tr>
-      <?php
-      foreach ($result as $row) {
-        echo "<tr>";
-        echo "<td><a href='../userinfo.php?user=" . $row['user_id'] . "'>" . $row['user_id'] . "</a></td>";
-        echo "<td>" . $row['nick'] . "</td>";
-        echo "<td>" . $row['school'] . "</td>";
-        echo "<td>" . $row['name'] . "</td>";
-        echo "<td>" . $row['accesstime'] . "</td>";
-        echo "<td>" . $row['reg_time'] . "</td>";
-        if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
-          echo "<td><a href=user_df_change.php?cid=" . $row['user_id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">" . ($row['defunct'] == "N" ? "<span class=green>可用</span>" : "<span class=red>锁定</span>") . "</a></td>";
-        } else {
-          echo "<td>" . ($row['defunct'] == "N" ? "<span>可用</span>" : "<span>锁定</span>") . "</td>";
-        }
-        echo "<td><a href=changepass.php?uid=" . $row['user_id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">" . "重置" . "</a></td>";
-        echo "<td><a href=privilege_add.php?uid=" . $row['user_id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">" . "添加" . "</a></td>";
-        echo "</tr>";
-      } ?>
+    <table width=100% class='center table table-bordered table-condensed'>
+      <thead>
+        <tr>
+          <th class='center'>ID</th>
+          <th class='center'>姓名</th>
+          <th class='center'>班级</th>
+          <th class='center'>用户组</th>
+          <th class='center'>最近登录</th>
+          <th class='center'>注册时间</th>
+          <th class='center'>状态</th>
+          <th class='center'>密码</th>
+          <th class='center'>权限</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+        foreach ($result as $row) {
+          echo "<tr>";
+          echo "<td><a href='../userinfo.php?user=" . $row['user_id'] . "'>" . $row['user_id'] . "</a></td>";
+          echo "<td>" . $row['nick'] . "</td>";
+          echo "<td>" . $row['school'] . "</td>";
+          echo "<td>" . $row['name'] . "</td>";
+          echo "<td>" . $row['accesstime'] . "</td>";
+          echo "<td>" . $row['reg_time'] . "</td>";
+          if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
+            echo "<td><a href=user_df_change.php?cid=" . $row['user_id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">" . ($row['defunct'] == "N" ? "<span class=green>可用</span>" : "<span class=red>锁定</span>") . "</a></td>";
+          } else {
+            echo "<td>" . ($row['defunct'] == "N" ? "<span>可用</span>" : "<span>锁定</span>") . "</td>";
+          }
+          echo "<td><a href=changepass.php?uid=" . $row['user_id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">" . "重置" . "</a></td>";
+          echo "<td><a href=privilege_add.php?uid=" . $row['user_id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">" . "添加" . "</a></td>";
+          echo "</tr>";
+        } ?>
+      </tbody>
     </table>
   </center>
 
@@ -117,3 +112,6 @@ if (isset($OJ_LANG)) {
 
 </div>
 <br />
+<?php
+require_once("admin-footer.php");
+?>

@@ -34,11 +34,12 @@ function checkmail()
 }
 
 $profile = '';
+$path_fix = isset($_GET['loc']) && $_GET['loc'] == "admin" ? "../" : "";
 
 if (isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
   $sid = $_SESSION[$OJ_NAME . '_' . 'user_id'];
 
-  $profile .= "<li><a href=" . "modifypage.php>$MSG_REG_INFO</a></li><li><a href='" . "userinfo.php?user=$sid'><span id=red>$MSG_USERINFO</span></a></li>";
+  $profile .= "<li><a href=" . $path_fix . "modifypage.php>$MSG_REG_INFO</a></li><li><a href='" . "userinfo.php?user=$sid'><span id=red>$MSG_USERINFO</span></a></li>";
 
   if ((isset($OJ_EXAM_CONTEST_ID) && $OJ_EXAM_CONTEST_ID > 0) ||
     (isset($OJ_ON_SITE_CONTEST_ID) && $OJ_ON_SITE_CONTEST_ID > 0) ||
@@ -46,38 +47,38 @@ if (isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
   ) {
   } else {
     $mail = checkmail();
-    if ($mail) $profile .= "<li><a class='glyphicon glyphicon-envelope' href=" . "mail.php>$mail</a></li>";
+    if ($mail) $profile .= "<li><a class='glyphicon glyphicon-envelope' href=" . $path_fix . "mail.php>$mail</a></li>";
   }
 
-  $profile .= "<li><a href='" . "status.php?user_id=$sid'><span id=red>$MSG_MY_SUBMISSIONS</span></a></li>";
-  $profile .= "<li><a href='" . "contest.php?my'><span id=red>$MSG_MY_CONTESTS</span></a></li>";
-  $profile .= "<li><a href='" . "clipboard.php'><span id=red>剪切板</span></a></li>";
+  $profile .= "<li><a href='" . $path_fix . "status.php?user_id=$sid'><span id=red>$MSG_MY_SUBMISSIONS</span></a></li>";
+  $profile .= "<li><a href='" . $path_fix . "contest.php?my'><span id=red>$MSG_MY_CONTESTS</span></a></li>";
+  $profile .= "<li><a href='" . $path_fix . "clipboard.php'><span id=red>剪切板</span></a></li>";
   if (
     (isset($OJ_EXAM_CONTEST_ID) && $OJ_EXAM_CONTEST_ID > 0) ||
     (isset($OJ_ON_SITE_CONTEST_ID) && $OJ_ON_SITE_CONTEST_ID > 0) ||
     (isset($OJ_SHARE_CODE) && !$OJ_SHARE_CODE)
   ) {
   } else {
-    $profile .= "<li><a href='./sharecodelist.php'>代码分享</a></li>";
+    $profile .= "<li><a href='" . $path_fix . "sharecodelist.php'>代码分享</a></li>";
   }
-  $profile .= "<li><a href=" . "logout.php>$MSG_LOGOUT</a></li>";
+  $profile .= "<li><a href='" . $path_fix . "logout.php'>$MSG_LOGOUT</a></li>";
 } else {
-  $profile .= "<li><a href=" . "loginpage.php>$MSG_LOGIN</a></li>";
+  $profile .= "<li><a href='" . $path_fix . "loginpage.php'>$MSG_LOGIN</a></li>";
 
   if ($OJ_LOGIN_MOD == "hustoj") {
     if (isset($OJ_REGISTER) && !$OJ_REGISTER) {
     } else {
-      $profile .= "<li><a href=" . "registerpage.php>$MSG_REGISTER</a></li>";
+      $profile .= "<li><a href='" . $path_fix . "registerpage.php'>$MSG_REGISTER</a></li>";
     }
   }
 }
 
 if (isset($_SESSION[$OJ_NAME . '_' . 'balloon'])) {
-  $profile .= "<li><a href='" . "balloon.php'>$MSG_BALLOON</a></li>";
+  $profile .= "<li><a href='" . $path_fix . "balloon.php'>$MSG_BALLOON</a></li>";
 }
 
 if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor']) || isset($_SESSION[$OJ_NAME . '_' . 'password_setter'])) {
-  $profile .= "<li><a href=" . "admin/>$MSG_ADMIN</a></li>";
+  $profile .= "<li><a href='" . $path_fix . "admin/'>$MSG_ADMIN</a></li>";
 }
 
 //$profile.="</ul></li>";

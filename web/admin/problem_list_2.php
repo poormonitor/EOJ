@@ -2,18 +2,8 @@
 require("admin-header.php");
 require_once("../include/set_get_key.php");
 
-if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor']))) {
-  echo "<a href='../loginpage.php'>Please Login First!</a>";
-  exit(1);
-}
-
-if (isset($OJ_LANG)) {
-  require_once("../lang/$OJ_LANG.php");
-}
 ?>
 
-<title>The Second Problem List</title>
-<hr>
 <center>
   <h3><?php echo $MSG_PROBLEM . "-" . $MSG_LIST ?></h3>
 </center>
@@ -62,45 +52,35 @@ if (isset($OJ_LANG)) {
       <button type="submit" class="form-control"><?php echo $MSG_SEARCH ?></button>
     </form>
   </center>
-
-  <?php
-  /*
-echo "<select class='input-mini' onchange=\"location.href='problem_list_2.php?page='+this.value;\">";
-for ($i=1;$i<=$cnt;$i++){
-        if ($i>1) echo '&nbsp;';
-        if ($i==$page) echo "<option value='$i' selected>";
-        else  echo "<option value='$i'>";
-        echo $i+9;
-        echo "**</option>";
-}
-echo "</select>";
-*/
-  ?>
-
+  <br />
   <center>
-    <table width=100% border=1 style="text-align:center;">
-      <tr>
-        <td width=60px><?php echo $MSG_PROBLEM_ID ?></td>
-        <td><?php echo $MSG_TITLE ?></td>
-        <td><?php echo $MSG_SOURCE ?></td>
+    <table width=100% class='center table table-bordered table-condensed'>
+      <thead>
+        <tr>
+          <th class='center'><?php echo $MSG_PROBLEM_ID ?></th>
+          <th class='center'><?php echo $MSG_TITLE ?></th>
+          <th class='center'><?php echo $MSG_SOURCE ?></th>
+          <?php
+          if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor'])) {
+            echo "<th class='center'>编辑</th>";
+          }
+          ?>
+        </tr>
+      </thead>
+      <tbody>
         <?php
-        if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor'])) {
-          echo "<td>编辑</td>";
+        foreach ($result as $row) {
+          echo "<tr>";
+          echo "<td>" . $row['id'] . "</td>";
+          echo "<td>" . $row['title'] . "</td>";
+          echo "<td>" . $row['tag'] . "</td>";
+          if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor'])) {
+            echo "<td><a href=problem_add_page_2.php?id=" . $row['id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">编辑</a>";
+          }
+          echo "</tr>";
         }
         ?>
-      </tr>
-      <?php
-      foreach ($result as $row) {
-        echo "<tr>";
-        echo "<td>" . $row['id'] . "</td>";
-        echo "<td>" . $row['title'] . "</td>";
-        echo "<td>" . $row['tag'] . "</td>";
-        if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor'])) {
-          echo "<td><a href=problem_add_page_2.php?id=" . $row['id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">编辑</a>";
-        }
-        echo "</tr>";
-      }
-      ?>
+      </tbody>
     </table>
   </center>
 
@@ -127,3 +107,6 @@ if (!(isset($_GET['keyword']) && $_GET['keyword'] != "")) {
 
 </div>
 <br />
+<?php
+require_once("admin-footer.php");
+?>

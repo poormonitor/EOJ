@@ -21,3 +21,6 @@ pdo_query($sql, $qid);
 <script language=javascript>
 	history.go(-1);
 </script>
+<?php
+require_once("admin-footer.php");
+?>

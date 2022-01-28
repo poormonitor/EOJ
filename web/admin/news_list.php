@@ -2,18 +2,8 @@
 require("admin-header.php");
 require_once("../include/set_get_key.php");
 
-if (!isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
-  echo "<a href='../loginpage.php'>Please Login First!</a>";
-  exit(1);
-}
-
-if (isset($OJ_LANG)) {
-  require_once("../lang/$OJ_LANG.php");
-}
 ?>
 
-<title>News List</title>
-<hr>
 <center>
   <h3><?php echo $MSG_NEWS . "-" . $MSG_LIST ?></h3>
 </center>
@@ -62,27 +52,31 @@ if (isset($OJ_LANG)) {
       <button type="submit" class="form-control"><?php echo $MSG_SEARCH ?></button>
     </form>
   </center>
-
+  <br />
   <center>
-    <table width=100% border=1 style="text-align:center;">
-      <tr style='height:22px;'>
-        <td>ID</td>
-        <td>标题</td>
-        <td>最后更新</td>
-        <td>状态</td>
-        <td>复制</td>
-      </tr>
-      <?php
-      foreach ($result as $row) {
-        echo "<tr style='height:22px;'>";
-        echo "<td>" . $row['news_id'] . "</td>";
-        echo "<td><a href='news_edit.php?id=" . $row['news_id'] . "'>" . $row['title'] . "</a>" . "</td>";
-        echo "<td>" . $row['time'] . "</td>";
-        echo "<td><a href=news_df_change.php?id=" . $row['news_id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">" . ($row['defunct'] == "N" ? "<span class=green>开启</span>" : "<span class=red>关闭</span>") . "</a>" . "</td>";
-        echo "<td><a href=news_add_page.php?cid=" . $row['news_id'] . ">复制</a></td>";
-        echo "</tr>";
-      }
-      ?>
+    <table width=100% class='center table table-bordered table-condensed'>
+      <thead>
+        <tr style='height:22px;'>
+          <th class='center'>ID</th>
+          <th class='center'>标题</th>
+          <th class='center'>最后更新</th>
+          <th class='center'>状态</th>
+          <th class='center'>复制</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+        foreach ($result as $row) {
+          echo "<tr style='height:22px;'>";
+          echo "<td>" . $row['news_id'] . "</td>";
+          echo "<td><a href='news_edit.php?id=" . $row['news_id'] . "'>" . $row['title'] . "</a>" . "</td>";
+          echo "<td>" . $row['time'] . "</td>";
+          echo "<td><a href=news_df_change.php?id=" . $row['news_id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">" . ($row['defunct'] == "N" ? "<span class=green>开启</span>" : "<span class=red>关闭</span>") . "</a>" . "</td>";
+          echo "<td><a href=news_add_page.php?cid=" . $row['news_id'] . ">复制</a></td>";
+          echo "</tr>";
+        }
+        ?>
+      </tbody>
     </table>
   </center>
 
@@ -105,3 +99,6 @@ if (isset($OJ_LANG)) {
   ?>
 
 </div>
+<?php
+require_once("admin-footer.php");
+?>

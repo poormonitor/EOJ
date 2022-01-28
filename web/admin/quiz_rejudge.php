@@ -97,3 +97,6 @@ if (isset($_POST['do']) && isset($_POST['qid'])) {
 			</form>
 		</div>
 </div>
+<?php
+require_once("admin-footer.php");
+?>

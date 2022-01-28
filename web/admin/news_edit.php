@@ -1,17 +1,8 @@
 <?php
 require_once("admin-header.php");
-if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
-  echo "<a href='../loginpage.php'>Please Login First!</a>";
-  exit(1);
-}
-
 require_once("../include/db_info.inc.php");
 require_once("../include/my_func.inc.php");
-
-echo "<hr>";
 echo "<center><h3>" . $MSG_NEWS . "-" . "Edit" . "</h3></center>";
-
-
 ?>
 
 <div class="container">
@@ -112,3 +103,6 @@ echo "<center><h3>" . $MSG_NEWS . "-" . "Edit" . "</h3></center>";
   </form>
 </div><br /><br />
 <?php require_once('../tinymce/tinymce.php'); ?>
+<?php
+require_once("admin-footer.php");
+?>

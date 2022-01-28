@@ -1,13 +1,6 @@
 <?php require_once("admin-header.php");
-
-if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
-	echo "<a href='../loginpage.php'>Please Login First!</a>";
-	exit(1);
-}
 ?>
 
-<title>Privilege Add</title>
-<hr>
 <center>
 	<h3><?php echo $MSG_USER . "-" . $MSG_PRIVILEGE . "-" . $MSG_ADD ?></h3>
 </center>
@@ -42,19 +35,19 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
 			<center><label class="text-info"><?php echo $MSG_HELP_ADD_PRIVILEGE ?></label></center>
 			<br />
 			<div class="form-group">
-				<label class="col-sm-offset-3 col-sm-3 control-label"><?php echo $MSG_USER_ID ?></label>
+				<label class="col-sm-offset-1 col-sm-3 control-label"><?php echo $MSG_USER_ID ?></label>
 				<?php if (isset($_GET['uid'])) { ?>
-					<div class="col-sm-3"><input name="user_id" class="form-control" value="<?php echo $_GET['uid'] ?>" type="text" required></div>
+					<div class="col-sm-4"><input name="user_id" class="form-control" value="<?php echo $_GET['uid'] ?>" type="text" required></div>
 				<?php } else if (isset($_POST['user_id'])) { ?>
-					<div class="col-sm-3"><input name="user_id" class="form-control" value="<?php echo $_POST['user_id'] ?>" type="text" required></div>
+					<div class="col-sm-4"><input name="user_id" class="form-control" value="<?php echo $_POST['user_id'] ?>" type="text" required></div>
 				<?php } else { ?>
-					<div class="col-sm-3"><input name="user_id" class="form-control" placeholder="<?php echo $MSG_USER_ID . "*" ?>" type="text" required></div>
+					<div class="col-sm-4"><input name="user_id" class="form-control" placeholder="<?php echo $MSG_USER_ID . "*" ?>" type="text" required></div>
 				<?php } ?>
 			</div>
 
 			<div class="form-group">
-				<label class="col-sm-offset-3 col-sm-3 control-label"><?php echo $MSG_PRIVILEGE_TYPE ?></label>
-				<div class='col-sm-3'>
+				<label class="col-sm-offset-1 col-sm-3 control-label"><?php echo $MSG_PRIVILEGE_TYPE ?></label>
+				<div class='col-sm-4'>
 					<select class="form-control" name="rightstr" onchange="show_value_input(this.value)">
 
 						<?php
@@ -70,7 +63,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
 					</select>
 				</div>
 				<br />
-				<div class="col-sm-offset-9"><input id='value_input' type="text" class="form-control" name="valuestr" value="true"></div>
+				<div class="col-sm-offset-9"><input id='value_input' type="hidden" class="form-control" name="valuestr" value="true"></div>
 			</div>
 			<script>
 				function show_value_input(new_value) {
@@ -105,19 +98,19 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
 			<?php require_once("../include/set_post_key.php"); ?>
 			<center><label class="text-info"><?php echo $MSG_HELP_ADD_CONTEST_USER ?></label></center>
 			<div class="form-group">
-				<label class="col-sm-offset-3 col-sm-3 control-label"><?php echo $MSG_USER_ID ?></label>
+				<label class="col-sm-offset-1 col-sm-3 control-label"><?php echo $MSG_USER_ID ?></label>
 				<?php if (isset($_GET['uid'])) { ?>
-					<div class="col-sm-3"><input name="user_id" class="form-control" value="<?php echo $_GET['uid'] ?>" type="text" required></div>
+					<div class="col-sm-4"><input name="user_id" class="form-control" value="<?php echo $_GET['uid'] ?>" type="text" required></div>
 				<?php } else if (isset($_POST['user_id'])) { ?>
-					<div class="col-sm-3"><input name="user_id" class="form-control" value="<?php echo $_POST['user_id'] ?>" type="text" required></div>
+					<div class="col-sm-4"><input name="user_id" class="form-control" value="<?php echo $_POST['user_id'] ?>" type="text" required></div>
 				<?php } else { ?>
-					<div class="col-sm-3"><input name="user_id" class="form-control" placeholder="<?php echo $MSG_USER_ID . "*" ?>" type="text" required></div>
+					<div class="col-sm-4"><input name="user_id" class="form-control" placeholder="<?php echo $MSG_USER_ID . "*" ?>" type="text" required></div>
 				<?php } ?>
 			</div>
 
 			<div class="form-group">
-				<label class="col-sm-offset-3 col-sm-3 control-label"><?php echo $MSG_CONTEST_ID ?></label>
-				<div class="col-sm-3"><input name="rightstr" class="form-control" placeholder="<?php echo $MSG_CONTEST_ID . "*" ?>" type="text"></div>
+				<label class="col-sm-offset-1 col-sm-3 control-label"><?php echo $MSG_CONTEST_ID ?></label>
+				<div class="col-sm-4"><input name="rightstr" class="form-control" placeholder="<?php echo $MSG_CONTEST_ID . "*" ?>" type="text"></div>
 			</div>
 
 			<div class="form-group">
@@ -140,19 +133,19 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
 			<?php require_once("../include/set_post_key.php"); ?>
 			<center><label class="text-info"><?php echo $MSG_HELP_ADD_SOLUTION_VIEW ?></label></center>
 			<div class="form-group">
-				<label class="col-sm-offset-3 col-sm-3 control-label"><?php echo $MSG_USER_ID ?></label>
+				<label class="col-sm-offset-1 col-sm-3 control-label"><?php echo $MSG_USER_ID ?></label>
 				<?php if (isset($_GET['uid'])) { ?>
-					<div class="col-sm-3"><input name="user_id" class="form-control" value="<?php echo $_GET['uid'] ?>" type="text" required></div>
+					<div class="col-sm-4"><input name="user_id" class="form-control" value="<?php echo $_GET['uid'] ?>" type="text" required></div>
 				<?php } else if (isset($_POST['user_id'])) { ?>
-					<div class="col-sm-3"><input name="user_id" class="form-control" value="<?php echo $_POST['user_id'] ?>" type="text" required></div>
+					<div class="col-sm-4"><input name="user_id" class="form-control" value="<?php echo $_POST['user_id'] ?>" type="text" required></div>
 				<?php } else { ?>
-					<div class="col-sm-3"><input name="user_id" class="form-control" placeholder="<?php echo $MSG_USER_ID . "*" ?>" type="text" required></div>
+					<div class="col-sm-4"><input name="user_id" class="form-control" placeholder="<?php echo $MSG_USER_ID . "*" ?>" type="text" required></div>
 				<?php } ?>
 			</div>
 
 			<div class="form-group">
-				<label class="col-sm-offset-3 col-sm-3 control-label"><?php echo $MSG_PROBLEM_ID ?></label>
-				<div class="col-sm-3"><input name="rightstr" class="form-control" placeholder="<?php echo $MSG_PROBLEM_ID . "*" ?>" type="text"></div>
+				<label class="col-sm-offset-1 col-sm-3 control-label"><?php echo $MSG_PROBLEM_ID ?></label>
+				<div class="col-sm-4"><input name="rightstr" class="form-control" placeholder="<?php echo $MSG_PROBLEM_ID . "*" ?>" type="text"></div>
 			</div>
 
 			<div class="form-group">
@@ -169,3 +162,6 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
 	</div>
 
 </div>
+<?php
+require_once("admin-footer.php");
+?>
