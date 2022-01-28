@@ -13,13 +13,13 @@
 	  ){
 		header("Content-type: text/html; charset=utf-8");
 		$view_errors=$MSG_MAIL_NOT_ALLOWED_FOR_EXAM;
-  		require("template/".$OJ_TEMPLATE."/error.php");
+  		require("template/error.php");
 		exit ();
 	}
 	if(isset($OJ_MAIL)&&!$OJ_MAIL){
 		header("Content-type: text/html; charset=utf-8");
 		$view_errors=$MSG_NO_MAIL_HERE;
-  		require("template/".$OJ_TEMPLATE."/error.php");
+  		require("template/error.php");
 		exit ();
 	}
 	$view_title=$MSG_MAIL;
@@ -34,7 +34,7 @@ if (isset($_GET['title'])){
 
 if (!isset($_SESSION[$OJ_NAME.'_'.'user_id'])){
 	$view_errors= "<a href=loginpage.php>$MSG_Login</a>";
-  		require("template/".$OJ_TEMPLATE."/error.php");
+  		require("template/error.php");
 		exit ();
 }
 require_once("./include/db_info.inc.php");
@@ -113,7 +113,7 @@ foreach($result as $row){
 
 
 
-require("template/".$OJ_TEMPLATE."/mail.php");
+require("template/mail.php");
 
 if(file_exists('./include/cache_end.php'))
 	require_once('./include/cache_end.php');

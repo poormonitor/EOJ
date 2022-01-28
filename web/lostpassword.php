@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <script src="<?php echo $OJ_CDN_URL . "template/$OJ_TEMPLATE/" ?>jquery.min.js"></script>
+    <script src="<?php echo $OJ_CDN_URL . "template/" ?>jquery.min.js"></script>
     <script src="<?php echo $OJ_CDN_URL .  "include/" ?>sweetalert.min.js"></script>
     <?php
     require_once('./include/setlang.php');
@@ -21,7 +21,7 @@
     if (isset($_POST['vcode'])) $vcode = trim($_POST['vcode']);
     if ($lost_user_id && ($vcode != $_SESSION[$OJ_NAME . '_' . "vcode"] || $vcode == "" || $vcode == null)) {
         $view_swal = "验证码错误！";
-        require("template/" . $OJ_TEMPLATE . "/error.php");
+        require("template/error.php");
         exit(0);
     }
     $lost_user_id = stripslashes($lost_user_id);
@@ -45,13 +45,13 @@
         $smtp = new smtp($smtpserver, $smtpserverport, true, $smtpuser, $smtppass); //这里面的一个true是表示使用身份验证,否则不使用身份验证.
         $smtp->debug = false; //是否显示发送的调试信息
         $state = $smtp->sendmail($smtpemailto, $smtpusermail, $mailtitle, $mailcontent, $mailtype, $mail, $mailuser = $OJ_NAME);
-        require("template/" . $OJ_TEMPLATE . "/lostpassword2.php");
+        require("template/lostpassword2.php");
     } else {
         if ($_POST['user_id'] != "" && $_POST['email'] != "") {
             $view_swal = $MSG_PARAMS_ERROR;
-            require("template/" . $OJ_TEMPLATE . "/error.php");
+            require("template/error.php");
         } else {
-            require("template/" . $OJ_TEMPLATE . "/lostpassword.php");
+            require("template/lostpassword.php");
         }
     }
     ?>

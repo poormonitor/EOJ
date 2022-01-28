@@ -29,7 +29,7 @@ $rrs = pdo_query($sql, $user, $now, $now, "%$OJ_NOIP_KEYWORD%");
 $flag = count($rrs) > 0;
 if ($flag) {
 	$view_errors =  "<h2> $MSG_NOIP_WARNING </h2>";
-	require("template/" . $OJ_TEMPLATE . "/error.php");
+	require("template/error.php");
 	exit(0);
 }
 
@@ -39,7 +39,7 @@ $result = pdo_query($sql, $user);
 $row_cnt = count($result);
 if ($row_cnt == 0) {
 	$view_swal = "用户不存在";
-	require("template/" . $OJ_TEMPLATE . "/error.php");
+	require("template/error.php");
 	exit(0);
 }
 
@@ -103,7 +103,7 @@ foreach ($result as $row) {
 	array_push($chart_data_ac, array($row['md'], intval($row['c'])));
 }
 
-require("template/" . $OJ_TEMPLATE . "/userinfo.php");
+require("template/userinfo.php");
 
 if (file_exists('./include/cache_end.php'))
 	require_once('./include/cache_end.php');

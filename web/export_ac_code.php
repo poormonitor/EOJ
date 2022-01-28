@@ -4,7 +4,7 @@ require_once("./include/db_info.inc.php");
          header ( "content-disposition:   attachment;   filename=\"ac-".$_SESSION[$OJ_NAME.'_'.'user_id'].".txt" );
 if (!isset($_SESSION[$OJ_NAME.'_'.'user_id'])){
 	$view_errors= "<a href=./loginpage.php>$MSG_Login</a>";
-	require("template/".$OJ_TEMPLATE."/error.php");
+	require("template/error.php");
 	exit(0);
 }
 $sql="select distinct source,problem_id from source_code right join 

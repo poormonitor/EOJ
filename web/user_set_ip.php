@@ -141,7 +141,7 @@ if (isset($_GET['cid'])) {
 			$view_errors .= "</center>";
 			$view_errors .= "<br /><br />";
 
-			require("template/".$OJ_TEMPLATE."/error.php");
+			require("template/error.php");
 			exit(0);
 		}
 	}
@@ -173,7 +173,7 @@ if (isset($_GET['cid'])) {
 		$view_errors .= "</table>";
 		$view_errors .= "<br />";
 
-		require("template/".$OJ_TEMPLATE."/error.php");
+		require("template/error.php");
 		exit(0);
 	}
 }
@@ -194,7 +194,7 @@ if ((isset($_SESSION[$OJ_NAME.'_'.'administrator']) || isset($_SESSION[$OJ_NAME.
 
 
 if (isset($_GET['cid']))
-  require("template/".$OJ_TEMPLATE."/user_set_ip.php");
+  require("template/user_set_ip.php");
 
 
 if (file_exists('./include/cache_end.php') )

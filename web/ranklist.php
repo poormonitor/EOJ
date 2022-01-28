@@ -20,7 +20,7 @@ if (isset($OJ_NOIP_KEYWORD) && $OJ_NOIP_KEYWORD) {
     if ($cols[0] > 0) {
 
         $view_errors =  "<h2> $MSG_NOIP_WARNING </h2>";
-        require("template/" . $OJ_TEMPLATE . "/error.php");
+        require("template/error.php");
         exit(0);
     }
 }
@@ -96,7 +96,7 @@ if (isset($_GET['prefix'])) {
         $result = pdo_query($sql, $_GET['prefix'] . "%");
     } else {
         $view_swal =  "用户名不合法！";
-        require("template/" . $OJ_TEMPLATE . "/error.php");
+        require("template/error.php");
         exit(0);
     }
 } else {
@@ -137,7 +137,7 @@ $view_total = $row['mycount'];
 
 
 
-require("template/" . $OJ_TEMPLATE . "/ranklist.php");
+require("template/ranklist.php");
 
 if (file_exists('./include/cache_end.php'))
     require_once('./include/cache_end.php');

@@ -8,7 +8,7 @@ if (file_exists("../lang/$OJ_LANG.php"))
 if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor']) || isset($_SESSION[$OJ_NAME . '_' . 'password_setter']))) {
     $view_swal_params = "{title:'$MSG_NOT_LOGINED',icon:'error'}";
     $error_location = "../loginpage.php";
-    require("../template/$OJ_TEMPLATE/error.php");
+    require("../template/error.php");
     exit(0);
 }
 $url = basename($_SERVER['REQUEST_URI']);
@@ -25,7 +25,7 @@ header("Cache-control: private");
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="/favicon.ico">
-    <?php include("../template/$OJ_TEMPLATE/css.php"); ?>
+    <?php include("../template/css.php"); ?>
     <title><?php echo $OJ_NAME ?></title>
 </head>
 
@@ -70,7 +70,7 @@ header("Cache-control: private");
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span id="profile">Login</span><span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <script src="<?php echo "../template/$OJ_TEMPLATE/profile.php?loc=admin&profile_csrf=" . $_SESSION[$OJ_NAME . '_' . 'profile_csrf']; ?>"></script>
+                                <script src="<?php echo "../template/profile.php?loc=admin&profile_csrf=" . $_SESSION[$OJ_NAME . '_' . 'profile_csrf']; ?>"></script>
                             </ul>
                         </li>
                     </ul>

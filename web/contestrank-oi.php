@@ -126,13 +126,13 @@ if ($rows_cnt > 0) {
 }
 if ($start_time == 0) {
   $view_swal = $MSG_NOT_EXISTED;
-  require("template/" . $OJ_TEMPLATE . "/error.php");
+  require("template/error.php");
   exit(0);
 }
 
 if ($start_time > time()) {
   $view_swal = $MSG_PRIVATE_WARNING;
-  require("template/" . $OJ_TEMPLATE . "/error.php");
+  require("template/error.php");
   exit(0);
 }
 $noip = (time() < $end_time) && (stripos($title, $OJ_NOIP_KEYWORD) !== false);
@@ -144,7 +144,7 @@ if (
 ) $noip = false;
 if ($noip) {
   $view_errors =  "<h2>$MSG_NOIP_WARNING</h2>";
-  require("template/" . $OJ_TEMPLATE . "/error.php");
+  require("template/error.php");
   exit(0);
 }
 if (!isset($OJ_RANK_LOCK_PERCENT))
@@ -236,7 +236,7 @@ foreach ($fb as $row) {
 
 
 
-require("template/" . $OJ_TEMPLATE . "/contestrank-oi.php");
+require("template/contestrank-oi.php");
 
 if (file_exists('./include/cache_end.php'))
   require_once('./include/cache_end.php');

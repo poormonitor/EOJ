@@ -9,13 +9,13 @@
 require_once("./include/const.inc.php");
 if (!isset($_GET['id'])){
 	$view_errors= "No such code!\n";
-	require("template/".$OJ_TEMPLATE."/error.php");
+	require("template/error.php");
 	exit(0);
 }
 if (!isset($_SESSION[$OJ_NAME.'_'.'printer'])){
 
 	$view_errors= "Not privileged!\n";
-	require("template/".$OJ_TEMPLATE."/error.php");
+	require("template/error.php");
 	exit(0);
 
 }
@@ -32,7 +32,7 @@ if($row=$result[0]){
    }
 }
 
-require("template/".$OJ_TEMPLATE."/printer_view.php");
+require("template/printer_view.php");
 
 if(file_exists('./include/cache_end.php'))
 	require_once('./include/cache_end.php');

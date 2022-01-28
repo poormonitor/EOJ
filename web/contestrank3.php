@@ -124,7 +124,7 @@ function team2Array($team) {
 // 请求未带参数
 if (!isset($_GET['cid'])) {
     $view_errors = "No Such Contest";
-    require("template/" . $OJ_TEMPLATE . "/error.php");
+    require("template/error.php");
     exit(0);
 }
 
@@ -134,7 +134,7 @@ $cid = intval($_GET['cid']);
 // 非管理员不能访问
 /*if (!isset($_SESSION[$OJ_NAME.'_'.'administrator'])) {
     $view_errors = "Access Deny";
-    require("template/" . $OJ_TEMPLATE . "/error.php");
+    require("template/error.php");
     exit();
 }
 */
@@ -148,7 +148,7 @@ if(isset($_SESSION[$OJ_NAME."_lock_percent"])){
 // 不封榜，就不能滚榜
 if (!isset($OJ_RANK_LOCK_PERCENT)||$OJ_RANK_LOCK_PERCENT==0) {
     $view_errors = "The Ranking is Unlocked";
-    require("template/" . $OJ_TEMPLATE . "/error.php");
+    require("template/error.php");
     exit(0);
 }
 
@@ -185,7 +185,7 @@ if (!$OJ_MEMCACHE) {
     // 开始时间仍然为零 说明 比赛不存在
     if ($start_time == 0) {
         $view_errors = "No Such Contest";
-        require("template/" . $OJ_TEMPLATE . "/error.php");
+        require("template/error.php");
         exit(0);
     }
 }
@@ -193,14 +193,14 @@ if (!$OJ_MEMCACHE) {
 // 还未开始
 if ($start_time > time()) {
     $view_errors = "Contest Not Started!";
-    require("template/" . $OJ_TEMPLATE . "/error.php");
+    require("template/error.php");
     exit(0);
 }
 
 // 还未结束
 if ($end_time > time()) {
     $view_errors = "Contest Not Finished!";
-    require("template/" . $OJ_TEMPLATE . "/error.php");
+    require("template/error.php");
     exit(0);
 }
 
@@ -212,7 +212,7 @@ if ($end_time > time()) {
 	   ) $noip=false;
 if($noip){
       $view_errors =  "<h2>$MSG_NOIP_WARNING</h2>";
-      require("template/".$OJ_TEMPLATE."/error.php");
+      require("template/error.php");
       exit(0);
 }
 // json 请求时
@@ -255,7 +255,7 @@ $silver_num=intval($team_num*0.15);
 $bronze_num=intval($team_num*0.20);
 
 
-require("template/".$OJ_TEMPLATE."/contestrank3.php");
+require("template/contestrank3.php");
 
 
 if (file_exists('./include/cache_end.php'))

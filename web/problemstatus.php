@@ -35,7 +35,7 @@ $flag = count($rrs)>0 ;
 
 if ($flag) {
   $view_errors = "<h2> $MSG_NOIP_WARNING </h2>";
-  require("template/".$OJ_TEMPLATE."/error.php");
+  require("template/error.php");
   exit(0);
 }
 
@@ -222,7 +222,7 @@ if (isset($_GET['id'])) {
 }
 
 
-require("template/".$OJ_TEMPLATE."/problemstatus.php");
+require("template/problemstatus.php");
 
 if(file_exists('./include/cache_end.php'))
   require_once('./include/cache_end.php');

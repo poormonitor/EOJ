@@ -14,7 +14,7 @@ if (!isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
     } else {
         $view_swal = "需要登陆";
         $error_location = "loginpage.php";
-        require("template/" . $OJ_TEMPLATE . "/error.php");
+        require("template/error.php");
         exit(0);
     }
 }
@@ -29,7 +29,7 @@ if (isset($_GET['qid'])) {
     if ($rows_cnt) {
         $view_swal = $MSG_ALREADY_SUBMIT;
         $error_location = "quiz.php?qid=$id";
-        require("template/" . $OJ_TEMPLATE . "/error.php");
+        require("template/error.php");
         exit(0);
     }
     
@@ -45,7 +45,7 @@ if (isset($_GET['qid'])) {
     $result = pdo_query($sql, $id);
     if (count($result) != 1) {
         $view_swal = $MSG_NO_SUCH_PROBLEM;
-        require("template/" . $OJ_TEMPLATE . "/error.php");
+        require("template/error.php");
         exit(0);
     }
     $result = $result[0];
@@ -61,8 +61,8 @@ if (isset($_GET['qid'])) {
     */
 } else {
     $view_swal = "题目不存在！";
-    require("template/" . $OJ_TEMPLATE . "/error.php");
+    require("template/error.php");
     exit(0);
 }
 
-require("template/" . $OJ_TEMPLATE . "/quiz_submitpage.php");
+require("template/quiz_submitpage.php");

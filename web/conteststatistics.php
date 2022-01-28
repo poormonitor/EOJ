@@ -15,7 +15,7 @@ $result = pdo_query($sql, $cid);
 $num = count($result);
 if ($num == 0) {
 	$view_errors = $MSG_PRIVATE_WARNING;
-	require("template/" . $OJ_TEMPLATE . "/error.php");
+	require("template/error.php");
 	exit(0);
 }
 $row = $result[0];
@@ -30,7 +30,7 @@ if (
 ) $noip = false;
 if ($noip) {
 	$view_errors =  "<h2>$MSG_NOIP_WARNING</h2>";
-	require("template/" . $OJ_TEMPLATE . "/error.php");
+	require("template/error.php");
 	exit(0);
 }
 
@@ -115,7 +115,7 @@ if (time() > $view_lock_time && time() < $end_time + $OJ_RANK_LOCK_DELAY) {
 }
 
 
-require("template/" . $OJ_TEMPLATE . "/conteststatistics.php");
+require("template/conteststatistics.php");
 
 if (file_exists('./include/cache_end.php'))
 	require_once('./include/cache_end.php');

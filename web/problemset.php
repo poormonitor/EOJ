@@ -149,7 +149,7 @@ foreach ($result as $row) {
 	$i++;
 }
 
-require("template/" . $OJ_TEMPLATE . "/problemset.php");
+require("template/problemset.php");
 
 if (file_exists('./include/cache_end.php'))
 	require_once('./include/cache_end.php');

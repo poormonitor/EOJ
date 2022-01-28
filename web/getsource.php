@@ -9,7 +9,7 @@ $view_title = "Source Code";
 require_once("./include/const.inc.php");
 if (!isset($_GET['id'])) {
 	$view_errors = "No such code!\n";
-	require("template/" . $OJ_TEMPLATE . "/error.php");
+	require("template/error.php");
 	exit(0);
 }
 $ok = false;

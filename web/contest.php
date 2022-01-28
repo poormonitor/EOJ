@@ -106,7 +106,7 @@
 
 		if ($rows_cnt == 0) {
 			$view_swal = $MSG_NOT_EXISTED;
-			require("template/" . $OJ_TEMPLATE . "/error.php");
+			require("template/error.php");
 			exit(0);
 		} else {
 			$row = $result[0];
@@ -141,7 +141,7 @@
 				$view_errors .= "</center>";
 				$view_errors .= "<br /><br />";
 
-				require("template/" . $OJ_TEMPLATE . "/error.php");
+				require("template/error.php");
 				exit(0);
 			}
 		}
@@ -160,7 +160,7 @@
 			$view_errors .= "<a href=conteststatistics.php?cid=$view_cid class='btn btn-primary btn-sm'>$MSG_STATISTICS</a>";
 			$view_errors .= "</div>";
 			$view_errors .= "<br />";
-			require("template/" . $OJ_TEMPLATE . "/error.php");
+			require("template/error.php");
 			exit(0);
 		}
 
@@ -329,9 +329,9 @@
 
 
 	if (isset($_GET['cid']))
-		require("template/" . $OJ_TEMPLATE . "/contest.php");
+		require("template/contest.php");
 	else
-		require("template/" . $OJ_TEMPLATE . "/contestset.php");
+		require("template/contestset.php");
 
 	if (file_exists('./include/cache_end.php'))
 		require_once('./include/cache_end.php');

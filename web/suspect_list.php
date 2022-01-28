@@ -141,7 +141,7 @@ if (isset($_GET['cid'])) {
 			$view_errors .= "</center>";
 			$view_errors .= "<br /><br />";
 
-			require("template/".$OJ_TEMPLATE."/error.php");
+			require("template/error.php");
 			exit(0);
 		}
 	}
@@ -161,7 +161,7 @@ if (isset($_GET['cid'])) {
 		$view_errors .= "</div>";
 		$view_errors .= "<br />";
 
-		require("template/".$OJ_TEMPLATE."/error.php");
+		require("template/error.php");
 		exit(0);
 	}
 }
@@ -184,11 +184,11 @@ if (isset($_GET['cid'])) {
 
 if (isset($_GET['cid'])) {
     if (isset($_SESSION[$OJ_NAME.'_'.'administrator'])) {
-    require("template/".$OJ_TEMPLATE."/suspect_list.php");
+    require("template/suspect_list.php");
     }
     else {
     $view_errors = $MSG_WARNING_ACCESS_DENIED;
-    require("template/".$OJ_TEMPLATE."/error.php");
+    require("template/error.php");
     exit(0);
     }
 }

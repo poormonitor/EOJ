@@ -18,7 +18,7 @@
 
 	<?php require_once("./include/db_info.inc.php"); ?>
 
-	<script src="<?php echo $OJ_CDN_URL . "template/$OJ_TEMPLATE/" ?>jquery.min.js"></script>
+	<script src="<?php echo $OJ_CDN_URL . "template/" ?>jquery.min.js"></script>
 	<script src="<?php echo $OJ_CDN_URL .  "include/" ?>sweetalert.min.js"></script>
 
 	<?php
@@ -119,7 +119,7 @@
 		echo "</script>";
 	} else {
 		if ($view_errors) {
-			require("template/" . $OJ_TEMPLATE . "/error.php");
+			require("template/error.php");
 		} else {
 			echo "<script language='javascript'>\n";
 			echo "swal('$MSG_ERROR','$MSG_UP_WRONG','error').then((onConfirm)=>{history.go(-1);});\n";

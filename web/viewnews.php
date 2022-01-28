@@ -60,7 +60,7 @@ if ( isset( $_SESSION[ $OJ_NAME . '_' . 'administrator' ] ) ) {
 }
 
 
-require( "template/" . $OJ_TEMPLATE . "/viewnews.php" );
+require( "template/viewnews.php" );
 
 if ( file_exists( './include/cache_end.php' ) )
 	require_once( './include/cache_end.php' );

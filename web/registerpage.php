@@ -11,7 +11,7 @@ if(isset($OJ_REGISTER)&&!$OJ_REGISTER) exit(0);
 ///////////////////////////MAIN	
 	
 
-require("template/".$OJ_TEMPLATE."/registerpage.php");
+require("template/registerpage.php");
 
 if(file_exists('./include/cache_end.php'))
 	require_once('./include/cache_end.php');

@@ -71,7 +71,7 @@ foreach ($result as $row) {
 if (isset(end($chart_data_all)[1])) $speed = (end($chart_data_all)[1] ? end($chart_data_all)[1] : 0) . ' / ' . $MSG_DAYS;
 
 
-require("template/" . $OJ_TEMPLATE . "/index.php");
+require("template/index.php");
 if (
 	isset($OJ_LONG_LOGIN)
 	&& $OJ_LONG_LOGIN
