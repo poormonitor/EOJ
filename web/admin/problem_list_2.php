@@ -83,8 +83,6 @@ require_once("../include/set_get_key.php");
       </tbody>
     </table>
   </div>
-
-  <script src='<?php echo $OJ_CDN_URL . "template/bs3/" ?>jquery.min.js'></script>
 </div>
 
 <?php

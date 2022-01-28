@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="">
 	<meta name="author" content="">
-	<link rel="icon" href="../../favicon.ico">
+	<link rel="icon" href="favicon.ico">
 	<link type="text/css" rel="stylesheet" href="<?php echo $OJ_CDN_URL . "mergely/" ?>codemirror.min.css" />
 	<link type="text/css" rel="stylesheet" href="<?php echo $OJ_CDN_URL . "mergely/" ?>mergely.min.css" />
 

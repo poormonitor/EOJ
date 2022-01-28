@@ -264,7 +264,7 @@ if (isset($_GET['qid'])) {
 <?php
 require_once("admin-footer.php");
 ?>
-<script src="../template/bs3/echarts.min.js"></script>
+<script src="../template/echarts.min.js"></script>
 <script>
     var score_charts = [];
     $("div[id^=score]").each(function(index, elem) {
