@@ -7,6 +7,7 @@ if (file_exists("../lang/$OJ_LANG.php"))
 
 if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor']) || isset($_SESSION[$OJ_NAME . '_' . 'password_setter']))) {
     $view_swal_params = "{title:'$MSG_NOT_LOGINED',icon:'error'}";
+    $error_location = "../loginpage.php";
     require("../template/$OJ_TEMPLATE/error.php");
     exit(0);
 }

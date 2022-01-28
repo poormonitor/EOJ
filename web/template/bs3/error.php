@@ -30,7 +30,7 @@ if (isset($view_errors_js) || isset($view_swal) || isset($view_swal_params)) { ?
       $error_location = "history.go(-1)";
     }
     if (isset($view_swal_params))
-      echo "swal($view_swal_params);";
+      echo "swal($view_swal_params).then((onConfirm)=>{" . $error_location . ";});";
     if (isset($view_swal)) {
       echo "swal('$view_swal').then((onConfirm)=>{" . $error_location . ";});";
     }
