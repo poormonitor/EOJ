@@ -91,6 +91,7 @@
                     <th><?php echo $MSG_NICK ?></th>
                     <th><?php echo $MSG_SUBMIT_TIME ?></th>
                     <th><?php echo $MSG_SCORE_SUM ?></th>
+                    <th><?php echo $MSG_QUIZ_SCORE ?></th>
                     <th><?php echo $MSG_IS_JUDGED ?></th>
                     <th><?php echo $MSG_QUIZ_JUDGE_TIME ?></th>
                   </tr>
@@ -100,6 +101,7 @@
                     <td><?php echo $answer["user_id"] ?></td>
                     <td><?php echo $answer["nick"] ?></td>
                     <td><?php echo $answer["in_date"] ?></td>
+                    <td><?php echo $quiz_total ?></td>
                     <td><?php echo $answer["total"] ?></td>
                     <td><?php echo $answer["judged"] ? $MSG_TRUE_FALSE[true] : $MSG_TRUE_FALSE[false] ?></td>
                     <td><?php echo $answer["judgetime"] == NULL ? "-" : $answer["judgetime"] ?></td>
