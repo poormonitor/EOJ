@@ -20,7 +20,7 @@
     $lost_email = $_POST['email'];
     if (isset($_POST['vcode'])) $vcode = trim($_POST['vcode']);
     if ($lost_user_id && ($vcode != $_SESSION[$OJ_NAME . '_' . "vcode"] || $vcode == "" || $vcode == null)) {
-        $view_swal = "验证码错误！";
+        $view_swal = "$MSG_VCODE_WRONG！";
         require("template/error.php");
         exit(0);
     }

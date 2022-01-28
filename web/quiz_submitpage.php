@@ -60,7 +60,7 @@ if (isset($_GET['qid'])) {
     3: human judge
     */
 } else {
-    $view_swal = "题目不存在！";
+    $view_swal = "$MSG_NOT_EXISTED";
     require("template/error.php");
     exit(0);
 }

@@ -1,5 +1,5 @@
 <?php
-require_once("admin-header.php");
+require_once("../include/db_info.inc.php");
 require_once("../include/my_func.inc.php");
 if (isset($_GET['qid'])) {
     $qid = intval($_GET['qid']);
@@ -39,6 +39,7 @@ if (isset($_GET['qid'])) {
     header("Location: quiz_list.php");
     exit(0);
 }
+require_once("admin-header.php");
 ?>
 <script>
     var score_options = [];

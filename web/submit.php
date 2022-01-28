@@ -41,7 +41,7 @@ if (!$OJ_BENCHMARK_MODE) {
     $err_str = $err_str . $MSG_VCODE_WRONG;
     $err_cnt++;
     $view_errors = "<h3>" . $err_str . "</h3>";
-    $view_errors_js .= "swal('验证码错误！').then((onConfirm)=>{history.go(-1);});";
+    $view_errors_js .= "swal('$MSG_VCODE_WRONG！').then((onConfirm)=>{history.go(-1);});";
     if (isset($_GET['ajax'])) {
       echo "-1";
     } else {

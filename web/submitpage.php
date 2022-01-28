@@ -45,7 +45,7 @@ if (isset($_GET['id'])) {
 	$problem_id = $row[0];
 	$sample_sql = "SELECT p.sample_input, p.sample_output, p.problem_id FROM problem p WHERE problem_id = ? ";
 } else {
-	$view_swal = "题目不存在！";
+	$view_swal = "$MSG_NOT_EXISTED";
 	require("template/error.php");
 	exit(0);
 }
@@ -110,7 +110,7 @@ if (isset($sample_sql)) {
 	}
 
 	if ($result == false) {
-		$view_swal = "题目不存在！";
+		$view_swal = "$MSG_NOT_EXISTED";
 		require("template/error.php");
 		exit(0);
 	}
