@@ -1,16 +1,7 @@
 <?php require_once("admin-header.php");
 
-if (!(isset($_SESSION[$OJ_NAME.'_'.'administrator']) || isset($_SESSION[$OJ_NAME.'_'.'password_setter']) )){
-	echo "<a href='../loginpage.php'>Please Login First!</a>";
-	exit(1);
-}
-
-if(isset($OJ_LANG)){
-  require_once("../lang/$OJ_LANG.php");
-}
 ?>
 
-<title>Set Password</title>
 <hr>
 <center><h3><?php echo $MSG_USER."-".$MSG_SETPASSWORD?></h3></center>
 
@@ -38,22 +29,22 @@ if(isset($_POST['do'])){
   	echo "<center><h4 class='text-danger'>There is No such User ".$_POST['user_id']."! or User ".$_POST['user_id']." is administrator!</h4></center>";
 }
 ?>
-
+<br />
 <form action=changepass.php method=post class="form-horizontal">
 	<div class="form-group">
-		<label class="col-sm-offset-3 col-sm-3 control-label"><?php echo $MSG_USER_ID?></label>
+		<label class="col-sm-offset-1 col-sm-3 control-label"><?php echo $MSG_USER_ID?></label>
 		<?php if(isset($_GET['uid'])) { ?>
-		<div class="col-sm-3"><input name="user_id" class="form-control" value="<?php echo $_GET['uid']?>" type="text" required ></div>
+		<div class="col-sm-4"><input name="user_id" class="form-control" value="<?php echo $_GET['uid']?>" type="text" required ></div>
   	<?php } else if(isset($_POST['user_id'])) { ?>
-		<div class="col-sm-3"><input name="user_id" class="form-control" value="<?php echo $_POST['user_id']?>" type="text" required ></div>
+		<div class="col-sm-4"><input name="user_id" class="form-control" value="<?php echo $_POST['user_id']?>" type="text" required ></div>
 		<?php } else { ?>
-		<div class="col-sm-3"><input name="user_id" class="form-control" placeholder="<?php echo $MSG_USER_ID."*"?>" type="text" required ></div>
+		<div class="col-sm-4"><input name="user_id" class="form-control" placeholder="<?php echo $MSG_USER_ID."*"?>" type="text" required ></div>
 		<?php } ?>
 	</div>
 
 	<div class="form-group">
-		<label class="col-sm-offset-3 col-sm-3 control-label"><?php echo $MSG_PASSWORD?></label>
-		<div class="col-sm-3"><input name="passwd" class="form-control" placeholder="<?php echo $MSG_PASSWORD."*"?>" type="password"  autocomplete="off" required ></div>
+		<label class="col-sm-offset-1 col-sm-3 control-label"><?php echo $MSG_PASSWORD?></label>
+		<div class="col-sm-4"><input name="passwd" class="form-control" placeholder="<?php echo $MSG_PASSWORD."*"?>" type="password"  autocomplete="off" required ></div>
 	</div>
 
 	<div class="form-group">
@@ -68,6 +59,10 @@ if(isset($_POST['do'])){
 </form>
 
 </div>
+
+<?php
+require_once("admin-footer.php");
+?>
 
 
 

@@ -1,15 +1,8 @@
 <?php
 require("admin-header.php");
 require_once("../include/set_get_key.php");
-
-
-if (isset($OJ_LANG)) {
-  require_once("../lang/$OJ_LANG.php");
-}
 ?>
 
-<title>Quiz List</title>
-<hr>
 <center>
   <h3><?php echo $MSG_QUIZ . "-" . $MSG_LIST ?></h3>
 </center>
@@ -51,57 +44,61 @@ if (isset($OJ_LANG)) {
     $result = pdo_query($sql);
   }
   ?>
-
   <center>
     <form action=quiz_list.php class="form-search form-inline">
       <input type="text" name=keyword class="form-control search-query" placeholder="<?php echo $MSG_QUIZ . ', ' . $MSG_EXPLANATION ?>">
       <button type="submit" class="form-control"><?php echo $MSG_SEARCH ?></button>
     </form>
   </center>
+  <br />
   <center>
     <form action=quiz_add.php method='GET' class="form-search form-inline">
       <input type="text" name='num' class="form-control search-query" required placeholder="<?php echo $MSG_INQUERY_NUMBER ?>">
       <button type="submit" class="form-control"><?php echo $MSG_ADD ?></button>
     </form>
   </center>
-
+  <br />
   <center>
-    <table width=100% border=1 style="text-align:center;">
-      <tr>
-        <td>ID</td>
-        <td>名称</td>
-        <td>开始时间</td>
-        <td>结束时间</td>
-        <td>权限</td>
-        <td>状态</td>
-        <td>编辑</td>
-        <td>复制</td>
-        <td><?php echo $MSG_REJUDGE ?></td>
-        <td><?php echo $MSG_QUIZ_JUDGE ?></td>
-        <td><?php echo $MSG_ANALYSIS ?></td>
-      </tr>
-      <?php
-      foreach ($result as $row) {
-        echo "<tr>";
-        echo "<td>" . $row['quiz_id'] . "</td>";
-        echo "<td><a href='../quiz.php?qid=" . $row['quiz_id'] . "'>" . $row['title'] . "</a></td>";
-        echo "<td>" . $row['start_time'] . "</td>";
-        echo "<td>" . $row['end_time'] . "</td>";
-        $qid = $row['quiz_id'];
-        if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . "mq$qid"])) {
-          echo "<td><a href=quiz_pr_change.php?qid=" . $row['quiz_id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">" . ($row['private'] == "0" ? "<span class=green>公开</span>" : "<span class=red>私有<span>") . "</a></td>";
-          echo "<td><a href=quiz_df_change.php?qid=" . $row['quiz_id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">" . ($row['defunct'] == "N" ? "<span class=green>可用</span>" : "<span class=red>锁定</span>") . "</a></td>";
-          echo "<td><a href=quiz_edit.php?qid=" . $row['quiz_id'] . ">编辑</a></td>";
-          echo "<td><a href=quiz_add.php?qid=" . $row['quiz_id'] . ">复制</a></td>";
-        } else {
-          echo "<td colspan=5 align=right><a href=quiz_add.php?qid=" . $row['quiz_id'] . ">复制</a><td>";
+    <table width=100% class='center table table-bordered table-condensed'>
+      <thead>
+        <tr>
+          <th class='center'>ID</th>
+          <th class='center'>名称</th>
+          <th class='center'>开始时间</th>
+          <th class='center'>结束时间</th>
+          <th class='center'>权限</th>
+          <th class='center'>状态</th>
+          <th class='center'>编辑</th>
+          <th class='center'>复制</th>
+          <th class='center'><?php echo $MSG_REJUDGE ?></th>
+          <th class='center'><?php echo $MSG_QUIZ_JUDGE ?></th>
+          <th class='center'><?php echo $MSG_ANALYSIS ?></th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+        foreach ($result as $row) {
+          echo "<tr>";
+          echo "<td>" . $row['quiz_id'] . "</td>";
+          echo "<td><a href='../quiz.php?qid=" . $row['quiz_id'] . "'>" . $row['title'] . "</a></td>";
+          echo "<td>" . $row['start_time'] . "</td>";
+          echo "<td>" . $row['end_time'] . "</td>";
+          $qid = $row['quiz_id'];
+          if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . "mq$qid"])) {
+            echo "<td><a href=quiz_pr_change.php?qid=" . $row['quiz_id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">" . ($row['private'] == "0" ? "<span class=green>公开</span>" : "<span class=red>私有<span>") . "</a></td>";
+            echo "<td><a href=quiz_df_change.php?qid=" . $row['quiz_id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">" . ($row['defunct'] == "N" ? "<span class=green>可用</span>" : "<span class=red>锁定</span>") . "</a></td>";
+            echo "<td><a href=quiz_edit.php?qid=" . $row['quiz_id'] . ">编辑</a></td>";
+            echo "<td><a href=quiz_add.php?qid=" . $row['quiz_id'] . ">复制</a></td>";
+          } else {
+            echo "<td colspan=5 align=right><a href=quiz_add.php?qid=" . $row['quiz_id'] . ">复制</a><td>";
+          }
+          echo "<td><a href=quiz_rejudge.php?qid=" . $row['quiz_id'] . ">" . $MSG_REJUDGE . "</a></td>";
+          echo "<td><a href=quiz_judge.php?qid=" . $row['quiz_id'] . ">" . $MSG_QUIZ_JUDGE . "</a></td>";
+          echo "<td><a href=quiz_analysis.php?qid=" . $row['quiz_id'] . ">" . $MSG_ANALYSIS . "</a></td>";
+          echo "</tr>";
         }
-        echo "<td><a href=quiz_rejudge.php?qid=" . $row['quiz_id'] . ">" . $MSG_REJUDGE . "</a></td>";
-        echo "<td><a href=quiz_judge.php?qid=" . $row['quiz_id'] . ">" . $MSG_QUIZ_JUDGE . "</a></td>";
-        echo "<td><a href=quiz_analysis.php?qid=" . $row['quiz_id'] . ">" . $MSG_ANALYSIS . "</a></td>";
-        echo "</tr>";
-      }
-      ?>
+        ?>
+      </tbody>
     </table>
   </center>
 
@@ -135,3 +132,6 @@ if (isset($OJ_LANG)) {
     })
   </script>
 <?php } ?>
+<?php
+require_once("admin-footer.php");
+?>

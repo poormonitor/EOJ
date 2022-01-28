@@ -2,7 +2,6 @@
 require_once("../include/db_info.inc.php");
 require_once("../lang/$OJ_LANG.php");
 require_once("../include/const.inc.php");
-require_once("admin-header.php");
 $description = "";
 if (isset($_POST['qid'])) {
     require_once("../include/check_post_key.php");
@@ -21,7 +20,6 @@ if (isset($_POST['qid'])) {
     $row = $result[0];
     $aid = $row['aid'];
     $n_score = array_map("intval", explode("/", $row['score']));
-    $now_score = pdo_query("SELECT * FROM quiz_user WHERE `quiz_id`=? AND `user_id`=?", $qid, $_SESSION['user_id']);
     for ($i = 0; $i < $num; $i++) {
         $pid = $i + 1;
         if ($type[$i] == 3) {
@@ -69,25 +67,9 @@ if (isset($_POST['qid'])) {
     exit(0);
 }
 
+require_once("admin-header.php");
 ?>
-
-<!DOCTYPE html>
-<?php
-header("Cache-control:private");
-?>
-<html>
-
-<head>
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Cache-Control" content="no-cache">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Quiz Judge</title>
-
-</head>
-<hr>
 <?php echo "<center><h3>" . $MSG_QUIZ . "-" . $MSG_QUIZ_JUDGE . "</h3></center>"; ?>
-
-<body>
     <style>
         input[type=date],
         input[type=time],
@@ -150,6 +132,6 @@ header("Cache-control:private");
     <?php
     require_once("../oj-footer.php");
     require_once('../tinymce/tinymce.php'); ?>
-</body>
-
-</html>
+<?php
+require_once("admin-footer.php");
+?>

@@ -2,20 +2,12 @@
 require("admin-header.php");
 require_once("../include/set_get_key.php");
 
-
-if (isset($OJ_LANG)) {
-  require_once("../lang/$OJ_LANG.php");
-}
 ?>
-
-<title>Contest List</title>
-<hr>
 <center>
   <h3><?php echo $MSG_CONTEST . "-" . $MSG_LIST ?></h3>
 </center>
 
 <div class='container'>
-
   <?php
   $sql = "SELECT COUNT('contest_id') AS ids FROM `contest`";
   $result = pdo_query($sql);
@@ -58,22 +50,24 @@ if (isset($OJ_LANG)) {
       <button type="submit" class="form-control"><?php echo $MSG_SEARCH ?></button>
     </form>
   </center>
-
+  <br>
   <center>
-    <table width=100% border=1 style="text-align:center;">
-      <tr>
-        <td>ID</td>
-        <td>名称</td>
-        <td>开始时间</td>
-        <td>结束时间</td>
-        <td>权限</td>
-        <td>状态</td>
-        <td>编辑</td>
-        <td>复制</td>
-        <td>导出</td>
-        <td>日志</td>
-        <td>可疑记录</td>
-      </tr>
+    <table width=100% class='center table table-bordered table-condensed'>
+      <thead>
+        <tr>
+          <th class='center'>ID</th>
+          <th class='center'>名称</th>
+          <th class='center'>开始时间</th>
+          <th class='center'>结束时间</th>
+          <th class='center'>权限</th>
+          <th class='center'>状态</th>
+          <th class='center'>编辑</th>
+          <th class='center'>复制</th>
+          <th class='center'>导出</th>
+          <th class='center'>日志</th>
+          <th class='center'>可疑记录</th>
+        </tr>
+      </thead>
       <?php
       foreach ($result as $row) {
         echo "<tr>";
@@ -122,3 +116,6 @@ if (isset($OJ_LANG)) {
   ?>
 
 </div>
+<?php
+require_once("admin-footer.php");
+?>

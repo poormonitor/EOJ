@@ -1,19 +1,8 @@
 <?php
 require("admin-header.php");
 require_once("../include/set_get_key.php");
-
-if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor']))) {
-  echo "<a href='../loginpage.php'>Please Login First!</a>";
-  exit(1);
-}
-
-if (isset($OJ_LANG)) {
-  require_once("../lang/$OJ_LANG.php");
-}
 ?>
 
-<title>Problem List</title>
-<hr>
 <center>
   <h3><?php echo $MSG_PROBLEM . "-" . $MSG_LIST ?></h3>
 </center>
@@ -78,21 +67,25 @@ echo "</select>";
   ?>
 
   <center>
-    <table width=100% border=1 style="text-align:center;">
+    <table width=100% class='center table table-bordered table-condensed'>
       <form method=post action=contest_add.php>
-        <tr>
-          <td width=60px><?php echo $MSG_PROBLEM_ID ?><input type=checkbox style='vertical-align:2px;' onchange='$("input[type=checkbox]").prop("checked", this.checked)'></td>
-          <td><?php echo $MSG_TITLE ?></td>
-          <td><?php echo $MSG_AC ?></td>
-          <td>编辑时间</td>
-          <?php
-          if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor'])) {
-            if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor']))
-              echo "<td>状态</td>";
-            echo "<td>编辑</td><td>测试数据</td>";
-          }
-          ?>
-        </tr>
+        <thead>
+          <tr>
+            <th class='center'><?php echo $MSG_PROBLEM_ID ?>
+              <input type=checkbox style='vertical-align:2px;' onchange='$("input[type=checkbox]").prop("checked", this.checked)'>
+            </th>
+            <th class='center'><?php echo $MSG_TITLE ?></th>
+            <th class='center'><?php echo $MSG_AC ?></th>
+            <th class='center'>编辑时间</th>
+            <?php
+            if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor'])) {
+              if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor']))
+                echo "<th class='center'>状态</th>";
+              echo "<th class='center'>编辑</th><th class='center'>测试数据</th>";
+            }
+            ?>
+          </tr>
+        </thead>
         <?php
         foreach ($result as $row) {
           echo "<tr>";
@@ -115,9 +108,11 @@ echo "</select>";
         <tr>
           <td colspan=2 style="height:40px;">设为</td>
           <td colspan=6>
-            <input type=submit name='problem2contest' value='加入作业'>&nbsp;
-            <input type=submit name='enable' value='启用' onclick='$("form").attr("action","problem_df_change.php")'>&nbsp;
-            <input type=submit name='disable' value='禁用' onclick='$("form").attr("action","problem_df_change.php")'>
+            <div class='form-inline'>
+              <input class='form-control' type=submit name='problem2contest' value='加入作业'>&nbsp;
+              <input class='form-control' type=submit name='enable' value='启用' onclick='$("form").attr("action","problem_df_change.php")'>&nbsp;
+              <input class='form-control' type=submit name='disable' value='禁用' onclick='$("form").attr("action","problem_df_change.php")'>
+            </div>
           </td>
         </tr>
       </form>
@@ -161,3 +156,6 @@ if (!(isset($_GET['keyword']) && $_GET['keyword'] != "")) {
 ?>
 
 </div>
+<?php
+require_once("admin-footer.php");
+?>

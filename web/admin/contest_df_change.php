@@ -6,7 +6,6 @@ $sql="select `defunct` FROM `contest` WHERE `contest_id`=?";
 $result=pdo_query($sql,$cid);
 $num=count($result);
 if ($num<1){
-	
 	echo "No Such Contest!";
 	require_once("../oj-footer.php");
 	exit(0);
@@ -21,4 +20,7 @@ pdo_query($sql,$cid);
 <script language=javascript>
 	history.go(-1);
 </script>
+<?php
+require_once("admin-footer.php");
+?>
 

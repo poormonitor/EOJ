@@ -1,9 +1,4 @@
-<?php require("admin-header.php");
-
-if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
-  echo "<a href='../loginpage.php'>Please Login First!</a>";
-  exit(1);
-} ?>
+<?php require("admin-header.php"); ?>
 <div class="container">
   <br />
   <?php
@@ -25,19 +20,18 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
     echo "<span class='alert alert-success'>成功！</span>";
   }
   ?>
-  <br /><br />
-  <b>更新数据库</b>
-  用于确认数据库格式正确。
-  <form action='update_db.php' method=post>
+  <br />
+  <h3 class='center'><?php echo $MSG_UPDATE_DATABASE ?></h3>
+  <p class='center'>
+    <?php echo $MSG_HELP_UPDATE_DATABASE ?>
+  </p>
+  <br />
+  <form action='update_db.php' method=post class='middle'>
     <?php require_once("../include/set_post_key.php"); ?>
     <input type='hidden' name='do' value='do'>
     <input type=submit class='btn btn-info' value='更新'>
   </form>
-
-  <?php if (file_exists("update_pw.php")) {  ?>
-    <b>更新密码</b>
-    用于保证用户数据安全。<br />
-    <a class='btn btn-info' href="update_pw.php">更新</a>
-    * 请只执行一次！
-  <?php } ?>
 </div>
+<?php
+require_once("admin-footer.php");
+?>

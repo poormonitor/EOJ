@@ -1,11 +1,3 @@
-<html>
-<head>
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Cache-Control" content="no-cache">
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <title>Problem Export</title>
-</head>
-<hr>
 
 <?php 
   require_once("../include/db_info.inc.php");
@@ -14,8 +6,6 @@
   echo "<center><h3>".$MSG_PROBLEM."-".$MSG_EXPORT."</h3></center>";
 
 ?>
-
-<body >
   <div class="container">
     <br /><br />
     - Export Problem XML<br /><br />
@@ -56,5 +46,6 @@
     - Seperate Problem IDs fields will be applied when Continuous Problem IDs fields was empty.
   </div>
 
-</body>
-</html>
+  <?php
+require_once("admin-footer.php");
+?>

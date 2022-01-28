@@ -1,11 +1,6 @@
 <?php
 require_once("admin-header.php");
 
-if(!(isset($_SESSION[$OJ_NAME.'_'.'administrator']) || isset($_SESSION[$OJ_NAME.'_'.'problem_editor']))){
-  echo "<a href='../loginpage.php'>Please Login First!</a>";
-  exit(1);
-}
-
 if($_SERVER['REQUEST_METHOD']=="POST"){
   //require_once("../include/check_post_key.php");
 }else{
@@ -46,3 +41,6 @@ if(isset($_POST['enable'])&&$plist){
 ?>
 
 <script language=javascript>history.go(-1);</script>
+<?php
+require_once("admin-footer.php");
+?>

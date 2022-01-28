@@ -293,25 +293,16 @@ class Analysis
     $this->score = $score;
     for ($i = 0; $i < $this->num; $i++) {
       $this->f_score[$i] = array();
-      if ($this->type[$i] == 0 || $this->type[$i] == 1) {
-        $this->choices[$i] = array("A" => 0, "B" => 0, "C" => 0, "D" => 0);
-      } else {
-        $this->choices[$i] = array();
-      }
+      $this->choices[$i] = array();
     }
   }
   function add_answer(Answer $answer)
   {
     for ($i = 0; $i < $this->num; $i++) {
-      if ($this->type[$i] == 0) {
+      if (isset($this->choices[$i][$answer->choice[$i]]))
         $this->choices[$i][$answer->choice[$i]] += 1;
-      } elseif ($this->type[$i] == 1) {
-        foreach (str_split($answer->choice[$i]) as $j) {
-          $this->choices[$i][$j] += 1;
-        }
-      } elseif ($this->type[$i] == 2) {
-        $this->choices[$i][$answer->choice[$i]] += $answer->score[$i];
-      }
+      else
+        $this->choices[$i][$answer->choice[$i]] = 1;
       if (isset($this->f_score[$i][$answer->score[$i]])) {
         $this->f_score[$i][$answer->score[$i]] += 1;
       } else {
@@ -341,10 +332,7 @@ class Analysis
   }
   function get_choice_num(int $problem_id): array
   {
-    if ($this->type[$problem_id] == 0 || $this->type[$problem_id] == 1) {
-      return $this->choices[$problem_id];
-    }
-    return array();
+    return $this->choices[$problem_id];
   }
   function get_score_num(int $problem_id): array
   {

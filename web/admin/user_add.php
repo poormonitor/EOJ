@@ -1,17 +1,5 @@
-<?php require_once("admin-header.php");
+<?php require_once("admin-header.php");?>
 
-if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
-  echo "<a href='../loginpage.php'>Please Login First!</a>";
-  exit(1);
-}
-
-if (isset($OJ_LANG)) {
-  require_once("../lang/$OJ_LANG.php");
-}
-?>
-
-<title>Add User</title>
-<hr>
 <center>
   <h3><?php echo $MSG_USER . "-" . $MSG_ADD ?></h3>
 </center>
@@ -80,12 +68,12 @@ if (isset($OJ_LANG)) {
     </div>
     <div>
       <?php echo "( Add new user, password and name(optional) with newline )" ?>
-      <br />
+      <br /><br />
       <table width="100%">
         <tr>
           <td height="*">
             <p align=left>
-              <textarea name='ulist' rows='10' style='width:100%;' placeholder='userid1 password1 (name1)<?php echo "\n" ?>userid2 password2 (name2)<?php echo "\n" ?>userid3 password3 (name3)<?php echo "\n" ?>
+              <textarea class='form-control' name='ulist' rows='10' style='width:100%;' placeholder='userid1 password1 (name1)<?php echo "\n" ?>userid2 password2 (name2)<?php echo "\n" ?>userid3 password3 (name3)<?php echo "\n" ?>
             <?php echo "\n" ?>'><?php if (isset($ulist)) {
                                   echo $ulist;
                                 } ?></textarea>
@@ -134,3 +122,6 @@ if (isset($OJ_LANG)) {
   </form>
 
 </div>
+<?php
+require_once("admin-footer.php");
+?>

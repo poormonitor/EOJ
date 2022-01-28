@@ -5,14 +5,7 @@ require("admin-header.php");
 //	echo "<a href='../loginpage.php'>Please Login First!</a>";
 //	exit(1);
 //}
-
-if (isset($OJ_LANG)) {
-	require_once("../lang/$OJ_LANG.php");
-}
 ?>
-
-<title>Suspect List</title>
-<hr>
 <center><h3><?php echo $MSG_IP_VERIFICATION?></h3></center>
 
 <div class='container'>
@@ -99,5 +92,5 @@ if (isset($OJ_LANG)) {
 </div>
 
 <?php
-require("../oj-footer.php");
+require_once("admin-footer.php");
 ?>
