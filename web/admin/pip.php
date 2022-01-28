@@ -32,6 +32,13 @@ if (isset($_GET['do'])) {
 
   <br />
   <center>
+  <form action=pip.php class="form-search form-inline">
+    <input type="text" name="module" class="form-control search-query" placeholder="<?php echo $MSG_MODULE ?>">
+    <input type=hidden name="getkey" value="<?php echo $getkey; ?>">
+    <button name="do" value="install" type="submit" class="form-control"><?php echo $MSG_MODULE_INSTALL ?></button>
+  </form>
+</center>
+  <center>
     <table width=100% class='center table table-condensed'>
       <thead>
         <tr>
@@ -64,13 +71,6 @@ if (isset($_GET['do'])) {
   </center>
 </div>
 <br />
-<center>
-  <form action=pip.php class="form-search form-inline">
-    <input type="text" name="module" class="form-control search-query" placeholder="<?php echo $MSG_MODULE ?>">
-    <input type=hidden name="getkey" value="<?php echo $getkey; ?>">
-    <button name="do" value="install" type="submit" class="form-control"><?php echo $MSG_MODULE_INSTALL ?></button>
-  </form>
-</center>
 <?php
 require_once("admin-footer.php");
 ?>
