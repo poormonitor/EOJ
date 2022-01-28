@@ -1,5 +1,5 @@
 <?php
-if (isset($view_errors_js) || isset($view_swal)) { ?>
+if (isset($view_errors_js) || isset($view_swal) || isset($view_swal_params)) { ?>
   <!DOCTYPE html>
   <html>
 
