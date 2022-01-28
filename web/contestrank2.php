@@ -86,13 +86,13 @@ if ($rows_cnt > 0) {
 }
 if (!$OJ_MEMCACHE)
   if ($start_time == 0) {
-    $view_swal = "作业不存在";
+    $view_swal = $MSG_NOT_EXISTED;
     require("template/" . $OJ_TEMPLATE . "/error.php");
     exit(0);
   }
 
 if ($start_time > time()) {
-  $view_swal = "作业未开始";
+  $view_swal = $MSG_NO_SUCH_PROBLEM;
   require("template/" . $OJ_TEMPLATE . "/error.php");
   exit(0);
 }

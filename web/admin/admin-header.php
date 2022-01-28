@@ -130,7 +130,7 @@ header("Cache-control: private");
                                     <?php }
                                     if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor'])) { ?>
                                         <li><a class="dropdown-item btn-sm" href="problem_add_page.php" title="<?php echo html_entity_decode($MSG_HELP_ADD_PROBLEM) ?>"><b><?php echo $MSG_PROBLEM . "-" . $MSG_ADD ?></b></a></li>
-                                        <li><a class="dropdown-item btn-sm" href="problem_list_2.php" title="存放一些题目但并不在前台展示，可以随时转换到前台。"><b><?php echo $MSG_PROBLEM . "-" . "第二题库" ?></b></a></li>
+                                        <li><a class="dropdown-item btn-sm" href="problem_list_2.php" title="<?php echo $MSG_HELP_PROBLEM_2 ?>"><b><?php echo $MSG_PROBLEM . "-" . $MSG_PROBLEM_2 ?></b></a></li>
                                         <li><a class="dropdown-item btn-sm" href="problem_import.php" title="<?php echo $MSG_HELP_IMPORT_PROBLEM ?>"><b><?php echo $MSG_PROBLEM . "-" . $MSG_IMPORT ?></b></a></li>
                                         <li><a class="dropdown-item btn-sm" href="problem_export.php" title="<?php echo $MSG_HELP_EXPORT_PROBLEM ?>"><b><?php echo $MSG_PROBLEM . "-" . $MSG_EXPORT ?></b></a></li>
                                     <?php } ?>
@@ -170,7 +170,7 @@ header("Cache-control: private");
                                         <li><a class="dropdown-item btn-sm" href="source_give.php" title="<?php echo $MSG_HELP_GIVESOURCE ?>"><b><?php echo $MSG_SYSTEM . "-" . $MSG_GIVESOURCE ?></b></a></li>
                                         <li><a class="dropdown-item btn-sm" href="../online.php"><b><?php echo $MSG_SYSTEM . "-" . $MSG_HELP_ONLINE ?></b></a></li>
                                         <li><a class="dropdown-item btn-sm" href="update_db.php" title="<?php echo $MSG_HELP_UPDATE_DATABASE ?>"><b><?php echo $MSG_SYSTEM . "-" . $MSG_UPDATE_DATABASE ?></b></a></li>
-                                        <li><a class="dropdown-item btn-sm" href="pip.php" title="模块安装"><b><?php echo $MSG_SYSTEM . "-" . "模块安装" ?></b></a></li>
+                                        <li><a class="dropdown-item btn-sm" href="pip.php" title="<?php echo $MSG_HELP_MODULE ?>"><b><?php echo $MSG_SYSTEM . "-" . $MSG_MODULE_INSTALL ?></b></a></li>
                                     </ul>
                                 </div>
                             <?php } ?>

@@ -41,7 +41,7 @@ if (count($data) > 0) {
     $zip = new ZipArchive();
 
     if ($zip->open($zipname, ZIPARCHIVE::CREATE) !== TRUE) {
-        exit('无法打开文件，或者文件创建失败');
+        exit(0);
     }
     $files = [$infile, $outfile];
 

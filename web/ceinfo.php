@@ -13,7 +13,7 @@ if (!isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
 }
 require_once("./include/const.inc.php");
 if (!isset($_GET['sid'])) {
-	$view_swal = "代码不存在！";
+	$view_swal = $MSG_NOT_EXISTED;
 	require("template/" . $OJ_TEMPLATE . "/error.php");
 	exit(0);
 }

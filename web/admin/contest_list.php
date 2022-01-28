@@ -56,16 +56,16 @@ require_once("../include/set_get_key.php");
       <thead>
         <tr>
           <th class='center'>ID</th>
-          <th class='center'>名称</th>
-          <th class='center'>开始时间</th>
-          <th class='center'>结束时间</th>
-          <th class='center'>权限</th>
-          <th class='center'>状态</th>
-          <th class='center'>编辑</th>
-          <th class='center'>复制</th>
-          <th class='center'>导出</th>
-          <th class='center'>日志</th>
-          <th class='center'>可疑记录</th>
+          <th class='center'><?php echo $MSG_CONTEST_NAME ?></th>
+          <th class='center'><?php echo $MSG_START_TIME ?></th>
+          <th class='center'><?php echo $MSG_END_TIME ?></th>
+          <th class='center'><?php echo $MSG_PRIVILEGE ?></th>
+          <th class='center'><?php echo $MSG_STATUS ?></th>
+          <th class='center'><?php echo $MSG_EDIT ?></th>
+          <th class='center'><?php echo $MSG_COPY ?></th>
+          <th class='center'><?php echo $MSG_EXPORT ?></th>
+          <th class='center'><?php echo $MSG_LOG ?></th>
+          <th class='center'><?php echo $MSG_SUSPECT ?></th>
         </tr>
       </thead>
       <?php

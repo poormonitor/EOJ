@@ -3,7 +3,23 @@ $MSG_TRUE_FALSE = array(true => '是', false => '否');
 $MSG_GROUP = "组";
 $MSG_FROM = "从";
 $MSG_TO = "到";
+$MSG_COPY= "复制";
+$MSG_ENABLE = "启用";
+$MSG_DISABLE = "禁用";
+$MSG_ENABLED = "已启用";
+$MSG_DISABLED = "已禁用";
+$MSG_NOT_EXISTED = "您请求的项目不存在";
+$MSG_SUBMISSIONS="次提交";
+$MSG_NO_SUBMISSION = "无提交";
+$MSG_PRIVILEGE_WARNING = "您没有权限访问此页面";
+$MSG_ERROR = "错误";
+$MSG_SUCCESS = "成功";
+$MSG_UP_WRONG = "用户名或密码错误";
+$MSG_PARAMS_ERROR = "您填写的某些项目不正确";
+$MSG_NICK_TOO_LONG = "用户名太长";
+$MSG_SCHOOL_TOO_LONG = "学校名太长";
 
+$MSG_CLIPBOARD = "剪贴板";
 $MSG_NOT_LOGINED = "您还没有登录";
 $MSG_DELETE="删除";
 //index.php
@@ -124,6 +140,7 @@ $MSG_DAY = "日排行";
 $MSG_WEEK = "周排行";
 $MSG_MONTH = "月排行";
 $MSG_YEAR = "年排行";
+$MSG_RANK_LOCKED = "排名已锁定";
 //registerpage.php
 $MSG_USER_ID = "用户名";
 $MSG_PASSWORD = "密码";
@@ -209,13 +226,19 @@ $MSG_NEWS = "新闻";
 $MSG_CONTENTS = "内容";
 $MSG_SAVE = "保存";
 
+$MSG_LOG="日志";
 $MSG_MODULE = "模块";
 $MSG_VERSION = "版本";
 $MSG_UPGRADE = "升级";
 $MSG_UNINSTALL = "卸载";
+$MSG_LAST_UPDATE= "最后更新";
 $MSG_MODULE_INSTALL = "安装模块";
+$MSG_EDIT_TIME= "编辑时间";
+$MSG_ADD_TO_CONTEST = "加入作业";
+$MSG_SET_TO = "设置为";
 $MSG_MODULE_INSTALLED = "已安装模块";
 $MSG_TEAMGENERATOR = "比赛队帐号生成器";
+$MSG_PROBLEM_2 = "第二题库";
 $MSG_PREFIX="前缀";
 $MSG_TEAM_NUMBER="队伍数量";
 $MSG_USER_LIST="用户列表";
@@ -249,6 +272,7 @@ $MSG_CONTEST_OPEN = "开放";
 $MSG_CONTEST_CREATOR = "创建人";
 $MSG_CONTEST_PENALTY = "累计时间";
 $MSG_IP_VERIFICATION = "IP验证";
+$MSG_SUSPECT = "可疑记录";
 $MSG_CONTEST_SUSPECT1 = "具有多个ID的IP地址。如果在竞赛/考试期间在同一台计算机上访问了多个ID，则会记录该ID。";
 $MSG_CONTEST_SUSPECT2 = "具有多个IP地址的ID。 如果在竞赛/考试期间切换到另一台计算机，它将记录下来。";
 
@@ -290,7 +314,8 @@ $MSG_BALLOON = "气球";
 $MSG_BALLOON_DONE = "气球已发放";
 $MSG_BALLOON_PENDING = "气球待发放";
 
-$MSG_HELP_MODULE=
+$MSG_HELP_MODULE="安装Python模块。";
+$MSG_HELP_PROBLEM_2="存放一些题目但并不在前台展示，可以随时转换到前台。";
 $MSG_HELP_EDIT_SCHOOL="根据规则批量修改用户的班级。";
 $MSG_HELP_EDIT_NICK="批量修改用户的昵称。";
 $MSG_HELP_LIST_GROUP="查看已有用户组，并可添加新的用户组。";

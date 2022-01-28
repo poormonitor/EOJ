@@ -48,11 +48,7 @@
         require("template/" . $OJ_TEMPLATE . "/lostpassword2.php");
     } else {
         if ($_POST['user_id'] != "" && $_POST['email'] != "") {
-            $view_errors = "
-        <h3>错误！</h3>
-        <script language='javascript'>
-            swal('用户名或邮箱错误！').then((onConfirm)=>{history.go(-1);});
-        </script>";
+            $view_swal = $MSG_PARAMS_ERROR;
             require("template/" . $OJ_TEMPLATE . "/error.php");
         } else {
             require("template/" . $OJ_TEMPLATE . "/lostpassword.php");

@@ -64,7 +64,7 @@
                     <center><a class='btn btn-primary btn-sm' href="class_update.php"><b><?php echo $MSG_USER . "-" . $MSG_EDIT . $MSG_SCHOOL ?></b></a></center>
                 </td>
                 <td>
-                    <p>根据规则批量修改用户的班级。</p>
+                    <p><?php echo $MSG_HELP_EDIT_SCHOOL ?></p>
                 </td>
             </tr>
             <tr>
@@ -72,7 +72,7 @@
                     <center><a class='btn btn-primary btn-sm' href="user_set_nick.php"><b><?php echo $MSG_USER . "-" . $MSG_ADD . $MSG_NICK ?></b></a></center>
                 </td>
                 <td>
-                    <p>批量修改用户的昵称。</p>
+                    <p><?php echo $MSG_HELP_EDIT_NICK ?></p>
                 </td>
             </tr>
             <tr>
@@ -98,7 +98,7 @@
                     <center><a class='btn btn-primary btn-sm' href="group_list.php"><b><?php echo $MSG_USER . "-" . $MSG_GROUP . "-" . $MSG_LIST ?></b></a></center>
                 </td>
                 <td>
-                    <p>查看已有用户组，并可添加新的用户组。</p>
+                    <p><?php echo $MSG_HELP_LIST_GROUP ?></p>
                 </td>
             </tr>
             <tr>
@@ -106,7 +106,7 @@
                     <center><a class='btn btn-primary btn-sm' href="group_add.php"><b><?php echo $MSG_USER . "-" . $MSG_GROUP . "-" . $MSG_ADD ?></b></a></center>
                 </td>
                 <td>
-                    <p>将用户批量加入用户组，或批量删除用户的用户组信息。</p>
+                    <p><?php echo $MSG_HELP_CHANGE_GROUP ?></p>
                 </td>
             </tr>
         <?php } ?>
@@ -130,10 +130,10 @@
             </tr>
             <tr>
                 <td>
-                    <center><a class='btn btn-success btn-sm' href="problem_list_2.php"><b><?php echo $MSG_PROBLEM . "-" . "第二题库" ?></b></a></center>
+                    <center><a class='btn btn-success btn-sm' href="problem_list_2.php"><b><?php echo $MSG_PROBLEM . "-" . $MSG_PROBLEM_2 ?></b></a></center>
                 </td>
                 <td>
-                    <p>存放一些题目但并不在前台展示，可以随时转换到前台。</p>
+                    <p><?php echo $MSG_HELP_PROBLEM_2 ?></p>
                 </td>
             </tr>
             <tr>
@@ -241,10 +241,10 @@
             </tr>
             <tr>
                 <td>
-                    <center><a class='btn btn-danger btn-sm' href="pip.php"><b><?php echo $MSG_SYSTEM . "-" . "模块安装" ?></b></a></center>
+                    <center><a class='btn btn-danger btn-sm' href="pip.php"><b><?php echo $MSG_SYSTEM . "-" . $MSG_MODULE_INSTALL ?></b></a></center>
                 </td>
                 <td>
-                    <p><?php echo $MSG_MODULE_INSTALL ?></p>
+                    <p><?php echo $MSG_HELP_MODULE ?></p>
                 </td>
             </tr>
             <tr>
@@ -268,9 +268,9 @@
                 </td>
             </tr>
             <tr>
-                <td><a class='btn btn-default btn-block btn-sm' href="http://tk.hustoj.com" target="_blank"><b>自助题库</b></a></td>
+                <td><a class='btn btn-default btn-block btn-sm' href="http://tk.hustoj.com" target="_blank"><b>tk.hustoj.com</b></a></td>
                 <td>
-                    <p></p>
+                    <p>tk.hustoj.com</p>
                 </td>
             </tr>
         <?php } ?>

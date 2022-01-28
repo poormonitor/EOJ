@@ -14,7 +14,7 @@ $sql = "SELECT title,end_time FROM `contest` WHERE `contest_id`=? AND `start_tim
 $result = pdo_query($sql, $cid);
 $num = count($result);
 if ($num == 0) {
-	$view_errors = "<h2>信息不存在</h2><br /><span class='alert alert-danger'>" . $MSG_PRIVATE_WARNING . "</span>";
+	$view_errors = $MSG_PRIVATE_WARNING;
 	require("template/" . $OJ_TEMPLATE . "/error.php");
 	exit(0);
 }

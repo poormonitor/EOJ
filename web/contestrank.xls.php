@@ -257,9 +257,9 @@ for ($i = 0; $i < $user_cnt; $i++) {
 			if (isset($U[$i]->p_ac_sec[$j]) && $U[$i]->p_ac_sec[$j] > 0)
 				echo sec2str($U[$i]->p_ac_sec[$j]);
 			else if (isset($U[$i]->p_wa_num[$j]) && $U[$i]->p_wa_num[$j] > 0)
-				echo "(" . $U[$i]->p_wa_num[$j] . " 次提交)";
+				echo "(" . $U[$i]->p_wa_num[$j] . " $MSG_SUBMISSIONS)";
 			else
-				echo "无提交";
+				echo $MSG_NO_SUBMISSION;
 		}
 		echo "</td>";
 	}

@@ -63,7 +63,7 @@
 	pdo_query($sql, $email, $user_id);
 	?>
 	<script>
-		swal("修改成功！").then((onConfirm) => {
+		swal('<?php echo $MSG_SUCEESS ?>').then((onConfirm) => {
 			location.href = "userinfo.php?user=<?php echo $user_id; ?>";
 		});
 	</script>
