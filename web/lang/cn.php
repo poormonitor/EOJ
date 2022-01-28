@@ -198,6 +198,7 @@ $MSG_JUDGE_OVER = "已阅完";
 $MSG_JUDGE_LEFT = "剩余待阅";
 $MSG_HUMAN_JUDGE = "人工阅卷部分";
 $MSG_MACHINE_JUDGE = "机器阅卷部分";
+$MSG_QUIZ_JUDGE_TIME = "阅卷时间";
 
 $MSG_QUIZ_JUDGE = "批改";
 $MSG_ANSWER_ID = "答案编号";
