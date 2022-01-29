@@ -142,14 +142,8 @@ if ($row['block'])
 if ($row['allow'])
 	$allow = str_replace(" ", "</span><span style='margin:0px 2px 0px 2px' class='label label-success'>", $row['allow']);
 
-if ($OJ_MEMCACHE) {
-	$sql = "select user_id from privilege where rightstr='p$id' LIMIT 1";
-	require("./include/memcache.php");
-	$result = mysql_query_cache($sql);
-} else {
-	$sql = "select user_id from privilege where rightstr=? LIMIT 1";
-	$result = pdo_query($sql, "p" . $id);
-}
+$sql = "select user_id from privilege where rightstr=? LIMIT 1";
+$result = mysql_query_cache($sql, "p" . $id);
 $creator = count($result) ? $result[0][0] : "admin";
 
 require("template/problem.php");
