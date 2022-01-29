@@ -31,12 +31,13 @@ function mysql_query_cache($sql)
     global $OJ_NAME, $OJ_MEMCACHE;
     if ($OJ_MEMCACHE) {
         $timeout = 4;
-        $query_info = array(md5($OJ_NAME . $_SERVER['HTTP_HOST'] . "mysql_query"));
-        array_merge($query_info, func_get_args());
-        if (!($cache = getCache($query_info))) {
+        $query_info = array($OJ_NAME, $_SERVER['HTTP_HOST'], "mysql_query");
+        $query_info = array_merge($query_info, func_get_args());
+        $key = md5(implode(" ", $query_info));
+        if (!($cache = getCache($key))) {
             $cache = false;
             $cache = call_user_func_array("pdo_query", func_get_args());
-            setCache($query_info, $cache, $timeout);
+            setCache($key, $cache, $timeout);
         }
     } else {
         $cache = call_user_func_array("pdo_query", func_get_args());
