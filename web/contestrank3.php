@@ -159,8 +159,8 @@ if (!isset($OJ_RANK_LOCK_PERCENT) || $OJ_RANK_LOCK_PERCENT == 0) {
 }
 
 //  查询比赛是否存在
-    $sql = "SELECT `start_time`,`title`,`end_time` FROM `contest` WHERE `contest_id`=?";
-    $result = mysql_query_cache($sql, $cid);
+$sql = "SELECT `start_time`,`title`,`end_time` FROM `contest` WHERE `contest_id`=?";
+$result = mysql_query_cache($sql, $cid);
 
 // 统计查询到的个数
 if ($result) {
@@ -182,11 +182,12 @@ if ($rows_cnt > 0) {
 }
 
 
-    // 开始时间仍然为零 说明 比赛不存在
-    if ($start_time == 0) {
-        $view_errors = $MSG_NOT_EXISTED;
-        require("template/error.php");
-        exit(0);
+// 开始时间仍然为零 说明 比赛不存在
+if ($start_time == 0) {
+    $view_errors = $MSG_NOT_EXISTED;
+    require("template/error.php");
+    exit(0);
+}
 
 // 还未开始
 if ($start_time > time()) {
@@ -253,8 +254,7 @@ $silver_num = intval($team_num * 0.15);
 $bronze_num = intval($team_num * 0.20);
 
 
-require("template/contestrank3.php");
-
+require_once("template/contestrank3.php");
 
 if (file_exists('./include/cache_end.php'))
     require_once('./include/cache_end.php');
