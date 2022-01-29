@@ -32,7 +32,7 @@ function mysql_query_cache($sql)
     if ($OJ_MEMCACHE) {
         $timeout = 4;
         $query_info = array($OJ_NAME, $_SERVER['HTTP_HOST'], "mysql_query");
-        array_merge($query_info, func_get_args());
+        $query_info = array_merge($query_info, func_get_args());
         $key = md5(implode(" ", $query_info));
         if (!($cache = getCache($key))) {
             $cache = false;
