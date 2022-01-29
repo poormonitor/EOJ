@@ -94,6 +94,7 @@ if (($OJ_BLOCK_START_TIME < $OJ_BLOCK_END_TIME && $time >= $OJ_BLOCK_START_TIME 
 }
 
 require_once(dirname(__FILE__) . "/pdo.php");
+require_once(dirname(__FILE__) . "/memcache.php");
 
 // use db
 //pdo_query("set names utf8");	
