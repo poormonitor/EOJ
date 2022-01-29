@@ -217,11 +217,9 @@
 			<center>
 				<h4><?php if (isset($locked_msg)) echo $locked_msg; ?></h4>
 				<?php
-				if ($OJ_MEMCACHE) {
-					if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
-						echo '<div class="btn-group"><a class="btn btn-primary btn-sm" href="contestrank3.php?cid=' . $cid . '">滚榜</a>';
-						echo '&nbsp;&nbsp;<a class="btn btn-primary btn-sm" href="contestrank2.php?cid=' . $cid . '">重播</a></div><br /><br />';
-					}
+				if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
+					echo '<div class="btn-group"><a class="btn btn-primary btn-sm" href="contestrank3.php?cid=' . $cid . '">滚榜</a>';
+					echo '&nbsp;&nbsp;<a class="btn btn-primary btn-sm" href="contestrank2.php?cid=' . $cid . '">重播</a></div><br /><br />';
 				}
 				?>
 			</center>
