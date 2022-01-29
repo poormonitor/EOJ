@@ -218,12 +218,7 @@ if (isset($uid)) {
 if (isset($_GET['user_id'])) {
   $user_id = trim($_GET['user_id']);
   if (is_valid_user_name($user_id) && $user_id != "") {
-    if ($OJ_MEMCACHE) {
-      $sql = $sql . "AND `user_id` LIKE '%" . addslashes($user_id) . "%' ";
-    } else {
-      $sql = $sql . "AND `user_id` LIKE '%?%' ";
-    }
-
+    $sql = $sql . "AND `user_id` LIKE '%?%' ";
     if ($str2 != "")
       $str2 = $str2 . "&";
 
