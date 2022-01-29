@@ -37,7 +37,7 @@ function mysql_query_cache($sql)
         if (!($cache = getCache($key))) {
             $cache = false;
             $cache = call_user_func_array("pdo_query", func_get_args());
-            setCache($query_info, $cache, $timeout);
+            setCache($key, $cache, $timeout);
         }
     } else {
         $cache = call_user_func_array("pdo_query", func_get_args());
