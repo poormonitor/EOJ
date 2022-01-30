@@ -3,4 +3,5 @@ web/404.html
 web/upload
 web/include/db_info.inc.php
 web/.user.ini
+.user.ini
 .vscode/
