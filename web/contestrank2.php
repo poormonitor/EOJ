@@ -66,8 +66,6 @@ else $rows_cnt = 0;
 $start_time = 0;
 $end_time = 0;
 if ($rows_cnt > 0) {
-  //       $row=$result[0];
-
   $row = $result[0];
   $start_time = strtotime($row['start_time']);
   $end_time = strtotime($row['end_time']);
