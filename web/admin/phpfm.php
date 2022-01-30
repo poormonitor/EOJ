@@ -14,17 +14,9 @@ if (!(isset($_SESSION[$OJ_NAME.'_'.'administrator'])
     $charset = "UTF-8";
     //@setlocale(LC_CTYPE, 'C');
     header("Pragma: no-cache");
-    header("Cache-Control: no-store");
+    header("Cache-Control: no-store, no-cache, must-revalidate");
 	header("Content-Type: text/html; charset=".$charset);
 	//@ini_set('default_charset', $charset);
-    if (@get_magic_quotes_gpc()) {
-        function stripslashes_deep($value){
-            return is_array($value)? array_map('stripslashes_deep', $value):$value;
-        }
-        $_POST = array_map('stripslashes_deep', $_POST);
-        $_GET = array_map('stripslashes_deep', $_GET);
-        $_COOKIE = array_map('stripslashes_deep', $_COOKIE);
-    }
 	// Server Vars
     function get_client_ip() {
         $ipaddress = '';
