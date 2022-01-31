@@ -23,10 +23,21 @@
 <br /><br />
 <script src="<?php echo $OJ_CDN_URL . "template/" ?>jquery.min.js"></script>
 <script src="<?php echo $OJ_CDN_URL . "template/" ?>bootstrap.min.js"></script>
-<script src="<?php echo $OJ_CDN_URL . "template/" ?>index.min.js"></script>
+<script src="<?php echo $OJ_CDN_URL . "template/" ?>index.min.js?v=1.1"></script>
 <script src="<?php echo $OJ_CDN_URL . "include/" ?>sweetalert.min.js"></script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-175545655-2"></script>
+<?php if (isset($OJ_GOOGLE_ANALYTICS)) { ?>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo $OJ_GOOGLE_ANALYTICS ?>"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+
+		function gtag() {
+			dataLayer.push(arguments);
+		}
+		gtag('js', new Date());
+		gtag('config', '<?php echo $OJ_GOOGLE_ANALYTICS ?>');
+	</script>
 <?php
+}
 $endTime = microtime(true);
 $runTime = ($endTime - $startTime) * 1000 . ' ms';
 ?>
