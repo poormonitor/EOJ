@@ -154,7 +154,7 @@ if ($row[0] > 10) {
 	//echo "$row[0]";
 }
 $blank = pdo_query("select blank from problem where problem_id=?", $problem_id)[0][0];
-$no_blank = (isset($_GET["blank"]) and $_GET["blank"] == 'false');
+$no_blank = (isset($_GET["blank"]) && $_GET["blank"] == 'false');
 $multiline = false;
 if (isset($sid)) {
 	$no_blank = true;
@@ -163,17 +163,25 @@ if ($blank != NULL) {
 	$code = $blank;
 	$code = htmlentities($code, ENT_QUOTES, "UTF-8");
 	$num = substr_count($blank, "%*%");
+	$copy = $blank;
+	$copy = htmlentities($copy, ENT_QUOTES, "UTF-8");
+	$copy = str_replace("%*%", "__________", $copy);
 	for ($i = 0; $i < $num; $i++) {
-		$code = str_replace_limit("%*%", "<input name='code$i' style='margin-top:3px;margin-bottom:3px;' autocomplete='off'></input>", $code, 1);
+		$pattern = "<input name='code$i' class='singleline form-control' autocomplete='off'></input>";
+		$code = str_replace_limit("%*%", $pattern, $code, 1);
 	}
 	$num = substr_count($blank, "*%*");
 	for ($i = 0; $i < $num; $i++) {
-		$code = str_replace_limit("*%*\r\n", "<textarea hidden='hidden' id='multiline$i' name='multiline$i' autocomplete='off'></textarea><pre id='source$i' style='height:150px;width:auto;font-size:13pt;margin-top:8px;'></pre>", $code, 1);
+		preg_match("/\n.*\*%\*/m", $code, $matches);
+		$len = strlen($matches[0]) - 4;
+		$blanks = str_repeat(" ", $len);
+		$px = $len * 7;
+		$pattern = "<textarea hidden='hidden' id='multiline$i' name='multiline$i'></textarea>";
+		$pattern .= "<pre class='multiline' id='source$i' style='margin-left:" . $px . "px'></pre>";
+		$code = str_replace_limit("\r\n$blanks*%*\r\n", $pattern, $code, 1);
+		$copy = str_replace("*%*\r\n", "...\r\n$blanks...\r\n", $copy);
 		$multiline = true;
 	}
-	$copy = $blank;
-	$copy = str_replace("%*%", "__________", str_replace("*%*\r\n", "...\r\n...\r\n", htmlentities($copy, ENT_QUOTES, "UTF-8")));
 }
 
 require("template/submitpage.php");
-

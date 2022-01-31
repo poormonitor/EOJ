@@ -47,11 +47,17 @@ $id = strval(intval($_GET['sid']));
 
 $sql = "SELECT * FROM `solution` WHERE `solution_id`=?";
 $result = pdo_query($sql, $id);
+if (!count($result)) {
+  $view_swal = $MSG_NOT_EXISTED;
+  require("template/error.php");
+  exit(0);
+}
 $row = $result[0];
 $lang = $row['language'];
 $contest_id = intval($row['contest_id']);
 $isRE = $row['result'] == 10;
-$allow = pdo_query("select `group`.allow_view from `group` join users on users.gid=`group`.gid where users.user_id=?", $_SESSION[$OJ_NAME . '_' . 'user_id'])[0][0];
+$allow = pdo_query("select `group`.allow_view from `group` join users on users.gid=`group`.gid where users.user_id=?", $_SESSION[$OJ_NAME . '_' . 'user_id']);
+$allow = isset($allow[0]) ? $allow[0]['allow_view'] : "N";
 if ($allow == "Y") {
   $result = pdo_query("select user_id from solution where solution_id=?", $id)[0][0];
   if ($result != $_SESSION[$OJ_NAME . '_' . 'user_id']) {
@@ -73,6 +79,10 @@ if (isset($_SESSION[$OJ_NAME . '_' . 'source_browser']) or $allow == "Y") {
 
   if (isset($result[0])) {
     $row = $result[0];
+  } else {
+    $view_swal = $MSG_NOT_EXISTED;
+    require("template/error.php");
+    exit(0);
   }
   if ($OJ_SHOW_DIFF && $row && ($ok || $isRE) && ($OJ_TEST_RUN || is_valid($row['error']) || $ok)) {
     $view_reinfo = htmlentities(str_replace("\n\r", "\n", $row['error']), ENT_QUOTES, "UTF-8");

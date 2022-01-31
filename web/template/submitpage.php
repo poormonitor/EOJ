@@ -47,8 +47,8 @@
             <input id="pid" type='hidden' value='<?php echo $pid ?>' name="pid">
           <?php } ?>
 
-          <span id="language_span"><?php echo $MSG_LANG ?>:
-            <select id="language" name="language" onChange="reloadtemplate($(this).val());">
+          <span class='form-inline' id="language_span"><?php echo $MSG_LANG ?>&nbsp;:
+            <select class='form-control' id="language" name="language" onChange="reloadtemplate($(this).val());">
               <?php
               $lang_count = count($language_ext);
 
@@ -71,21 +71,52 @@
           </span>
           <?php if (isset($code) and !$no_blank) { ?>
             <br /></br>
-            <pre id='copy' class='alert alert-error' style='text-align:left;display:none;'><?php echo $copy; ?></pre>
-            <div class='btn-group'><a class='btn btn-sm btn-info' href='javascript:CopyToClipboard($("#copy").text())'>复制</a>
+            <pre id='copy' style='display:none;'><?php echo $copy; ?></pre>
+            <pre id='copy-blank' style='display:none;'><?php echo htmlentities($blank, ENT_QUOTES, "UTF-8"); ?></pre>
+            <div class='btn-group'>
+              <a class='btn btn-sm btn-info' href='javascript:CopyToClipboard($("#copy").text())'><?php echo $MSG_COPY ?></a>
+              <a class='btn btn-sm btn-info' href='javascript:CopyToClipboard(get_full_code())'>复制当前</a>
               <a class='btn btn-sm btn-info' href='<?php echo $_SERVER['REQUEST_URI']; ?>&blank=false'>直接填写</a>
             </div>
             <div id='container_status'>
-              <pre id='code' class='alert alert-error' style='text-align:left;'><?php echo $code; ?></pre>
+              <pre id='code' class='alert alert-error form-inline' style='text-align:left;'><?php echo $code; ?></pre>
             </div>
+            <?php if (isset($OJ_TEST_RUN) && $OJ_TEST_RUN) { ?>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" id="test_run_checkbox">
+                  <span><?php echo $MSG_TEST_RUN ?></span>
+                </label>
+              </div>
+              <div id='test_run' class='form-group' style='margin-bottom:10px;width:80%;'>
+                <div class='row'>
+                  <div class='col-sm-4'>
+                    <textarea id="input_text" class='form-control' style='width:100%;resize:none;' rows=5 name="input_text"><?php echo $view_sample_input ?></textarea>
+                  </div>
+                  <div class='col-sm-4'>
+                    <textarea id="s_out" name="out" class='form-control' style='width:100%;resize:none;' rows=5 disabled="true"><?php echo $view_sample_output ?></textarea>
+                  </div>
+                  <div class='col-sm-4'>
+                    <textarea id="out" name="out" class='form-control' style='width:100%;resize:none;' rows=5 disabled="true"></textarea>
+                  </div>
+                </div>
+                <div class='row' style='margin-top:10px;'>
+                  <div class='col-sm-4 col-sm-offset-4'>
+                    <input id="TestRun" class="btn btn-info btn-sm" type=button value="<?php echo $MSG_TR ?>" onclick=do_test_run();>
+                    &nbsp;&nbsp;&nbsp;
+                    <span class="label label-info" id=result><?php echo $MSG_STATUS ?></span>
+                  </div>
+                </div>
+              </div>
+            <?php } ?>
             <input id="Submit" class="btn btn-info btn-sm" type=submit value="<?php echo $MSG_SUBMIT; ?>" style="margin:6px;">
         </form>
       <?php } else { ?>
-        <?php if (isset($code) and $no_blank) { ?>
+        <?php if (isset($code) && $no_blank) { ?>
           <pre id='copy' class='alert alert-error' style='text-align:left;display:none;'><?php echo $copy; ?></pre>
           <br /></br>
           <div class='btn-group' style='margin-bottom:10px;'>
-            <a class='btn btn-sm btn-info' href='javascript:CopyToClipboard($("#copy").text())'>复制</a>
+            <a class='btn btn-sm btn-info' href='javascript:CopyToClipboard($("#copy").text())'><?php echo $MSG_COPY ?></a>
             <?php if (!isset($sid)) { ?>
               <a class='btn btn-sm btn-info' href='<?php echo str_replace("&blank=false", "", $_SERVER['REQUEST_URI']); ?>'>填空</a>
             <?php } ?>
@@ -144,19 +175,21 @@
   <?php include("template/js.php"); ?>
 
   <script>
-    $('#TestRun').hide()
-    $('#result').hide()
-    $('#test_run').hide()
-    $('#test_run_checkbox').prop("checked", false)
-    $('#vcode_input').val("")
+    <?php if (isset($OJ_TEST_RUN) && $OJ_TEST_RUN) { ?>
+      $('#TestRun').hide()
+      $('#result').hide()
+      $('#test_run').hide()
+      $('#test_run_checkbox').prop("checked", false)
+      $('#vcode_input').val("")
 
-    $("#test_run_checkbox").click(function() {
-      $('#TestRun').toggle()
-      $('#result').toggle()
-      $('#test_run').toggle()
-      $('#test_run_btn').toggleClass("height");
-      $('#test_run_btn').toggleClass("margin");
-    });
+      $("#test_run_checkbox").click(function() {
+        $('#TestRun').toggle()
+        $('#result').toggle()
+        $('#test_run').toggle()
+        $('#test_run_btn').toggleClass("height");
+        $('#test_run_btn').toggleClass("margin");
+      });
+    <?php } ?>
 
     var mark = "<?php echo isset($id) ? 'problem_id' : 'cid'; ?>";
 
@@ -275,7 +308,7 @@
             $("textarea[name=multiline" + index + "]").val(editors[index].getValue())
           });
         })
-      <?php } else { ?>
+      <?php } elseif (!isset($code)) { ?>
         ace.require("ace/ext/language_tools");
         var editor = ace.edit("source");
         editor.setTheme("ace/theme/chrome");
