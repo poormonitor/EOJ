@@ -448,7 +448,7 @@ if ((!isset($_GET['ajax']))) { ?>
 
   <head>
     <meta charset='utf-8'>
-    <title>提交</title>
+    <title><?php echo $MSG_SUBMIT ?></title>
   </head>
   <style>
     @media(prefers-color-scheme: dark) {

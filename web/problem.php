@@ -134,7 +134,9 @@ if ($flag) {
 if ($row["blank"]) {
 	preg_match("/\n.*\*%\*/m", $row["blank"], $matches);
 	$len = $matches ? max(strlen($matches[0]) - 4, 0) : 0;
-	$blank = str_replace("%*%", "__________", str_replace("*%*\r\n", "...\r\n" . str_repeat(" ", $len) . "...\r\n", htmlentities($row["blank"], ENT_QUOTES, "UTF-8")));
+	$blank = htmlentities($row["blank"], ENT_QUOTES, "UTF-8");
+	$blank = str_replace("*%*\r\n", "...\r\n" . str_repeat(" ", $len) . "...\r\n", $blank);
+	$blank = str_replace("%*%", "__________", $blank);
 }
 
 if ($row['block'])

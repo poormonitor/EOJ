@@ -6,39 +6,39 @@ function gtag() {
 gtag('js', new Date());
 gtag('config', 'UA-175545655-2');
 
-$(document).ready(function() {
+$(document).ready(function () {
     $("form").append("<div id='csrf' />");
 });
 
-$(".hint pre").each(function() {
+$(".hint pre").each(function () {
     var plus = "<span class='glyphicon glyphicon-plus'>Click</span>";
     var content = $(this);
     $(this).before(plus);
-    $(this).prev().click(function() {
+    $(this).prev().click(function () {
         content.toggle();
     });
 
 });
 
 function admin_mod() {
-    $("div[fd=source]").each(function() {
+    $("div[fd=source]").each(function () {
         let pid = $(this).attr('pid');
         $(this).append("<span><label class='label label-success' pid='" + pid + "' onclick='problem_add_source(this," + pid + ");'>+</label></span>");
 
     });
-    $("span[fd=time_limit]").each(function() {
+    $("span[fd=time_limit]").each(function () {
         let sp = $(this);
         let pid = $(this).attr('pid');
-        $(this).dblclick(function() {
+        $(this).dblclick(function () {
             let time = sp.text();
             console.log("pid:" + pid + "  time_limit:" + time);
             sp.html("<form onsubmit='return false;'><input type=hidden name='m' value='problem_update_time'><input type='hidden' name='pid' value='" + pid + "'><input type='text' name='t' value='" + time + "' selected='true' class='input-mini' size=2 ></form>");
             let ipt = sp.find("input[name=t]");
             ipt.focus();
             ipt[0].select();
-            sp.find("input").change(function() {
+            sp.find("input").change(function () {
                 let newtime = sp.find("input[name=t]").val();
-                $.post("admin/ajax.php", sp.find("form").serialize()).done(function() {
+                $.post("admin/ajax.php", sp.find("form").serialize()).done(function () {
                     console.log("new time_limit:" + time);
                     sp.html(newtime);
                 });
@@ -54,7 +54,7 @@ function problem_add_source(sp, pid) {
     let p = $(sp).parent();
     p.html("<form onsubmit='return false;'><input type='hidden' name='m' value='problem_add_source'><input type='hidden' name='pid' value='" + pid + "'><input type='text' class='input input-large' name='ns'></form>");
     p.find("input").focus();
-    p.find("input").change(function() {
+    p.find("input").change(function () {
         console.log(p.find("form").serialize());
         let ns = p.find("input[name=ns]").val();
         console.log("new source:" + ns);
@@ -72,7 +72,7 @@ function vcode_required(self) {
     content.setAttribute('class', 'row')
     content.setAttribute('onsubmit', 'return set_val(this)')
     content.setAttribute('style', 'padding:15px;')
-    content.innerHTML = "<div class='col-xs-8'><input name='vcode' id='vcode-input' class='form-control' type='text' required autofocus></div><div class='col-xs-4'><img id='vcode-img' alt='click to change' src='vcode.php?' + Math.random() + '' onclick='change_vcode(this)' height=auto autocomplete='off'>\</div>";
+    content.innerHTML = "<div class='col-xs-8'><input name='vcode' id='vcode-input' class='form-control' type='text' required autofocus></div><div class='col-xs-4'><img id='vcode-img' alt='click to change' src='vcode.php?' + Math.random() + '' onclick='change_vcode(this)' height=auto autocomplete='off'></div>";
     swal({
         title: "验证码",
         content: content
@@ -168,7 +168,7 @@ function getTotal(rows) {
             total = parseInt(rows[rows.length - i].cells[0].innerHTML);
             if (isNaN(total))
                 total = 0;
-        } catch (e) {}
+        } catch (e) { }
     }
     return total;
 }
@@ -237,7 +237,7 @@ function download_content(a, side) {
 
 function print_result(solution_id) {
     sid = solution_id;
-    $.get("status-ajax.php?tr=1&solution_id=" + solution_id, function(data, status) {
+    $.get("status-ajax.php?tr=1&solution_id=" + solution_id, function (data, status) {
         $("#out").text(data)
     })
     swal("测试结束");
@@ -271,7 +271,7 @@ function fresh_test_result(solution_id) {
         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
 
-    xmlhttp.onreadystatechange = function() {
+    xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
             var r = xmlhttp.responseText;
             var ra = r.split(",");
@@ -327,19 +327,13 @@ var handler_interval;
 
 function do_test_run() {
     if (handler_interval) window.clearInterval(handler_interval);
-    if ($("input#vcode_input").val() == "") {
-        swal("验证码空！");
-        return false;
-    }
     var loader = "<img width=18 style='margin-left:3px;' src='" + OJ_CDN + "image/loading.gif'>";
     var tb = window.document.getElementById('result');
-    var source = $("#source").val();
 
-    if (typeof(editor) != "undefined") {
+    if (typeof (editor) != "undefined") {
         source = editor.getValue();
         $("#hide_source").val(source);
     }
-    if (source.length < 10) return swal("代码过短!");
 
     if (tb != null) tb.innerHTML = loader;
 
@@ -348,7 +342,7 @@ function do_test_run() {
     document.getElementById("frmSolution").target = "testRun";
     //$("#hide_source").val(editor.getValue());
     //document.getElementById("frmSolution").submit();
-    $.post("submit.php?ajax", $("#frmSolution").serialize(), function(data) {
+    $.post("submit.php?ajax", $("#frmSolution").serialize(), function (data) {
         fresh_test_result(data);
     });
     $("#Submit").prop('disabled', true);
@@ -358,6 +352,22 @@ function do_test_run() {
     handler_interval = window.setTimeout("resume();", 1000);
 }
 
+function get_full_code() {
+    var template = $("pre#copy-blank").text();
+    $("input[name^=code]").each(function (_, elem) {
+        template = template.replace("%*%", elem.value);
+    })
+    if (typeof editors !== 'undefined') {
+        for (var i = 0; i < editors.length; i++) {
+            var length = /\n.*\*%\*/m.exec(template)[0].length;
+            var value = editors[i].getValue();
+            value = value.replace("\n", " ".repeat(length));
+            template = template.replace("*%*", value, 1);
+        }
+    }
+    return template;
+}
+
 function switchLang(lang) {
     var langnames = new Array("c_cpp", "c_cpp", "pascal", "java", "ruby", "sh", "python", "php", "perl", "csharp", "objectivec", "vbscript", "scheme", "c_cpp", "c_cpp", "lua", "javascript", "golang");
     editor.getSession().setMode("ace/mode/" + langnames[lang]);
@@ -365,7 +375,7 @@ function switchLang(lang) {
 
 function switchLangs(lang) {
     var langnames = new Array("c_cpp", "c_cpp", "pascal", "java", "ruby", "sh", "python", "php", "perl", "csharp", "objectivec", "vbscript", "scheme", "c_cpp", "c_cpp", "lua", "javascript", "golang");
-    editors.forEach(function(elem) {
+    editors.forEach(function (elem) {
         elem.getSession().setMode("ace/mode/" + langnames[lang])
     });
 }
@@ -583,7 +593,7 @@ function fresh_result(solution_id) {
         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
 
-    xmlhttp.onreadystatechange = function() {
+    xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
             var tb = window.document.getElementById('result-tab');
             var row = findRow(solution_id);
@@ -626,7 +636,7 @@ function fresh_result(solution_id) {
                         row.cells[3].innerHTML = "<a href=ceinfo.php?sid=" + solution_id + " class='" + judge_color[ra[0]] + "'>" + judge_result[ra[0]] + "</a>";
                         break;
                     default:
-                        //						row.cells[3].innerHTML = "<span class='"+judge_color[ra[0]]+"'>"+judge_result[ra[0]]+" AC:"+ra[4].trim()+"%</span>";
+                    //						row.cells[3].innerHTML = "<span class='"+judge_color[ra[0]]+"'>"+judge_result[ra[0]]+" AC:"+ra[4].trim()+"%</span>";
                 }
 
                 auto_refresh();
@@ -639,7 +649,7 @@ function fresh_result(solution_id) {
 
 function http_judge(btn) {
     var sid = $(btn).parent()[0].children[0].value;
-    $.post("admin/problem_judge.php", $(btn).parent().serialize(), function(data, textStatus) {
+    $.post("admin/problem_judge.php", $(btn).parent().serialize(), function (data, textStatus) {
         if (textStatus == "success") {
             window.setTimeout("fresh_result(" + sid + ")", 1000)
         };
