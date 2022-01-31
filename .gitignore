@@ -1,5 +1,6 @@
 web/.htaccess
 web/404.html
+web/favicon.ico
 web/upload
 web/include/db_info.inc.php
 web/.user.ini
