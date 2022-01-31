@@ -308,7 +308,7 @@
             $("textarea[name=multiline" + index + "]").val(editors[index].getValue())
           });
         })
-      <?php } elseif (!isset($code)) { ?>
+      <?php } elseif (!isset($code) || (isset($no_blank) && $no_blank)) { ?>
         ace.require("ace/ext/language_tools");
         var editor = ace.edit("source");
         editor.setTheme("ace/theme/chrome");
