@@ -59,83 +59,67 @@ div.status_explain li {
         filter: invert(1) hue-rotate(180deg);
         background: #242424 !important;
     }
-
     .jumbotron {
         filter: brightness(90%);
     }
-
     img {
         filter: invert(1) hue-rotate(180deg);
     }
-
     .btn-sm {
         color: #fff;
         filter: invert(1) hue-rotate(180deg) brightness(140%);
     }
-
     .label {
         color: #fff;
         filter: invert(1) hue-rotate(180deg) brightness(120%);
     }
-
     .label-info {
         background-color: #1AA2CB !important;
     }
-
     .navbar-default {
         background: #E5E5E5 !important;
     }
-
     .dropdown-menu {
         background: #E5E5E5 !important;
     }
 }
 
 @media (max-width: 575.98px) {
-
-    .news,
-    #container {
-        width: auto;
-    }
-
-    #container_status {
-        width: auto;
-    }
-
-    .main-container,
-    pre#code {
-        margin: 5px;
-    }
-}
-
-@media (min-width: 576px) and (max-width: 767.98px) {
-
     .news,
     #container {
         width: 95%;
     }
-
     #container_status {
-        width: 90%;
+        width: 95%;
     }
-
     .main-container,
     pre#code {
         margin: 10px;
     }
 }
 
-@media (min-width: 768px) and (max-width: 991.98px) {
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .news,
+    #container {
+        width: 95%;
+    }
+    #container_status {
+        width: 90%;
+    }
+    .main-container,
+    pre#code {
+        margin: 15px;
+    }
+}
 
+@media (min-width: 768px) and (max-width: 991.98px) {
     .news,
     #container {
         width: 90%;
     }
-
     #container_status {
         width: 80%;
     }
-
     .main-container,
     pre#code {
         margin: 20px;
@@ -143,20 +127,23 @@ div.status_explain li {
 }
 
 @media (min-width: 992px) {
-
     .news,
     #container {
         width: 80%;
     }
-
     #container_status {
         width: 70%;
     }
-
     .main-container,
     pre#code {
         margin: 30px;
     }
+}
+
+img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
 }
 
 .table {
