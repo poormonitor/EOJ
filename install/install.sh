@@ -14,7 +14,6 @@ mkdir etc data log backup
 mv src/web/include/db_info.default.php src/web/include/db_info.inc.php
 cp src/install/java0.policy  /home/judge/etc
 cp src/install/judge.conf  /home/judge/etc
-chmod +x src/install/ans2out
 
 if grep "OJ_SHM_RUN=0" etc/judge.conf ; then
 	mkdir run0 run1 run2 run3

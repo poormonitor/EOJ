@@ -83,79 +83,83 @@
           <?php if (!$answered) { ?>
             <a class="btn btn-sm btn-primary" href="quiz_submitpage.php?qid=<?php echo $view_qid ?>"><?php echo $MSG_QUIZ_ANS; ?></a>
           <?php } else { ?>
-            <div id="statistic" class="table-responsive main-container">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th><?php echo $MSG_USER_ID ?></th>
-                    <th><?php echo $MSG_NICK ?></th>
-                    <th><?php echo $MSG_SUBMIT_TIME ?></th>
-                    <th><?php echo $MSG_SCORE_SUM ?></th>
-                    <th><?php echo $MSG_QUIZ_SCORE ?></th>
-                    <th><?php echo $MSG_IS_JUDGED ?></th>
-                    <th><?php echo $MSG_QUIZ_JUDGE_TIME ?></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><?php echo $answer["user_id"] ?></td>
-                    <td><?php echo $answer["nick"] ?></td>
-                    <td><?php echo $answer["in_date"] ?></td>
-                    <td><?php echo $quiz_total ?></td>
-                    <td><?php echo $answer["total"] ?></td>
-                    <td><?php echo $answer["judged"] ? $MSG_TRUE_FALSE[true] : $MSG_TRUE_FALSE[false] ?></td>
-                    <td><?php echo $answer["judgetime"] == NULL ? "-" : $answer["judgetime"] ?></td>
-                  </tr>
-                </tbody>
-              </table>
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th><?php echo $MSG_QUIZ_PROBLEM; ?></th>
-                    <th><?php echo $MSG_Description; ?></th>
-                    <th><?php echo $MSG_TYPE; ?></th>
-                    <th><?php echo $MSG_YOUR_ANSWER; ?></th>
-                    <th><?php echo $MSG_CORRECT_ANSWER; ?></th>
-                    <th><?php echo $MSG_SCORE; ?></th>
-                    <th><?php echo $MSG_QUIZ_SCORE; ?></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-                  $type = explode("/", $quiz['type']);
-                  $my_score = explode("/", $answer['score']);
-                  $score = explode("/", $quiz['score']);
-                  $my_answer = explode("/", $answer['answer']);
-                  $correct = explode("/", $quiz['correct_answer']);
-                  $view_description = explode("<sep />", $quiz['question']);
-                  $sum = array_sum(array_map('intval', $score));
-                  for ($i = 0; $i < count($type); $i++) {
-                    echo "<tr>";
-                    echo "<td>" . ($i + 1) . "</td>";
-                    echo "<td style='width:36%'>" . $view_description[$i] . "</td>";
-                    echo "<td>" . $MSG_QUIZ_TYPE[intval($type[$i])] . "</td>";
-                    echo "<td>" . $my_answer[$i] . "</td>";
-                    echo "<td>" . $correct[$i] . "</td>";
-                    echo "<td>" . $score[$i] . "</td>";
-                    if ($answer['judged'] || $type[$i] != '3') {
-                      echo "<td>" . $my_score[$i] . "</td>";
-                    } else {
-                      echo "<td>" . $MSG_NOT_JUDGED . "</td>";
+            <div id="statistic" class="main-container">
+              <div class='table-responsive'>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th><?php echo $MSG_USER_ID ?></th>
+                      <th><?php echo $MSG_NICK ?></th>
+                      <th><?php echo $MSG_SUBMIT_TIME ?></th>
+                      <th><?php echo $MSG_SCORE_SUM ?></th>
+                      <th><?php echo $MSG_QUIZ_SCORE ?></th>
+                      <th><?php echo $MSG_IS_JUDGED ?></th>
+                      <th><?php echo $MSG_QUIZ_JUDGE_TIME ?></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><?php echo $answer["user_id"] ?></td>
+                      <td><?php echo $answer["nick"] ?></td>
+                      <td><?php echo $answer["in_date"] ?></td>
+                      <td><?php echo $quiz_total ?></td>
+                      <td><?php echo $answer["total"] ?></td>
+                      <td><?php echo $answer["judged"] ? $MSG_TRUE_FALSE[true] : $MSG_TRUE_FALSE[false] ?></td>
+                      <td><?php echo $answer["judgetime"] == NULL ? "-" : $answer["judgetime"] ?></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class='table-responsive'>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th><?php echo $MSG_QUIZ_PROBLEM; ?></th>
+                      <th><?php echo $MSG_Description; ?></th>
+                      <th><?php echo $MSG_TYPE; ?></th>
+                      <th><?php echo $MSG_YOUR_ANSWER; ?></th>
+                      <th><?php echo $MSG_CORRECT_ANSWER; ?></th>
+                      <th><?php echo $MSG_SCORE; ?></th>
+                      <th><?php echo $MSG_QUIZ_SCORE; ?></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                    $type = explode("/", $quiz['type']);
+                    $my_score = explode("/", $answer['score']);
+                    $score = explode("/", $quiz['score']);
+                    $my_answer = explode("/", $answer['answer']);
+                    $correct = explode("/", $quiz['correct_answer']);
+                    $view_description = explode("<sep />", $quiz['question']);
+                    $sum = array_sum(array_map('intval', $score));
+                    for ($i = 0; $i < count($type); $i++) {
+                      echo "<tr>";
+                      echo "<td>" . ($i + 1) . "</td>";
+                      echo "<td style='width:36%'>" . $view_description[$i] . "</td>";
+                      echo "<td>" . $MSG_QUIZ_TYPE[intval($type[$i])] . "</td>";
+                      echo "<td>" . $my_answer[$i] . "</td>";
+                      echo "<td>" . $correct[$i] . "</td>";
+                      echo "<td>" . $score[$i] . "</td>";
+                      if ($answer['judged'] || $type[$i] != '3') {
+                        echo "<td>" . $my_score[$i] . "</td>";
+                      } else {
+                        echo "<td>" . $MSG_NOT_JUDGED . "</td>";
+                      }
+                      echo "</tr>";
                     }
-                    echo "</tr>";
-                  }
-                  ?>
-                  <tr>
-                    <th><?php echo $MSG_SCORE_SUM ?></th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td><?php echo $quiz_total ?></td>
-                    <td><?php echo $answer['total'] ?></td>
-                  </tr>
-                </tbody>
-              </table>
+                    ?>
+                    <tr>
+                      <th><?php echo $MSG_SCORE_SUM ?></th>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td><?php echo $quiz_total ?></td>
+                      <td><?php echo $answer['total'] ?></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           <?php } ?>
           <br /><br />
