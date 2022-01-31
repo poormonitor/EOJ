@@ -196,8 +196,7 @@ int num_of_test = 0;
 // static int sleep_tmp;
 
 static int py2 = 1; // caution: py2=1 means default using py3
-
-static char py_bin[BUFFER_SIZE / 10] = "/home/judge/py3/bin/python3";
+static char py_bin[BUFFER_SIZE / 10] = "/usr/bin/python3";
 
 #define ZOJ_COM
 
@@ -581,6 +580,7 @@ void init_judge_conf()
 			read_buf(buf, "OJ_CC_STD", cc_std);
 			read_buf(buf, "OJ_CPP_STD", cpp_std);
 			read_buf(buf, "OJ_CC_OPT", cc_opt);
+			read_buf(buf, "OJ_PY_BIN", py_bin);
 		}
 		fclose(fp);
 	}

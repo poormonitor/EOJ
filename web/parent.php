@@ -47,7 +47,7 @@ if (isset($_GET['user']) and $_GET['user'] != '') {
     }
     $user = $user[0][0];
 } else {
-    $view_swal = "没有输入用户！";
+    $view_swal = $MSG_PARAMS_ERROR;
     $error_location = "parent.php?query=false";
     require_once("template/error.php");
     exit(0);
