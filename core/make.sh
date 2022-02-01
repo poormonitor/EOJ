@@ -7,7 +7,7 @@ cd ../judge_client
 make
 chmod +x judge_client
 cp judge_client /usr/bin
-cd ../sim/sim_3_01
+cd ../sim/sim_3_0_2
 make fresh
 make exes
 chmod +x sim*
@@ -17,6 +17,7 @@ cp sim_java.exe /usr/bin/sim_java
 cp sim_pasc.exe /usr/bin/sim_pas
 cp sim_text.exe /usr/bin/sim_text
 cp sim_lisp.exe /usr/bin/sim_scm
+cp sim_py.exe /usr/bin/sim_py
 cd ..
 cp sim.sh /usr/bin
 chmod +x /usr/bin/sim.sh

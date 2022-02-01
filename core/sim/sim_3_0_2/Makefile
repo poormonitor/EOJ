@@ -55,6 +55,28 @@ ZIP =		zip -o
 # File names
 NULLFILE =	/dev/null
 
+################################################################
+# For MSDOS + MinGW
+
+SYSTEM =	MSDOS
+SUBSYSTEM =	MinGW
+
+# Locations
+DIR =		C:/BIN
+BINDIR =	C:/BIN
+MAN1DIR =	C:/BIN
+
+# File names
+NULLFILE =	nul
+
+# Commands (cp required, since xcopy cannot handle forward slashes)
+COPY =		cp -p
+EXE =		.exe
+LEX =		flex
+LN =		ln
+ZIP =		zip -o
+
+################################################################
 # General, C compilation:
 CC =		gcc -D$(SYSTEM) -D$(SUBSYSTEM)
 LINT =		lint -ansi -D$(SYSTEM) -D$(SUBSYSTEM)
@@ -181,7 +203,7 @@ test:		sim.res stream.res percentages.res version.res
 
 BINARIES =	sim_c$(EXE) sim_c++$(EXE) sim_java$(EXE) sim_pasc$(EXE) \
 		sim_m2$(EXE) sim_lisp$(EXE) sim_mira$(EXE) sim_text$(EXE) \
-		sim_8086$(EXE) sim_py$(EXE)
+		sim_8086$(EXE)
 
 binaries:	$(BINARIES)#		# for *N?X
 exes:		binaries#		# for MSDOS
@@ -283,8 +305,7 @@ sim_mira$(EXE):	$(SIM_SRC) $(PROP_SRC) miralang.l $(LEX_HDR)
 sim_8086$(EXE):	$(SIM_SRC) $(PROP_SRC) 8086lang.l $(LEX_HDR)
 		make GEN_LANG=8086 sim_gen$(EXE)
 
-sim_py$(EXE):	$(SIM_SRC) $(PROP_SRC) pylang.l $(LEX_HDR)
-		make GEN_LANG=py sim_gen$(EXE)
+
 
 
 
@@ -368,8 +389,7 @@ install:	$(MAN1DIR)/sim.1 \
 		$(BINDIR)/sim_m2$(EXE) \
 		$(BINDIR)/sim_lisp$(EXE) \
 		$(BINDIR)/sim_mira$(EXE) \
-		$(BINDIR)/sim_8086$(EXE) \
-		$(BINDIR)/sim_py$(EXE)
+		$(BINDIR)/sim_8086$(EXE)
 
 $(MAN1D)/sim.1:	sim.1
 		$(COPY) sim.1 $@
@@ -400,9 +420,6 @@ $(BINDIR)/sim_mira$(EXE):	sim_mira$(EXE)
 
 $(BINDIR)/sim_8086$(EXE):	sim_8086$(EXE)
 		$(COPY) sim_8086$(EXE) $@
-
-$(BINDIR)/sim_py$(EXE):	sim_py$(EXE)
-		$(COPY) sim_py$(EXE) $@
 
 # Clean-up
 
