@@ -12,7 +12,8 @@
 */
 
 #include	"token.h"
-#include	"properties.h"
+#include	"language.h"
+#include	"algollike.h"
 #include	"lex.h"
 #include	"lang.h"
 
@@ -86,7 +87,18 @@ const char *Subject = "Python programs";
 
 void
 Init_Language(void) {
-	Init_Language_Properties(Non_Finals, Non_Initials, Openers, Closers);
+	Init_Algol_Language(Non_Finals, Non_Initials, Openers, Closers);
+}
+
+
+int
+May_Be_Start_Of_Run(Token ch) {
+	return May_Be_Start_Of_Algol_Run(ch);
+}
+
+size_t
+Best_Run_Size(const Token *str, size_t size) {
+	return Best_Algol_Run_Size(str, size);
 }
 
 %}
@@ -106,13 +118,13 @@ IdfChar		([-!#$%&*+,/0-9:;<=>?@A-Z\\^_`a-z{}~])
 
 EscIdf		(({IdfChar}|\\.)+)
 QuotIdf		("|"[^\|\n]*"|")
+Idf		([A-Za-z_][A-Za-z0-9_]*)
 
 StartComment	("'''")
 EndComment	("'''")
 SingleLineCom	("#".*)
 
 HexDigit	([0-9a-fA-F])
-Idf		([A-Za-z_][A-Za-z0-9_]*)
 
 %%
 
@@ -120,7 +132,7 @@ Idf		([A-Za-z_][A-Za-z0-9_]*)
 	}
 
 \"{StrChar}*\"	{			/* strings */
-		return_ch(STR);
+		return_ch('"');
 	}
 
 {Idf}	{				/* identifier */
@@ -139,7 +151,7 @@ Idf		([A-Za-z_][A-Za-z0-9_]*)
 	}
 
 .	{				/* count non-ASCII chars */
-		lex_non_ASCII_cnt++;
+		lex_non_ascii_cnt++;
 	}
 
 %%
