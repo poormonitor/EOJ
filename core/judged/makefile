@@ -4,4 +4,8 @@ all: judged.cc judged.http
 
 judged.http: judged.cc
 	g++ -Wall -o judged.http judged.cc
-
+clean:
+	rm judged judged.http judged.o
+install:
+	chmod a+x judged
+	cp judged /usr/bin

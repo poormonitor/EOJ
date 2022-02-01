@@ -44,8 +44,6 @@ if (count($result) > 0) {
 			pdo_query($sql, $solution_id);
 			$sql = "delete from source_code where solution_id=?";
 			pdo_query($sql, $solution_id);
-			$sql = "delete from source_code_user where solution_id=?";
-			pdo_query($sql, $solution_id);
 			$sql = "delete from runtimeinfo where solution_id=?";
 			pdo_query($sql, $solution_id);
 		}

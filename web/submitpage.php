@@ -76,7 +76,7 @@ if (isset($_GET['sid'])) {
 	}
 
 	if ($ok == true) {
-		$sql = "SELECT `source` FROM `source_code_user` WHERE `solution_id`=?";
+		$sql = "SELECT `source` FROM `source_code` WHERE `solution_id`=?";
 		$result = pdo_query($sql, $sid);
 
 		$row = $result[0];
