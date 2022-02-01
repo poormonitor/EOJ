@@ -21,7 +21,7 @@
 Token lex_token;
 size_t lex_nl_cnt;
 size_t lex_tk_cnt;
-size_t lex_non_ASCII_cnt;
+size_t lex_non_ascii_cnt;
 
 /* Language-dependent data */
 #include	"idf.h"
@@ -59,7 +59,7 @@ static const struct idf reserved[] = {
 	{"yield",	NORM('y')},
 };
 
-/* Token sets for properties module */
+/* Token sets for module algollike */
 const Token Non_Finals[] = {
 	NORM('('),
 	NORM('['),
