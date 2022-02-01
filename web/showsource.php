@@ -62,7 +62,7 @@ $view_source = "没有可用的代码！";
 if (isset($_SESSION[$OJ_NAME . '_' . 'user_id']) && $row && $row['user_id'] == $_SESSION[$OJ_NAME . '_' . 'user_id']) $ok = true;
 if (isset($_SESSION[$OJ_NAME . '_' . 'source_browser'])) $ok = true;
 
-$sql = "SELECT `source` FROM `source_code_user` WHERE `solution_id`=?";
+$sql = "SELECT `source` FROM `source_code` WHERE `solution_id`=?";
 $result = pdo_query($sql, $id);
 $row = $result[0];
 if ($row)

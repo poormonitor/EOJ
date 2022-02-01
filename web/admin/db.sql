@@ -9,15 +9,6 @@ where
             solution
     )
 delete from
-    source_code_user
-where
-    solution_id not in (
-        select
-            solution_id
-        from
-            solution
-    )
-delete from
     runtimeinfo
 where
     solution_id not in (
