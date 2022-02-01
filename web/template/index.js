@@ -1,11 +1,3 @@
-window.dataLayer = window.dataLayer || [];
-
-function gtag() {
-    dataLayer.push(arguments);
-}
-gtag('js', new Date());
-gtag('config', 'UA-175545655-2');
-
 $(document).ready(function () {
     $("form").append("<div id='csrf' />");
 });
