@@ -7,7 +7,7 @@ cd ../judge_client
 make
 make install
 make clean
-cd ../sim/sim_3_0_2
+cd ../sim/sim_3_0_1
 make fresh
 make exes
 chmod +x sim*
