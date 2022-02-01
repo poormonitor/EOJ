@@ -66,7 +66,7 @@ if ($ok == true) {
 	exit(0);
 }
 
-$sql = "SELECT `source` FROM `source_code_user` WHERE `solution_id`=?";
+$sql = "SELECT `source` FROM `source_code` WHERE `solution_id`=?";
 $result = pdo_query($sql, $id);
 $row = $result[0];
 if ($row)

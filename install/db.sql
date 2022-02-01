@@ -297,12 +297,6 @@ CREATE TABLE IF NOT EXISTS `source_code` (
   PRIMARY KEY (`solution_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE IF NOT EXISTS `source_code_user` (
-  `solution_id` int(11) NOT NULL,
-  `source` text NOT NULL,
-  PRIMARY KEY (`solution_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
-
 CREATE TABLE IF NOT EXISTS `topic` (
   `tid` int(11) NOT NULL AUTO_INCREMENT,
   `title` varbinary(60) NOT NULL,

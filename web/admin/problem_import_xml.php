@@ -60,8 +60,6 @@ function submitSolution($pid, $solution, $language)
   $sql = "INSERT INTO `source_code`(`solution_id`,`source`) VALUES(?,?)";
   pdo_query($sql, $insert_id, $solution);
 
-  $sql = "INSERT INTO `source_code_user`(`solution_id`,`source`) VALUES(?,?)";
-  pdo_query($sql, $insert_id, $solution);
   pdo_query("UPDATE solution SET result=1 WHERE solution_id=?", $insert_id);
   pdo_query("UPDATE problem SET submit=submit+1 WHERE problem_id=?", $pid);
 }

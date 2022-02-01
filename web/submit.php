@@ -390,9 +390,6 @@ if (~$OJ_LANGMASK & (1 << $language)) {
     $insert_id = pdo_query($sql, $id, $user_id, $nick, $language, $ip, $len, $cid, $pid);
   }
 
-  $sql = "INSERT INTO `source_code_user`(`solution_id`,`source`) VALUES(?,?)";
-  pdo_query($sql, $insert_id, $source_user);
-
   $sql = "INSERT INTO `source_code`(`solution_id`,`source`) VALUES(?,?)";
   pdo_query($sql, $insert_id, $source);
 
