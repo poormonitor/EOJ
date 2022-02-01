@@ -17,27 +17,23 @@
             min_height: 400,
             fontsize_formats: '14px 24px',
             image_class_list: [{
-                    title: 'None',
-                    value: ''
-                },
-                {
-                    title: 'Some class',
-                    value: 'class-name'
-                }
-            ],
+                title: 'None',
+                value: ''
+            }, ],
             extended_valid_elements: 'script[src]',
             mathjax: {
-                lib: "<?php echo $OJ_CDN_URL?>tinymce/plugins/mathjax/tex-mml-chtml.js",
-                symbols: {start: '$', end: '$'}
+                lib: "<?php echo $OJ_CDN_URL ?>tinymce/plugins/mathjax/tex-mml-chtml.js",
+                symbols: {
+                    start: '$',
+                    end: '$'
+                }
             },
             template_cdate_format: '[CDATE: %m/%d/%Y : %H:%M:%S]',
             template_mdate_format: '[MDATE: %m/%d/%Y : %H:%M:%S]',
             autosave_ask_before_unload: false,
             toolbar_mode: 'wrap',
-            paste_auto_cleanup_on_paste: true,
-            paste_remove_styles: true,
             paste_remove_styles_if_webkit: true,
-            paste_strip_class_attributes: true,
+            table_sizing_mode: 'responsive',
             setup: function(editor) {
                 editor.on('init', function(e) {
                     this.getBody().style.fontSize = '14px';
