@@ -42,6 +42,5 @@ sed -i "s#OJ_SHM_RUN[[:space:]]*=[[:space:]]*1#OJ_SHM_RUN=0#g"                  
 sed -i "s#127.0.0.1:9000#unix:/var/run/php/php7.4-fpm.sock#g"    /etc/nginx/sites-available/default
 sed -i "s#DB_USER[[:space:]]*=[[:space:]]*\"root\"#DB_USER=\"$USERNAME\"#g"                  /home/judge/src/web/include/db_info.inc.php
 sed -i "s#DB_PASS[[:space:]]*=[[:space:]]*\"root\"#DB_PASS=\"$PASSWORD\"#g"                  /home/judge/src/web/include/db_info.inc.php
-sed -i "s#/home/judge##g"                  /home/judge/src/web/.user.ini
 chmod a+x /etc/init.d/hustoj
 update-rc.d hustoj defaults
