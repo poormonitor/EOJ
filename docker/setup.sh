@@ -32,7 +32,7 @@ PASSWORD=`cat /etc/mysql/debian.cnf |grep password|head -1|awk  '{print $3}'`
 mv /home/judge/src/web/include/db_info.default.php /home/judge/src/web/include/db_info.inc.php
 cp /home/judge/src/install/java0.policy  /home/judge/etc/
 cp /home/judge/src/install/judge.conf    /home/judge/etc/
-cp /home/judge/src/install/hustoj /etc/init.d/hustoj
+cp /home/judge/src/install/hustoj        /etc/init.d/hustoj
 cp /home/judge/src/install/default.conf  /etc/nginx/sites-available/default
 sed -i "s#OJ_USER_NAME[[:space:]]*=[[:space:]]*root#OJ_USER_NAME=$USERNAME#g"    /home/judge/etc/judge.conf
 sed -i "s#OJ_PASSWORD[[:space:]]*=[[:space:]]*root#OJ_PASSWORD=$PASSWORD#g"      /home/judge/etc/judge.conf
@@ -42,4 +42,5 @@ sed -i "s#OJ_SHM_RUN[[:space:]]*=[[:space:]]*1#OJ_SHM_RUN=0#g"                  
 sed -i "s#127.0.0.1:9000#unix:/var/run/php/php7.2-fpm.sock#g"    /etc/nginx/sites-available/default
 sed -i "s#DB_USER[[:space:]]*=[[:space:]]*\"root\"#DB_USER=\"$USERNAME\"#g"                  /home/judge/src/web/include/db_info.inc.php
 sed -i "s#DB_PASS[[:space:]]*=[[:space:]]*\"root\"#DB_PASS=\"$PASSWORD\"#g"                  /home/judge/src/web/include/db_info.inc.php
+chmod a+x /etc/init.d/hustoj
 update-rc.d hustoj defaults

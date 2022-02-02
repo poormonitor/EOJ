@@ -1,24 +1,19 @@
-FROM ubuntu:18.04
+FROM debian:bullseye
 
-ARG APT_MIRROR="Y"
-ARG APT_CA="Y"
-
-RUN [ "$APT_CA" = "Y" ] && apt-get -y update && apt install -y ca-certificates  || true
-
-# Linux: Aliyun Apt Mirrors.
-RUN [ "$APT_MIRROR" != "N" ] && sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list || true
-
-RUN apt-get -y update  && \
+RUN sed -i 's/deb.debian.org/mirrors.tencentyun.com/g' /etc/apt/sources.list && \
+    apt-get -y update  && \
     apt-get -y upgrade && \
     DEBIAN_FRONTEND=noninteractive \
     apt-get -y install --no-install-recommends \
         nginx \
-        mysql-server \
-        libmysqlclient-dev \
-        libmysql++-dev \
+        mariadb-server \
+        mariadb-client \
+        memcached \
+        libmariadb-dev \
         php-common \
         php-fpm \
         php-mysql \
+        php-memcached \
         php-gd \
         php-zip \
         php-mbstring \
@@ -32,7 +27,6 @@ RUN apt-get -y update  && \
 COPY core /trunk/core
 COPY web /trunk/web
 COPY install /trunk/install
-
 COPY docker/ /opt/docker/
 
 RUN bash /opt/docker/setup.sh
