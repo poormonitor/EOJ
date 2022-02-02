@@ -1,6 +1,6 @@
-FROM debian:bullseye
+FROM ubuntu:20.04
 
-RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list && \
+RUN sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list && \
     apt-get -y update  && \
     apt-get -y upgrade && \
     DEBIAN_FRONTEND=noninteractive \
