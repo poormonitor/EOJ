@@ -187,7 +187,7 @@ foreach ($result as $row) {
   }
 
   if ($flag)
-    $view_solution[$j][6] = "$s_cl bytes";
+    $view_solution[$j][6] = "$s_cl Bytes";
   else
     $view_solution[$j][6] = "------";
 
