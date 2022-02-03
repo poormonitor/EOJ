@@ -552,10 +552,10 @@ function show_perms( $P ) {
 function format_size($arg) {
     if ($arg>0){
         $j = 0;
-        $ext = array(" bytes"," Kb"," Mb"," Gb"," Tb");
+        $ext = array(" Bytes"," KB"," MB"," GB"," TB");
         while ($arg >= pow(1024,$j)) ++$j;
         return round($arg / pow(1024,$j-1) * 100) / 100 . $ext[$j-1];
-    } else return "0 bytes";
+    } else return "0 Bytes";
 }
 function get_size($file) {
     return format_size(filesize($file));
@@ -1192,7 +1192,7 @@ function dir_list_form() {
             var resul = '';
             if (arg>0){
                 var j = 0;
-                var ext = new Array(' bytes',' Kb',' Mb',' Gb',' Tb');
+                var ext = new Array(' Bytes',' KB',' MB',' GB',' TB');
                 while (arg >= Math.pow(1024,j)) ++j;
                 resul = (Math.round(arg/Math.pow(1024,j-1)*100)/100) + ext[j-1];
             } else resul = 0;

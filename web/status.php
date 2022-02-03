@@ -456,7 +456,7 @@ for ($i = 0; $i < $rows_cnt; $i++) {
       }
     }
 
-    $view_status[$i][7] = $row['code_length'] . " bytes";
+    $view_status[$i][7] = $row['code_length'] . " Bytes";
   } else {
     $view_status[$i][4] = "---";
     $view_status[$i][5] = "---";
