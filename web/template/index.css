@@ -18,8 +18,21 @@ div.status_explain li {
 .container .jumbotron {
     padding: 8px;
     background: #fff;
-    border: 0px;
+    border: 0;
     box-shadow: 0 1px 0 rgba(255, 255, 255, .15) inset, 0 2px 6px rgba(0, 0, 0, .075);
+}
+
+pre {
+    padding: 10px 15px;
+    margin: 10px 0 10px;
+    font-size: 14px;
+    border: 0;
+}
+
+.panel-footer {
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border: 0;
 }
 
 .panel-default>.panel-body {
@@ -30,18 +43,18 @@ div.status_explain li {
 
 .panel-default>.panel-heading {
     background-image: linear-gradient(240deg, #fff 0, #f2f2f2 100%);
-    border: 0px;
+    border: 0;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 }
 
 .panel-default>.panel-footer {
     background-image: linear-gradient(240deg, #fff 0, #f2f2f2 100%);
-    border: 0px;
+    border: 0;
 }
 
 .panel-default {
-    border: 0px;
+    border: 0;
 }
 
 .toprow {
@@ -153,7 +166,7 @@ img {
 }
 
 .table-responsive {
-    border: 0px;
+    border: 0;
     padding: 3px;
 }
 
@@ -161,7 +174,7 @@ img {
 .navbar-default {
     background-repeat: repeat-x;
     border-radius: 15px;
-    border: 0px;
+    border: 0;
     box-shadow: 0 1px 0 rgba(255, 255, 255, .15) inset, 0 2px 6px rgba(0, 0, 0, .075);
 }
 
@@ -182,7 +195,7 @@ img {
 }
 
 pre#code {
-    border: 0px;
+    border: 0;
     font-size: 120%;
     background-color: #fff;
     box-shadow: 0 1px 0 rgba(255, 255, 255, .15) inset, 0 2px 6px rgba(0, 0, 0, .075);
