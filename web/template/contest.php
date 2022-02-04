@@ -93,12 +93,12 @@
         <table id='problemset' class='table table-striped' width='90%'>
           <thead>
             <tr align=center class='toprow'>
-              <th></th>
-              <th style="cursor:hand" onclick="sortTable('problemset', 1, 'int');"><?php echo $MSG_PROBLEM_ID ?></th>
-              <th><?php echo $MSG_TITLE ?></th>
-              <th><?php echo $MSG_SOURCE ?></th>
-              <th style="cursor:hand" onclick="sortTable('problemset', 4, 'int');"><?php echo $MSG_SOVLED ?></th>
-              <th style="cursor:hand" onclick="sortTable('problemset', 5, 'int');"><?php echo $MSG_SUBMIT ?></th>
+              <th class='center'></th>
+              <th class='center' style="cursor:hand" onclick="sortTable('problemset', 1, 'int');"><?php echo $MSG_PROBLEM_ID ?></th>
+              <th class='center'><?php echo $MSG_TITLE ?></th>
+              <th class='center'><?php echo $MSG_SOURCE ?></th>
+              <th class='center' style="cursor:hand" onclick="sortTable('problemset', 4, 'int');"><?php echo $MSG_SOVLED ?></th>
+              <th class='center' style="cursor:hand" onclick="sortTable('problemset', 5, 'int');"><?php echo $MSG_SUBMIT ?></th>
             </tr>
           </thead>
           <tbody align='center'>
