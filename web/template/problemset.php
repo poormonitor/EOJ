@@ -78,7 +78,7 @@
 							<th class='hidden-xs center'>
 								<?php echo $MSG_PROBLEM_ID ?>
 							</th>
-							<th class='center'>
+							<th>
 								<?php echo $MSG_TITLE ?>
 							</th>
 							<th class='hidden-xs center'>

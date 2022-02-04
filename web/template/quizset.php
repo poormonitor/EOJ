@@ -43,7 +43,7 @@
             <tr class=toprow>
               <th class='center'><?php echo $MSG_QUIZ_ID ?></th>
               <th class='center'><?php echo $MSG_QUIZ_NAME ?></th>
-              <th class='center'><?php echo $MSG_QUIZ_STATUS ?></th>
+              <th><?php echo $MSG_QUIZ_STATUS ?></th>
               <th class='center'><?php echo $MSG_QUIZ_OPEN ?></th>
               <th class='center'><?php echo $MSG_QUIZ_CREATOR ?></th>
             </tr>
