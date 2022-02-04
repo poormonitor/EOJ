@@ -3,7 +3,7 @@
 <table class="table" style='width:95%;margin:0 auto;'>
     <tbody>
         <tr>
-            <td><a class='btn btn-default btn-block btn-sm' href="../status.php" target="_top"><b><?php echo $MSG_SEEOJ ?></b></a></td>
+            <td><a class='btn btn-default btn-block' href="../status.php" target="_top"><b><?php echo $MSG_SEEOJ ?></b></a></td>
             <td>
                 <p><?php echo $MSG_HELP_SEEOJ ?></p>
             </td>
@@ -248,27 +248,27 @@
                 </td>
             </tr>
             <tr>
-                <td><a class='btn btn-default btn-block btn-sm' href="https://github.com/zhblue/hustoj/" target="_blank"><b>HUSTOJ</b></a></td>
+                <td><a class='btn btn-default btn-block' href="https://github.com/zhblue/hustoj/" target="_blank"><b>HUSTOJ</b></a></td>
                 <td>
                     <p>HUSTOJ</p>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <center><a class='btn btn-default btn-block btn-sm' target='_blank' href="https://github.com/zhblue/hustoj/blob/master/wiki/FAQ.md"><?php echo $MSG_ADMIN . " " . $MSG_FAQ ?></a></center>
+                    <center><a class='btn btn-default btn-block' target='_blank' href="https://github.com/zhblue/hustoj/blob/master/wiki/FAQ.md"><?php echo $MSG_ADMIN . " " . $MSG_FAQ ?></a></center>
                 </td>
                 <td>
                     <p><?php echo $MSG_ADMIN . " " . $MSG_FAQ ?></p>
                 </td>
             </tr>
             <tr>
-                <td><a class='btn btn-default btn-block btn-sm' href="https://github.com/zhblue/freeproblemset/" target="_blank"><b>FreeProblemSet</b></a></td>
+                <td><a class='btn btn-default btn-block' href="https://github.com/zhblue/freeproblemset/" target="_blank"><b>FreeProblemSet</b></a></td>
                 <td>
                     <p>FreeProblemSet</p>
                 </td>
             </tr>
             <tr>
-                <td><a class='btn btn-default btn-block btn-sm' href="http://tk.hustoj.com" target="_blank"><b>tk.hustoj.com</b></a></td>
+                <td><a class='btn btn-default btn-block' href="http://tk.hustoj.com" target="_blank"><b>tk.hustoj.com</b></a></td>
                 <td>
                     <p>tk.hustoj.com</p>
                 </td>

@@ -96,6 +96,7 @@ if (isset($_POST['qid'])) {
   $num = count($type);
   $starttime = $row['start_time'];
   $endtime = $row['end_time'];
+  $blank = max(array_map('strlen', $question)) ? false : true;
 
   $ulist = "";
   $sql = "SELECT `users`.`gid` FROM `privilege` JOIN `users` ON `privilege`.user_id = `users`.user_id 
@@ -149,11 +150,15 @@ if (isset($_POST['qid'])) {
       for ($i = 0; $i < $num; $i++) {
         $pid = $i + 1;
         echo "<h4>" . $MSG_QUIZ . "-" . $MSG_QUIZ_PROBLEM . " " . $pid . "</h4>";
-        echo "<textarea id='tinymce$pid' rows=13 name='qc$pid' cols=80>";
-        if (isset($question)) {
-          echo $question[$i];
+        if (!$blank) {
+          echo "<textarea id='tinymce$pid' rows=13 name='qc$pid' cols=80>";
+          if (isset($question)) {
+            echo $question[$i];
+          }
+          echo "</textarea><br />";
+        } else {
+          echo "<textarea style='display:none;' name='qc$pid'></textarea>";
         }
-        echo "</textarea><br />";
         echo "<div class='form-inline'>";
         for ($t = 0; $t <= 3; $t++) {
           if (isset($type) && $type[$i] == $t || !isset($type) && $t == 0) {
