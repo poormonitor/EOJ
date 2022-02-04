@@ -23,7 +23,7 @@
 <br /><br />
 <script src="<?php echo $OJ_CDN_URL . "template/" ?>jquery.min.js"></script>
 <script src="<?php echo $OJ_CDN_URL . "template/" ?>bootstrap.min.js"></script>
-<script src="<?php echo $OJ_CDN_URL . "template/" ?>index.min.js?v=1.1"></script>
+<script src="<?php echo $OJ_CDN_URL . "template/" ?>index.min.js?v=1.2"></script>
 <script src="<?php echo $OJ_CDN_URL . "include/" ?>sweetalert.min.js"></script>
 <?php if (isset($OJ_GOOGLE_ANALYTICS)) { ?>
 	<script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo $OJ_GOOGLE_ANALYTICS ?>"></script>

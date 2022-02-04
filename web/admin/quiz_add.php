@@ -112,6 +112,7 @@ if (isset($_POST['startdate'])) {
     $unknown = true;
     $num = 0;
   }
+  $blank = isset($_GET['blank']) && $_GET['blank'] == 'true';
 ?>
 
   <?php echo "<center><h3>" . $MSG_QUIZ . "-" . $MSG_ADD . "</h3></center>"; ?>
@@ -124,6 +125,15 @@ if (isset($_POST['startdate'])) {
     }
   </style>
   <div class="container">
+    <?php if (!$blank) { ?>
+      <a class='btn btn-primary btn-sm' href='quiz_add.php?num=<?php echo $num ?>&blank=true'>
+        <?php echo $MSG_NO_NEED_DESCRIPTION ?>
+      </a>
+    <?php } else { ?>
+      <a class='btn btn-primary btn-sm' href='quiz_add.php?num=<?php echo $num ?>&blank=false'>
+        <?php echo $MSG_NEED_DESCRIPTION ?>
+      </a>
+    <?php } ?>
     <form method=POST>
       <div style="margin-bottom: 10px;" class='form-inline'>
         <?php echo "<h3>" . $MSG_QUIZ . "-" . $MSG_TITLE . "</h3>" ?>
@@ -146,16 +156,21 @@ if (isset($_POST['startdate'])) {
         <?php echo "<h4>" . $MSG_QUIZ . "-" . $MSG_Description . "</h4>" ?>
         <textarea id="tinymce0" rows=13 name=description cols=80><?php echo isset($description) ? $description : "" ?></textarea>
       </p>
+      <br />
       <p>
         <?php
         for ($i = 0; $i < $num; $i++) {
           $pid = $i + 1;
           echo "<h4>" . $MSG_QUIZ . "-" . $MSG_QUIZ_PROBLEM . " " . $pid . "</h4>";
-          echo "<textarea id='tinymce$pid' rows=13 name='qc$pid' cols=80>";
-          if (isset($question)) {
-            echo $question[$i];
+          if (!$blank) {
+            echo "<textarea id='tinymce$pid' rows=13 name='qc$pid' cols=80>";
+            if (isset($question)) {
+              echo $question[$i];
+            }
+            echo "</textarea><br />";
+          } else {
+            echo "<textarea style='display:none;' name='qc$pid'></textarea>";
           }
-          echo "</textarea><br />";
           echo "<div class='form-inline'>";
           for ($t = 0; $t <= 3; $t++) {
             if (isset($type) && $type[$i] == $t || !isset($type) && $t == 0) {
@@ -170,9 +185,10 @@ if (isset($_POST['startdate'])) {
           $qa = isset($answer) ? $answer[$i] : "";
           echo "<label>" . $MSG_SCORE . "</label>&nbsp;&nbsp;";
           echo "<input type=text name='qs$i' class='form-control' value='" . $c_score . "'>";
-          echo "&nbsp;&nbsp;<label>" . $MSG_CORRECT_ANSWER . "</label>&nbsp;&nbsp;";
+          echo "&nbsp;&nbsp;&nbsp;&nbsp;<label>" . $MSG_CORRECT_ANSWER . "</label>&nbsp;&nbsp;";
           echo "<input type=text name='qca$i' class='form-control' value='" . $qa . "'>";
           echo "</div>";
+          echo "<br />";
         }
         ?>
       </p>

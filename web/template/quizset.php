@@ -35,16 +35,17 @@
 
       <center>
         <h3><?php echo $MSG_SERVER_TIME ?> <span id=nowdate></span></h3>
-      </center><br />
+      </center>
+      <br />
       <div class="table-responsive">
         <table class='table table-striped' width=90%>
           <thead>
-            <tr class=toprow align=center>
-              <td><?php echo $MSG_QUIZ_ID ?></td>
-              <td><?php echo $MSG_QUIZ_NAME ?></td>
-              <td><?php echo $MSG_QUIZ_STATUS ?></td>
-              <td><?php echo $MSG_QUIZ_OPEN ?></td>
-              <td><?php echo $MSG_QUIZ_CREATOR ?></td>
+            <tr class=toprow>
+              <th class='center'><?php echo $MSG_QUIZ_ID ?></th>
+              <th class='center'><?php echo $MSG_QUIZ_NAME ?></th>
+              <th class='center'><?php echo $MSG_QUIZ_STATUS ?></th>
+              <th class='center'><?php echo $MSG_QUIZ_OPEN ?></th>
+              <th class='center'><?php echo $MSG_QUIZ_CREATOR ?></th>
             </tr>
           </thead>
           <tbody align='center'>

@@ -51,12 +51,12 @@
       <div class="table-responsive">
         <table class='table table-striped' width=90%>
           <thead>
-            <tr class=toprow align=center>
-              <td><?php echo $MSG_CONTEST_ID ?></td>
-              <td><?php echo $MSG_CONTEST_NAME ?></td>
-              <td><?php echo $MSG_CONTEST_STATUS ?></td>
-              <td><?php echo $MSG_CONTEST_OPEN ?></td>
-              <td><?php echo $MSG_CONTEST_CREATOR ?></td>
+            <tr class=toprow>
+              <th class='center'><?php echo $MSG_CONTEST_ID ?></th>
+              <th class='center'><?php echo $MSG_CONTEST_NAME ?></th>
+              <th class='center'><?php echo $MSG_CONTEST_STATUS ?></th>
+              <th class='center'><?php echo $MSG_CONTEST_OPEN ?></th>
+              <th class='center'><?php echo $MSG_CONTEST_CREATOR ?></th>
             </tr>
           </thead>
           <tbody align='center'>

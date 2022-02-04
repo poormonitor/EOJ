@@ -71,91 +71,137 @@ pre {
         filter: invert(1) hue-rotate(180deg);
         background: #242424 !important;
     }
+
     .jumbotron {
         filter: brightness(90%);
     }
+
     img {
         filter: invert(1) hue-rotate(180deg);
     }
+
     .btn-sm {
         color: #fff;
         filter: invert(1) hue-rotate(180deg) brightness(140%);
     }
+
     .label {
         color: #fff;
         filter: invert(1) hue-rotate(180deg) brightness(120%);
     }
+
     .label-info {
-        background-color: #1AA2CB !important;
+        background-color: #1AA2CB;
     }
-    .navbar-default {
-        background: #E5E5E5 !important;
-    }
+
+    .navbar-default,
     .dropdown-menu {
-        background: #E5E5E5 !important;
+        background: #E5E5E5;
     }
 }
 
 @media (max-width: 575.98px) {
+
     .news,
     #container {
         width: 95%;
     }
+
     #container_status {
         width: 95%;
     }
+
     .main-container,
     pre#code {
         margin: 10px;
     }
+
+    .lg-container {
+        margin: 5px;
+    }
 }
 
 @media (min-width: 576px) and (max-width: 767.98px) {
+
     .news,
     #container {
         width: 95%;
     }
+
     #container_status {
         width: 90%;
     }
+
     .main-container,
     pre#code {
         margin: 15px;
     }
+
+    .lg-container {
+        margin: 10px;
+    }
 }
 
 @media (min-width: 768px) and (max-width: 991.98px) {
+
     .news,
     #container {
         width: 90%;
     }
+
     #container_status {
         width: 80%;
     }
+
     .main-container,
     pre#code {
         margin: 20px;
     }
+
+    .lg-container {
+        margin: 15px;
+    }
 }
 
 @media (min-width: 992px) {
+
     .news,
     #container {
         width: 80%;
     }
+
     #container_status {
         width: 70%;
     }
+
     .main-container,
     pre#code {
         margin: 30px;
     }
+
+    .lg-container {
+        margin: 20px;
+    }
 }
 
 img {
-    margin: 8px;
     height: auto;
     max-width: 100%;
+}
+
+table.table-margin>thead>tr>th,
+table.table-margin>tbody>tr>th,
+table.table-margin>tfoot>tr>th,
+table.table-margin>thead>tr>td,
+table.table-margin>tbody>tr>td,
+table.table-margin>tfoot>tr>td {
+    padding: 8px;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+}
+
+.ud-margin {
+    margin: 8px 0px;
 }
 
 .table {
@@ -336,4 +382,44 @@ h3.pagenav div.active {
 
 .bootstrap-tagsinput .tag [data-role=remove]:hover:active {
     box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125)
+}
+
+table {
+    border-collapse: collapse;
+}
+
+table.ud-margin td,
+table.ud-margin th {
+    padding: .4rem
+}
+
+table.ud-margin[border]:not([border="0"]):not([style*=border-width]) td,
+table.ud-margin[border]:not([border="0"]):not([style*=border-width]) th {
+    border-width: 1px;
+    border-style: solid;
+    border-color: #ccc;
+}
+
+figure {
+    display: table;
+    margin: 1rem auto
+}
+
+figure figcaption {
+    color: #999;
+    display: block;
+    margin-top: .25rem;
+    text-align: center
+}
+
+.mce-content-body:not([dir=rtl]) blockquote {
+    border-left: 2px solid #ccc;
+    margin-left: 1.5rem;
+    padding-left: 1rem
+}
+
+.mce-content-body[dir=rtl] blockquote {
+    border-right: 2px solid #ccc;
+    margin-right: 1.5rem;
+    padding-right: 1rem
 }
