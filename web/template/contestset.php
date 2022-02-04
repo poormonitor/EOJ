@@ -54,7 +54,7 @@
             <tr class=toprow>
               <th class='center'><?php echo $MSG_CONTEST_ID ?></th>
               <th class='center'><?php echo $MSG_CONTEST_NAME ?></th>
-              <th class='center'><?php echo $MSG_CONTEST_STATUS ?></th>
+              <th><?php echo $MSG_CONTEST_STATUS ?></th>
               <th class='center'><?php echo $MSG_CONTEST_OPEN ?></th>
               <th class='center'><?php echo $MSG_CONTEST_CREATOR ?></th>
             </tr>
