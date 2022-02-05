@@ -238,8 +238,8 @@ AnyQuoted	((\\.)|{UniCode})
 StrChar		([^\"\n\\]|{AnyQuoted})
 ChrChar		([^\'\n\\]|{AnyQuoted})
 
-StartComment	("'''")
-EndComment	("'''")
+StartComment	(["'''"]|['"""'])
+EndComment	(["'''"]|['"""'])
 SafeComChar	([^#\n])
 UnsafeComChar	("#")
 
