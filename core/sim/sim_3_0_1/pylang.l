@@ -11,9 +11,11 @@
 	Date:	Thu, 9 Apr 87 11:15:23 MDT
 */
 
+#include	"options.h"
 #include	"token.h"
 #include	"language.h"
 #include	"algollike.h"
+#include	"idf.h"
 #include	"lex.h"
 #include	"lang.h"
 
@@ -24,11 +26,12 @@ size_t lex_tk_cnt;
 size_t lex_non_ascii_cnt;
 
 /* Language-dependent data */
-#include	"idf.h"
+
+/* Data for module idf */
 
 static const struct idf reserved[] = {
 	{"and",		    META('a')},
-	{"as",		    CTRL('s')},
+	{"as",		    CTRL('a')},
 	{"assert",	    CTRL('A')},
 	{"break",	    CTRL('b')},
 	{"class",	    CTRL('C')},
@@ -128,25 +131,71 @@ static const struct idf reserved[] = {
 	{"zip",		    NORM('z')},
 };
 
+/* Special treatment of identifiers */
+
+static Token
+idf2token(int hashing) {
+	Token tk;
+
+	tk = idf_in_list(yytext, reserved, sizeof reserved, IDF);
+	if (Token_EQ(tk, IDF) && hashing) {
+		/* return a one-Token hash code */
+		tk = idf_hashed(yytext);
+	}
+	return tk;
+}
+
 /* Token sets for module algollike */
 const Token Non_Finals[] = {
+	IDF,
+	NORM('{'),
 	NORM('('),
-	NORM('['),
+	META('a'),      /* and */
+	CTRL('a'),      /* as */
+	CTRL('A'),      /* assert */
+	CTRL('b'),      /* break */
+	CTRL('C'),      /* class */
+	CTRL('c'),      /* continue */
+	CTRL('d'),      /* def */
+	CTRL('D'),      /* del */
+	CTRL('e'),      /* elif */
+	CTRL('E'),      /* else */
+	CTRL('x'),      /* except */
+	CTRL('X'),      /* exec */
+	CTRL('f'),      /* finally */
+	CTRL('F'),      /* for */
+	CTRL('i'),      /* if */
+	MTCT('I'),      /* import */
+	CTRL('L'),      /* lambda */
+	META('n'),      /* not */
+	META('o'),      /* or */
+	CTRL('p'),      /* pass */
+	CTRL('P'),      /* print */
+	CTRL('r'),      /* raise */
+	CTRL('R'),      /* return */
+	CTRL('t'),      /* try */
+	CTRL('w'),      /* while */
+	CTRL('W'),      /* with */
+	CTRL('y'),      /* yield */
 	No_Token
 };
 const Token Non_Initials[] = {
 	NORM(')'),
 	NORM(']'),
+	NORM('}'),
+	NORM(';'),
 	No_Token
 };
 const Token Openers[] = {
 	NORM('('),
 	NORM('['),
+	NORM('{'),
 	No_Token
 };
 const Token Closers[] = {
 	NORM(')'),
 	NORM(']'),
+	NORM('}'),
 	No_Token
 };
 
@@ -179,33 +228,95 @@ Best_Run_Size(const Token *str, size_t size) {
 Layout		([ \t\r\f])
 ASCII95		([\040-\176])
 
-AnyQuoted	(\\.)
+Digit		([0-9a-fA-F])
+
+UniCode		(\\u{Digit}{Digit}{Digit}{Digit})
+AnyQuoted	((\\.)|{UniCode})
 StrChar		([^\"\n\\]|{AnyQuoted})
-ChrChar		([^\'\\]|{AnyQuoted})
-
-IdfChar		([-!#$%&*+,/0-9:;<=>?@A-Z\\^_`a-z{}~])
-
-EscIdf		(({IdfChar}|\\.)+)
-QuotIdf		("|"[^\|\n]*"|")
-Idf		([A-Za-z_][A-Za-z0-9_]*)
+ChrChar		([^\'\n\\]|{AnyQuoted})
 
 StartComment	("'''")
 EndComment	("'''")
+SafeComChar	([^*\n])
+UnsafeComChar	("#")
+
 SingleLineCom	("#".*)
 
-HexDigit	([0-9a-fA-F])
+Idf		([A-Za-z][A-Za-z0-9_]*)
 
 %%
 
-";".*$	{				/* comment */
+{StartComment}	{
+		/*	We do not have one single pattern to match a comment
+			(although one can be written), for two reasons.
+			The matched string might overflow lex-internal buffers
+			like yysbuf and yytext; and the pattern would be very
+			complicated and impair maintainability.
+			So we break up the string into safe chunks and keep
+			track of where we are in a start condition <Comment>.
+		*/
+		BEGIN Comment;
+	}
+
+<Comment>{SafeComChar}+	{		/* safe comment chunk */
+	}
+
+<Comment>{UnsafeComChar}	{	/* unsafe char, read one by one */
+	}
+
+<Comment>"\n"		{		/* to break up long comments */
+		return_eol();
+	}
+
+<Comment>{EndComment}	{		/* end-of-comment */
+		BEGIN INITIAL;
+	}
+
+{SingleLineCom}"\n"	{		/* single-line comment */
+		return_eol();
 	}
 
 \"{StrChar}*\"	{			/* strings */
 		return_ch('"');
 	}
 
+\'{ChrChar}+\'	{			/* characters */
+		return_ch('\'');
+	}
+
+^#{Layout}*include.*	{		/* ignore #include lines */
+	}
+
+^#{Layout}*{Idf}	{		/* a preprocessor line */
+		char *idf = yytext+1;
+
+		/* skip layout in front of preprocessor identifier */
+		while (*idf == ' ' || *idf == '\t') {
+			idf++;
+		}
+		return_tk(idf_in_list(idf, ppcmd, sizeof ppcmd, NORM('#')));
+	}
+
+(0x)?{Digit}+("l"|"L")?	{		/* numeral, passed as an identifier */
+		return_tk(IDF);
+	}
+
+{Idf}/"("	{			/* identifier in front of ( */
+		Token tk;
+
+		tk = idf2token(is_set_option('F'));
+		if (!Token_EQ(tk, No_Token)) return_tk(tk);
+	}
+
 {Idf}	{				/* identifier */
-		return_tk(idf_in_list(yytext, reserved, sizeof reserved, IDF));
+		Token tk;
+
+		tk = idf2token(0 /* no hashing */);
+		if (!Token_EQ(tk, No_Token)) return_tk(tk);
+	}
+
+\;	{				/* semicolon, conditionally ignored */
+		if (is_set_option('f')) return_ch(yytext[0]);
 	}
 
 \n	{				/* count newlines */
