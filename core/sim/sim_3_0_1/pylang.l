@@ -30,7 +30,7 @@ size_t lex_non_ascii_cnt;
 /* Data for module idf */
 
 static const struct idf ppcmd[] = {
-	{"import"       MTCT('i')},
+	{"import",      MTCT('i')},
 };
 
 static const struct idf reserved[] = {
