@@ -240,7 +240,7 @@ ChrChar		([^\'\n\\]|{AnyQuoted})
 
 StartComment	("'''")
 EndComment	("'''")
-SafeComChar	([^*\n])
+SafeComChar	([^#\n])
 UnsafeComChar	("#")
 
 SingleLineCom	("#".*)
