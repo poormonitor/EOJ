@@ -35,103 +35,102 @@ static const struct idf ppcmd[] = {
 
 static const struct idf reserved[] = {
 	{"and",		    META('a')},
-	{"as",		    CTRL('a')},
+	{"as",		    MTCT('a')},
 	{"assert",	    CTRL('A')},
 	{"break",	    CTRL('b')},
-	{"class",	    CTRL('C')},
+	{"class",	    MTCT('C')},
 	{"continue",	CTRL('c')},
-	{"def",		    CTRL('d')},
+	{"def",		    MTCT('d')},
 	{"del",		    CTRL('D')},
-	{"elif",	    CTRL('e')},
-	{"else",	    CTRL('E')},
-	{"except",	    CTRL('x')},
+	{"elif",	    MTCT('e')},
+	{"else",	    MTCT('E')},
+	{"except",	    MTCT('x')},
 	{"exec",	    CTRL('X')},
-	{"finally",	    CTRL('f')},
+	{"finally",	    MTCT('f')},
 	{"for",		    CTRL('F')},
-	{"from",	    CTRL('f')},
+	{"from",	    MTCT('F')},
 	{"global",	    CTRL('g')},
-	{"if",		    CTRL('i')},
-	{"in",		    CTRL('i')},
-	{"is",		    CTRL('i')},
-	{"lambda",    	CTRL('L')},
+	{"if",		    MTCT('I')},
+	{"in",		    META('i')},
+	{"is",		    META('I')},
+	{"lambda",	    MTCT('L')},
 	{"not",		    META('n')},
 	{"or",		    META('o')},
 	{"pass",	    CTRL('p')},
 	{"print",	    CTRL('P')},
-	{"raise",	    CTRL('r')},
-	{"return",    	CTRL('R')},
-	{"try",		    CTRL('t')},
-	{"while",	    CTRL('w')},
-	{"with",	    CTRL('W')},
-	{"yield",	    CTRL('y')},
-	// All Python 3 built-in functions
+	{"raise",	    CTRL('R')},
+	{"return",	    CTRL('r')},
+	{"try",		    MTCT('t')},
+	{"while",	    MTCT('w')},
+	{"with",	    MTCT('W')},
+	{"yield",	    MTCT('y')},
+	{"True",        NORM('t')},
+	{"False",       NORM('f')},
+	{"None",        NORM('n')},
+	// all built-in functions
 	{"abs",		    NORM('a')},
-	{"aiter",       NORM('A')},
-	{"all",	    	NORM('a')},
-	{"any",	    	NORM('a')},
-	{"ascii",    	NORM('A')},
-	{"bin",	    	NORM('b')},
+	{"all",		    NORM('A')},
+	{"any",		    NORM('A')},
+	{"bin",		    NORM('b')},
 	{"bool",	    NORM('B')},
-	{"bytearray",	NORM('B')},
-	{"bytes",	    NORM('B')},
-	{"callable",	NORM('C')},
+	{"callable",	NORM('c')},
 	{"chr",		    NORM('c')},
 	{"classmethod",	NORM('C')},
-	{"compile",	    NORM('C')},
-	{"complex",	    NORM('C')},
-	{"delattr",	    NORM('D')},
+	{"compile",	    NORM('c')},
+	{"complex",	    NORM('c')},
+	{"delattr",	    NORM('d')},
 	{"dict",	    NORM('D')},
 	{"dir",		    NORM('d')},
 	{"divmod",	    NORM('d')},
-	{"enumerate",	NORM('E')},
+	{"enumerate",	NORM('e')},
 	{"eval",	    NORM('e')},
-	{"exec",	    NORM('e')},
-	{"filter",    	NORM('f')},
+	{"execfile",	NORM('e')},
+	{"filter",	    NORM('f')},
 	{"float",	    NORM('f')},
-	{"format",    	NORM('F')},
+	{"format",	    NORM('f')},
 	{"frozenset",	NORM('F')},
-	{"getattr",	    NORM('G')},
+	{"getattr",	    NORM('g')},
 	{"globals",	    NORM('g')},
-	{"hasattr",	    NORM('H')},
+	{"hasattr",	    NORM('h')},
 	{"hash",	    NORM('h')},
-	{"help",	    NORM('h')},
 	{"hex",		    NORM('h')},
 	{"id",		    NORM('i')},
-	{"input",	    NORM('I')},
 	{"int",		    NORM('i')},
-	{"isinstance",	NORM('I')},
-	{"issubclass",	NORM('I')},
-	{"iter",	    NORM('I')},
+	{"iter",	    NORM('i')},
 	{"len",		    NORM('l')},
 	{"list",	    NORM('L')},
-	{"locals",    	NORM('l')},
+	{"locals",	    NORM('l')},
+	{"long",	    NORM('l')},
 	{"map",		    NORM('m')},
 	{"max",		    NORM('m')},
-	{"memoryview",	NORM('M')},
 	{"min",		    NORM('m')},
-	{"next",	    NORM('n')},
+	{"next",		NORM('n')},
 	{"object",	    NORM('o')},
 	{"oct",		    NORM('o')},
 	{"open",	    NORM('o')},
 	{"ord",		    NORM('o')},
 	{"pow",		    NORM('p')},
-	{"property",	NORM('P')},
+	{"property",	NORM('p')},
 	{"range",	    NORM('r')},
+	{"reduce",	    NORM('r')},
 	{"repr",	    NORM('r')},
-	{"reversed",	NORM('R')},
+	{"reversed",	NORM('r')},
 	{"round",	    NORM('r')},
 	{"set",		    NORM('s')},
-	{"setattr",	    NORM('S')},
+	{"setattr",	    NORM('s')},
 	{"slice",	    NORM('s')},
-	{"sorted",	    NORM('S')},
+	{"sorted",	    NORM('s')},
 	{"staticmethod",	NORM('S')},
 	{"str",		    NORM('s')},
 	{"sum",		    NORM('s')},
 	{"super",	    NORM('s')},
 	{"tuple",	    NORM('t')},
 	{"type",	    NORM('t')},
+	{"unichr",	    NORM('u')},
+	{"unicode",	    NORM('u')},
 	{"vars",	    NORM('v')},
-	{"zip",		    NORM('z')},
+	{"xrange",	    NORM('x')},
+	{"zip",		    NORM('z')}
 };
 
 /* Special treatment of identifiers */
@@ -153,33 +152,38 @@ const Token Non_Finals[] = {
 	IDF,
 	NORM('{'),
 	NORM('('),
+	NORM('['),
 	META('a'),      /* and */
-	CTRL('a'),      /* as */
-	CTRL('A'),      /* assert */
-	CTRL('b'),      /* break */
-	CTRL('C'),      /* class */
-	CTRL('c'),      /* continue */
-	CTRL('d'),      /* def */
-	CTRL('D'),      /* del */
-	CTRL('e'),      /* elif */
-	CTRL('E'),      /* else */
-	CTRL('x'),      /* except */
-	CTRL('X'),      /* exec */
-	CTRL('f'),      /* finally */
-	CTRL('F'),      /* for */
-	CTRL('i'),      /* if */
-	MTCT('I'),      /* import */
-	CTRL('L'),      /* lambda */
-	META('n'),      /* not */
-	META('o'),      /* or */
-	CTRL('p'),      /* pass */
-	CTRL('P'),      /* print */
-	CTRL('r'),      /* raise */
-	CTRL('R'),      /* return */
-	CTRL('t'),      /* try */
-	CTRL('w'),      /* while */
-	CTRL('W'),      /* with */
-	CTRL('y'),      /* yield */
+	MTCT('a'),	    /* as */
+	CTRL('A'), 		/* assert */
+	CTRL('b'),	    /* break */
+	MTCT('C'),	    /* class */
+	CTRL('c'),	    /* continue */
+	MTCT('d'),	    /* def */
+	CTRL('D'),	    /* del */
+	MTCT('e'),	    /* elif */
+	MTCT('E'),	    /* else */
+	MTCT('x'),	    /* except */
+	CTRL('X'),	    /* exec */
+	MTCT('f'),	    /* finally */
+	MTCT('F'),	    /* for */
+	MTCT('i'),	    /* from */
+	CTRL('g'),	    /* global */
+	MTCT('I'),	    /* if */
+	MTCT('L'),	    /* lambda */
+	META('n'),	    /* not */
+	META('o'),	    /* or */
+	CTRL('p'),	    /* pass */
+	CTRL('P'),	    /* print */
+	CTRL('R'),	    /* raise */
+	CTRL('r'),	    /* return */
+	MTCT('t'),	    /* try */
+	MTCT('w'),	    /* while */
+	MTCT('W'),	    /* with */
+	MTCT('y'),	    /* yield */
+	NORM('t'),	    /* True */
+	NORM('f'),	    /* False */
+	NORM('n'),	    /* None */
 	No_Token
 };
 const Token Non_Initials[] = {
@@ -238,17 +242,11 @@ AnyQuoted	((\\.)|{UniCode})
 StrChar		([^\"\n\\]|{AnyQuoted})
 ChrChar		([^\'\n\\]|{AnyQuoted})
 
-MultilineCom ({Layout}*"""{StrChar}*"""{Layout}*|{Layout}*'''{ChrChar}*'''{Layout}*)
-
 SingleLineCom	("#".*)
 
 Idf		([A-Za-z][A-Za-z0-9_]*)
 
 %%
-
-{MultilineCom}"\n" {		/* multi-line comment */
-		return_eol();
-	}
 
 {SingleLineCom}"\n"	{		/* single-line comment */
 		return_eol();
@@ -260,9 +258,6 @@ Idf		([A-Za-z][A-Za-z0-9_]*)
 
 \'{ChrChar}+\'	{			/* characters */
 		return_ch('\'');
-	}
-
-^[from]?.*[import]?.*[as]?.*	{		/* ignore #include lines */
 	}
 
 (0x)?{Digit}+("l"|"L")?	{		/* numeral, passed as an identifier */
