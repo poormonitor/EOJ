@@ -28,7 +28,7 @@
 <br /><br />
 <script src="<?php echo $OJ_CDN_URL . "template/" ?>jquery.min.js"></script>
 <script src="<?php echo $OJ_CDN_URL . "template/" ?>bootstrap.min.js"></script>
-<script src="<?php echo $OJ_CDN_URL . "template/" ?>index.min.js"></script>
+<script src="<?php echo $OJ_CDN_URL . "template/" ?>index.min.js?v=1.11"></script>
 <script src="<?php echo $OJ_CDN_URL . "include/" ?>sweetalert.min.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-175545655-2"></script>
 <?php

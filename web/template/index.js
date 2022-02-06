@@ -51,7 +51,6 @@ function create_mce() {
             autosave_ask_before_unload: false,
             toolbar_mode: 'wrap',
             paste_remove_styles_if_webkit: true,
-            table_sizing_mode: 'responsive',
             setup: function (editor) {
                 editor.on('init', function (e) {
                     this.getBody().style.fontSize = '14px';
