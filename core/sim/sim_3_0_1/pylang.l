@@ -238,10 +238,19 @@ AnyQuoted	((\\.)|{UniCode})
 StrChar		([^\"\n\\]|{AnyQuoted})
 ChrChar		([^\'\n\\]|{AnyQuoted})
 
-StartComment	(["'''"]|['"""'])
-EndComment	(["''"]|['""'])
-SafeComChar	([^'\n]|[^"\n])
-UnsafeComChar	(["'"]|['"'])
+Comment (
+	{Layout}*
+	\"\"\"
+	{StrChar}*
+	\"\"\"
+	{Layout}*
+	|
+	{Layout}*
+	\'\'\'
+	{ChrChar}*
+	\'\'\'
+	{Layout}*
+)
 
 SingleLineCom	("#".*)
 
@@ -249,30 +258,8 @@ Idf		([A-Za-z][A-Za-z0-9_]*)
 
 %%
 
-{StartComment}	{
-		/*	We do not have one single pattern to match a comment
-			(although one can be written), for two reasons.
-			The matched string might overflow lex-internal buffers
-			like yysbuf and yytext; and the pattern would be very
-			complicated and impair maintainability.
-			So we break up the string into safe chunks and keep
-			track of where we are in a start condition <Comment>.
-		*/
-		BEGIN Comment;
-	}
-
-<Comment>{SafeComChar}+	{		/* safe comment chunk */
-	}
-
-<Comment>{UnsafeComChar}	{	/* unsafe char, read one by one */
-	}
-
-<Comment>"\n"		{		/* to break up long comments */
+{Comment} {
 		return_eol();
-	}
-
-<Comment>{EndComment}	{		/* end-of-comment */
-		BEGIN INITIAL;
 	}
 
 {SingleLineCom}"\n"	{		/* single-line comment */
