@@ -238,19 +238,7 @@ AnyQuoted	((\\.)|{UniCode})
 StrChar		([^\"\n\\]|{AnyQuoted})
 ChrChar		([^\'\n\\]|{AnyQuoted})
 
-Comment (
-	{Layout}*
-	\"\"\"
-	{StrChar}*
-	\"\"\"
-	{Layout}*
-	|
-	{Layout}*
-	\'\'\'
-	{ChrChar}*
-	\'\'\'
-	{Layout}*
-)
+MultilineCom ({Layout}*"""{StrChar}*"""{Layout}*|{Layout}*'''{ChrChar}*'''{Layout}*)
 
 SingleLineCom	("#".*)
 
@@ -258,7 +246,7 @@ Idf		([A-Za-z][A-Za-z0-9_]*)
 
 %%
 
-{Comment}"\n" {
+{MultilineCom}"\n" {		/* multi-line comment */
 		return_eol();
 	}
 
