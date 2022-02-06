@@ -239,9 +239,9 @@ StrChar		([^\"\n\\]|{AnyQuoted})
 ChrChar		([^\'\n\\]|{AnyQuoted})
 
 StartComment	(["'''"]|['"""'])
-EndComment	(["'''"]|['"""'])
-SafeComChar	([^#\n])
-UnsafeComChar	("#")
+EndComment	(["''"]|['""'])
+SafeComChar	([^'\n]|[^"\n])
+UnsafeComChar	(["'"]|['"'])
 
 SingleLineCom	("#".*)
 
