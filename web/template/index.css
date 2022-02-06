@@ -1,6 +1,6 @@
 .navbar-default {
-    background: #fff !important;
-    border-color: #fff !important;
+    background: #fff;
+    border-color: #fff;
 }
 
 div.status_explain li {
@@ -187,17 +187,6 @@ pre {
 img {
     height: auto;
     max-width: 100%;
-}
-
-table.table-margin>thead>tr>th,
-table.table-margin>tbody>tr>th,
-table.table-margin>tfoot>tr>th,
-table.table-margin>thead>tr>td,
-table.table-margin>tbody>tr>td,
-table.table-margin>tfoot>tr>td {
-    padding: 8px;
-    vertical-align: top;
-    border-top: 1px solid #ddd;
 }
 
 .ud-margin {
