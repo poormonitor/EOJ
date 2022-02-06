@@ -262,7 +262,7 @@ Idf		([A-Za-z][A-Za-z0-9_]*)
 		return_ch('\'');
 	}
 
-^#{Layout}*include.*	{		/* ignore #include lines */
+^[from]?.*[import]?.*[as]?.*	{		/* ignore #include lines */
 	}
 
 ^#{Layout}*{Idf}	{		/* a preprocessor line */
