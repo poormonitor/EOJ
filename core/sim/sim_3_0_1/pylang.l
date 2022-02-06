@@ -258,7 +258,7 @@ Idf		([A-Za-z][A-Za-z0-9_]*)
 
 %%
 
-{Comment} {
+{Comment}"\n" {
 		return_eol();
 	}
 
