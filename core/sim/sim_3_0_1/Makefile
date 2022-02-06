@@ -534,6 +534,8 @@ lang.o: lang.c token.h language.h algollike.h idf.h lex.h lang.h
 language.o: language.c token.h language.h
 lex.o: lex.c lex.h
 lisplang.o: lisplang.c token.h language.h algollike.h lex.h lang.h idf.h
+pylang.o: pylang.c options.h token.h language.h algollike.h idf.h lex.h \
+ lang.h
 m.o: m.c
 m2lang.o: m2lang.c options.h token.h language.h algollike.h idf.h lex.h \
  lang.h
