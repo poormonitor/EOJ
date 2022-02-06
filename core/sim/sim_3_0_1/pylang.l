@@ -265,16 +265,6 @@ Idf		([A-Za-z][A-Za-z0-9_]*)
 ^[from]?.*[import]?.*[as]?.*	{		/* ignore #include lines */
 	}
 
-^#{Layout}*{Idf}	{		/* a preprocessor line */
-		char *idf = yytext+1;
-
-		/* skip layout in front of preprocessor identifier */
-		while (*idf == ' ' || *idf == '\t') {
-			idf++;
-		}
-		return_tk(idf_in_list(idf, ppcmd, sizeof ppcmd, NORM('#')));
-	}
-
 (0x)?{Digit}+("l"|"L")?	{		/* numeral, passed as an identifier */
 		return_tk(IDF);
 	}
