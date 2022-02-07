@@ -68,69 +68,69 @@ static const struct idf reserved[] = {
 	{"False",       NORM('f')},
 	{"None",        NORM('n')},
 	// all built-in functions
-	{"abs",		    NORM('a')},
-	{"all",		    NORM('A')},
-	{"any",		    NORM('A')},
-	{"bin",		    NORM('b')},
-	{"bool",	    NORM('B')},
-	{"callable",	NORM('c')},
-	{"chr",		    NORM('c')},
-	{"classmethod",	NORM('C')},
-	{"compile",	    NORM('c')},
-	{"complex",	    NORM('c')},
-	{"delattr",	    NORM('d')},
-	{"dict",	    NORM('D')},
-	{"dir",		    NORM('d')},
-	{"divmod",	    NORM('d')},
-	{"enumerate",	NORM('e')},
-	{"eval",	    NORM('e')},
-	{"execfile",	NORM('e')},
-	{"filter",	    NORM('f')},
-	{"float",	    NORM('f')},
-	{"format",	    NORM('f')},
-	{"frozenset",	NORM('F')},
-	{"getattr",	    NORM('g')},
-	{"globals",	    NORM('g')},
-	{"hasattr",	    NORM('h')},
-	{"hash",	    NORM('h')},
-	{"hex",		    NORM('h')},
-	{"id",		    NORM('i')},
-	{"int",		    NORM('i')},
-	{"iter",	    NORM('i')},
-	{"len",		    NORM('l')},
-	{"list",	    NORM('L')},
-	{"locals",	    NORM('l')},
-	{"long",	    NORM('l')},
-	{"map",		    NORM('m')},
-	{"max",		    NORM('m')},
-	{"min",		    NORM('m')},
-	{"next",		NORM('n')},
-	{"object",	    NORM('o')},
-	{"oct",		    NORM('o')},
-	{"open",	    NORM('o')},
-	{"ord",		    NORM('o')},
-	{"pow",		    NORM('p')},
-	{"property",	NORM('p')},
-	{"range",	    NORM('r')},
-	{"reduce",	    NORM('r')},
-	{"repr",	    NORM('r')},
-	{"reversed",	NORM('r')},
-	{"round",	    NORM('r')},
-	{"set",		    NORM('s')},
-	{"setattr",	    NORM('s')},
-	{"slice",	    NORM('s')},
-	{"sorted",	    NORM('s')},
-	{"staticmethod",	NORM('S')},
-	{"str",		    NORM('s')},
-	{"sum",		    NORM('s')},
-	{"super",	    NORM('s')},
-	{"tuple",	    NORM('t')},
-	{"type",	    NORM('t')},
-	{"unichr",	    NORM('u')},
-	{"unicode",	    NORM('u')},
-	{"vars",	    NORM('v')},
-	{"xrange",	    NORM('x')},
-	{"zip",		    NORM('z')}
+	{"abs",		    CTRL('a')},
+	{"all",		    CTRL('A')},
+	{"any",		    CTRL('A')},
+	{"bin",		    CTRL('b')},
+	{"bool",	    MTCT('B')},
+	{"callable",	CTRL('c')},
+	{"chr",		    CTRL('c')},
+	{"classmethod",	CTRL('C')},
+	{"compile",	    CTRL('c')},
+	{"complex",	    CTRL('c')},
+	{"delattr",	    CTRL('d')},
+	{"dict",	    MTCT('D')},
+	{"dir",		    CTRL('d')},
+	{"divmod",	    CTRL('d')},
+	{"enumerate",	CTRL('e')},
+	{"eval",	    CTRL('e')},
+	{"execfile",	CTRL('e')},
+	{"filter",	    CTRL('f')},
+	{"float",	    MTCT('f')},
+	{"format",	    CTRL('f')},
+	{"frozenset",	CTRL('F')},
+	{"getattr",	    CTRL('g')},
+	{"globals",	    CTRL('g')},
+	{"hasattr",	    CTRL('h')},
+	{"hash",	    CTRL('h')},
+	{"hex",		    CTRL('h')},
+	{"id",		    CTRL('i')},
+	{"int",		    CTRL('i')},
+	{"iter",	    MTCT('i')},
+	{"len",		    CTRL('l')},
+	{"list",	    MTCT('L')},
+	{"locals",	    CTRL('l')},
+	{"long",	    MTCT('l')},
+	{"map",		    CTRL('m')},
+	{"max",		    CTRL('m')},
+	{"min",		    CTRL('m')},
+	{"next",		CTRL('n')},
+	{"object",	    MTCT('o')},
+	{"oct",		    CTRL('o')},
+	{"open",	    CTRL('o')},
+	{"ord",		    CTRL('o')},
+	{"pow",		    CTRL('p')},
+	{"property",	CTRL('p')},
+	{"range",	    CTRL('r')},
+	{"reduce",	    CTRL('r')},
+	{"repr",	    CTRL('r')},
+	{"reversed",	CTRL('r')},
+	{"round",	    CTRL('r')},
+	{"set",		    MTCT('s')},
+	{"setattr",	    CTRL('s')},
+	{"slice",	    CTRL('s')},
+	{"sorted",	    CTRL('s')},
+	{"staticmethod",	CTRL('S')},
+	{"str",		    MTCT('s')},
+	{"sum",		    CTRL('s')},
+	{"super",	    CTRL('s')},
+	{"tuple",	    MTCT('t')},
+	{"type",	    CTRL('t')},
+	{"unichr",	    CTRL('u')},
+	{"unicode",	    CTRL('u')},
+	{"vars",	    CTRL('v')},
+	{"xrange",	    CTRL('x')},
+	{"zip",		    CTRL('z')}
 };
 
 /* Special treatment of identifiers */
@@ -184,6 +184,69 @@ const Token Non_Finals[] = {
 	NORM('t'),	    /* True */
 	NORM('f'),	    /* False */
 	NORM('n'),	    /* None */
+	CTRL('a'),	    /* abs */
+	CTRL('A'),	    /* all */
+	CTRL('A'),	    /* any */
+	CTRL('b'),	    /* bin */
+	CTRL('B'),	    /* bool */
+	CTRL('c'),	    /* callable */
+	CTRL('c'),	    /* chr */
+	CTRL('C'),	    /* classmethod */
+	CTRL('c'),	    /* compile */
+	CTRL('c'),	    /* complex */
+	CTRL('d'),	    /* delattr */
+	CTRL('D'),	    /* dict */
+	CTRL('d'),	    /* dir */
+	CTRL('d'),	    /* divmod */
+	CTRL('e'),	    /* enumerate */
+	CTRL('e'),	    /* eval */
+	CTRL('e'),	    /* execfile */
+	CTRL('f'),	    /* filter */
+	CTRL('f'),	    /* float */
+	CTRL('f'),	    /* format */
+	CTRL('F'),	    /* frozenset */
+	CTRL('g'),	    /* getattr */
+	CTRL('g'),	    /* globals */
+	CTRL('h'),	    /* hasattr */
+	CTRL('h'),	    /* hash */
+	CTRL('h'),	    /* hex */
+	CTRL('i'),	    /* id */
+	CTRL('i'),	    /* int */
+	CTRL('i'),	    /* iter */
+	CTRL('l'),	    /* len */
+	CTRL('L'),	    /* list */
+	CTRL('l'),	    /* locals */
+	CTRL('l'),	    /* long */
+	CTRL('m'),	    /* map */
+	CTRL('m'),	    /* max */
+	CTRL('m'),	    /* min */
+	CTRL('n'),	    /* next */
+	CTRL('o'),	    /* object */
+	CTRL('o'),	    /* oct */
+	CTRL('o'),	    /* open */
+	CTRL('o'),	    /* ord */
+	CTRL('p'),	    /* pow */
+	CTRL('p'),	    /* property */
+	CTRL('r'),	    /* range */
+	CTRL('r'),	    /* reduce */
+	CTRL('r'),	    /* repr */
+	CTRL('r'),	    /* reversed */
+	CTRL('r'),	    /* round */
+	CTRL('s'),	    /* set */
+	CTRL('s'),	    /* setattr */
+	CTRL('s'),	    /* slice */
+	CTRL('s'),	    /* sorted */
+	CTRL('S'),	    /* staticmethod */
+	CTRL('s'),	    /* str */
+	CTRL('s'),	    /* sum */
+	CTRL('s'),	    /* super */
+	CTRL('t'),	    /* tuple */
+	CTRL('t'),	    /* type */
+	CTRL('u'),	    /* unichr */
+	CTRL('u'),	    /* unicode */
+	CTRL('v'),	    /* vars */
+	CTRL('x'),	    /* xrange */
+	CTRL('z'),	    /* zip */
 	No_Token
 };
 const Token Non_Initials[] = {
