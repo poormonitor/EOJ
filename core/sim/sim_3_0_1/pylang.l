@@ -95,7 +95,7 @@ static const struct idf reserved[] = {
 	{"hash",	    CTRL('h')},
 	{"hex",		    CTRL('h')},
 	{"id",		    CTRL('i')},
-	{"int",		    CTRL('i')},
+	{"int",		    MTCT('i')},
 	{"iter",	    MTCT('i')},
 	{"len",		    CTRL('l')},
 	{"list",	    MTCT('L')},
@@ -153,100 +153,103 @@ const Token Non_Finals[] = {
 	NORM('{'),
 	NORM('('),
 	NORM('['),
-	META('a'),      /* and */
-	MTCT('a'),	    /* as */
-	CTRL('A'), 		/* assert */
-	CTRL('b'),	    /* break */
-	MTCT('C'),	    /* class */
-	CTRL('c'),	    /* continue */
-	MTCT('d'),	    /* def */
-	CTRL('D'),	    /* del */
-	MTCT('e'),	    /* elif */
-	MTCT('E'),	    /* else */
-	MTCT('x'),	    /* except */
-	CTRL('X'),	    /* exec */
-	MTCT('f'),	    /* finally */
-	MTCT('F'),	    /* for */
-	MTCT('i'),	    /* from */
-	CTRL('g'),	    /* global */
-	MTCT('I'),	    /* if */
-	MTCT('L'),	    /* lambda */
-	META('n'),	    /* not */
-	META('o'),	    /* or */
-	CTRL('p'),	    /* pass */
-	CTRL('P'),	    /* print */
-	CTRL('R'),	    /* raise */
-	CTRL('r'),	    /* return */
-	MTCT('t'),	    /* try */
-	MTCT('w'),	    /* while */
-	MTCT('W'),	    /* with */
-	MTCT('y'),	    /* yield */
-	NORM('t'),	    /* True */
-	NORM('f'),	    /* False */
-	NORM('n'),	    /* None */
-	CTRL('a'),	    /* abs */
-	CTRL('A'),	    /* all */
-	CTRL('A'),	    /* any */
-	CTRL('b'),	    /* bin */
-	CTRL('B'),	    /* bool */
-	CTRL('c'),	    /* callable */
-	CTRL('c'),	    /* chr */
-	CTRL('C'),	    /* classmethod */
-	CTRL('c'),	    /* compile */
-	CTRL('c'),	    /* complex */
-	CTRL('d'),	    /* delattr */
-	CTRL('D'),	    /* dict */
-	CTRL('d'),	    /* dir */
-	CTRL('d'),	    /* divmod */
-	CTRL('e'),	    /* enumerate */
-	CTRL('e'),	    /* eval */
-	CTRL('e'),	    /* execfile */
-	CTRL('f'),	    /* filter */
-	CTRL('f'),	    /* float */
-	CTRL('f'),	    /* format */
-	CTRL('F'),	    /* frozenset */
-	CTRL('g'),	    /* getattr */
-	CTRL('g'),	    /* globals */
-	CTRL('h'),	    /* hasattr */
-	CTRL('h'),	    /* hash */
-	CTRL('h'),	    /* hex */
-	CTRL('i'),	    /* id */
-	CTRL('i'),	    /* int */
-	CTRL('i'),	    /* iter */
-	CTRL('l'),	    /* len */
-	CTRL('L'),	    /* list */
-	CTRL('l'),	    /* locals */
-	CTRL('l'),	    /* long */
-	CTRL('m'),	    /* map */
-	CTRL('m'),	    /* max */
-	CTRL('m'),	    /* min */
-	CTRL('n'),	    /* next */
-	CTRL('o'),	    /* object */
-	CTRL('o'),	    /* oct */
-	CTRL('o'),	    /* open */
-	CTRL('o'),	    /* ord */
-	CTRL('p'),	    /* pow */
-	CTRL('p'),	    /* property */
-	CTRL('r'),	    /* range */
-	CTRL('r'),	    /* reduce */
-	CTRL('r'),	    /* repr */
-	CTRL('r'),	    /* reversed */
-	CTRL('r'),	    /* round */
-	CTRL('s'),	    /* set */
-	CTRL('s'),	    /* setattr */
-	CTRL('s'),	    /* slice */
-	CTRL('s'),	    /* sorted */
-	CTRL('S'),	    /* staticmethod */
-	CTRL('s'),	    /* str */
-	CTRL('s'),	    /* sum */
-	CTRL('s'),	    /* super */
-	CTRL('t'),	    /* tuple */
-	CTRL('t'),	    /* type */
-	CTRL('u'),	    /* unichr */
-	CTRL('u'),	    /* unicode */
-	CTRL('v'),	    /* vars */
-	CTRL('x'),	    /* xrange */
-	CTRL('z'),	    /* zip */
+	// reserved
+	META('a'),        /*  and  */
+	META('A'),        /*  as  */
+	CTRL('A'),        /*  assert  */
+	CTRL('b'),        /*  break  */
+	MTCT('C'),        /*  class  */
+	CTRL('c'),        /*  continue  */
+	MTCT('d'),        /*  def  */
+	CTRL('D'),        /*  del  */
+	MTCT('e'),        /*  elif  */
+	MTCT('E'),        /*  else  */
+	MTCT('x'),        /*  except  */
+	CTRL('X'),        /*  exec  */
+	MTCT('f'),        /*  finally  */
+	CTRL('F'),        /*  for  */
+	MTCT('F'),        /*  from  */
+	CTRL('g'),        /*  global  */
+	MTCT('I'),        /*  if  */
+	META('i'),        /*  is  */
+	MTCT('L'),        /*  lambda  */
+	META('n'),        /*  not  */
+	META('o'),        /*  or  */
+	CTRL('p'),        /*  pass  */
+	CTRL('P'),        /*  print  */
+	CTRL('R'),        /*  raise  */
+	CTRL('r'),        /*  return  */
+	MTCT('t'),        /*  try  */
+	MTCT('w'),        /*  while  */
+	MTCT('W'),        /*  with  */
+	MTCT('y'),        /*  yield  */
+	NORM('t'),        /*  True  */
+	NORM('f'),        /*  False  */
+	NORM('n'),        /*  None  */
+	// all built-in functions
+	CTRL('a'),        /*  abs  */
+	CTRL('A'),        /*  all  */
+	CTRL('A'),        /*  any  */
+	CTRL('b'),        /*  bin  */
+	MTCT('B'),        /*  bool  */
+	CTRL('c'),        /*  callable  */
+	CTRL('c'),        /*  chr  */
+	CTRL('C'),        /*  classmethod  */
+	CTRL('c'),        /*  compile  */
+	CTRL('c'),        /*  complex  */
+	CTRL('d'),        /*  delattr  */
+	MTCT('D'),        /*  dict  */
+	CTRL('d'),        /*  dir  */
+	CTRL('d'),        /*  divmod  */
+	CTRL('e'),        /*  enumerate  */
+	CTRL('e'),        /*  eval  */
+	CTRL('e'),        /*  execfile  */
+	CTRL('f'),        /*  filter  */
+	MTCT('f'),        /*  float  */
+	CTRL('f'),        /*  format  */
+	CTRL('F'),        /*  frozenset  */
+	CTRL('g'),        /*  getattr  */
+	CTRL('g'),        /*  globals  */
+	CTRL('h'),        /*  hasattr  */
+	CTRL('h'),        /*  hash  */
+	CTRL('h'),        /*  hex  */
+	CTRL('i'),        /*  id  */
+	MTCT('i'),        /*  int  */
+	MTCT('i'),        /*  iter  */
+	CTRL('l'),        /*  len  */
+	MTCT('L'),        /*  list  */
+	CTRL('l'),        /*  locals  */
+	MTCT('l'),        /*  long  */
+	CTRL('m'),        /*  map  */
+	CTRL('m'),        /*  max  */
+	CTRL('m'),        /*  min  */
+	CTRL('n'),        /*  next  */
+	MTCT('o'),        /*  object  */
+	CTRL('o'),        /*  oct  */
+	CTRL('o'),        /*  open  */
+	CTRL('o'),        /*  ord  */
+	CTRL('p'),        /*  pow  */
+	CTRL('p'),        /*  property  */
+	CTRL('r'),        /*  range  */
+	CTRL('r'),        /*  reduce  */
+	CTRL('r'),        /*  repr  */
+	CTRL('r'),        /*  reversed  */
+	CTRL('r'),        /*  round  */
+	MTCT('s'),        /*  set  */
+	CTRL('s'),        /*  setattr  */
+	CTRL('s'),        /*  slice  */
+	CTRL('s'),        /*  sorted  */
+	CTRL('S'),        /*  staticmethod  */
+	MTCT('s'),        /*  str  */
+	CTRL('s'),        /*  sum  */
+	CTRL('s'),        /*  super  */
+	MTCT('t'),        /*  tuple  */
+	CTRL('t'),        /*  type  */
+	CTRL('u'),        /*  unichr  */
+	CTRL('u'),        /*  unicode  */
+	CTRL('v'),        /*  vars  */
+	CTRL('x'),        /*  xrange  */
+	CTRL('z'),        /*  zip  */
 	No_Token
 };
 const Token Non_Initials[] = {
@@ -302,10 +305,11 @@ Digit		([0-9a-fA-F])
 
 UniCode		(\\u{Digit}{Digit}{Digit}{Digit})
 AnyQuoted	((\\.)|{UniCode})
-StrChar		([^\"\n\\]|{AnyQuoted})
-ChrChar		([^\'\n\\]|{AnyQuoted})
+StrChar		([^\"\'\n\\]|{AnyQuoted})
+MultilineChar ([^\"\'\\]|{AnyQuoted})
 
-SingleLineCom	("#".*)
+SingleLineCom	(#.*)
+MultiLineCom 	((^{AnyQuoted}*?\"\"\"(.|\n)*?\"\"\")|(^{AnyQuoted}*?\'\'\'(.|\n)*?\'\'\'))
 
 Idf		([A-Za-z][A-Za-z0-9_]*)
 
@@ -315,12 +319,16 @@ Idf		([A-Za-z][A-Za-z0-9_]*)
 		return_eol();
 	}
 
-\"{StrChar}*\"	{			/* strings */
+{MultiLineCom}"\n"	{		/* multi-line comment */
+		return_eol();
+	}
+
+([\"\']{StrChar}*?[\"\'])	{			/* strings */
 		return_ch('"');
 	}
 
-\'{ChrChar}+\'	{			/* characters */
-		return_ch('\'');
+(\"{3}{MultilineChar}*?\"{3})|(\"{3}{MultilineChar}*?\"{3})    {       /* multiline strings */
+		return_ch('"');
 	}
 
 (0x)?{Digit}+("l"|"L")?	{		/* numeral, passed as an identifier */
