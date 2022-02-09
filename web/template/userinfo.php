@@ -61,7 +61,7 @@
                                 ?>
                                 <tr id='pie'>
                                     <td><?php echo $MSG_STATISTICS ?></td>
-                                    <td style='width:20%;height:150px;'>
+                                    <td style='height:150px;'>
                                         <div id='container_pie' style='height:150px;width:100%;margin-left:10%;'></div>
                                     </td>
                                 </tr>
@@ -88,7 +88,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td rowspan=14 align=center style='background-color:#fff;'>
+                                    <td rowspan=14 align=center>
                                         <script language='javascript'>
                                             function p(id, c) {
                                                 document.write("<a href=problem.php?id=" + id + ">" + id + " </a>(<a href='status.php?user_id=<?php echo $user ?>&problem_id=" + id + "'>" + c + "</a>)&nbsp;&nbsp;");
@@ -99,10 +99,9 @@
                                                 foreach ($result as $row)
                                                     echo "p($row[0],$row[1]);";
                                             }
-
                                             ?>
                                         </script>
-                                        <div id="container_status" style="height: 300px; margin: 1em auto 1em"></div>
+                                        <div id="container_status" style="height:300px;margin:1em auto 1em"></div>
                                     </td>
                                 </tr>
                             </tbody>
