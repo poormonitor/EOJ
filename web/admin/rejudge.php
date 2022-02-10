@@ -1,5 +1,3 @@
-<?php require("admin-header.php");
-?>
 <?php if (isset($_POST['do'])) {
 	require_once("../include/check_post_key.php");
 	if (isset($_POST['rjpid'])) {
@@ -18,20 +16,19 @@
 	} else if (isset($_POST['rjsid'])) {
 		if (strpos($_POST['rjsid'], ",")) {
 			$rjsid = explode(",", $_POST['rjsid']);
-			$sql = "delete from `sim` WHERE `s_id`>= ? AND `s_id` <= ?";
+			$sql = "DELETE FROM `sim` WHERE `s_id`>= ? AND `s_id` <= ?";
 			pdo_query($sql, $rjsid[0], $rjsid[1]);
 			$sql = "UPDATE `solution` SET `result`=1 WHERE `solution_id`>= ? AND `solution_id` <= ?  AND problem_id>0";
 			pdo_query($sql, $rjsid[0], $rjsid[1]);
 			$url = "../status.php?top=" . ($rjsid[1]);
-			echo "Rejudged Runid " . $rjsid[0] . " - " . $rjsid[1];
-			echo "<script>location.href='$url';</script>";
+			header("Location: ". $url);
 		} else {
 			$rjsid = intval($_POST['rjsid']);
 			$sql = "delete from `sim` WHERE `s_id`=?";
 			pdo_query($sql, $rjsid);
 			$sql = "UPDATE `solution` SET `result`=1 WHERE `solution_id`=? and problem_id>0";
 			pdo_query($sql, $rjsid);
-			$sql = "select contest_id from `solution` WHERE `solution_id`=? ";
+			$sql = "SELECT contest_id FROM `solution` WHERE `solution_id`=? ";
 			$data = pdo_query($sql, $rjsid);
 			$row = $data[0];
 			$cid = intval($row[0]);
@@ -39,24 +36,21 @@
 				$url = "../status.php?cid=" . $cid . "&top=" . ($rjsid);
 			else
 				$url = "../status.php?top=" . ($rjsid);
-			echo "Rejudged Runid " . $rjsid;
-			echo "<script>location.href='$url';</script>";
+			header("Location: ". $url);
 		}
 	} else if (isset($_POST['result'])) {
 		$result = intval($_POST['result']);
 		$sql = "UPDATE `solution` SET `result`=1 WHERE `result`=? and problem_id>0";
 		pdo_query($sql, $result);
 		$url = "../status.php?jresult=1";
-		echo "<script>location.href='$url';</script>";
+		header("Location: ". $url);
 	} else if (isset($_POST['rjcid'])) {
 		$rjcid = intval($_POST['rjcid']);
 		$sql = "UPDATE `solution` SET `result`=1 WHERE `contest_id`=? and problem_id>0";
 		pdo_query($sql, $rjcid);
 		$url = "../status.php?cid=" . ($rjcid);
-		echo "Rejudged Contest id :" . $rjcid;
-		echo "<script>location.href='$url';</script>";
+		header("Location: ". $url);
 	}
-	echo str_repeat(" ", 4096);
 	flush();
 	if ($OJ_REDIS) {
 		$redis = new Redis();
@@ -70,8 +64,19 @@
 		}
 		$redis->close();
 	}
+	exit(0);
+}
+$banner = "";
+if (isset($_POST['del'])) {
+	if (isset($_POST['dlsid'])) {
+		$dlsid = intval($_POST['dlsid']);
+		$sql = "DELETE FROM `solution` where `solution_id` = ?";
+		pdo_query($sql, $dlsid);
+		$banner = "<div class='alert alert-success' role='alert'>$MSG_SUCCESS</div>?";
+	}
 }
 ?>
+<?php require("admin-header.php"); ?>
 <?php require_once("../include/set_post_key.php"); ?>
 <div class="container">
 	<br />
@@ -79,6 +84,7 @@
 	<ol>
 		<br />
 		<div class='center form-horizontal'>
+			<?php echo $banner ?>
 			<form action='rejudge.php' method=post class='form-group'>
 				<label class='control-label col-sm-4'>
 					<?php echo $MSG_PROBLEM ?>
@@ -87,8 +93,7 @@
 					<input type=input class='form-control' name='rjpid' placeholder="1001">
 					<input type='hidden' name='do' value='do'>
 					<input type=hidden name="postkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>">
-					<br />
-					<input type=submit class='form-control btn btn-default' value='<?php echo $MSG_SUBMIT; ?>'>
+					<input type=submit class='form-control btn btn-default ud-margin' value='<?php echo $MSG_SUBMIT; ?>'>
 				</div>
 			</form>
 			<br />
@@ -100,8 +105,7 @@
 					<input type=input class='form-control' name='rjsid' style='%' placeholder="1001" value='<?php if (isset($_GET['sid'])) echo $_GET['sid'] ?>'>
 					<input type='hidden' name='do' value='do'>
 					<input type=hidden name="postkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>">
-					<br />
-					<input type=submit class='form-control btn btn-default' value='<?php echo $MSG_SUBMIT; ?>'>
+					<input type=submit class='form-control btn btn-default ud-margin' value='<?php echo $MSG_SUBMIT; ?>'>
 				</div>
 			</form>
 			<br />
@@ -113,8 +117,7 @@
 					<input type=input class='form-control' name='result' placeholder="3" value="3">
 					<input type='hidden' name='do' value='do'>
 					<input type=hidden name="postkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>">
-					<br />
-					<input type=submit class='form-control btn btn-default' value='<?php echo $MSG_SUBMIT; ?>'>
+					<input type=submit class='form-control btn btn-default ud-margin' value='<?php echo $MSG_SUBMIT; ?>'>
 				</div>
 			</form>
 			<br />
@@ -126,8 +129,18 @@
 					<input type=input class='form-control' name='rjcid' placeholder="1003">
 					<input type='hidden' name='do' value='do'>
 					<input type=hidden name="postkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>">
-					<br />
-					<input type=submit class='form-control btn btn-default' value='<?php echo $MSG_SUBMIT; ?>'>
+					<input type=submit class='form-control btn btn-default ud-margin' value='<?php echo $MSG_SUBMIT; ?>'>
+				</div>
+			</form>
+			<form action='rejudge.php' method=post class='form-group'>
+				<label class='control-label col-sm-4'>
+					<?php echo $MSG_DELETE ?>
+				</label>
+				<div class='col-sm-4'>
+					<input type=input class='form-control' name='dlsid' placeholder="1003">
+					<input type='hidden' name='del' value='del'>
+					<input type=hidden name="postkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>">
+					<input type=submit class='form-control btn btn-default ud-margin' value='<?php echo $MSG_SUBMIT; ?>'>
 				</div>
 			</form>
 		</div>
