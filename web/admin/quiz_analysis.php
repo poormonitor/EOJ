@@ -241,7 +241,7 @@ require_once("admin-header.php");
                                 (SELECT `user_id` FROM `answer` WHERE `quiz_id`= ?)";
                             $result = pdo_query($sql, "q$qid", $qid);
                         ?>
-                            <table class="table">
+                            <table class="table table-condensed">
                                 <thead>
                                     <tr>
                                         <th><?php echo $MSG_USER_ID ?></th>

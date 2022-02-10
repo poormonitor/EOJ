@@ -28,10 +28,11 @@
 					<table style="margin:auto;width:95%" class='table table-condensed'>
 						<thead>
 							<tr class=toprow>
-								<th style="width: 50px">IP</th>
+								<th>IP</th>
 								<th>URI</th>
 								<th>Refer</th>
-								<th style="width:100px">Stay time</th>
+								<th>Stay time</th>
+								<th>User ID</th>
 								<th>User Agent</th>
 							</tr>
 						</thead>
@@ -39,6 +40,7 @@
 							<?php
 							foreach ($users as $u) {
 								if (is_array($u)) {
+									$ua = explode("@", $u['ua'], 2);
 							?>
 									<tr>
 										<td class="ip">
@@ -53,7 +55,8 @@
 										<td><?php echo $u["uri"] ?></td>
 										<td><?php echo $u['refer'] ?></td>
 										<td class="time"><?php echo sprintf("%dmin %dsec", ($u['lastmove'] - $u['firsttime']) / 60, ($u['lastmove'] - $u['firsttime']) % 60) ?></td>
-										<td><?php echo $u['ua'] ?></td>
+										<td><?php echo $ua[0] ?></td>
+										<td><?php echo $ua[1] ?></td>
 									</tr>
 							<?php
 								}
@@ -75,11 +78,11 @@
 					<table class='table table-condensed' style='width:auto;'>
 						<thead>
 							<tr class='toprow center'>
-								<th>UserID</th>
-								<th>Password</th>
-								<th>IP</th>
-								<th>Time</th>
-								<th>IP info</th>
+								<th class='center'>UserID</th>
+								<th class='center'>Password</th>
+								<th class='center'>IP</th>
+								<th class='center'>Time</th>
+								<th class='center'>IP info</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -108,11 +111,9 @@
 					</table>
 				</div>
 			</center>
-
-			<!-- Bootstrap core JavaScript
-    ================================================== -->
-			<!-- Placed at the end of the document so the pages load faster -->
-			<?php include("template/js.php"); ?>
+		</div>
+	</div>
+	<?php include("template/js.php"); ?>
 </body>
 
 </html>

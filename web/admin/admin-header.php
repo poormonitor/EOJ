@@ -13,6 +13,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_
 }
 $url = basename($_SERVER['REQUEST_URI']);
 $ACTIVE = "class='active'";
+$_SESSION[$OJ_NAME . '_' . 'profile_csrf'] = rand();
 header("Cache-control: private");
 ?>
 <!DOCTYPE html>
