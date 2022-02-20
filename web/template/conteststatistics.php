@@ -211,65 +211,78 @@
 			<br />
 			<center>
 				<h4><?php if (isset($locked_msg)) echo $locked_msg; ?></h4>
-				<table id=cs class="table-hover table-striped" align=center width=90% border=0>
-					<thead>
-						<tr class=toprow>
-							<th class='text-center'></th>
-							<th class='text-center'>AC</th>
-							<th class='text-center'>PE</th>
-							<th class='text-center'>WA</th>
-							<th class='text-center'>TLE</th>
-							<th class='text-center'>MLE</th>
-							<th class='text-center'>OLE</th>
-							<th class='text-center'>RE</th>
-							<th class='text-center'>CE</th>
-							<th class='text-center'>TR</th>
-							<th class='text-center'></th>
-							<th class='text-center'>Total</th>
+				<div class='table-responsive'>
+					<table id=cs class="table-hover table-striped" align=center width=90% border=0>
+						<thead>
+							<tr class=toprow>
+								<th class='text-center'></th>
+								<th class='text-center'>AC</th>
+								<th class='text-center'>PE</th>
+								<th class='text-center'>WA</th>
+								<th class='text-center'>TLE</th>
+								<th class='text-center'>MLE</th>
+								<th class='text-center'>OLE</th>
+								<th class='text-center'>RE</th>
+								<th class='text-center'>CE</th>
+								<th class='text-center'>TR</th>
+								<th class='text-center'></th>
+								<th class='text-center'>Total</th>
+								<?php
+								$i = 0;
+								foreach ($language_name as $lang) {
+									if (isset($R[$pid_cnt][$i + 11]))
+										echo "<th class='text-center'>$language_name[$i]</th>";
+									else
+										echo "<th class='text-center'></th>";
+									$i++;
+								}
+								?>
+							</tr>
+						</thead>
+
+						<tbody>
 							<?php
-							$i = 0;
-							foreach ($language_name as $lang) {
-								if (isset($R[$pid_cnt][$i + 11]))
-									echo "<th class='text-center'>$language_name[$i]</th>";
+							for ($i = 0; $i < $pid_cnt; $i++) {
+								if (!isset($PID[$i]))
+									$PID[$i] = "";
+
+								if ($i & 1)
+									echo "<tr class='oddrow'>";
 								else
-									echo "<th class='text-center'></th>";
-								$i++;
-							}
-							?>
-						</tr>
-					</thead>
+									echo "<tr class='evenrow'>";
 
-					<tbody>
-						<?php
-						for ($i = 0; $i < $pid_cnt; $i++) {
-							if (!isset($PID[$i]))
-								$PID[$i] = "";
+								if (time() < $end_time) {  //during contest/exam time
+									echo "<td class='text-center'><a href=problem.php?cid=$cid&pid=$i>$PID[$i]</a></td>";
+								} else {  //over contest/exam time
+									//check the problem will be use remained contest/exam
+									$sql = "SELECT `problem_id` FROM `contest_problem` WHERE (`contest_id`=? AND `num`=?)";
+									$tresult = pdo_query($sql, $cid, $i);
 
-							if ($i & 1)
-								echo "<tr class='oddrow'>";
-							else
-								echo "<tr class='evenrow'>";
-
-							if (time() < $end_time) {  //during contest/exam time
-								echo "<td class='text-center'><a href=problem.php?cid=$cid&pid=$i>$PID[$i]</a></td>";
-							} else {  //over contest/exam time
-								//check the problem will be use remained contest/exam
-								$sql = "SELECT `problem_id` FROM `contest_problem` WHERE (`contest_id`=? AND `num`=?)";
-								$tresult = pdo_query($sql, $cid, $i);
-
-								$tpid = $tresult[0][0];
-								$sql = "SELECT `problem_id` FROM `problem` WHERE `problem_id`=? AND `problem_id` IN (
+									$tpid = $tresult[0][0];
+									$sql = "SELECT `problem_id` FROM `problem` WHERE `problem_id`=? AND `problem_id` IN (
 									SELECT `problem_id` FROM `contest_problem` WHERE `contest_id` IN (
 										SELECT `contest_id` FROM `contest` WHERE (`defunct`='N' AND now()<`end_time`)
 									)
 								)";
-								$tresult = pdo_query($sql, $tpid);
+									$tresult = pdo_query($sql, $tpid);
 
-								if (intval($tresult) != 0)   //if the problem will be use remained contes/exam */
-									echo "<td class='text-center'>$PID[$i]</td>";
-								else
-									echo "<td class='text-center'><a href='problem.php?id=" . $tpid . "'>" . $PID[$i] . "</a></td>";
+									if (intval($tresult) != 0)   //if the problem will be use remained contes/exam */
+										echo "<td class='text-center'>$PID[$i]</td>";
+									else
+										echo "<td class='text-center'><a href='problem.php?id=" . $tpid . "'>" . $PID[$i] . "</a></td>";
+								}
+
+								for ($j = 0; $j < count($language_name) + 11; $j++) {
+									if (!isset($R[$i][$j]))
+										$R[$i][$j] = "";
+
+									echo "<td class='text-center'>" . $R[$i][$j] . "</td>";
+								}
+								echo "</tr>";
 							}
+
+							echo "<tr class='evenrow'>";
+							echo "<td class='text-center'>Total</td>";
 
 							for ($j = 0; $j < count($language_name) + 11; $j++) {
 								if (!isset($R[$i][$j]))
@@ -278,22 +291,11 @@
 								echo "<td class='text-center'>" . $R[$i][$j] . "</td>";
 							}
 							echo "</tr>";
-						}
 
-						echo "<tr class='evenrow'>";
-						echo "<td class='text-center'>Total</td>";
-
-						for ($j = 0; $j < count($language_name) + 11; $j++) {
-							if (!isset($R[$i][$j]))
-								$R[$i][$j] = "";
-
-							echo "<td class='text-center'>" . $R[$i][$j] . "</td>";
-						}
-						echo "</tr>";
-
-						?>
-					</tbody>
-				</table>
+							?>
+						</tbody>
+					</table>
+				</div>
 
 				<br /><br />
 

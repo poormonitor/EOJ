@@ -12,8 +12,6 @@
   <title><?php echo $OJ_NAME ?></title>
   <?php include("template/css.php"); ?>
 
-
-
 </head>
 
 <body>
@@ -22,19 +20,14 @@
     <?php include("template/nav.php"); ?>
     <!-- Main component for a primary marketing message or call to action -->
     <div class="jumbotron">
-      <link href='<?php echo $OJ_CDN_URL ?>highlight/styles/shCore.css' rel='stylesheet' type='text/css' />
-      <link href='<?php echo $OJ_CDN_URL ?>highlight/styles/shThemeDefault.css' rel='stylesheet' type='text/css' />
+      <link href='<?php echo $OJ_CDN_URL ?>template/prism.css' rel='stylesheet' type='text/css' />
 
       <?php
       if ($ok == true) {
         $brush = strtolower($language_name[$slanguage]);
-        if ($brush == 'pascal') $brush = 'delphi';
-        if ($brush == 'obj-c') $brush = 'c';
+        if ($brush == "python3") $brush = "py";
         if ($brush == 'freebasic') $brush = 'vb';
-        if ($brush == 'fortran') $brush = 'vb';
-        if ($brush == 'swift') $brush = 'csharp';
-        if ($brush == 'python3') $brush = 'python';
-        echo "<pre id=code><pre class=\"brush:" . $brush . ";\">";
+        echo "<pre id='code'><code class='language-$brush line-numbers'>";
         ob_start();
         echo "\n'''\n";
         echo "=== Submission Info ===\n";
@@ -47,7 +40,7 @@
         echo "'''";
         $auth = ob_get_contents();
         ob_end_clean();
-        echo htmlentities(str_replace("\n\r", "\n", $view_source), ENT_QUOTES, "utf-8") . "\n" . $auth . "</pre></pre>";
+        echo htmlentities(str_replace("\n\r", "\n", $view_source), ENT_QUOTES, "utf-8") . "\n" . $auth . "</code></pre>";
       } else {
         echo $MSG_WARNING_ACCESS_DENIED;
       }
@@ -56,13 +49,7 @@
 
   </div>
   <?php include("template/js.php"); ?>
-  <script src='<?php echo $OJ_CDN_URL ?>highlight/scripts/shCore.js' type='text/javascript'></script>
-  <script src='<?php echo $OJ_CDN_URL ?>highlight/scripts/shBrushPython.js' type='text/javascript'></script>
-  <script language='javascript'>
-    SyntaxHighlighter.config.bloggerMode = false;
-    SyntaxHighlighter.config.clipboardSwf = '<?php echo $OJ_CDN_URL ?>highlight/scripts/clipboard.swf';
-    SyntaxHighlighter.all();
-  </script>
+  <script src='<?php echo $OJ_CDN_URL ?>template/prism.js' type='text/javascript'></script>
 </body>
 
 </html>
