@@ -115,14 +115,14 @@
                 if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
                 ?>
                     <div class='table-responsive'>
-                        <table class='table table-condensed' style='width:auto;'>
+                        <table class='table table-condensed' style='width:auto'>
                             <thead>
                                 <tr>
-                                    <th style='text-align:center;'>&nbsp;UserID&nbsp;</th>
-                                    <th style='text-align:center;'>&nbsp;Password&nbsp;</th>
-                                    <th style='text-align:center;'>&nbsp;IP&nbsp;</th>
-                                    <th style='text-align:center;'>&nbsp;Time&nbsp;</th>
-                                    <th style='text-align:center;'>&nbsp;IP Info&nbsp;</th>
+                                    <th style='text-align:center;'>UserID</th>
+                                    <th style='text-align:center;'>Password</th>
+                                    <th style='text-align:center;'>IP</th>
+                                    <th style='text-align:center;'>Time</th>
+                                    <th style='text-align:center;'>IP Info</th>
                                 </tr>
                             </thead>
                             <tbody>
