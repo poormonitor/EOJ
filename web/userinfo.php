@@ -85,7 +85,7 @@ foreach ($result as $row) {
 }
 
 
-$sql =	"SELECT date(in_date) md,count(1) c FROM `solution` where  `user_id`=?  group by md order by md asc ";
+$sql =	"SELECT date(in_date) md,count(1) c FROM `solution` where date_sub(curdate(), INTERVAL 1 year) <= DATE(`in_date`) and `user_id`=? group by md order by md asc";
 $result = pdo_query($sql, $user); //mysql_escape_string($sql));
 $chart_data_all = array();
 //echo $sql;
@@ -94,7 +94,7 @@ foreach ($result as $row) {
 	array_push($chart_data_all, array($row['md'], intval($row['c'])));
 }
 
-$sql =	"SELECT date(in_date) md,count(1) c FROM `solution` where  `user_id`=? and result=4 group by md order by md asc ";
+$sql =	"SELECT date(in_date) md,count(1) c FROM `solution` where date_sub(curdate(), INTERVAL 1 year) <= DATE(`in_date`) and `user_id`=? and result=4 group by md order by md asc";
 $result = pdo_query($sql, $user); //mysql_escape_string($sql));
 $chart_data_ac = array();
 //echo $sql;
