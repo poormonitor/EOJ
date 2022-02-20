@@ -28,20 +28,20 @@
                         <table class="table table-striped" id=statics width=70%>
                             <thead>
                                 <tr>
-                                    <th>
-                                        <span style='font-size:140%;'>
+                                    <th colspan='2'>
+                                        <div style='font-size:140%;'>
                                             <?php echo htmlentities($nick, ENT_QUOTES, "UTF-8") ?>
-                                        </span>
-                                        <span>
+                                        </div>
+                                        <div>
                                             <?php echo $user; ?>
-                                        </span>
+                                        </div>
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td width=5%><?php echo $MSG_Number ?></td>
-                                    <td width=30% align=center><?php echo $Rank ?></td>
+                                    <td width=20%><?php echo $MSG_Number ?></td>
+                                    <td width=80% align=center><?php echo $Rank ?></td>
                                 </tr>
                                 <tr>
                                     <td><?php echo $MSG_SOVLED ?>
@@ -61,8 +61,8 @@
                                 ?>
                                 <tr id='pie'>
                                     <td><?php echo $MSG_STATISTICS ?></td>
-                                    <td style='height:150px;'>
-                                        <div id='container_pie' style='height:150px;width:100%;margin-left:10%;'></div>
+                                    <td style='height:150px;width:80%'>
+                                        <div id='container_pie' style='height:100%;width:100%;'></div>
                                     </td>
                                 </tr>
                                 <?php
