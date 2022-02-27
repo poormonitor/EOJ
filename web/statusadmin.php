@@ -211,20 +211,20 @@ $user_id = "";
 if (isset($OJ_ON_SITE_CONTEST_ID) && $OJ_ON_SITE_CONTEST_ID > 0 && !isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
   $_GET['user_id'] = $_SESSION[$OJ_NAME . '_' . 'user_id'];
 }
-if (isset($uid)) {
-  $user_id = join(",", $uid);
-  $sql = $sql . "AND `user_id` IN ($user_id) ";
-} else 
+
 if (isset($_GET['user_id'])) {
   $user_id = trim($_GET['user_id']);
   if (is_valid_user_name($user_id) && $user_id != "") {
-    $sql = $sql . "AND `user_id` LIKE '%?%' ";
+    $sql = $sql . "AND `user_id` LIKE '%$user_id%' ";
     if ($str2 != "")
       $str2 = $str2 . "&";
 
     $str2 = $str2 . "user_id=" . urlencode($user_id);
   } else
     $user_id = "";
+} else if (isset($uid)) {
+  $user_id = join(",", $uid);
+  $sql = $sql . "AND `user_id` IN ($user_id) ";
 }
 
 if ($user_id == "" and $problem_id == "" and (!isset($cid) or $cid == "")) {

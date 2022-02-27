@@ -11,9 +11,11 @@ if (isset($OJ_NEED_LOGIN) && $OJ_NEED_LOGIN && ($url != 'loginpage.php' &&
 }
 $_SESSION[$OJ_NAME . '_' . 'profile_csrf'] = rand();
 if ($OJ_ONLINE) {
-  require_once('include/online.php');
+  require_once(dirname(__FILE__) . '/../include/online.php');
   $on = new online();
 }
+$prefix = isset($prefix) ? $prefix : "";
+$loc = isset($prefix) ? "&loc=admin" : "";
 ?>
 <!-- Static navbar -->
 <nav class="navbar navbar-default" role="navigation">
@@ -25,7 +27,7 @@ if ($OJ_ONLINE) {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="<?php echo $OJ_HOME ?>"><i class="icon-home"></i><?php echo $OJ_NAME ?></a>
+      <a class="navbar-brand" href="<?php echo $prefix . $OJ_HOME ?>"><i class="icon-home"></i><?php echo $OJ_NAME ?></a>
       <?php if (file_exists("moodle")) { ?>
         <a class="navbar-brand" href="moodle"><i class="icon-home"></i>Moodle</a>
       <?php } ?>
@@ -33,10 +35,9 @@ if ($OJ_ONLINE) {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <?php $ACTIVE = "class='active'" ?>
-
         <?php if (!isset($OJ_ON_SITE_CONTEST_ID)) { ?>
           <li <?php if ($url == "faqs.php") echo " $ACTIVE"; ?>>
-            <a href="faqs.php">
+            <a href="<?php echo $prefix ?>faqs.php">
               <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> <?php echo $MSG_FAQ ?>
             </a>
           </li>
@@ -45,7 +46,7 @@ if ($OJ_ONLINE) {
 
         <?php if (isset($OJ_PRINTER) && $OJ_PRINTER) { ?>
           <li <?php if ($url == "printer.php") echo " $ACTIVE"; ?>>
-            <a href="printer.php">
+            <a href="<?php echo $prefix ?>printer.php">
               <span class="glyphicon glyphicon-print" aria-hidden="true"></span> <?php echo $MSG_PRINTER ?>
             </a>
           </li>
@@ -53,26 +54,26 @@ if ($OJ_ONLINE) {
 
         <?php if (!isset($OJ_ON_SITE_CONTEST_ID)) { ?>
           <li <?php if ($url == "problemset.php") echo " $ACTIVE"; ?>>
-            <a href="problemset.php"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> <?php echo $MSG_PROBLEMS ?></a>
+            <a href="<?php echo $prefix ?>problemset.php"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> <?php echo $MSG_PROBLEMS ?></a>
           </li>
           <li <?php if ($url == "category.php") echo " $ACTIVE"; ?>>
-            <a href="category.php"><span class="glyphicon glyphicon-th" aria-hidden="true"></span> <?php echo $MSG_SOURCE ?></a>
+            <a href="<?php echo $prefix ?>category.php"><span class="glyphicon glyphicon-th" aria-hidden="true"></span> <?php echo $MSG_SOURCE ?></a>
           </li>
           <li <?php if ($url == "status.php") echo " $ACTIVE"; ?>>
-            <a href="status.php"><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span> <?php echo $MSG_STATUS ?></a>
+            <a href="<?php echo $prefix ?>status.php"><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span> <?php echo $MSG_STATUS ?></a>
           </li>
           <li <?php if ($url == "ranklist.php") echo " $ACTIVE"; ?>>
-            <a href="ranklist.php"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> <?php echo $MSG_RANKLIST ?></a>
+            <a href="<?php echo $prefix ?>ranklist.php"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> <?php echo $MSG_RANKLIST ?></a>
           </li>
           <li <?php if ($url == "contest.php") echo " $ACTIVE"; ?>>
-            <a href="contest.php"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> <?php echo $MSG_CONTEST ?></a>
+            <a href="<?php echo $prefix ?>contest.php"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> <?php echo $MSG_CONTEST ?></a>
           </li>
           <li <?php if ($url == "quiz.php") echo " $ACTIVE"; ?>>
-            <a href="quiz.php"><span class="glyphicon glyphicon-check" aria-hidden="true"></span> <?php echo $MSG_QUIZ ?></a>
+            <a href="<?php echo $prefix ?>quiz.php"><span class="glyphicon glyphicon-check" aria-hidden="true"></span> <?php echo $MSG_QUIZ ?></a>
           </li>
         <?php } else { ?>
           <li <?php if ($url == "contest.php") echo " $ACTIVE"; ?>>
-            <a href="contest.php"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> <?php echo $MSG_CONTEST ?></a>
+            <a href="<?php echo $prefix ?>contest.php"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> <?php echo $MSG_CONTEST ?></a>
           </li>
         <?php } ?>
 
@@ -84,7 +85,7 @@ if ($OJ_ONLINE) {
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span id="profile">Login</span><span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <script src="<?php echo "template/profile.php?profile_csrf=" . $_SESSION[$OJ_NAME . '_' . 'profile_csrf']; ?>"></script>
+            <script src="<?php echo $prefix . "template/profile.php?profile_csrf=" . $_SESSION[$OJ_NAME . '_' . 'profile_csrf'] . $loc; ?>"></script>
             <!--<li><a href="../navbar-fixed-top/">Fixed top</a></li>-->
           </ul>
         </li>

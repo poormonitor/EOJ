@@ -30,6 +30,17 @@
     <input type='hidden' name='do' value='do'>
     <input type=submit class='btn btn-info' value='更新'>
   </form>
+  <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) { ?>
+    <br />
+    <form action='adminer.php' method=post class="center">
+      <input type="hidden" name="auth[driver]" value="server">
+      <input type="hidden" name="auth[server]" value="">
+      <input type="hidden" name="auth[username]" value="<?php echo $DB_USER ?>">
+      <input type="hidden" name="auth[password]" value="<?php echo $DB_PASS ?>">
+      <input type="hidden" name="auth[db]" value="<?php echo $DB_NAME ?>">
+      <input type="submit" class="btn btn-primary" value="Adminer">
+    </form>
+  <?php } ?>
 </div>
 <?php
 require_once("admin-footer.php");

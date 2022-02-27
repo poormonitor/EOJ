@@ -1,4 +1,5 @@
-<?php if (isset($_POST['do'])) {
+<?php
+if (isset($_POST['do'])) {
 	require_once("../include/check_post_key.php");
 	if (isset($_POST['rjpid'])) {
 		$rjpid = intval($_POST['rjpid']);
@@ -21,7 +22,7 @@
 			$sql = "UPDATE `solution` SET `result`=1 WHERE `solution_id`>= ? AND `solution_id` <= ?  AND problem_id>0";
 			pdo_query($sql, $rjsid[0], $rjsid[1]);
 			$url = "../status.php?top=" . ($rjsid[1]);
-			header("Location: ". $url);
+			header("Location: " . $url);
 		} else {
 			$rjsid = intval($_POST['rjsid']);
 			$sql = "delete from `sim` WHERE `s_id`=?";
@@ -36,20 +37,20 @@
 				$url = "../status.php?cid=" . $cid . "&top=" . ($rjsid);
 			else
 				$url = "../status.php?top=" . ($rjsid);
-			header("Location: ". $url);
+			header("Location: " . $url);
 		}
 	} else if (isset($_POST['result'])) {
 		$result = intval($_POST['result']);
 		$sql = "UPDATE `solution` SET `result`=1 WHERE `result`=? and problem_id>0";
 		pdo_query($sql, $result);
 		$url = "../status.php?jresult=1";
-		header("Location: ". $url);
+		header("Location: " . $url);
 	} else if (isset($_POST['rjcid'])) {
 		$rjcid = intval($_POST['rjcid']);
 		$sql = "UPDATE `solution` SET `result`=1 WHERE `contest_id`=? and problem_id>0";
 		pdo_query($sql, $rjcid);
 		$url = "../status.php?cid=" . ($rjcid);
-		header("Location: ". $url);
+		header("Location: " . $url);
 	}
 	flush();
 	if ($OJ_REDIS) {
