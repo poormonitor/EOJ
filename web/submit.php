@@ -198,11 +198,11 @@ if (count($code) && $code[0][0]) {
     $source = $code;
     $input_text = $code;
   } else {
-    $code = str_replace("%\*%", ".*", $code);
-    $code = str_replace("\*%\*", "[\s\S]*", $code);
     $code = str_replace(" ", "", $code);
     $code = str_replace("\n", "", $code);
     $code = preg_quote($code);
+    $code = str_replace("%\*%", ".*", $code);
+    $code = str_replace("\*%\*", "[\s\S]*", $code);
     $p_source = str_replace(" ", "", $_POST['source']);
     $p_source = str_replace("\r\n", "\n", $p_source);
     $p_source = str_replace("\n", "", $p_source);
@@ -211,6 +211,10 @@ if (count($code) && $code[0][0]) {
       $source = $_POST['source'];
       $input_text = "";
     } else {
+      echo $p_source;
+      echo "\n";
+      echo $code;
+      exit(0);
       $err_str = $err_str . "您的代码不符合填空格式！";
       $err_cnt++;
       $view_error_title = $err_str;
