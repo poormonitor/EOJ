@@ -10,12 +10,12 @@ require_once('./include/setlang.php');
 
 $view_title = "Problem Set";
 $first = 1000;
-$sql = "select max(`problem_id`) as upid FROM `problem`";
+$sql = "SELECT MAX(`problem_id`) AS upid FROM `problem`";
 $page_cnt = 50;  //50 prlblems per page
 $result = mysql_query_cache($sql);
 $row = $result[0];
 $cnt = $row['upid'] - $first;
-$cnt = $cnt / $page_cnt;
+$cnt = ceil($cnt / $page_cnt);
 
 //remember page
 $page = 1;
@@ -95,15 +95,7 @@ if (isset($_GET['search']) && trim($_GET['search']) != "") {
 	$result = mysql_query_cache($sql);
 }
 
-if (isset($_GET['search']) && trim($_GET['search']) != "") {
-	$sql = "SELECT count(*) FROM `problem` WHERE $filter_sql";
-	$num = pdo_query($sql, $search, $search)[0][0];
-} else {
-	$sql = "SELECT count(*) FROM `problem`";
-	$num = mysql_query_cache($sql)[0][0];
-}
-
-$view_total_page = intval($num / $page_cnt) + 1;
+$view_total_page = $cnt;
 
 $cnt = 0;
 $view_problemset = array();

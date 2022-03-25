@@ -16,11 +16,18 @@
     for ($i = 0; isset($csql[$i]); $i++) {
       pdo_query($csql[$i]);
     }
-    echo "<span class='alert alert-success'>成功！</span>";
+    $banner = true;
   }
   ?>
   <br />
   <h3 class='center'><?php echo $MSG_UPDATE_DATABASE ?></h3>
+  <?php if (isset($banner)) { ?>
+    <div class="row">
+      <div class="col-sm-4"></div>
+      <div class="alert alert-success center col-sm-4" role="alert"><?php echo $MSG_SUCCESS ?></div>
+      <div class="col-sm-4"></div>
+    </div>
+  <?php } ?>
   <p class='center'>
     <?php echo $MSG_HELP_UPDATE_DATABASE ?>
   </p>
