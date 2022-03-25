@@ -12,8 +12,7 @@ if (isset($_POST['do'])) {
 		$sql = "delete from `sim` WHERE `s_id` in (select solution_id from solution where `problem_id`=?)";
 		pdo_query($sql, $rjpid);
 		$url = "../status.php?problem_id=" . $rjpid;
-		echo "Rejudged Problem " . $rjpid;
-		echo "<script>location.href='$url';</script>";
+		header("Location: " . $url);
 	} else if (isset($_POST['rjsid'])) {
 		if (strpos($_POST['rjsid'], ",")) {
 			$rjsid = explode(",", $_POST['rjsid']);
@@ -51,6 +50,12 @@ if (isset($_POST['do'])) {
 		pdo_query($sql, $rjcid);
 		$url = "../status.php?cid=" . ($rjcid);
 		header("Location: " . $url);
+	} else if (isset($_POST['dlsid'])) {
+		$dlsid = intval($_POST['dlsid']);
+		$sql = "DELETE FROM `solution` where `solution_id` = ?";
+		pdo_query($sql, $dlsid);
+		$url = "rejudge.php?status=1";
+		header("Location: " . $url);
 	}
 	flush();
 	if ($OJ_REDIS) {
@@ -67,25 +72,22 @@ if (isset($_POST['do'])) {
 	}
 	exit(0);
 }
-$banner = "";
-if (isset($_POST['del'])) {
-	if (isset($_POST['dlsid'])) {
-		$dlsid = intval($_POST['dlsid']);
-		$sql = "DELETE FROM `solution` where `solution_id` = ?";
-		pdo_query($sql, $dlsid);
-		$banner = "<div class='alert alert-success' role='alert'>$MSG_SUCCESS</div>?";
-	}
-}
+$banner = isset($_GET["status"]);
 ?>
 <?php require("admin-header.php"); ?>
-<?php require_once("../include/set_post_key.php"); ?>
 <div class="container">
 	<br />
 	<h3 class='center'><b>重判</b></h3>
-	<ol>
-		<br />
+	<?php if ($banner) { ?>
+		<div class="row">
+			<div class="col-sm-4"></div>
+			<div class="alert alert-success center col-sm-4" role="alert"><?php echo $MSG_SUCCESS ?></div>
+			<div class="col-sm-4"></div>
+		</div>
+	<?php  } ?>
+	<br />
+	<div>
 		<div class='center form-horizontal'>
-			<?php echo $banner ?>
 			<form action='rejudge.php' method=post class='form-group'>
 				<label class='control-label col-sm-4'>
 					<?php echo $MSG_PROBLEM ?>
@@ -93,7 +95,7 @@ if (isset($_POST['del'])) {
 				<div class='col-sm-4'>
 					<input type=input class='form-control' name='rjpid' placeholder="1001">
 					<input type='hidden' name='do' value='do'>
-					<input type=hidden name="postkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>">
+					<?php include("../include/set_post_key.php") ?>
 					<input type=submit class='form-control btn btn-default ud-margin' value='<?php echo $MSG_SUBMIT; ?>'>
 				</div>
 			</form>
@@ -138,13 +140,14 @@ if (isset($_POST['del'])) {
 					<?php echo $MSG_DELETE ?>
 				</label>
 				<div class='col-sm-4'>
-					<input type=input class='form-control' name='dlsid' placeholder="1003">
-					<input type='hidden' name='del' value='del'>
+					<input type=input class='form-control' name='dlsid' placeholder="1003" value="<?php if (isset($_GET['sid'])) echo $_GET['sid'] ?>">
+					<input type='hidden' name='do' value='do'>
 					<input type=hidden name="postkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>">
 					<input type=submit class='form-control btn btn-default ud-margin' value='<?php echo $MSG_SUBMIT; ?>'>
 				</div>
 			</form>
 		</div>
+	</div>
 </div>
 <?php
 require_once("admin-footer.php");

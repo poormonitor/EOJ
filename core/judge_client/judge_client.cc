@@ -155,7 +155,6 @@ static char data_list[BUFFER_SIZE][BUFFER_SIZE];
 static int data_list_len = 0;
 static char lock_file[BUFFER_SIZE] = "/home/judge/run0/judge_client.pid";
 
-static double spj2_maxtime = 2.0;
 static int port_number;
 static int max_running;
 static int sleep_time;
@@ -1917,7 +1916,7 @@ void prepare_spj(char *oj_home, int p_id)
 }
 
 void prepare_files(char *filename, int namelen, char *infile, int &p_id,
-				   char *work_dir, char *outfile, char *userfile, int runner_id, int isspj)
+				   char *work_dir, char *outfile, char *userfile, int runner_id, int isspj, char *spj_out)
 {
 	//              printf("ACflg=%d %d check a file!\n",ACflg,solution_id);
 
@@ -1928,6 +1927,7 @@ void prepare_files(char *filename, int namelen, char *infile, int &p_id,
 	escape(fname, fname0);
 	// printf("%s\n%s\n",fname0,fname);
 	sprintf(infile, "%s/data/%d/%s.in", oj_home, p_id, fname);
+	sprintf(spj_out, "%s/run%d/spj.out", oj_home, runner_id);
 	if (copy_data)
 		execute_cmd("/bin/cp '%s' %s/data.in", infile, work_dir);
 	execute_cmd("/bin/cp `ls %s/data/%d/* | grep %s | grep -v -e '.*\\.in' | grep -v -e '.*\\.out'` %s", oj_home, p_id, fname, work_dir);
@@ -2392,7 +2392,7 @@ void copy_js_runtime(char *work_dir)
 	execute_cmd("/bin/cp /usr/bin/nodejs %s/", work_dir);
 }
 void run_solution(int &lang, char *work_dir, double &time_lmt, int &usedtime,
-				  int &mem_lmt, char *data_file_path, int isspj)
+				  int &mem_lmt, char *data_file_path, int isspj, char *spj_out)
 {
 	char *const envp[] = {(char *const)"PYTHONIOENCODING=utf-8",
 						  (char *const)"LANG=zh_CN.UTF-8",
@@ -2421,6 +2421,13 @@ void run_solution(int &lang, char *work_dir, double &time_lmt, int &usedtime,
 		}
 	}
 	execute_cmd("touch %s/user.out", work_dir);
+
+	if (isspj)
+	{
+		execute_cmd("touch %s", spj_out);
+		execute_cmd("chmod 755 %s", spj_out);
+		execute_cmd("chown judge %s", spj_out);
+	}
 
 	if (copy_data)
 	{
@@ -2651,7 +2658,7 @@ int fix_java_mis_judge(char *work_dir, int &ACflg, int &topmemory,
 	return comp_res;
 }
 int special_judge(char *oj_home, int problem_id, char *infile, char *outfile,
-				  char *userfile)
+				  char *userfile, char *spj_out)
 {
 
 	pid_t pid;
@@ -2685,9 +2692,8 @@ int special_judge(char *oj_home, int problem_id, char *infile, char *outfile,
 		LIM.rlim_max = STD_F_LIM + STD_MB;
 		LIM.rlim_cur = STD_F_LIM;
 		setrlimit(RLIMIT_FSIZE, &LIM);
-
-		ret = execute_cmd("%s/data/%d/spj %s %s %s", oj_home, problem_id,
-						  infile, outfile, userfile);
+		ret = execute_cmd("%s/data/%d/spj %s %s %s < %s > %s", oj_home, problem_id,
+						  infile, outfile, userfile, outfile, spj_out);
 		if (DEBUG)
 			printf("spj1=%d\n", ret);
 		if (ret)
@@ -2719,7 +2725,7 @@ int special_judge(char *oj_home, int problem_id, char *infile, char *outfile,
 void judge_solution(int &ACflg, int &usedtime, double time_lmt, int isspj,
 					int p_id, char *infile, char *outfile, char *userfile, int &PEflg,
 					int lang, char *work_dir, int &topmemory, int mem_lmt,
-					int solution_id, int num_of_test)
+					int solution_id, int num_of_test, char *spj_out)
 {
 	// usedtime-=1000;
 	int comp_res;
@@ -2760,7 +2766,7 @@ void judge_solution(int &ACflg, int &usedtime, double time_lmt, int isspj,
 	{
 		if (isspj == 1)
 		{
-			comp_res = special_judge(oj_home, p_id, infile, outfile, userfile);
+			comp_res = special_judge(oj_home, p_id, infile, outfile, userfile, spj_out);
 
 			if (comp_res == 0)
 				comp_res = OJ_AC;
@@ -2828,7 +2834,7 @@ void clean_session(pid_t p)
 void watch_solution(pid_t pidApp, char *infile, int &ACflg, int isspj,
 					char *userfile, char *outfile, int solution_id, int lang,
 					int &topmemory, int mem_lmt, int &usedtime, double time_lmt, int &p_id,
-					int &PEflg, char *work_dir)
+					int &PEflg, char *work_dir, char *spj_out)
 {
 	// parent
 	int tempmemory = 0;
@@ -2841,8 +2847,6 @@ void watch_solution(pid_t pidApp, char *infile, int &ACflg, int isspj,
 	struct rusage ruse;
 	int first = true;
 	pid_t forked;
-	time_t start, end;
-	time(&start);
 	while (1)
 	{
 		// check the usage
@@ -3063,8 +3067,7 @@ void watch_solution(pid_t pidApp, char *infile, int &ACflg, int isspj,
 #endif
 		ptrace(PTRACE_SYSCALL, pidApp, NULL, NULL);
 
-		time(&end);
-		if (isspj == 2 && difftime(end, start) >= spj2_maxtime)
+		if (isspj == 2)
 		{
 			if (DEBUG)
 				printf("SPJ type 2\n");
@@ -3074,7 +3077,7 @@ void watch_solution(pid_t pidApp, char *infile, int &ACflg, int isspj,
 
 				if (forked == 0)
 				{
-					ret = special_judge(oj_home, p_id, infile, outfile, userfile);
+					ret = special_judge(oj_home, p_id, infile, outfile, userfile, spj_out);
 					if (ret)
 						exit(1);
 					exit(0);
@@ -3470,6 +3473,7 @@ int main(int argc, char **argv)
 	char infile[BUFFER_SIZE / 10];
 	char outfile[BUFFER_SIZE / 10];
 	char userfile[BUFFER_SIZE / 10];
+	char spj_out[BUFFER_SIZE / 10];
 	sprintf(fullpath, "%s/data/%d", oj_home, p_id); // the fullpath of data dir
 
 	// open DIRs
@@ -3569,13 +3573,13 @@ int main(int argc, char **argv)
 
 		if (pidApp == 0)
 		{
-			run_solution(lang, work_dir, time_lmt, usedtime, mem_lmt, (char *)"data.in", isspj);
+			run_solution(lang, work_dir, time_lmt, usedtime, mem_lmt, (char *)"data.in", isspj, spj_out);
 		}
 		else
 		{
 			watch_solution(pidApp, infile, ACflg, isspj, userfile, outfile,
 						   solution_id, lang, topmemory, mem_lmt, usedtime, time_lmt,
-						   p_id, PEflg, work_dir);
+						   p_id, PEflg, work_dir, spj_out);
 		}
 		if (DEBUG)
 			printf("custom running result:%d PEflg:%d\n", ACflg, PEflg);
@@ -3619,7 +3623,7 @@ int main(int argc, char **argv)
 			continue;
 
 		prepare_files(dirp->d_name, namelen, infile, p_id, work_dir, outfile,
-					  userfile, runner_id, isspj);
+					  userfile, runner_id, isspj, spj_out);
 		if (access(outfile, 0) == -1)
 		{
 			// out file does not exist
@@ -3635,7 +3639,7 @@ int main(int argc, char **argv)
 
 		if (pidApp == 0)
 		{
-			run_solution(lang, work_dir, time_lmt, usedtime, mem_lmt, infile, isspj);
+			run_solution(lang, work_dir, time_lmt, usedtime, mem_lmt, infile, isspj, spj_out);
 		}
 		else
 		{
@@ -3643,7 +3647,7 @@ int main(int argc, char **argv)
 
 			watch_solution(pidApp, infile, ACflg, isspj, userfile, outfile,
 						   solution_id, lang, topmemory, mem_lmt, usedtime, time_lmt,
-						   p_id, PEflg, work_dir);
+						   p_id, PEflg, work_dir, spj_out);
 			printf("%s: mem=%d time=%d\n", infile + strlen(oj_home) + 5, topmemory, usedtime);
 			total_time += usedtime;
 			printf("time:%d/%d\n", usedtime, total_time);
@@ -3651,7 +3655,7 @@ int main(int argc, char **argv)
 			{
 				judge_solution(ACflg, usedtime, time_lmt, isspj, p_id, infile,
 							   outfile, userfile, PEflg, lang, work_dir, topmemory,
-							   mem_lmt, solution_id, num_of_test);
+							   mem_lmt, solution_id, num_of_test, spj_out);
 			}
 			time_space_index += sprintf(time_space_table + time_space_index, "%s:%s mem=%dk time=%dms\n", infile + strlen(oj_home) + 5, jresult[ACflg], topmemory / 1024, usedtime);
 			if (use_max_time)
