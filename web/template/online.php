@@ -12,15 +12,12 @@
 	<title><?php echo $OJ_NAME ?></title>
 	<?php include("template/css.php"); ?>
 
-
-
 </head>
 
 <body>
 
 	<div class="container">
 		<?php include("template/nav.php"); ?>
-		<!-- Main component for a primary marketing message or call to action -->
 		<div class="jumbotron">
 			<center>
 				<h3>当前在线用户: <?php echo $on->get_num() ?></h3>
@@ -108,6 +105,32 @@
 					<?php
 					}
 					?>
+					</table>
+				</div>
+				<div style='margin:8px;' class="form-inline">
+					<form><?php echo $MSG_IP_MNGT ?>
+						<input type='text' class="form-control" name='add' style='margin:5px;'>
+						<input type='submit' class="form-control" value='<?php echo $MSG_ADD ?>'>
+					</form>
+				</div>
+				<div class="table-responsive">
+					<table class="table" style='width:auto;'>
+						<thead>
+							<th>IP</th>
+							<th><?php echo $MSG_DELETE ?></th>
+						</thead>
+						<tbody>
+							<?php foreach ($ips as $ip) { ?>
+								<tr>
+									<td><?php echo $ip["ip"] ?></td>
+									<td>
+										<a href="online.php?del=<?php echo $ip["ip"] ?>">
+											<?php echo $MSG_DELETE ?>
+										</a>
+									</td>
+								</tr>
+							<?php } ?>
+						</tbody>
 					</table>
 				</div>
 			</center>

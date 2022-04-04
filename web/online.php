@@ -6,6 +6,19 @@ require_once('./include/cache_start.php');
 require_once('./include/db_info.inc.php');
 require_once('./include/setlang.php');
 require_once('./include/online.php');
+
+if (isset($_GET["add"])) {
+	$id = $_GET["add"];
+	pdo_query("INSERT INTO `ip` (`ip`, `type`) VALUES (?, 'safe')", $id);
+}
+
+if (isset($_GET["del"])) {
+	$id = $_GET["del"];
+	pdo_query("DELETE FROM `ip` WHERE `ip` = ?", $id);
+}
+
+$ips = pdo_query("SELECT * FROM `ip`");
+
 $on = new online();
 $view_title = "Welcome To Online Judge";
 require_once('./include/iplocation.php');
