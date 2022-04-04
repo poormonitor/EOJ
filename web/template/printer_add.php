@@ -25,7 +25,7 @@
       <center>
         <form id=frmSolution action="printer.php" method="post">
           <textarea style="width:80%" cols=180 rows=20 id="source" name="content">
-</textarea><br />
+</textarea><br>
           <input type="submit" value="<?php echo $MSG_PRINTER ?>">
           <?php require_once(dirname(__FILE__) . "/../include/set_post_key.php") ?>
         </form>

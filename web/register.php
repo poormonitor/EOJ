@@ -111,11 +111,11 @@
 	if (!isset($OJ_REG_NEED_CONFIRM) || !$OJ_REG_NEED_CONFIRM) {
 		$_SESSION[$OJ_NAME . '_' . 'user_id'] = $user_id;
 		$sql = "SELECT `rightstr` FROM `privilege` WHERE `user_id`=?";
-		//echo $sql."<br />";
+		//echo $sql."<br>";
 		$result = pdo_query($sql, $_SESSION[$OJ_NAME . '_' . 'user_id']);
 		foreach ($result as $row) {
 			$_SESSION[$OJ_NAME . '_' . $row['rightstr']] = true;
-			//echo $_SESSION[$OJ_NAME.'_'.$row['rightstr']]."<br />";
+			//echo $_SESSION[$OJ_NAME.'_'.$row['rightstr']]."<br>";
 		}
 		$_SESSION[$OJ_NAME . '_' . 'ac'] = array();
 		$_SESSION[$OJ_NAME . '_' . 'sub'] = array();

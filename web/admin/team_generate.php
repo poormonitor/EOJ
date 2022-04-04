@@ -57,7 +57,7 @@
 <div class="container">
 	<h3 class='center'><?php echo $MSG_TEAMGENERATOR ?></h3>
 	<p style="color:red;font-weight:bold" class='center'><?php echo $MSG_HELP_TEAMGENERATOR ?></p>
-	<br />
+	<br>
 	<form action='team_generate.php' method=post class='form-horizontal'>
 		<div class='form-group'>
 			<label class="col-sm-4 control-label"><?php echo $MSG_PREFIX ?></label>

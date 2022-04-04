@@ -85,7 +85,7 @@ require_once("admin-header.php");
             <h3><?php echo $MSG_QUIZ . "-" . $MSG_QUIZ_ID . ":" . $qid ?></h3>
             <h3><?php echo $MSG_JUDGE_LEFT ?> : <?php echo $left ?></h3>
             </p>
-            <br />
+            <br>
             <p>
                 <?php
                 for ($i = 0; $i < $num; $i++) {
@@ -121,7 +121,7 @@ require_once("admin-header.php");
                 }
     ?>
     </p>
-    <br />
+    <br>
     <div align=center>
         <?php require_once("../include/set_post_key.php"); ?>
         <input type=submit class='form-control' value='<?php echo $MSG_SAVE ?>' name=submit>

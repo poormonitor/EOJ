@@ -38,34 +38,34 @@
         <div class="jumbotron">
             <div class='main-container'>
                 <h2 class="ui center aligned header" style="font-size:36px!important;">帮助</h2>
-                <br />
+                <br>
                 <h2 class="ui header">评测</h2>
                 <p>
-                    Python 使用 <code><?php echo $OJ_PYTHON_VER ?></code> 编译和运行，<br />
-                    编译命令为<code>python3 -m py_compile Main.py</code>，<br />
-                    运行命令为<code>python3 Main.py</code>。<br />
+                    Python 使用 <code><?php echo $OJ_PYTHON_VER ?></code> 编译和运行，<br>
+                    编译命令为<code>python3 -m py_compile Main.py</code>，<br>
+                    运行命令为<code>python3 Main.py</code>。<br>
                     这里给出的编译器版本仅供参考，请以实际编译器版本为准。
                 </p>
                 <p>
-                    请使用<strong>标准输入输出</strong>读入和输出。<br />
-                    或者，您可以从data.in文件中读入，并输出到user.out文件中。<br />
+                    请使用<strong>标准输入输出</strong>读入和输出。<br>
+                    或者，您可以从data.in文件中读入，并输出到user.out文件中。<br>
                     <strong>在Python中，input中的prompt字段会被输出并被认定为答案的一部分。</strong>
                 </p>
-                <br />
+                <br>
                 <h2 class="ui header">查重</h2>
                 <p>
                     我们使用 Dick Grune 的 <code>SIM</code> 软件进行代码相似度比较。该软件基于token比较，可有效鉴别修改变量名、增加注释等代码变动。
                 </p>
                 <p>
                     同一用户的重复提交并不会作为代码重复。
-                    <br />200% 相似度意味着基于token的比较和文本比较同时返回100%，即两份代码一模一样。
+                    <br>200% 相似度意味着基于token的比较和文本比较同时返回100%，即两份代码一模一样。
                 </p>
-                <br />
+                <br>
                 <h2 class="ui header">个人资料</h2>
                 <p>请您在使用服务前，仔细阅读<a href='https://oj.oldmonitor.cn/policy.html'>使用条款和用户隐私协议</a>，这规定了我们如何收集和使用您的信息。
-                    <br />我们依据 GB/T 35273-2020 《信息安全技术 个人信息安全规范》存储、使用您的隐私数据。
+                    <br>我们依据 GB/T 35273-2020 《信息安全技术 个人信息安全规范》存储、使用您的隐私数据。
                 </p>
-                <br />
+                <br>
                 <h2 class="ui header">返回结果说明</h2>
                 <div class="ques-view">
                     <p>试题的解答提交后由评分系统评出即时得分，每一次提交会判决结果会及时通知；系统可能的反馈信息包括：</p>

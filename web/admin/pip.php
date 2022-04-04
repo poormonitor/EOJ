@@ -25,12 +25,12 @@ if (isset($_GET['do'])) {
   <?php
   if (isset($install)) {
     echo "<pre id=code>";
-    echo str_replace("\n", "<br />", htmlentities($install, ENT_QUOTES, "UTF-8"));
+    echo str_replace("\n", "<br>", htmlentities($install, ENT_QUOTES, "UTF-8"));
   }
   echo "</pre>";
   ?>
 
-  <br />
+  <br>
   <center>
   <form action=pip.php class="form-search form-inline">
     <input type="text" name="module" class="form-control search-query" placeholder="<?php echo $MSG_MODULE ?>">
@@ -70,7 +70,7 @@ if (isset($_GET['do'])) {
     </table>
   </center>
 </div>
-<br />
+<br>
 <?php
 require_once("admin-footer.php");
 ?>

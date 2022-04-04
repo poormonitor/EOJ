@@ -82,7 +82,7 @@
 					echo "<span class=green>$MSG_Time_Limit : </span><span><span fd='time_limit' pid='" . $row['problem_id'] . "'  >" . $row['time_limit'] . "</span></span> sec&nbsp;&nbsp;";
 					echo "<span class=green>$MSG_Memory_Limit : </span>" . $row['memory_limit'] . " MB";
 					if ($row['spj']) echo "&nbsp;&nbsp;<span class=red>Special Judge</span>";
-					echo "<br /><br />";
+					echo "<br><br>";
 					echo "<div class='btn-group' role='group'>";
 					if ($pr_flag) {
 						echo "<a class='btn btn-info btn-sm' href='submitpage.php?id=$id' role='button'>$MSG_SUBMIT</a>";

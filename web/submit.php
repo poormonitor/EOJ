@@ -67,7 +67,7 @@ if (isset($_POST['cid'])) {
 
 $res = mysql_query_cache($sql);
 if (isset($res) && count($res) < 1 && !isset($_SESSION[$OJ_NAME . '_' . 'administrator']) && !((isset($cid) && $cid <= 0) || (isset($id) && $id <= 0))) {
-  $view_errors = $MSG_LINK_ERROR . "<br />";
+  $view_errors = $MSG_LINK_ERROR . "<br>";
   require "template/error.php";
   exit(0);
 }
@@ -75,7 +75,7 @@ if (isset($res) && count($res) < 1 && !isset($_SESSION[$OJ_NAME . '_' . 'adminis
 if (false && $res[0][1] != 'N' && !isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
   //  echo "res:$res,count:".count($res);
   //  echo "$sql";
-  $view_errors = $MSG_PROBLEM_RESERVED . "<br />";
+  $view_errors = $MSG_PROBLEM_RESERVED . "<br>";
 
   if (isset($_POST['ajax'])) {
     echo $view_errors;
@@ -343,13 +343,13 @@ if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
 }
 
 if ($len < 2) {
-  $view_errors = $MSG_TOO_SHORT . "<br />";
+  $view_errors = $MSG_TOO_SHORT . "<br>";
   require "template/error.php";
   exit(0);
 }
 
 if ($len > 65536) {
-  $view_errors = $MSG_TOO_LONG . "<br />";
+  $view_errors = $MSG_TOO_LONG . "<br>";
   require "template/error.php";
   exit(0);
 }
@@ -488,7 +488,7 @@ if (isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
 if (isset($_SERVER["REQUEST_URI"])) {
   $sid .= $statusURI;
 }
-//echo $statusURI."<br />";
+//echo $statusURI."<br>";
 
 $sid = md5($sid);
 $file = "cache/cache_$sid.html";

@@ -1,4 +1,4 @@
-<br />
+<br>
 </div>
 </div>
 </div>
@@ -25,7 +25,7 @@
     </div>
 
 </div>
-<br /><br />
+<br><br>
 <script src="<?php echo $OJ_CDN_URL . "template/" ?>jquery.min.js"></script>
 <script src="<?php echo $OJ_CDN_URL . "template/" ?>bootstrap.min.js"></script>
 <script src="<?php echo $OJ_CDN_URL . "template/" ?>index.min.js?v=1.11"></script>

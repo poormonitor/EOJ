@@ -61,7 +61,7 @@ if ($ok == true) {
 		$view_reinfo = htmlentities(str_replace("\n\r", "\n", $row['error']), ENT_QUOTES, "UTF-8");
 } else {
 
-	$view_errors = $MSG_WARNING_ACCESS_DENIED;
+	$view_swal = $MSG_WARNING_ACCESS_DENIED;
 	require("template/error.php");
 	exit(0);
 }

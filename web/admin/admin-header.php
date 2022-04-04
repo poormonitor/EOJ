@@ -39,7 +39,7 @@ $prefix = "../";
                 <div class='col-md-2'>
                     <hr>
                     <a class='btn btn-default btn-block' href="./" title="<?php echo $MSG_ADMIN ?>"><b><?php echo $MSG_ADMIN ?></b></a>
-                    <a class='btn btn-default btn-block' href="../status.php" title="<?php echo $MSG_HELP_SEEOJ ?>"><b><?php echo $MSG_SEEOJ ?></b></a><br />
+                    <a class='btn btn-default btn-block' href="../status.php" title="<?php echo $MSG_HELP_SEEOJ ?>"><b><?php echo $MSG_SEEOJ ?></b></a><br>
                     <div class='middle'>
                         <div class="btn-group-vertical" role="menu">
                             <div class="btn-group" role="menu">
@@ -134,11 +134,11 @@ $prefix = "../";
                         </div>
                     </div>
                     <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) { ?>
-                        <br /><a class='btn btn-default btn-block' href="https://github.com/zhblue/hustoj/" target="_blank"><b>HUSTOJ</b></a>
-                        <br />
+                        <br><a class='btn btn-default btn-block' href="https://github.com/zhblue/hustoj/" target="_blank"><b>HUSTOJ</b></a>
+                        <br>
                         <a class="btn btn-default btn-block" target='_blank' href="https://github.com/zhblue/hustoj/blob/master/wiki/FAQ.md"><?php echo $MSG_ADMIN . " " . $MSG_FAQ ?></a>
-                        <br /><a class='btn btn-default btn-block' href="https://github.com/zhblue/freeproblemset/" target="_blank"><b>FreeProblemSet</b></a>
-                        <br /><a class='btn btn-default btn-block' href="http://tk.hustoj.com" target="_blank"><b>自助题库</b></a>
+                        <br><a class='btn btn-default btn-block' href="https://github.com/zhblue/freeproblemset/" target="_blank"><b>FreeProblemSet</b></a>
+                        <br><a class='btn btn-default btn-block' href="http://tk.hustoj.com" target="_blank"><b>自助题库</b></a>
                     <?php } ?>
                     <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) { ?>
                         <a href="problem_changeid.php" title="Danger,Use it on your own risk">

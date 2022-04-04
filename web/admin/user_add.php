@@ -23,7 +23,7 @@
         $id_pw[0] = preg_replace("/[^\x20-\x7e]/", " ", $id_pw[0]);
         $id_pw[1] = preg_replace("/[^\x20-\x7e]/", " ", $id_pw[1]);
         if (count($id_pw) != 2 and count($id_pw) != 3) {
-          echo "&nbsp;&nbsp;&nbsp;&nbsp;" . $id_pw[0] . " ... Error : Line format error!<br />";
+          echo "&nbsp;&nbsp;&nbsp;&nbsp;" . $id_pw[0] . " ... Error : Line format error!<br>";
           for ($j = 0; $j < count($id_pw); $j++) {
             $ulist = $ulist . $id_pw[$j] . " ";
           }
@@ -34,7 +34,7 @@
           $rows_cnt = count($result);
 
           if ($rows_cnt == 1) {
-            echo "&nbsp;&nbsp;&nbsp;&nbsp;" . $id_pw[0] . " ... Error : User already exist!<br />";
+            echo "&nbsp;&nbsp;&nbsp;&nbsp;" . $id_pw[0] . " ... Error : User already exist!<br>";
             $ulist = $ulist . $id_pw[0] . " " . $id_pw[1];
             if (count($id_pw) == 3) {
               $ulist .= " " . $id_pw[2];
@@ -49,7 +49,7 @@
             }
             $sql = "INSERT INTO `users` (`user_id`, `password`, `reg_time`, `nick`, `gid`) VALUES (?, ?, NOW(), ?, ?);";
             pdo_query($sql, $id_pw[0], $passwd, $nick, $gid);
-            echo $id_pw[0] . " is added!<br />";
+            echo $id_pw[0] . " is added!<br>";
 
             $ip = ($_SERVER['REMOTE_ADDR']);
             $sql = "INSERT INTO `loginlog` VALUES(?,?,?,NOW())";
@@ -57,7 +57,7 @@
           }
         }
       }
-      echo "<br />Remained lines have error!<hr>";
+      echo "<br>Remained lines have error!<hr>";
     }
   }
   ?>
@@ -68,7 +68,7 @@
     </div>
     <div>
       <?php echo "( Add new user, password and name(optional) with newline )" ?>
-      <br /><br />
+      <br><br>
       <table width="100%">
         <tr>
           <td height="*">

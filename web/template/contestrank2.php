@@ -28,7 +28,7 @@
         <h4><?php if (isset($locked_msg)) echo $locked_msg; ?></h4>
         <a href="contestrank.xls.php?cid=<?php echo $cid ?>">下载表格</a>
       </center>
-      <br />
+      <br>
       <table id="rank" class="table-hover table-striped" align=center width=80%>
         <thead>
           <tr class=toprow align=center>

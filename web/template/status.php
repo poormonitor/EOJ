@@ -22,7 +22,7 @@
 		<?php include("template/nav.php"); ?>
 		<!-- Main component for a primary marketing message or call to action -->
 		<div class="jumbotron">
-			<br /><br />
+			<br><br>
 			<div align=center class="input-append">
 				<form id=simform class=form-inline action="status.php" method="get">
 					<?php echo $MSG_PROBLEM_ID ?>
@@ -119,7 +119,7 @@
 
 				</form>
 			</div>
-			<br />
+			<br>
 
 			<div id=center class="table-responsive">
 				<table id=result-tab class="table table-striped content-box-header" align=center>

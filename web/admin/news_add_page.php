@@ -33,7 +33,7 @@ if (isset($_GET['cid'])) {
     <div class='col-sm-4 col-sm-offset-4'>
       <p>
         <?php echo "<h4>" . "私有" . "</h4>" ?>
-        <?php echo "否 " ?><input type=radio name=private value='0' checked><?php echo "/ 是 " ?><input type=radio name=private value='1'><br /><br />
+        <?php echo "否 " ?><input type=radio name=private value='0' checked><?php echo "/ 是 " ?><input type=radio name=private value='1'><br><br>
       </p>
       <h4 class='control-label'><?php echo $MSG_GROUP; ?></h4>
       <select name="gid[]" class="selectpicker show-menu-arrow form-control" size=8 multiple>
@@ -57,14 +57,14 @@ if (isset($_GET['cid'])) {
           }
         }
         ?>
-      </select><br />
+      </select><br>
       <?php require_once("../include/set_post_key.php"); ?>
       <button name="submit" type="submit" class="btn btn-default btn-block"><?php echo $MSG_SAVE ?></button>
     </div>
     <?php require_once("../include/set_post_key.php"); ?>
   </form>
 </div>
-<br /><br />
+<br><br>
 <?php
 require_once("admin-footer.php");
 ?>

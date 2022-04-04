@@ -27,11 +27,11 @@
     <div class="jumbotron">
       <center>
         <form id="frmSolution" action="quiz_submit.php" method="post" onsubmit='return check_quiz()'>
-          <br />
+          <br>
           <?php echo $MSG_QUIZ_ID . " : " ?> <span class="blue"><?php echo $id ?></span>
-          <br />
+          <br>
           <input id=quiz_id type='hidden' value='<?php echo $id ?>' name="qid">
-          <br />
+          <br>
           <div id="answer">
             <?php
             for ($i = 1; $i <= count($question); $i++) {
@@ -42,14 +42,14 @@
               echo "<div class='panel-heading'><big>$MSG_QUIZ_PROBLEM $i $MSG_SCORE : $n_score</big></div>";
               echo "<div class='panel-body'>";
               echo $detail;
-              echo "<br />";
+              echo "<br>";
               switch (intval($t)) {
                 case 0:
                   echo "<div id='0'>";
                   foreach (str_split("ABCD") as $op) {
                     echo "<div class='col-sm-3'>";
                     echo "<div class='form-group'>";
-                    echo "<br />";
+                    echo "<br>";
                     echo "<label class='form-control' for='q$op$i'><input type='radio' name='q$i' id='q$op$i' value='$op'>&nbsp;&nbsp;$op</label>";
                     echo "</div>";
                     echo "</div>";
@@ -61,7 +61,7 @@
                   foreach (str_split("ABCD") as $op) {
                     echo "<div class='col-sm-3'>";
                     echo "<div class='form-group'>";
-                    echo "<br />";
+                    echo "<br>";
                     echo "<label class='form-control' for='q$op$i'><input type='checkbox' name='q$i" . "[]" . "' id='q$op$i' value='$op'>&nbsp;&nbsp;$op</label>";
                     echo "</div>";
                     echo "</div>";
@@ -81,16 +81,16 @@
               }
               echo "</div>";
               echo "</div>";
-              echo "<br />";
+              echo "<br>";
             } ?>
           </div>
-          <br />
+          <br>
           <div>
             <button type="submit" class="btn btn-default"><?php echo $MSG_SUBMIT; ?></button>
           </div>
-          <br />
+          <br>
         </form>
-        <br />
+        <br>
       </center>
     </div>
   </div>

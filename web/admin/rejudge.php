@@ -76,7 +76,7 @@ $banner = isset($_GET["status"]);
 ?>
 <?php require("admin-header.php"); ?>
 <div class="container">
-	<br />
+	<br>
 	<h3 class='center'><b>重判</b></h3>
 	<?php if ($banner) { ?>
 		<div class="row">
@@ -85,7 +85,7 @@ $banner = isset($_GET["status"]);
 			<div class="col-sm-4"></div>
 		</div>
 	<?php  } ?>
-	<br />
+	<br>
 	<div>
 		<div class='center form-horizontal'>
 			<form action='rejudge.php' method=post class='form-group'>
@@ -99,7 +99,7 @@ $banner = isset($_GET["status"]);
 					<input type=submit class='form-control btn btn-default ud-margin' value='<?php echo $MSG_SUBMIT; ?>'>
 				</div>
 			</form>
-			<br />
+			<br>
 			<form action='rejudge.php' method=post class='form-group'>
 				<label class='control-label col-sm-4'>
 					<?php echo $MSG_SUBMIT ?>
@@ -111,7 +111,7 @@ $banner = isset($_GET["status"]);
 					<input type=submit class='form-control btn btn-default ud-margin' value='<?php echo $MSG_SUBMIT; ?>'>
 				</div>
 			</form>
-			<br />
+			<br>
 			<form action='rejudge.php' method=post class='form-group'>
 				<label class='control-label col-sm-4'>
 					<?php echo "卡在运行中" ?>
@@ -123,7 +123,7 @@ $banner = isset($_GET["status"]);
 					<input type=submit class='form-control btn btn-default ud-margin' value='<?php echo $MSG_SUBMIT; ?>'>
 				</div>
 			</form>
-			<br />
+			<br>
 			<form action='rejudge.php' method=post class='form-group'>
 				<label class='control-label col-sm-4'>
 					<?php echo $MSG_CONTEST ?>

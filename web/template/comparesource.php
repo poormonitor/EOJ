@@ -28,7 +28,7 @@
 						<td style="width: 50%;"><input type="checkbox" id="ignorews">&nbsp;Ignore witespaces</td>
 					</tr>
 				</table>
-				<br />
+				<br>
 
 				<table style="width: 100%;">
 					<tr>

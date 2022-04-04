@@ -13,60 +13,63 @@ echo "<center><h3>" . $MSG_PROBLEM . "-" . $MSG_ADD . "</h3></center>";
       <input class="input form-control" style="width:100%;" type=text name=title>
     </p>
     <p align=left>
-      <?php echo $MSG_Time_Limit ?><br />
+      <?php echo $MSG_Time_Limit ?><br>
     <div class='form-inline'>
-      <input class="input form-control" type=text name=time_limit size=20 value=1> sec<br /><br />
+      <input class="input form-control" type=text name=time_limit size=20 value=1> sec<br><br>
     </div>
     <div class='form-inline'>
-      <?php echo $MSG_Memory_Limit ?><br />
-      <input class="input form-control" type=text name=memory_limit size=20 value=128> MB<br /><br />
+      <?php echo $MSG_Memory_Limit ?><br>
+      <input class="input form-control" type=text name=memory_limit size=20 value=128> MB<br><br>
     </div>
     </p>
     <p align=left>
       <?php echo "<h4>" . $MSG_Description . "</h4>" ?>
-      <textarea id="tinymce0" rows=13 name=description cols=80></textarea><br />
+      <textarea id="tinymce0" rows=13 name=description cols=80></textarea><br>
     </p>
     <p align=left>
       <?php echo "<h4>" . $MSG_Input . "</h4>" ?>
-      <textarea id="tinymce1" rows=13 name=input cols=80></textarea><br />
+      <textarea id="tinymce1" rows=13 name=input cols=80></textarea><br>
     </p>
     <p align=left>
       <?php echo "<h4>" . $MSG_Output . "</h4>" ?>
-      <textarea id="tinymce2" rows=13 name=output cols=80></textarea><br />
+      <textarea id="tinymce2" rows=13 name=output cols=80></textarea><br>
     </p>
     <p align=left>
       <?php echo "<h4>" . $MSG_Sample_Input . "</h4>" ?>
-      <textarea class="input input-large form-control" style="width:100%;" rows=13 name=sample_input></textarea><br /><br />
+      <textarea class="input input-large form-control" style="width:100%;" rows=13 name=sample_input></textarea><br><br>
     </p>
     <p align=left>
       <?php echo "<h4>" . $MSG_Sample_Output . "</h4>" ?>
-      <textarea class="input input-large form-control" style="width:100%;" rows=13 name=sample_output></textarea><br /><br />
+      <textarea class="input input-large form-control" style="width:100%;" rows=13 name=sample_output></textarea><br><br>
     </p>
     <p align=left>
       <?php echo "<h4>" . $MSG_Test_Input . "</h4>" ?>
-      <?php echo "(" . $MSG_HELP_MORE_TESTDATA_LATER . ")" ?><br />
-      <textarea class="input input-large form-control" style="width:100%;" rows=13 name=test_input></textarea><br /><br />
+      <?php echo "(" . $MSG_HELP_MORE_TESTDATA_LATER . ")" ?><br>
+      <textarea class="input input-large form-control" style="width:100%;" rows=13 name=test_input></textarea><br><br>
     </p>
     <p align=left>
       <?php echo "<h4>" . $MSG_Test_Output . "</h4>" ?>
-      <?php echo "(" . $MSG_HELP_MORE_TESTDATA_LATER . ")" ?><br />
-      <textarea class="input input-large form-control" style="width:100%;" rows=13 name=test_output></textarea><br /><br />
+      <?php echo "(" . $MSG_HELP_MORE_TESTDATA_LATER . ")" ?><br>
+      <textarea class="input input-large form-control" style="width:100%;" rows=13 name=test_output></textarea><br><br>
     </p>
     <p align=left>
       <?php echo "<h4>" . $MSG_HINT . "</h4>" ?>
-      <textarea id="tinymce3" rows=13 name=hint cols=80></textarea><br />
+      <textarea id="tinymce3" rows=13 name=hint cols=80></textarea><br>
     </p>
     <p>
       <?php echo "<h4>" . $MSG_SPJ . "</h4>" ?>
-      <span><?php echo $MSG_HELP_SPJ ?></span><br />
-      <?php echo "否 " ?><input type=radio name=spj value='0' checked>
-      <?php echo "/ 结束后特判 " ?><input type=radio name=spj value='1'>
-      <?php echo "/ 运行时特判 " ?><input type=radio name=spj value='2'>
-      <br /><br />
+      <p><?php echo $MSG_HELP_SPJ ?></p>
+      <input type="radio" name="spj" value='0' <?php if (!$row['spj']) echo "checked" ?>> 否
+      <span> / </span>
+      <input type="radio" name="spj" value='1' <?php if ($row['spj']) echo "checked" ?>> 是
+      <br><br>
     </p>
     <p>
       <?php echo "<h4>" . "代码填空" . "</h4>" ?>
-      <?php echo "否 " ?><input type=radio id=blank_false name=blank value='0' checked><?php echo "/ 是 " ?><input type=radio id=blank_true name=blank value='1'><br /><br />
+      <input type=radio id=blank_false name=blank value='0' checked> 否
+      <span> / </span>
+      <input type=radio id=blank_true name=blank value='1'> 是
+      <br><br>
     </p>
     <p>
     <div id='blank_code'>
@@ -78,17 +81,17 @@ echo "<center><h3>" . $MSG_PROBLEM . "-" . $MSG_ADD . "</h3></center>";
     </p>
     <p align=left>
       <?php echo "<h4>禁用关键词</h4>" ?>
-    <h5>"||"分隔，关系为或；回车分隔，关系为与</h5>
-    <input name=block data-role="tagsinput" class=form-control></input><br />
+    <h5><?php echo $MSG_HELP_KEYWORD?></h5>
+    <input name=block data-role="tagsinput" class=form-control></input><br>
     </p>
     <p align=left>
       <?php echo "<h4>必须关键词</h4>" ?>
-    <h5>"||"分隔，关系为或；回车分隔，关系为与</h5>
-    <input name=allow data-role="tagsinput" class=form-control></input><br />
+    <h5><?php echo $MSG_HELP_KEYWORD?></h5>
+    <input name=allow data-role="tagsinput" class=form-control></input><br>
     </p>
     <p align=left>
       <?php echo "<h4>" . $MSG_SOURCE . "</h4>" ?>
-      <input name=source data-role="tagsinput" class=form-control></input><br />
+      <input name=source data-role="tagsinput" class=form-control></input><br>
     </p>
     <p align=left><?php echo "<h4>" . $MSG_CONTEST . "</h4>" ?>
     <div class='row'>
@@ -108,7 +111,7 @@ echo "<center><h3>" . $MSG_PROBLEM . "-" . $MSG_ADD . "</h3></center>";
       </div>
     </div>
     </p>
-    <br />
+    <br>
 
     <div align=center>
       <?php require_once("../include/set_post_key.php"); ?>

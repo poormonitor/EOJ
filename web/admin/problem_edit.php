@@ -27,53 +27,56 @@ echo "<center><h3>" . "Edit-" . $MSG_PROBLEM . "</h3></center>";
       </div>
 
       <div class='form-inline'>
-        <?php echo $MSG_Time_Limit ?><br />
-        <input class="input form-control" type=text name=time_limit size=20 value='<?php echo htmlentities($row['time_limit'], ENT_QUOTES, "UTF-8") ?>'> sec<br /><br />
-        <?php echo $MSG_Memory_Limit ?><br />
-        <input class="input form-control" type=text name=memory_limit size=20 value='<?php echo htmlentities($row['memory_limit'], ENT_QUOTES, "UTF-8") ?>'> MB<br /><br />
+        <?php echo $MSG_Time_Limit ?><br>
+        <input class="input form-control" type=text name=time_limit size=20 value='<?php echo htmlentities($row['time_limit'], ENT_QUOTES, "UTF-8") ?>'> sec<br><br>
+        <?php echo $MSG_Memory_Limit ?><br>
+        <input class="input form-control" type=text name=memory_limit size=20 value='<?php echo htmlentities($row['memory_limit'], ENT_QUOTES, "UTF-8") ?>'> MB<br><br>
       </div>
 
       <p align=left>
         <?php echo "<h4>" . $MSG_Description . "</h4>" ?>
-        <textarea id="tinymce0" rows=13 name=description cols=80><?php echo htmlentities($row['description'], ENT_QUOTES, "UTF-8") ?></textarea><br />
+        <textarea id="tinymce0" rows=13 name=description cols=80><?php echo htmlentities($row['description'], ENT_QUOTES, "UTF-8") ?></textarea><br>
       </p>
 
       <p align=left>
         <?php echo "<h4>" . $MSG_Input . "</h4>" ?>
-        <textarea id="tinymce1" rows=13 name=input cols=80><?php echo htmlentities($row['input'], ENT_QUOTES, "UTF-8") ?></textarea><br />
+        <textarea id="tinymce1" rows=13 name=input cols=80><?php echo htmlentities($row['input'], ENT_QUOTES, "UTF-8") ?></textarea><br>
       </p>
 
       <p align=left>
         <?php echo "<h4>" . $MSG_Output . "</h4>" ?>
-        <textarea id="tinymce2" rows=13 name=output cols=80><?php echo htmlentities($row['output'], ENT_QUOTES, "UTF-8") ?></textarea><br />
+        <textarea id="tinymce2" rows=13 name=output cols=80><?php echo htmlentities($row['output'], ENT_QUOTES, "UTF-8") ?></textarea><br>
       </p>
 
       <p align=left>
         <?php echo "<h4>" . $MSG_Sample_Input . "</h4>" ?>
-        <textarea class="input input-large form-control" style="width:100%;" rows=13 name=sample_input><?php echo htmlentities($row['sample_input'], ENT_QUOTES, "UTF-8") ?></textarea><br /><br />
+        <textarea class="input input-large form-control" style="width:100%;" rows=13 name=sample_input><?php echo htmlentities($row['sample_input'], ENT_QUOTES, "UTF-8") ?></textarea><br><br>
       </p>
 
       <p align=left>
         <?php echo "<h4>" . $MSG_Sample_Output . "</h4>" ?>
-        <textarea class="input input-large form-control" style="width:100%;" rows=13 name=sample_output><?php echo htmlentities($row['sample_output'], ENT_QUOTES, "UTF-8") ?></textarea><br /><br />
+        <textarea class="input input-large form-control" style="width:100%;" rows=13 name=sample_output><?php echo htmlentities($row['sample_output'], ENT_QUOTES, "UTF-8") ?></textarea><br><br>
       </p>
 
       <p align=left>
         <?php echo "<h4>" . $MSG_HINT . "</h4>" ?>
-        <textarea id="tinymce3" rows=13 name=hint cols=80><?php echo htmlentities($row['hint'], ENT_QUOTES, "UTF-8") ?></textarea><br />
+        <textarea id="tinymce3" rows=13 name=hint cols=80><?php echo htmlentities($row['hint'], ENT_QUOTES, "UTF-8") ?></textarea><br>
       </p>
 
       <p>
         <?php echo "<h4>" . $MSG_SPJ . "</h4>" ?>
-        <span><?php echo $MSG_HELP_SPJ ?></span><br />
-        <?php echo "否 " ?><input type=radio name=spj value='0' <?php if ($row['spj'] == 0) echo "checked" ?>>
-        <?php echo "/ 结束后特判 " ?><input type=radio name=spj value='1' <?php if ($row['spj'] == 1) echo "checked" ?>>
-        <?php echo "/ 运行时特判 " ?><input type=radio name=spj value='2' <?php if ($row['spj'] == 2) echo "checked" ?>>
-        <br /><br />
+        <p><?php echo $MSG_HELP_SPJ ?></p>
+        <input type="radio" name="spj" value='0' <?php if (!$row['spj']) echo "checked" ?>> 否
+        <span> / </span>
+        <input type="radio" name="spj" value='1' <?php if ($row['spj']) echo "checked" ?>> 是
+        <br><br>
       </p>
       <p>
         <?php echo "<h4>" . "代码填空" . "</h4>" ?>
-        <?php echo "否 " ?><input type=radio id=blank_false name=blank value='0' checked><?php echo "/ 是 " ?><input type=radio id=blank_true name=blank value='1'><br /><br />
+        <input type=radio id=blank_false name=blank value='0' checked> 否
+        <span> / </span>
+        <input type=radio id=blank_true name=blank value='1'> 是
+        <br><br>
       </p>
       <p>
       <div id='blank_code'>
@@ -85,17 +88,17 @@ echo "<center><h3>" . "Edit-" . $MSG_PROBLEM . "</h3></center>";
       </p>
       <p align=left>
         <?php echo "<h4>禁用关键词</h4>" ?>
-      <h5>"||"分隔，关系为或；回车分隔，关系为与</h5>
-      <input name=block class="form-control" data-role="tagsinput" value='<?php echo htmlentities(join(",", explode(" ", $row['block'])), ENT_QUOTES, "UTF-8") ?>'></input><br /><br />
+      <h5><?php echo $MSG_HELP_KEYWORD?></h5>
+      <input name=block class="form-control" data-role="tagsinput" value='<?php echo htmlentities(join(",", explode(" ", $row['block'])), ENT_QUOTES, "UTF-8") ?>'></input><br><br>
       </p>
       <p align=left>
         <?php echo "<h4>必须关键词</h4>" ?>
-      <h5>"||"分隔，关系为或；回车分隔，关系为与</h5>
-      <input name=allow class="form-control" data-role="tagsinput" value='<?php echo htmlentities(join(",", explode(" ", $row['allow'])), ENT_QUOTES, "UTF-8") ?>'></input><br /><br />
+      <h5><?php echo $MSG_HELP_KEYWORD?></h5>
+      <input name=allow class="form-control" data-role="tagsinput" value='<?php echo htmlentities(join(",", explode(" ", $row['allow'])), ENT_QUOTES, "UTF-8") ?>'></input><br><br>
       </p>
       <p align=left>
         <?php echo "<h4>" . $MSG_SOURCE . "</h4>" ?>
-        <input name=source class="form-control" data-role="tagsinput" value='<?php echo htmlentities(join(",", explode(" ", $row['source'])), ENT_QUOTES, "UTF-8") ?>'></input><br /><br />
+        <input name=source class="form-control" data-role="tagsinput" value='<?php echo htmlentities(join(",", explode(" ", $row['source'])), ENT_QUOTES, "UTF-8") ?>'></input><br><br>
       </p>
 
       <div align=center>
@@ -120,17 +123,17 @@ echo "<center><h3>" . "Edit-" . $MSG_PROBLEM . "</h3></center>";
 
     $description = $_POST['description'];
     $description = str_replace("<p>", "", $description);
-    $description = str_replace("</p>", "<br />", $description);
+    $description = str_replace("</p>", "<br>", $description);
     $description = str_replace(",", "&#44;", $description);
 
     $input = $_POST['input'];
     $input = str_replace("<p>", "", $input);
-    $input = str_replace("</p>", "<br />", $input);
+    $input = str_replace("</p>", "<br>", $input);
     $input = str_replace(",", "&#44;", $input);
 
     $output = $_POST['output'];
     $output = str_replace("<p>", "", $output);
-    $output = str_replace("</p>", "<br />", $output);
+    $output = str_replace("</p>", "<br>", $output);
     $output = str_replace(",", "&#44;", $output);
 
     $sample_input = $_POST['sample_input'];
@@ -140,7 +143,7 @@ echo "<center><h3>" . "Edit-" . $MSG_PROBLEM . "</h3></center>";
 
     $hint = $_POST['hint'];
     $hint = str_replace("<p>", "", $hint);
-    $hint = str_replace("</p>", "<br />", $hint);
+    $hint = str_replace("</p>", "<br>", $hint);
     $hint = str_replace(",", "&#44;", $hint);
 
     $spj = $_POST['spj'];
@@ -152,7 +155,7 @@ echo "<center><h3>" . "Edit-" . $MSG_PROBLEM . "</h3></center>";
     $title = ($title);
     $basedir = $OJ_DATA . "/$id";
 
-    echo "题目已更新！<br />";
+    echo "题目已更新！<br>";
 
     if ($sample_input && file_exists($basedir . "/sample.in")) {
       //mkdir($basedir);
@@ -183,7 +186,7 @@ echo "<center><h3>" . "Edit-" . $MSG_PROBLEM . "</h3></center>";
       $sql = 'update `problem` set `block`=? where `problem_id`=?';
       pdo_query($sql, $block, $id);
     }
-    echo "编辑成功！<br />";
+    echo "编辑成功！<br>";
     echo "<a href='../problem.php?id=$id'>查看问题</a>";
   }
   ?>

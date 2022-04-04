@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD']=="POST"){
 			$sql="insert into printer(user_id,in_date,status,content) values(?,now(),0,?)";
 			pdo_query($sql,$_SESSION[$OJ_NAME.'_'.'user_id'],$_POST['content']);
 			$view_errors= "$MSG_PRINT_PENDING";
-			$view_errors.= "...<br />";
+			$view_errors.= "...<br>";
 			$view_errors.= "$MSG_PRINT_WAITING";
 		        require("template/error.php");
 
