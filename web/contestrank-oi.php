@@ -36,7 +36,7 @@ class TM
     if ($pid == NULL) {
       return;
     }
-    //              echo "Add $pid $sec $res<br />";
+    //              echo "Add $pid $sec $res<br>";
     if (isset($this->p_ac_sec[$pid]) && $this->p_ac_sec[$pid] > 0)
       return;
     if ($res * 100 < 99) {
@@ -67,8 +67,8 @@ class TM
 
       $this->total += 100;
       $this->time += $sec + $this->p_wa_num[$pid] * 1200;
-      //                      echo "Time:".$this->time."<br />";
-      //                      echo "Solved:".$this->solved."<br />";
+      //                      echo "Time:".$this->time."<br>";
+      //                      echo "Solved:".$this->solved."<br>";
     }
   }
 }

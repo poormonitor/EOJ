@@ -138,10 +138,10 @@ if (isset($_GET['qid'])) {
             $view_errors = "<center>";
             $view_errors .= "<h3>$MSG_QUIZ_ID : $view_qid - $view_title</h3>";
             $view_errors .= "<p>$view_description</p>";
-            $view_errors .= "<br />";
+            $view_errors .= "<br>";
             $view_errors .= "<span class=text-success>$MSG_TIME_WARNING</span>";
             $view_errors .= "</center>";
-            $view_errors .= "<br /><br />";
+            $view_errors .= "<br><br>";
 
             require("template/error.php");
             exit(0);
@@ -153,7 +153,7 @@ if (isset($_GET['qid'])) {
         $view_errors .= "<h3>$MSG_CONTEST_ID : $view_qid - $view_title</h3>";
         $view_errors .= "<p>$view_description</p>";
         $view_errors .= "<span class=text-danger>$MSG_PRIVATE_WARNING</span>";
-        $view_errors .= "<br />";
+        $view_errors .= "<br>";
         require("template/error.php");
         exit(0);
     }

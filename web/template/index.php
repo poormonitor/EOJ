@@ -28,7 +28,7 @@
             </center>
          </p>
          <?php echo $view_news ?>
-         <br />
+         <br>
       </div>
 
    </div>

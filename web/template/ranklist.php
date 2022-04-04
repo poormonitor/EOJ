@@ -23,7 +23,7 @@
     <?php include("template/nav.php"); ?>
     <!-- Main component for a primary marketing message or call to action -->
     <div class="jumbotron">
-      <br /><br />
+      <br><br>
       <table align=center width=80%>
         <tr align='center'>
           <td>
@@ -35,7 +35,7 @@
         </tr>
       </table>
 
-      <br />
+      <br>
       <table align=right>
         <tr>
           <td>
@@ -47,7 +47,7 @@
           </td>
         <tr>
       </table>
-      <br />
+      <br>
 
       <table class="table table-striped content-box-header" align=center>
         <thead>

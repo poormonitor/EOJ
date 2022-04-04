@@ -12,7 +12,7 @@
 ?>
 <div class="container">
 	<h3 class='center'><?php echo $MSG_GIVESOURCE ?></h3>
-	<br />
+	<br>
 	<form action='source_give.php' method=post class='form-horizontal'>
 		<div class='form-group'>
 			<label class='control-label col-sm-2 col-sm-offset-2'>

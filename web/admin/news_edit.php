@@ -9,7 +9,7 @@ if (isset($_POST['news_id'])) {
   $content = $_POST['content'];
 
   $content = str_replace("<p>", "", $content);
-  $content = str_replace("</p>", "<br />", $content);
+  $content = str_replace("</p>", "<br>", $content);
   $content = str_replace(",", "&#44;", $content);
 
   $user_id = $_SESSION[$OJ_NAME . '_' . 'user_id'];
@@ -72,7 +72,7 @@ require_once("admin-header.php");
     <div class='col-sm-4 col-sm-offset-4'>
       <p>
         <?php echo "<h4>" . "私有" . "</h4>" ?>
-        <?php echo "否 " ?><input type=radio name=private value='0' <?php if ($row['private'] == 'N') echo "checked" ?>><?php echo "/ 是 " ?><input type=radio name=private value='1' <?php if ($row['private'] == 'Y') echo "checked" ?>><br /><br />
+        <?php echo "否 " ?><input type=radio name=private value='0' <?php if ($row['private'] == 'N') echo "checked" ?>><?php echo "/ 是 " ?><input type=radio name=private value='1' <?php if ($row['private'] == 'Y') echo "checked" ?>><br><br>
       </p>
       <h4 class='control-label'><?php echo $MSG_GROUP; ?></h4>
       <select name="gid[]" class="selectpicker show-menu-arrow form-control" size=8 multiple>
@@ -95,12 +95,12 @@ require_once("admin-header.php");
           }
         }
         ?>
-      </select><br />
+      </select><br>
       <?php require_once("../include/set_post_key.php"); ?>
       <button name="submit" type="submit" class="btn btn-default btn-block"><?php echo $MSG_SAVE ?></button>
     </div>
   </form>
-</div><br /><br />
+</div><br><br>
 <?php
 require_once("admin-footer.php");
 require_once('../tinymce/tinymce.php');

@@ -145,12 +145,12 @@
 						<p>
 							<?php echo $view_description ?>
 						</p>
-						<br />
+						<br>
 						<?php echo $MSG_SERVER_TIME ?> : <span id=nowdate> <?php echo date("Y-m-d H:i:s") ?></span>
-						<br />
+						<br>
 
 						<?php if (isset($OJ_RANK_LOCK_PERCENT) && $OJ_RANK_LOCK_PERCENT != 0) { ?>
-							Lock Board Time: <?php echo date("Y-m-d H:i:s", $view_lock_time) ?><br />
+							Lock Board Time: <?php echo date("Y-m-d H:i:s", $view_lock_time) ?><br>
 						<?php } ?>
 
 						<?php if ($now > $end_time) {
@@ -164,7 +164,7 @@
 						}
 						?>
 
-						<br /><br />
+						<br><br>
 
 						<?php echo $MSG_CONTEST_STATUS ?> :
 
@@ -186,12 +186,12 @@
 							echo "<span class=text-danger>" . $MSG_Private . "</span>";
 						?>
 
-						<br />
+						<br>
 
 						<?php echo $MSG_START_TIME ?> : <?php echo $view_start_time ?>
-						<br />
+						<br>
 						<?php echo $MSG_END_TIME ?> : <?php echo $view_end_time ?>
-						<br /><br />
+						<br><br>
 
 						<div class="btn-group">
 							<a href="contest.php?cid=<?php echo $cid ?>" class="btn btn-primary btn-sm"><?php echo $MSG_PROBLEMS ?></a>
@@ -208,7 +208,7 @@
 					</div>
 				</center>
 			<?php } ?>
-			<br />
+			<br>
 			<center>
 				<h4><?php if (isset($locked_msg)) echo $locked_msg; ?></h4>
 				<div class='table-responsive'>
@@ -297,7 +297,7 @@
 					</table>
 				</div>
 
-				<br /><br />
+				<br><br>
 
 				<table>
 					<div id='container_status' style="width:80%;height:300px;"></div>

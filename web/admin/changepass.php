@@ -29,7 +29,7 @@ if(isset($_POST['do'])){
   	echo "<center><h4 class='text-danger'>There is No such User ".$_POST['user_id']."! or User ".$_POST['user_id']." is administrator!</h4></center>";
 }
 ?>
-<br />
+<br>
 <form action=changepass.php method=post class="form-horizontal">
 	<div class="form-group">
 		<label class="col-sm-offset-1 col-sm-3 control-label"><?php echo $MSG_USER_ID?></label>

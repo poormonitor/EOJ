@@ -72,7 +72,7 @@
      $sql = "SELECT `user_id` FROM `users` where `user_id`=?";
      $res = pdo_query($sql,$user_id);
      $row_num = count($res);
-     echo('row_num'.$row_num.'<br />');
+     echo('row_num'.$row_num.'<br>');
      if ($row_num == 0)
      {
          $sql="INSERT INTO `users`("

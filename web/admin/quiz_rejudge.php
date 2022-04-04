@@ -57,7 +57,7 @@ if (isset($_POST['do']) && isset($_POST['qid'])) {
 <div class="container">
 	<h3 class='center'><b><?php echo $MSG_QUIZ . "-" . $MSG_REJUDGE ?></b></h3>
 	<ol>
-		<br />
+		<br>
 		<div class='center form-group'>
 			<form action='quiz_rejudge.php' method=post>
 				<label class='control-label'>

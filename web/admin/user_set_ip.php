@@ -20,7 +20,7 @@ if(isset($_POST['do'])){
 	echo "<center><h4 class='text-danger'>User ".$_POST['user_id']."'s Login IP Changed!</h4></center>";
 }
 ?>
-<br />
+<br>
 <form action=user_set_ip.php method=post class="form-horizontal">
 	<div class="form-group">
 		<label class="col-sm-offset-1 col-sm-3 control-label"><?php echo $MSG_USER_ID?></label>

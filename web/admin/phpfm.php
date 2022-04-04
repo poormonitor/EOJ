@@ -444,9 +444,9 @@ function zip_extract(){
                 if ($fd = fopen($current_dir.$complete_name, 'w')){
                     fwrite($fd, zip_entry_read($zip_entry, zip_entry_filesize($zip_entry)));
                     fclose($fd);
-                } else echo "fopen($current_dir.$complete_name) error<br />";
+                } else echo "fopen($current_dir.$complete_name) error<br>";
                 zip_entry_close($zip_entry);
-            } else echo "zip_entry_open($zip,$zip_entry) error<br />";
+            } else echo "zip_entry_open($zip,$zip_entry) error<br>";
         }
     }
     zip_close($zip);
@@ -832,9 +832,9 @@ function tree($dir_before,$dir_current,$indice){
                 if ($dir_before != $dir_current){
                     if (strstr($expanded_dir_list,":$dir_current/$dir_name")) $op_str = "[–]";
                     else $op_str = "[+]";
-                    echo "<nobr><a href=\"JavaScript:go_dir('$dir_current/$dir_name')\">$op_str</a> <a href=\"JavaScript:go('$dir_current')\">$dir_name</a></nobr><br />\n";
+                    echo "<nobr><a href=\"JavaScript:go_dir('$dir_current/$dir_name')\">$op_str</a> <a href=\"JavaScript:go('$dir_current')\">$dir_name</a></nobr><br>\n";
                 } else {
-                    echo "<nobr><a href=\"JavaScript:go('$dir_current')\">$fm_current_root</a></nobr><br />\n";
+                    echo "<nobr><a href=\"JavaScript:go('$dir_current')\">$fm_current_root</a></nobr><br>\n";
                 }
                 for ($x=0;$x<count($mat_dir);$x++){
                     if (($dir_before == $dir_current)||(strstr($expanded_dir_list,":$dir_current/$dir_name"))){
@@ -846,9 +846,9 @@ function tree($dir_before,$dir_current,$indice){
               if ($dir_before != $dir_current){
                 for ($aux=1;$aux<$indice;$aux++) echo "&nbsp;&nbsp;&nbsp;&nbsp;";
                 echo "<b>[&nbsp;&nbsp;]</b>";
-                echo "<nobr><a href=\"JavaScript:go('$dir_current')\"> $dir_name</a></nobr><br />\n";
+                echo "<nobr><a href=\"JavaScript:go('$dir_current')\"> $dir_name</a></nobr><br>\n";
               } else {
-                echo "<nobr><a href=\"JavaScript:go('$dir_current')\"> $fm_current_root</a></nobr><br />\n";
+                echo "<nobr><a href=\"JavaScript:go('$dir_current')\"> $fm_current_root</a></nobr><br>\n";
               }
             }
         } else {
@@ -856,9 +856,9 @@ function tree($dir_before,$dir_current,$indice){
             if ($dir_before != $dir_current){
                 for ($aux=1;$aux<$indice;$aux++) echo "&nbsp;&nbsp;&nbsp;&nbsp;";
                 echo "<b>[&nbsp;&nbsp;]</b>";
-                echo "<nobr><a href=\"JavaScript:go('$dir_current')\"><font color=red> $dir_name</font></a></nobr><br />\n";
+                echo "<nobr><a href=\"JavaScript:go('$dir_current')\"><font color=red> $dir_name</font></a></nobr><br>\n";
             } else {
-                echo "<nobr><a href=\"JavaScript:go('$dir_current')\"><font color=red> $fm_current_root</font></a></nobr><br />\n";
+                echo "<nobr><a href=\"JavaScript:go('$dir_current')\"><font color=red> $fm_current_root</font></a></nobr><br>\n";
             }
 
         }
@@ -867,9 +867,9 @@ function tree($dir_before,$dir_current,$indice){
         if ($dir_before != $dir_current){
             for ($aux=1;$aux<$indice;$aux++) echo "&nbsp;&nbsp;&nbsp;&nbsp;";
             echo "<b>[&nbsp;&nbsp;]</b>";
-            echo "<nobr><a href=\"JavaScript:go('$dir_current')\"><font color=red> $dir_name</font></a></nobr><br />\n";
+            echo "<nobr><a href=\"JavaScript:go('$dir_current')\"><font color=red> $dir_name</font></a></nobr><br>\n";
         } else {
-            echo "<nobr><a href=\"JavaScript:go('$dir_current')\"><font color=red> $fm_current_root</font></a></nobr><br />\n";
+            echo "<nobr><a href=\"JavaScript:go('$dir_current')\"><font color=red> $fm_current_root</font></a></nobr><br>\n";
         }
     }
 }
@@ -1635,7 +1635,7 @@ function dir_list_form() {
             <td bgcolor=\"#DDDDDD\" width=\"1%\">$uplink<td bgcolor=\"#DDDDDD\" colspan=50><nobr><a href=\"".$path_info["basename"]."?frame=3&current_dir=$current_dir\">$current_dir</a></nobr>
             <tr><td bgcolor=\"#DDDDDD\" colspan=50>".et('EmptyDir').".</tr>";
         }
-    } else $out .= "<tr><td><font color=red>".et('IOError').".<br />$current_dir</font>";
+    } else $out .= "<tr><td><font color=red>".et('IOError').".<br>$current_dir</font>";
     $out .= "</table>";
     echo $out;
 }
@@ -1660,7 +1660,7 @@ function upload_form(){
         <input type=button value=\"".et('Send')."\" onclick=\"test_upload_form()\"></nobr>
         <tr><td> <td><input type=checkbox name=fechar value=\"1\" checked> <a href=\"JavaScript:troca();\">".et('AutoClose')."</a>
         <tr><td colspan=2>zip file can be decompressed on the server later. 
-			  just don't add dirs,please<br />
+			  just don't add dirs,please<br>
 			  可以上传zip文件，之后点击decompress解压缩，但是请不要在zip文件中包含子目录。
 	</td></tr>
         </form>
@@ -2274,7 +2274,7 @@ function config_form(){
 function server_info(){
 /*
     if (!@phpinfo()) echo et('NoPhpinfo')."...";
-    echo "<br /><br />";
+    echo "<br><br>";
 	    $a=ini_get_all();
 	    $output="<table border=1 cellspacing=0 cellpadding=4 align=center>";
 	    $output.="<tr><th colspan=2>ini_get_all()</td></tr>";
@@ -2284,7 +2284,7 @@ function server_info(){
 	    }
 	    $output.="</table>";
 	echo $output;
-    echo "<br /><br />";
+    echo "<br><br>";
 	    $output="<table border=1 cellspacing=0 cellpadding=4 align=center>";
 	    $output.="<tr><th colspan=2>\$_SERVER</td></tr>";
 	    foreach ($_SERVER as $k=>$v) {
@@ -2292,7 +2292,7 @@ function server_info(){
 	    }
 	    $output.="</table>";
 	echo $output;
-    echo "<br /><br />";
+    echo "<br><br>";
     echo "<table border=1 cellspacing=0 cellpadding=4 align=center>";
     $safe_mode=trim(ini_get("safe_mode"));
     if ((strlen($safe_mode)==0)||($safe_mode==0)) $safe_mode=false;
@@ -2300,9 +2300,9 @@ function server_info(){
     $is_windows_server = (uppercase(substr(PHP_OS, 0, 3)) === 'WIN');
     echo "<tr><td colspan=2>".php_uname();
     echo "<tr><td>safe_mode<td>".($safe_mode?"on":"off");
-    if ($is_windows_server) echo "<tr><td>sisop<td>Windows<br />";
-    else echo "<tr><td>sisop<td>Linux<br />";
-    echo "</table><br /><br /><table border=1 cellspacing=0 cellpadding=4 align=center>";
+    if ($is_windows_server) echo "<tr><td>sisop<td>Windows<br>";
+    else echo "<tr><td>sisop<td>Linux<br>";
+    echo "</table><br><br><table border=1 cellspacing=0 cellpadding=4 align=center>";
     $display_errors=ini_get("display_errors");
     $ignore_user_abort = ignore_user_abort();
     $max_execution_time = ini_get("max_execution_time");
@@ -2331,7 +2331,7 @@ function server_info(){
     echo "<tr><td>default_socket_timeout<td>$default_socket_timeout<td>30<td>".ini_get("default_socket_timeout");
     echo "<tr><td>allow_url_fopen<td>$allow_url_fopen<td>1<td>".ini_get("allow_url_fopen");
     echo "<tr><td>magic_quotes_gpc<td>$magic_quotes_gpc<td>0<td>".ini_get("magic_quotes_gpc");
-    echo "</table><br /><br />";
+    echo "</table><br><br>";
     echo "
     <script language=\"Javascript\" type=\"text/javascript\">
     <!--

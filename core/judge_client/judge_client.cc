@@ -598,7 +598,7 @@ void init_judge_conf()
 int isInFile(const char fname[])
 {
 	int l = strlen(fname);
-	if (l <= 3 || strcmp(fname + l - 3, ".in") != 0)
+	if (l <= 3 || strcmp(fname + l - 3, ".in"))
 		return 0;
 	else
 		return l - 3;
@@ -845,7 +845,7 @@ int compare(const char *file1, const char *file2, const char *infile)
 		while (*p2)
 			p2++;
 	fclose(f2);
-	if (strcmp(s1, s2) != 0)
+	if (strcmp(s1, s2))
 	{
 		//              printf("A:%s\nB:%s\n",s1,s2);
 		delete[] s1;
@@ -1440,11 +1440,11 @@ int compile(int lang, char *work_dir)
 			if (chroot(work_dir))
 				printf("warning chroot fail!\n");
 		}
-		while (setgid(1536) != 0)
+		while (setgid(1536))
 			sleep(1);
-		while (setuid(1536) != 0)
+		while (setuid(1536))
 			sleep(1);
-		while (setresuid(1536, 1536, 1536) != 0)
+		while (setresuid(1536, 1536, 1536))
 			sleep(1);
 
 		switch (lang)
@@ -1879,44 +1879,88 @@ char *escape(char s[], char t[])
 	return s;
 }
 
-void prepare_spj(char *oj_home, int p_id)
+void prepare_spj(char *oj_home, int p_id, char *work_dir)
 {
+	char prefile[BUFFER_SIZE / 10];
+	int pre_exist;
 	int isexist = execute_cmd("ls %s/data/%d/spj", oj_home, p_id);
-	if (!isexist)
+	int isexist2 = execute_cmd("ls %s/data/%d/pre", oj_home, p_id);
+	if (isexist)
 	{
-		return;
+		if (execute_cmd("ls %s/data/%d/spj.c", oj_home, p_id) == 0)
+		{
+			//   sprintf(localfile,"%s/data/%d/spj.c",oj_home,p_id);
+			const char *cmd3 = "gcc -o %s/data/%d/spj %s/data/%d/spj.c";
+			execute_cmd(cmd3, oj_home, p_id, oj_home, p_id);
+		}
+		if (execute_cmd("ls %s/data/%d/spj.cc", oj_home, p_id) == 0)
+		{
+			//     sprintf(localfile,"%s/data/%d/spj.cc",oj_home,p_id);
+			const char *cmd4 =
+				"g++ -o %s/data/%d/spj %s/data/%d/spj.cc";
+			execute_cmd(cmd4, oj_home, p_id, oj_home, p_id);
+		}
+		if (execute_cmd("ls %s/data/%d/spj.py", oj_home, p_id) == 0)
+		{
+			execute_cmd("touch %s/data/%d/spj", oj_home, p_id);
+			execute_cmd("echo '#! %s' >> %s/data/%d/spj", py_bin, oj_home, p_id);
+			execute_cmd("cat %s/data/%d/spj.py >> %s/data/%d/spj", oj_home, p_id, oj_home, p_id);
+		}
+		if (execute_cmd("ls %s/data/%d/spj.sh", oj_home, p_id) == 0)
+		{
+			execute_cmd("touch %s/data/%d/spj", oj_home, p_id);
+			execute_cmd("echo '#! /bin/bash' >> %s/data/%d/spj", oj_home, p_id);
+			execute_cmd("cat %s/data/%d/spj.sh >> %s/data/%d/spj", oj_home, p_id, oj_home, p_id);
+		}
+		execute_cmd("chmod 0755 %s/data/%d/spj", oj_home, p_id);
+		execute_cmd("chown www:judge %s/data/%d/spj", oj_home, p_id);
 	}
-	if (execute_cmd("ls %s/data/%d/spj.c", oj_home, p_id) == 0)
+
+	if (isexist2)
 	{
-		//   sprintf(localfile,"%s/data/%d/spj.c",oj_home,p_id);
-		const char *cmd3 = "gcc -o %s/data/%d/spj %s/data/%d/spj.c";
-		execute_cmd(cmd3, oj_home, p_id, oj_home, p_id);
+		if (execute_cmd("ls %s/data/%d/pre.c", oj_home, p_id) == 0)
+		{
+			//   sprintf(localfile,"%s/data/%d/pre.c",oj_home,p_id);
+			const char *cmd3 = "gcc -o %s/data/%d/pre %s/data/%d/pre.c";
+			execute_cmd(cmd3, oj_home, p_id, oj_home, p_id);
+		}
+		if (execute_cmd("ls %s/data/%d/pre.cc", oj_home, p_id) == 0)
+		{
+			//     sprintf(localfile,"%s/data/%d/pre.cc",oj_home,p_id);
+			const char *cmd4 =
+				"g++ -o %s/data/%d/pre %s/data/%d/pre.cc";
+			execute_cmd(cmd4, oj_home, p_id, oj_home, p_id);
+		}
+		if (execute_cmd("ls %s/data/%d/pre.py", oj_home, p_id) == 0)
+		{
+			execute_cmd("touch %s/data/%d/pre", oj_home, p_id);
+			execute_cmd("echo '#! %s' >> %s/data/%d/pre", py_bin, oj_home, p_id);
+			execute_cmd("cat %s/data/%d/pre.py >> %s/data/%d/pre", oj_home, p_id, oj_home, p_id);
+		}
+		if (execute_cmd("ls %s/data/%d/pre.sh", oj_home, p_id) == 0)
+		{
+			execute_cmd("touch %s/data/%d/pre", oj_home, p_id);
+			execute_cmd("echo '#! /bin/bash' >> %s/data/%d/pre", oj_home, p_id);
+			execute_cmd("cat %s/data/%d/pre.sh >> %s/data/%d/pre", oj_home, p_id, oj_home, p_id);
+		}
+		execute_cmd("chmod 0755 %s/data/%d/pre", oj_home, p_id);
+		execute_cmd("chown www:judge %s/data/%d/pre", oj_home, p_id);
 	}
-	if (execute_cmd("ls %s/data/%d/spj.cc", oj_home, p_id) == 0)
+
+	// run pre script
+	sprintf(prefile, "%s/data/%d/pre", oj_home, p_id);
+	pre_exist = execute_cmd("ls %s", prefile);
+	if (!pre_exist)
 	{
-		//     sprintf(localfile,"%s/data/%d/spj.cc",oj_home,p_id);
-		const char *cmd4 =
-			"g++ -o %s/data/%d/spj %s/data/%d/spj.cc";
-		execute_cmd(cmd4, oj_home, p_id, oj_home, p_id);
+		execute_cmd("touch %s/data.in", work_dir);
+		execute_cmd("chmod 0755 %s/data.in", work_dir);
+		execute_cmd("chown www:judge %s/data.in", work_dir);
+		execute_cmd("%s %s/data.in", prefile, work_dir);
 	}
-	if (execute_cmd("ls %s/data/%d/spj.py", oj_home, p_id) == 0)
-	{
-		execute_cmd("touch %s/data/%d/spj", oj_home, p_id);
-		execute_cmd("echo '#! %s' >> %s/data/%d/spj", py_bin, oj_home, p_id);
-		execute_cmd("cat %s/data/%d/spj.py >> %s/data/%d/spj", oj_home, p_id, oj_home, p_id);
-	}
-	if (execute_cmd("ls %s/data/%d/spj.sh", oj_home, p_id) == 0)
-	{
-		execute_cmd("touch %s/data/%d/spj", oj_home, p_id);
-		execute_cmd("echo '#! /bin/bash' >> %s/data/%d/spj", oj_home, p_id);
-		execute_cmd("cat %s/data/%d/spj.sh >> %s/data/%d/spj", oj_home, p_id, oj_home, p_id);
-	}
-	execute_cmd("chmod 0755 %s/data/%d/spj", oj_home, p_id);
-	execute_cmd("chown judge:www %s/data/%d/spj", oj_home, p_id);
 }
 
 void prepare_files(char *filename, int namelen, char *infile, int &p_id,
-				   char *work_dir, char *outfile, char *userfile, int runner_id, int isspj, char *spj_out)
+				   char *work_dir, char *outfile, char *userfile, int runner_id, int isspj)
 {
 	//              printf("ACflg=%d %d check a file!\n",ACflg,solution_id);
 
@@ -1927,7 +1971,6 @@ void prepare_files(char *filename, int namelen, char *infile, int &p_id,
 	escape(fname, fname0);
 	// printf("%s\n%s\n",fname0,fname);
 	sprintf(infile, "%s/data/%d/%s.in", oj_home, p_id, fname);
-	sprintf(spj_out, "%s/run%d/spj.out", oj_home, runner_id);
 	if (copy_data)
 		execute_cmd("/bin/cp '%s' %s/data.in", infile, work_dir);
 	execute_cmd("/bin/cp `ls %s/data/%d/* | grep %s | grep -v -e '.*\\.in' | grep -v -e '.*\\.out'` %s", oj_home, p_id, fname, work_dir);
@@ -1937,7 +1980,7 @@ void prepare_files(char *filename, int namelen, char *infile, int &p_id,
 	sprintf(userfile, "%s/run%d/user.out", oj_home, runner_id);
 	if (isspj)
 	{
-		prepare_spj(oj_home, p_id);
+		prepare_spj(oj_home, p_id, work_dir);
 	}
 }
 
@@ -2391,14 +2434,15 @@ void copy_js_runtime(char *work_dir)
 #endif
 	execute_cmd("/bin/cp /usr/bin/nodejs %s/", work_dir);
 }
+
 void run_solution(int &lang, char *work_dir, double &time_lmt, int &usedtime,
-				  int &mem_lmt, char *data_file_path, int isspj, char *spj_out)
+				  int &mem_lmt, char *data_file_path, int isspj)
 {
 	char *const envp[] = {(char *const)"PYTHONIOENCODING=utf-8",
 						  (char *const)"LANG=zh_CN.UTF-8",
 						  (char *const)"LANGUAGE=zh_CN.UTF-8",
 						  (char *const)"LC_ALL=zh_CN.utf-8", NULL};
-	nice(5);
+	nice(19);
 	// now the user is "judger"
 	if (chdir(work_dir))
 		exit(-4);
@@ -2412,8 +2456,10 @@ void run_solution(int &lang, char *work_dir, double &time_lmt, int &usedtime,
 	else
 	{
 		if (copy_data)
-
+		{
+			printf("infile: [data.in]\n");
 			stdin = freopen("data.in", "r", stdin);
+		}
 		else
 		{
 			printf("infile: [%s]\n", data_file_path);
@@ -2421,46 +2467,34 @@ void run_solution(int &lang, char *work_dir, double &time_lmt, int &usedtime,
 		}
 	}
 	execute_cmd("touch %s/user.out", work_dir);
-
-	if (isspj)
-	{
-		execute_cmd("touch %s", spj_out);
-		execute_cmd("chmod 755 %s", spj_out);
-		execute_cmd("chown judge %s", spj_out);
-	}
+	execute_cmd("chown judge %s/user.out", work_dir);
+	execute_cmd("chmod 760 %s/user.out", work_dir);
 
 	if (copy_data)
 	{
-		execute_cmd("chgrp judge %s/user.out %s/data.in", work_dir, work_dir);
-		execute_cmd("chmod 740 %s/data.in", work_dir);
+		execute_cmd("chown judge %s/data.in", work_dir, work_dir);
+		execute_cmd("chmod 760 %s/data.in", work_dir);
 	}
-	execute_cmd("chmod 760 %s/user.out", work_dir);
+
 	stdout = freopen("user.out", "w", stdout);
 	stderr = freopen("error.out", "a+", stderr);
+
 	// trace me
 	ptrace(PTRACE_TRACEME, 0, NULL, NULL);
 	// run me
-	if (
-		(!use_docker) && lang != 3 && lang != 5 && lang != 20 && lang != 9 && !(lang == 6 && python_free))
+	if ((!use_docker) && lang != 3 && lang != 5 && lang != 20 && lang != 9 && !(lang == 6 && python_free))
 	{
-		if (DEBUG)
-			printf("Chrooting...\n");
-		if (chroot(work_dir))
-			printf("danger .....................chroot fail....................line 2298 \n");
+		chroot(work_dir);
 	}
-	else
-	{
-		if (DEBUG)
-			printf("Skiping chroot...\n");
-	}
-	while (setgid(1536) != 0)
+
+	while (setgid(1536))
 		sleep(1);
-	while (setuid(1536) != 0)
+	while (setuid(1536))
 		sleep(1);
-	while (setresuid(1536, 1536, 1536) != 0)
+	while (setresuid(1536, 1536, 1536))
 		sleep(1);
 
-	//      char java_p1[BUFFER_SIZE], java_p2[BUFFER_SIZE];
+	// char java_p1[BUFFER_SIZE], java_p2[BUFFER_SIZE];
 	// child
 	// set the limit
 	struct rlimit LIM; // time limit, file limit& memory limit
@@ -2588,6 +2622,7 @@ void run_solution(int &lang, char *work_dir, double &time_lmt, int &usedtime,
 	fflush(stderr);
 	exit(0);
 }
+
 int fix_python_mis_judge(char *work_dir, int &ACflg, int &topmemory,
 						 int mem_lmt)
 {
@@ -2599,7 +2634,7 @@ int fix_python_mis_judge(char *work_dir, int &ACflg, int &topmemory,
 
 	if (!comp_res1)
 	{
-		printf("Python need more Memory!");
+		printf("Python need more Memory!\n");
 		ACflg = OJ_ML;
 		topmemory = mem_lmt * STD_MB;
 	}
@@ -2609,7 +2644,7 @@ int fix_python_mis_judge(char *work_dir, int &ACflg, int &topmemory,
 
 	if (!comp_res2)
 	{
-		printf("Error not empty!");
+		printf("(Python) Error not empty!\n");
 		ACflg = OJ_RE;
 	}
 
@@ -2657,13 +2692,19 @@ int fix_java_mis_judge(char *work_dir, int &ACflg, int &topmemory,
 	}
 	return comp_res;
 }
+
 int special_judge(char *oj_home, int problem_id, char *infile, char *outfile,
-				  char *userfile, char *spj_out)
+				  char *userfile, char *work_dir)
 {
 
 	pid_t pid;
 	if (DEBUG)
 		printf("pid=%d\n", problem_id);
+
+	// alter infile for tests using pre script
+	if (copy_data)
+		sprintf(infile, "%s/data.in", work_dir);
+
 	// prevent privileges settings caused spj fail in [issues686]
 	execute_cmd("chown www:judge %s/data/%d/spj %s %s %s", oj_home, problem_id, infile, outfile, userfile);
 	execute_cmd("chmod 0755 %s/data/%d/spj %s %s %s", oj_home, problem_id, infile, outfile, userfile);
@@ -2672,12 +2713,11 @@ int special_judge(char *oj_home, int problem_id, char *infile, char *outfile,
 	int ret = 0;
 	if (pid == 0)
 	{
-		nice(15);
-		while (setgid(1536) != 0)
+		while (setgid(1536))
 			sleep(1);
-		while (setuid(1536) != 0)
+		while (setuid(1536))
 			sleep(1);
-		while (setresuid(1536, 1536, 1536) != 0)
+		while (setresuid(1536, 1536, 1536))
 			sleep(1);
 
 		struct rlimit LIM; // time limit, file limit& memory limit
@@ -2692,8 +2732,8 @@ int special_judge(char *oj_home, int problem_id, char *infile, char *outfile,
 		LIM.rlim_max = STD_F_LIM + STD_MB;
 		LIM.rlim_cur = STD_F_LIM;
 		setrlimit(RLIMIT_FSIZE, &LIM);
-		ret = execute_cmd("%s/data/%d/spj %s %s %s < %s > %s", oj_home, problem_id,
-						  infile, outfile, userfile, outfile, spj_out);
+		ret = execute_cmd("%s/data/%d/spj %s %s %s", oj_home, problem_id,
+						  infile, outfile, userfile);
 		if (DEBUG)
 			printf("spj1=%d\n", ret);
 		if (ret)
@@ -2704,17 +2744,6 @@ int special_judge(char *oj_home, int problem_id, char *infile, char *outfile,
 	else
 	{
 		int status;
-		time_t start = time(NULL);
-		time_t end;
-		while (1)
-		{
-			end = time(NULL);
-			if (end - start > 1)
-			{
-				ptrace(PTRACE_KILL, pid, NULL, NULL);
-				break;
-			}
-		}
 		waitpid(pid, &status, 0);
 		ret = WEXITSTATUS(status);
 		if (DEBUG)
@@ -2722,10 +2751,11 @@ int special_judge(char *oj_home, int problem_id, char *infile, char *outfile,
 	}
 	return ret;
 }
+
 void judge_solution(int &ACflg, int &usedtime, double time_lmt, int isspj,
 					int p_id, char *infile, char *outfile, char *userfile, int &PEflg,
 					int lang, char *work_dir, int &topmemory, int mem_lmt,
-					int solution_id, int num_of_test, char *spj_out)
+					int solution_id, int num_of_test)
 {
 	// usedtime-=1000;
 	int comp_res;
@@ -2766,7 +2796,7 @@ void judge_solution(int &ACflg, int &usedtime, double time_lmt, int isspj,
 	{
 		if (isspj == 1)
 		{
-			comp_res = special_judge(oj_home, p_id, infile, outfile, userfile, spj_out);
+			comp_res = special_judge(oj_home, p_id, infile, outfile, userfile, work_dir);
 
 			if (comp_res == 0)
 				comp_res = OJ_AC;
@@ -2816,12 +2846,14 @@ int get_page_fault_mem(struct rusage &ruse, pid_t &pidApp)
 	}
 	return m_minflt;
 }
+
 void print_runtimeerror(char *infile, char *err)
 {
 	FILE *ferr = fopen("error.out", "a+");
 	fprintf(ferr, "%s:%s\n", infile, err);
 	fclose(ferr);
 }
+
 void clean_session(pid_t p)
 {
 	// char cmd[BUFFER_SIZE];
@@ -2834,7 +2866,7 @@ void clean_session(pid_t p)
 void watch_solution(pid_t pidApp, char *infile, int &ACflg, int isspj,
 					char *userfile, char *outfile, int solution_id, int lang,
 					int &topmemory, int mem_lmt, int &usedtime, double time_lmt, int &p_id,
-					int &PEflg, char *work_dir, char *spj_out)
+					int &PEflg, char *work_dir)
 {
 	// parent
 	int tempmemory = 0;
@@ -2842,11 +2874,11 @@ void watch_solution(pid_t pidApp, char *infile, int &ACflg, int isspj,
 	if (DEBUG)
 		printf("pid=%d judging %s\n", pidApp, infile);
 
-	int status, sig, exitcode, ret;
+	int status, sig, exitcode;
 	struct user_regs_struct reg;
 	struct rusage ruse;
 	int first = true;
-	pid_t forked;
+
 	while (1)
 	{
 		// check the usage
@@ -2854,7 +2886,8 @@ void watch_solution(pid_t pidApp, char *infile, int &ACflg, int isspj,
 		wait4(pidApp, &status, __WALL, &ruse);
 		if (first)
 		{
-			ptrace(PTRACE_SETOPTIONS, pidApp, NULL, PTRACE_O_TRACESYSGOOD | PTRACE_O_TRACEEXIT | PTRACE_O_EXITKILL
+			ptrace(PTRACE_SETOPTIONS, pidApp, NULL, PTRACE_O_TRACESYSGOOD | PTRACE_O_TRACEEXIT
+				   //   | PTRACE_O_EXITKILL
 				   //	| PTRACE_O_TRACECLONE
 				   //   | PTRACE_O_TRACEFORK
 				   //	| PTRACE_O_TRACEVFORK
@@ -2884,16 +2917,8 @@ void watch_solution(pid_t pidApp, char *infile, int &ACflg, int isspj,
 		// sig = status >> 8;/*status >> 8 EXITCODE*/
 
 		if (WIFEXITED(status))
-		{
-			if (isspj == 2)
-			{
-				ACflg = OJ_RE;
-				if (DEBUG)
-					printf("Exit before judge, RE\n");
-			}
-
 			break;
-		}
+
 		if (!isspj && (lang < 7 || lang == 9) && get_file_size("error.out") && !oi_mode)
 		{
 			ACflg = OJ_RE;
@@ -2913,12 +2938,8 @@ void watch_solution(pid_t pidApp, char *infile, int &ACflg, int isspj,
 		/*exitcode == 5 waiting for next CPU allocation          * ruby using system to run,exit 17 ok
 		 *  Runtime Error:Unknown signal xxx need be added here
 		 */
-		if ((lang >= 3 && exitcode == 17) || exitcode == 0x05 || exitcode == 0 || exitcode == 133)
-			// go on and on
-			;
-		else
+		if (!((lang >= 3 && exitcode == 17) || exitcode == 0x05 || exitcode == 0 || exitcode == 133))
 		{
-
 			if (DEBUG)
 			{
 				printf("status>>8=%d\n", exitcode);
@@ -3065,54 +3086,21 @@ void watch_solution(pid_t pidApp, char *infile, int &ACflg, int isspj,
 			//		   }
 		}
 #endif
+		// usleep(1);
+		usedtime = (ruse.ru_utime.tv_sec * 1000 + ruse.ru_utime.tv_usec / 1000) * cpu_compensation +
+				   (ruse.ru_stime.tv_sec * 1000 + ruse.ru_stime.tv_usec / 1000) * cpu_compensation;
+		if (usedtime > time_lmt * 2000)
+		{
+			ptrace(PTRACE_KILL, pidApp, NULL, NULL);
+			ACflg = OJ_TL;
+			if (DEBUG)
+				printf("TLE:%d\n", usedtime);
+		}
+
 		ptrace(PTRACE_SYSCALL, pidApp, NULL, NULL);
 
-		if (isspj == 2)
-		{
-			if (DEBUG)
-				printf("SPJ type 2\n");
-			if (first)
-			{
-				forked = fork();
-
-				if (forked == 0)
-				{
-					ret = special_judge(oj_home, p_id, infile, outfile, userfile, spj_out);
-					if (ret)
-						exit(1);
-					exit(0);
-				}
-			}
-			wait4(forked, &ret, __WALL, &ruse);
-			if (WIFEXITED(ret))
-			{
-				if (DEBUG)
-					printf("Result of special judge: %d\n", ret);
-				if (ret)
-				{
-					ACflg = OJ_WA;
-				}
-				else
-				{
-					ACflg = OJ_AC;
-				}
-				ptrace(PTRACE_KILL, pidApp, NULL, NULL);
-				break;
-			}
-		}
-		// usleep(1);
+		first = false;
 	}
-	usedtime += (ruse.ru_utime.tv_sec * 1000 + ruse.ru_utime.tv_usec / 1000) * cpu_compensation;
-	usedtime += (ruse.ru_stime.tv_sec * 1000 + ruse.ru_stime.tv_usec / 1000) * cpu_compensation;
-	if (usedtime > time_lmt * 2000)
-	{
-		ptrace(PTRACE_KILL, pidApp, NULL, NULL);
-		ACflg = OJ_TL;
-		if (DEBUG)
-			printf("TLE:%d\n", usedtime);
-	}
-	first = false;
-
 	// clean_session(pidApp);
 }
 
@@ -3122,11 +3110,11 @@ void clean_workdir(char *work_dir)
 	if (DEBUG)
 	{
 		execute_cmd("mkdir %slog/ 2>/dev/null", work_dir);
-		execute_cmd("/bin/mv %s* %slog/ 2>/dev/null", work_dir, work_dir);
+		execute_cmd("/bin/mv %s/* %s/log/ 2>/dev/null", work_dir, work_dir);
 	}
 	else
 	{
-		execute_cmd("/bin/rm -rf %s* 2>/dev/null", work_dir);
+		execute_cmd("/bin/rm -rf %s/* 2>/dev/null", work_dir);
 	}
 }
 
@@ -3163,6 +3151,7 @@ void init_parameters(int argc, char **argv, int &solution_id,
 	solution_id = atoi(argv[1]);
 	runner_id = atoi(argv[2]);
 }
+
 int get_sim(int solution_id, int lang, int pid, int &sim_s_id)
 {
 	char src_pth[BUFFER_SIZE];
@@ -3202,6 +3191,7 @@ int get_sim(int solution_id, int lang, int pid, int &sim_s_id)
 		sim = 0;
 	return sim;
 }
+
 void mk_shm_workdir(char *work_dir)
 {
 	char shm_path[BUFFER_SIZE];
@@ -3214,6 +3204,7 @@ void mk_shm_workdir(char *work_dir)
 	sprintf(shm_path, "/dev/shm/hustoj/%s/", oj_home);
 	execute_cmd("/bin/ln -s %s/data %s  2>/dev/null", oj_home, shm_path);
 }
+
 int count_in_files(char *dirpath)
 {
 	const char *cmd = "ls -l %s/*.in|wc -l";
@@ -3256,7 +3247,6 @@ int get_test_file(char *work_dir, int p_id)
 
 		if (access(localfile, 0) == -1 || local_date < remote_date)
 		{
-
 			if (strcmp(filename, "spj") == 0)
 				continue;
 			execute_cmd("/bin/mkdir -p %s/data/%d", oj_home, p_id);
@@ -3302,6 +3292,45 @@ int get_test_file(char *work_dir, int p_id)
 					execute_cmd("cat %s/data/%d/spj.sh >> %s/data/%d/spj", oj_home, p_id, oj_home, p_id);
 				}
 			}
+			if (strcmp(filename, "pre") == 0)
+				continue;
+			if (strcmp(filename, "pre.c") == 0)
+			{
+				//   sprintf(localfile,"%s/data/%d/pre.c",oj_home,p_id);
+				if (access(localfile, 0) == 0)
+				{
+					const char *cmd3 = "gcc -o %s/data/%d/pre %s/data/%d/pre.c";
+					execute_cmd(cmd3, oj_home, p_id, oj_home, p_id);
+				}
+			}
+			if (strcmp(filename, "pre.cc") == 0)
+			{
+				//     sprintf(localfile,"%s/data/%d/pre.cc",oj_home,p_id);
+				if (access(localfile, 0) == 0)
+				{
+					const char *cmd4 =
+						"g++ -o %s/data/%d/pre %s/data/%d/pre.cc";
+					execute_cmd(cmd4, oj_home, p_id, oj_home, p_id);
+				}
+			}
+			if (strcmp(filename, "pre.py") == 0)
+			{
+				if (access(localfile, 0) == 0)
+				{
+					execute_cmd("touch %s/data/%d/pre", oj_home, p_id);
+					execute_cmd("echo '#! %s' >> %s/data/%d/pre", py_bin, oj_home, p_id);
+					execute_cmd("cat %s/data/%d/pre.py >> %s/data/%d/pre", oj_home, p_id, oj_home, p_id);
+				}
+			}
+			if (strcmp(filename, "pre.sh") == 0)
+			{
+				if (access(localfile, 0) == 0)
+				{
+					execute_cmd("touch %s/data/%d/pre", oj_home, p_id);
+					execute_cmd("echo '#! /bin/bash' >> %s/data/%d/pre", oj_home, p_id);
+					execute_cmd("cat %s/data/%d/pre.sh >> %s/data/%d/pre", oj_home, p_id, oj_home, p_id);
+				}
+			}
 		}
 	}
 	pclose(fjobs);
@@ -3332,6 +3361,7 @@ void print_call_array()
 	}
 	printf("0};\n");
 }
+
 int mark_of_name(const char *name)
 {
 	int mark;
@@ -3346,6 +3376,7 @@ int mark_of_name(const char *name)
 		return 10;
 	}
 }
+
 int main(int argc, char **argv)
 {
 
@@ -3411,8 +3442,12 @@ int main(int argc, char **argv)
 	{
 		get_problem_info(p_id, time_lmt, mem_lmt, isspj);
 	}
-	// copy source file
 
+	// in order to redirect io
+	if (isspj)
+		copy_data = 1;
+
+	// copy source file
 	get_solution(solution_id, work_dir, lang);
 
 	// java and other VM language are lucky to have the global bonus in judge.conf
@@ -3445,7 +3480,7 @@ int main(int argc, char **argv)
 	int Compile_OK;
 
 	Compile_OK = compile(lang, work_dir);
-	if (Compile_OK != 0)
+	if (Compile_OK)
 	{
 		addceinfo(solution_id);
 		update_solution(solution_id, OJ_CE, 0, 0, 0, 0, 0.0);
@@ -3473,7 +3508,6 @@ int main(int argc, char **argv)
 	char infile[BUFFER_SIZE / 10];
 	char outfile[BUFFER_SIZE / 10];
 	char userfile[BUFFER_SIZE / 10];
-	char spj_out[BUFFER_SIZE / 10];
 	sprintf(fullpath, "%s/data/%d", oj_home, p_id); // the fullpath of data dir
 
 	// open DIRs
@@ -3559,8 +3593,6 @@ int main(int argc, char **argv)
 	if (lang == 18)
 		copy_sql_runtime(work_dir);
 	// read files and run
-	// read files and run
-	// read files and run
 	double pass_rate = 0.0;
 	int mark = 0, total_mark = 0, get_mark = 0;
 	int finalACflg = ACflg;
@@ -3573,13 +3605,13 @@ int main(int argc, char **argv)
 
 		if (pidApp == 0)
 		{
-			run_solution(lang, work_dir, time_lmt, usedtime, mem_lmt, (char *)"data.in", isspj, spj_out);
+			run_solution(lang, work_dir, time_lmt, usedtime, mem_lmt, (char *)"data.in", isspj);
 		}
 		else
 		{
 			watch_solution(pidApp, infile, ACflg, isspj, userfile, outfile,
 						   solution_id, lang, topmemory, mem_lmt, usedtime, time_lmt,
-						   p_id, PEflg, work_dir, spj_out);
+						   p_id, PEflg, work_dir);
 		}
 		if (DEBUG)
 			printf("custom running result:%d PEflg:%d\n", ACflg, PEflg);
@@ -3623,7 +3655,7 @@ int main(int argc, char **argv)
 			continue;
 
 		prepare_files(dirp->d_name, namelen, infile, p_id, work_dir, outfile,
-					  userfile, runner_id, isspj, spj_out);
+					  userfile, runner_id, isspj);
 		if (access(outfile, 0) == -1)
 		{
 			// out file does not exist
@@ -3639,7 +3671,7 @@ int main(int argc, char **argv)
 
 		if (pidApp == 0)
 		{
-			run_solution(lang, work_dir, time_lmt, usedtime, mem_lmt, infile, isspj, spj_out);
+			run_solution(lang, work_dir, time_lmt, usedtime, mem_lmt, infile, isspj);
 		}
 		else
 		{
@@ -3647,17 +3679,16 @@ int main(int argc, char **argv)
 
 			watch_solution(pidApp, infile, ACflg, isspj, userfile, outfile,
 						   solution_id, lang, topmemory, mem_lmt, usedtime, time_lmt,
-						   p_id, PEflg, work_dir, spj_out);
+						   p_id, PEflg, work_dir);
 			printf("%s: mem=%d time=%d\n", infile + strlen(oj_home) + 5, topmemory, usedtime);
 			total_time += usedtime;
 			printf("time:%d/%d\n", usedtime, total_time);
-			if (isspj != 2)
-			{
-				judge_solution(ACflg, usedtime, time_lmt, isspj, p_id, infile,
-							   outfile, userfile, PEflg, lang, work_dir, topmemory,
-							   mem_lmt, solution_id, num_of_test, spj_out);
-			}
+
+			judge_solution(ACflg, usedtime, time_lmt, isspj, p_id, infile,
+						   outfile, userfile, PEflg, lang, work_dir, topmemory,
+						   mem_lmt, solution_id, num_of_test);
 			time_space_index += sprintf(time_space_table + time_space_index, "%s:%s mem=%dk time=%dms\n", infile + strlen(oj_home) + 5, jresult[ACflg], topmemory / 1024, usedtime);
+
 			if (use_max_time)
 			{
 				max_case_time =

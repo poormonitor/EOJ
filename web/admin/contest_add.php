@@ -48,7 +48,7 @@ if (isset($_POST['startdate'])) {
           VALUES(?,?,?,?,?,?,?,?)";
 
   $description = str_replace("<p>", "", $description);
-  $description = str_replace("</p>", "<br />", $description);
+  $description = str_replace("</p>", "<br>", $description);
   $description = str_replace(",", "&#44; ", $description);
   $user_id = $_SESSION[$OJ_NAME . '_' . 'user_id'];
   echo $sql . $title . $starttime . $endtime . $private . $langmask . $description . $password, $user_id;
@@ -161,7 +161,7 @@ if (isset($_POST['startdate'])) {
     <form method=POST>
       <p align=left>
         <?php echo "<h3>" . $MSG_CONTEST . "-" . $MSG_TITLE . "</h3>" ?>
-        <input class='form-control' style="width:100%;" type=text name=title value="<?php echo isset($title) ? $title : "" ?>"><br /><br />
+        <input class='form-control' style="width:100%;" type=text name=title value="<?php echo isset($title) ? $title : "" ?>"><br><br>
       </p>
       <div style="margin-bottom: 10px;" class='form-inline'>
         <?php echo $MSG_CONTEST . $MSG_Start ?>:
@@ -175,10 +175,10 @@ if (isset($_POST['startdate'])) {
         Hour: <input class='form-control' type=text name=ehour size=2 value=<?php echo (date('H') + 4) % 24 ?>>&nbsp;
         Minute: <input class='form-control' type=text name=eminute value=00 size=2>
       </div>
-      <br />
+      <br>
       <p align=left>
-        <?php echo $MSG_CONTEST . "-" . $MSG_PROBLEM_ID ?><br />
-        <?php echo $MSG_PLS_ADD ?><br />
+        <?php echo $MSG_CONTEST . "-" . $MSG_PROBLEM_ID ?><br>
+        <?php echo $MSG_PLS_ADD ?><br>
         <select name='problem[]' id='multiple_problem' size="10" class="selectpicker show-menu-arrow form-control" multiple style='margin-top:10px;'>
           <?php
           $all = explode(",", $plist);
@@ -193,24 +193,24 @@ if (isset($_POST['startdate'])) {
             }
           }
           ?></select>
-        <br />
+        <br>
       </p>
       <p align=left>
-        手动输入<br />
+        手动输入<br>
         <input class='form-control' id='problem' data-role="tagsinput" style='margin-top:10px;width:auto;' onchange='return get_tag(this)'></input>
       </p>
-      <br />
+      <br>
       <p align=left>
         <?php echo "<h4>" . $MSG_CONTEST . "-" . $MSG_Description . "</h4>" ?>
         <textarea id="tinymce0" rows=13 name=description cols=80><?php echo isset($description) ? $description : "" ?></textarea>
-        <br />
+        <br>
       <table width="100%">
         <tr>
           <td rowspan=2>
             <p aligh=left>
               <?php echo $MSG_CONTEST . "-" . $MSG_LANG ?>
-              <?php echo "( Add PLs with Ctrl+click )" ?><br />
-              <?php echo $MSG_PLS_ADD ?><br />
+              <?php echo "( Add PLs with Ctrl+click )" ?><br>
+              <?php echo $MSG_PLS_ADD ?><br>
               <select name="lang[]" multiple="multiple" style="height:220px;margin-top:10px;" class='selectpicker show-menu-arrow form-control'>
                 <?php
                 $lang_count = count($language_ext);
@@ -247,7 +247,7 @@ if (isset($_POST['startdate'])) {
           <td height="*" style="padding:20px;">
             <p align=left>
               <?php echo $MSG_CONTEST . "-" . $MSG_GROUP ?>
-              <br />
+              <br>
               <select name="gid[]" class="selectpicker show-menu-arrow form-control" size='8' multiple>
                 <?php
                 require_once("../include/my_func.inc.php");

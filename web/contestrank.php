@@ -37,7 +37,7 @@ class TM
 			return;
 		}
 		global $OJ_CE_PENALTY;
-		//echo "Add $pid $sec $res<br />";
+		//echo "Add $pid $sec $res<br>";
 
 		if (isset($this->p_ac_sec[$pid]) && $this->p_ac_sec[$pid] > 0)
 			return;
@@ -59,8 +59,8 @@ class TM
 				$this->p_wa_num[$pid] = 0;
 
 			$this->time += $sec + $this->p_wa_num[$pid] * 1200;
-			//echo "Time:".$this->time."<br />";
-			//echo "Solved:".$this->solved."<br />";
+			//echo "Time:".$this->time."<br>";
+			//echo "Solved:".$this->solved."<br>";
 		}
 	}
 }

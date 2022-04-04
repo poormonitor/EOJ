@@ -87,7 +87,7 @@ require_once("admin-header.php");
             </tbody>
         </table>
     </div>
-    <br />
+    <br>
     <div class='table-responsive'>
         <table width=100% class="table">
             <thead>
@@ -267,7 +267,7 @@ require_once("admin-header.php");
 
 
 </div>
-<br />
+<br>
 <?php
 require_once("admin-footer.php");
 ?>

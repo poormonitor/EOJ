@@ -30,9 +30,9 @@
           <h3 style='text-align:center;'>剪切板</h3>
           <?php if (isset($flag)) {
             if ($flag) { ?>
-              <br /><span class='alert alert-success'>成功</span><br /><br />
+              <br><span class='alert alert-success'>成功</span><br><br>
             <?php } else { ?>
-              <br /><span class='alert alert-success'>失败</span><br /><br />
+              <br><span class='alert alert-success'>失败</span><br><br>
           <?php }
           } ?>
           <div id='container_status'>
@@ -41,7 +41,7 @@
           </div>
           <input id="Submit" class="btn btn-info btn-sm" type=submit value="<?php echo $MSG_SUBMIT; ?>" style="margin:6px;">
         </form>
-        <br />
+        <br>
       </center>
     </div>
   </div>

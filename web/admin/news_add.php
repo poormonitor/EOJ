@@ -15,7 +15,7 @@ $user_id = $_SESSION[$OJ_NAME.'_'.'user_id'];
   $content = stripslashes($content);
 
 $content = str_replace("<p>", "", $content);
-$content = str_replace("</p>", "<br />", $content);
+$content = str_replace("</p>", "<br>", $content);
 $content = str_replace(",", "&#44;", $content);
 
 $title=RemoveXSS($title);

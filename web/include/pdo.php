@@ -25,7 +25,7 @@ function pdo_query($sql)
 		return $result;
 	} catch (PDOException $e) {
 		if (stristr($e->getMessage(), "Access denied"))
-			$view_errors = "Database account/password fail, check db_info.inc.php<br />\n数据库账户密码错误，请检查配置文件db_info.inc.php";
+			$view_errors = "Database account/password fail, check db_info.inc.php<br>\n数据库账户密码错误，请检查配置文件db_info.inc.php";
 		else
 			$view_errors = "SQL error,check your sql and /var/log/nginx/error.log !";
 		require("template/error.php");

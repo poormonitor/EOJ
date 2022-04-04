@@ -198,15 +198,15 @@ if (isset($_POST['update_solution'])) {
 ?>
 
 	<form action='problem_judge.php' method=post>
-		<b>HTTP Judge:</b><br />
-		sid:<input type=text size=10 name="sid" value=1244><br />
-		pid:<input type=text size=10 name="pid" value=1000><br />
-		result:<input type=text size=10 name="result" value=4><br />
-		time:<input type=text size=10 name="time" value=500><br />
-		memory:<input type=text size=10 name="memory" value=1024><br />
-		sim:<input type=text size=10 name="sim" value=100><br />
-		simid:<input type=text size=10 name="simid" value=0><br />
-		gettestdata:<input type=text size=10 name="filename" value="1000/test.in"><br />
+		<b>HTTP Judge:</b><br>
+		sid:<input type=text size=10 name="sid" value=1244><br>
+		pid:<input type=text size=10 name="pid" value=1000><br>
+		result:<input type=text size=10 name="result" value=4><br>
+		time:<input type=text size=10 name="time" value=500><br>
+		memory:<input type=text size=10 name="memory" value=1024><br>
+		sim:<input type=text size=10 name="sim" value=100><br>
+		simid:<input type=text size=10 name="simid" value=0><br>
+		gettestdata:<input type=text size=10 name="filename" value="1000/test.in"><br>
 
 		<input type='hidden' name='gettestdatalist' value='do'>
 		<input type=submit value='Judge'>

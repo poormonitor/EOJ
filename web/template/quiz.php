@@ -28,9 +28,9 @@
           <p>
             <?php echo $view_description ?>
           </p>
-          <br />
+          <br>
           <?php echo $MSG_SERVER_TIME ?> : <span id=nowdate> <?php echo date("Y-m-d H:i:s") ?></span>
-          <br />
+          <br>
 
           <?php if ($now > $end_time) {
             echo "<span class=text-muted>$MSG_Ended</span>";
@@ -43,7 +43,7 @@
           }
           ?>
 
-          <br /><br />
+          <br><br>
 
           <?php echo $MSG_CONTEST_STATUS ?> :
 
@@ -65,12 +65,12 @@
             echo "<span class=text-danger>" . $MSG_Private . "</span>";
           ?>
 
-          <br />
+          <br>
 
           <?php echo $MSG_START_TIME ?> : <?php echo $view_start_time ?>
-          <br />
+          <br>
           <?php echo $MSG_END_TIME ?> : <?php echo $view_end_time ?>
-          <br /><br />
+          <br><br>
 
           <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator'])) { ?>
             <div class="btn-group">
@@ -162,7 +162,7 @@
               </div>
             </div>
           <?php } ?>
-          <br /><br />
+          <br><br>
       </center>
     </div>
   </div>

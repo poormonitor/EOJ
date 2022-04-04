@@ -1,6 +1,6 @@
 <?php require("admin-header.php"); ?>
 <div class="container">
-  <br />
+  <br>
   <?php
   $csql = array();
   $csql[0] = "
@@ -19,7 +19,7 @@
     $banner = true;
   }
   ?>
-  <br />
+  <br>
   <h3 class='center'><?php echo $MSG_UPDATE_DATABASE ?></h3>
   <?php if (isset($banner)) { ?>
     <div class="row">
@@ -31,14 +31,14 @@
   <p class='center'>
     <?php echo $MSG_HELP_UPDATE_DATABASE ?>
   </p>
-  <br />
+  <br>
   <form action='update_db.php' method=post class='middle'>
     <?php require_once("../include/set_post_key.php"); ?>
     <input type='hidden' name='do' value='do'>
     <input type=submit class='btn btn-info' value='更新'>
   </form>
   <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) { ?>
-    <br />
+    <br>
     <form action='adminer.php' method=post class="center">
       <input type="hidden" name="auth[driver]" value="server">
       <input type="hidden" name="auth[server]" value="">

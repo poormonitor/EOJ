@@ -84,7 +84,7 @@ if (isset($OJ_LANG)) {
 require_once("./include/const.inc.php");
 
 if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'source_browser']))) {
-  $view_errors = $MSG_WARNING_ACCESS_DENIED;
+  $view_swal = $MSG_WARNING_ACCESS_DENIED;
   require("template/error.php");
   exit(0);
 }

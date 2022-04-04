@@ -45,7 +45,7 @@ if (isset($_POST['qid'])) {
   $sql = "UPDATE `quiz` SET `title`=?,`start_time`=?,`end_time`=?,`private`=?,`description`=?,`user_id`=?,`question`=?,`type`=?,`score`=?,`correct_answer`=? WHERE `quiz_id`=?";
 
   $description = str_replace("<p>", "", $description);
-  $description = str_replace("</p>", "<br />", $description);
+  $description = str_replace("</p>", "<br>", $description);
   $description = str_replace(",", "&#44; ", $description);
   $user_id = $_SESSION[$OJ_NAME . '_' . 'user_id'];
   pdo_query($sql, $title, $starttime, $endtime, $private, $description, $user_id, $question, $type, $score, $correct_answer, $qid);
@@ -128,7 +128,7 @@ if (isset($_POST['qid'])) {
     <p align=left>
       <input type='hidden' name='qid' value='<?php echo $qid; ?>'>
       <?php echo "<h3>" . $MSG_QUIZ . "-" . $MSG_TITLE . "</h3>" ?>
-      <input class='form-control' style="width:100%;" type=text name=title value="<?php echo isset($title) ? $title : "" ?>"><br /><br />
+      <input class='form-control' style="width:100%;" type=text name=title value="<?php echo isset($title) ? $title : "" ?>"><br><br>
     <div style="margin-bottom: 10px;" class='form-inline'>
       <?php echo $MSG_QUIZ . $MSG_Start ?>:
       <input class='form-control' type=date name='startdate' value='<?php echo substr($starttime, 0, 10) ?>' size=4>
@@ -155,7 +155,7 @@ if (isset($_POST['qid'])) {
           if (isset($question)) {
             echo $question[$i];
           }
-          echo "</textarea><br />";
+          echo "</textarea><br>";
         } else {
           echo "<textarea style='display:none;' name='qc$pid'></textarea>";
         }
@@ -168,7 +168,7 @@ if (isset($_POST['qid'])) {
           }
           echo "<input type=radio class='form-control' name='qt$i' value='$t' $checked>&nbsp;&nbsp;<label> " . $MSG_QUIZ_TYPE[$t] . "</label>&nbsp;&nbsp;";
         }
-        echo "<br /><br />";
+        echo "<br><br>";
         $c_score = isset($score) ? $score[$i] : 2;
         $qa = isset($answer) ? $answer[$i] : "";
         echo "<label>" . $MSG_SCORE . "</label>&nbsp;&nbsp;";
@@ -179,7 +179,7 @@ if (isset($_POST['qid'])) {
       }
       ?>
     </p>
-    <br />
+    <br>
     <table width="100%">
       <tr>
         <td height="10px" style="padding:10px;">
@@ -196,7 +196,7 @@ if (isset($_POST['qid'])) {
         <td height="*" style="padding:20px;">
           <p align=left>
             <?php echo $MSG_QUIZ . "-" . $MSG_GROUP ?>
-            <br />
+            <br>
             <select name="gid[]" class="selectpicker show-menu-arrow form-control" size='8' multiple>
               <?php
               require_once("../include/my_func.inc.php");

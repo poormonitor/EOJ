@@ -50,14 +50,14 @@ require_once("../include/set_get_key.php");
       <button type="submit" class="form-control"><?php echo $MSG_SEARCH ?></button>
     </form>
   </center>
-  <br />
+  <br>
   <center>
     <form action=quiz_add.php method='GET' class="form-search form-inline">
       <input type="text" name='num' class="form-control search-query" required placeholder="<?php echo $MSG_INQUERY_NUMBER ?>">
       <button type="submit" class="form-control"><?php echo $MSG_ADD ?></button>
     </form>
   </center>
-  <br />
+  <br>
   <div class='table-responsive'>
     <table width=100% class='center table table-condensed'>
       <thead>
@@ -121,7 +121,7 @@ require_once("../include/set_get_key.php");
   ?>
 
 </div>
-<br />
+<br>
 <?php if (isset($_GET['judge_over'])) { ?>
   <script src="<?php echo $OJ_CDN_URL . "include/" ?>sweetalert.min.js"></script>
   <script>

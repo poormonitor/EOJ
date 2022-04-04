@@ -50,7 +50,7 @@ if (isset($_GET['do'])) {
       <button name="do" value="do" type="submit" class="form-control"><?php echo $MSG_ADD ?></button>
     </form>
   </center>
-  <br />
+  <br>
   <div class='table-responsive'>
     <table width=100% class='center table table-condensed'>
       <thead>
@@ -80,7 +80,7 @@ if (isset($_GET['do'])) {
     </table>
   </div>
 </div>
-<br /><br />
+<br><br>
 <?php
 require_once("admin-footer.php");
 ?>

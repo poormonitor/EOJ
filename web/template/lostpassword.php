@@ -23,7 +23,7 @@
     <!-- Main component for a primary marketing message or call to action -->
     <div class="jumbotron">
       <center>
-        <h3>密码重置</h3><br />
+        <h3>密码重置</h3><br>
         <form action=lostpassword.php method=post class='form-horizontal'>
           <div class="form-group">
             <label class="col-sm-4 control-label"><?php echo $MSG_USER_ID ?></label>
@@ -51,7 +51,7 @@
           </div>
         </form>
         <center>
-          <br />
+          <br>
     </div>
 
   </div>

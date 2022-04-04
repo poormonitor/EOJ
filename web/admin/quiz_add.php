@@ -46,7 +46,7 @@ if (isset($_POST['startdate'])) {
           VALUES(?,?,?,?,?,?,?,?,?,?)";
 
   $description = str_replace("<p>", "", $description);
-  $description = str_replace("</p>", "<br />", $description);
+  $description = str_replace("</p>", "<br>", $description);
   $description = str_replace(",", "&#44; ", $description);
   $user_id = $_SESSION[$OJ_NAME . '_' . 'user_id'];
   $qid = pdo_query($sql, $title, $starttime, $endtime, $private, $description, $user_id, $question, $type, $score, $correct_answer);
@@ -137,7 +137,7 @@ if (isset($_POST['startdate'])) {
     <form method=POST>
       <div style="margin-bottom: 10px;" class='form-inline'>
         <?php echo "<h3>" . $MSG_QUIZ . "-" . $MSG_TITLE . "</h3>" ?>
-        <input class="input form-control" style="width:100%;" type=text name=title value="<?php echo isset($title) ? $title : "" ?>"><br /><br />
+        <input class="input form-control" style="width:100%;" type=text name=title value="<?php echo isset($title) ? $title : "" ?>"><br><br>
       </div>
       <div style="margin-bottom: 10px;" class='form-inline'>
         <?php echo $MSG_QUIZ . $MSG_Start ?>:
@@ -151,12 +151,12 @@ if (isset($_POST['startdate'])) {
         Hour: <input class='form-control' type=text name=ehour size=2 value=<?php echo (date('H') + 4) % 24 ?>>&nbsp;
         Minute: <input class='form-control' type=text name=eminute value=00 size=2>
       </div>
-      <br />
+      <br>
       <p align=left>
         <?php echo "<h4>" . $MSG_QUIZ . "-" . $MSG_Description . "</h4>" ?>
         <textarea id="tinymce0" rows=13 name=description cols=80><?php echo isset($description) ? $description : "" ?></textarea>
       </p>
-      <br />
+      <br>
       <p>
         <?php
         for ($i = 0; $i < $num; $i++) {
@@ -167,7 +167,7 @@ if (isset($_POST['startdate'])) {
             if (isset($question)) {
               echo $question[$i];
             }
-            echo "</textarea><br />";
+            echo "</textarea><br>";
           } else {
             echo "<textarea style='display:none;' name='qc$pid'></textarea>";
           }
@@ -180,7 +180,7 @@ if (isset($_POST['startdate'])) {
             }
             echo "<input type=radio class='form-control' name='qt$i' value='$t' $checked>&nbsp;&nbsp;<label> " . $MSG_QUIZ_TYPE[$t] . "</label>&nbsp;&nbsp;";
           }
-          echo "<br /><br />";
+          echo "<br><br>";
           $c_score = isset($score) ? $score[$i] : 2;
           $qa = isset($answer) ? $answer[$i] : "";
           echo "<label>" . $MSG_SCORE . "</label>&nbsp;&nbsp;";
@@ -188,11 +188,11 @@ if (isset($_POST['startdate'])) {
           echo "&nbsp;&nbsp;&nbsp;&nbsp;<label>" . $MSG_CORRECT_ANSWER . "</label>&nbsp;&nbsp;";
           echo "<input type=text name='qca$i' class='form-control' value='" . $qa . "'>";
           echo "</div>";
-          echo "<br />";
+          echo "<br>";
         }
         ?>
       </p>
-      <br />
+      <br>
       <table width="100%">
         <tr>
           <td height="10px" style="padding:10px;">
@@ -209,7 +209,7 @@ if (isset($_POST['startdate'])) {
           <td height="*" style="padding:20px;">
             <p align=left>
               <?php echo $MSG_QUIZ . "-" . $MSG_GROUP ?>
-              <br />
+              <br>
               <select name="gid[]" class="selectpicker show-menu-arrow form-control" size='8' multiple>
                 <?php
                 require_once("../include/my_func.inc.php");

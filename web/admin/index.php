@@ -1,5 +1,5 @@
 <?php require_once("admin-header.php"); ?>
-<br />
+<br>
 <table class="table" style='width:95%;margin:0 auto;'>
     <tbody>
         <tr>
@@ -276,7 +276,7 @@
         <?php } ?>
     </tbody>
 </table>
-<br />
+<br>
 <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) { ?>
     <a href="problem_changeid.php" title="Danger,Use it on your own risk">
         <font color="eeeeee">ReOrderProblem</font>

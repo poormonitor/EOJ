@@ -110,7 +110,7 @@
                 </div>
             </div>
             <center>
-                <br />
+                <br>
                 <?php
                 if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
                 ?>

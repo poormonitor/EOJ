@@ -52,7 +52,7 @@ require_once("../include/set_get_key.php");
       <button type="submit" class="form-control"><?php echo $MSG_SEARCH ?></button>
     </form>
   </center>
-  <br />
+  <br>
   <div class='table-responsive'>
     <table width=100% class='center table table-condensed'>
       <thead>
