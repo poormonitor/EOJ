@@ -111,11 +111,23 @@
                 </table>
               </div>
               <div class='table-responsive'>
+                <?php
+                $type = explode("/", $quiz['type']);
+                $my_score = explode("/", $answer['score']);
+                $score = explode("/", $quiz['score']);
+                $my_answer = explode("/", $answer['answer']);
+                $correct = explode("/", $quiz['correct_answer']);
+                $view_description = explode("<sep />", $quiz['question']);
+                $sum = array_sum(array_map('intval', $score));
+                $blank = isAllEmpty($view_description);
+                ?>
                 <table class="table">
                   <thead>
                     <tr>
                       <th><?php echo $MSG_QUIZ_PROBLEM; ?></th>
-                      <th><?php echo $MSG_Description; ?></th>
+                      <?php if (!$blank) { ?>
+                        <th><?php echo $MSG_Description; ?></th>
+                      <?php } ?>
                       <th><?php echo $MSG_TYPE; ?></th>
                       <th><?php echo $MSG_YOUR_ANSWER; ?></th>
                       <th><?php echo $MSG_CORRECT_ANSWER; ?></th>
@@ -125,17 +137,11 @@
                   </thead>
                   <tbody>
                     <?php
-                    $type = explode("/", $quiz['type']);
-                    $my_score = explode("/", $answer['score']);
-                    $score = explode("/", $quiz['score']);
-                    $my_answer = explode("/", $answer['answer']);
-                    $correct = explode("/", $quiz['correct_answer']);
-                    $view_description = explode("<sep />", $quiz['question']);
-                    $sum = array_sum(array_map('intval', $score));
                     for ($i = 0; $i < count($type); $i++) {
                       echo "<tr>";
                       echo "<td>" . ($i + 1) . "</td>";
-                      echo "<td style='width:36%'>" . $view_description[$i] . "</td>";
+                      if (!$blank)
+                        echo "<td style='width:36%'>" . $view_description[$i] . "</td>";
                       echo "<td>" . $MSG_QUIZ_TYPE[intval($type[$i])] . "</td>";
                       echo "<td>" . $my_answer[$i] . "</td>";
                       echo "<td>" . $correct[$i] . "</td>";
@@ -150,7 +156,9 @@
                     ?>
                     <tr>
                       <th><?php echo $MSG_SCORE_SUM ?></th>
-                      <td></td>
+                      <?php if (!$blank) { ?>
+                        <td></td>
+                      <?php } ?>
                       <td></td>
                       <td></td>
                       <td></td>

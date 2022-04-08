@@ -2,7 +2,6 @@
 require_once("../include/db_info.inc.php");
 require_once("../lang/$OJ_LANG.php");
 require_once("../include/const.inc.php");
-require_once("admin-header.php");
 $description = "";
 if (isset($_POST['qid'])) {
   require_once("../include/check_post_key.php");
@@ -110,7 +109,7 @@ if (isset($_POST['qid'])) {
   header("Location: quiz_list.php");
   exit(0);
 }
-
+require_once("admin-header.php");
 ?>
 
 <?php echo "<center><h3>" . $MSG_QUIZ . "-" . $MSG_EDIT . "</h3></center>"; ?>

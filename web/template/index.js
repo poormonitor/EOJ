@@ -257,7 +257,7 @@ function getTotal(rows) {
             total = parseInt(rows[rows.length - i].cells[0].innerHTML);
             if (isNaN(total))
                 total = 0;
-        } catch (e) { }
+        } catch (e) {}
     }
     return total;
 }
@@ -725,7 +725,7 @@ function fresh_result(solution_id) {
                         row.cells[3].innerHTML = "<a href=ceinfo.php?sid=" + solution_id + " class='" + judge_color[ra[0]] + "'>" + judge_result[ra[0]] + "</a>";
                         break;
                     default:
-                    //						row.cells[3].innerHTML = "<span class='"+judge_color[ra[0]]+"'>"+judge_result[ra[0]]+" AC:"+ra[4].trim()+"%</span>";
+                        //						row.cells[3].innerHTML = "<span class='"+judge_color[ra[0]]+"'>"+judge_result[ra[0]]+" AC:"+ra[4].trim()+"%</span>";
                 }
 
                 auto_refresh();
@@ -744,4 +744,90 @@ function http_judge(btn) {
         };
     })
     return false;
+}
+
+function changePos() {
+    var img = document.getElementById("float"); //获得图片所在层的ID
+    var height = document.documentElement.clientHeight; //浏览器的高度
+    var width = document.documentElement.clientWidth; //浏览器的宽度
+    var imgHeight = document.getElementById("floatImg").height; //飘浮图片的高度
+    var imgWidth = document.getElementById("floatImg").width; //瓢浮图片的宽度
+    //设置飘浮图片距离浏览器左侧位置			
+    img.style.left = parseInt(moveX + document.documentElement.scrollLeft) + "px";
+    //设置飘浮图片距离浏览器右侧位置			
+    img.style.top = parseInt(moveY + document.documentElement.scrollTop) + "px";
+    //设置图片在Y轴上的移动规律			
+    if (directionY == 0) {
+        moveY += stepY; //飘浮图片在Y轴方向上向下移动
+    } else {
+        moveY -= stepY; //飘浮图片在Y轴方向上向上移动
+    }
+    if (moveY < 0) { //如果飘浮图片飘浮到顶端的时候，设置图片在Y轴方向上向下移动		
+        directionY = 0;
+        moveY = 0;
+    }
+    if (moveY > (height - imgHeight)) { //如果飘浮图片飘浮到浏览器底端的时候，设置图片在Y轴方向上向上移动
+        directionY = 1;
+        moveY = (height - imgHeight);
+    }
+    //设置图片在X轴上的移动规律
+    if (directionX == 0) {
+        moveX += stepX;
+    } else {
+        moveX -= stepX;
+    }
+    if (moveX < 0) { //如果飘浮图片飘浮到浏览器左侧的时候，设置图片在X轴方向上向右移动
+        directionX = 0;
+        moveX = 0;
+    }
+    if (moveX > (width - imgWidth)) { //如果飘浮图片飘浮到浏览器右侧的时候，设置图片在X轴方向上向左移
+        directionX = 1;
+        moveX = (width - imgWidth);
+    }
+}
+
+function staticPos() {
+    var img = document.getElementById("float"); //获得图片所在层的ID
+    var height = document.documentElement.clientHeight; //浏览器的高度
+    var width = document.documentElement.clientWidth; //浏览器的宽度
+    var imgHeight = document.getElementById("floatImg").height; //飘浮图片的高度
+    var imgWidth = document.getElementById("floatImg").width; //瓢浮图片的宽度
+    //设置飘浮图片距离浏览器左侧位置
+    img.style.right = moveX + "px";
+    //设置飘浮图片距离浏览器右侧位置
+    img.style.top = parseInt(document.documentElement.scrollTop + height - imgHeight - moveY) + "px";
+    //设置图片在Y轴上的移动规律
+}
+
+var moveX = 0; //X轴方向上移动的距离
+var moveY = 0; //Y轴方向上移动的距离
+var stepX = 1; //图片X轴移动的速度
+var stepY = 1; //图片Y轴移动的速度
+var directionX = 0; //设置图片在X轴方向上的移动方向   0:向右  1:向
+var directionY = 0; //设置图片在Y轴方向上的移动方向   0:向下  1:向上
+
+function setAD(url, href, ft) {
+    var img = $(document.createElement('img'))
+    var ahref = $(document.createElement('a'))
+    var float = $(document.createElement('div'))
+    img.appendTo(ahref)
+    ahref.appendTo(float)
+    ahref.attr("href", href)
+    ahref.attr("target", "_blank")
+    img.attr("id", "floatImg")
+    img.attr("src", url)
+    img.css("width", "100px")
+    float.attr("id", "float")
+    float.css("position", "absolute")
+    float.css("z-index", "1")
+    float.appendTo("body")
+    if (ft) {
+        moveX = Math.round(Math.random() * document.documentElement.clientWidth)
+        moveY = Math.round(Math.random() * document.documentElement.clientHeight)
+        setInterval(changePos, 20);
+    } else {
+        moveX = 50
+        moveY = 50
+        setInterval(staticPos, 20);
+    }
 }

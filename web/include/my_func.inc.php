@@ -291,6 +291,7 @@ class Analysis
     $this->num = count($type);
     $this->type = $type;
     $this->score = $score;
+    $this->sum_score = array();
     for ($i = 0; $i < $this->num; $i++) {
       $this->f_score[$i] = array();
       $this->choices[$i] = array();
@@ -365,4 +366,13 @@ class Analysis
     $low_average = $low / $low_num;
     return ($high_average - $low_average) / array_sum($this->score);
   }
+}
+
+function isAllEmpty(array $haystack): bool
+{
+  foreach ($haystack as $i) {
+    if (!empty($i))
+      return false;
+  }
+  return true;
 }
