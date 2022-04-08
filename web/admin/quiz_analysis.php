@@ -5,6 +5,7 @@ if (isset($_GET['qid'])) {
     $qid = intval($_GET['qid']);
     $sql = "SELECT * FROM quiz WHERE `quiz_id`=? LIMIT 1";
     $result = pdo_query($sql, $qid);
+
     $row = $result[0];
 
     $title = $row['title'];
@@ -23,6 +24,11 @@ if (isset($_GET['qid'])) {
             ON `answer`.`user_id` = `users`.`user_id` 
             WHERE `answer`.quiz_id = ?";
     $result = pdo_query($sql, $qid);
+
+    if (!count($result)){
+        header("Location: quiz_list.php");
+        exit(0);
+    }
 
     $all_answers = array();
     foreach ($result as $row) {

@@ -2,7 +2,6 @@
 require_once("../include/db_info.inc.php");
 require_once("../lang/$OJ_LANG.php");
 require_once("../include/const.inc.php");
-require_once("admin-header.php");
 $description = "";
 if (isset($_POST['startdate'])) {
   require_once("../include/check_post_key.php");
@@ -42,15 +41,14 @@ if (isset($_POST['startdate'])) {
   $private = stripslashes($private);
   $description = stripslashes($description);
 
-  $sql = "INSERT INTO `quiz`(`title`,`start_time`,`end_time`,`private`,`description`,`user_id`,`question`,`type`,`score`,`correct_answer`)
-          VALUES(?,?,?,?,?,?,?,?,?,?)";
+  $sql = "INSERT INTO `quiz`(`title`,`start_time`,`end_time`,`private`,`description`,`user_id`,`question`,`type`,`score`,`correct_answer`,`defunct`)
+          VALUES(?,?,?,?,?,?,?,?,?,?,'N')";
 
   $description = str_replace("<p>", "", $description);
   $description = str_replace("</p>", "<br>", $description);
   $description = str_replace(",", "&#44; ", $description);
   $user_id = $_SESSION[$OJ_NAME . '_' . 'user_id'];
   $qid = pdo_query($sql, $title, $starttime, $endtime, $private, $description, $user_id, $question, $type, $score, $correct_answer);
-  echo "Add Quiz " . $qid;
 
   $sql = "DELETE FROM `privilege` WHERE `rightstr`=?";
   pdo_query($sql, "q$qid");
@@ -80,166 +78,186 @@ if (isset($_POST['startdate'])) {
   }
   header("Location: quiz_list.php");
   exit(0);
-} else {
-  if (isset($_GET['qid'])) {
-    $qid = intval($_GET['qid']);
-    $sql = "SELECT * FROM quiz WHERE `quiz_id`=?";
-    $result = pdo_query($sql, $qid);
-    $row = $result[0];
-    $title = $row['title'] . "-Copy";
+}
+if (isset($_GET['qid'])) {
+  $qid = intval($_GET['qid']);
+  $sql = "SELECT * FROM quiz WHERE `quiz_id`=?";
+  $result = pdo_query($sql, $qid);
+  $row = $result[0];
+  $title = $row['title'] . "-Copy";
 
-    $private = $row['private'];
-    $description = $row['description'];
-    $type = explode("/", $row['type']);
-    $question = explode("<sep />", $row['question']);
-    $answer = explode("/", $row['correct_answer']);
-    $score = explode("/", $row['score']);
-    $num = count($type);
+  $private = $row['private'];
+  $description = $row['description'];
+  $type = explode("/", $row['type']);
+  $question = explode("<sep />", $row['question']);
+  $answer = explode("/", $row['correct_answer']);
+  $score = explode("/", $row['score']);
+  $num = count($type);
 
-    $ulist = "";
-    $sql = "SELECT `users`.`gid` FROM `privilege` JOIN `users` ON `privilege`.user_id = `users`.user_id 
+  $ulist = "";
+  $sql = "SELECT `users`.`gid` FROM `privilege` JOIN `users` ON `privilege`.user_id = `users`.user_id 
               WHERE `privilege`.`rightstr`=? group BY `users`.`gid` order BY `users`.`gid`";
-    $result = pdo_query($sql, "q$qid");
-    $glist = array();
-    foreach ($result as $row) {
-      array_push($glist, $row['gid']);
-    }
+  $result = pdo_query($sql, "q$qid");
+  $glist = array();
+  foreach ($result as $row) {
+    array_push($glist, $row['gid']);
   }
-  if (isset($_GET['num'])) {
-    $num = intval($_GET['num']);
-  }
-  if (!isset($num)) {
-    $unknown = true;
-    $num = 0;
-  }
-  $blank = isset($_GET['blank']) && $_GET['blank'] == 'true';
+}
+if (isset($_GET['num'])) {
+  $num = intval($_GET['num']);
+}
+if (!isset($num)) {
+  $unknown = true;
+  $num = 0;
+}
+$blank = isset($_GET['blank']) && $_GET['blank'] == 'true';
+
+require_once("admin-header.php");
 ?>
-
-  <?php echo "<center><h3>" . $MSG_QUIZ . "-" . $MSG_ADD . "</h3></center>"; ?>
-  <style>
-    input[type=date],
-    input[type=time],
-    input[type=datetime-local],
-    input[type=month] {
-      line-height: normal;
-    }
-  </style>
-  <div class="container">
-    <?php if (!$blank) { ?>
-      <a class='btn btn-primary btn-sm' href='quiz_add.php?num=<?php echo $num ?>&blank=true'>
-        <?php echo $MSG_NO_NEED_DESCRIPTION ?>
-      </a>
-    <?php } else { ?>
-      <a class='btn btn-primary btn-sm' href='quiz_add.php?num=<?php echo $num ?>&blank=false'>
-        <?php echo $MSG_NEED_DESCRIPTION ?>
-      </a>
-    <?php } ?>
-    <form method=POST>
-      <div style="margin-bottom: 10px;" class='form-inline'>
-        <?php echo "<h3>" . $MSG_QUIZ . "-" . $MSG_TITLE . "</h3>" ?>
-        <input class="input form-control" style="width:100%;" type=text name=title value="<?php echo isset($title) ? $title : "" ?>"><br><br>
-      </div>
-      <div style="margin-bottom: 10px;" class='form-inline'>
-        <?php echo $MSG_QUIZ . $MSG_Start ?>:
-        <input class='form-control' type=date name='startdate' value='<?php echo date('Y') . '-' . date('m') . '-' . date('d') ?>'>
-        Hour: <input class='form-control' type=text name=shour size=2 value=<?php echo date('H') ?>>&nbsp;
-        Minute: <input class='form-control' type=text name=sminute value=00 size=2>
-      </div>
-      <div style="margin-bottom: 10px;" class='form-inline'>
-        <?php echo $MSG_QUIZ . $MSG_End ?>:
-        <input class='form-control' type=date name='enddate' value='<?php echo date('Y') . '-' . date('m') . '-' . date('d') ?>'>
-        Hour: <input class='form-control' type=text name=ehour size=2 value=<?php echo (date('H') + 4) % 24 ?>>&nbsp;
-        Minute: <input class='form-control' type=text name=eminute value=00 size=2>
-      </div>
-      <br>
-      <p align=left>
-        <?php echo "<h4>" . $MSG_QUIZ . "-" . $MSG_Description . "</h4>" ?>
-        <textarea id="tinymce0" rows=13 name=description cols=80><?php echo isset($description) ? $description : "" ?></textarea>
-      </p>
-      <br>
-      <p>
-        <?php
-        for ($i = 0; $i < $num; $i++) {
-          $pid = $i + 1;
-          echo "<h4>" . $MSG_QUIZ . "-" . $MSG_QUIZ_PROBLEM . " " . $pid . "</h4>";
-          if (!$blank) {
-            echo "<textarea id='tinymce$pid' rows=13 name='qc$pid' cols=80>";
-            if (isset($question)) {
-              echo $question[$i];
-            }
-            echo "</textarea><br>";
-          } else {
-            echo "<textarea style='display:none;' name='qc$pid'></textarea>";
+<?php echo "<center><h3>" . $MSG_QUIZ . "-" . $MSG_ADD . "</h3></center>"; ?>
+<style>
+  input[type=date],
+  input[type=time],
+  input[type=datetime-local],
+  input[type=month] {
+    line-height: normal;
+  }
+</style>
+<div class="container">
+  <?php if (!$blank) { ?>
+    <a class='btn btn-primary btn-sm' href='quiz_add.php?num=<?php echo $num ?>&blank=true'>
+      <?php echo $MSG_NO_NEED_DESCRIPTION ?>
+    </a>
+  <?php } else { ?>
+    <a class='btn btn-primary btn-sm' href='quiz_add.php?num=<?php echo $num ?>&blank=false'>
+      <?php echo $MSG_NEED_DESCRIPTION ?>
+    </a>
+  <?php } ?>
+  <a class='btn btn-primary btn-sm' href='javascript:getAns()'>
+      <?php echo $MSG_CORRECT_ANSWER ?>
+    </a>
+  <form method=POST>
+    <div style="margin-bottom: 10px;" class='form-inline'>
+      <?php echo "<h3>" . $MSG_QUIZ . "-" . $MSG_TITLE . "</h3>" ?>
+      <input class="input form-control" style="width:100%;" type=text name=title value="<?php echo isset($title) ? $title : "" ?>"><br><br>
+    </div>
+    <div style="margin-bottom: 10px;" class='form-inline'>
+      <?php echo $MSG_QUIZ . $MSG_Start ?>:
+      <input class='form-control' type=date name='startdate' value='<?php echo date('Y') . '-' . date('m') . '-' . date('d') ?>'>
+      Hour: <input class='form-control' type=text name=shour size=2 value=<?php echo date('H') ?>>&nbsp;
+      Minute: <input class='form-control' type=text name=sminute value=00 size=2>
+    </div>
+    <div style="margin-bottom: 10px;" class='form-inline'>
+      <?php echo $MSG_QUIZ . $MSG_End ?>:
+      <input class='form-control' type=date name='enddate' value='<?php echo date('Y') . '-' . date('m') . '-' . date('d') ?>'>
+      Hour: <input class='form-control' type=text name=ehour size=2 value=<?php echo (date('H') + 4) % 24 ?>>&nbsp;
+      Minute: <input class='form-control' type=text name=eminute value=00 size=2>
+    </div>
+    <br>
+    <p align=left>
+      <?php echo "<h4>" . $MSG_QUIZ . "-" . $MSG_Description . "</h4>" ?>
+      <textarea id="tinymce0" rows=13 name=description cols=80><?php echo isset($description) ? $description : "" ?></textarea>
+    </p>
+    <br>
+    <p>
+      <?php
+      for ($i = 0; $i < $num; $i++) {
+        $pid = $i + 1;
+        echo "<h4>" . $MSG_QUIZ . "-" . $MSG_QUIZ_PROBLEM . " " . $pid . "</h4>";
+        if (!$blank) {
+          echo "<textarea id='tinymce$pid' rows=13 name='qc$pid' cols=80>";
+          if (isset($question)) {
+            echo $question[$i];
           }
-          echo "<div class='form-inline'>";
-          for ($t = 0; $t <= 3; $t++) {
-            if (isset($type) && $type[$i] == $t || !isset($type) && $t == 0) {
-              $checked = "checked";
-            } else {
-              $checked = "";
-            }
-            echo "<input type=radio class='form-control' name='qt$i' value='$t' $checked>&nbsp;&nbsp;<label> " . $MSG_QUIZ_TYPE[$t] . "</label>&nbsp;&nbsp;";
-          }
-          echo "<br><br>";
-          $c_score = isset($score) ? $score[$i] : 2;
-          $qa = isset($answer) ? $answer[$i] : "";
-          echo "<label>" . $MSG_SCORE . "</label>&nbsp;&nbsp;";
-          echo "<input type=text name='qs$i' class='form-control' value='" . $c_score . "'>";
-          echo "&nbsp;&nbsp;&nbsp;&nbsp;<label>" . $MSG_CORRECT_ANSWER . "</label>&nbsp;&nbsp;";
-          echo "<input type=text name='qca$i' class='form-control' value='" . $qa . "'>";
-          echo "</div>";
-          echo "<br>";
+          echo "</textarea><br>";
+        } else {
+          echo "<textarea style='display:none;' name='qc$pid'></textarea>";
         }
-        ?>
-      </p>
-      <br>
-      <table width="100%">
-        <tr>
-          <td height="10px" style="padding:10px;">
-            <div style="margin-bottom: 10px;" class='form-inline'>
-              <?php echo $MSG_QUIZ . "-" . $MSG_Public ?>:
-              <select class='form-control' name=private style="width:150px;">
-                <option value=0 <?php echo isset($private) && $private == '0' ? 'selected=selected' : '' ?>><?php echo $MSG_Public ?></option>
-                <option value=1 <?php echo isset($private) && $private == '1' ? 'selected=selected' : '' ?>><?php echo $MSG_Private ?></option>
-              </select>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td height="*" style="padding:20px;">
-            <p align=left>
-              <?php echo $MSG_QUIZ . "-" . $MSG_GROUP ?>
-              <br>
-              <select name="gid[]" class="selectpicker show-menu-arrow form-control" size='8' multiple>
-                <?php
-                require_once("../include/my_func.inc.php");
-                $sql_all = "SELECT * FROM `group`;";
-                $result = pdo_query($sql_all);
-                $all_group = $result;
-                foreach ($all_group as $i) {
-                  $show_id = $i["gid"];
-                  $show_name = $i["name"];
-                  if (isset($glist) && in_array($show_id, $glist)) {
-                    echo "<option value='$show_id' selected>$show_name</option>";
-                  } else {
-                    echo "<option value='$show_id'>$show_name</option>";
-                  }
+        echo "<div class='form-inline'>";
+        for ($t = 0; $t <= 3; $t++) {
+          if (isset($type) && $type[$i] == $t || !isset($type) && $t == 0) {
+            $checked = "checked";
+          } else {
+            $checked = "";
+          }
+          echo "<input type=radio class='form-control' name='qt$i' value='$t' $checked>&nbsp;&nbsp;<label> " . $MSG_QUIZ_TYPE[$t] . "</label>&nbsp;&nbsp;";
+        }
+        echo "<br><br>";
+        $c_score = isset($score) ? $score[$i] : 2;
+        $qa = isset($answer) ? $answer[$i] : "";
+        echo "<label>" . $MSG_SCORE . "</label>&nbsp;&nbsp;";
+        echo "<input type=text name='qs$i' class='form-control' value='" . $c_score . "'>";
+        echo "&nbsp;&nbsp;&nbsp;&nbsp;<label>" . $MSG_CORRECT_ANSWER . "</label>&nbsp;&nbsp;";
+        echo "<input type=text name='qca$i' class='form-control' value='" . $qa . "'>";
+        echo "</div>";
+        echo "<br>";
+      }
+      ?>
+    </p>
+    <br>
+    <table width="100%">
+      <tr>
+        <td height="10px" style="padding:10px;">
+          <div style="margin-bottom: 10px;" class='form-inline'>
+            <?php echo $MSG_QUIZ . "-" . $MSG_Public ?>:
+            <select class='form-control' name=private style="width:150px;">
+              <option value=0 <?php echo isset($private) && $private == '0' ? 'selected=selected' : '' ?>><?php echo $MSG_Public ?></option>
+              <option value=1 <?php echo isset($private) && $private == '1' ? 'selected=selected' : '' ?>><?php echo $MSG_Private ?></option>
+            </select>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td height="*" style="padding:20px;">
+          <p align=left>
+            <?php echo $MSG_QUIZ . "-" . $MSG_GROUP ?>
+            <br>
+            <select name="gid[]" class="selectpicker show-menu-arrow form-control" size='8' multiple>
+              <?php
+              require_once("../include/my_func.inc.php");
+              $sql_all = "SELECT * FROM `group`;";
+              $result = pdo_query($sql_all);
+              $all_group = $result;
+              foreach ($all_group as $i) {
+                $show_id = $i["gid"];
+                $show_name = $i["name"];
+                if (isset($glist) && in_array($show_id, $glist)) {
+                  echo "<option value='$show_id' selected>$show_name</option>";
+                } else {
+                  echo "<option value='$show_id'>$show_name</option>";
                 }
-                ?>
-              </select>&nbsp;&nbsp;
-            </p>
-          </td>
-        </tr>
-      </table>
+              }
+              ?>
+            </select>&nbsp;&nbsp;
+          </p>
+        </td>
+      </tr>
+    </table>
 
-      <div align=center>
-        <?php require_once("../include/set_post_key.php"); ?>
-        <input class='btn btn-default' type=submit value='<?php echo $MSG_SAVE ?>' name=submit>
-      </div>
-    </form>
-  </div>
+    <div align=center>
+      <?php require_once("../include/set_post_key.php"); ?>
+      <input class='btn btn-default' type=submit value='<?php echo $MSG_SAVE ?>' name=submit>
+    </div>
+  </form>
+</div>
 
-<?php }
+<script>
+  function getAns() {
+    swal({
+      title: "请输入答案",
+      text: "逗号分割",
+      content: "input",
+    }).then(function(content) {
+      sp = content.split(",")
+      for (i = 0; i < sp.length; i++) {
+        ans = sp[i]
+        $("input[name=qca" + i + "]").val(ans)
+      }
+    })
+  }
+</script>
+
+<?php
 if (isset($unknown)) { ?>
   <script src="<?php echo $OJ_CDN_URL .  "include/" ?>sweetalert.min.js"></script>
   <script>
