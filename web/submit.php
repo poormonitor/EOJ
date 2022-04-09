@@ -214,7 +214,7 @@ if (count($code) && $code[0][0]) {
       $err_str = $err_str . "您的代码不符合填空格式！";
       $err_cnt++;
       $view_error_title = $err_str;
-      $view_errors_js .= "swal('$err_str').then((onConfirm)=>{history.go(-1);});";
+      $view_swal = $err_str;
       if (isset($_GET['ajax'])) {
         echo "-2";
       } else {

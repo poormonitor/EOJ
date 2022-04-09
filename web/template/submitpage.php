@@ -41,7 +41,7 @@
           ?>
             <br>
             <?php echo $MSG_PROBLEM_ID . " : " ?> <span class=blue><?php echo chr($pid + ord('A')) ?></span>
-            <br>比赛编号 : <span class=blue> <?php echo $cid ?> </span>
+            <br>作业编号 : <span class=blue> <?php echo $cid ?> </span>
             <br>
             <input id="cid" type='hidden' value='<?php echo $cid ?>' name="cid">
             <input id="pid" type='hidden' value='<?php echo $pid ?>' name="pid">

@@ -34,6 +34,7 @@
           <br>
           <div id="answer">
             <?php
+            $tinymce = 0;
             for ($i = 1; $i <= count($question); $i++) {
               $detail = $question[$i - 1];
               $t = $type[$i - 1];
@@ -45,38 +46,41 @@
               echo "<br>";
               switch (intval($t)) {
                 case 0:
-                  echo "<div id='0'>";
+                  echo "<div id='t0'>";
                   foreach (str_split("ABCD") as $op) {
                     echo "<div class='col-sm-3'>";
                     echo "<div class='form-group'>";
-                    echo "<br>";
-                    echo "<label class='form-control' for='q$op$i'><input type='radio' name='q$i' id='q$op$i' value='$op'>&nbsp;&nbsp;$op</label>";
+                    if (!empty($detail))
+                      echo "<br>";
+                    echo "<label class='form-control' for='q$op$i'><input class='option$i' type='radio' name='q$i' id='q$op$i' value='$op'>&nbsp;&nbsp;$op</label>";
                     echo "</div>";
                     echo "</div>";
                   }
                   echo "</div>";
                   break;
                 case 1:
-                  echo "<div id='1'>";
+                  echo "<div id='t1'>";
                   foreach (str_split("ABCD") as $op) {
                     echo "<div class='col-sm-3'>";
                     echo "<div class='form-group'>";
-                    echo "<br>";
-                    echo "<label class='form-control' for='q$op$i'><input type='checkbox' name='q$i" . "[]" . "' id='q$op$i' value='$op'>&nbsp;&nbsp;$op</label>";
+                    if (!empty($detail))
+                      echo "<br>";
+                    echo "<label class='form-control' for='q$op$i'><input class='option$i' type='checkbox' name='q$i" . "[]" . "' id='q$op$i' value='$op'>&nbsp;&nbsp;$op</label>";
                     echo "</div>";
                     echo "</div>";
                   }
                   echo "</div>";
                   break;
                 case 2:
-                  echo "<div class='form-group' id='2'>";
+                  echo "<div class='form-group' id='t2'>";
                   echo "<input class='form-control' name='q$i' id='q$i'></input>";
                   echo "</div>";
                   break;
                 case 3:
-                  echo "<div class='form-group' id='3'>";
-                  echo "<textarea class='form-control' name='q$i' id='q$i' rows='5'></textarea>";
+                  echo "<div class='form-group' id='t3'>";
+                  echo "<textarea name='q$i' id='tinymce$tinymce'></textarea>";
                   echo "</div>";
+                  $tinymce++;
                   break;
               }
               echo "</div>";
@@ -94,36 +98,65 @@
       </center>
     </div>
   </div>
-  <?php include("template/js.php"); ?>
+  <?php
+  include("template/js.php");
+
+  $student_mode = true;
+  include("tinymce/tinymce.php");
+  ?>
 
   <script>
     function check_quiz() {
       var flag = true;
-      $("div#0").each(function(index, elem) {
+      var el = [];
+      $("div#t0").each(function(index, elem) {
         if ($(elem).find("input:checked").length == 0) {
           flag = false;
+          el.push(elem)
         }
       });
-      $("div#1").each(function(index, elem) {
+      $("div#t1").each(function(index, elem) {
         if ($(elem).find("input:checked").length == 0) {
           flag = false;
+          el.push(elem)
         }
       });
-      $("div#2").each(function(index, elem) {
+      $("div#t2").each(function(index, elem) {
         if ($(elem).find("textarea").val() == "") {
           flag = false;
+          el.push(elem)
         }
       });
       if (flag) {
-        return true;
+        swal({
+          title: "确认提交",
+          text: "确认提交?",
+          buttons: [true, true]
+        }).then(function(value) {
+          if (value) {
+            $("form#frmSolution").attr("onsubmit", "").submit()
+          }
+        })
       } else {
+        $('html,body').animate({
+          scrollTop: $(el[0]).offset().top
+        }, 500);
         swal({
           text: "<?php echo $MSG_PLEASE_ANSWER_ALL_QUESTIONS; ?>",
           timer: 1000
         });
-        return false;
       }
+      return false;
     }
+    $("input[class^=option]").change(function() {
+      $("input." + $(this).attr("class")).each(function(index, elem) {
+        if ($(elem).prop("checked")) {
+          $(elem).parent().css("background", "#BDFCC9")
+        } else {
+          $(elem).parent().css("background", "")
+        }
+      })
+    })
   </script>
   <?php if ($OJ_VCODE) { ?>
     <script>
