@@ -19,92 +19,146 @@ $("table.ud-margin").each(function (_, elem) {
     }
 })
 
-function create_mce() {
-    $("textarea[id^='tinymce']").each(function (index, _) {
-        tinymce.init({
-            selector: "#tinymce" + index,
-            language: 'zh_CN',
-            inline: false,
-            plugins: 'paste print preview searchreplace autolink directionality visualblocks visualchars fullscreen image link media \
-                    template codesample table charmap hr pagebreak nonbreaking anchor insertdatetime advlist lists wordcount \
-                    textpattern help emoticons autosave autoresize mathjax',
-            toolbar: 'code undo redo restoredraft | cut copy paste pastetext | forecolor backcolor bold italic underline strikethrough anchor | alignleft aligncenter alignright alignjustify outdent indent | \
-                     formatselect fontselect fontsizeselect | bullist numlist | blockquote subscript superscript removeformat | \
-                     table image media charmap emoticons hr pagebreak insertdatetime print preview | fullscreen | lineheight link mathjax',
-            font_formats: '思源黑体=SourceHanSansCN-Medium',
-            height: 650,
-            min_height: 400,
-            fontsize_formats: '14px 24px',
-            extended_valid_elements: [
-                'img[class=ud-margin|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name|style]',
-                'table[class=ud-margin|border|cellspacing|cellpadding|align|summary|bgcolor|width|height|style]'
-            ],
-            mathjax: {
-                lib: OJ_CDN + "tinymce/plugins/mathjax/tex-mml-chtml.js",
-                symbols: {
-                    start: '$',
-                    end: '$'
-                }
-            },
-            template_cdate_format: '[CDATE: %m/%d/%Y : %H:%M:%S]',
-            template_mdate_format: '[MDATE: %m/%d/%Y : %H:%M:%S]',
-            autosave_ask_before_unload: false,
-            toolbar_mode: 'wrap',
-            paste_remove_styles_if_webkit: true,
-            setup: function (editor) {
-                editor.on('init', function (e) {
-                    this.getBody().style.fontSize = '14px';
-                    this.getBody().style.fontFamily = 'SourceHanSansCN-Medium';
-                });
-            },
-            file_picker_callback: function (callback, _, meta) {
-                var filetype = '.*';
-                var upurl = '/tinymce/upfile.php';
-                switch (meta.filetype) {
-                    case 'image':
-                        filetype = '.jpg, .jpeg, .png, .gif, .bmp';
-                        upurl = '/tinymce/upimg.php';
-                        break;
-                    case 'media':
-                        filetype = '.mp3, .flac, .aac, .wav, .mp4, .mkv, .wmv, .avi, .flv';
-                        break;
-                    default:
-                        break;
-                }
-                var input = document.createElement('input');
-                input.setAttribute('type', 'file');
-                input.setAttribute('accept', filetype);
-                input.click();
-                input.onchange = function () {
-                    var file = this.files[0];
+function create_mce(students = false) {
+    if (students) {
+        $("textarea[id^='tinymce']").each(function (index, _) {
+            tinymce.init({
+                selector: "#tinymce" + index,
+                language: 'zh_CN',
+                inline: false,
+                plugins: 'image',
+                toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | image',
+                font_formats: '思源黑体=SourceHanSansCN-Medium',
+                height: 400,
+                fontsize_formats: '14px',
+                extended_valid_elements: [
+                    'img[class=ud-margin|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name|style]',
+                    'table[class=ud-margin|border|cellspacing|cellpadding|align|summary|bgcolor|width|height|style]'
+                ],
+                template_cdate_format: '[CDATE: %m/%d/%Y : %H:%M:%S]',
+                template_mdate_format: '[MDATE: %m/%d/%Y : %H:%M:%S]',
+                autosave_ask_before_unload: false,
+                toolbar_mode: 'wrap',
+                paste_remove_styles_if_webkit: true,
+                setup: function (editor) {
+                    editor.on('init', function (e) {
+                        this.getBody().style.fontSize = '14px';
+                        this.getBody().style.fontFamily = 'SourceHanSansCN-Medium';
+                    });
+                },
+                images_upload_handler: function (blobInfo, succFun, failFun) {
                     var xhr, formData;
-                    console.log(file.name);
+                    var file = blobInfo.blob(); //转化为易于理解的file对象
                     xhr = new XMLHttpRequest();
                     xhr.withCredentials = false;
-                    xhr.open('POST', upurl);
+                    xhr.open('POST', '/tinymce/upimgs.php');
                     xhr.onload = function () {
                         var json;
                         if (xhr.status != 200) {
-                            failure('HTTP Error: ' + xhr.status);
+                            failFun('HTTP Error: ' + xhr.status);
                             return;
                         }
                         json = JSON.parse(xhr.responseText);
                         if (!json || typeof json.location != 'string') {
-                            failure('Invalid JSON: ' + xhr.responseText);
+                            failFun('Invalid JSON: ' + xhr.responseText);
                             return;
                         }
-                        callback(json.location, {
-                            text: file.name
-                        });
+                        succFun(json.location);
                     };
                     formData = new FormData();
-                    formData.append('file', file, file.name);
                     formData.append('uploadkey', uploadkey)
+                    formData.append('file', file, file.name); //此处与源文档不一样
                     xhr.send(formData);
                 }
-            }
-        });
-    })
+            });
+        })
+    } else {
+        $("textarea[id^='tinymce']").each(function (index, _) {
+            tinymce.init({
+                selector: "#tinymce" + index,
+                language: 'zh_CN',
+                inline: false,
+                plugins: 'paste print preview searchreplace autolink directionality visualblocks visualchars fullscreen image link media \
+                        template codesample table charmap hr pagebreak nonbreaking anchor insertdatetime advlist lists wordcount \
+                        textpattern help emoticons autosave autoresize mathjax',
+                toolbar: 'code undo redo restoredraft | cut copy paste pastetext | forecolor backcolor bold italic underline strikethrough anchor | alignleft aligncenter alignright alignjustify outdent indent | \
+                         formatselect fontselect fontsizeselect | bullist numlist | blockquote subscript superscript removeformat | \
+                         table image media charmap emoticons hr pagebreak insertdatetime print preview | fullscreen | lineheight link mathjax',
+                font_formats: '思源黑体=SourceHanSansCN-Medium',
+                height: 650,
+                min_height: 400,
+                fontsize_formats: '14px 24px',
+                extended_valid_elements: [
+                    'img[class=ud-margin|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name|style]',
+                    'table[class=ud-margin|border|cellspacing|cellpadding|align|summary|bgcolor|width|height|style]'
+                ],
+                mathjax: {
+                    lib: OJ_CDN + "tinymce/plugins/mathjax/tex-mml-chtml.js",
+                    symbols: {
+                        start: '$',
+                        end: '$'
+                    }
+                },
+                template_cdate_format: '[CDATE: %m/%d/%Y : %H:%M:%S]',
+                template_mdate_format: '[MDATE: %m/%d/%Y : %H:%M:%S]',
+                autosave_ask_before_unload: false,
+                toolbar_mode: 'wrap',
+                paste_remove_styles_if_webkit: true,
+                setup: function (editor) {
+                    editor.on('init', function (e) {
+                        this.getBody().style.fontSize = '14px';
+                        this.getBody().style.fontFamily = 'SourceHanSansCN-Medium';
+                    });
+                },
+                file_picker_callback: function (callback, _, meta) {
+                    var filetype = '.*';
+                    var upurl = '/tinymce/upfile.php';
+                    switch (meta.filetype) {
+                        case 'image':
+                            filetype = '.jpg, .jpeg, .png, .gif, .bmp';
+                            upurl = '/tinymce/upimg.php';
+                            break;
+                        case 'media':
+                            filetype = '.mp3, .flac, .aac, .wav, .mp4, .mkv, .wmv, .avi, .flv';
+                            break;
+                        default:
+                            break;
+                    }
+                    var input = document.createElement('input');
+                    input.setAttribute('type', 'file');
+                    input.setAttribute('accept', filetype);
+                    input.click();
+                    input.onchange = function () {
+                        var file = this.files[0];
+                        var xhr, formData;
+                        console.log(file.name);
+                        xhr = new XMLHttpRequest();
+                        xhr.withCredentials = false;
+                        xhr.open('POST', upurl);
+                        xhr.onload = function () {
+                            var json;
+                            if (xhr.status != 200) {
+                                failure('HTTP Error: ' + xhr.status);
+                                return;
+                            }
+                            json = JSON.parse(xhr.responseText);
+                            if (!json || typeof json.location != 'string') {
+                                failure('Invalid JSON: ' + xhr.responseText);
+                                return;
+                            }
+                            callback(json.location, {
+                                text: file.name
+                            });
+                        };
+                        formData = new FormData();
+                        formData.append('file', file, file.name);
+                        formData.append('uploadkey', uploadkey)
+                        xhr.send(formData);
+                    }
+                }
+            });
+        })
+    }
 }
 
 function admin_mod() {
@@ -820,14 +874,18 @@ function setAD(url, href, ft) {
     float.attr("id", "float")
     float.css("position", "absolute")
     float.css("z-index", "1")
+    float.css("display", "none")
     float.appendTo("body")
     if (ft) {
         moveX = Math.round(Math.random() * document.documentElement.clientWidth)
         moveY = Math.round(Math.random() * document.documentElement.clientHeight)
+        changePos()
         setInterval(changePos, 20);
     } else {
         moveX = 50
         moveY = 50
+        staticPos()
         setInterval(staticPos, 20);
     }
+    float.css("display", "")
 }

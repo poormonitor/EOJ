@@ -107,10 +107,11 @@ $total = array_sum($auto);
 $result_score = join("/", $auto);
 
 $judged = in_array(3, $type) ? 0 : 1;
-if ($judged)
+if (!$judged) {
     $sql = "INSERT INTO `answer`(`quiz_id`, `user_id`, `answer`, `score`, `in_date`, `total`, `judged`) VALUES (?,?,?,?,now(),?,?)";
-else
+} else {
     $sql = "INSERT INTO `answer`(`quiz_id`, `user_id`, `answer`, `score`, `in_date`, `total`, `judged`, `judgetime`) VALUES (?,?,?,?,now(),?,?,now())";
+}
 $ans = pdo_query($sql, $id, $_SESSION[$OJ_NAME . '_' . 'user_id'], $answer, $result_score, $total, $judged);
 $statusURI = "quiz.php?qid=" . $id;
 header("Location: $statusURI");

@@ -2,5 +2,5 @@
 <script src="<?php echo $OJ_CDN_URL . "tinymce/" ?>tinymce.min.js"></script>
 <script>
     var uploadkey = '<?php echo $_SESSION[$OJ_NAME . '_' . 'uploadkey'] ?>';
-    create_mce();
+    create_mce(<?php echo isset($student_mode) ? "true" : "false" ?>);
 </script>

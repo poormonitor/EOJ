@@ -1,6 +1,5 @@
 <?php
 require_once("../include/db_info.inc.php");
-require_once("admin-header.php");
 require_once("../include/const.inc.php");
 
 if (isset($_POST['startdate'])) {
@@ -32,7 +31,10 @@ if (isset($_POST['startdate'])) {
 
   $cid = intval($_POST['cid']);
 
-  if (!(isset($_SESSION[$OJ_NAME . '_' . "m$cid"]) || isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator']))) exit();
+  if (!(isset($_SESSION[$OJ_NAME . '_' . "m$cid"]) || isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator']))) {
+    header("Location: contest_list.php");
+    exit(0);
+  };
 
   $description = str_replace("<p>", "", $description);
   $description = str_replace("</p>", "<br>", $description);
@@ -98,8 +100,8 @@ if (isset($_POST['startdate'])) {
       }
     }
   }
-  echo "<script>window.location.href=\"contest_list.php\";</script>";
-  exit();
+  header("Location: contest_list.php");
+  exit(0);
 } else {
   $cid = intval($_GET['cid']);
   $sql = "SELECT * FROM `contest` WHERE `contest_id`=?";
@@ -137,6 +139,7 @@ if (isset($_POST['startdate'])) {
     $ulist .= $row[0];
   }
 }
+require_once("admin-header.php");
 ?>
 <center>
   <h3><?php echo $MSG_CONTEST . "-" . $MSG_EDIT ?></h3>

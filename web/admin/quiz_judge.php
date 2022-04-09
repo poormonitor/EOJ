@@ -3,6 +3,10 @@ require_once("../include/db_info.inc.php");
 require_once("../lang/$OJ_LANG.php");
 require_once("../include/const.inc.php");
 $description = "";
+if (!(isset($_SESSION[$OJ_NAME . '_' . "mq$cid"]) || isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator']))) {
+    header("Location: quiz_list.php");
+    exit(0);
+};
 if (isset($_POST['qid'])) {
     require_once("../include/check_post_key.php");
     $qid = intval($_POST['qid']);
@@ -70,68 +74,68 @@ if (isset($_POST['qid'])) {
 require_once("admin-header.php");
 ?>
 <?php echo "<center><h3>" . $MSG_QUIZ . "-" . $MSG_QUIZ_JUDGE . "</h3></center>"; ?>
-    <style>
-        input[type=date],
-        input[type=time],
-        input[type=datetime-local],
-        input[type=month] {
-            line-height: normal;
-        }
-    </style>
-    <div class="container">
-        <form method=POST>
-            <p align=left>
-                <input type='hidden' name='qid' value='<?php echo $qid; ?>'>
-            <h3><?php echo $MSG_QUIZ . "-" . $MSG_QUIZ_ID . ":" . $qid ?></h3>
-            <h3><?php echo $MSG_JUDGE_LEFT ?> : <?php echo $left ?></h3>
-            </p>
-            <br>
-            <p>
-                <?php
-                for ($i = 0; $i < $num; $i++) {
-                    if ($type[$i] == 3) {
-                        $pid = $i + 1;
-                ?>
-            <table class='table'>
-                <thead>
-                    <tr>
-                        <th><?php echo $MSG_QUIZ_PROBLEM ?></th>
-                        <th><?php echo $MSG_QUIZ_PROBLEM_INFORMATION ?></th>
-                        <th><?php echo $MSG_CORRECT_ANSWER ?></th>
-                        <th><?php echo $MSG_QUIZ_ANSWER ?></th>
-                        <th><?php echo $MSG_SCORE ?></th>
-                        <th><?php echo $MSG_QUIZ_SCORE ?></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><?php echo $qid; ?></td>
-                        <td><?php echo $question[$i]; ?></td>
-                        <td><?php echo $c_answer[$i]; ?></td>
-                        <td><?php echo $answer[$i]; ?></td>
-                        <td><a class='label label-primary' onclick='$("input[name=<?php echo $pid ?>]").val(this.innerText)'><?php echo $score[$i]; ?></a></td>
-                        <td width=20%>
-                            <input class='form-control' name='<?php echo $pid ?>' required>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-    <?php
-                    }
+<style>
+    input[type=date],
+    input[type=time],
+    input[type=datetime-local],
+    input[type=month] {
+        line-height: normal;
+    }
+</style>
+<div class="container">
+    <form method=POST>
+        <p align=left>
+            <input type='hidden' name='qid' value='<?php echo $qid; ?>'>
+        <h3><?php echo $MSG_QUIZ . "-" . $MSG_QUIZ_ID . ":" . $qid ?></h3>
+        <h3><?php echo $MSG_JUDGE_LEFT ?> : <?php echo $left ?></h3>
+        </p>
+        <br>
+        <p>
+            <?php
+            for ($i = 0; $i < $num; $i++) {
+                if ($type[$i] == 3) {
+                    $pid = $i + 1;
+            ?>
+        <table class='table'>
+            <thead>
+                <tr>
+                    <th><?php echo $MSG_QUIZ_PROBLEM ?></th>
+                    <th><?php echo $MSG_QUIZ_PROBLEM_INFORMATION ?></th>
+                    <th><?php echo $MSG_CORRECT_ANSWER ?></th>
+                    <th><?php echo $MSG_QUIZ_ANSWER ?></th>
+                    <th><?php echo $MSG_SCORE ?></th>
+                    <th><?php echo $MSG_QUIZ_SCORE ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><?php echo $qid; ?></td>
+                    <td><?php echo $question[$i]; ?></td>
+                    <td><?php echo $c_answer[$i]; ?></td>
+                    <td><?php echo $answer[$i]; ?></td>
+                    <td><a class='label label-primary' onclick='$("input[name=<?php echo $pid ?>]").val(this.innerText)'><?php echo $score[$i]; ?></a></td>
+                    <td width=20%>
+                        <input class='form-control' name='<?php echo $pid ?>' required>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+<?php
                 }
-    ?>
-    </p>
-    <br>
-    <div align=center>
-        <?php require_once("../include/set_post_key.php"); ?>
-        <input type=submit class='form-control' value='<?php echo $MSG_SAVE ?>' name=submit>
-    </div>
-        </form>
-    </div>
+            }
+?>
+</p>
+<br>
+<div align=center>
+    <?php require_once("../include/set_post_key.php"); ?>
+    <input type=submit class='form-control' value='<?php echo $MSG_SAVE ?>' name=submit>
+</div>
+    </form>
+</div>
 
-    <?php
-    require_once("../oj-footer.php");
-    require_once('../tinymce/tinymce.php'); ?>
+<?php
+require_once("../oj-footer.php");
+require_once('../tinymce/tinymce.php'); ?>
 <?php
 require_once("admin-footer.php");
 ?>
