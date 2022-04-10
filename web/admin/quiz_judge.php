@@ -3,7 +3,7 @@ require_once("../include/db_info.inc.php");
 require_once("../lang/$OJ_LANG.php");
 require_once("../include/const.inc.php");
 $description = "";
-if (!(isset($_SESSION[$OJ_NAME . '_' . "mq$cid"]) || isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator']))) {
+if (!(isset($_SESSION[$OJ_NAME . '_' . "mq" . $_REQUEST["qid"]]) || isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator']))) {
     header("Location: quiz_list.php");
     exit(0);
 };
@@ -73,7 +73,6 @@ if (isset($_POST['qid'])) {
 
 require_once("admin-header.php");
 ?>
-<?php echo "<center><h3>" . $MSG_QUIZ . "-" . $MSG_QUIZ_JUDGE . "</h3></center>"; ?>
 <style>
     input[type=date],
     input[type=time],
@@ -81,15 +80,24 @@ require_once("admin-header.php");
     input[type=month] {
         line-height: normal;
     }
+
+    td.ans>img {
+        max-width: 300px;
+    }
+
+    td.break-all {
+        width: 30%;
+    }
 </style>
 <div class="container">
     <form method=POST>
-        <p align=left>
-            <input type='hidden' name='qid' value='<?php echo $qid; ?>'>
-        <h3><?php echo $MSG_QUIZ . "-" . $MSG_QUIZ_ID . ":" . $qid ?></h3>
-        <h3><?php echo $MSG_JUDGE_LEFT ?> : <?php echo $left ?></h3>
-        </p>
+        <?php echo "<center><h3>" . $MSG_QUIZ . "-" . $MSG_QUIZ_JUDGE . "</h3></center>"; ?>
+        <h3>
+            <?php echo $MSG_QUIZ_ID . ":" . $qid ?>
+            <small><?php echo $MSG_JUDGE_LEFT ?> : <?php echo $left ?></small>
+        </h3>
         <br>
+        <input type='hidden' name='qid' value='<?php echo $qid; ?>'>
         <p>
             <?php
             for ($i = 0; $i < $num; $i++) {
@@ -97,7 +105,7 @@ require_once("admin-header.php");
                     $pid = $i + 1;
             ?>
         <table class='table'>
-            <thead>
+            <thead class="keep-all">
                 <tr>
                     <th><?php echo $MSG_QUIZ_PROBLEM ?></th>
                     <th><?php echo $MSG_QUIZ_PROBLEM_INFORMATION ?></th>
@@ -110,9 +118,9 @@ require_once("admin-header.php");
             <tbody>
                 <tr>
                     <td><?php echo $qid; ?></td>
-                    <td><?php echo $question[$i]; ?></td>
+                    <td class="break-all"><?php echo $question[$i]; ?></td>
                     <td><?php echo $c_answer[$i]; ?></td>
-                    <td><?php echo $answer[$i]; ?></td>
+                    <td class="ans"><?php echo intval($type[$i]) == 3 ? str_replace("\\", "/", $answer[$i]) : $answer[$i]; ?></td>
                     <td><a class='label label-primary' onclick='$("input[name=<?php echo $pid ?>]").val(this.innerText)'><?php echo $score[$i]; ?></a></td>
                     <td width=20%>
                         <input class='form-control' name='<?php echo $pid ?>' required>
@@ -133,9 +141,13 @@ require_once("admin-header.php");
     </form>
 </div>
 
-<?php
-require_once("../oj-footer.php");
-require_once('../tinymce/tinymce.php'); ?>
-<?php
-require_once("admin-footer.php");
-?>
+<?php require_once("admin-footer.php"); ?>
+
+<script>
+    $("td.ans").find("img").each(function(index, elem) {
+        var atag = $("<a data-fslightbox />")
+        atag.attr("href", $(elem).attr("src") + "&large=true")
+        $(elem).wrap(atag)
+    })
+</script>
+<script src="<?php echo $OJ_CDN_URL . "template/" ?>fslightbox.js"></script>
