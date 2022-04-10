@@ -29,6 +29,7 @@ $image = imagecreatefromstring(file_get_contents($file));
 $img_info = getimagesize($file);
 $width = 400;
 header("Content-Type: image/jpeg");
+header("Cache-Control: public, max-age=31536000");
 
 if (isset($_GET["large"]) || $img_info[0] <= $width) {
     imagejpeg($image);

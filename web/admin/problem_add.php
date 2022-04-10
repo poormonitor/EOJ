@@ -1,11 +1,11 @@
 <?php
-require_once("admin-header.php");
 require_once("../include/check_post_key.php");
-
 require_once("../include/db_info.inc.php");
 require_once("../include/my_func.inc.php");
 require_once("../include/problem.php");
 
+require_once("admin-header.php");
+echo "<center><h3>" . $MSG_PROBLEM . "-" .  $MSG_EDIT . "</h3></center>";
 // contest_id
 $title = $_POST['title'];
 $title = str_replace(",", "&#44;", $title);
@@ -74,13 +74,12 @@ if ($block != '') {
   $sql = 'update `problem` set `block`=? where `problem_id`=?';
   pdo_query($sql, $block, $id);
 }
-echo "&nbsp;&nbsp;- <a href='javascript:phpfm($pid);'>添加更多的测试数据</a>";
-/*  */
 ?>
 
-<?php
-require_once("admin-footer.php");
-?>
+&nbsp;&nbsp;- <a href='javascript:phpfm(<?php echo $pid; ?>);'>添加更多的测试数据</a>
+
+<?php require_once("admin-footer.php"); ?>
+
 <script>
   function phpfm(pid) {
     //alert(pid);
