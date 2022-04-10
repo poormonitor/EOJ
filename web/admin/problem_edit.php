@@ -3,8 +3,7 @@ require_once("../include/db_info.inc.php");
 require_once("admin-header.php");
 require_once("../include/my_func.inc.php");
 
-echo "<center><h3>" . "Edit-" . $MSG_PROBLEM . "</h3></center>";
-
+echo "<center><h3>" . $MSG_PROBLEM . "-" .  $MSG_EDIT . "</h3></center>";
 ?>
 
 <div class="container">
@@ -65,11 +64,11 @@ echo "<center><h3>" . "Edit-" . $MSG_PROBLEM . "</h3></center>";
 
       <p>
         <?php echo "<h4>" . $MSG_SPJ . "</h4>" ?>
-        <p><?php echo $MSG_HELP_SPJ ?></p>
-        <input type="radio" name="spj" value='0' <?php if (!$row['spj']) echo "checked" ?>> 否
-        <span> / </span>
-        <input type="radio" name="spj" value='1' <?php if ($row['spj']) echo "checked" ?>> 是
-        <br><br>
+      <p><?php echo $MSG_HELP_SPJ ?></p>
+      <input type="radio" name="spj" value='0' <?php if (!$row['spj']) echo "checked" ?>> 否
+      <span> / </span>
+      <input type="radio" name="spj" value='1' <?php if ($row['spj']) echo "checked" ?>> 是
+      <br><br>
       </p>
       <p>
         <?php echo "<h4>" . "代码填空" . "</h4>" ?>
@@ -88,12 +87,12 @@ echo "<center><h3>" . "Edit-" . $MSG_PROBLEM . "</h3></center>";
       </p>
       <p align=left>
         <?php echo "<h4>禁用关键词</h4>" ?>
-      <h5><?php echo $MSG_HELP_KEYWORD?></h5>
+      <h5><?php echo $MSG_HELP_KEYWORD ?></h5>
       <input name=block class="form-control" data-role="tagsinput" value='<?php echo htmlentities(join(",", explode(" ", $row['block'])), ENT_QUOTES, "UTF-8") ?>'></input><br><br>
       </p>
       <p align=left>
         <?php echo "<h4>必须关键词</h4>" ?>
-      <h5><?php echo $MSG_HELP_KEYWORD?></h5>
+      <h5><?php echo $MSG_HELP_KEYWORD ?></h5>
       <input name=allow class="form-control" data-role="tagsinput" value='<?php echo htmlentities(join(",", explode(" ", $row['allow'])), ENT_QUOTES, "UTF-8") ?>'></input><br><br>
       </p>
       <p align=left>
@@ -106,8 +105,45 @@ echo "<center><h3>" . "Edit-" . $MSG_PROBLEM . "</h3></center>";
         <input class='btn btn-default' type=submit value='<?php echo $MSG_SAVE ?>' name=submit>
       </div>
     </form>
-
-  <?php
+</div>
+<?php
+    require_once("admin-footer.php");
+?>
+<script>
+  <?php if ($row['blank'] == NULL) { ?>
+    $("#blank_code").hide();
+    $("#blank_false").click()
+  <?php } else { ?>
+    $("#blank_true").click()
+  <?php } ?>
+  $("#blank_false").click(function() {
+    $("#blank_code").hide();
+  })
+  $("#blank_true").click(function() {
+    $("#blank_code").show();
+  })
+</script>
+<script src='<?php echo $OJ_CDN_URL .  "include/" ?>bootstrap-tagsinput.min.js'></script>
+<script src="<?php echo $OJ_CDN_URL . "ace/" ?>ace.js"></script>
+<script src="<?php echo $OJ_CDN_URL . "ace/" ?>ext-language_tools.js"></script>
+<script>
+  ace.require("ace/ext/language_tools");
+  ace.config.set('basePath', '<?php echo $OJ_CDN_URL . "ace/" ?>');
+  var editor = ace.edit("source");
+  editor.setTheme("ace/theme/chrome");
+  editor.setOptions({
+    enableBasicAutocompletion: true,
+    enableSnippets: true,
+    enableLiveAutocompletion: true
+  });
+  editor.session.setTabSize(4);
+  $("#multiline").val(editor.getValue())
+  editor.session.on('change', function(delta) {
+    $("#multiline").val(editor.getValue())
+  });
+</script>
+<?php require_once('../tinymce/tinymce.php'); ?>
+<?php
   } else {
     require_once("../include/check_post_key.php");
     $id = intval($_POST['problem_id']);
@@ -188,43 +224,7 @@ echo "<center><h3>" . "Edit-" . $MSG_PROBLEM . "</h3></center>";
     }
     echo "编辑成功！<br>";
     echo "<a href='../problem.php?id=$id'>查看问题</a>";
+    echo "</div>";
+    require_once("admin-footer.php");
   }
-  ?>
-</div>
-<?php
-require_once("admin-footer.php");
 ?>
-<script>
-  <?php if ($row['blank'] == NULL) { ?>
-    $("#blank_code").hide();
-    $("#blank_false").click()
-  <?php } else { ?>
-    $("#blank_true").click()
-  <?php } ?>
-  $("#blank_false").click(function() {
-    $("#blank_code").hide();
-  })
-  $("#blank_true").click(function() {
-    $("#blank_code").show();
-  })
-</script>
-<script src='<?php echo $OJ_CDN_URL .  "include/" ?>bootstrap-tagsinput.min.js'></script>
-<script src="<?php echo $OJ_CDN_URL . "ace/" ?>ace.js"></script>
-<script src="<?php echo $OJ_CDN_URL . "ace/" ?>ext-language_tools.js"></script>
-<script>
-  ace.require("ace/ext/language_tools");
-  ace.config.set('basePath', '<?php echo $OJ_CDN_URL . "ace/" ?>');
-  var editor = ace.edit("source");
-  editor.setTheme("ace/theme/chrome");
-  editor.setOptions({
-    enableBasicAutocompletion: true,
-    enableSnippets: true,
-    enableLiveAutocompletion: true
-  });
-  editor.session.setTabSize(4);
-  $("#multiline").val(editor.getValue())
-  editor.session.on('change', function(delta) {
-    $("#multiline").val(editor.getValue())
-  });
-</script>
-<?php require_once('../tinymce/tinymce.php'); ?>
