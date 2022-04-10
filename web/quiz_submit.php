@@ -89,8 +89,11 @@ for ($i = 1; isset($_POST["q$i"]); $i++) {
     switch ($type[$i - 1]) {
         case 0:
         case 2:
+            $answer = trim($answer);
+            break;
         case 3:
             $answer = trim($answer);
+            $answer = str_replace("/", "\\", $answer);
             break;
         case 1:
             sort($answer);

@@ -14,6 +14,11 @@
   </title>
 
   <?php include("template/css.php"); ?>
+  <style>
+    td.ans>img {
+      max-width: 300px;
+    }
+  </style>
 
 </head>
 
@@ -122,7 +127,7 @@
                 $blank = isAllEmpty($view_description);
                 ?>
                 <table class="table">
-                  <thead>
+                  <thead class="keep-all">
                     <tr>
                       <th><?php echo $MSG_QUIZ_PROBLEM; ?></th>
                       <?php if (!$blank) { ?>
@@ -143,7 +148,10 @@
                       if (!$blank)
                         echo "<td style='width:36%'>" . $view_description[$i] . "</td>";
                       echo "<td>" . $MSG_QUIZ_TYPE[intval($type[$i])] . "</td>";
-                      echo "<td>" . $my_answer[$i] . "</td>";
+                      if (intval($type[$i]) == 3)
+                        echo "<td class='ans'>" . str_replace("\\", "/", $my_answer[$i]) . "</td>";
+                      else
+                        echo "<td>" . $my_answer[$i] . "</td>";
                       echo "<td>" . $correct[$i] . "</td>";
                       echo "<td>" . $score[$i] . "</td>";
                       if ($answer['judged'] || $type[$i] != '3') {
@@ -179,8 +187,13 @@
   <script>
     var diff = new Date("<?php echo date("Y/m/d H:i:s") ?>").getTime() - new Date().getTime();
     clock(diff);
+    $("td.ans").find("img").each(function(index, elem) {
+      var atag = $("<a data-fslightbox />")
+      atag.attr("href", $(elem).attr("src") + "&large=true")
+      $(elem).wrap(atag)
+    })
   </script>
-
+  <script src="<?php echo $OJ_CDN_URL . "template/" ?>fslightbox.js"></script>
 </body>
 
 </html>

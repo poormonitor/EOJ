@@ -26,8 +26,8 @@ function create_mce(students = false) {
                 selector: "#tinymce" + index,
                 language: 'zh_CN',
                 inline: false,
-                plugins: 'image',
-                toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | image',
+                plugins: 'image paste',
+                toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | paste image',
                 font_formats: '思源黑体=SourceHanSansCN-Medium',
                 height: 400,
                 fontsize_formats: '14px',
@@ -46,24 +46,29 @@ function create_mce(students = false) {
                         this.getBody().style.fontFamily = 'SourceHanSansCN-Medium';
                     });
                 },
-                images_upload_handler: function (blobInfo, succFun, failFun) {
+                relative_urls: false,
+                paste_data_images: true,
+                images_upload_handler: function (blobInfo, success, failure, progress) {
                     var xhr, formData;
                     var file = blobInfo.blob(); //转化为易于理解的file对象
                     xhr = new XMLHttpRequest();
                     xhr.withCredentials = false;
                     xhr.open('POST', '/tinymce/upimgs.php');
+                    xhr.upload.onprogress = function (e) {
+                        progress(e.loaded / e.total * 100);
+                    };
                     xhr.onload = function () {
                         var json;
                         if (xhr.status != 200) {
-                            failFun('HTTP Error: ' + xhr.status);
+                            failure('HTTP Error: ' + xhr.status);
                             return;
                         }
                         json = JSON.parse(xhr.responseText);
                         if (!json || typeof json.location != 'string') {
-                            failFun('Invalid JSON: ' + xhr.responseText);
+                            failure('Invalid JSON: ' + xhr.responseText);
                             return;
                         }
-                        succFun(json.location);
+                        success(json.location);
                     };
                     formData = new FormData();
                     formData.append('uploadkey', uploadkey)
@@ -110,6 +115,7 @@ function create_mce(students = false) {
                         this.getBody().style.fontFamily = 'SourceHanSansCN-Medium';
                     });
                 },
+                relative_urls: false,
                 file_picker_callback: function (callback, _, meta) {
                     var filetype = '.*';
                     var upurl = '/tinymce/upfile.php';

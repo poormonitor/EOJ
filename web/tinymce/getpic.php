@@ -25,9 +25,18 @@ if (!file_exists($file)) {
     exit(0);
 };
 
-$type = filetype($file);
+$image = imagecreatefromstring(file_get_contents($file));
+$img_info = getimagesize($file);
+$width = 400;
+header("Content-Type: image/jpeg");
 
-header("Content-type: $type");
-
-set_time_limit(0);
-readfile($file);
+if (isset($_GET["large"]) || $img_info[0] <= $width) {
+    imagejpeg($image);
+    imagedestroy($image);
+} else {
+    $height = $img_info[1] * ($width / $img_info[0]);
+    $com_image = imagecreatetruecolor($width, $height);
+    imagecopyresampled($com_image, $image, 0, 0, 0, 0, $width, $height, $img_info[0], $img_info[1]);
+    imagejpeg($com_image);
+    imagedestroy($com_image);
+}

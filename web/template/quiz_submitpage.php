@@ -43,15 +43,13 @@
               echo "<div class='panel-heading'><big>$MSG_QUIZ_PROBLEM $i $MSG_SCORE : $n_score</big></div>";
               echo "<div class='panel-body'>";
               echo $detail;
-              echo "<br>";
               switch (intval($t)) {
                 case 0:
                   echo "<div id='t0'>";
                   foreach (str_split("ABCD") as $op) {
                     echo "<div class='col-sm-3'>";
                     echo "<div class='form-group'>";
-                    if (!empty($detail))
-                      echo "<br>";
+                    echo "<br>";
                     echo "<label class='form-control' for='q$op$i'><input class='option$i' type='radio' name='q$i' id='q$op$i' value='$op'>&nbsp;&nbsp;$op</label>";
                     echo "</div>";
                     echo "</div>";
@@ -63,8 +61,7 @@
                   foreach (str_split("ABCD") as $op) {
                     echo "<div class='col-sm-3'>";
                     echo "<div class='form-group'>";
-                    if (!empty($detail))
-                      echo "<br>";
+                    echo "<br>";
                     echo "<label class='form-control' for='q$op$i'><input class='option$i' type='checkbox' name='q$i" . "[]" . "' id='q$op$i' value='$op'>&nbsp;&nbsp;$op</label>";
                     echo "</div>";
                     echo "</div>";
