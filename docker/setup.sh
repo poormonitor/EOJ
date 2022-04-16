@@ -8,13 +8,13 @@ service mysql start
 mysql < /trunk/install/db.sql
 mysql -e "insert into jol.privilege ( user_id, rightstr ) values('admin','administrator');"
 
-# Hustoj basic file system
+# HOJ basic file system
 useradd -m -u 1536 judge
 mkdir -p /home/judge/etc
 mkdir -p /home/judge/data
 mkdir -p /home/judge/log
 mkdir -p /home/judge/backup
-mkdir -p /var/log/hustoj
+mkdir -p /var/log/hoj
 mv /trunk /home/judge/src
 chmod -R 700 /home/judge/etc
 chmod -R 700 /home/judge/backup

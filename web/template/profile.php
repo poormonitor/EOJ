@@ -65,7 +65,7 @@ if (isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
 } else {
   $profile .= "<li><a href='" . $path_fix . "loginpage.php'>$MSG_LOGIN</a></li>";
 
-  if ($OJ_LOGIN_MOD == "hustoj") {
+  if ($OJ_LOGIN_MOD == "hoj") {
     if (isset($OJ_REGISTER) && !$OJ_REGISTER) {
     } else {
       $profile .= "<li><a href='" . $path_fix . "registerpage.php'>$MSG_REGISTER</a></li>";

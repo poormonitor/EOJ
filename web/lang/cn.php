@@ -346,8 +346,8 @@ $MSG_HELP_ADD_SOLUTION_VIEW = "给用户添加单个题目的答案查看权限�
 $MSG_HELP_PRIVILEGE_LIST = "查看已有的特殊权限列表、进行删除操作。";
 $MSG_HELP_GIVESOURCE = "将导入系统的标程赠与指定帐号，用于训练后辅助未通过的人学习参考。";
 $MSG_HELP_EXPORT_PROBLEM = "将系统中的题目以fps.xml文件的形式导出。";
-$MSG_HELP_IMPORT_PROBLEM = "导入从官方群共享或tk.hustoj.com下载到的fps.xml文件。";
-$MSG_HELP_UPDATE_DATABASE = "更新数据库结构，在每次升级（sudo update-hustoj）之后或者导入老系统数据库备份，应至少操作一次。";
+$MSG_HELP_IMPORT_PROBLEM = "导入fps.xml文件。";
+$MSG_HELP_UPDATE_DATABASE = "更新数据库结构，在每次升级之后或者导入老系统数据库备份，应至少操作一次。";
 $MSG_HELP_ONLINE = "查看在线用户";
 $MSG_HELP_KEYWORD = '"||"分隔，关系为或；回车分隔，关系为与';
 $MSG_HELP_AC = "答案正确，请再接再厉。";
@@ -361,7 +361,7 @@ $MSG_HELP_CE = "编译错误，请点击后获得编译器的详细输出";
 
 $MSG_HELP_MORE_TESTDATA_LATER = "更多组测试数据，请在题目添加完成后补充";
 $MSG_HELP_ADD_FAQS = "管理员可以添加一条新闻，命名为\"faqs.$OJ_LANG\" 来取代本页内容 <a href=../faqs.php>$MSG_FAQ</a>。";
-$MSG_HELP_HUSTOJ = "感谢您选择" . $OJ_NAME . "。";
+$MSG_HELP_HOJ = "感谢您选择" . $OJ_NAME . "。";
 $MSG_HELP_SPJ = "在测试文件中添加 pre 和 spj 程序特判，支持C/C++, Shell, Python。<br>pre 为预处理程序，用户程序运行前运行，传入测试输入文件名。
 				<br>spj 为特判程序，运行传入参数分别为测试输入文件名，测试输出文件名，用户输出文件名。<br>特判程序返回0为正确，1为错误。";
 $MSG_HELP_BALLOON_SCHOOL = "打印，气球帐号的School字段用于过滤任务列表，例如填zjicm则只显示帐号为zjicm开头的任务";

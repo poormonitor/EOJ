@@ -4,7 +4,7 @@ apt install build-essential libmariadb-dev libmariadbclient-dev libmariadb-dev d
 /usr/sbin/useradd -m -u 1536 judge
 cd /home/judge/
 
-git clone https://git.oldmonitor.cn/poormonitor/hustoj.git src
+git clone https://git.oldmonitor.cn/poormonitor/hoj.git src
 USER="jol"
 PASSWORD=`date +%s | sha256sum | base64 | head -c 10 ; echo`
 CPU=`grep "cpu cores" /proc/cpuinfo |head -1|awk '{print $4}'`

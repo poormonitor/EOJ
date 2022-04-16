@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 ini_set('date.timezone','Asia/Shanghai');
 date_default_timezone_set("Asia/Shanghai");
 //header('X-Frame-Options:SAMEORIGIN');
-//for people using hustoj out of China , be careful of the last two line of this file !
+//for people using hoj out of China , be careful of the last two line of this file !
 @session_start();
 // connect db 
 static 	$DB_HOST = "localhost";  //数据库服务器ip或域名
@@ -14,7 +14,7 @@ static 	$DB_NAME = "jol";   //数据库名
 static 	$DB_USER = "jol";  //数据库账户
 static 	$DB_PASS = "";  //数据库密码
 
-static 	$OJ_NAME = "HUSTOJ";  //左上角显示的系统名称
+static 	$OJ_NAME = "HOJ";  //左上角显示的系统名称
 static 	$OJ_HOME = "./";    //主页目录
 static 	$OJ_ADMIN = "root@localhost";  //管理员email
 static 	$OJ_DATA = "/home/judge/data";  //测试数据目录
@@ -23,7 +23,7 @@ static  $OJ_ONLINE = true;  //是否记录在线情况
 static  $OJ_LANG = "cn";  //默认语言
 static  $OJ_SIM = true;  //显示相似度
 static  $OJ_DICT = false; //显示在线翻译
-static  $OJ_LANGMASK = 2097087; //TIOBE index top 10, calculator :   https://pigeon-developer.github.io/hustoj-langmask/
+static  $OJ_LANGMASK = 2097087; //TIOBE index top 10, calculator : https://pigeon-developer.github.io/hustoj-langmask/
 static  $OJ_ACE_EDITOR = true;
 static  $OJ_AUTO_SHARE = false; //true: One can view all AC submit if he/she has ACed it onece.
 static  $OJ_CSS = "white.css";
@@ -42,11 +42,11 @@ static  $OJ_UDPPORT = 1536;
 static  $OJ_REDIS = false;   //使用REDIS队列
 static  $OJ_REDISSERVER = "127.0.0.1";
 static  $OJ_REDISPORT = 6379;
-static  $OJ_REDISQNAME = "hustoj";
-static  $OJ_CDN_URL = ""; // https://cdn.jsdelivr.net/gh/poormonitor/hustoj/web/
+static  $OJ_REDISQNAME = "hoj";
+static  $OJ_CDN_URL = ""; // https://cdn.jsdelivr.net/gh/poormonitor/hoj/web/
 static  $OJ_BLOCK_START_TIME = 0; //开始禁用系统
 static  $OJ_BLOCK_END_TIME = 0; //启用系统
-static  $OJ_LOGIN_MOD = "hustoj";
+static  $OJ_LOGIN_MOD = "hoj";
 static  $OJ_REGISTER = false; //允许注册新用户
 static  $OJ_REG_NEED_CONFIRM = false; //新注册用户需要审核
 static  $OJ_NEED_LOGIN = false; //需要登录才能访问
@@ -112,7 +112,7 @@ static  $smtppass = ""; //SMTP服务器的用户密码
 pdo_query("SET time_zone ='+8:00'");
 
 /* log */
-$OJ_LOG_FILE = "/var/log/hustoj/{$OJ_NAME}.log";
+$OJ_LOG_FILE = "/var/log/hoj/{$OJ_NAME}.log";
 static  $OJ_LOG_ENABLED = false;
 static  $OJ_LOG_DATETIME_FORMAT = "Y-m-d H:i:s";
 static  $OJ_LOG_PID_ENABLED = false;

@@ -39,7 +39,6 @@ function getLang($language)
       return $i;
     }
 
-    // HUSTOJ classic using language_name
     if ($language == $language_name[$i]) {
       return $i;
     }

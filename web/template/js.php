@@ -7,7 +7,7 @@
 	<div id=footer class='center col-sm-2'>
 		<a id='footer' href='policy.html'><?php echo $MSG_POLICY ?></a>
 	</div>
-	<div id=footer class='center col-sm-2'>Powered by <a id='footer' href='https://git.oldmonitor.cn/poormonitor/hustoj'>HUSTOJ</a></div>
+	<div id=footer class='center col-sm-2'>Powered by <a id='footer' href='https://git.oldmonitor.cn/poormonitor/hoj'>HOJ</a></div>
 	<div id=footer class='center col-sm-2'>
 		<?php if ($OJ_BEIAN) { ?>
 			<a id='footer' href='https://beian.miit.gov.cn/'><?php echo $OJ_BEIAN ?></a>

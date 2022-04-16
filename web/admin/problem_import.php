@@ -60,18 +60,11 @@ echo "<center><h3>" . $MSG_PROBLEM . "-" . $MSG_IMPORT . "</h3></center>";
       <br><br><br>
       <center>
         <div class='form-group'>
-          <button class='btn btn-default btn-sm' type=submit>Upload to HUSTOJ</button>
+          <button class='btn btn-default btn-sm' type=submit>Upload to HOJ</button>
         </div>
       </center>
       <?php require_once("../include/set_post_key.php"); ?>
     </form>
-  <?php } ?>
-
-  <br><br>
-
-  <?php if ($OJ_LANG == "cn") { ?>
-    免费题目<a href="https://github.com/zhblue/freeproblemset/tree/master/fps-examples" target="_blank">下载</a><br>
-    更多题目请到 <a href="http://tk.hustoj.com/problemset.php?search=free" target="_blank">TK 题库免费专区</a>。
   <?php } ?>
 
   <br><br>
