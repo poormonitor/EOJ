@@ -18,12 +18,11 @@
 			<a id='footer' target="_blank" href="<?php echo $OJ_MPS_BEIAN_URL ?>"><?php echo $OJ_MPS_BEIAN ?></a>
 		<?php } ?>
 	</div>
-
 </div>
 <br><br>
 <script src="<?php echo $OJ_CDN_URL . "template/" ?>jquery.min.js"></script>
 <script src="<?php echo $OJ_CDN_URL . "template/" ?>bootstrap.min.js"></script>
-<script src="<?php echo $OJ_CDN_URL . "template/" ?>index.min.js?v=1.2"></script>
+<script src="<?php echo $OJ_CDN_URL . "template/" ?>index.min.js?v=1.19"></script>
 <script src="<?php echo $OJ_CDN_URL . "include/" ?>sweetalert.min.js"></script>
 <?php if (isset($OJ_GOOGLE_ANALYTICS)) { ?>
 	<script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo $OJ_GOOGLE_ANALYTICS ?>"></script>
@@ -40,15 +39,21 @@
 }
 $endTime = microtime(true);
 $runTime = ($endTime - $startTime) * 1000 . ' ms';
+$prefix = isset($prefix) ? $prefix : "";
 ?>
 <script>
 	var OJ_CDN = "<?php echo $OJ_CDN_URL ?>";
 	$(document).ready(function() {
-		$("#csrf").load("csrf.php");
+		$("#csrf").load("<?php echo $prefix; ?>csrf.php");
 		<?php
 		if (isset($_SESSION[$OJ_NAME . "_administrator"])) echo "admin_mod();";
 		?>
 	});
 	console.log("Loading used <?php echo $runTime; ?>.")
 	console.log("Thanks for choosing <?php echo $OJ_NAME; ?>.");
+	<?php if (isset($OJ_FLOAT_NOTICE) && $OJ_FLOAT_NOTICE) { ?>
+		setAD("<?php echo $OJ_FLOAT_NOTICE[0] ?>",
+			"<?php echo $OJ_FLOAT_NOTICE[1] ?>",
+			<?php echo $OJ_FLOAT_NOTICE[2] ? 'true' : 'false' ?>);
+	<?php } ?>
 </script>

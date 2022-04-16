@@ -59,6 +59,7 @@ if (isset($_GET['sid'])) {
 
 	$row = $result[0];
 	$cid = intval($row['contest_id']);
+	$language_id = intval($row['language']);
 
 	if ($row && $row['user_id'] == $_SESSION[$OJ_NAME . '_' . 'user_id'])
 		$ok = true;
@@ -83,6 +84,9 @@ if (isset($_GET['sid'])) {
 
 		if ($row)
 			$view_src = $row['source'];
+
+		if ($language_id == 6)
+			$view_src = str_replace('# coding=utf-8', "", $view_src);
 
 		$sql = "SELECT langmask FROM contest WHERE contest_id=?";
 

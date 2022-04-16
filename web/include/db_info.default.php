@@ -71,7 +71,8 @@ static  $OJ_MPS_BEIAN = '';  // 如果有备案号，填写备案号
 static  $OJ_MPS_BEIAN_URL = '';  // 如果有备案号，填写备案号
 static  $OJ_PYTHON_VER = 'Python';
 static 	$OJ_PY_BIN = "/usr/bin/python3";
-static  $OJ_GOOGLE_ANALYTICS = ""; // UA-XXX-X
+static  $OJ_GOOGLE_ANALYTICS = ""; // G-??
+static  $OJ_FLOAT_NOTICE = array("", "", true); // 0 -> 图片链接, 1 -> 点击链接, 2 -> (boolean) 是否浮动
 //static  $OJ_EXAM_CONTEST_ID=1000; // 启用考试状态，填写考试比赛ID
 //static  $OJ_ON_SITE_CONTEST_ID=1000; //启用现场赛状态，填写现场赛比赛ID
 
