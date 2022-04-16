@@ -232,6 +232,7 @@ img {
     font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
     margin-top: 3px;
     margin-bottom: 3px;
+    padding: 6px;
 }
 
 pre#code {
