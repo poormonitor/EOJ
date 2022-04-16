@@ -11,7 +11,13 @@ if (!isset($_GET["file"])) {
     exit(0);
 };
 
-$file = "../upload/images/" . str_replace("_", "/", $_GET["file"]);
+$token = sha1(md5($DB_PASS . $DB_USER));
+
+$file = base64url_decode($_GET["file"]);
+$file = explode("_", $file);
+$path = "../upload/images_$token/" . $file[0] . "/";
+$filename  = md5($file[1]);
+$file = $path . $filename;
 
 if (!(isset($_SESSION[$OJ_NAME . '_' . 'user_id'])
     || isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
@@ -28,13 +34,16 @@ if (!file_exists($file)) {
 $image = imagecreatefromstring(file_get_contents($file));
 $img_info = getimagesize($file);
 $width = 400;
-header("Content-Type: image/jpeg");
 header("Cache-Control: private");
 
 if (isset($_GET["large"]) || $img_info[0] <= $width) {
-    imagejpeg($image);
     imagedestroy($image);
+    $type = mime_content_type($file);
+    header("Content-Type: $type");
+    set_time_limit(0);
+    readfile($file);
 } else {
+    header("Content-Type: image/jpeg");
     $height = $img_info[1] * ($width / $img_info[0]);
     $com_image = imagecreatetruecolor($width, $height);
     imagecopyresampled($com_image, $image, 0, 0, 0, 0, $width, $height, $img_info[0], $img_info[1]);
