@@ -14,6 +14,7 @@ CREATE TABLE `online` (
 ) ENGINE=MEMORY DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
  */
+
 /**
  * 判定多久未响应的用户为已经离开的用户
  * @var int
@@ -30,7 +31,8 @@ define('ONLINE_DURATION', 600);
  * @link http://www.missway.cn
  * 
  */
-class online{
+class online
+{
 	/**
 	 * database connect
 	 * @var databse link
@@ -72,36 +74,35 @@ class online{
 	function __construct()
 	{
 		global $OJ_NAME;
-		
+
 		$this->ip = ($_SERVER['REMOTE_ADDR']);
-      
-      
-         if( !empty( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ){
 
-                    $REMOTE_ADDR = $_SERVER['HTTP_X_FORWARDED_FOR'];
-                    
-                    $tmp_ip=explode(',',$REMOTE_ADDR);
 
-                    $this->ip =(htmlentities($tmp_ip[0],ENT_QUOTES,"UTF-8"));
+		if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
 
-        }
+			$REMOTE_ADDR = $_SERVER['HTTP_X_FORWARDED_FOR'];
 
-		if(isset($_SESSION[$OJ_NAME.'_'.'user_id']))
-			$this->ua = htmlentities($_SESSION[$OJ_NAME.'_'.'user_id'],ENT_QUOTES,"UTF-8");
+			$tmp_ip = explode(',', $REMOTE_ADDR);
+
+			$this->ip = (htmlentities($tmp_ip[0], ENT_QUOTES, "UTF-8"));
+		}
+
+		if (isset($_SESSION[$OJ_NAME . '_' . 'user_id']))
+			$this->ua = htmlentities($_SESSION[$OJ_NAME . '_' . 'user_id'], ENT_QUOTES, "UTF-8");
 		else
-			$this->ua ="guest";
-		$this->ua .= "@".htmlentities($_SERVER['HTTP_USER_AGENT'],ENT_QUOTES,"UTF-8");
+			$this->ua = "guest";
+		$this->ua .= "@" . htmlentities($_SERVER['HTTP_USER_AGENT'], ENT_QUOTES, "UTF-8");
 		$this->uri = ($_SERVER['PHP_SELF']);
-		if(isset($_SERVER['HTTP_REFERER'])){
-			$this->refer = (htmlentities($_SERVER['HTTP_REFERER'],ENT_QUOTES,"UTF-8"));
-	    }
-		$this->hash = md5(session_id().$this->ip);
-		
+		if (isset($_SERVER['HTTP_REFERER'])) {
+			$this->refer = (htmlentities($_SERVER['HTTP_REFERER'], ENT_QUOTES, "UTF-8"));
+		}
+		$this->hash = md5(session_id() . $this->ip);
+
 		//check user existed!
-		if($this->exist()){
+		if ($this->exist()) {
 			//update databse
 			$this->update();
-		}else if(!(strstr($this->ua,"bot")||strstr($this->ua,"spider"))){
+		} else if (!(strstr($this->ua, "bot") || strstr($this->ua, "spider"))) {
 			//if none, add this record
 			$this->addRecord();
 		}
@@ -117,7 +118,7 @@ class online{
 	 */
 	function getAll()
 	{
-		
+
 		$sql = 'SELECT * FROM online';
 		$ret = pdo_query($sql);
 		return $ret;
@@ -131,16 +132,16 @@ class online{
 	function getRecord($ip)
 	{
 		$sql = "SELECT * FROM online WHERE ip = ?";
-		$res = pdo_query($sql,$ip);
-		if(count($res)){
+		$res = pdo_query($sql, $ip);
+		if (count($res)) {
 			$ret = ($res[0]);
-		}else{
+		} else {
 			return false;
 		}
-		
+
 		return $ret;
 	}
-	
+
 	/**
 	 * 
 	 * get total count
@@ -149,14 +150,14 @@ class online{
 	 */
 	function get_num()
 	{
-		
+
 		$sql = 'SELECT count(ip) as nums FROM online';
 		$res = pdo_query($sql);
 		$ret = 0;
-		if($res){
+		if ($res) {
 			$ret = $res[0];
 			$ret = $ret['nums'];
-	    }
+		}
 		return $ret;
 	}
 	/**
@@ -166,11 +167,10 @@ class online{
 	 */
 	function exist()
 	{
-		
-		$sql = "SELECT count(1) FROM online WHERE hash = ?";
-		$res = pdo_query($sql,$this->hash);
-		return $res[0][0];
 
+		$sql = "SELECT count(1) FROM online WHERE hash = ?";
+		$res = pdo_query($sql, $this->hash);
+		return $res[0][0];
 	}
 	/**
 	 * add a record
@@ -179,11 +179,11 @@ class online{
 	 */
 	function addRecord()
 	{
-		
+
 		$now = time();
 		$sql = "INSERT INTO online(hash, ip, ua, uri, refer, firsttime, lastmove)
 				VALUES (?, ?,?, ?, ?, ?, ?)";
-		pdo_query($sql,$this->hash,$this->ip, $this->ua,$this->uri,$this->refer,$now,$now);
+		pdo_query($sql, $this->hash, $this->ip, $this->ua, $this->uri, $this->refer, $now, $now);
 	}
 
 	/**
@@ -193,7 +193,7 @@ class online{
 	 */
 	function update()
 	{
-		
+
 		$sql = "UPDATE online
 				SET
 					ua = ?,
@@ -204,7 +204,7 @@ class online{
 				WHERE
 					hash = ?
 				";
-		pdo_query($sql,$this->ua,$this->uri,$this->refer,time(),$this->ip,$this->hash);
+		pdo_query($sql, $this->ua, $this->uri, $this->refer, time(), $this->ip, $this->hash);
 	}
 	/**
 	 * clean the duration user
@@ -213,8 +213,8 @@ class online{
 	 */
 	function clean()
 	{
-		
+
 		$sql = 'DELETE FROM online WHERE lastmove<?';
-		pdo_query($sql,(time()-ONLINE_DURATION));
+		pdo_query($sql, (time() - ONLINE_DURATION));
 	}
 }

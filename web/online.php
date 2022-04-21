@@ -1,20 +1,24 @@
 <?php
-$cache_time = 30;
-$OJ_CACHE_SHARE = false;
 $debug = false;
-require_once('./include/cache_start.php');
 require_once('./include/db_info.inc.php');
 require_once('./include/setlang.php');
 require_once('./include/online.php');
 
-if (isset($_GET["add"])) {
-	$id = $_GET["add"];
+
+if (isset($_POST["add"])) {
+	require("./include/check_post_key.php");
+	$id = $_POST["add"];
 	pdo_query("INSERT INTO `ip` (`ip`, `type`) VALUES (?, 'safe')", $id);
+	header("Location: online.php");
+	exit(0);
 }
 
-if (isset($_GET["del"])) {
-	$id = $_GET["del"];
+if (isset($_POST["del"])) {
+	require("./include/check_post_key.php");
+	$id = $_POST["del"];
 	pdo_query("DELETE FROM `ip` WHERE `ip` = ?", $id);
+	echo "success";
+	exit(0);
 }
 
 $ips = pdo_query("SELECT * FROM `ip`");
@@ -58,5 +62,3 @@ foreach ($result as $row) {
 
 require("template/online.php");
 
-if (file_exists('./include/cache_end.php'))
-	require_once('./include/cache_end.php');
