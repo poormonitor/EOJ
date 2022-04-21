@@ -426,3 +426,11 @@ figure figcaption {
 .break-all {
     word-break: break-all;
 }
+
+td.ans>img {
+    max-width: 300px;
+}
+
+.bg-red {
+    background-color: #ffa0a070;
+}

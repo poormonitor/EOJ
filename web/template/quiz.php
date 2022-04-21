@@ -14,11 +14,6 @@
   </title>
 
   <?php include("template/css.php"); ?>
-  <style>
-    td.ans>img {
-      max-width: 300px;
-    }
-  </style>
 
 </head>
 
@@ -143,7 +138,10 @@
                   <tbody>
                     <?php
                     for ($i = 0; $i < count($type); $i++) {
-                      echo "<tr>";
+                      if ($score[$i] != $my_score[$i])
+                        echo "<tr class='bg-red'>";
+                      else
+                        echo "<tr>";
                       echo "<td>" . ($i + 1) . "</td>";
                       if (!$blank)
                         echo "<td style='width:36%'>" . $view_description[$i] . "</td>";

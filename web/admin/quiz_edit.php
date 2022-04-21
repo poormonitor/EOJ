@@ -165,7 +165,7 @@ require_once("admin-header.php");
           } else {
             $checked = "";
           }
-          echo "<input type=radio class='form-control' name='qt$i' value='$t' $checked>&nbsp;&nbsp;<label> " . $MSG_QUIZ_TYPE[$t] . "</label>&nbsp;&nbsp;";
+          echo "<input type=radio name='qt$i' value='$t' $checked>&nbsp;&nbsp;<label> " . $MSG_QUIZ_TYPE[$t] . "</label>&nbsp;&nbsp;";
         }
         echo "<br><br>";
         $c_score = isset($score) ? $score[$i] : 2;
