@@ -108,8 +108,9 @@
 					</table>
 				</div>
 				<div style='margin:8px;' class="form-inline">
-					<form><?php echo $MSG_IP_MNGT ?>
+					<form method="POST"><?php echo $MSG_IP_MNGT ?>
 						<input type='text' class="form-control" name='add' style='margin:5px;'>
+						<?php require_once("./include/set_post_key.php") ?>
 						<input type='submit' class="form-control" value='<?php echo $MSG_ADD ?>'>
 					</form>
 				</div>
@@ -121,10 +122,10 @@
 						</thead>
 						<tbody>
 							<?php foreach ($ips as $ip) { ?>
-								<tr>
+								<tr data-ip="<?php echo $ip["ip"] ?>">
 									<td><?php echo $ip["ip"] ?></td>
 									<td>
-										<a href="online.php?del=<?php echo $ip["ip"] ?>">
+										<a href="javascript:deleteIP('<?php echo $ip["ip"]; ?>')">
 											<?php echo $MSG_DELETE ?>
 										</a>
 									</td>
@@ -136,6 +137,20 @@
 			</center>
 		</div>
 	</div>
+	<script>
+		function deleteIP(ip) {
+			$.post("online.php", {
+				del: ip,
+				postkey: "<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>"
+			}, function(data, status) {
+				if (data == "success") {
+					$("tr[data-ip='" + ip + "']").fadeOut("slow", function() {
+						$("tr[data-ip='" + ip + "']").remove()
+					})
+				}
+			})
+		}
+	</script>
 	<?php include("template/js.php"); ?>
 </body>
 
