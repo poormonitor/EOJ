@@ -51,7 +51,7 @@ $prefix = isset($prefix) ? $prefix : "";
 	});
 	console.log("Loading used <?php echo $runTime; ?>.")
 	console.log("Thanks for choosing <?php echo $OJ_NAME; ?>.");
-	<?php if (isset($OJ_FLOAT_NOTICE) && $OJ_FLOAT_NOTICE) { ?>
+	<?php if (isset($OJ_FLOAT_NOTICE) && $OJ_FLOAT_NOTICE[0]) { ?>
 		setAD("<?php echo $OJ_FLOAT_NOTICE[0] ?>",
 			"<?php echo $OJ_FLOAT_NOTICE[1] ?>",
 			<?php echo $OJ_FLOAT_NOTICE[2] ? 'true' : 'false' ?>);
