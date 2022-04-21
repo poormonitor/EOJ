@@ -1,4 +1,5 @@
-<?php require_once("admin-header.php");
+<?php
+require_once("../include/db_info.inc.php");
 require_once("../include/check_get_key.php");
 $cid=$_GET['cid'];
 echo $cid;
@@ -18,10 +19,5 @@ if ($row[0]=='N')
 else 
 	$sql="UPDATE `users` SET `defunct`='N' WHERE `user_id`=?";
 pdo_query($sql,$cid);
-?>
-<script language=javascript>
-	history.go(-1);
-</script>
-<?php
-require_once("admin-footer.php");
-?>
+
+header("Location: user_list.php");

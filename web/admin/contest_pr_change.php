@@ -1,4 +1,5 @@
-<?php require_once("admin-header.php");
+<?php
+require_once("../include/db_info.inc.php");
 require_once("../include/check_get_key.php");
 $cid = intval($_GET['cid']);
 if (!(isset($_SESSION[$OJ_NAME . '_' . "m$cid"]) || isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator']))) exit();
@@ -15,10 +16,5 @@ if (intval($row[0]) == 0) $sql = "UPDATE `contest` SET `private`='1' WHERE `cont
 else $sql = "UPDATE `contest` SET `private`='0' WHERE `contest_id`=?";
 
 pdo_query($sql, $cid);
-?>
-<script language=javascript>
-	history.go(-1);
-</script>
-<?php
-require_once("admin-footer.php");
-?>
+
+header("Location: contest_list.php");
