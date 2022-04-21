@@ -18,7 +18,6 @@ static 	$OJ_NAME = "HOJ";  //左上角显示的系统名称
 static 	$OJ_HOME = "./";    //主页目录
 static 	$OJ_ADMIN = "root@localhost";  //管理员email
 static 	$OJ_DATA = "/home/judge/data";  //测试数据目录
-static 	$OJ_BBS = false; //设为"discuss3" 启用， "bbs" for phpBB3 bridge or "discuss" for mini-forum or false for close any 
 static  $OJ_ONLINE = true;  //是否记录在线情况
 static  $OJ_LANG = "cn";  //默认语言
 static  $OJ_SIM = true;  //显示相似度

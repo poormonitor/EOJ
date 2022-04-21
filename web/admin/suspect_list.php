@@ -2,8 +2,9 @@
 require("admin-header.php");
 
 //if (!(isset($_SESSION[$OJ_NAME.'_'.'administrator'])|| isset($_SESSION[$OJ_NAME.'_'.'contest_creator']))) {
-//	echo "<a href='../loginpage.php'>Please Login First!</a>";
-//	exit(1);
+//	$view_errors_js = "swal('$MSG_NOT_LOGINED','$MSG_Login','error').then((onConfirm)=>{window.location.href='loginpage.php'})";
+//	require("template/error.php");
+//	exit(0);
 //}
 ?>
 <center>

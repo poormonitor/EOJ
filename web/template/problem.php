@@ -10,7 +10,7 @@
 	<link rel="shortcut icon" href="/favicon.ico">
 
 	<title>
-		<?php echo $OJ_NAME ?> <?php echo $OJ_BBS ?>
+		<?php echo $OJ_NAME ?>
 	</title>
 
 	<?php include("template/css.php"); ?>
@@ -273,7 +273,6 @@
 							} else {
 								echo "<a class='btn btn-info btn-sm' href='submitpage.php?cid=$cid&pid=$pid&langmask=$langmask' role='button'>$MSG_SUBMIT</a>";
 							}
-							if ($OJ_BBS) echo "<a class='btn btn-warning btn-sm' href='bbs.php?pid=" . $row['problem_id'] . "$ucid'>$MSG_BBS</a>";
 							?>
 						</div>
 					</center>

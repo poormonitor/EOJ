@@ -59,9 +59,9 @@ echo "<center><h3>" . $MSG_PROBLEM . "-" . $MSG_ADD . "</h3></center>";
     <p>
       <?php echo "<h4>" . $MSG_SPJ . "</h4>" ?>
       <p><?php echo $MSG_HELP_SPJ ?></p>
-      <input type="radio" name="spj" value='0' <?php if (!$row['spj']) echo "checked" ?>> 否
+      <input type="radio" name="spj" value='0' checked> 否
       <span> / </span>
-      <input type="radio" name="spj" value='1' <?php if ($row['spj']) echo "checked" ?>> 是
+      <input type="radio" name="spj" value='1'> 是
       <br><br>
     </p>
     <p>

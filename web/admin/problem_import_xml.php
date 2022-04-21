@@ -3,8 +3,9 @@ require_once("admin-header.php");
 require_once("../include/check_post_key.php");
 
 if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
-  echo "<a href='../loginpage.php'>Please Login First!</a>";
-  exit(1);
+  $view_errors_js = "swal('$MSG_NOT_LOGINED','$MSG_Login','error').then((onConfirm)=>{window.location.href='loginpage.php'})";
+  require("template/error.php");
+  exit(0);
 }
 
 if (isset($OJ_LANG)) {
