@@ -40,16 +40,6 @@ if (isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
   $sid = $_SESSION[$OJ_NAME . '_' . 'user_id'];
 
   $profile .= "<li><a href=" . $path_fix . "modifypage.php>$MSG_REG_INFO</a></li><li><a href='" . $path_fix . "userinfo.php?user=$sid'><span id=red>$MSG_USERINFO</span></a></li>";
-
-  if ((isset($OJ_EXAM_CONTEST_ID) && $OJ_EXAM_CONTEST_ID > 0) ||
-    (isset($OJ_ON_SITE_CONTEST_ID) && $OJ_ON_SITE_CONTEST_ID > 0) ||
-    (isset($OJ_MAIL) && !$OJ_MAIL)
-  ) {
-  } else {
-    $mail = checkmail();
-    if ($mail) $profile .= "<li><a class='glyphicon glyphicon-envelope' href=" . $path_fix . "mail.php>$mail</a></li>";
-  }
-
   $profile .= "<li><a href='" . $path_fix . "status.php?user_id=$sid'><span id=red>$MSG_MY_SUBMISSIONS</span></a></li>";
   $profile .= "<li><a href='" . $path_fix . "contest.php?my'><span id=red>$MSG_MY_CONTESTS</span></a></li>";
   $profile .= "<li><a href='" . $path_fix . "clipboard.php'><span id=red>剪切板</span></a></li>";

@@ -33,7 +33,7 @@ if ($scope != "" && $scope != 'd' && $scope != 'w' && $scope != 'm')
     $scope = 'y';
 $where = "";
 if (isset($_GET['prefix'])) {
-    $prefix = $_GET['prefix'];
+    $query_prefix = $_GET['prefix'];
     $where = "where user_id like ?";
 } else {
     $where = "where defunct='N' ";

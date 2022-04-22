@@ -274,9 +274,7 @@ if (isset($_POST['startdate'])) {
     </form>
   </div>
 
-<?php }
-require_once("../oj-footer.php");
-?>
+<?php } ?>
 
 <script src='<?php echo $OJ_CDN_URL .  "include/" ?>bootstrap-tagsinput.min.js'></script>
 <script>
