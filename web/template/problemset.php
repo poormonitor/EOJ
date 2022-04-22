@@ -124,7 +124,7 @@
 					<ul class="pagination">
 						<?php
 						$section = 2;
-						$href_url = "contest.php"
+						$href_url = "problemset.php"
 						?>
 						<?php if ($page > $section + 1) { ?>
 							<li class="page-item"><a href="<?php echo $href_url ?>?page=1">1</a></li>
