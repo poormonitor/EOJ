@@ -7,9 +7,7 @@ if (isset($OJ_CSRF) && $OJ_CSRF && !isset($_SESSION[$OJ_NAME . '_' . 'http_judge
   require_once(dirname(__FILE__) . "/include/csrf_check.php");
 
 if (!isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
-  require_once "oj-header.php";
-  echo "<a href='loginpage.php'>$MSG_Login</a>";
-  require_once "oj-footer.php";
+  header("Location: loginpage.php");
   exit(0);
 }
 

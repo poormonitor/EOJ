@@ -16,8 +16,8 @@ if (!isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
 require_once("./include/const.inc.php");
 
 if (!isset($_GET['sid'])) {
-  echo "No such code!\n";
-  require_once("oj-footer.php");
+  $view_swal = "No such code!";
+  require_once("./template/error.php");
   exit(0);
 }
 

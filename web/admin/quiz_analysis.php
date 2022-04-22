@@ -14,23 +14,26 @@ if (isset($_GET['qid'])) {
     $type = explode("/", $row['type']);
     $question = explode("<sep />", $row['question']);
     $answer = explode("/", $row['correct_answer']);
-    $score = explode("/", $row['score']);
+    $score = array_map("intval", explode("/", $row['score']));
+    $score_total = array_sum($score);
     $num = count($type);
     $starttime = $row['start_time'];
     $endtime = $row['end_time'];
     $ana = new Analysis($type, $score);
 
     $sql = "SELECT * FROM `answer` JOIN `users` 
-            ON `answer`.`user_id` = `users`.`user_id` 
+            ON `answer`.`user_id` = `users`.`user_id`
+            JOIN `group` ON `users`.`gid` = `group`.`gid`
             WHERE `answer`.quiz_id = ?";
     $result = pdo_query($sql, $qid);
 
-    if (!count($result)){
+    if (!count($result)) {
         header("Location: quiz_list.php");
         exit(0);
     }
 
     $all_answers = array();
+    $user_info = array();
     foreach ($result as $row) {
         $user_id = $row['user_id'];
         $nick = $row['nick'];
@@ -40,6 +43,7 @@ if (isset($_GET['qid'])) {
         $ans = new Answer($ans, $sc, $user_id, $nick, $total);
         $ana->add_answer($ans);
         $all_answers[] = $ans;
+        $user_info[$user_id] = array($row["name"], $row["in_date"]);
     }
 } else {
     header("Location: quiz_list.php");
@@ -217,23 +221,32 @@ require_once("admin-header.php");
             <tbody>
                 <tr>
                     <td>
-                        <table class="table table-condensed">
+                        <table class="table table-condensed" id="userlist">
                             <thead>
                                 <tr>
                                     <th><?php echo $MSG_USER_ID ?></th>
                                     <th><?php echo $MSG_NICK ?></th>
                                     <th><?php echo $MSG_SCORE ?></th>
+                                    <th><?php echo $MSG_GROUP ?></th>
+                                    <th><?php echo $MSG_SUBMIT_TIME ?></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
                                 foreach ($all_answers as $submit) {
+                                    $rate = 1 - $submit->total / $score_total;
+									$aa = 0xff - $rate * 64;
+									$aa = dechex($aa);
+									$bg_color = "ff$aa$aa";
+
                                     $user = $submit->user;
-                                    echo "<tr>";
+                                    echo "<tr style='background: #$bg_color'>";
                                     echo "<td>" . $user . "</td>";
                                     echo "<td>" . $submit->nick . "</td>";
                                     echo "<td><a href='../quiz.php?qid=$qid&user_id=$user' target='view_window'>" .
                                         $submit->total . "</a></td>";
+                                    echo "<td>" . $user_info[$user][0] . "</td>";
+                                    echo "<td>" . $user_info[$user][1] . "</td>";
                                     echo "</tr>";
                                 }
                                 ?>
@@ -242,16 +255,19 @@ require_once("admin-header.php");
                     </td>
                     <td>
                         <?php if ($private) {
-                            $sql = "SELECT * FROM `privilege`  JOIN `users` ON `privilege`.user_id = `users`.user_id 
+                            $sql = "SELECT * FROM `privilege` 
+                                JOIN `users` ON `privilege`.user_id = `users`.user_id
+                                JOIN `group` ON `group`.`gid` = `users`.`gid`
                                 WHERE `privilege`.rightstr = ? AND `privilege`.user_id NOT IN 
                                 (SELECT `user_id` FROM `answer` WHERE `quiz_id`= ?)";
                             $result = pdo_query($sql, "q$qid", $qid);
                         ?>
-                            <table class="table table-condensed">
+                            <table class="table table-condensed" id="userlist">
                                 <thead>
                                     <tr>
                                         <th><?php echo $MSG_USER_ID ?></th>
                                         <th><?php echo $MSG_NICK ?></th>
+                                        <th><?php echo $MSG_GROUP ?></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -260,6 +276,7 @@ require_once("admin-header.php");
                                         echo "<tr>";
                                         echo "<td>" . $submit["user_id"] . "</td>";
                                         echo "<td>" . $submit["nick"] . "</td>";
+                                        echo "<td>" . $submit["name"] . "</td>";
                                         echo "</tr>";
                                     }
                                     ?>
@@ -288,5 +305,11 @@ require_once("admin-footer.php");
     $("div[id^=choice]").each(function(index, elem) {
         choice_charts[index] = echarts.init(elem);
         choice_charts[index].setOption(choice_options[index]);
+    });
+</script>
+<script type="text/javascript" src="<?php echo $OJ_CDN_URL ?>include/jquery.tablesorter.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#userlist").tablesorter();
     });
 </script>

@@ -149,13 +149,11 @@ if ($rows_cnt > 0) {
 
 if ($start_time == 0) {
 	echo "No Such Contest";
-	//require_once("oj-footer.php");
 	exit(0);
 }
 
 if ($start_time > time()) {
 	echo "Contest Not Started!";
-	//require_once("oj-footer.php");
 	exit(0);
 }
 $noip = (time() < $end_time) && (stripos($title, $OJ_NOIP_KEYWORD) !== false);
