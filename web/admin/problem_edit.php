@@ -86,12 +86,12 @@ echo "<center><h3>" . $MSG_PROBLEM . "-" .  $MSG_EDIT . "</h3></center>";
       </div>
       </p>
       <p align=left>
-        <?php echo "<h4>禁用关键词</h4>" ?>
+        <?php echo "<h4>$MSG_BLOCK_KEYWORD</h4>" ?>
       <h5><?php echo $MSG_HELP_KEYWORD ?></h5>
       <input name=block class="form-control" data-role="tagsinput" value='<?php echo htmlentities(join(",", explode(" ", $row['block'])), ENT_QUOTES, "UTF-8") ?>'></input><br><br>
       </p>
       <p align=left>
-        <?php echo "<h4>必须关键词</h4>" ?>
+        <?php echo "<h4>$MSG_ALLOW_KEYWORD</h4>" ?>
       <h5><?php echo $MSG_HELP_KEYWORD ?></h5>
       <input name=allow class="form-control" data-role="tagsinput" value='<?php echo htmlentities(join(",", explode(" ", $row['allow'])), ENT_QUOTES, "UTF-8") ?>'></input><br><br>
       </p>

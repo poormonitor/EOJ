@@ -72,31 +72,36 @@
         </table>
       </div>
       <nav class="center">
-        <small>
-          <ul class="pagination">
-            <li class="page-item"><a href="quiz.php?page=1">&lt;&lt;</a></li>
-            <?php
-            if ($page != 1) { ?>
-              <li class="page-item"><a href="quiz.php?page=<?php echo $page - 1 ?>">&lt;</a></li>
-            <?php } ?>
-            <?php
-            if (!isset($page)) $page = 1;
-            $page = intval($page);
-            $section = 8;
-            $start = $page > $section ? $page - $section : 1;
-            $end = $page + $section > $view_total_page ? $view_total_page : $page + $section;
-            for ($i = $start; $i <= $end; $i++) {
-              echo "<li class='" . ($page == $i ? "active " : "") . "page-item'><a title='go to page' href='contest.php?page=" . $i . (isset($_GET['my']) ? "&my" : "") . "'>" . $i . "</a></li>";
-            }
-            ?>
-            <?php
-            if ($page != $view_total_page) { ?>
-              <li class="page-item"><a href="quiz.php?page=<?php if ($page != $view_total_page) echo $page + 1 ?>">&gt;</a></li>
-            <?php } ?>
-            <li class="page-item"><a href="quiz.php?page=<?php echo $view_total_page ?>">&gt;&gt;</a></li>
-          </ul>
-        </small>
-      </nav>
+          <small>
+            <ul class="pagination">
+              <?php
+              $section = 2;
+              $href_url = "quizt.php"
+              ?>
+              <?php if ($page > $section + 1) { ?>
+                <li class="page-item"><a href="<?php echo $href_url ?>?page=1">1</a></li>
+              <?php } ?>
+              <?php if ($page > $section + 2) { ?>
+                <li class="page-item disabled"><span class="page-link">...</span></li>
+              <?php } ?>
+              <?php
+              if (!isset($page)) $page = 1;
+              $page = intval($page);
+              $start = $page > $section ? $page - $section : 1;
+              $end = $page + $section > $view_total_page ? $view_total_page : $page + $section;
+              for ($i = $start; $i <= $end; $i++) {
+                echo "<li class='" . ($page == $i ? "active " : "") . "page-item'><a title='Go to page' href='$href_url?page=$i'>$i</a></li>";
+              }
+              ?>
+              <?php if ($page < $view_total_page - $section - 1) { ?>
+                <li class="page-item disabled"><span class="page-link">...</span></li>
+              <?php } ?>
+              <?php if ($page < $view_total_page - $section) { ?>
+                <li class="page-item"><a href="<?php echo $href_url ?>?page=<?php echo $view_total_page ?>"><?php echo $view_total_page ?></a></li>
+              <?php } ?>
+            </ul>
+          </small>
+        </nav>
       </center>
 
     </div>

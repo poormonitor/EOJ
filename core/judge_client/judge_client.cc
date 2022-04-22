@@ -738,7 +738,7 @@ void make_diff_out_simple(FILE *f1, FILE *f2, int c1, int c2, const char *path, 
  * http://code.google.com/p/zoj/source/browse/trunk/judge_client/client/text_checker.cc#25
  *
  */
-int compare_zoj(const char *file1, const char *file2, const char *infile)
+int compare_zoj(const char *file1, const char *file2, const char *infile, int &num_of_error)
 {
 	int ret = OJ_AC;
 	int c1, c2;
@@ -801,9 +801,17 @@ end:
 	if (ret == OJ_WA || ret == OJ_PE)
 	{
 		if (full_diff)
+		{
 			make_diff_out_full(f1, f2, c1, c2, file1, infile);
+		}
 		else
-			make_diff_out_simple(f1, f2, c1, c2, file1, infile);
+		{
+			if (!num_of_error)
+			{
+				make_diff_out_simple(f1, f2, c1, c2, file1, infile);
+				num_of_error++;
+			}
+		}
 	}
 	if (f1)
 		fclose(f1);
@@ -820,11 +828,11 @@ void delnextline(char s[])
 		s[--L] = 0;
 }
 
-int compare(const char *file1, const char *file2, const char *infile)
+int compare(const char *file1, const char *file2, const char *infile, int &num_of_error)
 {
 #ifdef ZOJ_COM
 	// compare ported and improved from zoj don't limit file size
-	return compare_zoj(file1, file2, infile);
+	return compare_zoj(file1, file2, infile, num_of_error);
 #endif
 #ifndef ZOJ_COM
 	// the original compare from the first version of hustoj has file size limit
@@ -2756,7 +2764,7 @@ int special_judge(char *oj_home, int problem_id, char *infile, char *outfile,
 void judge_solution(int &ACflg, int &usedtime, double time_lmt, int isspj,
 					int p_id, char *infile, char *outfile, char *userfile, int &PEflg,
 					int lang, char *work_dir, int &topmemory, int mem_lmt,
-					int solution_id, int num_of_test)
+					int solution_id, int num_of_test, int &num_of_error)
 {
 	// usedtime-=1000;
 	int comp_res;
@@ -2810,7 +2818,7 @@ void judge_solution(int &ACflg, int &usedtime, double time_lmt, int isspj,
 		}
 		else
 		{
-			comp_res = compare(outfile, userfile, infile);
+			comp_res = compare(outfile, userfile, infile, num_of_error);
 		}
 		if (comp_res == OJ_WA)
 		{
@@ -3643,6 +3651,8 @@ int main(int argc, char **argv)
 */
 	num_of_test = namelist_len;
 
+	int num_of_error = 0;
+
 	for (int i = 0; (oi_mode || ACflg == OJ_AC || ACflg == OJ_PE) && i < namelist_len; i++)
 	{
 		dirp = namelist[i];
@@ -3687,7 +3697,7 @@ int main(int argc, char **argv)
 
 			judge_solution(ACflg, usedtime, time_lmt, isspj, p_id, infile,
 						   outfile, userfile, PEflg, lang, work_dir, topmemory,
-						   mem_lmt, solution_id, num_of_test);
+						   mem_lmt, solution_id, num_of_test, num_of_error);
 			time_space_index += sprintf(time_space_table + time_space_index, "%s:%s mem=%dk time=%dms\n", infile + strlen(oj_home) + 5, jresult[ACflg], topmemory / 1024, usedtime);
 
 			if (use_max_time)

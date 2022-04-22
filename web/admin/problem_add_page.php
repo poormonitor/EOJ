@@ -1,8 +1,14 @@
 <?php
 require_once("../include/db_info.inc.php");
 require_once("admin-header.php");
-echo "<center><h3>" . $MSG_PROBLEM . "-" . $MSG_ADD . "</h3></center>";
+if (isset($_GET["id"])) {
+  $sql = "SELECT * FROM `problem` WHERE `problem_id` = ?";
+  $result = pdo_query($sql, intval($_GET["id"]));
+  if ($result)
+    $row = $result[0];
+}
 
+echo "<center><h3>" . $MSG_PROBLEM . "-" . $MSG_ADD . "</h3></center>";
 ?>
 
 <div class="container">
@@ -10,37 +16,45 @@ echo "<center><h3>" . $MSG_PROBLEM . "-" . $MSG_ADD . "</h3></center>";
     <input type=hidden name=problem_id value="New Problem">
     <p align=left>
       <?php echo "<h3>" . $MSG_TITLE . "</h3>" ?>
-      <input class="input form-control" style="width:100%;" type=text name=title>
+      <input class="input form-control" style="width:100%;" type=text name=title value="<?php echo isset($row) ? $row["title"] : "" ?>">
     </p>
     <p align=left>
       <?php echo $MSG_Time_Limit ?><br>
     <div class='form-inline'>
-      <input class="input form-control" type=text name=time_limit size=20 value=1> sec<br><br>
+      <input class="input form-control" type=text name=time_limit size=20 value="<?php echo isset($row) ? $row["time_limit"] : "1" ?>"> sec<br><br>
     </div>
     <div class='form-inline'>
       <?php echo $MSG_Memory_Limit ?><br>
-      <input class="input form-control" type=text name=memory_limit size=20 value=128> MB<br><br>
+      <input class="input form-control" type=text name=memory_limit size=20 value="<?php echo isset($row) ? $row["memory_limit"] : "128" ?>"> MB<br><br>
     </div>
     </p>
     <p align=left>
       <?php echo "<h4>" . $MSG_Description . "</h4>" ?>
-      <textarea id="tinymce0" rows=13 name=description cols=80></textarea><br>
+      <textarea id="tinymce0" rows=13 name=description cols=80>
+      <?php echo isset($row) ? $row["description"] : "" ?>
+      </textarea><br>
     </p>
     <p align=left>
       <?php echo "<h4>" . $MSG_Input . "</h4>" ?>
-      <textarea id="tinymce1" rows=13 name=input cols=80></textarea><br>
+      <textarea id="tinymce1" rows=13 name=input cols=80>
+      <?php echo isset($row) ? $row["input"] : "" ?>
+      </textarea><br>
     </p>
     <p align=left>
       <?php echo "<h4>" . $MSG_Output . "</h4>" ?>
-      <textarea id="tinymce2" rows=13 name=output cols=80></textarea><br>
+      <textarea id="tinymce2" rows=13 name=output cols=80>
+      <?php echo isset($row) ? $row["output"] : "" ?>
+      </textarea><br>
     </p>
     <p align=left>
       <?php echo "<h4>" . $MSG_Sample_Input . "</h4>" ?>
-      <textarea class="input input-large form-control" style="width:100%;" rows=13 name=sample_input></textarea><br><br>
+      <textarea class="input input-large form-control" style="width:100%;" rows=13 name=sample_input><?php echo isset($row) ? $row["sample_input"] : "" ?></textarea>
+      <br><br>
     </p>
     <p align=left>
       <?php echo "<h4>" . $MSG_Sample_Output . "</h4>" ?>
-      <textarea class="input input-large form-control" style="width:100%;" rows=13 name=sample_output></textarea><br><br>
+      <textarea class="input input-large form-control" style="width:100%;" rows=13 name=sample_output><?php echo isset($row) ? $row["sample_output"] : "" ?></textarea>
+      <br><br>
     </p>
     <p align=left>
       <?php echo "<h4>" . $MSG_Test_Input . "</h4>" ?>
@@ -54,15 +68,17 @@ echo "<center><h3>" . $MSG_PROBLEM . "-" . $MSG_ADD . "</h3></center>";
     </p>
     <p align=left>
       <?php echo "<h4>" . $MSG_HINT . "</h4>" ?>
-      <textarea id="tinymce3" rows=13 name=hint cols=80></textarea><br>
+      <textarea id="tinymce3" rows=13 name=hint cols=80>
+      <?php echo isset($row) ? $row["hint"] : "" ?>
+      </textarea><br>
     </p>
     <p>
       <?php echo "<h4>" . $MSG_SPJ . "</h4>" ?>
-      <p><?php echo $MSG_HELP_SPJ ?></p>
-      <input type="radio" name="spj" value='0' checked> 否
-      <span> / </span>
-      <input type="radio" name="spj" value='1'> 是
-      <br><br>
+    <p><?php echo $MSG_HELP_SPJ ?></p>
+    <input type="radio" name="spj" value='0' <?php echo (!isset($row) || !$row["spj"]) ? "checked" : "" ?>> 否
+    <span> / </span>
+    <input type="radio" name="spj" value='1' <?php echo (isset($row) && $row["spj"]) ? "checked" : "" ?>> 是
+    <br><br>
     </p>
     <p>
       <?php echo "<h4>" . "代码填空" . "</h4>" ?>
@@ -76,22 +92,25 @@ echo "<center><h3>" . $MSG_PROBLEM . "-" . $MSG_ADD . "</h3></center>";
       <h4>待填空代码</h4>
       <h5>单行填空请用%*%表示，多行填空用*%*表示</h5>
       <textarea hidden='hidden' id='multiline' name='blank_code' autocomplete='off'></textarea>
-      <pre id=source style='height:300px;width:auto;font-size:13pt;margin-top:8px;'></pre>
+      <pre id=source style='height:300px;width:auto;font-size:13pt;margin-top:8px;'><?php echo isset($row) ? $row["blank"] : "" ?></pre>
     </div>
     </p>
     <p align=left>
-      <?php echo "<h4>禁用关键词</h4>" ?>
-    <h5><?php echo $MSG_HELP_KEYWORD?></h5>
-    <input name=block data-role="tagsinput" class=form-control></input><br>
+      <?php echo "<h4>$MSG_BLOCK_KEYWORD</h4>" ?>
+    <h5><?php echo $MSG_HELP_KEYWORD ?></h5>
+    <input name=block data-role="tagsinput" class=form-control value="<?php echo isset($row) ? str_replace(" ", ",", $row["block"]) : "" ?>">
+    <br>
     </p>
     <p align=left>
-      <?php echo "<h4>必须关键词</h4>" ?>
-    <h5><?php echo $MSG_HELP_KEYWORD?></h5>
-    <input name=allow data-role="tagsinput" class=form-control></input><br>
+      <?php echo "<h4>$MSG_ALLOW_KEYWORD</h4>" ?>
+    <h5><?php echo $MSG_HELP_KEYWORD ?></h5>
+    <input name=allow data-role="tagsinput" class=form-control value="<?php echo isset($row) ? str_replace(" ", ",", $row["allow"]) : "" ?>">
+    <br>
     </p>
     <p align=left>
       <?php echo "<h4>" . $MSG_SOURCE . "</h4>" ?>
-      <input name=source data-role="tagsinput" class=form-control></input><br>
+      <input name=source data-role="tagsinput" class=form-control value="<?php echo isset($row) ? str_replace(" ", ",", $row["source"]) : "" ?>">
+      <br>
     </p>
     <p align=left><?php echo "<h4>" . $MSG_CONTEST . "</h4>" ?>
     <div class='row'>
