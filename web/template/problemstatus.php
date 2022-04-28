@@ -28,7 +28,7 @@
 				<h3><?php echo $MSG_PROBLEM . " : " . $id . " " . $MSG_STATISTICS ?></h3><br>
 				<div class='row'>
 					<div class='col-md-4'>
-						<table id="statics" class="table-hover table-striped" width=90%>
+						<table id="statics" width=90%>
 							<?php
 							$cnt = 0;
 							foreach ($view_problem as $row) {
@@ -82,7 +82,7 @@
 					</div>
 					<div class='col-md-8'>
 						<div class='table-responsive'>
-							<table id=problemstatus class="table-hover table-striped" align=center width=95%>
+							<table id=problemstatus class="table-hover table-striped table table-condensed" align=center width=95%>
 								<thead>
 									<tr class=toprow>
 										<th style="cursor:hand" onclick="sortTable('problemstatus', 0, 'int');" class="text-center" width=10%>
@@ -142,8 +142,6 @@
 								</tbody>
 							</table>
 						</div>
-
-						<br>
 
 						<center>
 							<ul class='pagination'>

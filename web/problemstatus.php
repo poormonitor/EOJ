@@ -10,28 +10,41 @@ $view_title = "Welcome To Online Judge";
 
 require_once("./include/const.inc.php");
 
-if (isset($OJ_OI_MODE)&&$OJ_OI_MODE) {
+if (isset($OJ_OI_MODE) && $OJ_OI_MODE) {
   header("location:index.php");
   exit();
 }
 
-if (isset($_GET['id']))
+if (isset($_GET["cid"])) {
+  $cid = intval($_GET["cid"]);
+  $num = ord($_GET['id']) - ord("A");
+  $sql = "SELECT `problem_id` from `contest_problem` where `contest_id` = ? AND `num` = ?";
+  $row = pdo_query($sql, $cid, $num);
+  if ($row)
+    $id = $row[0][0];
+} else {
   $id = intval($_GET['id']);
+}
+
+if (!isset($id)) {
+  $view_swal = "$MSG_NOT_EXISTED";
+  require("template/error.php");
+  exit(0);
+}
 
 if (isset($_GET['page']))
   $page = strval(intval($_GET['page']));
 else
   $page = 0;
-?>
 
-<?php
+
 $now = strftime("%Y-%m-%d %H:%M", time());
 
 $sql = "SELECT 1 FROM `contest_problem` WHERE `problem_id` = ? AND `contest_id` IN (SELECT `contest_id` FROM `contest` WHERE `start_time`<? AND `end_time`>? AND `title` LIKE ?)";
 
 $rrs = pdo_query($sql, $id, $now, $now, "%$OJ_NOIP_KEYWORD%");
 
-$flag = count($rrs)>0 ;
+$flag = count($rrs) > 0;
 
 if ($flag) {
   $view_errors = "<h2> $MSG_NOIP_WARNING </h2>";
@@ -51,14 +64,14 @@ $total = intval($row[0]);
 
 // total users
 $sql = "SELECT count(DISTINCT user_id) FROM solution WHERE problem_id=?";
-$result = pdo_query( $sql,$id);
+$result = pdo_query($sql, $id);
 $row = $result[0];
-$view_problem[1][0]="$MSG_USER($MSG_SUBMIT)";
-$view_problem[1][1]=$row[0];
+$view_problem[1][0] = "$MSG_USER($MSG_SUBMIT)";
+$view_problem[1][1] = $row[0];
 
 // ac users
 $sql = "SELECT count(DISTINCT user_id) FROM solution WHERE problem_id=? AND result='4'";
-$result = pdo_query( $sql,$id);
+$result = pdo_query($sql, $id);
 $row = $result[0];
 $acuser = intval($row[0]);
 $view_problem[2][0] = "$MSG_USER($MSG_SOVLED)";
@@ -67,11 +80,11 @@ $view_problem[2][1] = $row[0];
 //for ($i=4;$i<12;$i++){
 $i = 3;
 $sql = "SELECT result, count(1) FROM solution WHERE problem_id=? AND result>=4 GROUP BY result ORDER BY result";
-$result = pdo_query( $sql, $id);
+$result = pdo_query($sql, $id);
 
 foreach ($result as $row) {
   $view_problem[$i][0] = $jresult[$row[0]];
-  $view_problem[$i][1] = "<a href=status.php?problem_id=$id&jresult=".$row[0].">".$row[1]."</a>";
+  $view_problem[$i][1] = "<a href=status.php?problem_id=$id&jresult=" . $row[0] . ">" . $row[1] . "</a>";
   $i++;
 }
 //}
@@ -79,49 +92,47 @@ foreach ($result as $row) {
 
 <?php
 $pagemin = 0;
-$pagemax = intval(($acuser-1)/20);
+$pagemax = intval(($acuser - 1) / 20);
 
-if ($page<$pagemin)
+if ($page < $pagemin)
   $page = $pagemin;
 
-if ($page>$pagemax)
+if ($page > $pagemax)
   $page = $pagemax;
 
-$start = $page*20;
+$start = $page * 20;
 $sz = 20;
 
-if ($start+$sz > $acuser)
-  $sz = $acuser-$start;
+if ($start + $sz > $acuser)
+  $sz = $acuser - $start;
 
 //check whether the problem in a contest
 $now = strftime("%Y-%m-%d %H:%M", time());
 $sql = "SELECT 1 FROM `contest_problem` WHERE `problem_id`=$id AND `contest_id` IN (SELECT `contest_id` FROM `contest` WHERE `start_time`<? AND `end_time`>?)";
 $rrs = pdo_query($sql, $now, $now);
-$flag = count($rrs)==0;
+$flag = count($rrs) == 0;
 
 // check whether the problem is ACed by user
 $AC = false;
-if (isset($OJ_AUTO_SHARE) && $OJ_AUTO_SHARE && isset($_SESSION[$OJ_NAME.'_'.'user_id'])) {
+if (isset($OJ_AUTO_SHARE) && $OJ_AUTO_SHARE && isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
   $sql = "SELECT 1 FROM solution WHERE result=4 AND problem_id=? AND user_id=?";
-  $rrs = pdo_query($sql, $id, $_SESSION[$OJ_NAME.'_'.'user_id']);
-  $AC = (intval(count($rrs))>0);
+  $rrs = pdo_query($sql, $id, $_SESSION[$OJ_NAME . '_' . 'user_id']);
+  $AC = (intval(count($rrs)) > 0);
 }
 
 //check whether user has the right of view solutions of this problem
 //echo "checking...";
-if (isset($_SESSION[$OJ_NAME.'_'.'user_id'])) {
-  if(isset($_SESSION[$OJ_NAME.'_'.'s'.$id])) {
+if (isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
+  if (isset($_SESSION[$OJ_NAME . '_' . 's' . $id])) {
     $AC = true;
     //echo "Yes";
-  }
-  else {
+  } else {
     $sql = "SELECT count(1) FROM privilege WHERE user_id=? AND rightstr=?";
-    $count = pdo_query($sql, $_SESSION[$OJ_NAME.'_'.'user_id'], "s".$id);
+    $count = pdo_query($sql, $_SESSION[$OJ_NAME . '_' . 'user_id'], "s" . $id);
 
-    if ($count && $count[0][0]>0) {
+    if ($count && $count[0][0] > 0) {
       $AC = true;
-    }
-    else {
+    } else {
       //echo "not right";
     }
   }
@@ -149,24 +160,24 @@ $result = pdo_query($sql, $id, $id);
 $view_solution = array();
 $j = 0;
 $last_user_id = '';
-$i = $start+1;
+$i = $start + 1;
 
 foreach ($result as $row) {
   if ($row['user_id'] == $last_user_id)
     continue;
 
   $sscore = strval($row['score']);
-  $s_time = intval(substr($sscore,1,8));
-  $s_memory = intval(substr($sscore,9,6));
-  $s_cl = intval(substr($sscore,15,5));
+  $s_time = intval(substr($sscore, 1, 8));
+  $s_memory = intval(substr($sscore, 9, 6));
+  $s_cl = intval(substr($sscore, 15, 5));
 
   $view_solution[$j][0] = $i;
   $view_solution[$j][1] = $row['solution_id'];
-  
-  if (intval($row['att']) > 1)
-    $view_solution[$j][1] .= "(".$row['att'].")";
 
-  $view_solution[$j][2] = "<a href='userinfo.php?user=".$row['user_id']."'>".$row['user_id']."</a>";
+  if (intval($row['att']) > 1)
+    $view_solution[$j][1] .= "(" . $row['att'] . ")";
+
+  $view_solution[$j][2] = "<a href='userinfo.php?user=" . $row['user_id'] . "'>" . $row['user_id'] . "</a>";
 
   if ($flag)
     $view_solution[$j][3] = "$s_memory KB";
@@ -178,12 +189,11 @@ foreach ($result as $row) {
   else
     $view_solution[$j][4] = "------";
 
-  if (!(isset($_SESSION[$OJ_NAME.'_'.'user_id']) && !strcasecmp($row['user_id'], $_SESSION[$OJ_NAME.'_'.'user_id']) ||
- isset($_SESSION[$OJ_NAME.'_'.'source_browser'])|| (isset($OJ_AUTO_SHARE)&&$OJ_AUTO_SHARE&&$AC))) {
+  if (!(isset($_SESSION[$OJ_NAME . '_' . 'user_id']) && !strcasecmp($row['user_id'], $_SESSION[$OJ_NAME . '_' . 'user_id']) ||
+    isset($_SESSION[$OJ_NAME . '_' . 'source_browser']) || (isset($OJ_AUTO_SHARE) && $OJ_AUTO_SHARE && $AC))) {
     $view_solution[$j][5] = $language_name[$row['language']];
-  }
-  else {
-    $view_solution[$j][5] = "<a target=_blank href=showsource.php?id=".$row['solution_id'].">".$language_name[$row['language']]."</a>";
+  } else {
+    $view_solution[$j][5] = "<a target=_blank href=showsource.php?id=" . $row['solution_id'] . ">" . $language_name[$row['language']] . "</a>";
   }
 
   if ($flag)
@@ -199,13 +209,13 @@ foreach ($result as $row) {
 }
 
 
-$view_recommand = Array();
+$view_recommand = array();
 
 if (isset($_GET['id'])) {
   $id = intval($_GET['id']);
 
-  if (isset($_SESSION[$OJ_NAME.'_'.'user_id']))
-    $user_id = ($_SESSION[$OJ_NAME.'_'.'user_id']);
+  if (isset($_SESSION[$OJ_NAME . '_' . 'user_id']))
+    $user_id = ($_SESSION[$OJ_NAME . '_' . 'user_id']);
 
   $sql = "SELECT source FROM problem WHERE problem_id=?";
   $result = pdo_query($sql, $id);
@@ -224,7 +234,7 @@ if (isset($_GET['id'])) {
 
 require("template/problemstatus.php");
 
-if(file_exists('./include/cache_end.php'))
+if (file_exists('./include/cache_end.php'))
   require_once('./include/cache_end.php');
 ?>
 

@@ -51,7 +51,7 @@
 								<li class="page-item disabled"><span class="page-link">...</span></li>
 							<?php } ?>
 							<?php if ($page < $view_total_page - $section) { ?>
-								<li class="page-item"><a href="$href_url?page=<?php echo $view_total_page ?>"><?php echo $view_total_page ?></a></li>
+								<li class="page-item"><a href="<?php echo $href_url ?>?page=<?php echo $view_total_page ?>"><?php echo $view_total_page ?></a></li>
 							<?php } ?>
 						</ul>
 					</small>
