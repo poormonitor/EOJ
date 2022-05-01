@@ -220,9 +220,11 @@ if (isset($_GET['id'])) {
   $sql = "SELECT source FROM problem WHERE problem_id=?";
   $result = pdo_query($sql, $id);
   $source = $result[0][0];
+  $source = explode(" ", $source);
+  $pattern = "source LIKE '%" . join("%' OR source LIKE '%", $source) . "%'";
 
-  $sql = "SELECT problem_id FROM problem WHERE source LIKE ? AND problem_id!=? LIMIT 10";
-  $result = pdo_query($sql, "%$source%", $id);
+  $sql = "SELECT problem_id FROM problem WHERE $pattern AND problem_id != ? LIMIT 10";
+  $result = pdo_query($sql, $id);
 
   $i = 0;
   foreach ($result as $row) {
