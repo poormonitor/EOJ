@@ -70,13 +70,13 @@
 					if ($pr_flag) {
 						echo "<title>$MSG_PROBLEM" . $row['problem_id'] . "--" . $row['title'] . "</title>";
 						echo "<center><h3>$id: " . $row['title'] . "</h3></center>";
-						echo "<div align=right><sub>[$MSG_Creator : <span id='creator'><a href='userinfo.php?user=".htmlentities($creator,ENT_QUOTES,'utf-8')."'>".htmlentities($creator,ENT_QUOTES,'utf-8')."</a></span>]</sub></div>";
+						echo "<div align=right><sub>[$MSG_Creator : <span id='creator'><a href='userinfo.php?user=" . htmlentities($creator, ENT_QUOTES, 'utf-8') . "'>" . htmlentities($creator, ENT_QUOTES, 'utf-8') . "</a></span>]</sub></div>";
 					} else {
 						//$PID="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 						$id = $row['problem_id'];
 						echo "<title>$MSG_PROBLEM " . $PID[$pid] . ": " . $row['title'] . " </title>";
 						echo "<center><h3>$MSG_PROBLEM " . $PID[$pid] . ": " . $row['title'] . "</h3><center>";
-						echo "<div align=right><sub>[$MSG_Creator : <span id='creator'><a href='userinfo.php?user=".htmlentities($creator,ENT_QUOTES,'utf-8')."'>".htmlentities($creator,ENT_QUOTES,'utf-8')."</a></span>]</sub></div>";
+						echo "<div align=right><sub>[$MSG_Creator : <span id='creator'><a href='userinfo.php?user=" . htmlentities($creator, ENT_QUOTES, 'utf-8') . "'>" . htmlentities($creator, ENT_QUOTES, 'utf-8') . "</a></span>]</sub></div>";
 					}
 					echo "<center>";
 					echo "<span class=green>$MSG_Time_Limit : </span><span><span fd='time_limit' pid='" . $row['problem_id'] . "'  >" . $row['time_limit'] . "</span></span> sec&nbsp;&nbsp;";
@@ -119,181 +119,194 @@
 					echo "</div>";
 					echo "<!--StartMarkForVirtualJudge-->";
 					?>
-
 					<div class="panel panel-body">
-						<div class='panel panel-default'>
-							<div class='panel-heading'>
-								<h4>
-									<?php echo $MSG_Description ?>&nbsp;
-									<a class='btn btn-sm btn-info' href="javascript:CopyToClipboard($('.describe').text())" style='padding:3px 5px;'>复制</a>
-								</h4>
-							</div>
-							<div class='panel-body content'>
-								<div class='describe'><?php echo $row['description'] ?></div>
-							</div>
-						</div>
-
-						<?php
-						if ($row['input']) { ?>
-							<div class='panel panel-default'>
-								<div class='panel-heading'>
-									<h4>
-										<?php echo $MSG_Input ?>
-									</h4>
-								</div>
-								<div class='panel-body content'>
-									<?php echo $row['input'] ?>
-								</div>
-							</div>
-						<?php
-						}
-						if ($row['output']) { ?>
-							<div class='panel panel-default'>
-								<div class='panel-heading'>
-									<h4>
-										<?php echo $MSG_Output ?>
-									</h4>
-								</div>
-								<div class='panel-body content'>
-									<?php echo $row['output'] ?>
-								</div>
-							</div>
-						<?php
-						}
-						$sinput = str_replace("<", "<", $row['sample_input']);
-						$sinput = str_replace(">", ">", $sinput);
-						$soutput = str_replace("<", "<", $row['sample_output']);
-						$soutput = str_replace(">", ">", $soutput);
-						if (strlen($sinput)) { ?>
-							<div class='panel panel-default'>
-								<div class='panel-heading'>
-									<h4>
-										<?php echo $MSG_Sample_Input ?>&nbsp;
-										<a class='btn btn-sm btn-info' href="javascript:CopyToClipboard($('#sampleinput').text())" style='padding:3px 5px;'>复制</a>
-									</h4>
-								</div>
-								<div class='panel-body'>
-									<pre class=content><span id="sampleinput" class=sampledata><?php echo $sinput ?></span></pre>
-								</div>
-							</div>
-						<?php
-						}
-						if (strlen($soutput)) { ?>
-							<div class='panel panel-default'>
-								<div class='panel-heading'>
-									<h4>
-										<?php echo $MSG_Sample_Output ?>&nbsp;
-										<a class='btn btn-sm btn-info' href="javascript:CopyToClipboard($('#sampleoutput').text())" style='padding:3px 5px;'>复制</a>
-									</h4>
-								</div>
-								<div class='panel-body'>
-									<pre class=content><span id='sampleoutput' class=sampledata><?php echo $soutput ?></span></pre>
-								</div>
-							</div>
-						<?php
-						}
-						if ($row['hint']) { ?>
-							<div class='panel panel-default'>
-								<div class='panel-heading'>
-									<h4>
-										<?php echo $MSG_HINT ?>
-									</h4>
-								</div>
-								<div class='panel-body content'>
-									<?php echo $row['hint'] ?>
-								</div>
-							</div>
-						<?php
-						}
-						if ($row['blank']) { ?>
-							<div class='panel panel-default'>
-								<div class='panel-heading'>
-									<h4>
-										代码填空&nbsp;
-										<a class='btn btn-sm btn-info' href="javascript:CopyToClipboard($('.blank-code').text())" style='padding:3px 5px;'>复制</a>
-									</h4>
-								</div>
-								<div class='panel-body content' style='padding:10px;'>
-									<pre id='code' class="blank-code" style='padding:15px!important;'><?php echo $blank; ?></pre>
-								</div>
-							</div>
-						<?php
-						}
-						if ($row['allow'] || $row['block']) { ?>
-							<div class='panel panel-default'>
-								<div class='panel-heading'>
-									<h4>
-										禁用/必用关键词
-									</h4>
-								</div>
-								<div class='panel-body content'>
-									<?php if ($row['block']) { ?>
-										<div style='margin-top:10px;'>禁用: <span class='label label-danger'><?php echo $block; ?></span></div>
-									<?php }
-									if ($row['allow']) { ?>
-										<div style='margin-top:10px;'>必用: <span class='label label-success'><?php echo $allow; ?></span></div>
-									<?php } ?>
-								</div>
-							</div>
-						<?php
-						}
-						if ($pr_flag) { ?>
-							<?php if ($row['source']) { ?>
+						<div class="row">
+							<div class="col-md-9">
 								<div class='panel panel-default'>
 									<div class='panel-heading'>
 										<h4>
-											<?php echo $MSG_SOURCE ?>
+											<?php echo $MSG_Description ?>&nbsp;
+											<a class='btn btn-xs btn-info' href="javascript:CopyToClipboard($('.describe').text())">复制</a>
 										</h4>
 									</div>
-
-									<div fd="source" style='word-wrap:break-word;' pid=<?php echo $row['problem_id'] ?> class='panel-body content'>
-										<?php
-										$cats = explode(" ", $row['source']);
-										foreach ($cats as $cat) {
-											if ($cat == "") continue;
-											$hash_num = hexdec(substr(md5($cat), 0, 7));
-											$label_theme = $color_theme[$hash_num % count($color_theme)];
-											if ($label_theme == "") $label_theme = "default";
-											echo "<a class='label label-$label_theme' style='display: inline-block;' href='problemset.php?search=" . urlencode(htmlentities($cat, ENT_QUOTES, 'utf-8')) . "'>" . htmlentities($cat, ENT_QUOTES, 'utf-8') . "</a>&nbsp;";
-										} ?>
+									<div class='panel-body content'>
+										<div class='describe'><?php echo $row['description'] ?></div>
+									</div>
+								</div>
+								<div class="row">
+									<?php
+									if ($row['input']) { ?>
+										<div class="col-md-6">
+											<div class='panel panel-default'>
+												<div class='panel-heading'>
+													<h4>
+														<?php echo $MSG_Input ?>
+													</h4>
+												</div>
+												<div class='panel-body content'>
+													<?php echo $row['input'] ?>
+												</div>
+											</div>
+										</div>
+									<?php
+									}
+									if ($row['output']) { ?>
+										<div class="col-md-6">
+											<div class='panel panel-default'>
+												<div class='panel-heading'>
+													<h4>
+														<?php echo $MSG_Output ?>
+													</h4>
+												</div>
+												<div class='panel-body content'>
+													<?php echo $row['output'] ?>
+												</div>
+											</div>
+										</div>
+									<?php } ?>
+								</div>
+								<div class="row">
+									<?php
+									$sinput = str_replace("<", "<", $row['sample_input']);
+									$sinput = str_replace(">", ">", $sinput);
+									$soutput = str_replace("<", "<", $row['sample_output']);
+									$soutput = str_replace(">", ">", $soutput);
+									if (strlen($sinput)) { ?>
+										<div class="col-md-6">
+											<div class='panel panel-default'>
+												<div class='panel-heading'>
+													<h4>
+														<?php echo $MSG_Sample_Input ?>&nbsp;
+														<a class='btn btn-xs btn-info' href="javascript:CopyToClipboard($('#sampleinput').text())">复制</a>
+													</h4>
+												</div>
+												<div class='panel-body'>
+													<pre class=content><span id="sampleinput" class=sampledata><?php echo $sinput ?></span></pre>
+												</div>
+											</div>
+										</div>
+									<?php
+									}
+									if (strlen($soutput)) { ?>
+										<div class="col-md-6">
+											<div class='panel panel-default'>
+												<div class='panel-heading'>
+													<h4>
+														<?php echo $MSG_Sample_Output ?>&nbsp;
+														<a class='btn btn-xs btn-info' href="javascript:CopyToClipboard($('#sampleoutput').text())">复制</a>
+													</h4>
+												</div>
+												<div class='panel-body'>
+													<pre class=content><span id='sampleoutput' class=sampledata><?php echo $soutput ?></span></pre>
+												</div>
+											</div>
+										</div>
+									<?php
+									} ?>
+								</div>
+								<?php
+								if ($row['hint']) { ?>
+									<div class='panel panel-default'>
+										<div class='panel-heading'>
+											<h4>
+												<?php echo $MSG_HINT ?>
+											</h4>
+										</div>
+										<div class='panel-body content'>
+											<?php echo $row['hint'] ?>
+										</div>
+									</div>
+								<?php
+								} ?>
+								<? if ($row['blank']) { ?>
+									<div class='panel panel-default'>
+										<div class='panel-heading'>
+											<h4>
+												代码填空
+												<a class='btn btn-xs btn-info' href="javascript:CopyToClipboard($('.blank-code').text())">复制</a>
+											</h4>
+										</div>
+										<div class='panel-body content' style='padding:10px;'>
+											<pre id='code' class="blank-code" style='padding:15px!important;'><?php echo $blank; ?></pre>
+										</div>
 									</div>
 								<?php } ?>
+							</div>
+							<div class="col-md-3">
+								<?php if ($row['allow'] || $row['block']) { ?>
+									<div class='panel panel-default'>
+										<div class='panel-heading'>
+											<h4>
+												禁用/必用关键词
+											</h4>
+										</div>
+										<div class='panel-body content'>
+											<?php if ($row['block']) { ?>
+												<div style='margin-top:10px;'>禁用: <span class='label label-danger'><?php echo $block; ?></span></div>
+											<?php }
+											if ($row['allow']) { ?>
+												<div style='margin-top:10px;'>必用: <span class='label label-success'><?php echo $allow; ?></span></div>
+											<?php } ?>
+										</div>
+									</div>
+								<?php } ?>
+								<?php if ($pr_flag) { ?>
+									<?php if ($row['source']) { ?>
+										<div class='panel panel-default'>
+											<div class='panel-heading'>
+												<h4>
+													<?php echo $MSG_SOURCE ?>
+												</h4>
+											</div>
 
-								</div>
-							<?php
-						} ?>
-
-					</div>
-					<center>
-						<!--EndMarkForVirtualJudge-->
-						<div class='panel-footer'>
-							<?php
-							if ($pr_flag) {
-								echo "<a class='btn btn-info btn-sm' href='submitpage.php?id=$id' role='button'>$MSG_SUBMIT</a>";
-							} else {
-								echo "<a class='btn btn-info btn-sm' href='submitpage.php?cid=$cid&pid=$pid&langmask=$langmask' role='button'>$MSG_SUBMIT</a>";
-							}
-							?>
+											<div fd="source" style='word-wrap:break-word;' pid=<?php echo $row['problem_id'] ?> class='panel-body content'>
+												<?php
+												$cats = explode(" ", $row['source']);
+												foreach ($cats as $cat) {
+													if ($cat == "") continue;
+													$hash_num = hexdec(substr(md5($cat), 0, 7));
+													$label_theme = $color_theme[$hash_num % count($color_theme)];
+													if ($label_theme == "") $label_theme = "default";
+													echo "<a class='label label-$label_theme' style='display: inline-block;' href='problemset.php?search=" . urlencode(htmlentities($cat, ENT_QUOTES, 'utf-8')) . "'>" . htmlentities($cat, ENT_QUOTES, 'utf-8') . "</a>&nbsp;";
+												} ?>
+											</div>
+										<?php } ?>
+										</div>
+									<?php } ?>
+							</div>
 						</div>
-					</center>
+					</div>
 				</div>
+				<center>
+					<!--EndMarkForVirtualJudge-->
+					<div class='panel-footer'>
+						<?php
+						if ($pr_flag) {
+							echo "<a class='btn btn-info btn-sm' href='submitpage.php?id=$id' role='button'>$MSG_SUBMIT</a>";
+						} else {
+							echo "<a class='btn btn-info btn-sm' href='submitpage.php?cid=$cid&pid=$pid&langmask=$langmask' role='button'>$MSG_SUBMIT</a>";
+						}
+						?>
+					</div>
+				</center>
 			</div>
 		</div>
-		<?php include("template/js.php"); ?>
-		<script>
-			function phpfm(pid) {
-				$.post("admin/phpfm.php", {
-					'frame': 3,
-					'pid': pid,
-					'pass': '',
-					'csrf': '<?php if (isset($token)) echo $token; ?>'
-				}, function(data, status) {
-					if (status == "success") {
-						document.location.href = "admin/phpfm.php?frame=3&pid=" + pid;
-					}
-				});
-			}
-		</script>
+	</div>
+	<?php include("template/js.php"); ?>
+	<script>
+		function phpfm(pid) {
+			$.post("admin/phpfm.php", {
+				'frame': 3,
+				'pid': pid,
+				'pass': '',
+				'csrf': '<?php if (isset($token)) echo $token; ?>'
+			}, function(data, status) {
+				if (status == "success") {
+					document.location.href = "admin/phpfm.php?frame=3&pid=" + pid;
+				}
+			});
+		}
+	</script>
 </body>
 
 </html>

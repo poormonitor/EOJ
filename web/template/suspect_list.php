@@ -118,7 +118,7 @@
               $ipaddr = $row["ip"];
               $ipinfo = $ip->getlocation($ipaddr)["country"]." ".$ip->getlocation($ipaddr)["area"];
               echo "<td>".$ipaddr."</a></td>";
-              echo "<td><a href='https://www.ipip.net/ip/$ipaddr.html'>".$ipinfo."</a></td>";
+              echo "<td><a target='view_window' href='https://www.ipip.net/ip/$ipaddr.html'>".$ipinfo."</a></td>";
               echo "<td>".$row['user_id']."</td>";
               echo "<td>";
                 echo "<a href='../userinfo.php?user=".$row['user_id']."'><sub>".$MSG_USERINFO."</sub></a> <sub>/</sub> ";
@@ -162,7 +162,7 @@
               $ipaddr = $row["ip"];
               $ipinfo = $ip->getlocation($ipaddr)["country"]." ".$ip->getlocation($ipaddr)["area"];
               echo "<td>".$ipaddr."</a></td>";
-              echo "<td><a href='https://www.ipip.net/ip/$ipaddr.html'>".$ipinfo."</a></td>";
+              echo "<td><a target='view_window' href='https://www.ipip.net/ip/$ipaddr.html'>".$ipinfo."</a></td>";
               echo "<td>".$row['time']."</td>";
               echo "<td>".$row['c']."</td>";
               echo "</tr>";
