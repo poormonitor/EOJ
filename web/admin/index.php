@@ -12,6 +12,14 @@
         <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) { ?>
             <tr>
                 <td>
+                    <center><a class='btn btn-info btn-sm' href="setmsg.php" target="main"><b><?php echo $MSG_NEWS . "-" . $MSG_SETMESSAGE ?></b></a></center>
+                </td>
+                <td>
+                    <p><?php echo $MSG_HELP_SETMESSAGE ?></p>
+                </td>
+            </tr>
+            <tr>
+                <td>
                     <center><a class='btn btn-info btn-sm' href="news_list.php"><b><?php echo $MSG_NEWS . "-" . $MSG_LIST ?></b></a></center>
                 </td>
                 <td>

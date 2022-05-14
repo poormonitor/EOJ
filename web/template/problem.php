@@ -119,7 +119,7 @@
 					echo "</div>";
 					echo "<!--StartMarkForVirtualJudge-->";
 					?>
-					<div class="panel panel-body">
+					<div class="panel-body with-footer">
 						<div class="row">
 							<div class="col-md-9">
 								<div class='panel panel-default'>
@@ -233,33 +233,36 @@
 								<?php } ?>
 							</div>
 							<div class="col-md-3">
-								<?php if ($row['allow'] || $row['block']) { ?>
-									<div class='panel panel-default'>
-										<div class='panel-heading'>
-											<h4>
-												禁用/必用关键词
-											</h4>
-										</div>
-										<div class='panel-body content'>
+
+								<div class='panel panel-default'>
+									<div class='panel-heading'>
+										<h4>
+											禁用/必用关键词
+										</h4>
+									</div>
+									<div class='panel-body content'>
+										<?php if ($row['allow'] || $row['block']) { ?>
 											<?php if ($row['block']) { ?>
 												<div style='margin-top:10px;'>禁用: <span class='label label-danger'><?php echo $block; ?></span></div>
 											<?php }
 											if ($row['allow']) { ?>
 												<div style='margin-top:10px;'>必用: <span class='label label-success'><?php echo $allow; ?></span></div>
 											<?php } ?>
-										</div>
+										<?php } else {
+											echo $MSG_EMPTY;
+										} ?>
 									</div>
-								<?php } ?>
+								</div>
 								<?php if ($pr_flag) { ?>
-									<?php if ($row['source']) { ?>
-										<div class='panel panel-default'>
-											<div class='panel-heading'>
-												<h4>
-													<?php echo $MSG_SOURCE ?>
-												</h4>
-											</div>
+									<div class='panel panel-default'>
+										<div class='panel-heading'>
+											<h4>
+												<?php echo $MSG_SOURCE ?>
+											</h4>
+										</div>
 
-											<div fd="source" style='word-wrap:break-word;' pid=<?php echo $row['problem_id'] ?> class='panel-body content'>
+										<div fd="source" style='word-wrap:break-word;' pid=<?php echo $row['problem_id'] ?> class='panel-body content'>
+											<?php if ($row['source']) { ?>
 												<?php
 												$cats = explode(" ", $row['source']);
 												foreach ($cats as $cat) {
@@ -269,26 +272,28 @@
 													if ($label_theme == "") $label_theme = "default";
 													echo "<a class='label label-$label_theme' style='display: inline-block;' href='problemset.php?search=" . urlencode(htmlentities($cat, ENT_QUOTES, 'utf-8')) . "'>" . htmlentities($cat, ENT_QUOTES, 'utf-8') . "</a>&nbsp;";
 												} ?>
-											</div>
-										<?php } ?>
+											<?php } else {
+												echo $MSG_EMPTY;
+											} ?>
 										</div>
-									<?php } ?>
+									</div>
+								<?php } ?>
 							</div>
 						</div>
 					</div>
-				</div>
-				<center>
 					<!--EndMarkForVirtualJudge-->
 					<div class='panel-footer'>
-						<?php
-						if ($pr_flag) {
-							echo "<a class='btn btn-info btn-sm' href='submitpage.php?id=$id' role='button'>$MSG_SUBMIT</a>";
-						} else {
-							echo "<a class='btn btn-info btn-sm' href='submitpage.php?cid=$cid&pid=$pid&langmask=$langmask' role='button'>$MSG_SUBMIT</a>";
-						}
-						?>
+						<center>
+							<?php
+							if ($pr_flag) {
+								echo "<a class='btn btn-info btn-sm' href='submitpage.php?id=$id' role='button'>$MSG_SUBMIT</a>";
+							} else {
+								echo "<a class='btn btn-info btn-sm' href='submitpage.php?cid=$cid&pid=$pid&langmask=$langmask' role='button'>$MSG_SUBMIT</a>";
+							}
+							?>
+						</center>
 					</div>
-				</center>
+				</div>
 			</div>
 		</div>
 	</div>

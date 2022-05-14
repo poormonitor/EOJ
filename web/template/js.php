@@ -46,14 +46,14 @@ $prefix = isset($prefix) ? $prefix : "";
 	$(document).ready(function() {
 		$("#csrf").load("<?php echo $prefix; ?>csrf.php");
 		<?php
-		if (isset($_SESSION[$OJ_NAME . "_administrator"])) echo "admin_mod();";
+		if (isset($_SESSION[$OJ_NAME . "_" . "administrator"])) echo "admin_mod();";
 		?>
 	});
 	console.log("Loading used <?php echo $runTime; ?>.")
 	console.log("Thanks for choosing <?php echo $OJ_NAME; ?>.");
-	<?php if (isset($OJ_FLOAT_NOTICE) && $OJ_FLOAT_NOTICE[0]) { ?>
-		setAD("<?php echo $OJ_FLOAT_NOTICE[0] ?>",
-			"<?php echo $OJ_FLOAT_NOTICE[1] ?>",
-			<?php echo $OJ_FLOAT_NOTICE[2] ? 'true' : 'false' ?>);
+	<?php if (isset($OJ_FLOAT_NOTICE) && intval($OJ_FLOAT_NOTICE[0])) { ?>
+		setAD("<?php echo $OJ_FLOAT_NOTICE[1] ?>",
+			"<?php echo $OJ_FLOAT_NOTICE[2] ?>",
+			<?php echo intval($OJ_FLOAT_NOTICE[3]) ? 'true' : 'false' ?>);
 	<?php } ?>
 </script>
