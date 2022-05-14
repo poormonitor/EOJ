@@ -35,10 +35,13 @@ pre {
     border: 0;
 }
 
-.panel-default>.panel-body {
-    box-shadow: 0 1px 0 rgba(255, 255, 255, .15) inset, 0 2px 6px rgba(0, 0, 0, .075);
+.panel-default>.panel-body:not(.with-footer) {
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+}
+
+.panel-default>.panel-body {
+    box-shadow: 0 1px 0 rgba(255, 255, 255, .15) inset, 0 2px 6px rgba(0, 0, 0, .075);
 }
 
 .panel-default>.panel-heading {
@@ -80,7 +83,7 @@ pre {
         filter: invert(1) hue-rotate(180deg);
     }
 
-    .btn-sm {
+    .btn-sm, .btn-xs {
         color: #fff;
         filter: invert(1) hue-rotate(180deg) brightness(140%);
     }

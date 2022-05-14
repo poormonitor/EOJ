@@ -52,7 +52,15 @@
 										<td><?php echo $u["uri"] ?></td>
 										<td><?php echo $u['refer'] ?></td>
 										<td class="time"><?php echo sprintf("%dmin %dsec", ($u['lastmove'] - $u['firsttime']) / 60, ($u['lastmove'] - $u['firsttime']) % 60) ?></td>
-										<td><?php echo $ua[0] ?></td>
+										<td>
+											<?php if ($ua[0] != "guest") { ?>
+												<a target="view_window" href="userinfo.php?user=<?php echo $ua[0] ?>">
+													<?php echo $ua[0] ?>
+												</a>
+											<?php } else { ?>
+												<?php echo $ua[0] ?>
+											<?php } ?>
+										</td>
 										<td><?php echo $ua[1] ?></td>
 									</tr>
 							<?php

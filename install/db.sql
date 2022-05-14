@@ -1,5 +1,5 @@
 SET NAMES utf8;
-SET time_zone = '+00:00';
+SET time_zone = '+08:00';
 SET foreign_key_checks = 0;
 SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
@@ -17,7 +17,7 @@ CREATE TABLE `answer` (
   `judgetime` datetime DEFAULT NULL,
   `total` int(11) DEFAULT NULL,
   PRIMARY KEY (`aid`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8mb3;
 
 
 SET NAMES utf8mb4;
@@ -41,7 +41,7 @@ CREATE TABLE `contest` (
   `password` char(16) NOT NULL DEFAULT '',
   `user_id` varchar(48) NOT NULL DEFAULT 'admin',
   PRIMARY KEY (`contest_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8mb4;
 
 
 CREATE TABLE `contest_problem` (
@@ -67,7 +67,7 @@ CREATE TABLE `group` (
   `name` varchar(50) DEFAULT NULL,
   `allow_view` varchar(1) NOT NULL,
   PRIMARY KEY (`gid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8mb3;
 
 
 CREATE TABLE `ip` (
@@ -87,21 +87,6 @@ CREATE TABLE `loginlog` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
-CREATE TABLE `mail` (
-  `mail_id` int(11) NOT NULL AUTO_INCREMENT,
-  `to_user` varchar(48) NOT NULL DEFAULT '' COMMENT 'user_id',
-  `from_user` varchar(48) NOT NULL DEFAULT '' COMMENT 'user_id',
-  `title` varchar(200) NOT NULL DEFAULT '',
-  `content` text DEFAULT NULL,
-  `new_mail` tinyint(1) NOT NULL DEFAULT 1,
-  `reply` tinyint(4) DEFAULT 0,
-  `in_date` datetime DEFAULT NULL,
-  `defunct` char(1) NOT NULL DEFAULT 'N',
-  PRIMARY KEY (`mail_id`),
-  KEY `uid` (`to_user`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
 CREATE TABLE `news` (
   `news_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` varchar(48) NOT NULL DEFAULT '' COMMENT 'user_id',
@@ -112,7 +97,7 @@ CREATE TABLE `news` (
   `defunct` char(1) NOT NULL DEFAULT 'N',
   `private` char(1) DEFAULT 'N',
   PRIMARY KEY (`news_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8mb4;
 
 
 CREATE TABLE `online` (
@@ -161,7 +146,7 @@ CREATE TABLE `problem` (
   `allow` varchar(100) CHARACTER SET utf8mb3 DEFAULT NULL,
   `block` varchar(100) CHARACTER SET utf8mb3 DEFAULT NULL,
   PRIMARY KEY (`problem_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8mb4;
 
 
 CREATE TABLE `problem_2` (
@@ -179,7 +164,7 @@ CREATE TABLE `problem_2` (
   `spj` int(11) DEFAULT NULL,
   `hint` text DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8mb4;
 
 
 CREATE TABLE `quiz` (
@@ -196,20 +181,7 @@ CREATE TABLE `quiz` (
   `correct_answer` text DEFAULT NULL,
   `user_id` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`quiz_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-
-
-CREATE TABLE `reply` (
-  `rid` int(11) NOT NULL AUTO_INCREMENT,
-  `author_id` varchar(48) NOT NULL DEFAULT '' COMMENT 'user_id',
-  `time` datetime NOT NULL DEFAULT '2016-05-13 19:24:00',
-  `content` text NOT NULL,
-  `topic_id` int(11) NOT NULL,
-  `status` int(2) NOT NULL DEFAULT 0,
-  `ip` varchar(46) NOT NULL,
-  PRIMARY KEY (`rid`),
-  KEY `author_id` (`author_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8mb3;
 
 
 CREATE TABLE `runtimeinfo` (
@@ -258,7 +230,7 @@ CREATE TABLE `solution` (
   `nick` char(20) NOT NULL DEFAULT '',
   `time` int(11) NOT NULL DEFAULT 0,
   `memory` int(11) NOT NULL DEFAULT 0,
-  `in_date` datetime NOT NULL DEFAULT '2009-06-13 19:00:00',
+  `in_date` datetime NOT NULL DEFAULT current_timestamp(),
   `result` smallint(6) NOT NULL DEFAULT 0,
   `language` int(10) unsigned NOT NULL DEFAULT 0,
   `ip` char(46) CHARACTER SET utf8mb3 NOT NULL DEFAULT '',
@@ -275,7 +247,7 @@ CREATE TABLE `solution` (
   KEY `pid` (`problem_id`),
   KEY `res` (`result`),
   KEY `cid` (`contest_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 ROW_FORMAT=FIXED;
+) ENGINE=MyISAM AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=FIXED;
 
 
 CREATE TABLE `source_code` (

@@ -48,6 +48,7 @@ $prefix = "../";
                                 </button>
                                 <ul class="dropdown-menu">
                                     <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) { ?>
+                                        <li><a class="dropdown-item" href="setmsg.php" title="<?php echo $MSG_HELP_SETMESSAGE?>"><b><?php echo $MSG_NEWS."-".$MSG_SETMESSAGE?></b></a></li>
                                         <li><a class="dropdown-item" href="news_list.php" title="<?php echo $MSG_HELP_NEWS_LIST ?>"><b><?php echo $MSG_NEWS . "-" . $MSG_LIST ?></b></a></li>
                                         <li><a class="dropdown-item" href="news_add_page.php" title="<?php echo $MSG_HELP_ADD_NEWS ?>"><b><?php echo $MSG_NEWS . "-" . $MSG_ADD ?></b></a></li>
                                     <?php } ?>

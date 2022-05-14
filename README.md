@@ -42,7 +42,7 @@ wget https://git.oldmonitor.cn/poormonitor/hoj/raw/branch/master/install/install
 
 3. *安装Python
 
-   为加速判题，默认开启了PYTHON_FREE，并在编译中将Python指向/home/judge/py3/bin/python3。您可以选用如下方法安装Python。
+   为加速判题，默认开启了PYTHON_FREE。若需使用虚拟环境，您可以修改配置文件OJ_PY_BIN指向 /home/judge/py3/bin/python3 （自定），并选用如下方法安装Python。
 
    1. 编译安装（以3.10.0为例）
 
