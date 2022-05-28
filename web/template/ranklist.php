@@ -1,6 +1,6 @@
 <?php if (stripos($_SERVER['REQUEST_URI'], "template")) exit(); ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?php echo $OJ_LANG ?>">
 
 <head>
   <meta charset="utf-8">

@@ -15,7 +15,7 @@ if (isset($_SESSION[$OJ_NAME . '_' . 'profile_csrf']) && $_GET['profile_csrf'] !
 if (isset($OJ_LANG)) {
   require_once("../lang/$OJ_LANG.php");
 } else {
-  require_once("../lang/cn.php");
+  require_once("../lang/zh.php");
 }
 
 function checkmail()

@@ -9,6 +9,7 @@ $MSG_DISABLE = "禁用";
 $MSG_ENABLED = "已启用";
 $MSG_DISABLED = "已禁用";
 $MSG_EMPTY = "无";
+$MSG_UPLOAD = "上传";
 $MSG_NOT_EXISTED = "您请求的项目不存在";
 $MSG_SUBMISSIONS = "次提交";
 $MSG_NO_SUBMISSION = "无提交";
