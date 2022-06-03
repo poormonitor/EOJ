@@ -198,6 +198,8 @@ int num_of_test = 0;
 static int py2 = 1; // caution: py2=1 means default using py3
 static char py_bin[BUFFER_SIZE / 10] = "/usr/bin/python3";
 
+static char judger[BUFFER_SIZE / 10] = "LOCAL";
+
 #define ZOJ_COM
 
 #ifdef _mysql_h
@@ -580,6 +582,7 @@ void init_judge_conf()
 			read_buf(buf, "OJ_CC_STD", cc_std);
 			read_buf(buf, "OJ_CPP_STD", cpp_std);
 			read_buf(buf, "OJ_CC_OPT", cc_opt);
+			read_buf(buf, "OJ_JUDGER", judger);
 			read_buf(buf, "OJ_PY_BIN", py_bin);
 		}
 		fclose(fp);
@@ -918,8 +921,7 @@ void _update_solution_mysql(int solution_id, int result, int time, int memory,
 							int sim, int sim_s_id, double pass_rate)
 {
 	char sql[BUFFER_SIZE];
-	char judger[BUFFER_SIZE / 10];
-	mysql_real_escape_string(conn, judger, http_username, strlen(http_username));
+	mysql_real_escape_string(conn, judger, judger, strlen(judger));
 
 	if (oi_mode)
 	{

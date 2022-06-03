@@ -21,34 +21,21 @@
 	<div class="container">
 		<?php include("template/nav.php"); ?>
 		<div class="jumbotron">
+			<table style="width: 100%;">
+				<tr>
+					<td style="width: 50%;"><tt id="path-lhs"></tt> &nbsp; <a id="save-lhs" class="save-link" href="#">save</a></td>
+					<td style="width: 50%;"><tt id="path-rhs"></tt> &nbsp; <a id="save-rhs" class="save-link" href="#">save</a></td>
+				</tr>
+			</table>
 
-			<body style="width: 100%;">
-				<table style="width: 100%;">
-					<tr>
-						<td style="width: 50%;"><input type="checkbox" id="ignorews">&nbsp;Ignore witespaces</td>
-					</tr>
-				</table>
-				<br>
-
-				<table style="width: 100%;">
-					<tr>
-						<td style="width: 50%;"><tt id="path-lhs"></tt> &nbsp; <a id="save-lhs" class="save-link" href="#">save</a></td>
-						<td style="width: 50%;"><tt id="path-rhs"></tt> &nbsp; <a id="save-rhs" class="save-link" href="#">save</a></td>
-					</tr>
-				</table>
-
-				<div id="mergely-resizer" style="height: 450px;">
-					<div id="compare">
-					</div>
+			<div id="mergely-resizer" style="height: 450px;">
+				<div id="compare">
 				</div>
-
-			</body>
-
-
+			</div>
 		</div>
 		<?php include("template/js.php"); ?>
-		<script type="text/javascript" src="<?php echo $OJ_CDN_URL?>mergely/codemirror.min.js"></script>
-		<script type="text/javascript" src="<?php echo $OJ_CDN_URL?>mergely/mergely.min.js"></script>
+		<script type="text/javascript" src="<?php echo $OJ_CDN_URL ?>mergely/codemirror.min.js"></script>
+		<script type="text/javascript" src="<?php echo $OJ_CDN_URL ?>mergely/mergely.min.js"></script>
 
 		<script type="text/javascript">
 			$(document).ready(function() {
@@ -91,13 +78,6 @@
 				document.getElementById('save-rhs').addEventListener('mouseover', function() {
 					download_content(this, "lhs");
 				}, false);
-				document.getElementById('ignorews').addEventListener('change', function() {
-					$('#compare').mergely('options', {
-						ignorews: this.checked
-					});
-				}, false);
-
-
 			});
 		</script>
 
