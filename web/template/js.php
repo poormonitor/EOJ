@@ -20,9 +20,13 @@
 	</div>
 </div>
 <br><br>
+<script>
+	var OJ_CDN = "<?php echo $OJ_CDN_URL ?>";
+	var OJ_LANG = '<?php echo $OJ_LANG ?>';
+</script>
 <script src="<?php echo $OJ_CDN_URL . "template/" ?>jquery.min.js"></script>
 <script src="<?php echo $OJ_CDN_URL . "template/" ?>bootstrap.min.js"></script>
-<script src="<?php echo $OJ_CDN_URL . "template/" ?>index.min.js?v=1.19"></script>
+<script src="<?php echo $OJ_CDN_URL . "template/" ?>index.min.js?v=1.20"></script>
 <script src="<?php echo $OJ_CDN_URL . "include/" ?>sweetalert.min.js"></script>
 <?php if (isset($OJ_GOOGLE_ANALYTICS)) { ?>
 	<script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo $OJ_GOOGLE_ANALYTICS ?>"></script>
@@ -42,7 +46,6 @@ $runTime = ($endTime - $startTime) * 1000 . ' ms';
 $prefix = isset($prefix) ? $prefix : "";
 ?>
 <script>
-	var OJ_CDN = "<?php echo $OJ_CDN_URL ?>";
 	$(document).ready(function() {
 		$("#csrf").load("<?php echo $prefix; ?>csrf.php");
 		<?php

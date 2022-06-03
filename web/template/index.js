@@ -1,3 +1,26 @@
+var langString = {
+    "zh": {
+        Vcode: "验证码",
+        Copied: "复制成功",
+        CopyForbidden: "浏览器不允许网页使用剪切板",
+        TestRunOver: "测试运行结束",
+        Status: "状态",
+        VcodeWrong: "验证码错误",
+        FormatWrong: "您的代码不符合填空格式",
+        KeywordWrong: "代码中有禁用的关键词或没有使用必须的关键词",
+    }, "en":
+    {
+        Vcode: "Verification Code",
+        Copied: "Copied!",
+        CopyForbidden: "The broswer does not allowed clipboard actions.",
+        TestRunOver: "Test run finished.",
+        Status: "Status",
+        VcodeWrong: "Verification code is wrong.",
+        FormatWrong: "The code does not match the template.",
+        KeywordWrong: "Required keywords are not used in the code or Banned ones are used.",
+    }
+}[OJ_LANG];
+
 $(document).ready(function () {
     $("form").append("<div id='csrf' />");
 });
@@ -223,7 +246,7 @@ function vcode_required(self) {
     HTMLcontent += "<div class='col-xs-4'><img id='vcode-img' alt='Click to change' src='vcode.php?" + Math.random() + " onclick='change_vcode(this)' height=auto autocomplete='off'></div>"
     content.innerHTML = HTMLcontent;
     swal({
-        title: "验证码",
+        title: langString.VCODE,
         content: content
     }).then((onConfirm) => {
         value = $("#vcode-input").val();
@@ -273,12 +296,12 @@ function CopyToClipboard(input) {
 
     if (success) {
         swal({
-            text: "复制成功！",
+            text: langString.Copied,
             timer: 1000
         });
     } else {
         swal({
-            text: "浏览器不允许网页使用剪切板！",
+            text: langString.CopyForbidden,
             timer: 1000
         });
     }
@@ -317,7 +340,7 @@ function getTotal(rows) {
             total = parseInt(rows[rows.length - i].cells[0].innerHTML);
             if (isNaN(total))
                 total = 0;
-        } catch (e) {}
+        } catch (e) { }
     }
     return total;
 }
@@ -389,25 +412,25 @@ function print_result(solution_id) {
     $.get("status-ajax.php?tr=1&solution_id=" + solution_id, function (data, status) {
         $("#out").text(data)
     })
-    swal("测试结束");
+    swal(langString.TestRunOver);
 }
 
 function fresh_test_result(solution_id) {
     var tb = window.document.getElementById('result');
     switch (solution_id) {
         case "-1":
-            swal("验证码错误");
-            tb.innerHTML = "状态";
+            swal(langString.VcodeWrong);
+            tb.innerHTML = langString.Status;
             if ($("#vcode") != null) $("#vcode").click();
             return;
         case "-2":
-            swal("您的代码不符合填空格式");
-            tb.innerHTML = "状态";
+            swal(langString.FormatWrong);
+            tb.innerHTML = langString.Status;
             if ($("#vcode") != null) $("#vcode").click();
             return;
         case "-3":
-            swal("代码中有禁用的关键词或没有使用必须的关键词");
-            tb.innerHTML = "状态";
+            swal(langString.KeywordWrong);
+            tb.innerHTML = langString.Status;
             if ($("#vcode") != null) $("#vcode").click();
             return;
     }
@@ -702,12 +725,6 @@ function explain() {
     document.getElementById("errexp").innerHTML = expmsg;
 }
 
-function showDownload() {
-    var errmsg = $("#errtxt").html();
-    errmsg = errmsg.replace(/========\[(.*)\]=========/g, "<a href='download.php?sid=<?php echo $id?>&name=$1'>$1</a>");
-    $("#errtxt").html(errmsg);
-}
-
 function auto_refresh() {
     interval = 800;
     var tb = window.document.getElementById('result-tab');
@@ -785,7 +802,7 @@ function fresh_result(solution_id) {
                         row.cells[3].innerHTML = "<a href=ceinfo.php?sid=" + solution_id + " class='" + judge_color[ra[0]] + "'>" + judge_result[ra[0]] + "</a>";
                         break;
                     default:
-                        //						row.cells[3].innerHTML = "<span class='"+judge_color[ra[0]]+"'>"+judge_result[ra[0]]+" AC:"+ra[4].trim()+"%</span>";
+                    //						row.cells[3].innerHTML = "<span class='"+judge_color[ra[0]]+"'>"+judge_result[ra[0]]+" AC:"+ra[4].trim()+"%</span>";
                 }
 
                 auto_refresh();
