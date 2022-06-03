@@ -93,6 +93,16 @@ $loc = isset($prefix) ? "&loc=admin" : "";
           </ul>
         </li>
       </ul>
+      <!-- select language -->
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span id="profile">Language</span><span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="<?php echo $prefix ?>setlang.php?lang=zh">中文</a></li>
+            <li><a href="<?php echo $prefix ?>setlang.php?lang=en">English</a></li>
+          </ul>
+        </li>
+      </ul><!-- select language -->
     </div>
     <!--/.nav-collapse -->
   </div>

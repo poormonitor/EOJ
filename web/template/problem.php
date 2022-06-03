@@ -110,8 +110,8 @@
 					}
 					if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor'])) {
 						require_once("include/set_get_key.php");
-						echo "<a class='btn btn-success btn-sm' role='button' href=admin/problem_edit.php?id=$id&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">编辑</a>";
-						echo "<a class='btn btn-success btn-sm' role='button' href=javascript:phpfm(" . $row['problem_id'] . ")>测试数据</a>";
+						echo "<a class='btn btn-success btn-sm' role='button' href=admin/problem_edit.php?id=$id&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">$MSG_EDIT</a>";
+						echo "<a class='btn btn-success btn-sm' role='button' href=javascript:phpfm(" . $row['problem_id'] . ")>$MSG_TESTDATA</a>";
 					}
 					echo "</div>";
 					echo "</center>";
@@ -126,7 +126,7 @@
 									<div class='panel-heading'>
 										<h4>
 											<?php echo $MSG_Description ?>&nbsp;
-											<a class='btn btn-xs btn-info' href="javascript:CopyToClipboard($('.describe').text())">复制</a>
+											<a class='btn btn-xs btn-info' href="javascript:CopyToClipboard($('.describe').text())"><?php echo $MSG_COPY ?></a>
 										</h4>
 									</div>
 									<div class='panel-body content'>
@@ -177,7 +177,7 @@
 												<div class='panel-heading'>
 													<h4>
 														<?php echo $MSG_Sample_Input ?>&nbsp;
-														<a class='btn btn-xs btn-info' href="javascript:CopyToClipboard($('#sampleinput').text())">复制</a>
+														<a class='btn btn-xs btn-info' href="javascript:CopyToClipboard($('#sampleinput').text())"><?php echo $MSG_COPY ?></a>
 													</h4>
 												</div>
 												<div class='panel-body'>
@@ -193,7 +193,7 @@
 												<div class='panel-heading'>
 													<h4>
 														<?php echo $MSG_Sample_Output ?>&nbsp;
-														<a class='btn btn-xs btn-info' href="javascript:CopyToClipboard($('#sampleoutput').text())">复制</a>
+														<a class='btn btn-xs btn-info' href="javascript:CopyToClipboard($('#sampleoutput').text())"><?php echo $MSG_COPY ?></a>
 													</h4>
 												</div>
 												<div class='panel-body'>
@@ -222,8 +222,8 @@
 									<div class='panel panel-default'>
 										<div class='panel-heading'>
 											<h4>
-												代码填空
-												<a class='btn btn-xs btn-info' href="javascript:CopyToClipboard($('.blank-code').text())">复制</a>
+												<?php echo $MSG_BLANK_FILLING ?>
+												<a class='btn btn-xs btn-info' href="javascript:CopyToClipboard($('.blank-code').text())"><?php echo $MSG_COPY ?></a>
 											</h4>
 										</div>
 										<div class='panel-body content' style='padding:10px;'>
@@ -237,16 +237,16 @@
 								<div class='panel panel-default'>
 									<div class='panel-heading'>
 										<h4>
-											禁用/必用关键词
+											<?php echo $MSG_AB_KEYWORD ?>
 										</h4>
 									</div>
 									<div class='panel-body content'>
 										<?php if ($row['allow'] || $row['block']) { ?>
 											<?php if ($row['block']) { ?>
-												<div style='margin-top:10px;'>禁用: <span class='label label-danger'><?php echo $block; ?></span></div>
+												<div style='margin-top:10px;'><?php echo $MSG_ALLOW_KEYWORD ?>: <span class='label label-danger'><?php echo $block; ?></span></div>
 											<?php }
 											if ($row['allow']) { ?>
-												<div style='margin-top:10px;'>必用: <span class='label label-success'><?php echo $allow; ?></span></div>
+												<div style='margin-top:10px;'><?php echo $MSG_REQUIRED_KEYWORD ?>: <span class='label label-success'><?php echo $allow; ?></span></div>
 											<?php } ?>
 										<?php } else {
 											echo $MSG_EMPTY;

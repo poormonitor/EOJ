@@ -71,8 +71,9 @@ echo "</select>";
       <form method=post action=contest_add.php>
         <thead>
           <tr>
-            <th class='center'><?php echo $MSG_PROBLEM_ID ?>
-              <input type=checkbox style='vertical-align:2px;' onchange='$("input[type=checkbox]").prop("checked", this.checked)'>
+            <th class='center'>
+                <?php echo $MSG_PROBLEM_ID ?>
+                <input type=checkbox onchange='$("input[type=checkbox]").prop("checked", this.checked)'>
             </th>
             <th class='center'><?php echo $MSG_TITLE ?></th>
             <th class='center'><?php echo $MSG_AC ?></th>
@@ -89,7 +90,7 @@ echo "</select>";
         <?php
         foreach ($result as $row) {
           echo "<tr>";
-          echo "<td>" . $row['problem_id'] . " <input type=checkbox style='vertical-align:2px;' name='pid[]' value='" . $row['problem_id'] . "'></td>";
+          echo "<td><span>" . $row['problem_id'] . " <input type=checkbox name='pid[]' value='" . $row['problem_id'] . "'></span></td>";
           echo "<td><a href='../problem.php?id=" . $row['problem_id'] . "'>" . $row['title'] . "</a></td>";
           echo "<td>" . $row['accepted'] . "</td>";
           echo "<td>" . $row['in_date'] . "</td>";

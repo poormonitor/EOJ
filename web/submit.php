@@ -446,7 +446,7 @@ if (isset($OJ_UDP) && $OJ_UDP) {
 
 if ((!isset($_GET['ajax']))) { ?>
   <!DOCTYPE html>
-  <html>
+  <html lang="<?php echo $OJ_LANG ?>">
 
   <head>
     <meta charset='utf-8'>

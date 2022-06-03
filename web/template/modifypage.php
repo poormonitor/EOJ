@@ -47,7 +47,6 @@
         <div class="form-group">
           <label class="col-sm-4 control-label"><?php echo $MSG_SCHOOL ?></label>
           <div class="col-sm-4"><input name="school" class="form-control" value="<?php echo htmlentities($row['school'], ENT_QUOTES, "UTF-8") ?>" type="text" disabled></div>
-          <?php if (isset($_SESSION[$OJ_NAME . "_printer"])) echo "$MSG_HELP_BALLOON_SCHOOL"; ?>
         </div>
         <div class="form-group">
           <label class="col-sm-4 control-label"><?php echo $MSG_EMAIL ?></label>
@@ -64,7 +63,7 @@
         </div>
       </form>
 
-      <a class='btn btn-success btn-sm' style='margin:10px;' href=export_ac_code.php>下载所有通过的代码</a><br>
+      <a class='btn btn-success btn-sm' style='margin:10px;' href=export_ac_code.php><?php echo $MSG_DOWNLOAD_ALL_AC ?></a><br>
     </div>
   </div>
   <?php include("template/js.php"); ?>

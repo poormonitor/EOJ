@@ -6,7 +6,7 @@ if (isset($OJ_LANG)) {
 	require_once("./lang/$OJ_LANG.php");
 }
 ?>
-<html>
+<html lang="<?php echo $OJ_LANG ?>">
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">

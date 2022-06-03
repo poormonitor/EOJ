@@ -140,10 +140,12 @@ require_once("admin-header.php");
       Hour: <input class='form-control' type=text name=ehour size=2 value='<?php echo substr($endtime, 11, 2) ?>'>&nbsp;
       Minute: <input class='form-control' type=text name=eminute value='<?php echo substr($endtime, 14, 2) ?>' size=2>
     </div>
+    <br>
     <p align=left>
       <?php echo "<h4>" . $MSG_QUIZ . "-" . $MSG_Description . "</h4>" ?>
       <textarea id="tinymce0" rows=13 name=description cols=80><?php echo isset($description) ? $description : "" ?></textarea>
     </p>
+    <br>
     <p>
       <?php
       for ($i = 0; $i < $num; $i++) {

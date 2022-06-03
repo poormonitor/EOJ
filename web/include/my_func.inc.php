@@ -266,6 +266,7 @@ class Answer
   var string $user;
   var string $nick;
   var int $total;
+
   function __construct(array $choice, array $score, string $user, string $nick, int $total)
   {
     $this->choice = $choice;
@@ -283,6 +284,8 @@ class Analysis
   var array $score;
   var array $f_score;
   var array $sum_score;
+  var array $user_choice;
+  var array $user_score;
   var array $choices;
   var int $answered = 0;
 
@@ -295,6 +298,7 @@ class Analysis
     for ($i = 0; $i < $this->num; $i++) {
       $this->f_score[$i] = array();
       $this->choices[$i] = array();
+      $this->user_choice[$i] = array();
     }
   }
   function add_answer(Answer $answer)
@@ -309,6 +313,14 @@ class Analysis
       } else {
         $this->f_score[$i][$answer->score[$i]] = 1;
       }
+      if (!(isset($this->user_choice[$i][$answer->choice[$i]]))) {
+        $this->user_choice[$i][$answer->choice[$i]] = array();
+      }
+      if (!(isset($this->user_score[$i][$answer->score[$i]]))) {
+        $this->user_score[$i][$answer->score[$i]] = array();
+      }
+      array_push($this->user_score[$i][$answer->score[$i]], array($answer->user, $answer->nick));
+      array_push($this->user_choice[$i][$answer->choice[$i]], array($answer->user, $answer->nick));
     }
     $this->sum_score[] = $answer->total;
     $this->answered += 1;
@@ -365,6 +377,18 @@ class Analysis
     }
     $low_average = $low / $low_num;
     return ($high_average - $low_average) / array_sum($this->score);
+  }
+  function get_choice_users(int $problem_id): array
+  {
+    $choice_users = $this->user_choice[$problem_id];
+    ksort($choice_users);
+    return $choice_users;
+  }
+  function get_score_users(int $problem_id): array
+  {
+    $score_users = $this->user_score[$problem_id];
+    ksort($score_users);
+    return $score_users;
   }
 }
 

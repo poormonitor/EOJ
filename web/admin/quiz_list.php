@@ -85,12 +85,12 @@ require_once("../include/set_get_key.php");
           echo "<td>" . $row['end_time'] . "</td>";
           $qid = $row['quiz_id'];
           if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . "mq$qid"])) {
-            echo "<td><a href=quiz_pr_change.php?qid=" . $row['quiz_id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">" . ($row['private'] == "0" ? "<span class=green>公开</span>" : "<span class=red>私有<span>") . "</a></td>";
-            echo "<td><a href=quiz_df_change.php?qid=" . $row['quiz_id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">" . ($row['defunct'] == "N" ? "<span class=green>可用</span>" : "<span class=red>锁定</span>") . "</a></td>";
-            echo "<td><a href=quiz_edit.php?qid=" . $row['quiz_id'] . ">编辑</a></td>";
-            echo "<td><a href=quiz_add.php?qid=" . $row['quiz_id'] . ">复制</a></td>";
+            echo "<td><a href=quiz_pr_change.php?qid=" . $row['quiz_id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">" . ($row['private'] == "0" ? "<span class=green>$MSG_Public</span>" : "<span class=red>$MSG_Private<span>") . "</a></td>";
+            echo "<td><a href=quiz_df_change.php?qid=" . $row['quiz_id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">" . ($row['defunct'] == "N" ? "<span class=green>$MSG_ENABLED</span>" : "<span class=red>$MSG_DISABLED</span>") . "</a></td>";
+            echo "<td><a href=quiz_edit.php?qid=" . $row['quiz_id'] . ">$MSG_EDIT</a></td>";
+            echo "<td><a href=quiz_add.php?qid=" . $row['quiz_id'] . ">$MSG_COPY</a></td>";
           } else {
-            echo "<td colspan=5 align=right><a href=quiz_add.php?qid=" . $row['quiz_id'] . ">复制</a><td>";
+            echo "<td colspan=5 align=right><a href=quiz_add.php?qid=" . $row['quiz_id'] . ">$MSG_COPY</a><td>";
           }
           echo "<td><a href=quiz_rejudge.php?qid=" . $row['quiz_id'] . ">" . $MSG_REJUDGE . "</a></td>";
           echo "<td><a href=quiz_judge.php?qid=" . $row['quiz_id'] . ">" . $MSG_QUIZ_JUDGE . "</a></td>";

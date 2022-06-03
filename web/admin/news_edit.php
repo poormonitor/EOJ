@@ -71,8 +71,8 @@ require_once("admin-header.php");
     </p>
     <div class='col-sm-4 col-sm-offset-4'>
       <p>
-        <?php echo "<h4>" . "私有" . "</h4>" ?>
-        <?php echo "否 " ?><input type=radio name=private value='0' <?php if ($row['private'] == 'N') echo "checked" ?>><?php echo "/ 是 " ?><input type=radio name=private value='1' <?php if ($row['private'] == 'Y') echo "checked" ?>><br><br>
+        <?php echo "<h4>" . $MSG_Private . "</h4>" ?>
+        <?php echo $MSG_TRUE_FALSE[false] . " " ?><input type=radio name=private value='0' <?php if ($row['private'] == 'N') echo "checked" ?>><?php echo "/ " . $MSG_TRUE_FALSE[true] . " " ?><input type=radio name=private value='1' <?php if ($row['private'] == 'Y') echo "checked" ?>><br><br>
       </p>
       <h4 class='control-label'><?php echo $MSG_GROUP; ?></h4>
       <select name="gid[]" class="selectpicker show-menu-arrow form-control" size=8 multiple>

@@ -65,24 +65,25 @@ echo "<center><h3>" . $MSG_PROBLEM . "-" .  $MSG_EDIT . "</h3></center>";
       <p>
         <?php echo "<h4>" . $MSG_SPJ . "</h4>" ?>
       <p><?php echo $MSG_HELP_SPJ ?></p>
-      <input type="radio" name="spj" value='0' <?php if (!$row['spj']) echo "checked" ?>> 否
+      <input type="radio" name="spj" value='0' <?php if (!$row['spj']) echo "checked" ?>> <?php echo $MSG_TRUE_FALSE[false] ?>
       <span> / </span>
-      <input type="radio" name="spj" value='1' <?php if ($row['spj']) echo "checked" ?>> 是
+      <input type="radio" name="spj" value='1' <?php if ($row['spj']) echo "checked" ?>> <?php echo $MSG_TRUE_FALSE[true] ?>
       <br><br>
       </p>
       <p>
-        <?php echo "<h4>" . "代码填空" . "</h4>" ?>
-        <input type=radio id=blank_false name=blank value='0' checked> 否
+        <?php echo "<h4>" . $MSG_BLANK_FILLING . "</h4>" ?>
+        <input type=radio id=blank_false name=blank value='0' checked> <?php echo $MSG_TRUE_FALSE[false] ?>
         <span> / </span>
-        <input type=radio id=blank_true name=blank value='1'> 是
+        <input type=radio id=blank_true name=blank value='1'> <?php echo $MSG_TRUE_FALSE[true] ?>
         <br><br>
       </p>
       <p>
       <div id='blank_code'>
-        <h4>待填空代码</h4>
-        <h5>单行填空请用%*%表示，多行填空用*%*表示</h5>
+        <h4><?php echo $MSG_BLANK_TEMPLATE ?></h4>
+        <h5><?php echo $MSG_TEMPLATE_EXPLAIN ?></h5>
         <textarea hidden='hidden' id='multiline' name='blank_code' autocomplete='off'></textarea>
         <pre id=source style='height:300px;width:auto;font-size:13pt;margin-top:8px;'><?php echo htmlentities($row['blank'], ENT_QUOTES, "UTF-8") ?></pre>
+        <br>
       </div>
       </p>
       <p align=left>

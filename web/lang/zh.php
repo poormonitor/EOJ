@@ -6,8 +6,8 @@ $MSG_TO = "到";
 $MSG_COPY = "复制";
 $MSG_ENABLE = "启用";
 $MSG_DISABLE = "禁用";
-$MSG_ENABLED = "已启用";
-$MSG_DISABLED = "已禁用";
+$MSG_ENABLED = "可用";
+$MSG_DISABLED = "禁用";
 $MSG_EMPTY = "无";
 $MSG_UPLOAD = "上传";
 $MSG_NOT_EXISTED = "您请求的项目不存在";
@@ -18,8 +18,10 @@ $MSG_ERROR = "错误";
 $MSG_SUCCESS = "成功";
 $MSG_UP_WRONG = "用户名或密码错误";
 $MSG_PARAMS_ERROR = "您填写的某些项目不正确";
+$MSG_PARAMS_TOO_FEW = "您填写的项目太少";
 $MSG_NICK_TOO_LONG = "用户名太长";
 $MSG_SCHOOL_TOO_LONG = "学校名太长";
+$MSG_DOWNLOAD_ALL_AC = "下载所有通过代码";
 
 $MSG_CLIPBOARD = "剪贴板";
 $MSG_NOT_LOGINED = "您还没有登录";
@@ -48,6 +50,8 @@ $MSG_STATISTICS = "统计";
 $MSG_USERINFO = "用户信息";
 $MSG_MAIL = "短消息";
 $MSG_POLICY = "使用许可 & 隐私协议";
+$MSG_AGREE_POLICY = "登录即代表您同意<a href='policy.html' id='footer'> $MSG_POLICY </a>";
+$MSG_PASSWORD_RESET = "密码重置";
 //status.php
 $MSG_Pending = "等待";
 $MSG_Pending_Rejudging = "等待重判";
@@ -81,8 +85,6 @@ if (date('m') == 4 && date('d') == 1 && rand(0, 100) < 10) {
 	$MSG_Compile_Error = "人品问题-愚人节快乐";
 	$MSG_Compile_OK = "人品问题-愚人节快乐";
 }
-
-$MSG_TEST_RUN = "运行完成";
 
 $MSG_RUNID = "提交编号";
 $MSG_USER = "用户";
@@ -222,6 +224,23 @@ $MSG_SCORE_DIFF = "区分度";
 $MSG_SUBMITTED = "已提交";
 $MSG_NOT_SUBMITTED = "未提交";
 
+$MSG_PARENT_SEARCH = "家长查询";
+$MSG_ID_OR_NICK = "学号/姓名";
+$MSG_NOT_FOUND = "用户未找到！";
+$MSG_MULTIPLE_USER_CHOICE = "有多个用户匹配，请选择";
+$MSG_STUDENT_ID = "学号";
+$MSG_STUDENT_NAME = "姓名";
+$MSG_STUDENT_ADMINISTRATIVE_CLASS = "行政班";
+$MSG_STUDENT_TEACHING_CLASS = "教学班";
+$MSG_IS_FINISHED = "是否完成";
+$MSG_FINISHED = "已完成";
+$MSG_NOT_PASS = "未通过";
+$MSG_UNFINISHED = "未完成";
+$MSG_IS_FINISHED_IN_TIME = "是否按时完成";
+$MSG_IS_SIM_CHECKED = "是否被查重";
+$MSG_SIM_YES ="被查重";
+$MSG_SIM_NO ="未被查重";
+$MSG_PARENT_EXPLAIN = "<div class='status_explain'><p>状态解释：<li>未提交，意为用户并未在系统中提交任何代码。</li><li>未通过，意为用户提交过代码，但没能完全通过测评。</li><li>已完成，意为用户的代码通过测评。</li><li>被查重，仅代表提交的代码在已提交中有相似者，并不能作为抄袭的依据。</li></p></div><p>本页面所提供之数据，仅为被查询用户在本系统中的使用情况之显示，并不构成任何意思表示。</p>";
 
 //admin menu
 $MSG_SEEOJ = "查看前台";
@@ -284,6 +303,11 @@ $MSG_SUSPECT = "可疑记录";
 $MSG_CONTEST_SUSPECT1 = "具有多个ID的IP地址。如果在竞赛/考试期间在同一台计算机上访问了多个ID，则会记录该ID。";
 $MSG_CONTEST_SUSPECT2 = "具有多个IP地址的ID。 如果在竞赛/考试期间切换到另一台计算机，它将记录下来。";
 
+$MSG_INPUT_MANAULLY = "手动输入";
+$MSG_BLANK_FILLING = "代码填空";
+$MSG_BLANK_TEMPLATE = "填空模板";
+$MSG_TEMPLATE_EXPLAIN = "单行填空请用%*%表示，多行填空用*%*表示";
+
 $MSG_SECONDS = "秒";
 $MSG_MINUTES = "分";
 $MSG_HOURS = "小时";
@@ -325,6 +349,10 @@ $MSG_BALLOON_PENDING = "气球待发放";
 $MSG_FLOATING_URL = "图片链接";
 $MSG_FLOATING_HREF = "跳转链接";
 $MSG_FLOATING_STATIC = "是否固定";
+
+$MSG_RECENT_LOGIN = "最近登录";
+$MSG_REG_TIME = "注册时间";
+$MSG_STUCK_IN_RUNNING = "卡在运行中";
 
 $MSG_HELP_MODULE = "安装Python模块。";
 $MSG_HELP_PROBLEM_2 = "存放一些题目但并不在前台展示，可以随时转换到前台。";

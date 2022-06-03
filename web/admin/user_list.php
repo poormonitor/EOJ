@@ -59,14 +59,14 @@ require_once("../include/set_get_key.php");
       <thead>
         <tr>
           <th class='center'>ID</th>
-          <th class='center'>姓名</th>
-          <th class='center'>班级</th>
-          <th class='center'>用户组</th>
-          <th class='center'>最近登录</th>
-          <th class='center'>注册时间</th>
-          <th class='center'>状态</th>
-          <th class='center'>密码</th>
-          <th class='center'>权限</th>
+          <th class='center'><?php echo $MSG_NICK ?></th>
+          <th class='center'><?php echo $MSG_SCHOOL ?></th>
+          <th class='center'><?php echo $MSG_GROUP ?></th>
+          <th class='center'><?php echo $MSG_RECENT_LOGIN ?></th>
+          <th class='center'><?php echo $MSG_REG_TIME ?></th>
+          <th class='center'><?php echo $MSG_STATUS ?></th>
+          <th class='center'><?php echo $MSG_PASSWORD ?></th>
+          <th class='center'><?php echo $MSG_PRIVILEGE ?></th>
         </tr>
       </thead>
       <tbody>
@@ -80,12 +80,12 @@ require_once("../include/set_get_key.php");
           echo "<td>" . $row['accesstime'] . "</td>";
           echo "<td>" . $row['reg_time'] . "</td>";
           if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
-            echo "<td><a href=user_df_change.php?cid=" . $row['user_id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">" . ($row['defunct'] == "N" ? "<span class=green>可用</span>" : "<span class=red>锁定</span>") . "</a></td>";
+            echo "<td><a href=user_df_change.php?cid=" . $row['user_id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">" . ($row['defunct'] == "N" ? "<span class=green>$MSG_ENABLED</span>" : "<span class=red>$MSG_DISABLED</span>") . "</a></td>";
           } else {
-            echo "<td>" . ($row['defunct'] == "N" ? "<span>可用</span>" : "<span>锁定</span>") . "</td>";
+            echo "<td>" . ($row['defunct'] == "N" ? "<span>$MSG_ENABLED</span>" : "<span>$MSG_DISABLED</span>") . "</td>";
           }
-          echo "<td><a href=changepass.php?uid=" . $row['user_id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">" . "重置" . "</a></td>";
-          echo "<td><a href=privilege_add.php?uid=" . $row['user_id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">" . "添加" . "</a></td>";
+          echo "<td><a href=changepass.php?uid=" . $row['user_id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">" . $MSG_RESET . "</a></td>";
+          echo "<td><a href=privilege_add.php?uid=" . $row['user_id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">" . $MSG_ADD . "</a></td>";
           echo "</tr>";
         } ?>
       </tbody>

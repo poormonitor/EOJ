@@ -76,8 +76,7 @@ $banner = isset($_GET["status"]);
 ?>
 <?php require("admin-header.php"); ?>
 <div class="container">
-	<br>
-	<h3 class='center'><b>重判</b></h3>
+	<h3 class='center'><b><?php echo $MSG_REJUDGE ?></b></h3>
 	<?php if ($banner) { ?>
 		<div class="row">
 			<div class="col-sm-4"></div>
@@ -114,7 +113,7 @@ $banner = isset($_GET["status"]);
 			<br>
 			<form action='rejudge.php' method=post class='form-group'>
 				<label class='control-label col-sm-4'>
-					<?php echo "卡在运行中" ?>
+					<?php echo $MSG_STUCK_IN_RUNNING ?>
 				</label>
 				<div class='col-sm-4'>
 					<input type=input class='form-control' name='result' placeholder="3" value="3">

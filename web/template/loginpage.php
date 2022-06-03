@@ -45,8 +45,8 @@
 					</div>
 				<?php } ?>
 				<div style='text-align:center;'>
-					<span class="col-sm-4 col-sm-offset-4" id='footer'>登录即代表您同意
-						<a href="policy.html" id='footer'> 使用许可和隐私协议 </a>。
+					<span class="col-sm-4 col-sm-offset-4" id='footer'>
+						<?php echo $MSG_AGREE_POLICY ?>
 					</span>
 					<br><br>
 				</div>
