@@ -10,4 +10,3 @@ if (isset($file)) {
 }
 //cache foot stop
 ?>
-<!--not cached-->

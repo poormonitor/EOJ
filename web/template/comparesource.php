@@ -6,7 +6,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="">
-	<meta name="author" content="">
+	<meta name="author" content="<?php echo $OJ_NAME ?>">
 	<link rel="shortcut icon" href="/favicon.ico">
 	<link type="text/css" rel="stylesheet" href="<?php echo $OJ_CDN_URL . "mergely/" ?>codemirror.min.css" />
 	<link type="text/css" rel="stylesheet" href="<?php echo $OJ_CDN_URL . "mergely/" ?>mergely.min.css" />
