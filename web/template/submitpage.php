@@ -41,7 +41,7 @@
           ?>
             <br>
             <?php echo $MSG_PROBLEM_ID . " : " ?> <span class=blue><?php echo chr($pid + ord('A')) ?></span>
-            <br>作业编号 : <span class=blue> <?php echo $cid ?> </span>
+            <br><?php echo $MSG_CONTEST_ID ?> : <span class=blue> <?php echo $cid ?> </span>
             <br>
             <input id="cid" type='hidden' value='<?php echo $cid ?>' name="cid">
             <input id="pid" type='hidden' value='<?php echo $pid ?>' name="pid">
@@ -75,8 +75,8 @@
             <pre id='copy-blank' style='display:none;'><?php echo htmlentities($blank, ENT_QUOTES, "UTF-8"); ?></pre>
             <div class='btn-group'>
               <a class='btn btn-sm btn-info' href='javascript:CopyToClipboard($("#copy").text())'><?php echo $MSG_COPY ?></a>
-              <a class='btn btn-sm btn-info' href='javascript:CopyToClipboard(get_full_code())'>复制当前</a>
-              <a class='btn btn-sm btn-info' href='<?php echo $_SERVER['REQUEST_URI']; ?>&blank=false'>直接填写</a>
+              <a class='btn btn-sm btn-info' href='javascript:CopyToClipboard(get_full_code())'><?php echo $MSG_COPY_CURRENT ?></a>
+              <a class='btn btn-sm btn-info' href='<?php echo $_SERVER['REQUEST_URI']; ?>&blank=false'><?php echo $MSG_WRITE_DIRECTLY ?></a>
             </div>
             <div id='container_status'>
               <pre id='code' class='alert alert-error form-inline' style='text-align:left;'><?php echo $code; ?></pre>
@@ -287,6 +287,7 @@
   <script language="Javascript" type="text/javascript" src="<?php echo $OJ_CDN_URL ?>include/base64.min.js"></script>
 
   <?php if ($OJ_ACE_EDITOR) { ?>
+    <script src='<?php echo $OJ_CDN_URL ?>template/prism.js' type='text/javascript'></script>
     <script src="<?php echo $OJ_CDN_URL . "ace/" ?>ace.js"></script>
     <script src="<?php echo $OJ_CDN_URL .  "ace/" ?>ext-language_tools.js"></script>
     <script>

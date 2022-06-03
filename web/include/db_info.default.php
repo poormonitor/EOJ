@@ -120,6 +120,16 @@ static  $OJ_LOG_URL_HOST_ENABLED = false;
 static  $OJ_LOG_URL_PARAM_ENABLED = false;
 static  $OJ_LOG_TRACE_ENABLED = false;
 
+if (isset($_SESSION[$OJ_NAME . '_' . 'OJ_LANG'])) {
+	$OJ_LANG = $_SESSION[$OJ_NAME . '_' . 'OJ_LANG'];
+} else if (isset($_COOKIE['lang']) && in_array($_COOKIE['lang'], array("zh", "en"))) {
+	$OJ_LANG = $_COOKIE['lang'];
+} else if (isset($_GET['lang']) && in_array($_GET['lang'], array("zh", "en"))) {
+	$OJ_LANG = $_GET['lang'];
+} else if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) && strstr($_SERVER['HTTP_ACCEPT_LANGUAGE'], "zh-CN")) {
+	$OJ_LANG = "zh";
+}
+
 require_once(dirname(__FILE__) . "/logger.php");
 if (isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
 	$logger = new Logger(

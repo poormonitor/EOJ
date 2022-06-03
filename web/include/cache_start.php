@@ -16,6 +16,9 @@ if (!$OJ_CACHE_SHARE && isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
 if (isset($_SERVER["REQUEST_URI"])) {
     $sid .= $_SERVER["REQUEST_URI"];
 }
+if (isset($OJ_LANG)){
+    $sid .= $OJ_LANG;
+}
 
 $sid = md5($sid);
 $file = "cache/cache_$sid.html";
