@@ -3,7 +3,7 @@ $startTime = microtime(true);
 
 ini_set("display_errors", "Off");  //set this to "On" for debugging  ,especially when no reason blank shows up.
 error_reporting(E_ALL);
-ini_set('date.timezone','Asia/Shanghai');
+ini_set('date.timezone', 'Asia/Shanghai');
 date_default_timezone_set("Asia/Shanghai");
 //header('X-Frame-Options:SAMEORIGIN');
 //for people using hoj out of China , be careful of the last two line of this file !
@@ -19,7 +19,7 @@ static 	$OJ_HOME = "./";    //主页目录
 static 	$OJ_ADMIN = "root@localhost";  //管理员email
 static 	$OJ_DATA = "/home/judge/data";  //测试数据目录
 static  $OJ_ONLINE = true;  //是否记录在线情况
-static  $OJ_LANG = "cn";  //默认语言
+static  $OJ_LANG = "zh";  //默认语言
 static  $OJ_SIM = true;  //显示相似度
 static  $OJ_DICT = false; //显示在线翻译
 static  $OJ_LANGMASK = 2097087; //TIOBE index top 10, calculator : https://pigeon-developer.github.io/hustoj-langmask/
@@ -94,7 +94,9 @@ if (($OJ_BLOCK_START_TIME < $OJ_BLOCK_END_TIME && $time >= $OJ_BLOCK_START_TIME 
 require_once(dirname(__FILE__) . "/pdo.php");
 require_once(dirname(__FILE__) . "/memcache.php");
 
-$OJ_FLOAT_NOTICE = explode("\n", file_get_contents(dirname(__FILE__) . "/../upload/files/msg.txt"));
+if (file_exists(dirname(__FILE__) . "/../upload/files/msg.txt")){
+	$OJ_FLOAT_NOTICE = explode("\n", file_get_contents(dirname(__FILE__) . "/../upload/files/msg.txt"));
+}
 
 // use db
 //pdo_query("set names utf8");	
