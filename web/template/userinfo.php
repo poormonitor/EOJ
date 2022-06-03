@@ -140,10 +140,9 @@
                                         echo "\t" . $row[$i];
                                         echo "</td>";
                                     }
-                                    echo "<td style='text-align:center;'>
-                                        <a target='view_window' href='https://www.ipip.net/ip/$row[2].html' target='view_window'>"
+                                    echo "<td style='text-align:center;'>"
                                         . $ip->getlocation($row[2])["country"] . " " . $ip->getlocation($row[2])["area"]
-                                        . "</a></td>";
+                                        . "</td>";
                                     echo "</tr>";
                                     $cnt = 1 - $cnt;
                                 }

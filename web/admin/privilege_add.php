@@ -51,7 +51,7 @@
 					<select class="form-control" name="rightstr" onchange="show_value_input(this.value)">
 
 						<?php
-						$rightarray = array("administrator", "problem_editor", "source_browser", "contest_creator", "http_judge", "password_setter", "printer", "balloon", 'problem_start', 'problem_end');
+						$rightarray = array("administrator", "problem_editor", "source_browser", "contest_creator", "http_judge", "password_setter", 'problem_start', 'problem_end');
 						while (list($key, $val) = each($rightarray)) {
 							if (isset($rightstr) && ($rightstr == $val)) {
 								echo '<option value="' . $val . '" selected>' . $val . '</option>';

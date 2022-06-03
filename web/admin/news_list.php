@@ -71,8 +71,8 @@ require_once("../include/set_get_key.php");
           echo "<td>" . $row['news_id'] . "</td>";
           echo "<td><a href='news_edit.php?id=" . $row['news_id'] . "'>" . $row['title'] . "</a>" . "</td>";
           echo "<td>" . $row['time'] . "</td>";
-          echo "<td><a href=news_df_change.php?id=" . $row['news_id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">" . ($row['defunct'] == "N" ? "<span class=green>开启</span>" : "<span class=red>关闭</span>") . "</a>" . "</td>";
-          echo "<td><a href=news_add_page.php?cid=" . $row['news_id'] . ">复制</a></td>";
+          echo "<td><a href=news_df_change.php?id=" . $row['news_id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">" . ($row['defunct'] == "N" ? "<span class=green>$MSG_ENABLED</span>" : "<span class=red>$MSG_DISABLED</span>") . "</a>" . "</td>";
+          echo "<td><a href=news_add_page.php?cid=" . $row['news_id'] . ">$MSG_COPY</a></td>";
           echo "</tr>";
         }
         ?>

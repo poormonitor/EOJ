@@ -85,7 +85,7 @@
             <a href="suspect_list.php?cid=<?php echo $view_cid ?>" class="btn btn-warning btn-sm"><?php echo $MSG_IP_VERIFICATION ?></a>
             <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator'])) { ?>
               <a href="user_set_ip.php?cid=<?php echo $view_cid ?>" class="btn btn-success btn-sm"><?php echo $MSG_SET_LOGIN_IP ?></a>
-              <a target="_blank" href="admin/contest_edit.php?cid=<?php echo $view_cid ?>" class="btn btn-success btn-sm">编辑</a>
+              <a target="_blank" href="admin/contest_edit.php?cid=<?php echo $view_cid ?>" class="btn btn-success btn-sm"><?php echo $MSG_EDIT ?></a>
             <?php } ?>
           </div>
         </div>

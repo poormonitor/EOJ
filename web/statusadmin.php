@@ -228,7 +228,7 @@ if (isset($_GET['user_id'])) {
 }
 
 if ($user_id == "" and $problem_id == "" and (!isset($cid) or $cid == "")) {
-  $view_errors = "<div class='alert alert-danger' role='alert'>参数未设。查询不会进行。</div>";
+  $view_errors = "<div class='alert alert-danger' role='alert'>$MSG_PARAMS_TOO_FEW</div>";
   $view_status = array();
   require("template/statusadmin.php");
   exit(0);

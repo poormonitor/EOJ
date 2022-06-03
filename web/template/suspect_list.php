@@ -90,7 +90,7 @@
         <a href="suspect_list.php?cid=<?php echo $view_cid?>" class="btn btn-warning btn-sm"><?php echo $MSG_IP_VERIFICATION?></a>
         <?php if(isset($_SESSION[$OJ_NAME.'_'.'administrator']) || isset($_SESSION[$OJ_NAME.'_'.'contest_creator'])) {?>
           <a href="user_set_ip.php?cid=<?php echo $view_cid?>" class="btn btn-success btn-sm"><?php echo $MSG_SET_LOGIN_IP?></a>
-          <a target="_blank" href="admin/contest_edit.php?cid=<?php echo $view_cid?>" class="btn btn-success btn-sm"><?php echo "编辑"?></a>
+          <a target="_blank" href="admin/contest_edit.php?cid=<?php echo $view_cid?>" class="btn btn-success btn-sm"><?php echo $MSG_EDIT ?></a>
         <?php } ?>
       </div>
     </div>
@@ -117,8 +117,8 @@
             echo "<tr>";
               $ipaddr = $row["ip"];
               $ipinfo = $ip->getlocation($ipaddr)["country"]." ".$ip->getlocation($ipaddr)["area"];
-              echo "<td>".$ipaddr."</a></td>";
-              echo "<td><a target='view_window' href='https://www.ipip.net/ip/$ipaddr.html'>".$ipinfo."</a></td>";
+              echo "<td>".$ipaddr."</td>";
+              echo "<td>".$ipinfo."</td>";
               echo "<td>".$row['user_id']."</td>";
               echo "<td>";
                 echo "<a href='../userinfo.php?user=".$row['user_id']."'><sub>".$MSG_USERINFO."</sub></a> <sub>/</sub> ";
@@ -161,8 +161,8 @@
               echo "</td>";
               $ipaddr = $row["ip"];
               $ipinfo = $ip->getlocation($ipaddr)["country"]." ".$ip->getlocation($ipaddr)["area"];
-              echo "<td>".$ipaddr."</a></td>";
-              echo "<td><a target='view_window' href='https://www.ipip.net/ip/$ipaddr.html'>".$ipinfo."</a></td>";
+              echo "<td>".$ipaddr."</td>";
+              echo "<td>".$ipinfo."</td>";
               echo "<td>".$row['time']."</td>";
               echo "<td>".$row['c']."</td>";
               echo "</tr>";

@@ -121,7 +121,7 @@ header("Location: $statusURI");
 
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="<?php echo $OJ_LANG ?>">
 
 <head>
     <meta charset='utf-8'>

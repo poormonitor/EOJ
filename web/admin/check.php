@@ -4,7 +4,7 @@
 	}
 ?>
 
-<html>
+<html lang="<?php echo $OJ_LANG ?>">
 	<head>
 		<title>OJ Administration</title>
 		<meta http-equiv="Pragma" content="no-cache">

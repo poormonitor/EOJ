@@ -1,6 +1,6 @@
 <?php require_once("./include/db_info.inc.php"); ?>
 <!DOCTYPE html>
-<html>
+<html lang="<?php echo $OJ_LANG ?>">
 
 <head>
     <meta charset="utf-8">

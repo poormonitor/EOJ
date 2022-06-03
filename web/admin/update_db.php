@@ -35,7 +35,7 @@
   <form action='update_db.php' method=post class='middle'>
     <?php require_once("../include/set_post_key.php"); ?>
     <input type='hidden' name='do' value='do'>
-    <input type=submit class='btn btn-info' value='更新'>
+    <input type=submit class='btn btn-info' value='<?php echo $MSG_UPGRADE ?>'>
   </form>
   <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) { ?>
     <br>

@@ -62,31 +62,31 @@ echo "<center><h3>" . $MSG_PROBLEM . "-" . $MSG_ADD . "</h3></center>";
     <p>
       <?php echo "<h4>" . $MSG_SPJ . "</h4>" ?>
       <span><?php echo $MSG_HELP_SPJ ?></span><br>
-      <?php echo "否 " ?><input type=radio name=spj value='0' <?php if ($row['spj'] == 0) echo "checked" ?>>
-      <?php echo "/ 结束后特判 " ?><input type=radio name=spj value='1' <?php if ($row['spj'] == 1) echo "checked" ?>>
-      <?php echo "/ 运行时特判 " ?><input type=radio name=spj value='2' <?php if ($row['spj'] == 2) echo "checked" ?>>
+      <input type="radio" name="spj" value='0' <?php echo (!isset($row) || !$row["spj"]) ? "checked" : "" ?>> <?php echo $MSG_TRUE_FALSE[false] ?>
+      <span> / </span>
+      <input type="radio" name="spj" value='1' <?php echo (isset($row) && $row["spj"]) ? "checked" : "" ?>> <?php echo $MSG_TRUE_FALSE[true] ?>
       <br><br>
     </p>
     <p>
-      <?php echo "<h4>" . "代码填空" . "</h4>" ?>
-      <?php echo "否 " ?><input type=radio id=blank_false name=blank value='0' checked><?php echo "/ 是 " ?><input type=radio id=blank_true name=blank value='1'><br><br>
+      <?php echo "<h4>" . $MSG_BLANK_FILLING . "</h4>" ?>
+      <?php echo $MSG_TRUE_FALSE[true] . " " ?><input type=radio id=blank_false name=blank value='0' checked><?php echo "/ " . $MSG_TRUE_FALSE[true] . " " ?><input type=radio id=blank_true name=blank value='1'><br><br>
     </p>
     <p>
     <div id='blank_code'>
-      <h4>待填空代码</h4>
-      <h5>单行填空请用%*%表示，多行填空用*%*表示</h5>
+      <h4><?php echo $MSG_BLANK_TEMPLATE ?></h4>
+      <h5><?php echo $MSG_TEMPLATE_EXPLAIN ?></h5>
       <textarea hidden='hidden' id='multiline' name='blank_code' autocomplete='off'></textarea>
       <pre id=source style='height:300px;width:auto;font-size:13pt;margin-top:8px;'></pre>
     </div>
     </p>
     <p align=left>
-      <?php echo "<h4>禁用关键词</h4>" ?>
-    <h5>"||"分隔，关系为或；回车分隔，关系为与</h5>
+      <?php echo "<h4>$MSG_BLOCK_KEYWORD</h4>" ?>
+    <h5><?php echo $MSG_HELP_KEYWORD ?></h5>
     <input name=block class="form-control" data-role="tagsinput" value=''></input><br><br>
     </p>
     <p align=left>
-      <?php echo "<h4>必须关键词</h4>" ?>
-    <h5>"||"分隔，关系为或；回车分隔，关系为与</h5>
+      <?php echo "<h4>$MSG_ALLOW_KEYWORD</h4>" ?>
+    <h5><?php echo $MSG_HELP_KEYWORD ?></h5>
     <input name=allow class="form-control" data-role="tagsinput" value=''></input><br><br>
     </p>
     <p align=left>

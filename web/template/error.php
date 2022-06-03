@@ -1,7 +1,7 @@
 <?php
 if (isset($view_errors_js) || isset($view_swal) || isset($view_swal_params)) { ?>
   <!DOCTYPE html>
-  <html>
+  <html lang="<?php echo $OJ_LANG ?>">
 
   <head>
     <meta charset="utf-8">
@@ -42,7 +42,7 @@ if (isset($view_errors_js) || isset($view_swal) || isset($view_swal_params)) { ?
 <?php } else { ?>
 
   <!DOCTYPE html>
-  <html>
+  <html lang="<?php echo $OJ_LANG ?>">
 
   <head>
     <meta charset="utf-8">
