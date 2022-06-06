@@ -138,7 +138,9 @@ echo "<center><h3>" . $MSG_PROBLEM . "-" .  $MSG_EDIT . "</h3></center>";
       value: `<?php echo $row['blank'] ?>`,
       language: 'plain',
       fontSize: "18px",
-      alwaysConsumeMouseWheel: false,
+      scrollbar: {
+        alwaysConsumeMouseWheel: false
+      }
     });
 
     window.editor.getModel().onDidChangeContent((event) => {

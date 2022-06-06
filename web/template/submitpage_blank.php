@@ -248,7 +248,9 @@
                     folding: false,
                     lineDecorationsWidth: 0,
                     lineNumbersMinChars: 0,
-                    alwaysConsumeMouseWheel: false
+                    scrollbar: {
+                        alwaysConsumeMouseWheel: false
+                    }
                 });
 
                 window.editors[index].getModel().onDidChangeContent((event) => {

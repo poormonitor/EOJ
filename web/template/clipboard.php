@@ -62,7 +62,9 @@
         value: `<?php if (isset($content)) echo $content ?>`,
         language: 'plain',
         fontSize: "18px",
-        alwaysConsumeMouseWheel: false,
+        scrollbar: {
+          alwaysConsumeMouseWheel: false
+        }
       });
 
       window.editor.getModel().onDidChangeContent((event) => {

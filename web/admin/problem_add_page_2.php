@@ -126,7 +126,9 @@ echo "<center><h3>" . $MSG_PROBLEM . "-" . $MSG_ADD . "</h3></center>";
       value: ``,
       language: 'plain',
       fontSize: "18px",
-      alwaysConsumeMouseWheel: false,
+      scrollbar: {
+        alwaysConsumeMouseWheel: false
+      }
     });
 
     window.editor.getModel().onDidChangeContent((event) => {
