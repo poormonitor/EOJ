@@ -1,6 +1,6 @@
 # HOJ -- Optimized for Teaching
 
-基于HUSTOJ的Python教学优化版。
+基于 HUSTOJ 的 Python 教学优化版。
 
 ## 特色功能
 
@@ -9,24 +9,27 @@
 - 家长查询学生作业完成情况
 - 管理员快速查询作业完成情况
 - 优化的排名顺序
-- 针对Python优化的查重功能
+- 针对 Python 优化的查重功能
 - 单行/多行代码填空
 - 不在前端显示的备选题库
 - 强制提交使用/不使用关键词
 - 特定时间关闭全站
 - 全站自动深色模式
-- Apache ECharts交互式图表
-- 后台使用TinyMCE编辑器
+- Monaco Editor 代码编辑
+- Apache ECharts 交互式图表
+- 后台使用 TinyMCE 编辑器
 - UI扁平化，统一字体
 - 设置安全IP过滤IP重用验证
-- 可在已有LNMP平台上部署安装
+- 可在已有 LNMP 平台上部署安装
 - 支持单选、多选和填空的测验功能
 - 自动复制额外文件供程序使用
 - 自定义预处理脚本处理输入数据
 
 ## 安装
 
-**推荐使用Debian** (脚本只适用于Debian)
+### 直接安装
+
+**推荐使用 Debian** (脚本只适用于 Debian)
 
 1. 运行脚本
 
@@ -66,6 +69,18 @@ wget https://git.oldmonitor.cn/poormonitor/hoj/raw/branch/master/install/install
 4. 使用
 
    注册admin账号自动成为管理员。Enjoy it!
+
+### Docker安装
+
+   基于 Github Action 每周构建Docker镜像。
+
+   ```shell
+   docker run -d          \
+      --name hoj          \
+      -p 8080:80          \
+      -v ~/volume:/volume \
+      poormonitor/hoj:latest
+   ```
 
 ## License
 
