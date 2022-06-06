@@ -303,11 +303,13 @@ $MSG_CONTEST_CREATOR = "创建人";
 $MSG_CONTEST_PENALTY = "累计时间";
 $MSG_IP_VERIFICATION = "IP验证";
 $MSG_SUSPECT = "可疑记录";
-$MSG_CONTEST_SUSPECT1 = "具有多个ID的IP地址。如果在竞赛/考试期间在同一台计算机上访问了多个ID，则会记录该ID。";
-$MSG_CONTEST_SUSPECT2 = "具有多个IP地址的ID。 如果在竞赛/考试期间切换到另一台计算机，它将记录下来。";
+$MSG_CONTEST_SUSPECT1 = "具有多个ID的IP地址。如果在作业/考试期间在同一台计算机上访问了多个ID，则会记录该ID。";
+$MSG_CONTEST_SUSPECT2 = "具有多个IP地址的ID。 如果在作业/考试期间切换到另一台计算机，它将记录下来。";
 $MSG_DOWNLOAD_TABLE = "下载表格";
 $MSG_ROLLING = "滚榜";
 $MSG_REPLAY = "重播";
+$MSG_SYNC_HISTORY = "同步历史提交";
+$MSG_LEAVE_CONTEST = "离开作业";
 
 $MSG_INPUT_MANAULLY = "手动输入";
 $MSG_BLANK_FILLING = "代码填空";

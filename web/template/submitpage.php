@@ -16,7 +16,7 @@
     #source {
       width: 80%;
       height: 600px;
-      margin: 8px auto;
+      margin: 20px auto;
     }
   </style>
 </head>
