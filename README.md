@@ -75,10 +75,10 @@ wget https://git.oldmonitor.cn/poormonitor/hoj/raw/branch/master/install/install
    基于 Github Action 每周构建Docker镜像。
 
    ```shell
-   docker run -d          \
-      --name hoj          \
-      -p 8080:80          \
-      -v ~/volume:/volume \
+   docker run -d             \
+      --name hoj             \
+      -p 8080:80             \
+      -v ~/volume:/home/hoj  \
       poormonitor/hoj:latest
    ```
 
