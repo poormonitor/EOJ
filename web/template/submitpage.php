@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
-  <meta name="author" content="<?php echo $OJ_NAME?>">
+  <meta name="author" content="<?php echo $OJ_NAME ?>">
   <link rel="shortcut icon" href="/favicon.ico">
 
   <title><?php echo $OJ_NAME ?></title>
@@ -16,6 +16,7 @@
     #source {
       width: 80%;
       height: 600px;
+      margin: 8px auto;
     }
   </style>
 </head>
@@ -25,10 +26,11 @@
     <?php include("template/nav.php"); ?>
     <!-- Main component for a primary marketing message or call to action -->
     <div class="jumbotron">
-      <center>
-        <script src="<?php echo $OJ_CDN_URL .  "include/" ?>checksource.min.js"></script>
 
-        <form id=frmSolution action="submit.php" method="post" onsubmit='do_submit()'>
+      <script src="<?php echo $OJ_CDN_URL .  "include/" ?>checksource.min.js"></script>
+
+      <form id=frmSolution action="submit.php" method="post" onsubmit='do_submit()'>
+        <center>
           <?php if (isset($id)) { ?>
             <br>
             <?php echo $MSG_PROBLEM_ID . " : " ?> <span class=blue><?php echo $id ?></span>
@@ -69,107 +71,62 @@
               ?>
             </select>
           </span>
-          <?php if (isset($code) and !$no_blank) { ?>
+          <?php if (isset($code) && $no_blank) { ?>
+            <pre id='copy' class='alert alert-error' style='text-align:left;display:none;'><?php echo $copy; ?></pre>
             <br></br>
-            <pre id='copy' style='display:none;'><?php echo $copy; ?></pre>
-            <pre id='copy-blank' style='display:none;'><?php echo htmlentities($blank, ENT_QUOTES, "UTF-8"); ?></pre>
-            <div class='btn-group'>
+            <div class='btn-group' style='margin-bottom:10px;'>
               <a class='btn btn-sm btn-info' href='javascript:CopyToClipboard($("#copy").text())'><?php echo $MSG_COPY ?></a>
-              <a class='btn btn-sm btn-info' href='javascript:CopyToClipboard(get_full_code())'><?php echo $MSG_COPY_CURRENT ?></a>
-              <a class='btn btn-sm btn-info' href='<?php echo $_SERVER['REQUEST_URI']; ?>&blank=false'><?php echo $MSG_WRITE_DIRECTLY ?></a>
+              <?php if (!isset($sid)) { ?>
+                <a class='btn btn-sm btn-info' href='<?php echo str_replace("&blank=false", "", $_SERVER['REQUEST_URI']); ?>'>填空</a>
+              <?php } ?>
             </div>
-            <div id='container_status'>
-              <pre id='code' class='alert alert-error form-inline' style='text-align:left;'><?php echo $code; ?></pre>
-            </div>
-            <?php if (isset($OJ_TEST_RUN) && $OJ_TEST_RUN) { ?>
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox" id="test_run_checkbox">
-                  <span><?php echo $MSG_TEST_RUN ?></span>
-                </label>
-              </div>
-              <div id='test_run' class='form-group' style='margin-bottom:10px;width:80%;'>
-                <div class='row'>
-                  <div class='col-sm-4'>
-                    <textarea id="input_text" class='form-control' style='width:100%;resize:none;' rows=5 name="input_text"><?php echo $view_sample_input ?></textarea>
-                  </div>
-                  <div class='col-sm-4'>
-                    <textarea id="s_out" name="out" class='form-control' style='width:100%;resize:none;' rows=5 disabled="true"><?php echo $view_sample_output ?></textarea>
-                  </div>
-                  <div class='col-sm-4'>
-                    <textarea id="out" name="out" class='form-control' style='width:100%;resize:none;' rows=5 disabled="true"></textarea>
-                  </div>
-                </div>
-                <div class='row' style='margin-top:10px;'>
-                  <div class='col-sm-4 col-sm-offset-4'>
-                    <input id="TestRun" class="btn btn-info btn-sm" type=button value="<?php echo $MSG_TR ?>" onclick=do_test_run();>
-                    &nbsp;&nbsp;&nbsp;
-                    <span class="label label-info" id=result><?php echo $MSG_STATUS ?></span>
-                  </div>
-                </div>
-              </div>
-            <?php } ?>
-            <input id="Submit" class="btn btn-info btn-sm" type=submit value="<?php echo $MSG_SUBMIT; ?>" style="margin:6px;">
-        </form>
-      <?php } else { ?>
-        <?php if (isset($code) && $no_blank) { ?>
-          <pre id='copy' class='alert alert-error' style='text-align:left;display:none;'><?php echo $copy; ?></pre>
-          <br></br>
-          <div class='btn-group' style='margin-bottom:10px;'>
-            <a class='btn btn-sm btn-info' href='javascript:CopyToClipboard($("#copy").text())'><?php echo $MSG_COPY ?></a>
-            <?php if (!isset($sid)) { ?>
-              <a class='btn btn-sm btn-info' href='<?php echo str_replace("&blank=false", "", $_SERVER['REQUEST_URI']); ?>'>填空</a>
-            <?php } ?>
-          </div>
-        <?php }
-            if ($OJ_ACE_EDITOR) { ?>
-          <pre style="width:80%;height:600;font-size:13pt;margin:8px;" cols=180 rows=20 id="source"><?php echo htmlentities($view_src, ENT_QUOTES, "UTF-8") ?></pre>
-          <input type=hidden id="hide_source" name="source" value="" />
-        <?php } else { ?>
-          <textarea style="width:80%;height:600;margin:8px;" cols=180 rows=20 id="source" name="source"> <?php echo htmlentities($view_src, ENT_QUOTES, "UTF-8") ?></textarea>
-        <?php } ?>
-        <?php if ($OJ_VCODE) { ?>
-          <?php echo $MSG_VCODE ?>:
-          <input name="vcode" size=4 type=text style='margin:5px;' id='vcode_input'> <img id="vcode" alt="click to change" onclick="this.src='vcode.php?small=true&'+Math.random()" autocomplete="off">
-        <?php } ?>
-        <?php if (isset($OJ_TEST_RUN) && $OJ_TEST_RUN) { ?>
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" id="test_run_checkbox">
-              <span><?php echo $MSG_TEST_RUN ?></span>
-            </label>
-          </div>
-          <div id='test_run' class='form-group' style='margin-bottom:10px;width:80%;'>
-            <div class='row'>
-              <div class='col-sm-4'>
-                <textarea id="input_text" class='form-control' style='width:100%;resize:none;' rows=5 name="input_text"><?php echo $view_sample_input ?></textarea>
-              </div>
-              <div class='col-sm-4'>
-                <textarea id="s_out" name="out" class='form-control' style='width:100%;resize:none;' rows=5 disabled="true"><?php echo $view_sample_output ?></textarea>
-              </div>
-              <div class='col-sm-4'>
-                <textarea id="out" name="out" class='form-control' style='width:100%;resize:none;' rows=5 disabled="true"></textarea>
-              </div>
-            </div>
-            <div class='row' style='margin-top:10px;'>
-              <div class='col-sm-4 col-sm-offset-4'>
-                <input id="TestRun" class="btn btn-info btn-sm" type=button value="<?php echo $MSG_TR ?>" onclick=do_test_run();>
-                &nbsp;&nbsp;&nbsp;
-                <span class="label label-info" id=result><?php echo $MSG_STATUS ?></span>
-              </div>
-            </div>
-          </div>
-        <?php } ?>
+          <?php } ?>
+        </center>
 
-        <?php if (isset($OJ_ENCODE_SUBMIT) && $OJ_ENCODE_SUBMIT) { ?>
-          <input class="btn btn-success" title="WAF gives you reset? Try this." type=button value="Encoded <?php echo $MSG_SUBMIT ?>" onclick="encoded_submit();">
-          <input type=hidden id="encoded_submit_mark" name="reverse2" value="reverse">
-        <?php } ?>
-        <input id="Submit" class="btn btn-info btn-sm" type=button value="<?php echo $MSG_SUBMIT ?>" onclick="do_submit();" style='margin:6px;'>
-      <?php } ?>
+        <div id="source" class="editor-border"></div>
+
+        <center>
+          <input type=hidden id="hide_source" name="source" value="" />
+          <?php if ($OJ_VCODE) { ?>
+            <?php echo $MSG_VCODE ?>:
+            <input name="vcode" size=4 type=text style='margin:5px;' id='vcode_input'> <img id="vcode" alt="click to change" onclick="this.src='vcode.php?small=true&'+Math.random()" autocomplete="off">
+          <?php } ?>
+          <?php if (isset($OJ_TEST_RUN) && $OJ_TEST_RUN) { ?>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="test_run_checkbox">
+                <span><?php echo $MSG_TEST_RUN ?></span>
+              </label>
+            </div>
+            <div id='test_run' class='form-group' style='margin-bottom:10px;width:80%;'>
+              <div class='row'>
+                <div class='col-sm-4'>
+                  <textarea id="input_text" class='form-control' style='width:100%;resize:none;' rows=5 name="input_text"><?php echo $view_sample_input ?></textarea>
+                </div>
+                <div class='col-sm-4'>
+                  <textarea id="s_out" name="out" class='form-control' style='width:100%;resize:none;' rows=5 disabled="true"><?php echo $view_sample_output ?></textarea>
+                </div>
+                <div class='col-sm-4'>
+                  <textarea id="out" name="out" class='form-control' style='width:100%;resize:none;' rows=5 disabled="true"></textarea>
+                </div>
+              </div>
+              <div class='row' style='margin-top:10px;'>
+                <div class='col-sm-4 col-sm-offset-4'>
+                  <input id="TestRun" class="btn btn-info btn-sm" type=button value="<?php echo $MSG_TR ?>" onclick=do_test_run();>
+                  &nbsp;&nbsp;&nbsp;
+                  <span class="label label-info" id=result><?php echo $MSG_STATUS ?></span>
+                </div>
+              </div>
+            </div>
+          <?php } ?>
+          <?php if (isset($OJ_ENCODE_SUBMIT) && $OJ_ENCODE_SUBMIT) { ?>
+            <input class="btn btn-success" title="WAF gives you reset? Try this." type=button value="Encoded <?php echo $MSG_SUBMIT ?>" onclick="encoded_submit();">
+            <input type=hidden id="encoded_submit_mark" name="reverse2" value="reverse">
+          <?php } ?>
+          <input id="Submit" class="btn btn-info btn-sm" type=button value="<?php echo $MSG_SUBMIT ?>" onclick="do_submit();" style='margin:6px;'>
+        </center>
       </form>
       <br>
-      </center>
     </div>
   </div>
   <?php include("template/js.php"); ?>
@@ -183,9 +140,9 @@
       $('#vcode_input').val("")
 
       $("#test_run_checkbox").click(function() {
-        $('#TestRun').toggle()
-        $('#result').toggle()
-        $('#test_run').toggle()
+        $('#TestRun').fadeToggle()
+        $('#result').fadeToggle()
+        $('#test_run').fadeToggle()
         $('#test_run_btn').toggleClass("height");
         $('#test_run_btn').toggleClass("margin");
       });
@@ -286,43 +243,28 @@
 
   <script language="Javascript" type="text/javascript" src="<?php echo $OJ_CDN_URL ?>include/base64.min.js"></script>
 
-  <?php if ($OJ_ACE_EDITOR) { ?>
-    <script src='<?php echo $OJ_CDN_URL ?>template/prism.js' type='text/javascript'></script>
-    <script src="<?php echo $OJ_CDN_URL . "ace/" ?>ace.js"></script>
-    <script src="<?php echo $OJ_CDN_URL .  "ace/" ?>ext-language_tools.js"></script>
-    <script>
-      <?php if (isset($code) && $multiline && (!isset($no_blank) || !$no_blank)) { ?>
-        var editors = Array();
-        $("pre[id^='source']").each(function(index, elem) {
-          ace.require("ace/ext/language_tools");
-          editors[index] = ace.edit("source" + index);
-          editors[index].setTheme("ace/theme/chrome");
-          switchLangs(<?php echo isset($lastlang) ? $lastlang : 6;  ?>);
-          editors[index].setOptions({
-            enableBasicAutocompletion: true,
-            enableSnippets: true,
-            enableLiveAutocompletion: true
-          });
-          editors[index].session.setTabSize(4);
-          editors[index].renderer.setShowGutter(false);
-          editors[index].session.on('change', function(delta) {
-            $("textarea[name=multiline" + index + "]").val(editors[index].getValue())
-          });
-        })
-      <?php } elseif (!isset($code) || (isset($no_blank) && $no_blank)) { ?>
-        ace.require("ace/ext/language_tools");
-        var editor = ace.edit("source");
-        editor.setTheme("ace/theme/chrome");
-        switchLang(<?php echo isset($lastlang) ? $lastlang : 6;  ?>);
-        editor.setOptions({
-          enableBasicAutocompletion: true,
-          enableSnippets: true,
-          enableLiveAutocompletion: true
-        });
-        editor.session.setTabSize(4);
-      <?php } ?>
-    </script>
-  <?php } ?>
+  <script src="<?php echo $OJ_CDN_URL . "monaco/" ?>loader.js"></script>
+  <script>
+    require.config({
+      paths: {
+        vs: 'monaco'
+      }
+    });
+
+    require(['vs/editor/editor.main'], function() {
+      window.editor = monaco.editor.create(document.getElementById('source'), {
+        value: `<?php echo $view_src ?>`,
+        language: 'plain',
+        fontSize: "18px",
+        alwaysConsumeMouseWheel: false,
+      });
+      switchLang(<?php echo isset($lastlang) ? $lastlang : 6;  ?>);
+    });
+
+    window.onresize = function() {
+      window.editor.layout();
+    }
+  </script>
 
   <?php if ($OJ_VCODE) { ?>
     <script>

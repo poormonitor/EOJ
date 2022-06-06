@@ -86,7 +86,7 @@ if (isset($_GET['sid'])) {
 			$view_src = $row['source'];
 
 		if ($language_id == 6)
-			$view_src = str_replace('# coding=utf-8', "", $view_src);
+			$view_src = str_replace('# coding=utf-8\n', "", $view_src);
 
 		$sql = "SELECT langmask FROM contest WHERE contest_id=?";
 
@@ -179,13 +179,18 @@ if ($blank != NULL) {
 		preg_match("/\n.*\*%\*/m", $code, $matches);
 		$len = strlen($matches[0]) - 4;
 		$blanks = str_repeat(" ", $len);
-		$px = $len * 7;
+		$px = $len * 10;
 		$pattern = "<textarea hidden='hidden' id='multiline$i' name='multiline$i'></textarea>";
-		$pattern .= "<pre class='multiline' id='source$i' style='margin-left:" . $px . "px'></pre>";
+		$pattern .= "<div class='multiline editor-border' id='source$i' style='margin-left:" . $px . "px'></div>";
 		$code = str_replace_limit("\r\n$blanks*%*\r\n", $pattern, $code, 1);
 		$copy = str_replace("*%*\r\n", "...\r\n$blanks...\r\n", $copy);
 		$multiline = true;
 	}
 }
 
-require("template/submitpage.php");
+if (isset($code) and !$no_blank) {
+	require("template/submitpage_blank.php");
+} else {
+	require("template/submitpage.php");
+}
+

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
-  <meta name="author" content="<?php echo $OJ_NAME?>">
+  <meta name="author" content="<?php echo $OJ_NAME ?>">
   <link rel="shortcut icon" href="/favicon.ico">
 
   <title><?php echo $OJ_NAME ?></title>
@@ -25,9 +25,11 @@
     <?php include("template/nav.php"); ?>
     <!-- Main component for a primary marketing message or call to action -->
     <div class="jumbotron">
-      <center>
-        <form id=frmSolution action="clipboard.php" method="post">
+
+      <form id=frmSolution action="clipboard.php" method="post">
+        <center>
           <h3 style='text-align:center;'><?php echo $MSG_CLIPBOARD ?></h3>
+
           <?php if (isset($flag)) {
             if ($flag) { ?>
               <br><span class='alert alert-success'><?php echo $MSG_SUCCESS ?></span><br><br>
@@ -35,33 +37,42 @@
               <br><span class='alert alert-success'><?php echo $MSG_ERROR ?></span><br><br>
           <?php }
           } ?>
-          <div id='container_status'>
-            <pre style="width:80%;height:600;font-size:13pt;margin:8px;" cols=180 rows=20 id="source"><?php if (isset($content)) echo htmlentities($content, ENT_QUOTES, "UTF-8") ?></pre>
-            <textarea name='content' style='display:none;'><?php if (isset($content)) echo htmlentities($content, ENT_QUOTES, "UTF-8") ?></textarea>
-          </div>
+        </center>
+        <div class="editor-border" style="width:80%;height:600;margin:8px auto;" id="source"></div>
+        <textarea name='content' style='display:none;'><?php if (isset($content)) echo htmlentities($content, ENT_QUOTES, "UTF-8") ?></textarea>
+        <center>
           <input id="Submit" class="btn btn-info btn-sm" type=submit value="<?php echo $MSG_SUBMIT; ?>" style="margin:6px;">
-        </form>
-        <br>
-      </center>
+        </center>
+      </form>
+      <br>
     </div>
   </div>
   <?php include("template/js.php"); ?>
 
-  <script src="<?php echo $OJ_CDN_URL . "ace/" ?>ace.js"></script>
-  <script src="<?php echo $OJ_CDN_URL . "ace/" ?>ext-language_tools.js"></script>
+  <script src="<?php echo $OJ_CDN_URL . "monaco/" ?>loader.js"></script>
   <script>
-    ace.require("ace/ext/language_tools");
-    var editor = ace.edit("source");
-    editor.setTheme("ace/theme/chrome");
-    switchLang(<?php echo isset($lastlang) ? $lastlang : 6;  ?>);
-    editor.setOptions({
-      enableBasicAutocompletion: true,
-      enableSnippets: true,
-      enableLiveAutocompletion: true
+    require.config({
+      paths: {
+        vs: 'monaco'
+      }
     });
-    editor.session.on('change', function(delta) {
-      $("textarea[name=content]").val(editor.getValue())
+
+    require(['vs/editor/editor.main'], function() {
+      window.editor = monaco.editor.create(document.getElementById('source'), {
+        value: `<?php if (isset($content)) echo $content ?>`,
+        language: 'plain',
+        fontSize: "18px",
+        alwaysConsumeMouseWheel: false,
+      });
+
+      window.editor.getModel().onDidChangeContent((event) => {
+        $("textarea[name=content]").val(window.editor.getValue())
+      });
     });
+
+    window.onresize = function() {
+      window.editor.layout();
+    }
   </script>
 
 </body>

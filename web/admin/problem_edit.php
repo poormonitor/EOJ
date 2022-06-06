@@ -82,7 +82,7 @@ echo "<center><h3>" . $MSG_PROBLEM . "-" .  $MSG_EDIT . "</h3></center>";
         <h4><?php echo $MSG_BLANK_TEMPLATE ?></h4>
         <h5><?php echo $MSG_TEMPLATE_EXPLAIN ?></h5>
         <textarea hidden='hidden' id='multiline' name='blank_code' autocomplete='off'></textarea>
-        <pre id=source style='height:300px;width:auto;font-size:13pt;margin-top:8px;'><?php echo htmlentities($row['blank'], ENT_QUOTES, "UTF-8") ?></pre>
+        <div class="editor-border" id=source style='height:300px;width:auto;margin-top:8px;'></div>
         <br>
       </div>
       </p>
@@ -125,23 +125,30 @@ echo "<center><h3>" . $MSG_PROBLEM . "-" .  $MSG_EDIT . "</h3></center>";
   })
 </script>
 <script src='<?php echo $OJ_CDN_URL .  "include/" ?>bootstrap-tagsinput.min.js'></script>
-<script src="<?php echo $OJ_CDN_URL . "ace/" ?>ace.js"></script>
-<script src="<?php echo $OJ_CDN_URL . "ace/" ?>ext-language_tools.js"></script>
+<script src="<?php echo $OJ_CDN_URL . "monaco/" ?>loader.js"></script>
 <script>
-  ace.require("ace/ext/language_tools");
-  ace.config.set('basePath', '<?php echo $OJ_CDN_URL . "ace/" ?>');
-  var editor = ace.edit("source");
-  editor.setTheme("ace/theme/chrome");
-  editor.setOptions({
-    enableBasicAutocompletion: true,
-    enableSnippets: true,
-    enableLiveAutocompletion: true
+  require.config({
+    paths: {
+      vs: '../monaco'
+    }
   });
-  editor.session.setTabSize(4);
-  $("#multiline").val(editor.getValue())
-  editor.session.on('change', function(delta) {
-    $("#multiline").val(editor.getValue())
+
+  require(['vs/editor/editor.main'], function() {
+    window.editor = monaco.editor.create(document.getElementById('source'), {
+      value: `<?php echo $row['blank'] ?>`,
+      language: 'plain',
+      fontSize: "18px",
+      alwaysConsumeMouseWheel: false,
+    });
+
+    window.editor.getModel().onDidChangeContent((event) => {
+      $("#multiline").val(window.editor.getValue())
+    });
   });
+
+  window.onresize = function() {
+    window.editor.layout();
+  }
 </script>
 <?php require_once('../tinymce/tinymce.php'); ?>
 <?php
