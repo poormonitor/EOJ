@@ -280,7 +280,7 @@ $MSG_IMPORT = "Import";
 $MSG_EXPORT = "Export";
 $MSG_UPDATE_DATABASE = "Update Database";
 $MSG_ONLINE = "Online";
-$MSG_SET_LOGIN_IP = "SetLoginIP";
+$MSG_SET_LOGIN_IP = "Set Login IP";
 $MSG_PRIVILEGE_TYPE = "Privilege Type";
 $MSG_IP_MNGT = "IP White List";
 
@@ -306,8 +306,11 @@ $MSG_IP_VERIFICATION = "IP Verification";
 $MSG_SUSPECT = "Suspect";
 $MSG_CONTEST_SUSPECT1 = "IP addresses with multiple IDs. If multiple IDs are accessed at the same computer during the contest/exam, it logged.";
 $MSG_CONTEST_SUSPECT2 = "IDs with multiple IP addresses. If switch to another computer during the contest/exam, it logged.";
+$MSG_DOWNLOAD_TABLE = "Download Table";
+$MSG_ROLLING = "Rolling";
+$MSG_REPLAY = "Replay";
 
-$MSG_INPUT_MANAULLY ="Input Manually";
+$MSG_INPUT_MANAULLY = "Input Manually";
 $MSG_BLANK_FILLING = "Code Blank Filling";
 $MSG_BLANK_TEMPLATE = "Blank Template";
 $MSG_TEMPLATE_EXPLAIN = "Use %*% to represent single line blank and *%* to represent multiline blank";

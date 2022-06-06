@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
-  <meta name="author" content="<?php echo $OJ_NAME?>">
+  <meta name="author" content="<?php echo $OJ_NAME ?>">
   <link rel="shortcut icon" href="/favicon.ico">
 
   <title><?php echo $OJ_NAME ?></title>
@@ -24,19 +24,19 @@
       $rank = 1;
       ?>
       <center>
-        <h3>比赛排名 -- <?php echo $title ?></h3>
+        <h3><?php echo $MSG_CONTEST ."-". $MSG_STANDING ?> -- <?php echo $title ?></h3>
         <h4><?php if (isset($locked_msg)) echo $locked_msg; ?></h4>
-        <a href="contestrank.xls.php?cid=<?php echo $cid ?>">下载表格</a>
+        <a class="btn btn-success btn-sm" href="contestrank.xls.php?cid=<?php echo $cid ?>"><?php echo $MSG_DOWNLOAD_TABLE ?></a>
       </center>
       <br>
       <table id="rank" class="table-hover table-striped" align=center width=80%>
         <thead>
           <tr class=toprow align=center>
-            <td class="{sorter:'false'}" width=10% style='margin-right:3px;'>排名
-            <th width=10% style='margin-right:3px;'>用户</th>
-            <th width=10% style='margin-right:3px;'>昵称</th>
-            <th width=10% style='margin-right:3px;'>解决</th>
-            <th width=20% style='margin-right:3px;'>罚时</th>
+            <th class="{sorter:'false'}" width=10% style='margin-right:3px;'><?php echo $MSG_Number ?></th>
+            <th width=10% style='margin-right:3px;'><?php echo $MSG_USER ?></th>
+            <th width=10% style='margin-right:3px;'><?php echo $MSG_NICK ?></th>
+            <th width=10% style='margin-right:3px;'><?php echo $MSG_SOVLED ?></th>
+            <th width=20% style='margin-right:3px;'><?php echo $MSG_CONTEST_PENALTY ?></th>
             <?php
             for ($i = 0; $i < $pid_cnt; $i++)
               echo "<td><a href=problem.php?cid=$cid&pid=$i>$PID[$i]</a></td>";
