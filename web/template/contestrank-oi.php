@@ -201,7 +201,7 @@
 							<a href="conteststatistics.php?cid=<?php echo $view_cid ?>" class="btn btn-primary btn-sm"><?php echo $MSG_STATISTICS ?></a>
 							<a href="suspect_list.php?cid=<?php echo $view_cid ?>" class="btn btn-warning btn-sm"><?php echo $MSG_IP_VERIFICATION ?></a>
 							<?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator'])) { ?>
-								<a class="btn btn-success btn-sm" href="contestrank.xls.php?cid=<?php echo $cid ?>">下载表格</a>
+								<a class="btn btn-success btn-sm" href="contestrank.xls.php?cid=<?php echo $cid ?>"><?php echo $MSG_DOWNLOAD_TABLE ?></a>
 								<a href="user_set_ip.php?cid=<?php echo $view_cid ?>" class="btn btn-success btn-sm"><?php echo $MSG_SET_LOGIN_IP ?></a>
 								<a target="_blank" href="admin/contest_edit.php?cid=<?php echo $view_cid ?>" class="btn btn-success btn-sm"><?php echo $MSG_EDIT ?></a>
 							<?php } ?>
@@ -210,7 +210,6 @@
 				</center>
 			<?php } ?>
 
-			<br>
 			<?php
 			$rank = 1;
 			?>
@@ -218,8 +217,8 @@
 				<h4><?php if (isset($locked_msg)) echo $locked_msg; ?></h4>
 				<?php
 				if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
-					echo '<div class="btn-group"><a class="btn btn-primary btn-sm" href="contestrank3.php?cid=' . $cid . '">滚榜</a>';
-					echo '&nbsp;&nbsp;<a class="btn btn-primary btn-sm" href="contestrank2.php?cid=' . $cid . '">重播</a></div><br><br>';
+					echo '<div class="btn-group"><a class="btn btn-primary btn-sm" href="contestrank3.php?cid=' . $cid . '">'.$MSG_ROLLING.'</a>';
+					echo '&nbsp;&nbsp;<a class="btn btn-primary btn-sm" href="contestrank2.php?cid=' . $cid . '">'.$MSG_REPLAY.'</a></div><br><br>';
 				}
 				?>
 			</center>
@@ -319,7 +318,7 @@
 									else if (isset($U[$i]->p_wa_num[$j]) && intval($U[$i]->p_wa_num[$j]) > 0 && isset($U[$i]->p_pass_rate[$j]))
 										echo "(+" . (floatval($U[intval($i)]->p_pass_rate[intval($j)]) * 100) . ")";
 									else
-										echo "无提交";
+										echo $MSG_NO_SUBMISSION;
 								}
 							}
 							echo "</tr>\n";

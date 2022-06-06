@@ -15,16 +15,7 @@
 </head>
 
 <body>
-
-
-
-
-
-
-
-    <!-- Bootstrap core JavaScript
-================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
+    
     <?php include("template/js.php"); ?>
     <script type="text/javascript" src="<?php echo $OJ_CDN_URL ?>include/jquery.tablesorter.min.js"></script>
     <script type="text/javascript" src="<?php echo $OJ_CDN_URL ?>template/scrollboard.min.js"></script>
