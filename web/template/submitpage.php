@@ -256,7 +256,9 @@
         value: `<?php echo $view_src ?>`,
         language: 'plain',
         fontSize: "18px",
-        alwaysConsumeMouseWheel: false,
+        scrollbar: {
+          alwaysConsumeMouseWheel: false
+        }
       });
       switchLang(<?php echo isset($lastlang) ? $lastlang : 6;  ?>);
     });

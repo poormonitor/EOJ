@@ -124,7 +124,9 @@
 				window.diffEditor = monaco.editor.createDiffEditor(document.getElementById('container'), {
 					readOnly: true,
 					fontSize: "18px",
-					alwaysConsumeMouseWheel: false
+					scrollbar: {
+						alwaysConsumeMouseWheel: false
+					}
 				});
 
 				diffEditor.setModel({

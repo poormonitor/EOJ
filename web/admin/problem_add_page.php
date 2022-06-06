@@ -170,7 +170,9 @@ require_once("admin-footer.php");
       value: `<?php echo isset($row) ? $row["blank"] : "" ?>`,
       language: 'plain',
       fontSize: "18px",
-      alwaysConsumeMouseWheel: false,
+      scrollbar: {
+        alwaysConsumeMouseWheel: false
+      }
     });
 
     window.editor.getModel().onDidChangeContent((event) => {
