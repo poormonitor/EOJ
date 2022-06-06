@@ -216,14 +216,13 @@
 											<?php echo $row['hint'] ?>
 										</div>
 									</div>
-								<?php
-								} ?>
-								<? if ($row['blank']) { ?>
+								<?php } ?>
+								<?php if ($row['blank']) { ?>
 									<div class='panel panel-default'>
 										<div class='panel-heading'>
 											<h4>
 												<?php echo $MSG_BLANK_FILLING ?>
-												<a class='btn btn-xs btn-info' href="javascript:CopyToClipboard($('.blank-code').text())"><?php echo $MSG_COPY ?></a>
+												<a class='btn btn-xs btn-info' href="javascript:CopyToClipboard($('.blank-code').text())"><?php echo $MSG_COPY; ?></a>
 											</h4>
 										</div>
 										<div class='panel-body content' style='padding:10px;'>

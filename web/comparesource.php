@@ -14,11 +14,12 @@ if (!isset($_GET['left'])) {
 	exit(0);
 }
 $ok = false;
-$id = intval($_GET['left']);
+$sid = intval($_GET['left']);
 $sql = "SELECT * FROM `solution` WHERE `solution_id`=?";
-$result = pdo_query($sql, $id);
+$result = pdo_query($sql, $sid);
 $row = $result[0];
 $slanguage = $row['language'];
+$snick = $row['nick'];
 $sresult = $row['result'];
 $stime = $row['time'];
 $smemory = $row['memory'];
@@ -32,11 +33,12 @@ if (!isset($_GET['right'])) {
 	exit(0);
 }
 $ok = false;
-$id = intval($_GET['right']);
+$rid = intval($_GET['right']);
 $sql = "SELECT * FROM `solution` WHERE `solution_id`=?";
-$result = pdo_query($sql, $id);
+$result = pdo_query($sql, $rid);
 $row = $result[0];
 $rlanguage = $row['language'];
+$rnick = $row["nick"];
 $rresult = $row['result'];
 $rtime = $row['time'];
 $rmemory = $row['memory'];
@@ -55,10 +57,16 @@ if (isset($_SESSION[$OJ_NAME . '_' . 'user_id']) && $row && $row['user_id'] == $
 if (isset($_SESSION[$OJ_NAME . '_' . 'source_browser'])) $ok = true;
 
 $sql = "SELECT `source` FROM `source_code` WHERE `solution_id`=?";
-$result = pdo_query($sql, $id);
+$result = pdo_query($sql, $sid);
 $row = $result[0];
 if ($row)
-	$view_source = $row['source'];
+	$sview_source = $row['source'];
+
+$sql = "SELECT `source` FROM `source_code` WHERE `solution_id`=?";
+$result = pdo_query($sql, $rid);
+$row = $result[0];
+if ($row)
+	$rview_source = $row['source'];
 
 
 require("template/comparesource.php");

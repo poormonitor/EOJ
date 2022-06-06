@@ -21,6 +21,8 @@ var langString = {
     }
 }[OJ_LANG];
 
+var language_monaco = ["c", "cpp", "pascal", "java", "ruby", "bash", "python", "php", "perl", "csharp", "objective-c", "vb", "scheme", "c", "cpp", "lua", "javascript", "go", "sql", "fortran", "matlab", ""];
+
 $(document).ready(function () {
     $("form").append("<div id='csrf' />");
 });
@@ -398,13 +400,15 @@ function handleFileSelect(evt) {
     checkFileList(files);
 }
 
-function download_content(a, side) {
-    //a.innerHTML = "preparing content..";
-    var txt = $('#compare').mergely('get', side);
+function download_content(a, side, id) {
+    if (side == "rhs") {
+        var txt = window.diffEditor.getModifiedEditor().getValue();
+    } else {
+        var txt = window.diffEditor.getOriginalEditor().getValue();
+    }
     var datauri = "data:plain/text;charset=UTF-8," + encodeURIComponent(txt);
-    a.setAttribute('download', side + ".txt");
+    a.setAttribute('download', id + ".txt");
     a.setAttribute('href', datauri);
-    //a.innerHTML = "content ready.";
 }
 
 function print_result(solution_id) {
@@ -502,8 +506,8 @@ function do_test_run() {
     var loader = "<img width=18 style='margin:0 3px;' src='" + OJ_CDN + "image/loading.gif'>";
     var tb = window.document.getElementById('result');
 
-    if (typeof (editor) != "undefined") {
-        source = editor.getValue();
+    if (typeof (window.editor) != "undefined") {
+        source = window.editor.getValue();
         $("#hide_source").val(source);
     }
 
@@ -512,7 +516,7 @@ function do_test_run() {
     var problem_id = document.getElementById(mark);
     problem_id.value = -problem_id.value;
     document.getElementById("frmSolution").target = "testRun";
-    //$("#hide_source").val(editor.getValue());
+    //$("#hide_source").val(window.editor.getValue());
     //document.getElementById("frmSolution").submit();
     $.post("submit.php?ajax", $("#frmSolution").serialize(), function (data) {
         fresh_test_result(data);
@@ -529,10 +533,10 @@ function get_full_code() {
     $("input[name^=code]").each(function (_, elem) {
         template = template.replace("%*%", elem.value);
     })
-    if (typeof editors !== 'undefined') {
-        for (var i = 0; i < editors.length; i++) {
+    if (typeof window.editors !== 'undefined') {
+        for (var i = 0; i < window.editors.length; i++) {
             var length = /\n.*\*%\*/m.exec(template)[0].length;
-            var value = editors[i].getValue();
+            var value = window.editors[i].getValue();
             value = value.replace("\n", " ".repeat(length));
             template = template.replace("*%*", value, 1);
         }
@@ -541,14 +545,16 @@ function get_full_code() {
 }
 
 function switchLang(lang) {
-    var langnames = new Array("c_cpp", "c_cpp", "pascal", "java", "ruby", "sh", "python", "php", "perl", "csharp", "objectivec", "vbscript", "scheme", "c_cpp", "c_cpp", "lua", "javascript", "golang");
-    editor.getSession().setMode("ace/mode/" + langnames[lang]);
+    require(['vs/editor/editor.main'], function () {
+        monaco.editor.setModelLanguage(window.editor.getModel(), language_monaco[lang])
+    });
 }
 
 function switchLangs(lang) {
-    var langnames = new Array("c_cpp", "c_cpp", "pascal", "java", "ruby", "sh", "python", "php", "perl", "csharp", "objectivec", "vbscript", "scheme", "c_cpp", "c_cpp", "lua", "javascript", "golang");
-    editors.forEach(function (elem) {
-        elem.getSession().setMode("ace/mode/" + langnames[lang])
+    require(['vs/editor/editor.main'], function () {
+        window.editors.forEach(function (elem) {
+            monaco.editor.setModelLanguage(elem.getModel(), language_monaco[lang])
+        });
     });
 }
 

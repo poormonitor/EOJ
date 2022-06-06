@@ -109,8 +109,7 @@ if (isset($_POST['id'])) {
   $rows_cnt = count($result);
 
   if ($rows_cnt != 1) {
-    $view_errors .= $MSG_NOT_IN_CONTEST;
-
+    $view_swal = $MSG_NOT_IN_CONTEST;
     require "template/error.php";
     exit(0);
   } else {
