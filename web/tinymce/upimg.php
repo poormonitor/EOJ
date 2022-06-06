@@ -5,6 +5,10 @@ if (!isset($_SESSION[$OJ_NAME . '_' . 'uploadkey']) || !isset($_POST['uploadkey'
 	exit(1);
 
 $imageFolder = "../upload/image/";
+if (!file_exists($imageFolder)) {
+	mkdir($imageFolder, 0755);
+}
+
 reset($_FILES);
 $temp = current($_FILES);
 if (!is_uploaded_file($temp['tmp_name'])) {

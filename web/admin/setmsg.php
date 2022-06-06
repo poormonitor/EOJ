@@ -3,6 +3,12 @@ require_once("../include/db_info.inc.php");
 require_once("../include/my_func.inc.php");
 
 $user_id = $_SESSION[$OJ_NAME . '_' . 'user_id'];
+
+$folder = "../upload/files/";
+if (!file_exists($folder)) {
+	mkdir($folder, 0755);
+}
+
 $file = "../upload/files/msg.txt";
 
 if (isset($_POST['enable'])) {
