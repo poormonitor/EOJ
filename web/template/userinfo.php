@@ -167,7 +167,8 @@
                 text: "<?php echo $MSG_RECENT_SUBMISSION ?>",
             },
             legend: [{
-                data: ['<?php echo $MSG_TOTAL ?>', '<?php echo $MSG_ACCEPTED ?>']
+                data: ['<?php echo $MSG_TOTAL ?>', '<?php echo $MSG_ACCEPTED ?>'],
+                top: "7%"
             }],
             grid: {
                 left: '1%',

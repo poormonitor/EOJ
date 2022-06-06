@@ -6,7 +6,7 @@
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <meta name="description" content="">
-   <meta name="author" content="<?php echo $OJ_NAME?>">
+   <meta name="author" content="<?php echo $OJ_NAME ?>">
    <link rel="shortcut icon" href="/favicon.ico">
 
    <title>
@@ -41,7 +41,8 @@
             text: "<?php echo $MSG_RECENT_SUBMISSION ?>",
          },
          legend: [{
-            data: ['<?php echo $MSG_TOTAL ?>', '<?php echo $MSG_ACCEPTED ?>']
+            data: ['<?php echo $MSG_TOTAL ?>', '<?php echo $MSG_ACCEPTED ?>'],
+            top: "7%"
          }],
          grid: {
             left: '1%',
