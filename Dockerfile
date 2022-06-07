@@ -23,9 +23,8 @@ RUN apt-get -y update  && \
         g++ \
         openjdk-11-jdk
 
-COPY core /trunk/core
-COPY web /trunk/web
-COPY install /trunk/install
+COPY . /trunk/
+
 COPY docker/ /opt/docker/
 
 RUN bash /opt/docker/setup.sh
