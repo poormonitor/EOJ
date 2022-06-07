@@ -212,7 +212,7 @@ if (isset($OJ_ON_SITE_CONTEST_ID) && $OJ_ON_SITE_CONTEST_ID > 0 && !isset($_SESS
   $_GET['user_id'] = $_SESSION[$OJ_NAME . '_' . 'user_id'];
 }
 
-if (isset($_GET['user_id'])) {
+if (isset($_GET['user_id']) && $_GET['user_id'] != "") {
   $user_id = trim($_GET['user_id']);
   if (is_valid_user_name($user_id) && $user_id != "") {
     $sql = $sql . "AND `user_id` LIKE '%$user_id%' ";
