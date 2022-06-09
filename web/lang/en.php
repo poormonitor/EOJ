@@ -313,7 +313,7 @@ $MSG_SYNC_HISTORY = "Sync History";
 $MSG_LEAVE_CONTEST = "Leave Homework";
 
 $MSG_INPUT_MANAULLY = "Input Manually";
-$MSG_BLANK_FILLING = "Code Blank Filling";
+$MSG_BLANK_FILLING = "Blank Filling";
 $MSG_BLANK_TEMPLATE = "Blank Template";
 $MSG_TEMPLATE_EXPLAIN = "Use %*% to represent single line blank and *%* to represent multiline blank";
 

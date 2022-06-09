@@ -11,7 +11,7 @@ if (!isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
 	if (isset($OJ_GUEST) && $OJ_GUEST) {
 		$_SESSION[$OJ_NAME . '_' . 'user_id'] = "Guest";
 	} else {
-		$view_errors_js = "swal('需要登陆','$MSG_Login','error').then((onConfirm)=>{window.location.href='loginpage.php'})";
+		$view_errors_js = "swal('$MSG_NOT_LOGINED','$MSG_Login','error').then((onConfirm)=>{window.location.href='loginpage.php'})";
 		require("template/error.php");
 		exit(0);
 	}
