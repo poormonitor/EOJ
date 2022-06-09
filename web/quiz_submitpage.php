@@ -12,7 +12,7 @@ if (!isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
     if (isset($OJ_GUEST) && $OJ_GUEST) {
         $_SESSION[$OJ_NAME . '_' . 'user_id'] = "Guest";
     } else {
-        $view_swal = "需要登陆";
+        $view_swal = $MSG_NOT_LOGINED;
         $error_location = "loginpage.php";
         require("template/error.php");
         exit(0);

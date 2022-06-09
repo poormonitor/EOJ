@@ -77,7 +77,7 @@
             <div class='btn-group' style='margin-bottom:10px;'>
               <a class='btn btn-sm btn-info' href='javascript:CopyToClipboard($("#copy").text())'><?php echo $MSG_COPY ?></a>
               <?php if (!isset($sid)) { ?>
-                <a class='btn btn-sm btn-info' href='<?php echo str_replace("&blank=false", "", $_SERVER['REQUEST_URI']); ?>'>填空</a>
+                <a class='btn btn-sm btn-info' href='<?php echo str_replace("&blank=false", "", $_SERVER['REQUEST_URI']); ?>'><?php echo $MSG_BLANK_FILLING ?></a>
               <?php } ?>
             </div>
           <?php } ?>

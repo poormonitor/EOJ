@@ -41,21 +41,32 @@ function printTestCases($pid, $OJ_DATA)
   //while ($file=readdir($pdir)) {
   foreach ($files as $file) {
     $pinfo = pathinfo($file);
+    $fullpath = "$OJ_DATA/$pid/" . $file;
+    if (is_file($fullpath) && $pinfo['basename'] != "sample.in") {
+      if ($pinfo['extension'] == "in") {
+        $ret = basename($pinfo['basename'], "." . $pinfo['extension']);
 
-    if (isset($pinfo['extension']) && $pinfo['extension'] == "in" && $pinfo['basename'] != "sample.in") {
-      $ret = basename($pinfo['basename'], "." . $pinfo['extension']);
+        $outfile = "$OJ_DATA/$pid/" . $ret . ".out";
+        $infile = "$OJ_DATA/$pid/" . $ret . ".in";
 
-      $outfile = "$OJ_DATA/$pid/" . $ret . ".out";
-      $infile = "$OJ_DATA/$pid/" . $ret . ".in";
+        if (file_exists($infile)) { ?>
+          <test_input name="<?php echo $ret ?>">
+            <![CDATA[<?php echo fixcdata(file_get_contents($infile)) ?>]]>
+          </test_input>
+        <?php }
 
-      if (file_exists($infile)) {
-        echo "<test_input name=\"" . $ret . "\"><![CDATA[" . fixcdata(file_get_contents($infile)) . "]]></test_input>\n";
+        if (file_exists($outfile)) { ?>
+          <test_output name="<?php echo $ret ?>">
+            <![CDATA[<?php echo fixcdata(file_get_contents($outfile)) ?>]]>
+          </test_output>
+        <?php }
+        //break;
+      } else if ($pinfo['extension'] != "in" && $pinfo['extension'] != "out") { ?>
+        <test_file name="<?php echo $pinfo["basename"] ?>">
+          <![CDATA[<?php echo fixcdata(base64_encode(file_get_contents($fullpath))) ?>]]>
+        </test_file>
+  <?php
       }
-
-      if (file_exists($outfile)) {
-        echo "<test_output name=\"" . $ret . "\"><![CDATA[" . fixcdata(file_get_contents($outfile)) . "]]></test_output>\n";
-      }
-      //break;
     }
   }
 
@@ -101,7 +112,7 @@ function fixurl($img_url)
 
   if (substr($img_url, 0, 4) != "http") {
     if (substr($img_url, 0, 1) == "/") {
-      $ret = 'http://' . $_SERVER['HTTP_HOST'] . ':' . $_SERVER["SERVER_PORT"] . $img_url;
+      $ret = 'https://' . $_SERVER['HTTP_HOST'] . ':' . $_SERVER["SERVER_PORT"] . $img_url;
     } else {
       $path = dirname($_SERVER['PHP_SELF']);
       $ret = 'http://' . $_SERVER['HTTP_HOST'] . ':' . $_SERVER["SERVER_PORT"] . $path . "/../" . $img_url;
@@ -220,16 +231,14 @@ if (isset($_POST['do']) || isset($_GET['cid'])) {
     header("content-type:application/file");
     header("content-disposition:attachment;filename=\"fps-" . $_SESSION[$OJ_NAME . '_' . 'user_id'] . $filename . ".xml\"");
   }
-?>
+  ?>
 
   <!DOCTYPE fps PUBLIC "-//freeproblemset//An opensource XML standard for Algorithm Contest Problem Set//EN" "http://hustoj.com/fps.current.dtd">
-
   <fps version="1.3" url="https://github.com/zhblue/freeproblemset/">
     <generator name="HOJ" url="https://github.com/poormonitor/hoj/" />
     <?php
     foreach ($result as  $row) {
     ?>
-
       <item>
         <title>
           <![CDATA[<?php echo $row['title'] ?>]]>
@@ -240,7 +249,6 @@ if (isset($_POST['do']) || isset($_GET['cid'])) {
         <memory_limit unit="mb">
           <![CDATA[<?php echo $row['memory_limit'] ?>]]>
         </memory_limit>
-
         <?php
         $did = array();
         fixImageURL($row['description'], $did);
@@ -248,7 +256,6 @@ if (isset($_POST['do']) || isset($_GET['cid'])) {
         fixImageURL($row['output'], $did);
         fixImageURL($row['hint'], $did);
         ?>
-
         <description>
           <![CDATA[<?php echo $row['description'] ?>]]>
         </description>
@@ -270,7 +277,15 @@ if (isset($_POST['do']) || isset($_GET['cid'])) {
         <source>
         <![CDATA[<?php echo fixcdata($row['source']) ?>]]>
         </source>
-
+        <allow>
+          <![CDATA[<?php echo fixcdata($row['allow']) ?>]]>
+        </allow>
+        <block>
+          <![CDATA[<?php echo fixcdata($row['block']) ?>]]>
+        </block>
+        <blank>
+          <![CDATA[<?php echo fixcdata($row['blank']) ?>]]>
+        </blank>
         <?php
         $pid = $row['problem_id'];
         for ($lang = 0; $lang < count($language_ext); $lang++) {
@@ -303,21 +318,36 @@ if (isset($_POST['do']) || isset($_GET['cid'])) {
         if ($row['spj'] != 0) {
           $filec = "$OJ_DATA/" . $row['problem_id'] . "/spj.c";
           $filecc = "$OJ_DATA/" . $row['problem_id'] . "/spj.cc";
+          $filesh = "$OJ_DATA/" . $row['problem_id'] . "/spj.sh";
+          $filepy = "$OJ_DATA/" . $row['problem_id'] . "/spj.py";
 
-          if (file_exists($filec)) {
-            echo "<spj language=\"C\"><![CDATA[";
-            echo fixcdata(file_get_contents($filec));
-            echo "]]></spj>";
-          } else if (file_exists($filecc)) {
-            echo "<spj language=\"C++\"><![CDATA[";
-            echo fixcdata(file_get_contents($filecc));
-            echo "]]></spj>";
+          if (file_exists($filec)) { ?>
+            <spj language="C">
+              <![CDATA[<?php echo fixcdata(file_get_contents($filec)); ?>]]>
+            </spj>
+          <?php
+          } else if (file_exists($filecc)) { ?>
+            <spj language="C++">
+              <![CDATA[<?php echo fixcdata(file_get_contents($filecc)); ?>]]>
+            </spj>
+          <?php
+          } else if (file_exists($filesh)) { ?>
+            <spj language="Shell">
+              <![CDATA[<?php echo fixcdata(file_get_contents($filesh)); ?>]]>
+            </spj>
+          <?php
+          } else if (file_exists($filepy)) { ?>
+            <spj language="Python">
+              <![CDATA[<?php echo fixcdata(file_get_contents($filepy)); ?>]]>
+            </spj>
+        <?php
           }
         }
         ?>
       </item>
 
-  <?php }
-    echo "</fps>";
-  }
-  ?>
+    <?php }
+    ?>
+  </fps> <?php
+        }
+          ?>

@@ -242,10 +242,10 @@
 									<div class='panel-body content'>
 										<?php if ($row['allow'] || $row['block']) { ?>
 											<?php if ($row['block']) { ?>
-												<div style='margin-top:10px;'><?php echo $MSG_ALLOW_KEYWORD ?>: <span class='label label-danger'><?php echo $block; ?></span></div>
+												<div style='margin-top:10px;'><?php echo $MSG_BLOCK_KEYWORD ?>: <span class='label label-danger'><?php echo $block; ?></span></div>
 											<?php }
 											if ($row['allow']) { ?>
-												<div style='margin-top:10px;'><?php echo $MSG_REQUIRED_KEYWORD ?>: <span class='label label-success'><?php echo $allow; ?></span></div>
+												<div style='margin-top:10px;'><?php echo $MSG_ALLOW_KEYWORD ?>: <span class='label label-success'><?php echo $allow; ?></span></div>
 											<?php } ?>
 										<?php } else {
 											echo $MSG_EMPTY;

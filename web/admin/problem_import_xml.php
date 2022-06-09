@@ -147,11 +147,29 @@ function import_fps($tempfile)
     //$test_output = getValue($searchNode,'test_output');
     $hint = getValue($searchNode, 'hint');
     $source = getValue($searchNode, 'source');
+
+    $allow = getValue($searchNode, "allow");
+    $block = getValue($searchNode, "block");
+    $blank = getValue($searchNode, "blank");
+
     $spjcode = getValue($searchNode, 'spj');
     $spj = trim($spjcode) ? 1 : 0;
 
     if (!hasProblem($title)) {
       $pid = addproblem($title, $time_limit, $memory_limit, $description, $input, $output, $sample_input, $sample_output, $hint, $source, $spj, $OJ_DATA);
+
+      if ($blank != '') {
+        $sql = 'update `problem` set `blank`=? where `problem_id`=?';
+        pdo_query($sql, $blank, $pid);
+      }
+      if ($allow != '') {
+        $sql = 'update `problem` set `allow`=? where `problem_id`=?';
+        pdo_query($sql, $allow, $pid);
+      }
+      if ($block != '') {
+        $sql = 'update `problem` set `block`=? where `problem_id`=?';
+        pdo_query($sql, $block, $pid);
+      }
 
       if ($spid == 0)
         $spid = $pid;
@@ -174,6 +192,16 @@ function import_fps($tempfile)
           mkdata($pid, "test" . $testno . ".in", $testNode, $OJ_DATA);
         }
         $testno++;
+      }
+
+      $testfiles = $searchNode->children()->test_file;
+
+      foreach ($testfiles as $testfile) {
+        $name = $testfile['name'];
+        $filename = "$OJ_DATA/$pid/$name";
+        $fp = fopen($filename, "w");
+        fputs($fp, base64_decode($testfile));
+        fclose($fp);
       }
 
       unset($testinputs);
@@ -236,23 +264,13 @@ function import_fps($tempfile)
       }
 
       if ($spj) {
+        $lang = getAttribute($searchNode, "spj", "language");
         $basedir = "$OJ_DATA/$pid";
-        $fp = fopen("$basedir/spj.cc", "w");
+        $lang_ext = array("C++" => ".cc", "C" => ".c", "Shell" => ".sh", "Python" => ".py");
+        $filename = $basedir . "/spj" . $lang_ext[$lang];
+        $fp = fopen($filename, "w");
         fputs($fp, $spjcode);
         fclose($fp);
-        ////system( " g++ -o $basedir/spj $basedir/spj.cc  ");
-        if (!file_exists("$basedir/spj")) {
-          $fp = fopen("$basedir/spj.c", "w");
-          fputs($fp, $spjcode);
-          fclose($fp);
-          ////system( " gcc -o $basedir/spj $basedir/spj.c  ");
-
-          if (!file_exists("$basedir/spj")) {
-            echo "you need to compile $basedir/spj.cc for spj[  g++ -o $basedir/spj $basedir/spj.cc   ]<br> and rejudge $pid";
-          } else {
-            unlink("$basedir/spj.cc");
-          }
-        }
       }
 
       $solutions = $searchNode->children()->solution;

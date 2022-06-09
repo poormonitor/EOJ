@@ -150,7 +150,7 @@ if (isset($_GET['qid'])) {
 
     if (!$quiz_ok) {
         $view_errors = "<center>";
-        $view_errors .= "<h3>$MSG_CONTEST_ID : $view_qid - $view_title</h3>";
+        $view_errors .= "<h3>$MSG_QUIZ_ID : $view_qid - $view_title</h3>";
         $view_errors .= "<p>$view_description</p>";
         $view_errors .= "<span class=text-danger>$MSG_PRIVATE_WARNING</span>";
         $view_errors .= "<br>";
