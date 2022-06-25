@@ -68,17 +68,42 @@ if ($_POST['blank'] == '1') {
 }
 if ($allow != '') {
   $sql = 'update `problem` set `allow`=? where `problem_id`=?';
-  pdo_query($sql, $allow, $id);
+  pdo_query($sql, $allow, $pid);
 }
 if ($block != '') {
   $sql = 'update `problem` set `block`=? where `problem_id`=?';
-  pdo_query($sql, $block, $id);
+  pdo_query($sql, $block, $pid);
 }
 ?>
 
-&nbsp;&nbsp;- <a href='javascript:phpfm(<?php echo $pid; ?>);'>添加更多的测试数据</a>
+&nbsp;&nbsp;- <a href='javascript:phpfm(<?php echo $pid; ?>);'><?php echo $MSG_TESTDATA ?></a>
 
 <?php require_once("admin-footer.php"); ?>
+
+<script>
+  swal({
+    title: "<?php echo $MSG_SUCCESS ?>",
+    icon: "success",
+    text: "<?php echo $MSG_EDIT_SUCCESS ?>",
+    buttons: {
+      roll: {
+        text: "<?php echo $MSG_SEE ?>",
+        value: "href"
+      },
+      test: {
+        text: "<?php echo $MSG_TESTDATA ?>",
+        value: "test"
+      },
+      confirm: true
+    }
+  }).then((value) => {
+    if (value == "href") {
+      window.location.href = "../problem.php?id=<?php echo $pid ?>"
+    } else if (value == "test") {
+      phpfm(<?php echo $pid; ?>)
+    }
+  })
+</script>
 
 <script>
   function phpfm(pid) {

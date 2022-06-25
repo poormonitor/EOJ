@@ -84,9 +84,10 @@ if (isset($_GET['sid'])) {
 
 		if ($row)
 			$view_src = $row['source'];
+			$view_src = unifyCode($view_src);
 
 		if ($language_id == 6)
-			$view_src = str_replace('# coding=utf-8\n', "", $view_src);
+			$view_src = str_replace('# coding=utf-8' . PHP_EOL, "", $view_src);
 
 		$sql = "SELECT langmask FROM contest WHERE contest_id=?";
 
@@ -94,7 +95,7 @@ if (isset($_GET['sid'])) {
 		if (count($result))
 			$row = $result[0];
 
-		if ($row)
+		if ($row && isset($_GET['langmask']))
 			$_GET['langmask'] = $row['langmask'];
 	}
 }
@@ -158,23 +159,40 @@ if ($row[0] > 10) {
 	//echo "$row[0]";
 }
 $blank = pdo_query("select blank from problem where problem_id=?", $problem_id)[0][0];
+$blank = unifyCode($blank);
+
 $no_blank = (isset($_GET["blank"]) && $_GET["blank"] == 'false');
 $multiline = false;
+
 if (isset($sid)) {
-	$no_blank = true;
+	$blank_pat = "#" . preg_quote($blank) . "#";
+
+	$single_blank = str_replace("%\*%", "(.*)", $blank_pat);
+	preg_match_all($single_blank, $view_src, $single_line_matches);
+	$single_line_matches = array_slice($single_line_matches, 1);
+
+	$multi_blank = str_replace("\*%\*", "([\s\S]*)", $blank_pat);
+	preg_match_all($multi_blank, $view_src, $multi_line_matches);
+	$multi_line_matches = array_slice($multi_line_matches, 1);
 }
+
 if ($blank != NULL) {
 	$code = $blank;
 	$code = htmlentities($code, ENT_QUOTES, "UTF-8");
-	$num = substr_count($blank, "%*%");
+
 	$copy = $blank;
-	$copy = htmlentities($copy, ENT_QUOTES, "UTF-8");
 	$copy = str_replace("%*%", "__________", $copy);
+
+	$num = substr_count($blank, "%*%");
+
 	for ($i = 0; $i < $num; $i++) {
-		$pattern = "<input name='code$i' class='singleline form-control' autocomplete='off'></input>";
+		$content = isset($single_line_matches) ? $single_line_matches[$i][0] : "";
+		$pattern = "<input name='code$i' class='singleline form-control' autocomplete='off' value='$content'>";
 		$code = str_replace_limit("%*%", $pattern, $code, 1);
 	}
+
 	$num = substr_count($blank, "*%*");
+
 	for ($i = 0; $i < $num; $i++) {
 		preg_match("/\n.*\*%\*/m", $code, $matches);
 		$len = strlen($matches[0]) - 4;
@@ -182,10 +200,15 @@ if ($blank != NULL) {
 		$px = $len * 10;
 		$pattern = "<textarea hidden='hidden' id='multiline$i' name='multiline$i'></textarea>";
 		$pattern .= "<div class='multiline editor-border' id='source$i' style='margin-left:" . $px . "px'></div>";
-		$code = str_replace_limit("\r\n$blanks*%*\r\n", $pattern, $code, 1);
-		$copy = str_replace("*%*\r\n", "...\r\n$blanks...\r\n", $copy);
+		$code = str_replace_limit("\n$blanks*%*\n", $pattern, $code, 1);
+		$copy = str_replace("*%*\n", "...\n$blanks...\n", $copy);
 		$multiline = true;
 	}
+
+	if (!$view_src)
+		$view_src = $copy;
+		
+	$copy = htmlentities($copy, ENT_QUOTES, "UTF-8");
 }
 
 if (isset($code) and !$no_blank) {
@@ -193,4 +216,3 @@ if (isset($code) and !$no_blank) {
 } else {
 	require("template/submitpage.php");
 }
-

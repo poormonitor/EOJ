@@ -122,14 +122,15 @@ echo "<center><h3>" . $MSG_PROBLEM . "-" .  $MSG_EDIT . "</h3></center>";
   })
   $("#blank_true").click(function() {
     $("#blank_code").show();
+    window.editor.layout();
   })
 </script>
 <script src='<?php echo $OJ_CDN_URL .  "include/" ?>bootstrap-tagsinput.min.js'></script>
-<script src="<?php echo $OJ_CDN_URL . "monaco/" ?>loader.js"></script>
+<script src="<?php echo $OJ_CDN_URL . "monaco/min/vs/" ?>loader.js"></script>
 <script>
   require.config({
     paths: {
-      vs: '../monaco'
+      vs: '../monaco/min/vs'
     }
   });
 
@@ -201,8 +202,6 @@ echo "<center><h3>" . $MSG_PROBLEM . "-" .  $MSG_EDIT . "</h3></center>";
     $title = ($title);
     $basedir = $OJ_DATA . "/$id";
 
-    echo "题目已更新！<br>";
-
     if ($sample_input && file_exists($basedir . "/sample.in")) {
       //mkdir($basedir);
       $fp = fopen($basedir . "/sample.in", "w");
@@ -232,9 +231,27 @@ echo "<center><h3>" . $MSG_PROBLEM . "-" .  $MSG_EDIT . "</h3></center>";
       $sql = 'update `problem` set `block`=? where `problem_id`=?';
       pdo_query($sql, $block, $id);
     }
-    echo "编辑成功！<br>";
-    echo "<a href='../problem.php?id=$id'>查看问题</a>";
-    echo "</div>";
-    require_once("admin-footer.php");
-  }
 ?>
+  <p><?php echo $MSG_EDIT_SUCCESS ?></p>
+  <a href='../problem.php?id=<?php echo $id ?>'><?php echo $MSG_SEE ?></a>
+  </div>
+  <?php require_once("admin-footer.php"); ?>
+  <script>
+    swal({
+      title: "<?php echo $MSG_SUCCESS ?>",
+      icon: "success",
+      text: "<?php echo $MSG_EDIT_SUCCESS ?>",
+      buttons: {
+        roll: {
+          text: "<?php echo $MSG_SEE ?>",
+          value: "href"
+        },
+        confirm: true
+      }
+    }).then((value) => {
+      if (value == "href") {
+        window.location.href = "../problem.php?id=<?php echo $id ?>"
+      }
+    })
+  </script>
+<?php } ?>

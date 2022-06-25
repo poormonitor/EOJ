@@ -248,7 +248,7 @@ function vcode_required(self) {
     HTMLcontent += "<div class='col-xs-4'><img id='vcode-img' alt='Click to change' src='vcode.php?" + Math.random() + " onclick='change_vcode(this)' height=auto autocomplete='off'></div>"
     content.innerHTML = HTMLcontent;
     swal({
-        title: langString.VCODE,
+        title: langString.VCode,
         content: content
     }).then((onConfirm) => {
         value = $("#vcode-input").val();

@@ -410,3 +410,13 @@ function base64url_decode($data)
 {
   return base64_decode(str_pad(strtr($data, '-_', '+/'), strlen($data) % 4, '=', STR_PAD_RIGHT));
 }
+
+function unifyCode($code)
+{
+  if (gettype($code) == "string") {
+    $code = str_replace("\r\n", "\n", $code);
+    $code = str_replace("\r", "\n", $code);
+    $code = str_replace("\t", "    ", $code);
+  }
+  return $code;
+}

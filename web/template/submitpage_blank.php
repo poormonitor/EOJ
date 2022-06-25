@@ -20,8 +20,6 @@
         <!-- Main component for a primary marketing message or call to action -->
         <div class="jumbotron">
             <center>
-                <script src="<?php echo $OJ_CDN_URL .  "include/" ?>checksource.min.js"></script>
-
                 <form id=frmSolution action="submit.php" method="post" onsubmit='do_submit()'>
                     <?php if (isset($id)) { ?>
                         <br>
@@ -227,20 +225,27 @@
 
     <script language="Javascript" type="text/javascript" src="<?php echo $OJ_CDN_URL ?>include/base64.min.js"></script>
 
-    <script src="<?php echo $OJ_CDN_URL . "monaco/" ?>loader.js"></script>
+    <script src="<?php echo $OJ_CDN_URL . "monaco/min/vs/" ?>loader.js"></script>
     <script>
         require.config({
             paths: {
-                vs: 'monaco'
+                vs: 'monaco/min/vs'
             }
         });
 
         window.editors = [];
 
+        var CodeContent = [
+            <?php if (isset($multi_line_matches)) {
+                foreach ($multi_line_matches as $line) { ?> `<?php echo $line[0] ?>`,
+            <?php }
+            } ?>
+        ];
+
         require(['vs/editor/editor.main'], function() {
             $("div[id^='source']").each(function(index, elem) {
                 window.editors[index] = monaco.editor.create(document.getElementById("source" + index), {
-                    value: ``,
+                    value: CodeContent[index],
                     language: 'plain',
                     fontSize: "18px",
                     lineNumbers: 'off',

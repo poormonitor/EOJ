@@ -26,9 +26,7 @@
     <?php include("template/nav.php"); ?>
     <!-- Main component for a primary marketing message or call to action -->
     <div class="jumbotron">
-
-      <script src="<?php echo $OJ_CDN_URL .  "include/" ?>checksource.min.js"></script>
-
+      
       <form id=frmSolution action="submit.php" method="post" onsubmit='do_submit()'>
         <center>
           <?php if (isset($id)) { ?>
@@ -76,9 +74,7 @@
             <br></br>
             <div class='btn-group' style='margin-bottom:10px;'>
               <a class='btn btn-sm btn-info' href='javascript:CopyToClipboard($("#copy").text())'><?php echo $MSG_COPY ?></a>
-              <?php if (!isset($sid)) { ?>
-                <a class='btn btn-sm btn-info' href='<?php echo str_replace("&blank=false", "", $_SERVER['REQUEST_URI']); ?>'><?php echo $MSG_BLANK_FILLING ?></a>
-              <?php } ?>
+              <a class='btn btn-sm btn-info' href='<?php echo str_replace("&blank=false", "", $_SERVER['REQUEST_URI']); ?>'><?php echo $MSG_BLANK_FILLING ?></a>
             </div>
           <?php } ?>
         </center>
@@ -243,11 +239,11 @@
 
   <script language="Javascript" type="text/javascript" src="<?php echo $OJ_CDN_URL ?>include/base64.min.js"></script>
 
-  <script src="<?php echo $OJ_CDN_URL . "monaco/" ?>loader.js"></script>
+  <script src="<?php echo $OJ_CDN_URL . "monaco/min/vs/" ?>loader.js"></script>
   <script>
     require.config({
       paths: {
-        vs: 'monaco'
+        vs: 'monaco/min/vs'
       }
     });
 
