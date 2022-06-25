@@ -180,8 +180,7 @@ if ($c_pid < 0) {
 $code = pdo_query("select blank from problem where problem_id=?", $c_pid);
 if (count($code) && $code[0][0]) {
   $code = $code[0][0];
-  $code = str_replace("\t", "    ", $code);
-  $code = str_replace("\r\n", "\n", $code);
+  $code = unifyCode($code);
   if (isset($_POST['code0']) || isset($_POST['multiline0'])) {
     for ($i = 0; isset($_POST['code' . $i]); $i++) {
       $code = str_replace_limit("%*%", $_POST['code' . $i], $code, 1);
@@ -195,20 +194,22 @@ if (count($code) && $code[0][0]) {
     $source = $code;
     $input_text = $code;
   } else {
+
     $code = str_replace(" ", "", $code);
     $code = rtrim($code, "\n");
     $code = preg_quote($code);
     $code = str_replace("%\*%", ".*", $code);
     $code = str_replace("\*%\*", "[\s\S]*", $code);
-    $p_source = str_replace("\r\n", "\n", $_POST['source']);
+
+    $p_source = unifyCode($_POST['source']);
     $p_source = rtrim($p_source, "\n");
-    $p_source = str_replace("\t", "    ", $p_source);
     $p_source = str_replace(" ", "", $p_source);
+
     if (preg_match("#" . $code . "#", $p_source, $matches) && strlen($matches[0]) == strlen($p_source)) {
       $source = $_POST['source'];
       $input_text = "";
     } else {
-      $err_str = $err_str . "您的代码不符合填空格式！";
+      $err_str = $err_str . $MSG_FORMAT_ERROR;
       $err_cnt++;
       $view_error_title = $err_str;
       $view_swal = $err_str;

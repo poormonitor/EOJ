@@ -49,11 +49,11 @@
   </div>
   <?php include("template/js.php"); ?>
 
-  <script src="<?php echo $OJ_CDN_URL . "monaco/" ?>loader.js"></script>
+  <script src="<?php echo $OJ_CDN_URL . "monaco/min/vs/" ?>loader.js"></script>
   <script>
     require.config({
       paths: {
-        vs: 'monaco'
+        vs: 'monaco/min/vs'
       }
     });
 

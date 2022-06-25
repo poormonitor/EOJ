@@ -177,7 +177,7 @@
           $before_ac = $i[1];
           $before = $i[2];
           if ($before == 0) {
-            echo ("<td><span class='label label-danger'>$MSG_UNFINISHED[true]</span></td>");
+            echo ("<td><span class='label label-danger'>$MSG_UNFINISHED</span></td>");
           } else {
             if ($before_ac == 0) {
               echo ("<td><span class='label label-warning'>$MSG_NOT_PASS</span></td>");

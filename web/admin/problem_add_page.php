@@ -154,14 +154,15 @@ require_once("admin-footer.php");
   })
   $("#blank_true").click(function() {
     $("#blank_code").show();
+    window.editor.layout();
   })
 </script>
 <script src='<?php echo $OJ_CDN_URL .  "include/" ?>bootstrap-tagsinput.min.js'></script>
-<script src="<?php echo $OJ_CDN_URL . "monaco/" ?>loader.js"></script>
+<script src="<?php echo $OJ_CDN_URL . "monaco/min/vs/" ?>loader.js"></script>
 <script>
   require.config({
     paths: {
-      vs: '../monaco'
+      vs: '../monaco/min/vs'
     }
   });
 

@@ -62,7 +62,7 @@ function formatTimeLength($length)
         }
 
         $length = floor($length / 24);
-        $result = $length . $MSG_DAYS . ' ' . $result;
+        $result = $length . ' ' . $MSG_DAYS . ' ' . $result;
       } else {
         $result = $length . ' ' . $MSG_HOURS . ' ' . $result;
       }

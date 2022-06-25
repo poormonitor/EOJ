@@ -132,6 +132,7 @@ $MSG_NOT_INVITED = "您不被邀请！";
 $MSG_NO_PROBLEM = "没有这样的问题！";
 $MSG_NO_PLS = "使用未知的编程语言！";
 $MSG_TOO_SHORT = "代码太短！";
+$MSG_FORMAT_ERROR = "您的代码不符合格式！";
 $MSG_TOO_LONG = "代码太长！";
 $MSG_BREAK_TIME = "您不应在10秒钟内提交超过1次的申请";
 $MSG_COPY_CURRENT = "复制当前";
@@ -246,6 +247,7 @@ $MSG_SIM_NO ="未被查重";
 $MSG_PARENT_EXPLAIN = "<div class='status_explain'><p>状态解释：<li>未提交，意为用户并未在系统中提交任何代码。</li><li>未通过，意为用户提交过代码，但没能完全通过测评。</li><li>已完成，意为用户的代码通过测评。</li><li>被查重，仅代表提交的代码在已提交中有相似者，并不能作为抄袭的依据。</li></p></div><p>本页面所提供之数据，仅为被查询用户在本系统中的使用情况之显示，并不构成任何意思表示。</p>";
 
 //admin menu
+$MSG_SEE = "查看";
 $MSG_SEEOJ = "查看前台";
 $MSG_ADD = "添加";
 $MSG_MENU = "菜单";
@@ -315,6 +317,7 @@ $MSG_INPUT_MANAULLY = "手动输入";
 $MSG_BLANK_FILLING = "代码填空";
 $MSG_BLANK_TEMPLATE = "填空模板";
 $MSG_TEMPLATE_EXPLAIN = "单行填空请用%*%表示，多行填空用*%*表示";
+$MSG_EDIT_SUCCESS = "编辑成功！";
 
 $MSG_SECONDS = "秒";
 $MSG_MINUTES = "分";

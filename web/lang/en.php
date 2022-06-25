@@ -133,6 +133,7 @@ $MSG_NO_PROBLEM = "No Such Problem!";
 $MSG_NO_PLS = "Using unknown programing language!";
 $MSG_TOO_SHORT = "Code too short!";
 $MSG_TOO_LONG = "Code too long!";
+$MSG_FORMAT_ERROR = "Your code doesn't fit the format!";
 $MSG_BREAK_TIME = "You should not submit more than twice in 1 seconds.";
 $MSG_COPY_CURRENT = "Copy Current Code";
 $MSG_WRITE_DIRECTLY = "Code Directly";
@@ -246,6 +247,7 @@ $MSG_SIM_NO = "Not Plagiarized";
 $MSG_PARENT_EXPLAIN = "<div class='status_explain'><p>State Explanation:<li>Unfinished, means the user has not submitted any code in the system.</li><li>Not Pass, means that the user has submitted code but failed to pass the judging completely.</li><li>Finished, means that the user's code passed the judging.</li><li>Plagiarized, means that the submitted code has similarities in the submitted code, and cannot be used as a basis for copying.</li></p></div><p>The data provided on this page is only a display of the user's usage in this system, and does not constitute any meaning. </p>";
 
 //admin menu
+$MSG_SEE = "See";
 $MSG_SEEOJ = "See OJ";
 $MSG_ADD = "Add";
 $MSG_LIST = "List";
@@ -316,6 +318,7 @@ $MSG_INPUT_MANAULLY = "Input Manually";
 $MSG_BLANK_FILLING = "Blank Filling";
 $MSG_BLANK_TEMPLATE = "Blank Template";
 $MSG_TEMPLATE_EXPLAIN = "Use %*% to represent single line blank and *%* to represent multiline blank";
+$MSG_EDIT_SUCCESS = "Edited Successfully!";
 
 $MSG_SECONDS = "seconds";
 $MSG_MINUTES = "minutes";
