@@ -54,7 +54,7 @@ if (isset($_GET['id'])) {
 	$result = pdo_query($sql, $cid);
 	$rows_cnt = count($result);
 	if ($rows_cnt == 0) {
-		$view_swal = "作业不存在！";
+		$view_swal = $MSG_NOT_EXISTED;
 		require("template/error.php");
 		exit(0);
 	}
@@ -76,7 +76,7 @@ if (isset($_GET['id'])) {
 
 	if ($ok_cnt != 1) {
 		//not started
-		$view_swal = "作业不存在！";
+		$view_swal = $MSG_NOT_EXISTED;
 		require("template/error.php");
 		exit(0);
 	} else {
@@ -102,7 +102,7 @@ if (isset($_GET['id'])) {
 
 	//public
 	if (!$contest_ok) {
-		$view_swal = "您未被邀请！";
+		$view_swal = $MSG_PRIVILEGE_WARNING;
 		require("template/error.php");
 		exit(0);
 	}
@@ -122,6 +122,14 @@ if (count($result) != 1) {
 	$row = $result[0];
 	$view_title = $row['title'];
 }
+
+if (isset($_GET['cid']) && isset($_GET['pid'])) {
+	$sql = "SELECT count(*) FROM `solution` WHERE contest_id = ? AND num = ? AND result = 4";
+	$row["accepted"] = pdo_query($sql, $cid, $pid)[0][0];
+	$sql = "SELECT count(*) FROM `solution` WHERE contest_id = ? AND num = ?";
+	$row["submit"] = pdo_query($sql, $cid, $pid)[0][0];
+}
+
 //检查当前题目是不是在NOIP模式比赛中，如果是则不显示AC数量 2020.7.11 by ivan_zhou
 $now = strftime("%Y-%m-%d %H:%M", time());
 $sql = "select 1 from `contest_problem` where (`problem_id`= ? or `num` = ? and `contest_id`=?) and `contest_id` IN (select `contest_id` from `contest` where `start_time` < ? and `end_time` > ? and `title` like ?)";
