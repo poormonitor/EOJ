@@ -5,6 +5,7 @@ $OJ_CACHE_SHARE = false;
 require_once('./include/cache_start.php');
 require_once('./include/db_info.inc.php');
 require_once('./include/setlang.php');
+require_once('./include/my_func.inc.php');
 
 $view_title = "Welcome To Online Judge";
 
@@ -38,7 +39,8 @@ else
   $page = 0;
 
 
-$now = strftime("%Y-%m-%d %H:%M", time());
+
+$now = date("Y-m-d H:i");
 
 $sql = "SELECT 1 FROM `contest_problem` WHERE `problem_id` = ? AND `contest_id` IN (SELECT `contest_id` FROM `contest` WHERE `start_time`<? AND `end_time`>? AND `title` LIKE ?)";
 
@@ -51,6 +53,9 @@ if ($flag) {
   require("template/error.php");
   exit(0);
 }
+
+$sql = "SELECT * FROM problem WHERE problem_id = ?";
+$problem_info = pdo_query($sql, $id)[0];
 
 $view_problem = array();
 
@@ -107,10 +112,10 @@ if ($start + $sz > $acuser)
   $sz = $acuser - $start;
 
 //check whether the problem in a contest
-$now = strftime("%Y-%m-%d %H:%M", time());
+$now = date("Y-m-d H:i");
 $sql = "SELECT 1 FROM `contest_problem` WHERE `problem_id`=$id AND `contest_id` IN (SELECT `contest_id` FROM `contest` WHERE `start_time`<? AND `end_time`>?)";
 $rrs = pdo_query($sql, $now, $now);
-$flag = count($rrs) == 0;
+$flag = count($rrs) == 0 || isset($_SESSION[$OJ_NAME . '_' . 'administrator']);
 
 // check whether the problem is ACed by user
 $AC = false;
@@ -139,14 +144,14 @@ if (isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
 }
 
 $sql = "SELECT * FROM (
-  SELECT COUNT(*) att, user_id, min(10000000000000000000 + time*100000000000 + memory*100000 + code_length) score
+  SELECT COUNT(*) att, user_id, min(10000000000000000000 + time * 100000000000 + memory * 100000 + code_length) score
   FROM solution
   WHERE problem_id =? AND result =4
   GROUP BY user_id
   ORDER BY score 
   )c
     inner JOIN (
-    SELECT solution_id, user_id, language, 10000000000000000000 + time*100000000000 + memory*100000 + code_length score, in_date
+    SELECT solution_id, user_id, language, 10000000000000000000 + time * 100000000000 + memory * 100000 + code_length score, in_date
     FROM solution 
     WHERE problem_id =? AND result =4  
     ORDER BY score
@@ -182,12 +187,12 @@ foreach ($result as $row) {
   if ($flag)
     $view_solution[$j][3] = "$s_memory KB";
   else
-    $view_solution[$j][3] = "------";
+    $view_solution[$j][3] = "-";
 
   if ($flag)
     $view_solution[$j][4] = "$s_time ms";
   else
-    $view_solution[$j][4] = "------";
+    $view_solution[$j][4] = "-";
 
   if (!(isset($_SESSION[$OJ_NAME . '_' . 'user_id']) && !strcasecmp($row['user_id'], $_SESSION[$OJ_NAME . '_' . 'user_id']) ||
     isset($_SESSION[$OJ_NAME . '_' . 'source_browser']) || (isset($OJ_AUTO_SHARE) && $OJ_AUTO_SHARE && $AC))) {
@@ -199,7 +204,7 @@ foreach ($result as $row) {
   if ($flag)
     $view_solution[$j][6] = "$s_cl Bytes";
   else
-    $view_solution[$j][6] = "------";
+    $view_solution[$j][6] = "-";
 
   $view_solution[$j][7] = $row['in_date'];
   $j++;
@@ -211,28 +216,108 @@ foreach ($result as $row) {
 
 $view_recommand = array();
 
-if (isset($_GET['id'])) {
-  $id = intval($_GET['id']);
+if (isset($_SESSION[$OJ_NAME . '_' . 'user_id']))
+  $user_id = ($_SESSION[$OJ_NAME . '_' . 'user_id']);
 
-  if (isset($_SESSION[$OJ_NAME . '_' . 'user_id']))
-    $user_id = ($_SESSION[$OJ_NAME . '_' . 'user_id']);
+$sql = "SELECT source FROM problem WHERE problem_id=?";
+$result = pdo_query($sql, $id);
+$source = $result[0][0];
+$source = explode(" ", $source);
+$pattern = "source LIKE '%" . join("%' OR source LIKE '%", $source) . "%'";
 
-  $sql = "SELECT source FROM problem WHERE problem_id=?";
-  $result = pdo_query($sql, $id);
-  $source = $result[0][0];
-  $source = explode(" ", $source);
-  $pattern = "source LIKE '%" . join("%' OR source LIKE '%", $source) . "%'";
+$sql = "SELECT problem_id FROM problem WHERE $pattern AND problem_id != ? LIMIT 10";
+$result = pdo_query($sql, $id);
 
-  $sql = "SELECT problem_id FROM problem WHERE $pattern AND problem_id != ? LIMIT 10";
-  $result = pdo_query($sql, $id);
-
-  $i = 0;
-  foreach ($result as $row) {
-    $view_recommand[$i][0] = $row['problem_id'];
-    $i++;
-  }
+$i = 0;
+foreach ($result as $row) {
+  $view_recommand[$i][0] = $row['problem_id'];
+  $i++;
 }
 
+if ($problem_info["blank"] && isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
+  $blank = $problem_info["blank"];
+  $sql = "SELECT * FROM solution JOIN source_code ON `source_code`.`solution_id` = `solution`.`solution_id` WHERE problem_id = ?";
+  $result = pdo_query($sql, $id);
+  $blank_analysis = array();
+  $strip_map = array();
+  foreach ($result as $row) {
+
+    $view_src = $row["source"];
+    $result = $row["result"];
+    $c = $result == 4 ? 0 : 1;
+    $user_id = $row["user_id"];
+    $nick = $row["nick"];
+    $user_info = $user_id . "(" . $nick . ")";
+    $res = getBlankCode($blank, $view_src);
+
+    for ($i = 0; $i < count($res); $i++) {
+
+      if (!$res[$i]) {
+        continue;
+      }
+
+      $stripped = stripBlank($res[$i]);
+
+      if (
+        in_array($res[$i], array_keys($blank_analysis[$i][0]))
+        || in_array($stripped, array_keys($blank_analysis[$i][0]))
+      ) {
+        $c = 0;
+      }
+
+      if (!isset($blank_analysis[$i])) {
+        $strip_map[$i] = array();
+        $blank_analysis[$i] = array(0 => array(), 1 => array());
+      }
+
+      $target = $res[$i];
+      if (isset($strip_map[$i][$stripped]))
+        $target = $strip_map[$i][$stripped];
+      if (isset($strip_map[$i][$res[$i]]))
+        $target = $strip_map[$i][$res[$i]];
+      if (!isset($blank_analysis[$i][$c][$target])) {
+        $blank_analysis[$i][$c][$target] = array($user_info);
+        $strip_map[$i][$stripped] = $target;
+      } else {
+        if (!in_array($user_info, $blank_analysis[$i][$c][$target])) {
+          array_push($blank_analysis[$i][$c][$target], $user_info);
+        }
+      }
+    }
+
+    for ($i = 0; $i < count($blank_analysis); $i++) {
+      $correct = array_keys($blank_analysis[$i][0]);
+      foreach ($blank_analysis[$i][1] as $item => $value) {
+
+        if (in_array($item, $correct)) {
+          $blank_analysis[$i][0][$item] = array_merge($blank_analysis[$i][0][$item], $value);
+          unset($blank_analysis[$i][1][$item]);
+        }
+
+        if (isset($strip_map[$i][$item]) && in_array($strip_map[$i][$item], $correct)) {
+          $blank_analysis[$i][0][$strip_map[$i][$item]] = array_merge($blank_analysis[$i][0][$strip_map[$i][$item]], $value);
+          unset($blank_analysis[$i][1][$item]);
+        }
+
+        $stripped = stripBlank($item);
+        if (in_array($stripped, $correct)) {
+          $blank_analysis[$i][0][$stripped] = array_merge($blank_analysis[$i][0][$stripped], $value);
+          unset($blank_analysis[$i][1][$item]);
+        }
+      }
+
+      foreach ($blank_analysis[$i][0] as $key => $value) {
+        $blank_analysis[$i][0][$key] = array_unique($blank_analysis[$i][0][$key]);
+      }
+    }
+  }
+
+  preg_match("/\n.*\*%\*/m", $blank, $matches);
+  $len = $matches ? max(strlen($matches[0]) - 4, 0) : 0;
+  $blank_show = htmlentities($blank, ENT_QUOTES, "UTF-8");
+  $blank_show = str_replace("*%*\r\n", "...\r\n" . str_repeat(" ", $len) . "...\r\n", $blank_show);
+  $blank_show = str_replace("%*%", "__________", $blank_show);
+}
 
 require("template/problemstatus.php");
 

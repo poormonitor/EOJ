@@ -6,7 +6,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="">
-	<meta name="author" content="<?php echo $OJ_NAME?>">
+	<meta name="author" content="<?php echo $OJ_NAME ?>">
 	<link rel="shortcut icon" href="/favicon.ico">
 
 	<title>
@@ -25,7 +25,7 @@
 		<div class="jumbotron">
 
 			<center>
-				<h3><?php echo $MSG_PROBLEM . " : " . $id . " " . $MSG_STATISTICS ?></h3><br>
+				<h3><?php echo $MSG_PROBLEM . " : " . $_GET["id"] . " " . $MSG_STATISTICS ?></h3><br>
 				<div class='row'>
 					<div class='col-md-4'>
 						<table id="statics" width=90%>
@@ -166,6 +166,66 @@
 					</div>
 				</div>
 			</center>
+
+			<?php if (isset($blank) && isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) { ?>
+				<div class="row">
+					<div class="col-md-4">
+						<pre id='code' class="blank-code" style='padding:15px!important;'><?php echo $blank_show; ?></pre>
+					</div>
+					<div class="col-md-8">
+						<?php for ($i = 0; $i < count($blank_analysis); $i++) { ?>
+							<div class='panel panel-default'>
+								<div class='panel-heading'>
+									<h4>
+										<?php echo $MSG_BLANK_FILLING ?> <?php echo $i + 1 ?>
+									</h4>
+								</div>
+								<div class='panel-body content' style='padding:10px;'>
+									<?php if (count($blank_analysis[$i][0])) { ?>
+										<span class="label label-success"><?php echo $MSG_Accepted ?></span>
+										<div class="table-responsive">
+											<table class="table table-bordered">
+												<tbody>
+													<?php foreach ($blank_analysis[$i][0] as $key => $value) { ?>
+														<tr>
+															<td style="width:30%"><?php echo $key ?></td>
+															<td class="keep-all">
+																<?php foreach ($value as $row) { ?>
+																	<?php echo $row ?>&nbsp;&nbsp;
+																<?php } ?>
+															</td>
+														</tr>
+													<?php } ?>
+												</tbody>
+											</table>
+										</div>
+									<?php } ?>
+									<?php if (count($blank_analysis[$i][1])) { ?>
+										<span class="label label-danger"><?php echo $MSG_Wrong_Answer ?></span>
+										<div class="table-responsive">
+											<table class="table table-bordered">
+												<tbody>
+													<?php foreach ($blank_analysis[$i][1] as $key => $value) { ?>
+														<tr>
+															<td style="width:30%"><?php echo $key ?></td>
+															<td class="keep-all">
+																<?php foreach ($value as $row) { ?>
+																	<?php echo $row ?>&nbsp;&nbsp;
+																<?php } ?>
+															</td>
+														</tr>
+													<?php } ?>
+												</tbody>
+											</table>
+										</div>
+									<?php } ?>
+								</div>
+							</div>
+						<?php } ?>
+					</div>
+				</div>
+			<?php } ?>
+
 		</div>
 	</div>
 
