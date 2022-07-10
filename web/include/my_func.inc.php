@@ -108,7 +108,7 @@ function sec2str($sec)
 }
 function is_running($cid)
 {
-  $now = strftime("%Y-%m-%d %H:%M", time());
+  $now = date("Y-m-d H:i");
   $sql = "SELECT count(*) FROM `contest` WHERE `contest_id`=? AND `end_time`>?";
   $result = pdo_query($sql, $cid, $now);
   $row = $result[0];
@@ -419,4 +419,38 @@ function unifyCode($code)
     $code = str_replace("\t", "    ", $code);
   }
   return $code;
+}
+
+function stripBlank($code)
+{
+  if (gettype($code) == "string") {
+    $code = str_replace(" ", "", $code);
+  }
+  return $code;
+}
+
+function getBlankCode($blank, $view_src)
+{
+  $view_src = unifyCode($view_src);
+  $blank = unifyCode($blank);
+  $blank_pat = "#" . preg_quote($blank) . "#";
+  $func = function ($value) {
+    return $value[0];
+  };
+  $blank_pat = str_replace("%\*%", "(.*)", $blank_pat);
+  $blank_pat = str_replace("\*%\*", "([\s\S]*)", $blank_pat);
+  preg_match_all($blank_pat, $view_src, $matches);
+  $matches = array_slice($matches, 1);
+  $matches = array_map($func, $matches);
+  return $matches;
+}
+
+function inAsItem($array, $needle, $order)
+{
+  foreach ($array as $row) {
+    if ($row[$order] == $needle) {
+      return true;
+    }
+  }
+  return false;
 }

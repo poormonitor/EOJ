@@ -264,47 +264,47 @@
         <table id=result-tab class="table table-striped content-box-header" align=center width=80%>
           <thead>
             <tr class='toprow'>
-              <td class="text-right">
+              <th class="text-right">
                 <?php echo $MSG_RUNID ?>
-              </td>
-              <td class="text-left">
+              </th>
+              <th class="text-left">
                 <?php echo $MSG_USER ?>
-              </td>
-              <td class="text-center">
+              </th>
+              <th class="text-center">
                 <?php echo $MSG_PROBLEM_ID ?>
-              </td>
-              <td class="text-left">
+              </th>
+              <th class="text-left">
                 <?php echo $MSG_RESULT ?>
-              </td>
-              <td class="text-left">
+              </th>
+              <th class="text-left">
                 SIM
-              </td>
-              <td class="text-left">
+              </th>
+              <th class="text-left">
                 SIM to
-              </td>
-              <td class="text-right">
+              </th>
+              <th class="text-right">
                 <?php echo $MSG_MEMORY ?>
-              </td>
-              <td class="text-right">
+              </th>
+              <th class="text-right">
                 <?php echo $MSG_TIME ?>
-              </td>
-              <td class="text-right">
+              </th>
+              <th class="text-right">
                 <?php echo $MSG_LANG ?>
-              </td>
-              <td class="text-right">
+              </th>
+              <th class="text-right">
                 <?php echo $MSG_CODE_LENGTH ?>
-              </td>
-              <td class="text-center">
+              </th>
+              <th class="text-center">
                 <?php echo $MSG_SUBMIT_TIME ?>
-              </td>
+              </th>
               <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
-                echo "<td class='text-center'>";
+                echo "<th class='text-center'>";
                 echo $MSG_JUDGER;
-                echo "</td>";
+                echo "</th>";
                 if (isset($gid)) {
-                  echo "<td class='text-center'>";
+                  echo "<th class='text-center'>";
                   echo $MSG_GROUP;
-                  echo "</td>";
+                  echo "</th>";
                 }
               } ?>
             </tr>
