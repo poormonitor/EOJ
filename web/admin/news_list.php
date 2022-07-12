@@ -3,102 +3,128 @@ require("admin-header.php");
 require_once("../include/set_get_key.php");
 
 ?>
+<!DOCTYPE html>
+<html lang="<?php echo $OJ_LANG ?>">
 
-<center>
-  <h3><?php echo $MSG_NEWS . "-" . $MSG_LIST ?></h3>
-</center>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="<?php echo $OJ_NAME ?>">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <?php include("../template/css.php"); ?>
+  <title><?php echo $OJ_NAME ?></title>
+</head>
 
-<div class='container'>
+<body>
+  <div class='container'>
+    <?php include("../template/nav.php") ?>
+    <div class='jumbotron'>
+      <div class='row lg-container'>
+        <?php require_once("sidebar.php") ?>
+        <div class='col-md-10'>
+          <center>
+            <h3><?php echo $MSG_NEWS . "-" . $MSG_LIST ?></h3>
+          </center>
 
-  <?php
-  $sql = "SELECT COUNT('news_id') AS ids FROM `news`";
-  $result = pdo_query($sql);
-  $row = $result[0];
+          <div class='container'>
 
-  $ids = intval($row['ids']);
+            <?php
+            $sql = "SELECT COUNT('news_id') AS ids FROM `news`";
+            $result = pdo_query($sql);
+            $row = $result[0];
 
-  $idsperpage = 25;
-  $pages = intval(ceil($ids / $idsperpage));
+            $ids = intval($row['ids']);
 
-  if (isset($_GET['page'])) {
-    $page = intval($_GET['page']);
-  } else {
-    $page = 1;
-  }
+            $idsperpage = 25;
+            $pages = intval(ceil($ids / $idsperpage));
 
-  $pagesperframe = 5;
-  $frame = intval(ceil($page / $pagesperframe));
+            if (isset($_GET['page'])) {
+              $page = intval($_GET['page']);
+            } else {
+              $page = 1;
+            }
 
-  $spage = ($frame - 1) * $pagesperframe + 1;
-  $epage = min($spage + $pagesperframe - 1, $pages);
+            $pagesperframe = 5;
+            $frame = intval(ceil($page / $pagesperframe));
 
-  $sid = ($page - 1) * $idsperpage;
+            $spage = ($frame - 1) * $pagesperframe + 1;
+            $epage = min($spage + $pagesperframe - 1, $pages);
 
-  $sql = "";
-  if (isset($_GET['keyword']) && $_GET['keyword'] != "") {
-    $keyword = $_GET['keyword'];
-    $keyword = "%$keyword%";
-    $sql = "SELECT `news_id`,`user_id`,`title`,`time`,`defunct` FROM `news` WHERE (title LIKE ?) OR (content LIKE ?) ORDER BY `news_id` DESC";
-    $result = pdo_query($sql, $keyword, $keyword);
-  } else {
-    $sql = "SELECT `news_id`,`user_id`,`title`,`time`,`defunct` FROM `news` ORDER BY `news_id` DESC LIMIT $sid, $idsperpage";
-    $result = pdo_query($sql);
-  }
-  ?>
+            $sid = ($page - 1) * $idsperpage;
 
-  <center>
-    <form action=news_list.php class="form-search form-inline">
-      <input type="text" name=keyword class="form-control search-query" placeholder="<?php echo $MSG_TITLE . ', ' . $MSG_CONTENTS ?>">
-      <button type="submit" class="form-control"><?php echo $MSG_SEARCH ?></button>
-    </form>
-  </center>
-  <br>
-  <div class='table-responsive'>
-    <table width=100% class='center table table-condensed'>
-      <thead>
-        <tr style='height:22px;'>
-          <th class='center'>ID</th>
-          <th class='center'><?php echo $MSG_TITLE ?></th>
-          <th class='center'><?php echo $MSG_LAST_UPDATE ?></th>
-          <th class='center'><?php echo $MSG_STATUS ?></th>
-          <th class='center'><?php echo $MSG_COPY ?></th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php
-        foreach ($result as $row) {
-          echo "<tr style='height:22px;'>";
-          echo "<td>" . $row['news_id'] . "</td>";
-          echo "<td><a href='news_edit.php?id=" . $row['news_id'] . "'>" . $row['title'] . "</a>" . "</td>";
-          echo "<td>" . $row['time'] . "</td>";
-          echo "<td><a href=news_df_change.php?id=" . $row['news_id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">" . ($row['defunct'] == "N" ? "<span class=green>$MSG_ENABLED</span>" : "<span class=red>$MSG_DISABLED</span>") . "</a>" . "</td>";
-          echo "<td><a href=news_add_page.php?cid=" . $row['news_id'] . ">$MSG_COPY</a></td>";
-          echo "</tr>";
-        }
-        ?>
-      </tbody>
-    </table>
+            $sql = "";
+            if (isset($_GET['keyword']) && $_GET['keyword'] != "") {
+              $keyword = $_GET['keyword'];
+              $keyword = "%$keyword%";
+              $sql = "SELECT `news_id`,`user_id`,`title`,`time`,`defunct` FROM `news` WHERE (title LIKE ?) OR (content LIKE ?) ORDER BY `news_id` DESC";
+              $result = pdo_query($sql, $keyword, $keyword);
+            } else {
+              $sql = "SELECT `news_id`,`user_id`,`title`,`time`,`defunct` FROM `news` ORDER BY `news_id` DESC LIMIT $sid, $idsperpage";
+              $result = pdo_query($sql);
+            }
+            ?>
+
+            <center>
+              <form action=news_list.php class="form-search form-inline">
+                <input type="text" name=keyword class="form-control search-query" placeholder="<?php echo $MSG_TITLE . ', ' . $MSG_CONTENTS ?>">
+                <button type="submit" class="form-control"><?php echo $MSG_SEARCH ?></button>
+              </form>
+            </center>
+            <br>
+            <div class='table-responsive'>
+              <table width=100% class='center table table-condensed'>
+                <thead>
+                  <tr style='height:22px;'>
+                    <th class='center'>ID</th>
+                    <th class='center'><?php echo $MSG_TITLE ?></th>
+                    <th class='center'><?php echo $MSG_LAST_UPDATE ?></th>
+                    <th class='center'><?php echo $MSG_STATUS ?></th>
+                    <th class='center'><?php echo $MSG_COPY ?></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php
+                  foreach ($result as $row) {
+                    echo "<tr style='height:22px;'>";
+                    echo "<td>" . $row['news_id'] . "</td>";
+                    echo "<td><a href='news_edit.php?id=" . $row['news_id'] . "'>" . $row['title'] . "</a>" . "</td>";
+                    echo "<td>" . $row['time'] . "</td>";
+                    echo "<td><a href=news_df_change.php?id=" . $row['news_id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">" . ($row['defunct'] == "N" ? "<span class=green>$MSG_ENABLED</span>" : "<span class=red>$MSG_DISABLED</span>") . "</a>" . "</td>";
+                    echo "<td><a href=news_add_page.php?cid=" . $row['news_id'] . ">$MSG_COPY</a></td>";
+                    echo "</tr>";
+                  }
+                  ?>
+                </tbody>
+              </table>
+            </div>
+
+            <?php
+            if (!(isset($_GET['keyword']) && $_GET['keyword'] != "")) {
+              echo "<div style='display:inline;'>";
+              echo "<nav class='center'>";
+              echo "<ul class='pagination pagination-sm'>";
+              echo "<li class='page-item'><a href='news_list.php?page=" . (strval(1)) . "'>&lt;&lt;</a></li>";
+              echo "<li class='page-item'><a href='news_list.php?page=" . ($page == 1 ? strval(1) : strval($page - 1)) . "'>&lt;</a></li>";
+              for ($i = $spage; $i <= $epage; $i++) {
+                echo "<li class='" . ($page == $i ? "active " : "") . "page-item'><a title='go to page' href='news_list.php?page=" . $i . (isset($_GET['my']) ? "&my" : "") . "'>" . $i . "</a></li>";
+              }
+              echo "<li class='page-item'><a href='news_list.php?page=" . ($page == $pages ? strval($page) : strval($page + 1)) . "'>&gt;</a></li>";
+              echo "<li class='page-item'><a href='news_list.php?page=" . (strval($pages)) . "'>&gt;&gt;</a></li>";
+              echo "</ul>";
+              echo "</nav>";
+              echo "</div>";
+            }
+            ?>
+
+          </div>
+          <br>
+        </div>
+      </div>
+    </div>
   </div>
+  <?php require_once("../template/js.php"); ?>
+</body>
 
-  <?php
-  if (!(isset($_GET['keyword']) && $_GET['keyword'] != "")) {
-    echo "<div style='display:inline;'>";
-    echo "<nav class='center'>";
-    echo "<ul class='pagination pagination-sm'>";
-    echo "<li class='page-item'><a href='news_list.php?page=" . (strval(1)) . "'>&lt;&lt;</a></li>";
-    echo "<li class='page-item'><a href='news_list.php?page=" . ($page == 1 ? strval(1) : strval($page - 1)) . "'>&lt;</a></li>";
-    for ($i = $spage; $i <= $epage; $i++) {
-      echo "<li class='" . ($page == $i ? "active " : "") . "page-item'><a title='go to page' href='news_list.php?page=" . $i . (isset($_GET['my']) ? "&my" : "") . "'>" . $i . "</a></li>";
-    }
-    echo "<li class='page-item'><a href='news_list.php?page=" . ($page == $pages ? strval($page) : strval($page + 1)) . "'>&gt;</a></li>";
-    echo "<li class='page-item'><a href='news_list.php?page=" . (strval($pages)) . "'>&gt;&gt;</a></li>";
-    echo "</ul>";
-    echo "</nav>";
-    echo "</div>";
-  }
-  ?>
-
-</div>
-<?php
-require_once("admin-footer.php");
-?>
+</html>

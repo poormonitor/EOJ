@@ -75,79 +75,106 @@ if (isset($_POST['do'])) {
 $banner = isset($_GET["status"]);
 ?>
 <?php require("admin-header.php"); ?>
-<div class="container">
-	<h3 class='center'><b><?php echo $MSG_REJUDGE ?></b></h3>
-	<?php if ($banner) { ?>
-		<div class="row">
-			<div class="col-sm-4"></div>
-			<div class="alert alert-success center col-sm-4" role="alert"><?php echo $MSG_SUCCESS ?></div>
-			<div class="col-sm-4"></div>
-		</div>
-	<?php  } ?>
-	<br>
-	<div>
-		<div class='center form-horizontal'>
-			<form action='rejudge.php' method=post class='form-group'>
-				<label class='control-label col-sm-4'>
-					<?php echo $MSG_PROBLEM ?>
-				</label>
-				<div class='col-sm-4'>
-					<input type=input class='form-control' name='rjpid' placeholder="1001">
-					<input type='hidden' name='do' value='do'>
-					<?php include("../include/set_post_key.php") ?>
-					<input type=submit class='form-control btn btn-default ud-margin' value='<?php echo $MSG_SUBMIT; ?>'>
+<!DOCTYPE html>
+<html lang="<?php echo $OJ_LANG ?>">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="<?php echo $OJ_NAME ?>">
+	<link rel="shortcut icon" href="/favicon.ico">
+	<?php include("../template/css.php"); ?>
+	<title><?php echo $OJ_NAME ?></title>
+</head>
+
+<body>
+	<div class='container'>
+		<?php include("../template/nav.php") ?>
+		<div class='jumbotron'>
+			<div class='row lg-container'>
+				<?php require_once("sidebar.php") ?>
+				<div class='col-md-10'>
+					<div class="container">
+						<h3 class='center'><b><?php echo $MSG_REJUDGE ?></b></h3>
+						<?php if ($banner) { ?>
+							<div class="row">
+								<div class="col-sm-4"></div>
+								<div class="alert alert-success center col-sm-4" role="alert"><?php echo $MSG_SUCCESS ?></div>
+								<div class="col-sm-4"></div>
+							</div>
+						<?php  } ?>
+						<br>
+						<div>
+							<div class='center form-horizontal'>
+								<form action='rejudge.php' method=post class='form-group'>
+									<label class='control-label col-sm-4'>
+										<?php echo $MSG_PROBLEM ?>
+									</label>
+									<div class='col-sm-4'>
+										<input type=input class='form-control' name='rjpid' placeholder="1001">
+										<input type='hidden' name='do' value='do'>
+										<?php include("../include/set_post_key.php") ?>
+										<input type=submit class='form-control btn btn-default ud-margin' value='<?php echo $MSG_SUBMIT; ?>'>
+									</div>
+								</form>
+								<br>
+								<form action='rejudge.php' method=post class='form-group'>
+									<label class='control-label col-sm-4'>
+										<?php echo $MSG_SUBMIT ?>
+									</label>
+									<div class='col-sm-4'>
+										<input type=input class='form-control' name='rjsid' style='%' placeholder="1001" value='<?php if (isset($_GET['sid'])) echo $_GET['sid'] ?>'>
+										<input type='hidden' name='do' value='do'>
+										<input type=hidden name="postkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>">
+										<input type=submit class='form-control btn btn-default ud-margin' value='<?php echo $MSG_SUBMIT; ?>'>
+									</div>
+								</form>
+								<br>
+								<form action='rejudge.php' method=post class='form-group'>
+									<label class='control-label col-sm-4'>
+										<?php echo $MSG_STUCK_IN_RUNNING ?>
+									</label>
+									<div class='col-sm-4'>
+										<input type=input class='form-control' name='result' placeholder="3" value="3">
+										<input type='hidden' name='do' value='do'>
+										<input type=hidden name="postkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>">
+										<input type=submit class='form-control btn btn-default ud-margin' value='<?php echo $MSG_SUBMIT; ?>'>
+									</div>
+								</form>
+								<br>
+								<form action='rejudge.php' method=post class='form-group'>
+									<label class='control-label col-sm-4'>
+										<?php echo $MSG_CONTEST ?>
+									</label>
+									<div class='col-sm-4'>
+										<input type=input class='form-control' name='rjcid' placeholder="1003">
+										<input type='hidden' name='do' value='do'>
+										<input type=hidden name="postkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>">
+										<input type=submit class='form-control btn btn-default ud-margin' value='<?php echo $MSG_SUBMIT; ?>'>
+									</div>
+								</form>
+								<form action='rejudge.php' method=post class='form-group'>
+									<label class='control-label col-sm-4'>
+										<?php echo $MSG_DELETE ?>
+									</label>
+									<div class='col-sm-4'>
+										<input type=input class='form-control' name='dlsid' placeholder="1003" value="<?php if (isset($_GET['sid'])) echo $_GET['sid'] ?>">
+										<input type='hidden' name='do' value='do'>
+										<input type=hidden name="postkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>">
+										<input type=submit class='form-control btn btn-default ud-margin' value='<?php echo $MSG_SUBMIT; ?>'>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<br>
 				</div>
-			</form>
-			<br>
-			<form action='rejudge.php' method=post class='form-group'>
-				<label class='control-label col-sm-4'>
-					<?php echo $MSG_SUBMIT ?>
-				</label>
-				<div class='col-sm-4'>
-					<input type=input class='form-control' name='rjsid' style='%' placeholder="1001" value='<?php if (isset($_GET['sid'])) echo $_GET['sid'] ?>'>
-					<input type='hidden' name='do' value='do'>
-					<input type=hidden name="postkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>">
-					<input type=submit class='form-control btn btn-default ud-margin' value='<?php echo $MSG_SUBMIT; ?>'>
-				</div>
-			</form>
-			<br>
-			<form action='rejudge.php' method=post class='form-group'>
-				<label class='control-label col-sm-4'>
-					<?php echo $MSG_STUCK_IN_RUNNING ?>
-				</label>
-				<div class='col-sm-4'>
-					<input type=input class='form-control' name='result' placeholder="3" value="3">
-					<input type='hidden' name='do' value='do'>
-					<input type=hidden name="postkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>">
-					<input type=submit class='form-control btn btn-default ud-margin' value='<?php echo $MSG_SUBMIT; ?>'>
-				</div>
-			</form>
-			<br>
-			<form action='rejudge.php' method=post class='form-group'>
-				<label class='control-label col-sm-4'>
-					<?php echo $MSG_CONTEST ?>
-				</label>
-				<div class='col-sm-4'>
-					<input type=input class='form-control' name='rjcid' placeholder="1003">
-					<input type='hidden' name='do' value='do'>
-					<input type=hidden name="postkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>">
-					<input type=submit class='form-control btn btn-default ud-margin' value='<?php echo $MSG_SUBMIT; ?>'>
-				</div>
-			</form>
-			<form action='rejudge.php' method=post class='form-group'>
-				<label class='control-label col-sm-4'>
-					<?php echo $MSG_DELETE ?>
-				</label>
-				<div class='col-sm-4'>
-					<input type=input class='form-control' name='dlsid' placeholder="1003" value="<?php if (isset($_GET['sid'])) echo $_GET['sid'] ?>">
-					<input type='hidden' name='do' value='do'>
-					<input type=hidden name="postkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>">
-					<input type=submit class='form-control btn btn-default ud-margin' value='<?php echo $MSG_SUBMIT; ?>'>
-				</div>
-			</form>
+			</div>
 		</div>
 	</div>
-</div>
-<?php
-require_once("admin-footer.php");
-?>
+	<?php require_once("../template/js.php"); ?>
+</body>
+
+</html>
