@@ -54,54 +54,81 @@ if (isset($_POST['news_id'])) {
 }
 require_once("admin-header.php");
 ?>
-<div class="container">
-  <center>
-    <h3><?php echo  $MSG_NEWS . "-" . "Edit" ?></h3>
-  </center>
-  <form method=POST action=news_edit.php>
-    <input type=hidden name='news_id' value=<?php echo $news_id ?>>
-    <p align=left>
-      <label class="col control-label"><?php echo $MSG_TITLE ?></label>
-      <input class='form-control' type=text name=title size=71 value='<?php echo $title ?>'>
-    </p>
-    <p align=left>
-      <textarea id="tinymce0" name=content>
+<!DOCTYPE html>
+<html lang="<?php echo $OJ_LANG ?>">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="<?php echo $OJ_NAME ?>">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <?php include("../template/css.php"); ?>
+  <title><?php echo $OJ_NAME ?></title>
+</head>
+
+<body>
+  <div class='container'>
+    <?php include("../template/nav.php") ?>
+    <div class='jumbotron'>
+      <div class='row lg-container'>
+        <?php require_once("sidebar.php") ?>
+        <div class='col-md-10'>
+          <div class="container">
+            <center>
+              <h3><?php echo  $MSG_NEWS . "-" . "Edit" ?></h3>
+            </center>
+            <form method=POST action=news_edit.php>
+              <input type=hidden name='news_id' value=<?php echo $news_id ?>>
+              <p align=left>
+                <label class="col control-label"><?php echo $MSG_TITLE ?></label>
+                <input class='form-control' type=text name=title size=71 value='<?php echo $title ?>'>
+              </p>
+              <p align=left>
+                <textarea id="tinymce0" name=content>
         <?php echo htmlentities($content, ENT_QUOTES, "UTF-8") ?>
       </textarea>
-    </p>
-    <div class='col-sm-4 col-sm-offset-4'>
-      <p>
-        <?php echo "<h4>" . $MSG_Private . "</h4>" ?>
-        <?php echo $MSG_TRUE_FALSE[false] . " " ?><input type=radio name=private value='0' <?php if ($row['private'] == 'N') echo "checked" ?>><?php echo "/ " . $MSG_TRUE_FALSE[true] . " " ?><input type=radio name=private value='1' <?php if ($row['private'] == 'Y') echo "checked" ?>><br><br>
-      </p>
-      <h4 class='control-label'><?php echo $MSG_GROUP; ?></h4>
-      <select name="gid[]" class="selectpicker show-menu-arrow form-control" size=8 multiple>
-        <?php
-        $gid_before = pdo_query("SELECT `users`.`gid` FROM `privilege` JOIN `users` ON `privilege`.`user_id`=`users`.`user_id` WHERE `privilege`.rightstr='n$news_id' GROUP BY `users`.`gid`;");
-        $sql_all = "SELECT * FROM `group`;";
-        $result = pdo_query($sql_all);
-        $all_group = $result;
-        $gid = array();
-        foreach ($gid_before as $i) {
-          array_push($gid, $i[0]);
-        }
-        foreach ($all_group as $i) {
-          $show_id = $i["gid"];
-          $show_name = $i["name"];
-          if (in_array($show_id, $gid)) {
-            echo "<option value=$show_id selected>$show_name</option>";
-          } else {
-            echo "<option value=$show_id>$show_name</option>";
-          }
-        }
-        ?>
-      </select><br>
-      <?php require_once("../include/set_post_key.php"); ?>
-      <button name="submit" type="submit" class="btn btn-default btn-block"><?php echo $MSG_SAVE ?></button>
+              </p>
+              <div class='col-sm-4 col-sm-offset-4'>
+                <p>
+                  <?php echo "<h4>" . $MSG_Private . "</h4>" ?>
+                  <?php echo $MSG_TRUE_FALSE[false] . " " ?><input type=radio name=private value='0' <?php if ($row['private'] == 'N') echo "checked" ?>><?php echo "/ " . $MSG_TRUE_FALSE[true] . " " ?><input type=radio name=private value='1' <?php if ($row['private'] == 'Y') echo "checked" ?>><br><br>
+                </p>
+                <h4 class='control-label'><?php echo $MSG_GROUP; ?></h4>
+                <select name="gid[]" class="selectpicker show-menu-arrow form-control" size=8 multiple>
+                  <?php
+                  $gid_before = pdo_query("SELECT `users`.`gid` FROM `privilege` JOIN `users` ON `privilege`.`user_id`=`users`.`user_id` WHERE `privilege`.rightstr='n$news_id' GROUP BY `users`.`gid`;");
+                  $sql_all = "SELECT * FROM `group`;";
+                  $result = pdo_query($sql_all);
+                  $all_group = $result;
+                  $gid = array();
+                  foreach ($gid_before as $i) {
+                    array_push($gid, $i[0]);
+                  }
+                  foreach ($all_group as $i) {
+                    $show_id = $i["gid"];
+                    $show_name = $i["name"];
+                    if (in_array($show_id, $gid)) {
+                      echo "<option value=$show_id selected>$show_name</option>";
+                    } else {
+                      echo "<option value=$show_id>$show_name</option>";
+                    }
+                  }
+                  ?>
+                </select><br>
+                <?php require_once("../include/set_post_key.php"); ?>
+                <button name="submit" type="submit" class="btn btn-default btn-block"><?php echo $MSG_SAVE ?></button>
+              </div>
+            </form>
+          </div><br><br>
+          <br>
+        </div>
+      </div>
     </div>
-  </form>
-</div><br><br>
-<?php
-require_once("admin-footer.php");
-require_once('../tinymce/tinymce.php');
-?>
+  </div>
+  <?php require_once("../template/js.php"); ?>
+  <?php require_once('../tinymce/tinymce.php'); ?>
+</body>
+
+</html>

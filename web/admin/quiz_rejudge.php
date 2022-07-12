@@ -52,51 +52,78 @@ if (isset($_POST['do']) && isset($_POST['qid'])) {
 	exit(0);
 }
 ?>
-<?php require_once("../include/set_post_key.php"); ?>
-<hr>
-<div class="container">
-	<h3 class='center'><b><?php echo $MSG_QUIZ . "-" . $MSG_REJUDGE ?></b></h3>
-	<ol>
-		<br>
-		<div class='center form-group'>
-			<form action='quiz_rejudge.php' method=post>
-				<label class='control-label'>
-					<li><?php echo $MSG_TOTAL ?></li>
-				</label>
-				<div class='form-inline'>
-					<input type=input class='form-control' name='qid' style='%' placeholder="1001" value='<?php if (isset($_GET['qid'])) echo $_GET['qid'] ?>'>
-					<input type='hidden' name='do' value='do'>
-					<input type='hidden' name='all' value='all'>
-					<input type=hidden name="postkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>">
-					<input type=submit class='form-control btn btn-default' value='<?php echo $MSG_SUBMIT; ?>'>
+<!DOCTYPE html>
+<html lang="<?php echo $OJ_LANG ?>">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="<?php echo $OJ_NAME ?>">
+	<link rel="shortcut icon" href="/favicon.ico">
+	<?php include("../template/css.php"); ?>
+	<title><?php echo $OJ_NAME ?></title>
+</head>
+
+<body>
+	<div class='container'>
+		<?php include("../template/nav.php") ?>
+		<div class='jumbotron'>
+			<div class='row lg-container'>
+				<?php require_once("sidebar.php") ?>
+				<div class='col-md-10'>
+					<?php require_once("../include/set_post_key.php"); ?>
+					<hr>
+					<div class="container">
+						<h3 class='center'><b><?php echo $MSG_QUIZ . "-" . $MSG_REJUDGE ?></b></h3>
+						<ol>
+							<br>
+							<div class='center form-group'>
+								<form action='quiz_rejudge.php' method=post>
+									<label class='control-label'>
+										<li><?php echo $MSG_TOTAL ?></li>
+									</label>
+									<div class='form-inline'>
+										<input type=input class='form-control' name='qid' style='%' placeholder="1001" value='<?php if (isset($_GET['qid'])) echo $_GET['qid'] ?>'>
+										<input type='hidden' name='do' value='do'>
+										<input type='hidden' name='all' value='all'>
+										<input type=hidden name="postkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>">
+										<input type=submit class='form-control btn btn-default' value='<?php echo $MSG_SUBMIT; ?>'>
+									</div>
+								</form>
+								<form action='quiz_rejudge.php' method=post>
+									<label class='control-label'>
+										<li><?php echo $MSG_HUMAN_JUDGE ?></li>
+									</label>
+									<div class='form-inline'>
+										<input type=input class='form-control' name='qid' style='%' placeholder="1001" value='<?php if (isset($_GET['qid'])) echo $_GET['qid'] ?>'>
+										<input type='hidden' name='do' value='do'>
+										<input type='hidden' name='human' value='human'>
+										<input type=hidden name="postkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>">
+										<input type=submit class='form-control btn btn-default' value='<?php echo $MSG_SUBMIT; ?>'>
+									</div>
+								</form>
+								<form action='quiz_rejudge.php' method=post>
+									<label class='control-label'>
+										<li><?php echo $MSG_MACHINE_JUDGE ?></li>
+									</label>
+									<div class='form-inline'>
+										<input type=input class='form-control' name='qid' style='%' placeholder="1001" value='<?php if (isset($_GET['qid'])) echo $_GET['qid'] ?>'>
+										<input type='hidden' name='do' value='do'>
+										<input type='hidden' name='auto' value='auto'>
+										<input type=hidden name="postkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>">
+										<input type=submit class='form-control btn btn-default' value='<?php echo $MSG_SUBMIT; ?>'>
+									</div>
+								</form>
+							</div>
+					</div>
+					<br>
 				</div>
-			</form>
-			<form action='quiz_rejudge.php' method=post>
-				<label class='control-label'>
-					<li><?php echo $MSG_HUMAN_JUDGE ?></li>
-				</label>
-				<div class='form-inline'>
-					<input type=input class='form-control' name='qid' style='%' placeholder="1001" value='<?php if (isset($_GET['qid'])) echo $_GET['qid'] ?>'>
-					<input type='hidden' name='do' value='do'>
-					<input type='hidden' name='human' value='human'>
-					<input type=hidden name="postkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>">
-					<input type=submit class='form-control btn btn-default' value='<?php echo $MSG_SUBMIT; ?>'>
-				</div>
-			</form>
-			<form action='quiz_rejudge.php' method=post>
-				<label class='control-label'>
-					<li><?php echo $MSG_MACHINE_JUDGE ?></li>
-				</label>
-				<div class='form-inline'>
-					<input type=input class='form-control' name='qid' style='%' placeholder="1001" value='<?php if (isset($_GET['qid'])) echo $_GET['qid'] ?>'>
-					<input type='hidden' name='do' value='do'>
-					<input type='hidden' name='auto' value='auto'>
-					<input type=hidden name="postkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>">
-					<input type=submit class='form-control btn btn-default' value='<?php echo $MSG_SUBMIT; ?>'>
-				</div>
-			</form>
+			</div>
 		</div>
-</div>
-<?php
-require_once("admin-footer.php");
-?>
+	</div>
+	<?php require_once("../template/js.php"); ?>
+</body>
+
+</html>

@@ -73,81 +73,109 @@ if (isset($_POST['qid'])) {
 
 require_once("admin-header.php");
 ?>
-<style>
-    input[type=date],
-    input[type=time],
-    input[type=datetime-local],
-    input[type=month] {
-        line-height: normal;
-    }
+<!DOCTYPE html>
+<html lang="<?php echo $OJ_LANG ?>">
 
-    td.ans>img {
-        max-width: 300px;
-    }
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="<?php echo $OJ_NAME ?>">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <?php include("../template/css.php"); ?>
+    <title><?php echo $OJ_NAME ?></title>
+</head>
 
-    td.break-all {
-        width: 30%;
-    }
-</style>
-<div class="container">
-    <form method=POST>
-        <?php echo "<center><h3>" . $MSG_QUIZ . "-" . $MSG_QUIZ_JUDGE . "</h3></center>"; ?>
-        <h3>
-            <?php echo $MSG_QUIZ_ID . ":" . $qid ?>
-            <small><?php echo $MSG_JUDGE_LEFT ?> : <?php echo $left ?></small>
-        </h3>
-        <br>
-        <input type='hidden' name='qid' value='<?php echo $qid; ?>'>
-        <p>
-            <?php
-            for ($i = 0; $i < $num; $i++) {
-                if ($type[$i] == 3) {
-                    $pid = $i + 1;
-            ?>
-        <table class='table'>
-            <thead class="keep-all">
-                <tr>
-                    <th><?php echo $MSG_QUIZ_PROBLEM ?></th>
-                    <th><?php echo $MSG_QUIZ_PROBLEM_INFORMATION ?></th>
-                    <th><?php echo $MSG_CORRECT_ANSWER ?></th>
-                    <th><?php echo $MSG_QUIZ_ANSWER ?></th>
-                    <th><?php echo $MSG_SCORE ?></th>
-                    <th><?php echo $MSG_QUIZ_SCORE ?></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><?php echo $qid; ?></td>
-                    <td class="break-all"><?php echo $question[$i]; ?></td>
-                    <td><?php echo $c_answer[$i]; ?></td>
-                    <td class="ans"><?php echo intval($type[$i]) == 3 ? str_replace("\\", "/", $answer[$i]) : $answer[$i]; ?></td>
-                    <td><a class='label label-primary' onclick='$("input[name=<?php echo $pid ?>]").val(this.innerText)'><?php echo $score[$i]; ?></a></td>
-                    <td width=20%>
-                        <input class='form-control' name='<?php echo $pid ?>' required>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-<?php
-                }
-            }
-?>
-</p>
-<br>
-<div align=center>
-    <?php require_once("../include/set_post_key.php"); ?>
-    <input type=submit class='form-control' value='<?php echo $MSG_SAVE ?>' name=submit>
-</div>
-    </form>
-</div>
+<body>
+    <div class='container'>
+        <?php include("../template/nav.php") ?>
+        <div class='jumbotron'>
+            <div class='row lg-container'>
+                <?php require_once("sidebar.php") ?>
+                <div class='col-md-10'>
+                    <style>
+                        input[type=date],
+                        input[type=time],
+                        input[type=datetime-local],
+                        input[type=month] {
+                            line-height: normal;
+                        }
 
-<?php require_once("admin-footer.php"); ?>
+                        td.ans>img {
+                            max-width: 300px;
+                        }
 
-<script>
-    $("td.ans").find("img").each(function(index, elem) {
-        var atag = $("<a data-fslightbox />")
-        atag.attr("href", $(elem).attr("src") + "&large=true")
-        $(elem).wrap(atag)
-    })
-</script>
-<script src="<?php echo $OJ_CDN_URL . "template/" ?>fslightbox.js"></script>
+                        td.break-all {
+                            width: 30%;
+                        }
+                    </style>
+                    <div class="container">
+                        <form method=POST>
+                            <?php echo "<center><h3>" . $MSG_QUIZ . "-" . $MSG_QUIZ_JUDGE . "</h3></center>"; ?>
+                            <h3>
+                                <?php echo $MSG_QUIZ_ID . ":" . $qid ?>
+                                <small><?php echo $MSG_JUDGE_LEFT ?> : <?php echo $left ?></small>
+                            </h3>
+                            <br>
+                            <input type='hidden' name='qid' value='<?php echo $qid; ?>'>
+                            <p>
+                                <?php
+                                for ($i = 0; $i < $num; $i++) {
+                                    if ($type[$i] == 3) {
+                                        $pid = $i + 1;
+                                ?>
+                            <table class='table'>
+                                <thead class="keep-all">
+                                    <tr>
+                                        <th><?php echo $MSG_QUIZ_PROBLEM ?></th>
+                                        <th><?php echo $MSG_QUIZ_PROBLEM_INFORMATION ?></th>
+                                        <th><?php echo $MSG_CORRECT_ANSWER ?></th>
+                                        <th><?php echo $MSG_QUIZ_ANSWER ?></th>
+                                        <th><?php echo $MSG_SCORE ?></th>
+                                        <th><?php echo $MSG_QUIZ_SCORE ?></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><?php echo $qid; ?></td>
+                                        <td class="break-all"><?php echo $question[$i]; ?></td>
+                                        <td><?php echo $c_answer[$i]; ?></td>
+                                        <td class="ans"><?php echo intval($type[$i]) == 3 ? str_replace("\\", "/", $answer[$i]) : $answer[$i]; ?></td>
+                                        <td><a class='label label-primary' onclick='$("input[name=<?php echo $pid ?>]").val(this.innerText)'><?php echo $score[$i]; ?></a></td>
+                                        <td width=20%>
+                                            <input class='form-control' name='<?php echo $pid ?>' required>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                    <?php
+                                    }
+                                }
+                    ?>
+                    </p>
+                    <br>
+                    <div align=center>
+                        <?php require_once("../include/set_post_key.php"); ?>
+                        <input type=submit class='form-control' value='<?php echo $MSG_SAVE ?>' name=submit>
+                    </div>
+                        </form>
+                    </div>
+
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php require_once("../template/js.php"); ?>
+    <script>
+        $("td.ans").find("img").each(function(index, elem) {
+            var atag = $("<a data-fslightbox />")
+            atag.attr("href", $(elem).attr("src") + "&large=true")
+            $(elem).wrap(atag)
+        })
+    </script>
+    <script src="<?php echo $OJ_CDN_URL . "template/" ?>fslightbox.js"></script>
+</body>
+
+</html> ?>

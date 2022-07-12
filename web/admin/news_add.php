@@ -27,9 +27,36 @@ if (!in_array(-1, $_POST['gid'])) {
 
 require_once("admin-header.php");
 ?>
-<script>
-  window.location.href = 'news_list.php';
-</script>
-<?php
-require_once("admin-footer.php");
-?>
+<!DOCTYPE html>
+<html lang="<?php echo $OJ_LANG ?>">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="<?php echo $OJ_NAME ?>">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <?php include("../template/css.php"); ?>
+  <title><?php echo $OJ_NAME ?></title>
+</head>
+
+<body>
+  <div class='container'>
+    <?php include("../template/nav.php") ?>
+    <div class='jumbotron'>
+      <div class='row lg-container'>
+        <?php require_once("sidebar.php") ?>
+        <div class='col-md-10'>
+          <script>
+            window.location.href = 'news_list.php';
+          </script>
+          <br>
+        </div>
+      </div>
+    </div>
+  </div>
+  <?php require_once("../template/js.php"); ?>
+</body>
+
+</html>

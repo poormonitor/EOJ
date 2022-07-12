@@ -141,162 +141,189 @@ if (isset($_POST['startdate'])) {
 }
 require_once("admin-header.php");
 ?>
-<center>
-  <h3><?php echo $MSG_CONTEST . "-" . $MSG_EDIT ?></h3>
-</center>
-<style>
-  input[type=date],
-  input[type=time],
-  input[type=datetime-local],
-  input[type=month] {
-    line-height: normal;
-  }
-</style>
-<div class="container">
-  <form method=POST>
-    <?php require_once("../include/set_post_key.php"); ?>
-    <input type=hidden name='cid' value=<?php echo $cid ?>>
-    <p align=left>
-      <?php echo "<h3>" . $MSG_CONTEST . "-" . $MSG_TITLE . "</h3>" ?>
-      <input class='form-control' style="width:100%;" type=text name=title value="<?php echo $title ?>"><br><br>
-    </p>
-    <div style="margin-bottom: 10px;" class='form-inline'>
-      <?php echo $MSG_CONTEST . $MSG_Start ?>:
-      <input class='form-control' type=date name='startdate' value='<?php echo substr($starttime, 0, 10) ?>' size=4>
-      Hour: <input class='form-control' type=text name=shour size=2 value='<?php echo substr($starttime, 11, 2) ?>'>&nbsp;
-      Minute: <input class='form-control' type=text name=sminute value='<?php echo substr($starttime, 14, 2) ?>' size=2>
-    </div>
-    <div style="margin-bottom: 10px;" class='form-inline'>
-      <?php echo $MSG_CONTEST . $MSG_End ?>:
-      <input class='form-control' type=date name='enddate' value='<?php echo substr($endtime, 0, 10) ?>' size=4>
-      Hour: <input class='form-control' type=text name=ehour size=2 value='<?php echo substr($endtime, 11, 2) ?>'>&nbsp;
-      Minute: <input class='form-control' type=text name=eminute value='<?php echo substr($endtime, 14, 2) ?>' size=2>
-    </div>
-    <br>
-    <p align=left>
-      <?php echo $MSG_CONTEST . "-" . $MSG_PROBLEM_ID ?><br>
-      <?php echo $MSG_PLS_ADD ?><br>
-      <select name='problem[]' id='multiple_problem' size="10" class="selectpicker show-menu-arrow form-control" multiple style='margin-top:10px;'>
-        <?php
-        $all = explode(",", $plist);
-        $problems = pdo_query("select problem_id,title from problem;");
-        $problem_array = array();
-        foreach ($problems as $i) {
-          $pid = $i[0];
-          $title = $i[1];
-          if (in_array($pid, $all)) {
-            echo ("<option value='$pid' selected>$pid $title</option>");
-            array_push($problem_array, $pid);
-          } else {
-            echo ("<option value='$pid'>$pid $title</option>");
-          }
-        }
+<!DOCTYPE html>
+<html lang="<?php echo $OJ_LANG ?>">
 
-        ?></select>
-      <br>
-    </p>
-    <p align=left>
-      手动输入<br>
-      <input id='problem' data-role="tagsinput" class='form-control' style='margin-top:10px;' onchange='return set_tag(this)'></input>
-    </p>
-    <br>
-    <p align=left>
-      <?php echo "<h4>" . $MSG_CONTEST . "-" . $MSG_Description . "</h4>" ?>
-      <textarea id="tinymce0" rows=13 name=description cols=80>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="<?php echo $OJ_NAME ?>">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <?php include("../template/css.php"); ?>
+  <title><?php echo $OJ_NAME ?></title>
+</head>
+
+<body>
+  <div class='container'>
+    <?php include("../template/nav.php") ?>
+    <div class='jumbotron'>
+      <div class='row lg-container'>
+        <?php require_once("sidebar.php") ?>
+        <div class='col-md-10'>
+          <center>
+            <h3><?php echo $MSG_CONTEST . "-" . $MSG_EDIT ?></h3>
+          </center>
+          <style>
+            input[type=date],
+            input[type=time],
+            input[type=datetime-local],
+            input[type=month] {
+              line-height: normal;
+            }
+          </style>
+          <div class="container">
+            <form method=POST>
+              <?php require_once("../include/set_post_key.php"); ?>
+              <input type=hidden name='cid' value=<?php echo $cid ?>>
+              <p align=left>
+                <?php echo "<h3>" . $MSG_CONTEST . "-" . $MSG_TITLE . "</h3>" ?>
+                <input class='form-control' style="width:100%;" type=text name=title value="<?php echo $title ?>"><br><br>
+              </p>
+              <div style="margin-bottom: 10px;" class='form-inline'>
+                <?php echo $MSG_CONTEST . $MSG_Start ?>:
+                <input class='form-control' type=date name='startdate' value='<?php echo substr($starttime, 0, 10) ?>' size=4>
+                Hour: <input class='form-control' type=text name=shour size=2 value='<?php echo substr($starttime, 11, 2) ?>'>&nbsp;
+                Minute: <input class='form-control' type=text name=sminute value='<?php echo substr($starttime, 14, 2) ?>' size=2>
+              </div>
+              <div style="margin-bottom: 10px;" class='form-inline'>
+                <?php echo $MSG_CONTEST . $MSG_End ?>:
+                <input class='form-control' type=date name='enddate' value='<?php echo substr($endtime, 0, 10) ?>' size=4>
+                Hour: <input class='form-control' type=text name=ehour size=2 value='<?php echo substr($endtime, 11, 2) ?>'>&nbsp;
+                Minute: <input class='form-control' type=text name=eminute value='<?php echo substr($endtime, 14, 2) ?>' size=2>
+              </div>
+              <br>
+              <p align=left>
+                <?php echo $MSG_CONTEST . "-" . $MSG_PROBLEM_ID ?><br>
+                <?php echo $MSG_PLS_ADD ?><br>
+                <select name='problem[]' id='multiple_problem' size="10" class="selectpicker show-menu-arrow form-control" multiple style='margin-top:10px;'>
+                  <?php
+                  $all = explode(",", $plist);
+                  $problems = pdo_query("select problem_id,title from problem;");
+                  $problem_array = array();
+                  foreach ($problems as $i) {
+                    $pid = $i[0];
+                    $title = $i[1];
+                    if (in_array($pid, $all)) {
+                      echo ("<option value='$pid' selected>$pid $title</option>");
+                      array_push($problem_array, $pid);
+                    } else {
+                      echo ("<option value='$pid'>$pid $title</option>");
+                    }
+                  }
+
+                  ?></select>
+                <br>
+              </p>
+              <p align=left>
+                手动输入<br>
+                <input id='problem' data-role="tagsinput" class='form-control' style='margin-top:10px;' onchange='return set_tag(this)'></input>
+              </p>
+              <br>
+              <p align=left>
+                <?php echo "<h4>" . $MSG_CONTEST . "-" . $MSG_Description . "</h4>" ?>
+                <textarea id="tinymce0" rows=13 name=description cols=80>
         <?php echo htmlentities($description, ENT_QUOTES, 'UTF-8') ?>
       </textarea>
-      <br>
-    <table width="100%">
-      <tr>
-        <td rowspan=2>
-          <p aligh=left>
-            <?php echo $MSG_CONTEST . "-" . $MSG_LANG ?><br>
-            <?php echo $MSG_PLS_ADD ?><br>
-            <select name="lang[]" multiple="multiple" style="height:220px;margin-top:10px;" class='selectpicker show-menu-arrow form-control'>
-              <?php
-              $lang_count = count($language_ext);
-              $lang = (~((int)$langmask)) & ((1 << $lang_count) - 1);
+                <br>
+              <table width="100%">
+                <tr>
+                  <td rowspan=2>
+                    <p aligh=left>
+                      <?php echo $MSG_CONTEST . "-" . $MSG_LANG ?><br>
+                      <?php echo $MSG_PLS_ADD ?><br>
+                      <select name="lang[]" multiple="multiple" style="height:220px;margin-top:10px;" class='selectpicker show-menu-arrow form-control'>
+                        <?php
+                        $lang_count = count($language_ext);
+                        $lang = (~((int)$langmask)) & ((1 << $lang_count) - 1);
 
-              if (isset($_COOKIE['lastlang'])) $lastlang = $_COOKIE['lastlang'];
-              else $lastlang = 6;
+                        if (isset($_COOKIE['lastlang'])) $lastlang = $_COOKIE['lastlang'];
+                        else $lastlang = 6;
 
-              for ($i = 0; $i < $lang_count; $i++) {
-                if ($i == $lastlang) {
-                  echo "<option value=$i selected>" . $language_name[$i] . "</option>";
-                } else {
-                  echo "<option value=$i>" . $language_name[$i] . "</option>";
-                }
-              }
-              ?>
-            </select>
-          </p>
-        </td>
+                        for ($i = 0; $i < $lang_count; $i++) {
+                          if ($i == $lastlang) {
+                            echo "<option value=$i selected>" . $language_name[$i] . "</option>";
+                          } else {
+                            echo "<option value=$i>" . $language_name[$i] . "</option>";
+                          }
+                        }
+                        ?>
+                      </select>
+                    </p>
+                  </td>
 
-        <td height="10px" style="padding:10px;">
-          <div class='form-inline'>
-            <?php echo $MSG_CONTEST . "-" . $MSG_Public ?>:
-            <select class='form-control' name=private style="width:150px;">
-              <option value=0 <?php echo $private == '0' ? 'selected=selected' : '' ?>><?php echo $MSG_Public ?></option>
-              <option value=1 <?php echo $private == '1' ? 'selected=selected' : '' ?>><?php echo $MSG_Private ?></option>
-            </select>
-            <?php echo $MSG_CONTEST . "-" . $MSG_PASSWORD ?>:
-            <input class='form-control' type=text name=password style="width:150px;" value='<?php echo htmlentities($password, ENT_QUOTES, 'utf-8') ?>'>
+                  <td height="10px" style="padding:10px;">
+                    <div class='form-inline'>
+                      <?php echo $MSG_CONTEST . "-" . $MSG_Public ?>:
+                      <select class='form-control' name=private style="width:150px;">
+                        <option value=0 <?php echo $private == '0' ? 'selected=selected' : '' ?>><?php echo $MSG_Public ?></option>
+                        <option value=1 <?php echo $private == '1' ? 'selected=selected' : '' ?>><?php echo $MSG_Private ?></option>
+                      </select>
+                      <?php echo $MSG_CONTEST . "-" . $MSG_PASSWORD ?>:
+                      <input class='form-control' type=text name=password style="width:150px;" value='<?php echo htmlentities($password, ENT_QUOTES, 'utf-8') ?>'>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td height="*" style="padding:20px;">
+                    <p align=left>
+                      <?php echo $MSG_CONTEST . "-" . $MSG_GROUP ?>
+                      <br>
+                      <select name="gid[]" class="selectpicker show-menu-arrow form-control" size=8 multiple>
+                        <?php
+                        $cid = intval($_GET['cid']);
+                        $gid_before = pdo_query("SELECT `users`.`gid` FROM `privilege` JOIN `users` ON `privilege`.`user_id`=`users`.`user_id` WHERE `privilege`.rightstr='c$cid' GROUP BY `users`.`gid`;");
+                        $sql_all = "SELECT * FROM `group`;";
+                        $result = pdo_query($sql_all);
+                        $all_group = $result;
+                        $gid = array();
+                        foreach ($gid_before as $i) {
+                          array_push($gid, $i[0]);
+                        }
+                        foreach ($all_group as $i) {
+                          $show_id = $i["gid"];
+                          $show_name = $i["name"];
+                          if (in_array($show_id, $gid)) {
+                            echo "<option value=$show_id selected>$show_name</option>";
+                          } else {
+                            echo "<option value=$show_id>$show_name</option>";
+                          }
+                        }
+                        ?>
+                      </select>&nbsp;&nbsp;
+                    </p>
+                  </td>
+                </tr>
+              </table>
+
+              <div align=center>
+                <?php require_once("../include/set_post_key.php"); ?>
+                <input class='btn btn-default' type=submit value='<?php echo $MSG_SAVE ?>' name=submit>
+                <input class='btn btn-default' type=reset value=Reset name=reset>
+              </div>
+              </p>
+            </form>
           </div>
-        </td>
-      </tr>
-      <tr>
-        <td height="*" style="padding:20px;">
-          <p align=left>
-            <?php echo $MSG_CONTEST . "-" . $MSG_GROUP ?>
-            <br>
-            <select name="gid[]" class="selectpicker show-menu-arrow form-control" size=8 multiple>
-              <?php
-              $cid = intval($_GET['cid']);
-              $gid_before = pdo_query("SELECT `users`.`gid` FROM `privilege` JOIN `users` ON `privilege`.`user_id`=`users`.`user_id` WHERE `privilege`.rightstr='c$cid' GROUP BY `users`.`gid`;");
-              $sql_all = "SELECT * FROM `group`;";
-              $result = pdo_query($sql_all);
-              $all_group = $result;
-              $gid = array();
-              foreach ($gid_before as $i) {
-                array_push($gid, $i[0]);
-              }
-              foreach ($all_group as $i) {
-                $show_id = $i["gid"];
-                $show_name = $i["name"];
-                if (in_array($show_id, $gid)) {
-                  echo "<option value=$show_id selected>$show_name</option>";
-                } else {
-                  echo "<option value=$show_id>$show_name</option>";
-                }
-              }
-              ?>
-            </select>&nbsp;&nbsp;
-          </p>
-        </td>
-      </tr>
-    </table>
 
-    <div align=center>
-      <?php require_once("../include/set_post_key.php"); ?>
-      <input class='btn btn-default' type=submit value='<?php echo $MSG_SAVE ?>' name=submit>
-      <input class='btn btn-default' type=reset value=Reset name=reset>
+          <script src='<?php echo $OJ_CDN_URL ?>include/bootstrap-tagsinput.min.js'></script>
+          <script>
+            function set_tag(self) {
+              info = $('#problem').tagsinput('items');
+              info.forEach(element => {
+                $('#multiple_problem').find("option[value='" + element + "']").attr("selected", true)
+              });
+              return true
+            }
+          </script>
+
+          <br>
+        </div>
+      </div>
     </div>
-    </p>
-  </form>
-</div>
+  </div>
+  <?php require_once("../template/js.php"); ?>
+  <?php require_once('../tinymce/tinymce.php'); ?>
 </body>
-<script src='<?php echo $OJ_CDN_URL ?>include/bootstrap-tagsinput.min.js'></script>
-<script>
-  function set_tag(self) {
-    info = $('#problem').tagsinput('items');
-    info.forEach(element => {
-      $('#multiple_problem').find("option[value='" + element + "']").attr("selected", true)
-    });
-    return true
-  }
-</script>
 
-<?php
-require_once("admin-footer.php");
-require_once('../tinymce/tinymce.php');
-?>
+</html>

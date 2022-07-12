@@ -188,7 +188,9 @@
 												<tbody>
 													<?php foreach ($blank_analysis[$i][0] as $key => $value) { ?>
 														<tr>
-															<td style="width:30%"><?php echo $key ?></td>
+															<td>
+																<pre><?php echo htmlentities($key, ENT_QUOTES, "UTF-8") ?></pre>
+															</td>
 															<td class="keep-all">
 																<?php foreach ($value as $row) { ?>
 																	<?php echo $row ?>&nbsp;&nbsp;
@@ -207,7 +209,9 @@
 												<tbody>
 													<?php foreach ($blank_analysis[$i][1] as $key => $value) { ?>
 														<tr>
-															<td style="width:30%"><?php echo $key ?></td>
+															<td>
+																<pre><?php echo htmlentities($key, ENT_QUOTES, "UTF-8") ?></pre>
+															</td>
 															<td class="keep-all">
 																<?php foreach ($value as $row) { ?>
 																	<?php echo $row ?>&nbsp;&nbsp;
