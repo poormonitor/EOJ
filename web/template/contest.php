@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="<?php echo $view_description ?>">
-  <meta name="author" content="<?php echo $OJ_NAME?>">
+  <meta name="author" content="<?php echo $OJ_NAME ?>">
   <link rel="shortcut icon" href="/favicon.ico">
 
   <title>
@@ -90,37 +90,39 @@
           </div>
         </div>
 
-        <table id='problemset' class='table table-striped' width='90%'>
-          <thead>
-            <tr align=center class='toprow'>
-              <th class='center'></th>
-              <th class='center' style="cursor:hand" onclick="sortTable('problemset', 1, 'int');"><?php echo $MSG_PROBLEM_ID ?></th>
-              <th class='center'><?php echo $MSG_TITLE ?></th>
-              <th class='center'><?php echo $MSG_SOURCE ?></th>
-              <th class='center' style="cursor:hand" onclick="sortTable('problemset', 4, 'int');"><?php echo $MSG_SOVLED ?></th>
-              <th class='center' style="cursor:hand" onclick="sortTable('problemset', 5, 'int');"><?php echo $MSG_SUBMIT ?></th>
-            </tr>
-          </thead>
-          <tbody align='center'>
-            <?php
-            $cnt = 0;
-            foreach ($view_problemset as $row) {
-              if ($cnt)
-                echo "<tr class='oddrow'>";
-              else
-                echo "<tr class='evenrow'>";
+        <div class="table-responsive">
+          <table id='problemset' class='table table-striped' width='90%'>
+            <thead>
+              <tr align=center class='toprow'>
+                <th class='center'></th>
+                <th class='center' style="cursor:hand" onclick="sortTable('problemset', 1, 'int');"><?php echo $MSG_PROBLEM_ID ?></th>
+                <th class='center'><?php echo $MSG_TITLE ?></th>
+                <th class='center'><?php echo $MSG_SOURCE ?></th>
+                <th class='center' style="cursor:hand" onclick="sortTable('problemset', 4, 'int');"><?php echo $MSG_SOVLED ?></th>
+                <th class='center' style="cursor:hand" onclick="sortTable('problemset', 5, 'int');"><?php echo $MSG_SUBMIT ?></th>
+              </tr>
+            </thead>
+            <tbody align='center'>
+              <?php
+              $cnt = 0;
+              foreach ($view_problemset as $row) {
+                if ($cnt)
+                  echo "<tr class='oddrow'>";
+                else
+                  echo "<tr class='evenrow'>";
 
-              foreach ($row as $table_cell) {
-                echo "<td>";
-                echo "\t" . $table_cell;
-                echo "</td>";
+                foreach ($row as $table_cell) {
+                  echo "<td>";
+                  echo "\t" . $table_cell;
+                  echo "</td>";
+                }
+                echo "</tr>";
+                $cnt = 1 - $cnt;
               }
-              echo "</tr>";
-              $cnt = 1 - $cnt;
-            }
-            ?>
-          </tbody>
-        </table>
+              ?>
+            </tbody>
+          </table>
+        </div>
       </center>
     </div>
   </div>
