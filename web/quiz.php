@@ -78,10 +78,12 @@ function formatTimeLength($length)
     return $result;
 }
 if (isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
-    $privilege = pdo_query("SELECT `rightstr` from `privilege` where `user_id`=? and `rightstr` regexp 'q.*' AND `valuestr`='true'", $_SESSION[$OJ_NAME . '_' . 'user_id']);
     $allow = array();
-    foreach ($privilege as $i) {
-        array_push($allow, substr($i['rightstr'], 1));
+    $pattern = "/" . $OJ_NAME . "_q([\d]+)/";
+    foreach ($_SESSION as $key => $value) {
+        if (preg_match($pattern, $key, $matches)) {
+            array_push($allow, $matches[1]);
+        }
     }
 }
 //print_r($privilege);
@@ -105,8 +107,7 @@ if (isset($_GET['qid'])) {
     $password = stripslashes($password);
 
     if ($rows_cnt == 0) {
-        $view_error_title = "测试不存在！";
-        $view_errors = "当前测试不存在，请您检查编号是否正确。";
+        $view_swal = "$MSG_NOT_EXISTED";
         require("template/error.php");
         exit(0);
     } else {
@@ -207,6 +208,12 @@ if (isset($_GET['qid'])) {
     $sql = "SELECT * FROM `quiz` WHERE `defunct`='N' ORDER BY `quiz_id` DESC LIMIT 1000";
 
     $wheremy = "";
+    if (isset($_SESSION[$OJ_NAME . '_user_id'])) {
+        if (isset($user_allowed) && !isset($_SESSION[$OJ_NAME . '_' . "administrator"])) {
+            $wheremy = " and (quiz_id in ($user_allowed) or private=0)";
+        }
+    }
+
     if ($keyword) {
         $sql = "SELECT *  FROM quiz WHERE quiz.defunct='N' AND quiz.title LIKE ? $wheremy  ORDER BY quiz_id DESC";
         $total = count(pdo_query($sql, $keyword));

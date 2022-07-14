@@ -77,13 +77,6 @@
 		}
 		return $result;
 	}
-	if (isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
-		$privilege = pdo_query("SELECT `rightstr` from `privilege` where `user_id`=? and `rightstr` regexp 'c.*' AND `valuestr`='true'", $_SESSION[$OJ_NAME . '_' . 'user_id']);
-		$allow = array();
-		foreach ($privilege as $i) {
-			array_push($allow, substr($i['rightstr'], 1));
-		}
-	}
 	//print_r($privilege);
 	//print_r($allow);
 	if (isset($_GET['cid'])) {
@@ -228,43 +221,28 @@
 		$page_cnt = 10;
 		$pstart = $page_cnt * $page - $page_cnt;
 		$pend = $page_cnt;
-		if (!isset($_SESSION[$OJ_NAME . '_' . 'administrator']) && isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
-			$user_allowed = join(",", $allow);
-		}
 		$keyword = "";
+
+		$user_allowed = array();
+		$pattern = "/" . $OJ_NAME . "_c([\d]+)/";
+		foreach ($_SESSION as $key => $value) {
+			if (preg_match($pattern, $key, $matches)) {
+				array_push($user_allowed, $matches[1]);
+			}
+		}
+		$user_allowed = join(",", $user_allowed);
+
 
 		if (isset($_POST['keyword'])) {
 			$keyword = "%" . $_POST['keyword'] . "%";
 		}
 
 		//echo "$keyword";
-		$mycontests = "";
 		$wheremy = "";
 		if (isset($_SESSION[$OJ_NAME . '_user_id'])) {
-			$sql = "select distinct contest_id from solution where contest_id>0 and user_id=?";
-			$result = pdo_query($sql, $_SESSION[$OJ_NAME . '_user_id']);
-
-			foreach ($result as $row) {
-				$mycontests .= "," . $row[0];
-			}
-
-			$len = mb_strlen($OJ_NAME . '_');
-
-			foreach ($_SESSION as $key => $value) {
-				if (strlen($key) >= $len && ($key[$len] == 'm' || $key[$len] == 'c') && intval(mb_substr($key, $len + 1)) > 0) {
-					//echo substr($key,1)."<br>";
-					$mycontests .= "," . intval(mb_substr($key, $len + 1));
-				}
-			}
-
-			//echo "=====>$mycontests<====";
-
-			if (strlen($mycontests) > 0)
-				$mycontests = substr($mycontests, 1);
-
 			if (isset($_GET['my']))
-				$wheremy = " and contest_id in ($mycontests)";
-			elseif (isset($user_allowed)) {
+				$wheremy = " and contest_id in ($user_allowed)";
+			elseif (isset($user_allowed) && !isset($_SESSION[$OJ_NAME . '_' . "administrator"])) {
 				$wheremy = " and (contest_id in ($user_allowed) or private=0)";
 			}
 		}

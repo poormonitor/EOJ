@@ -118,10 +118,23 @@ CREATE TABLE `privilege` (
   `rightstr` char(30) NOT NULL DEFAULT '',
   `valuestr` char(11) NOT NULL DEFAULT 'true',
   `defunct` char(1) NOT NULL DEFAULT 'N',
+  PRIMARY KEY (`rightstr`,`user_id`),
   KEY `user_id_index` (`user_id`),
   KEY `rightstr` (`rightstr`),
   KEY `valuestr` (`valuestr`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+CREATE TABLE `privilege_group` (
+  `gid` char(48) NOT NULL DEFAULT '',
+  `rightstr` char(30) NOT NULL DEFAULT '',
+  `valuestr` char(11) NOT NULL DEFAULT 'true',
+  `defunct` char(1) NOT NULL DEFAULT 'N',
+  PRIMARY KEY (`rightstr`,`gid`),
+  KEY `valuestr` (`valuestr`),
+  KEY `rightstr` (`rightstr`),
+  KEY `gid` (`gid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 
 CREATE TABLE `problem` (

@@ -97,29 +97,23 @@ require_once("admin-header.php"); ?>
             }
 
             $sql = "DELETE FROM `privilege` WHERE `rightstr`=?";
-            pdo_query($sql, "c$cid");
+            pdo_query($sql, "m$cid");
 
             $sql = "INSERT INTO `privilege` (`user_id`,`rightstr`) VALUES(?,?)";
             pdo_query($sql, $_SESSION[$OJ_NAME . '_' . 'user_id'], "m$cid");
 
             $_SESSION[$OJ_NAME . '_' . "m$cid"] = true;
 
-            $pieces = array();
-            $glist = ($_POST["gid"]);
-            if (isset($_POST["gid"]) and $_POST["gid"] != '') {
-              foreach ($glist as $i) {
-                $sql = "SELECT `user_id` FROM `users` WHERE `gid`=?;";
-                $result = pdo_query($sql, trim($i));
-                foreach ($result as $p) {
-                  array_push($pieces, $p["user_id"]);
+            $sql = "DELETE FROM `privilege_group` WHERE `rightstr`=?";
+            pdo_query($sql, "c$cid");
+            if (intval($private) == 1) {
+              $pieces = array();
+              $glist = $_POST["gid"];
+              if ($glist) {
+                foreach ($glist as $i) {
+                  $sql = "INSERT INTO `privilege_group`(`gid`,`rightstr`) VALUES (?,?)";
+                  $result = pdo_query($sql, trim($i), "c$cid");
                 }
-              }
-            }
-
-            if (count($pieces) > 0 && strlen($pieces[0]) > 0) {
-              $sql_1 = "INSERT INTO `privilege`(`user_id`,`rightstr`) VALUES (?,?)";
-              for ($i = 0; $i < count($pieces); $i++) {
-                pdo_query($sql_1, trim($pieces[$i]), "c$cid");
               }
             }
 
