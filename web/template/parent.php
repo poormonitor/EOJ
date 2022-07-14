@@ -27,7 +27,7 @@
         <table align=center width=80%>
           <tr align='center'>
             <td>
-              <form method="get" action="parent.php" class="form-inline" <?php if (!isset($_SESSION[$OJ_NAME . '_' . "administrator"])) echo "onsubmit='return vcode_required(this)';" ?>>
+              <form method="get" action="parent.php" class="form-inline vertical-center" <?php if (!isset($_SESSION[$OJ_NAME . '_' . "administrator"])) echo "onsubmit='return vcode_required(this)';" ?>>
                 <input class='form-control' id='parent_user' name='user' placeholder='<?php echo $MSG_ID_OR_NICK ?>' value="<?php if (isset($_GET["user"])) echo (htmlentities($_GET['user'])); ?>">
                 <input class='form-control' id='vcode' name='vcode' type='hidden'>
                 <button class='form-control' type='submit'><?php echo $MSG_PARENT_SEARCH ?></button>
@@ -155,7 +155,7 @@
                               <?php
                               if ($before == 0) {
                               ?>
-                                <td><span class='label label-danger'><?php echo $MSG_UNFINISHED[true] ?></span></td>
+                                <td><span class='label label-danger'><?php echo $MSG_UNFINISHED ?></span></td>
                                 <?php
                               } else {
                                 if ($before_ac == 0) { ?>
