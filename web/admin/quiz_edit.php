@@ -51,6 +51,9 @@ if (isset($_POST['qid'])) {
   echo "Edit Quiz " . $qid;
 
   $sql = "DELETE FROM `privilege` WHERE `rightstr`=?";
+  pdo_query($sql, "mq$qid");
+
+  $sql = "DELETE FROM `privilege_group` WHERE `rightstr`=?";
   pdo_query($sql, "q$qid");
 
   $sql = "INSERT INTO `privilege` (`user_id`,`rightstr`) VALUES(?,?)";
@@ -58,22 +61,11 @@ if (isset($_POST['qid'])) {
 
   $_SESSION[$OJ_NAME . '_' . "mq$qid"] = true;
 
-  $pieces = array();
   $glist = $_POST["gid"];
-  if (isset($_POST["gid"]) and $_POST["gid"] != '') {
+  if ($glist) {
     foreach ($glist as $i) {
-      $sql = "SELECT `user_id` FROM `users` WHERE `gid`=?;";
-      $result = pdo_query($sql, trim($i));
-      foreach ($result as $p) {
-        array_push($pieces, $p["user_id"]);
-      }
-    }
-  }
-
-  if (count($pieces) > 0 && strlen($pieces[0]) > 0) {
-    $sql_1 = "INSERT INTO `privilege`(`user_id`,`rightstr`) VALUES (?,?)";
-    for ($i = 0; $i < count($pieces); $i++) {
-      pdo_query($sql_1, trim($pieces[$i]), "q$qid");
+      $sql = "INSERT INTO `privilege_group`(`gid`,`rightstr`) VALUES (?,?)";
+      $result = pdo_query($sql, trim($i), "q$qid");
     }
   }
   header("Location: quiz_list.php");
@@ -98,8 +90,7 @@ if (isset($_POST['qid'])) {
   $blank = max(array_map('strlen', $question)) ? false : true;
 
   $ulist = "";
-  $sql = "SELECT `users`.`gid` FROM `privilege` JOIN `users` ON `privilege`.user_id = `users`.user_id 
-              WHERE `privilege`.`rightstr`=? group BY `users`.`gid` order BY `users`.`gid`";
+  $sql = "SELECT `gid` FROM `privilege_group` WHERE `rightstr` = ? order BY `gid`";
   $result = pdo_query($sql, "q$qid");
   $glist = array();
   foreach ($result as $row) {
@@ -248,12 +239,12 @@ require_once("admin-header.php");
           </div>
 
           <br>
-</div>
-</div>
-</div>
-</div>
-<?php require_once("../template/js.php"); ?>
-<?php require_once('../tinymce/tinymce.php'); ?>
+        </div>
+      </div>
+    </div>
+  </div>
+  <?php require_once("../template/js.php"); ?>
+  <?php require_once('../tinymce/tinymce.php'); ?>
 </body>
 
 </html>

@@ -1,3 +1,29 @@
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 66px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    color: #aaa;
+    width: 100%;
+    height: 66px;
+    margin-top: auto;
+}
+
+.footer-container {
+    margin: 20px 4rem auto 4rem;
+}
+
+#footer {
+    color: #aaa;
+}
+
 .navbar-default {
     background: #fff;
     border-color: #fff;
@@ -17,7 +43,7 @@ div.status_explain li {
 
 .container .jumbotron {
     padding: 8px;
-    background: #fff;
+    background-color: rgba(255, 255, 255, 0);
     border: 0;
 }
 
@@ -77,14 +103,19 @@ pre {
     body {
         filter: invert(1) hue-rotate(180deg);
         background: #242424 !important;
-    }
-
-    .jumbotron {
-        filter: brightness(90%);
+        margin-bottom: 0px;
     }
 
     img {
         filter: invert(1) hue-rotate(180deg);
+    }
+
+    .jumbotron {
+        filter: brightness(88%);
+    }
+
+    .footer {
+        position: relative;
     }
 
     .btn-sm,
@@ -466,35 +497,4 @@ td.ans>img {
 
 .bg-red {
     background-color: #ffa0a070;
-}
-
-html {
-    position: relative;
-    min-height: 100%;
-}
-
-body {
-    margin-bottom: 66px;
-}
-
-.footer {
-    position: absolute;
-    bottom: 0;
-    color: #aaa;
-    width: 100%;
-    height: 66px;
-    margin-top: auto;
-}
-
-.footer-container {
-    margin: 20px 4rem auto 4rem;
-}
-
-#footer {
-    color: #aaa;
-}
-
-.vertical-center {
-    padding: 40px 20px;
-    transform: translateY(25%);
 }

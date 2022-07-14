@@ -9,7 +9,7 @@ require_once('./include/const.inc.php');
 require_once('./include/my_func.inc.php');
 require_once('./include/setlang.php');
 if (isset($OJ_LANG)) {
-	require_once("./lang/$OJ_LANG.php");
+    require_once("./lang/$OJ_LANG.php");
 }
 
 if (isset($_GET["query"]) && trim($_GET["query"]) == "false") {
@@ -46,6 +46,9 @@ if (isset($_GET['user']) and $_GET['user'] != '') {
         exit(0);
     }
     $user = $user[0][0];
+
+    $sql = "SELECT gid FROM users where `user_id` = ?";
+    $gid = pdo_query($sql, $user)[0][0];
 } else {
     $view_swal = $MSG_PARAMS_ERROR;
     $error_location = "parent.php?query=false";
@@ -61,8 +64,10 @@ foreach ($contests_private as $i) {
     $cid = $i[0];
     $right = "c" . $cid;
     $sql = "select count(*) from privilege where user_id=? and rightstr='$right' and defunct='N' and valuestr='true'";
+    $sql2 = "select count(*) from privilege_group where gid=? and rightstr='$right' and defunct='N' and valuestr='true'";
     $result = pdo_query($sql, $user)[0][0];
-    if ($result != "0") {
+    $result2 = pdo_query($sql2, $gid)[0][0];
+    if ($result + $result2) {
         array_push($contest, array($cid));
     }
 }

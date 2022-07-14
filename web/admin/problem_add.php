@@ -85,15 +85,15 @@ if ($test_output=="") $test_output="\n";
           $_SESSION[$OJ_NAME . '_' . "p$pid"] = true;
           if ($_POST['blank'] == '1') {
             $blank_code = $_POST['blank_code'];
-            $sql = 'update `problem` set `blank`=? where `problem_id`=?';
+            $sql = 'UPDATE `problem` set `blank`=? where `problem_id`=?';
             pdo_query($sql, $blank_code, $pid);
           }
           if ($allow != '') {
-            $sql = 'update `problem` set `allow`=? where `problem_id`=?';
+            $sql = 'UPDATE `problem` set `allow`=? where `problem_id`=?';
             pdo_query($sql, $allow, $pid);
           }
           if ($block != '') {
-            $sql = 'update `problem` set `block`=? where `problem_id`=?';
+            $sql = 'UPDATE `problem` set `block`=? where `problem_id`=?';
             pdo_query($sql, $block, $pid);
           }
           ?>

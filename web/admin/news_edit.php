@@ -19,20 +19,24 @@ if (isset($_POST['news_id'])) {
   //echo $sql;
   pdo_query($sql, $title, $content, $user_id, $news_id);
 
-  $sql = "DELETE FROM privilege where rightstr = 'n$news_id'";
+  $sql = "DELETE FROM privilege_group where rightstr = 'n$news_id'";
   pdo_query($sql);
 
   if ($_POST['private'] == '1') {
     $privilege = $_POST['gid'];
     $privilege = join(",", $privilege);
-    $sql = "update news set private = 'Y' where news_id = ?";
+    $sql = "UPDATE news set private = 'Y' where news_id = ?";
     pdo_query($sql, $news_id);
-    $sql = "INSERT INTO privilege (`user_id`,`rightstr`,`valuestr`,`defunct`) SELECT user_id, 'n$news_id','true','N' from users where gid in ($privilege)";
-    pdo_query($sql);
+    if ($glist) {
+      foreach ($glist as $i) {
+        $sql = "INSERT INTO `privilege_group`(`gid`,`rightstr`) VALUES (?,?)";
+        $result = pdo_query($sql, trim($i), "n$news_id");
+      }
+    }
   } else {
-    $sql = "update news set private = 'N' where news_id = ?";
+    $sql = "UPDATE news set `private` = 'N' where news_id = ?";
     pdo_query($sql, $news_id);
-    $sql = "delete from privilege where rightstr = 'n$news_id'";
+    $sql = "DELETE from privilege where rightstr = 'n$news_id'";
     pdo_query($sql);
   }
 
@@ -98,7 +102,7 @@ require_once("admin-header.php");
                 <h4 class='control-label'><?php echo $MSG_GROUP; ?></h4>
                 <select name="gid[]" class="selectpicker show-menu-arrow form-control" size=8 multiple>
                   <?php
-                  $gid_before = pdo_query("SELECT `users`.`gid` FROM `privilege` JOIN `users` ON `privilege`.`user_id`=`users`.`user_id` WHERE `privilege`.rightstr='n$news_id' GROUP BY `users`.`gid`;");
+                  $gid_before = pdo_query("SELECT `gid` FROM `privilege_group` WHERE rightstr='n$news_id'");
                   $sql_all = "SELECT * FROM `group`;";
                   $result = pdo_query($sql_all);
                   $all_group = $result;

@@ -3,7 +3,7 @@
 		<div class="footer-container">
 		<span>Powered by <a id='footer' href='https://git.oldmonitor.cn/poormonitor/hoj'>HOJ</a></span>
 		<span>
-			| <a id='footer' href='policy.html'><?php echo $MSG_POLICY ?></a>
+			| <a id='footer' href='/policy.html'><?php echo $MSG_POLICY ?></a>
 		</span>
 		<span>
 			<?php if ($OJ_SPONSOR) { ?>

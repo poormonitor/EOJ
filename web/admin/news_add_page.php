@@ -61,8 +61,7 @@ require_once("admin-header.php"); ?>
                 <h4 class='control-label'><?php echo $MSG_GROUP; ?></h4>
                 <select name="gid[]" class="selectpicker show-menu-arrow form-control" size=8 multiple>
                   <?php
-                  $cid = intval($_GET['cid']);
-                  $gid_before = pdo_query("SELECT `users`.`gid` FROM `privilege` JOIN `users` ON `privilege`.`user_id`=`users`.`user_id` WHERE `privilege`.rightstr='c$cid' GROUP BY `users`.`gid`;");
+                  $gid_before = pdo_query("SELECT `gid` FROM `privilege_group` WHERE rightstr='n$cid'");
                   $sql_all = "SELECT * FROM `group`;";
                   $result = pdo_query($sql_all);
                   $all_group = $result;

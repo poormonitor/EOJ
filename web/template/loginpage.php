@@ -19,8 +19,7 @@
 		<?php include("template/nav.php"); ?>
 		<!-- Main component for a primary marketing message or call to action -->
 		<div class="jumbotron">
-			<div class="loginBox"></div>
-			<div class="vertical-center">
+			<div>
 				<h3 align='center' style="margin-bottom: 20px;"><?php echo $MSG_LOGIN ?></h3>
 				<form id="login" action="login.php" method="post" role="form" class="form-horizontal" onSubmit="return jsMd5();">
 					<div class="form-group">

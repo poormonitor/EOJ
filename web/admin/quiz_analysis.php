@@ -341,11 +341,11 @@ require_once("admin-header.php");
                                         </td>
                                         <td>
                                             <?php if ($private) {
-                                                $sql = "SELECT * FROM `privilege` 
-                                JOIN `users` ON `privilege`.`user_id` = `users`.`user_id`
-                                JOIN `group` ON `group`.`gid` = `users`.`gid`
-                                WHERE `privilege`.rightstr = ? AND `privilege`.`user_id` NOT IN 
-                                (SELECT `user_id` FROM `answer` WHERE `quiz_id`= ?)";
+                                                $sql = "SELECT * FROM `privilege_group` 
+                                                    JOIN `users` ON `privilege_group`.`gid` = `users`.`gid`
+                                                    JOIN `group` ON `group`.`gid` = `users`.`gid`
+                                                    WHERE `privilege_group`.`rightstr` = ? AND `users`.`user_id` NOT IN 
+                                                    (SELECT `user_id` FROM `answer` WHERE `quiz_id`= ?)";
 
                                                 if (isset($gid)) {
                                                     $sql .= " AND `group`.`gid` = ?";

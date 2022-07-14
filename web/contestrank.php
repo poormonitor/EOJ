@@ -190,8 +190,10 @@ for ($i = 0; $i < $pid_cnt; $i++) {
 	$first_blood[$i] = "";
 }
 
-$sql = "select s.num,s.user_id from solution s ,
-	(select num,min(solution_id) minId from solution where contest_id=? and result=4 GROUP BY num ) c where s.solution_id = c.minId";
+$sql = "SELECT s.num,s.user_id from solution s ,
+	(select num,min(solution_id) minId from solution where contest_id=? and result=4 GROUP BY num ) c 
+	where s.solution_id = c.minId";
+	
 $fb = mysql_query_cache($sql, $cid);
 
 if ($fb)

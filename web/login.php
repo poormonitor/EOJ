@@ -75,18 +75,28 @@
 		$result = pdo_query($sql, $login);
 
 		foreach ($result as $row) {
-			if (isset($row['valuestr']))
+			if ($row['valuestr'])
 				$_SESSION[$OJ_NAME . '_' . $row['rightstr']] = $row['valuestr'];
 			else
 				$_SESSION[$OJ_NAME . '_' . $row['rightstr']] = true;
 		}
 
-		$sql = "SELECT gid FROM `users` WHERE `user_id`=?";
+		$sql = "SELECT `gid` FROM `users` WHERE `user_id`=?";
 		$result = pdo_query($sql, $login);
-		if ($result[0][0] != NULL) {
+		if ($result) {
 			$_SESSION[$OJ_NAME . '_' . "gid"] = $result[0][0];
+
+			$sql = "SELECT * FROM `privilege_group` WHERE `gid`=?";
+			$group_privileges = pdo_query($sql, $_SESSION[$OJ_NAME . '_' . "gid"]);
+
+			foreach ($group_privileges as $row) {
+				if ($row['valuestr'])
+					$_SESSION[$OJ_NAME . '_' . $row['rightstr']] = $row['valuestr'];
+				else
+					$_SESSION[$OJ_NAME . '_' . $row['rightstr']] = true;
+			}
 		}
-		
+
 		if (isset($_SESSION[$OJ_NAME . '_vip'])) {  // VIP mark can access all [VIP] marked contest
 			$sql = "select contest_id from contest where title like '%[VIP]%'";
 			$result = pdo_query($sql);
@@ -95,11 +105,11 @@
 			}
 		};
 
-		$sql = "update users set accesstime=now() where user_id=?";
+		$sql = "UPDATE users SET accesstime = NOW() WHERE user_id=?";
 		$result = pdo_query($sql, $login);
 
 		if ($OJ_LONG_LOGIN) {
-			$C_info = pdo_query("SELECT `password` , `accesstime` FROM`users` WHERE`user_id`=? and defunct='N'", $login)[0];
+			$C_info = pdo_query("SELECT `password` , `accesstime` FROM `users` WHERE `user_id`=? and defunct='N'", $login)[0];
 			$C_len = strlen($C_info[1]);
 			$C_res = "";
 			for ($i = 0; $i < strlen($C_info[0]); $i++) {

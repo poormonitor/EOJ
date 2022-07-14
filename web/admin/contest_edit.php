@@ -64,42 +64,33 @@ if (isset($_POST['startdate'])) {
       pdo_query($sql, $pid, $cid, $pid, $cid);
     }
 
-    pdo_query("update solution set num=-1 where contest_id=?", $cid);
+    pdo_query("UPDATE solution set num=-1 where contest_id=?", $cid);
 
     $plist = "";
     for ($i = 0; $i < count($pieces); $i++) {
       if ($plist) $plist .= ",";
       $plist .= $pieces[$i];
-      $sql_2 = "update solution set num=? where contest_id=? and problem_id=?;";
+      $sql_2 = "UPDATE solution set num=? where contest_id=? and problem_id=?;";
       pdo_query($sql_2, $i, $cid, $pieces[$i]);
     }
 
-    $sql = "update `problem` set defunct='N' where `problem_id` in ($plist)";
+    $sql = "UPDATE `problem` set defunct='N' where `problem_id` in ($plist)";
     pdo_query($sql);
   }
 
-  $sql = "DELETE FROM `privilege` WHERE `rightstr`=?";
+  $sql = "DELETE FROM `privilege_group` WHERE `rightstr`=?";
   pdo_query($sql, "c$cid");
   if (intval($private) == 1) {
     $pieces = array();
-    $glist = ($_POST["gid"]);
-    if (isset($_POST["gid"]) and $_POST["gid"] != '') {
+    $glist = $_POST["gid"];
+    if ($glist) {
       foreach ($glist as $i) {
-        $sql = "SELECT `user_id` FROM `users` WHERE `gid`=?;";
-        $result = pdo_query($sql, trim($i));
-        foreach ($result as $p) {
-          array_push($pieces, $p["user_id"]);
-        }
-      }
-    }
-
-    if (count($pieces) > 0 && strlen($pieces[0]) > 0) {
-      $sql_1 = "INSERT INTO `privilege`(`user_id`,`rightstr`) VALUES (?,?)";
-      for ($i = 0; $i < count($pieces); $i++) {
-        pdo_query($sql_1, trim($pieces[$i]), "c$cid");
+        $sql = "INSERT INTO `privilege_group`(`gid`,`rightstr`) VALUES (?,?)";
+        $result = pdo_query($sql, trim($i), "c$cid");
       }
     }
   }
+  
   header("Location: contest_list.php");
   exit(0);
 } else {
@@ -130,13 +121,11 @@ if (isset($_POST['startdate'])) {
     $plist .= $row[0];
   }
 
-  $ulist = "";
-  $sql = "SELECT `user_id` FROM `privilege` WHERE `rightstr`=? order by user_id";
+  $sql = "SELECT `gid` FROM `privilege_group` WHERE `rightstr`=? order by `gid`";
   $result = pdo_query($sql, "c$cid");
-
+  $gid_before = array();
   foreach ($result as $row) {
-    if ($ulist) $ulist .= "\n";
-    $ulist .= $row[0];
+    array_push($gid_before, $row[0]);
   }
 }
 require_once("admin-header.php");
@@ -272,19 +261,12 @@ require_once("admin-header.php");
                       <br>
                       <select name="gid[]" class="selectpicker show-menu-arrow form-control" size=8 multiple>
                         <?php
-                        $cid = intval($_GET['cid']);
-                        $gid_before = pdo_query("SELECT `users`.`gid` FROM `privilege` JOIN `users` ON `privilege`.`user_id`=`users`.`user_id` WHERE `privilege`.rightstr='c$cid' GROUP BY `users`.`gid`;");
                         $sql_all = "SELECT * FROM `group`;";
-                        $result = pdo_query($sql_all);
-                        $all_group = $result;
-                        $gid = array();
-                        foreach ($gid_before as $i) {
-                          array_push($gid, $i[0]);
-                        }
+                        $all_group = pdo_query($sql_all);
                         foreach ($all_group as $i) {
                           $show_id = $i["gid"];
                           $show_name = $i["name"];
-                          if (in_array($show_id, $gid)) {
+                          if (in_array($show_id, $gid_before)) {
                             echo "<option value=$show_id selected>$show_name</option>";
                           } else {
                             echo "<option value=$show_id>$show_name</option>";

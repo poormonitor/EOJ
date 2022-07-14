@@ -27,7 +27,7 @@
         <table align=center width=80%>
           <tr align='center'>
             <td>
-              <form method="get" action="parent.php" class="form-inline vertical-center" <?php if (!isset($_SESSION[$OJ_NAME . '_' . "administrator"])) echo "onsubmit='return vcode_required(this)';" ?>>
+              <form method="get" action="parent.php" class="form-inline" <?php if (!isset($_SESSION[$OJ_NAME . '_' . "administrator"])) echo "onsubmit='return vcode_required(this)';" ?>>
                 <input class='form-control' id='parent_user' name='user' placeholder='<?php echo $MSG_ID_OR_NICK ?>' value="<?php if (isset($_GET["user"])) echo (htmlentities($_GET['user'])); ?>">
                 <input class='form-control' id='vcode' name='vcode' type='hidden'>
                 <button class='form-control' type='submit'><?php echo $MSG_PARENT_SEARCH ?></button>
@@ -72,38 +72,40 @@
             $school = $school[0];
             $group = $group[0];
         ?>
-          <table class='table'>
-            <thead class='toprow'>
-              <tr>
-                <th>
-                  <?php echo $MSG_STUDENT_ID ?>
-                </th>
-                <th>
-                  <?php echo $MSG_STUDENT_NAME ?>
-                </th>
-                <th>
-                  <?php echo $MSG_STUDENT_ADMINISTRATIVE_CLASS ?>
-                </th>
-                <th>
-                  <?php echo $MSG_STUDENT_TEACHING_CLASS ?>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <td>
-                <?php echo $user; ?>
-              </td>
-              <td>
-                <?php echo $nick[0]; ?>
-              </td>
-              <td>
-                <?php echo $school[0]; ?>
-              </td>
-              <td>
-                <?php echo $group[0]; ?>
-              </td>
-            </tbody>
-          </table>
+          <div class="table-responsive">
+            <table class='table'>
+              <thead class='toprow'>
+                <tr>
+                  <th>
+                    <?php echo $MSG_STUDENT_ID ?>
+                  </th>
+                  <th>
+                    <?php echo $MSG_STUDENT_NAME ?>
+                  </th>
+                  <th>
+                    <?php echo $MSG_STUDENT_ADMINISTRATIVE_CLASS ?>
+                  </th>
+                  <th>
+                    <?php echo $MSG_STUDENT_TEACHING_CLASS ?>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <td>
+                  <?php echo $user; ?>
+                </td>
+                <td>
+                  <?php echo $nick[0]; ?>
+                </td>
+                <td>
+                  <?php echo $school[0]; ?>
+                </td>
+                <td>
+                  <?php echo $group[0]; ?>
+                </td>
+              </tbody>
+            </table>
+          </div>
           <div class='table-responsive'>
             <table class='table'>
               <thead class='toprow'>
@@ -235,10 +237,10 @@
                 <?php } ?>
               </tbody>
             </table>
-            <?php echo $MSG_PARENT_EXPLAIN ?>
           <?php } ?>
         <?php } ?>
           </div>
+          <?php echo $MSG_PARENT_EXPLAIN ?>
       </div>
     </div>
   </div>
