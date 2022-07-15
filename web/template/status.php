@@ -25,14 +25,14 @@
 			<br><br>
 			<div align=center class="input-append">
 				<form id=simform class=form-inline action="status.php" method="get">
-					<?php echo $MSG_PROBLEM_ID ?>
+					<?php echo $MSG_PROBLEM_ID ?>&nbsp;
 					<input class="form-control" type=text size=4 name=problem_id value='<?php echo  htmlspecialchars($problem_id, ENT_QUOTES) ?>'>&nbsp;&nbsp;
 
-					<?php echo $MSG_USER ?>
+					<?php echo $MSG_USER ?>&nbsp;
 					<input class="form-control" type=text size=8 name=user_id value='<?php echo  htmlspecialchars($user_id, ENT_QUOTES) ?>'>&nbsp;&nbsp;
 					<?php if (isset($cid)) echo "<input type='hidden' name='cid' value='$cid'>"; ?>
 
-					<?php echo $MSG_LANG ?>
+					<?php echo $MSG_LANG ?>&nbsp;
 					<select class="form-control" size="1" name="language">
 						<option value="-1">All</option>
 						<?php
@@ -52,7 +52,7 @@
 						?>
 					</select>&nbsp;&nbsp;
 
-					<?php echo $MSG_RESULT ?>
+					<?php echo $MSG_RESULT ?>&nbsp;
 					<select class="form-control" size="1" name="jresult">
 						<?php
 						if (isset($_GET['jresult']))
@@ -88,7 +88,7 @@
 						else
 							$showsim = 0;
 
-						echo "SIM 
+						echo "SIM&nbsp;
 					<select id=\"appendedInputButton\" class=\"form-control\" name=showsim onchange=\"document.getElementById('simform').submit();\">
 						<option value=0 " . ($showsim == 0 ? 'selected' : '') . ">All</option>
 						<option value=50 " . ($showsim == 50 ? 'selected' : '') . ">50</option>

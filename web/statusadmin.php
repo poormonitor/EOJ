@@ -227,7 +227,11 @@ if (isset($_GET['user_id']) && $_GET['user_id'] != "") {
   $sql = $sql . "AND `user_id` IN ($user_id) ";
 }
 
-if ($user_id == "" and $problem_id == "" and (!isset($cid) or $cid == "")) {
+if (isset($_GET["solution_id"]) && $_GET["solution_id"]) {
+  $solution_id = intval($_GET["solution_id"]);
+}
+
+if (!$user_id and !$problem_id and (!isset($cid) or !$cid) && !$solution_id) {
   $view_errors = "<div class='alert alert-danger' role='alert'>$MSG_PARAMS_TOO_FEW</div>";
   $view_status = array();
   require("template/statusadmin.php");
@@ -279,8 +283,10 @@ if ($OJ_SIM) {
 $sql = $sql . $order_str;
 //echo $sql;
 
-
-if (isset($_GET['user_id'])) {
+if (isset($solution_id)) {
+  $sql = "SELECT * FROM `solution` WHERE solution_id = ?";
+  $result = mysql_query_cache($sql, $solution_id);
+} elseif (isset($_GET['user_id'])) {
   $result = pdo_query($sql, $user_id);
 } else {
   $result = mysql_query_cache($sql);
