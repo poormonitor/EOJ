@@ -6,7 +6,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="">
-	<meta name="author" content="<?php echo $OJ_NAME?>">
+	<meta name="author" content="<?php echo $OJ_NAME ?>">
 	<link rel="shortcut icon" href="/favicon.ico">
 
 	<title>
@@ -24,8 +24,12 @@
 			<br><br>
 			<div align=center class="input-append">
 				<form id=simform class=form-inline action="statusadmin.php" method="get">
-					<?php echo $MSG_PROBLEM_ID ?>
-					<input class="form-control" type=text size=4 name=problem_id value='<?php echo  htmlspecialchars($problem_id, ENT_QUOTES) ?>'>&nbsp;&nbsp;
+
+					<?php echo $MSG_RUNID ?>&nbsp;
+					<input class="form-control" type=text size=5 name=solution_id value='<?php echo htmlspecialchars($solution_id, ENT_QUOTES) ?>'>&nbsp;&nbsp;
+
+					<?php echo $MSG_PROBLEM_ID ?>&nbsp;
+					<input class="form-control" type=text size=5 name=problem_id value='<?php echo htmlspecialchars($problem_id, ENT_QUOTES) ?>'>&nbsp;&nbsp;
 
 					<?php echo $MSG_GROUP ?>&nbsp;
 					<select class="form-control" size="1" name="gid">
@@ -48,18 +52,18 @@
 						?>
 					</select>&nbsp;
 
-					<?php echo $MSG_USER ?>
+					<?php echo $MSG_USER ?>&nbsp;
 					<input class="form-control" type=text size=8 name=user_id value='<?php echo htmlspecialchars($_GET['user_id'], ENT_QUOTES); ?>'>&nbsp;
 
 					<?php
 					if (isset($cid) and $cid != 0) {
-						echo $MSG_CONTEST_ID . "&nbsp;<input type='text' class='form-control' size='4' name='cid' value='$cid'>";
+						echo $MSG_CONTEST_ID . "&nbsp;<input type='text' class='form-control' size='4' name='cid' value='$cid'>&nbsp;";
 					} else {
-						echo $MSG_CONTEST_ID . "&nbsp;<input type='text' class='form-control' size='4' name='cid' value=''>";
+						echo $MSG_CONTEST_ID . "&nbsp;<input type='text' class='form-control' size='4' name='cid' value=''>&nbsp;";
 					}
 					?>
 
-					<?php echo $MSG_LANG ?>
+					<?php echo $MSG_LANG ?>&nbsp;
 					<select class="form-control" size="1" name="language">
 						<option value="-1">All</option>
 						<?php
@@ -115,7 +119,7 @@
 						else
 							$showsim = 0;
 
-						echo "SIM 
+						echo "SIM&nbsp;
 					<select id=\"appendedInputButton\" class=\"form-control\" name=showsim onchange=\"document.getElementById('simform').submit();\">
 						<option value=0 " . ($showsim == 0 ? 'selected' : '') . ">All</option>
 						<option value=50 " . ($showsim == 50 ? 'selected' : '') . ">50</option>
