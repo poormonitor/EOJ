@@ -1,25 +1,25 @@
 <footer class="footer">
 	<div class="container">
 		<div class="footer-container">
-		<span>Powered by <a id='footer' href='https://git.oldmonitor.cn/poormonitor/hoj'>HOJ</a></span>
-		<span>
-			| <a id='footer' href='/policy.html'><?php echo $MSG_POLICY ?></a>
-		</span>
-		<span>
-			<?php if ($OJ_SPONSOR) { ?>
-				| Sponsored by <a id='footer' href='<?php echo $OJ_SPONSOR_URL ?>'><?php echo $OJ_SPONSOR ?></a>
-			<?php } ?>
-		</span>
-		<span>
-			<?php if ($OJ_BEIAN) { ?>
-				| <a id='footer' href='https://beian.miit.gov.cn/'><?php echo $OJ_BEIAN ?></a>
-			<?php } ?>
-		</span>
-		<span>
-			<?php if ($OJ_MPS_BEIAN) { ?>
-				| <a id='footer' target="_blank" href="<?php echo $OJ_MPS_BEIAN_URL ?>"><?php echo $OJ_MPS_BEIAN ?></a>
-			<?php } ?>
-		</span>
+			<span class="text-nowrap pe-3">Powered by <a id='footer' href='https://git.oldmonitor.cn/poormonitor/hoj'>HOJ</a></span>
+			<span class="text-nowrap pe-3">
+				<a id='footer' href='/policy.html'><?php echo $MSG_POLICY ?></a>
+			</span>
+			<span class="text-nowrap pe-3">
+				<?php if ($OJ_SPONSOR) { ?>
+					Sponsored by <a id='footer' href='<?php echo $OJ_SPONSOR_URL ?>'><?php echo $OJ_SPONSOR ?></a>
+				<?php } ?>
+			</span>
+			<span class="text-nowrap pe-3">
+				<?php if ($OJ_BEIAN) { ?>
+					<a id='footer' href='https://beian.miit.gov.cn/'><?php echo $OJ_BEIAN ?></a>
+				<?php } ?>
+			</span>
+			<span class="text-nowrap pe-3">
+				<?php if ($OJ_MPS_BEIAN) { ?>
+					<a id='footer' target="_blank" href="<?php echo $OJ_MPS_BEIAN_URL ?>"><?php echo $OJ_MPS_BEIAN ?></a>
+				<?php } ?>
+			</span>
 		</div>
 	</div>
 </footer>
