@@ -17,7 +17,7 @@ body {
 }
 
 .footer-container {
-    margin: 20px 4rem auto 4rem;
+    margin: 18px 4rem 18px 4rem;
 }
 
 #footer {
@@ -100,10 +100,13 @@ pre {
 }
 
 @media (prefers-color-scheme: dark) {
-    body {
+    .container {
         filter: invert(1) hue-rotate(180deg);
+        background-color: rgba(255, 255, 255, 0);
+    }
+
+    body {
         background: #242424 !important;
-        margin-bottom: 0px;
     }
 
     img {
@@ -112,10 +115,6 @@ pre {
 
     .jumbotron {
         filter: brightness(88%);
-    }
-
-    .footer {
-        position: relative;
     }
 
     .btn-sm,
@@ -310,7 +309,8 @@ pre#code {
     box-shadow: 0 1px 0 rgba(255, 255, 255, .15) inset, 0 2px 6px rgba(0, 0, 0, .075);
 }
 
-.http_judge_form {
+.http_judge_form,
+text-nowrap {
     white-space: nowrap;
 }
 
@@ -497,4 +497,8 @@ td.ans>img {
 
 .bg-red {
     background-color: #ffa0a070;
+}
+
+.pe-3 {
+    padding-right: 1.5rem;
 }
