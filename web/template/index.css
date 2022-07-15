@@ -100,13 +100,12 @@ pre {
 }
 
 @media (prefers-color-scheme: dark) {
-    .container {
+    html {
         filter: invert(1) hue-rotate(180deg);
-        background-color: rgba(255, 255, 255, 0);
     }
 
     body {
-        background: #242424 !important;
+        background: #DBDBDB !important;
     }
 
     img {
@@ -117,6 +116,7 @@ pre {
         filter: brightness(88%);
     }
 
+    .btn-nm,
     .btn-sm,
     .btn-xs {
         color: #fff;

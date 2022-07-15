@@ -29,6 +29,9 @@ if (isset($_POST['enable'])) {
 if (!file_exists($file)) {
     touch($file);
     chmod($file, 0755);
+    $fp = fopen($file, "w");
+    fputs($fp, "\n\n\n");
+    fclose($fp);
     $content = array("", "", "");
 } else {
     $content = file_get_contents($file);
