@@ -445,6 +445,25 @@ function getBlankCode($blank, $view_src)
   return $matches;
 }
 
+function getBlankCodeInd($blank, $view_src)
+{
+  $view_src = unifyCode($view_src);
+  $blank = unifyCode($blank);
+  $blank_pat = "#" . preg_quote($blank) . "#";
+  $func = function ($value) {
+    return $value[0];
+  };
+  $blank_pat_s = str_replace("%\*%", "(.*)", $blank_pat);
+  $blank_pat_m = str_replace("\*%\*", "([\s\S]*)", $blank_pat);
+  preg_match_all($blank_pat_s, $view_src, $matches_s);
+  preg_match_all($blank_pat_m, $view_src, $matches_m);
+  $matches_s = array_slice($matches_s, 1);
+  $matches_s = array_map($func, $matches_s);
+  $matches_m = array_slice($matches_m, 1);
+  $matches_m = array_map($func, $matches_m);
+  return array(0 => $matches_s, 1 => $matches_m);
+}
+
 function inAsItem($array, $needle, $order)
 {
   foreach ($array as $row) {
@@ -453,4 +472,13 @@ function inAsItem($array, $needle, $order)
     }
   }
   return false;
+}
+
+function subCnt($subject, ...$search)
+{
+  $ans = 0;
+  foreach ($search as $item) {
+    $ans = $ans + substr_count($subject, $item);
+  }
+  return $ans;
 }
