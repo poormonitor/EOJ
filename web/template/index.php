@@ -42,7 +42,7 @@
          },
          legend: [{
             data: ['<?php echo $MSG_TOTAL ?>', '<?php echo $MSG_ACCEPTED ?>'],
-            top: "7%"
+            top: "10%"
          }],
          grid: {
             left: '1%',
@@ -71,7 +71,7 @@
             type: 'value'
          },
          textStyle: {
-            fontFamily: "SourceHanSansCN-Medium"
+            fontFamily: "Inter-SemiBold,SourceHanSansCN-Medium"
          },
          series: [{
             data: <?php echo json_encode($chart_data_all) ?>,
