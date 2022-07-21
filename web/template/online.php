@@ -20,7 +20,7 @@
 		<?php include("template/nav.php"); ?>
 		<div class="jumbotron">
 			<center>
-				<h3>当前在线用户: <?php echo $on->get_num() ?></h3>
+				<h3><?php echo $MSG_CURRENT_ONLINE ?>: <?php echo $on->get_num() ?></h3>
 				<div class='table-responsive'>
 					<table style="margin:auto;width:95%" class='table table-condensed'>
 						<thead>
