@@ -1,5 +1,4 @@
 <?php
-require("admin-header.php");
 require_once("../include/db_info.inc.php");
 require_once("../include/my_func.inc.php");
 
@@ -17,6 +16,7 @@ if (isset($_GET['do'])) {
   }
   $install = shell_exec($command);
 }
+require("admin-header.php");
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo $OJ_LANG ?>">

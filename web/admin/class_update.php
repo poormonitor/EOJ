@@ -20,7 +20,6 @@
       <div class='row lg-container'>
         <?php require_once("sidebar.php") ?>
         <div class='col-md-10'>
-          <hr>
           <center>
             <h3><?php echo $MSG_SCHOOL . "-" . $MSG_EDIT ?></h3>
           </center>

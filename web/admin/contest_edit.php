@@ -90,7 +90,7 @@ if (isset($_POST['startdate'])) {
       }
     }
   }
-  
+
   header("Location: contest_list.php");
   exit(0);
 } else {
@@ -189,7 +189,7 @@ require_once("admin-header.php");
                 <select name='problem[]' id='multiple_problem' size="10" class="selectpicker show-menu-arrow form-control" multiple style='margin-top:10px;'>
                   <?php
                   $all = explode(",", $plist);
-                  $problems = pdo_query("select problem_id,title from problem;");
+                  $problems = pdo_query("SELECT problem_id,title from problem;");
                   $problem_array = array();
                   foreach ($problems as $i) {
                     $pid = $i[0];
@@ -206,16 +206,17 @@ require_once("admin-header.php");
                 <br>
               </p>
               <p align=left>
-                手动输入<br>
-                <input id='problem' data-role="tagsinput" class='form-control' style='margin-top:10px;' onchange='return set_tag(this)'></input>
+                <span>手动输入</span><br>
+                <input id='problem' data-role="tagsinput" class='form-control' style='margin-top:10px;' value="<?php echo $plist ?>" />
               </p>
               <br>
               <p align=left>
                 <?php echo "<h4>" . $MSG_CONTEST . "-" . $MSG_Description . "</h4>" ?>
                 <textarea id="tinymce0" rows=13 name=description cols=80>
-        <?php echo htmlentities($description, ENT_QUOTES, 'UTF-8') ?>
-      </textarea>
+                  <?php echo htmlentities($description, ENT_QUOTES, 'UTF-8') ?>
+                </textarea>
                 <br>
+              </p>
               <table width="100%">
                 <tr>
                   <td rowspan=2>
@@ -284,21 +285,8 @@ require_once("admin-header.php");
                 <input class='btn btn-default' type=submit value='<?php echo $MSG_SAVE ?>' name=submit>
                 <input class='btn btn-default' type=reset value=Reset name=reset>
               </div>
-              </p>
             </form>
           </div>
-
-          <script src='<?php echo $OJ_CDN_URL ?>include/bootstrap-tagsinput.min.js'></script>
-          <script>
-            function set_tag(self) {
-              info = $('#problem').tagsinput('items');
-              info.forEach(element => {
-                $('#multiple_problem').find("option[value='" + element + "']").attr("selected", true)
-              });
-              return true
-            }
-          </script>
-
           <br>
         </div>
       </div>
@@ -306,6 +294,25 @@ require_once("admin-header.php");
   </div>
   <?php require_once("../template/js.php"); ?>
   <?php require_once('../tinymce/tinymce.php'); ?>
+  <script src='<?php echo $OJ_CDN_URL ?>include/bootstrap-tagsinput.min.js'></script>
+  <script>
+    function selectToTag() {
+      var info = $('#multiple_problem').val();
+      $("#problem").val(info.join());
+      $('#problem').tagsinput('refresh');
+    }
+
+    function tagToSelect() {
+      var info = $('#problem').tagsinput("items");
+      $("#multiple_problem").val(info);
+    }
+
+    $(document).ready(function() {
+      $('#problem').on('itemRemoved', tagToSelect);
+      $('#problem').on('itemAdded', tagToSelect);
+      $("#multiple_problem").change(selectToTag);
+    })
+  </script>
 </body>
 
 </html>

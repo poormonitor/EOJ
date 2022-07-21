@@ -83,7 +83,7 @@
                 <div class='col-md-4'>
                   <div style='text-align:center;'><?php echo $MSG_GROUP ?></div>
                   <select class="form-control" size="1" name="gid">
-                    <option value='0'>删除组信息</option>
+                    <option value='0'><?php echo $MSG_DELETE ?></option>
                     <?php
                     require_once("../include/my_func.inc.php");
                     $sql_all = "SELECT * FROM `group`;";

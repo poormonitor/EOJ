@@ -1,5 +1,7 @@
 <?php
 $MSG_TRUE_FALSE = array(true => 'Yes', false => 'No');
+$MSG_TRUE = "Yes";
+$MSG_FALSE = "No";
 $MSG_GROUP = "Group";
 $MSG_FROM = "From";
 $MSG_TO = "To";
@@ -282,6 +284,7 @@ $MSG_IMPORT = "Import";
 $MSG_EXPORT = "Export";
 $MSG_UPDATE_DATABASE = "Update Database";
 $MSG_ONLINE = "Online";
+$MSG_CURRENT_ONLINE = "Current Online";
 $MSG_SET_LOGIN_IP = "Set Login IP";
 $MSG_PRIVILEGE_TYPE = "Privilege Type";
 $MSG_IP_MNGT = "IP White List";
@@ -365,6 +368,8 @@ $MSG_FLOATING_STATIC = "Is Static";
 $MSG_RECENT_LOGIN = "Recent Login";
 $MSG_REG_TIME = "Regesiter Time";
 $MSG_STUCK_IN_RUNNING = "Stuck in running";
+
+$MSG_VIEW_ERROR = "Allow View Error";
 
 $MSG_HELP_MODULE = "Install Python Modules.";
 $MSG_HELP_PROBLEM_2 = "Store some problems which is not showed and can be switched at any time";

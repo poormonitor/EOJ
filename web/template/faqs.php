@@ -69,16 +69,16 @@
                 <h2 class="ui header">Return result description</h2>
                 <div class="ques-view">
                     <p>After the answer to the test question is submitted, the scoring system will give an instant score, and the judgment result will be notified in time for each submission; the possible feedback information of the system includes:</p>
-                    <li>Waiting for evaluation: The evaluation system has not yet evaluated this submission, please wait.</li>
-                    <li>Evaluating: The evaluation system is evaluating, and there will be results later</li>
-                    <li>Compilation error: The code you submitted cannot be compiled, click "Compile Error" to see the error message output by the compiler</li>
-                    <li>Correct answer: Congratulations! You passed this question</li>
-                    <li>Format error: the format of your program output does not meet the requirements (such as spaces and newlines are inconsistent with the requirements)</li>
-                    <li>Incorrect answer: Your program failed to return correct results for the data from the profiling system</li>
-                    <li>Run Timeout: Your program failed to finish running within the specified time</li>
-                    <li>Memory limit exceeded: Your program is using more memory than the limit</li>
-                    <li>Running error: Your program crashed during operation, such as segmentation fault, floating point error, etc.</li>
-                    <li>Exceeded output limit: Your program outputs too much content, which may be the result of infinite loop output.</li>
+                    <li>Waiting for judging: The judging system has not yet judged this submission, please wait.</li>
+                    <li>Judging: The judging system is judging the submission, and there will be results later</li>
+                    <li>Compilation Error: The code you submitted cannot be compiled, click "Compile Error" to see the error message output by the compiler</li>
+                    <li>Accepted: Congratulations! You passed this question</li>
+                    <li>Format Error: the format of your program output does not meet the requirements (such as spaces and newlines are inconsistent with the requirements)</li>
+                    <li>Wrong Answer: Your program failed to return correct results for the data from the profiling system</li>
+                    <li>Time Limit Exceeded: Your program failed to finish running within the specified time</li>
+                    <li>Memory Limit Exceeded: Your program is using more memory than the limit</li>
+                    <li>Runtime Error: Your program crashed during operation, such as segmentation fault, floating point error, etc.</li>
+                    <li>Output Limit Exceeded: Your program outputs too much content, which may be the result of infinite loop output.</li>
                 </div>
                 <h3>Thank you for choosing <?php echo $OJ_NAME ?>. </h3>
             </div>

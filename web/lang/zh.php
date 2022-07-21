@@ -1,5 +1,7 @@
 <?php
 $MSG_TRUE_FALSE = array(true => '是', false => '否');
+$MSG_TRUE = "是";
+$MSG_FALSE = "否";
 $MSG_GROUP = "组";
 $MSG_FROM = "从";
 $MSG_TO = "到";
@@ -282,6 +284,7 @@ $MSG_IMPORT = "导入";
 $MSG_EXPORT = "导出";
 $MSG_UPDATE_DATABASE = "更新数据库";
 $MSG_ONLINE = "在线";
+$MSG_CURRENT_ONLINE = "在线";
 $MSG_SET_LOGIN_IP = "指定登录IP";
 $MSG_PRIVILEGE_TYPE = "权限 类型";
 $MSG_IP_MNGT = "IP白名单";
@@ -364,6 +367,8 @@ $MSG_FLOATING_STATIC = "是否固定";
 $MSG_RECENT_LOGIN = "最近登录";
 $MSG_REG_TIME = "注册时间";
 $MSG_STUCK_IN_RUNNING = "卡在运行中";
+
+$MSG_VIEW_ERROR = "查看错误信息";
 
 $MSG_HELP_MODULE = "安装Python模块。";
 $MSG_HELP_PROBLEM_2 = "存放一些题目但并不在前台展示，可以随时转换到前台。";

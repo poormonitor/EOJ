@@ -84,7 +84,7 @@
 
             <form action=user_add.php method=post class="form-horizontal">
               <div>
-                <label class="col-sm"><?php echo $MSG_USER_ID ?> <?php echo $MSG_PASSWORD ?> &nbsp;&nbsp;姓名（可选）</label>
+                <label class="col-sm"><?php echo $MSG_USER_ID ?> &nbsp; <?php echo $MSG_PASSWORD ?> &nbsp; <?php echo $MSG_NICK ?></label>
               </div>
               <div>
                 <?php echo "( Add new user, password and name(optional) with newline )" ?>

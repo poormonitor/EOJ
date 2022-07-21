@@ -32,17 +32,17 @@ require("admin-header.php"); ?>
               require_once("../include/check_get_key.php");
               $group_name = trim($_GET["group_name"]);
               if (count(pdo_query("SELECT COUNT(*) FROM group where name = ?", $group_name)) != 0) {
-                echo "<div class='alert alert-danger' role='alert' style='margin-left: 10px;margin-right: 10px;margin-top: 10px;'>有同名组，添加失败。</div>";
+                echo "<div class='alert alert-danger' role='alert' style='margin-left: 10px;margin-right: 10px;margin-top: 10px;'>$MSG_ERROR</div>";
               } else {
                 pdo_query("INSERT INTO `group` (`name`) VALUES (?);", $group_name);
-                echo "<div class='alert alert-success' role='alert' style='margin-left: 10px;margin-right: 10px;margin-top: 10px;'>添加成功！</div>";
+                echo "<div class='alert alert-success' role='alert' style='margin-left: 10px;margin-right: 10px;margin-top: 10px;'>$MSG_SUCCESS</div>";
               }
             }
             if (isset($_GET["del_group"])) {
               require_once("../include/check_get_key.php");
               $del_group = trim($_GET["del_group"]);
               pdo_query("DELETE FROM `group` WHERE `gid`=?;", $del_group);
-              echo "<div class='alert alert-success' role='alert' style='margin-left: 10px;margin-right: 10px;margin-top: 10px;'>删除成功！</div>";
+              echo "<div class='alert alert-success' role='alert' style='margin-left: 10px;margin-right: 10px;margin-top: 10px;'>$MSG_SUCCESS</div>";
             }
             if (isset($_GET["visiable"])) {
               require_once("../include/check_get_key.php");
@@ -53,7 +53,7 @@ require("admin-header.php"); ?>
               } else {
                 pdo_query("UPDATE `group` SET allow_view='N' WHERE gid=?", $gid);
               }
-              echo "<div class='alert alert-success' role='alert' style='margin-left: 10px;margin-right: 10px;margin-top: 10px;'>修改成功！</div>";
+              echo "<div class='alert alert-success' role='alert' style='margin-left: 10px;margin-right: 10px;margin-top: 10px;'>$MSG_SUCCESS</div>";
             }
           }
           ?>
@@ -80,9 +80,9 @@ require("admin-header.php"); ?>
                 <thead>
                   <tr>
                     <th class='center'>GID</th>
-                    <th class='center'>组名</th>
-                    <th class='center'>删除</th>
-                    <th class='center'>查看错误</th>
+                    <th class='center'><?php echo $MSG_GROUP ?></th>
+                    <th class='center'><?php echo $MSG_DELETE ?></th>
+                    <th class='center'><?php echo $MSG_VIEW_ERROR ?></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -91,11 +91,11 @@ require("admin-header.php"); ?>
                     echo "<tr>";
                     echo "<td>" . $row['gid'] . "</td>";
                     echo "<td>" . $row['name'] . "</td>";
-                    echo "<td><a href='group_list.php?do=do&del_group=" . $row['gid'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . "'>删除</a></td>";
+                    echo "<td><a href='group_list.php?do=do&del_group=" . $row['gid'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . "'>$MSG_DELETE</a></td>";
                     if ($row["allow_view"] == "Y") {
-                      echo "<td><a href='group_list.php?do=do&visiable=false&group=" . $row['gid'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . "'><span class=green>允许</span></a></td>";
+                      echo "<td><a href='group_list.php?do=do&visiable=false&group=" . $row['gid'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . "'><span class=green>$MSG_TRUE</span></a></td>";
                     } else {
-                      echo "<td><a href='group_list.php?do=do&visiable=true&group=" . $row['gid'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . "'><span class=red>禁止</span></a></td>";
+                      echo "<td><a href='group_list.php?do=do&visiable=true&group=" . $row['gid'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . "'><span class=red>$MSG_FALSE</span></a></td>";
                     }
 
                     echo "</tr>";
