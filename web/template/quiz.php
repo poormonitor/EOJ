@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="<?php echo $view_description ?>">
-  <meta name="author" content="<?php echo $OJ_NAME?>">
+  <meta name="author" content="<?php echo $OJ_NAME ?>">
   <link rel="shortcut icon" href="/favicon.ico">
 
   <title>
@@ -185,13 +185,16 @@
   <script>
     var diff = new Date("<?php echo date("Y/m/d H:i:s") ?>").getTime() - new Date().getTime();
     clock(diff);
-    $("td.ans").find("img").each(function(index, elem) {
-      var atag = $("<a data-fslightbox />")
+  </script>
+  <script src="<?php echo $OJ_CDN_URL . "include/" ?>simpleLightbox.min.js"></script>
+  <script>
+    $(".content").find("img").each(function(index, elem) {
+      var atag = $("<a class='image'></a>")
       atag.attr("href", $(elem).attr("src") + "&large=true")
       $(elem).wrap(atag)
     })
+    $(".image").simpleLightbox();
   </script>
-  <script src="<?php echo $OJ_CDN_URL . "template/" ?>fslightbox.js"></script>
 </body>
 
 </html>

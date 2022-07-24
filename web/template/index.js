@@ -110,7 +110,7 @@ function create_mce(students = false) {
                 inline: false,
                 plugins: 'paste print preview searchreplace autolink directionality visualblocks visualchars fullscreen image link media \
                         template codesample table charmap hr pagebreak nonbreaking anchor insertdatetime advlist lists wordcount \
-                        textpattern help emoticons autosave autoresize mathjax',
+                        textpattern help emoticons autosave autoresize mathjax code',
                 toolbar: 'code undo redo restoredraft | cut copy paste pastetext | forecolor backcolor bold italic underline strikethrough anchor | alignleft aligncenter alignright alignjustify outdent indent | \
                          formatselect fontselect fontsizeselect | bullist numlist | blockquote subscript superscript removeformat | \
                          table image media charmap emoticons hr pagebreak insertdatetime print preview | fullscreen | lineheight link mathjax',
