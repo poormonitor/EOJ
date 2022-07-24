@@ -64,7 +64,7 @@
 		<!-- Main component for a primary marketing message or call to action -->
 		<!-- <div class="jumbotron"></div> -->
 		<div class='jumbotron'>
-			<div class="panel panel-default">
+			<div class="panel panel-default panel-lg">
 				<div class="panel-heading">
 					<?php
 					if ($pr_flag) {
@@ -311,6 +311,41 @@
 			});
 		}
 	</script>
+	<script src="<?php echo $OJ_CDN_URL . "include/" ?>simpleLightbox.min.js"></script>
+	<script>
+		$(".content").find("img").each(function(index, elem) {
+			var atag = $("<a class='image'></a>")
+			atag.attr("href", $(elem).attr("src"))
+			$(elem).wrap(atag)
+		})
+		$(".image").simpleLightbox();
+	</script>
+	<?php if ($row["background"]) { ?>
+		<style>
+			@media (prefers-color-scheme: light) {
+				body {
+					opacity: 0.9;
+					background: url("<?php echo $row["background"] ?>") no-repeat 50% 50% / cover;
+					background-attachment: fixed;
+				}
+
+				.footer-container {
+					background: rgba(255, 255, 255, 0.9);
+					margin: 18px 2rem 18px 2rem;
+					padding: 1em;
+					border-radius: 20px;
+				}
+
+				.panel {
+					background: rgba(255, 255, 255, 0);
+				}
+
+				.panel-body {
+					background: rgba(255, 255, 255, 1);
+				}
+			}
+		</style>
+	<?php } ?>
 </body>
 
 </html>

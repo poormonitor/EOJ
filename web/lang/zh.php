@@ -285,6 +285,7 @@ $MSG_EXPORT = "导出";
 $MSG_UPDATE_DATABASE = "更新数据库";
 $MSG_ONLINE = "在线";
 $MSG_CURRENT_ONLINE = "在线";
+$MSG_BACKGROUND = "背景图片";
 $MSG_SET_LOGIN_IP = "指定登录IP";
 $MSG_PRIVILEGE_TYPE = "权限 类型";
 $MSG_IP_MNGT = "IP白名单";

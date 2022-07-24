@@ -285,6 +285,7 @@ $MSG_EXPORT = "Export";
 $MSG_UPDATE_DATABASE = "Update Database";
 $MSG_ONLINE = "Online";
 $MSG_CURRENT_ONLINE = "Current Online";
+$MSG_BACKGROUND = "Background Image";
 $MSG_SET_LOGIN_IP = "Set Login IP";
 $MSG_PRIVILEGE_TYPE = "Privilege Type";
 $MSG_IP_MNGT = "IP White List";

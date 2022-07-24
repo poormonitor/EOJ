@@ -168,14 +168,15 @@ require_once("admin-header.php");
         </div>
     </div>
     <?php require_once("../template/js.php"); ?>
+    <script src="<?php echo $OJ_CDN_URL . "include/" ?>simpleLightbox.min.js"></script>
     <script>
-        $("td.ans").find("img").each(function(index, elem) {
-            var atag = $("<a data-fslightbox />")
+        $(".content").find("img").each(function(index, elem) {
+            var atag = $("<a class='image'></a>")
             atag.attr("href", $(elem).attr("src") + "&large=true")
             $(elem).wrap(atag)
         })
+        $(".image").simpleLightbox();
     </script>
-    <script src="<?php echo $OJ_CDN_URL . "template/" ?>fslightbox.js"></script>
 </body>
 
 </html> ?>

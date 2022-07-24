@@ -84,6 +84,12 @@ require_once("../include/my_func.inc.php"); ?>
                                     <textarea id="tinymce3" rows=13 name=hint cols=80><?php echo htmlentities($row['hint'], ENT_QUOTES, "UTF-8") ?></textarea><br>
                                 </p>
 
+                                <p align=left>
+                                    <?php echo "<h4>" . $MSG_BACKGROUND . "</h4>" ?>
+                                    <input class="input form-control" style='width:90%;height:auto;' type=text name=background value='<?php echo htmlentities($row['background'], ENT_QUOTES, "UTF-8") ?>'>
+                                    <br>
+                                </p>
+
                                 <p>
                                     <?php echo "<h4>" . $MSG_SPJ . "</h4>" ?>
                                 <p><?php echo $MSG_HELP_SPJ ?></p>
@@ -225,6 +231,8 @@ require_once("../include/my_func.inc.php"); ?>
                             $allow = join(" ", explode(",", trim($_POST['allow'])));
                             $block = join(" ", explode(",", trim($_POST['block'])));
 
+                            $background = $_POST["background"];
+
                             $title = ($title);
                             $basedir = $OJ_DATA . "/$id";
 
@@ -241,9 +249,9 @@ require_once("../include/my_func.inc.php"); ?>
 
                             $spj = intval($spj);
 
-                            $sql = "UPDATE `problem` SET `title`=?,`time_limit`=?,`memory_limit`=?, `description`=?,`input`=?,`output`=?,`sample_input`=?,`sample_output`=?,`hint`=?,`source`=?,`spj`=?,`in_date`=NOW(), `blank`=NULL, `allow`=NULL, `block`=NULL WHERE `problem_id`=?";
+                            $sql = "UPDATE `problem` SET `title`=?,`time_limit`=?,`memory_limit`=?, `description`=?,`input`=?,`output`=?,`sample_input`=?,`sample_output`=?,`hint`=?,`source`=?,`spj`=?, `background`=?, `in_date`=NOW(), `blank`=NULL, `allow`=NULL, `block`=NULL WHERE `problem_id`=?";
 
-                            //pdo_query($sql, $title, $time_limit, $memory_limit, $description, $input, $output, $sample_input, $sample_output, $hint, $source, $spj, $id);
+                            pdo_query($sql, $title, $time_limit, $memory_limit, $description, $input, $output, $sample_input, $sample_output, $hint, $source, $spj, $background, $id);
 
                             if ($_POST['blank'] == '1') {
                                 $sql = "SELECT * FROM `problem` WHERE `problem_id`=?";
