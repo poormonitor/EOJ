@@ -109,7 +109,7 @@ require_once("../include/my_func.inc.php"); ?>
                                 <div id='blank_code'>
                                     <h4><?php echo $MSG_BLANK_TEMPLATE ?></h4>
                                     <h5><?php echo $MSG_TEMPLATE_EXPLAIN ?></h5>
-                                    <textarea hidden='hidden' id='multiline' name='blank_code' autocomplete='off'></textarea>
+                                    <textarea hidden='hidden' id='multiline' name='blank_code' autocomplete='off'><?php echo $row['blank'] ?></textarea>
                                     <div class="editor-border" id=source style='height:300px;width:auto;margin-top:8px;'></div>
                                     <br>
                                 </div>
@@ -128,7 +128,6 @@ require_once("../include/my_func.inc.php"); ?>
                                     <?php echo "<h4>" . $MSG_SOURCE . "</h4>" ?>
                                     <input name=source class="form-control" data-role="tagsinput" value='<?php echo htmlentities(join(",", explode(" ", $row['source'])), ENT_QUOTES, "UTF-8") ?>'></input><br><br>
                                 </p>
-
                                 <div align=center>
                                     <?php require_once("../include/set_post_key.php"); ?>
                                     <input class='btn btn-default' type=submit value='<?php echo $MSG_SAVE ?>' name=submit>

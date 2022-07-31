@@ -156,7 +156,7 @@ $banner = isset($_GET["status"]);
 									</div>
 								</form>
 								<form action='rejudge.php' method=post class='form-group'>
-									<label class='control-label col-sm-4'>
+									<label class='control-label col-sm-4 red'>
 										<?php echo $MSG_DELETE ?>
 									</label>
 									<div class='col-sm-4'>

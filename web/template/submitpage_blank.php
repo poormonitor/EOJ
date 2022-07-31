@@ -280,6 +280,28 @@
             })
         </script>
     <?php } ?>
+    <?php if (isset($background_url)) { ?>
+        <style>
+            @media (prefers-color-scheme: light) {
+                body {
+                    opacity: 0.95;
+                    background: url("<?php echo $background_url ?>") no-repeat 50% 50% / cover;
+                    background-attachment: fixed;
+                }
+
+                .footer-container {
+                    background: rgba(255, 255, 255, 0.9);
+                    margin: 18px 2rem 18px 2rem;
+                    padding: 1em;
+                    border-radius: 20px;
+                }
+
+                .container .jumbotron {
+                    background-color: rgba(255, 255, 255, 0.9);
+                }
+            }
+        </style>
+    <?php } ?>
 </body>
 
 </html>

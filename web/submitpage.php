@@ -84,7 +84,7 @@ if (isset($_GET['sid'])) {
 
 		if ($row)
 			$view_src = $row['source'];
-			$view_src = unifyCode($view_src);
+		$view_src = unifyCode($view_src);
 
 		if ($language_id == 6)
 			$view_src = str_replace('# coding=utf-8' . PHP_EOL, "", $view_src);
@@ -158,7 +158,7 @@ if ($row[0] > 10) {
 	//$OJ_TEST_RUN=false;
 	//echo "$row[0]";
 }
-$blank = pdo_query("select blank from problem where problem_id=?", $problem_id)[0][0];
+$blank = pdo_query("SELECT blank from problem where problem_id=?", $problem_id)[0][0];
 $blank = unifyCode($blank);
 
 $no_blank = (isset($_GET["blank"]) && $_GET["blank"] == 'false');
@@ -207,8 +207,14 @@ if ($blank != NULL) {
 
 	if (!$view_src)
 		$view_src = $copy;
-		
+
 	$copy = htmlentities($copy, ENT_QUOTES, "UTF-8");
+}
+
+$sql = "SELECT `background` FROM `problem` WHERE `problem_id` = ?";
+$result = pdo_query($sql, $problem_id);
+if ($result && $result[0] && $result[0][0]) {
+	$background_url = $result[0][0];
 }
 
 if (isset($code) and !$no_blank) {

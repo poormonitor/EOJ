@@ -52,19 +52,20 @@ if (!count($result)) {
   require("template/error.php");
   exit(0);
 }
+
 $row = $result[0];
 $lang = $row['language'];
+$pid = $row["problem_id"];
 $contest_id = intval($row['contest_id']);
+$user_id = $row["user_id"];
 $isRE = $row['result'] == 10;
-$allow = pdo_query("select `group`.allow_view from `group` join users on users.gid=`group`.gid where users.user_id=?", $_SESSION[$OJ_NAME . '_' . 'user_id']);
-$allow = isset($allow[0]) ? $allow[0]['allow_view'] : "N";
-if ($allow == "Y") {
-  $result = pdo_query("select user_id from solution where solution_id=?", $id)[0][0];
-  if ($result != $_SESSION[$OJ_NAME . '_' . 'user_id']) {
-    $allow = "N";
-  }
-}
-if (isset($_SESSION[$OJ_NAME . '_' . 'source_browser']) or $allow == "Y") {
+
+if (
+  isset($_SESSION[$OJ_NAME . '_' . 'source_browser'])
+  || (isset($_SESSION[$OJ_NAME . '_' . "allow_view"])
+    && $_SESSION[$OJ_NAME . '_' . "allow_view"]
+    && $user_id == $_SESSION[$OJ_NAME . '_' . 'user_id'])
+) {
   $ok = true;
 }
 
@@ -96,9 +97,23 @@ if (isset($_SESSION[$OJ_NAME . '_' . 'source_browser']) or $allow == "Y") {
   exit(0);
 }
 
+if (strstr($view_reinfo, "File too large")) {
+  preg_match("#\[(.*)\]\n\nInput\nFile too large#m", $view_reinfo, $matches);
+  if ($matches) {
+    $file = $matches[1];
+    $file = str_replace(".out", ".in", $file);
+    if (isset($_SESSION[$OJ_NAME . "_" . "testfile"])) {
+      array_push($_SESSION[$OJ_NAME . "_" . "testfile"], "$pid/$file");
+    } else {
+      $_SESSION[$OJ_NAME . "_" . "testfile"] = array("$pid/$file");
+    }
+    $file = urlencode($file);
+    $a_tag = "<a href='./testfile_download.php?pid=$pid&name=$file'>Download</a>";
+    $view_reinfo = str_replace("File too large", "File too large, $a_tag", $view_reinfo);
+  }
+}
 
-
-if ($OJ_SHOW_DIFF == false) {
+if (!$OJ_SHOW_DIFF) {
   $view_swal = $MSG_WARNING_ACCESS_DENIED;
   require("template/error.php");
   exit(0);
