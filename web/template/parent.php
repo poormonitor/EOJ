@@ -37,7 +37,7 @@
         </table>
         <br><br>
         <?php if (!isset($no_query)) { ?>
-          <?php if (count($user) == 0) { ?>
+          <?php if (is_array($user) && count($user) == 0) { ?>
             <h2 class="text-center"><?php echo $MSG_NOT_FOUND ?></h2><br>
             <?php } elseif (is_array($user)) {
             if (count($user) != 1) {

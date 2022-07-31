@@ -31,15 +31,15 @@ $contests_private = pdo_query("SELECT `contest`.contest_id FROM `contest_problem
 
 if (isset($_GET['user']) and $_GET['user'] != '') {
     $user = trim($_GET['user']);
-    $user = pdo_query("select user_id from users where user_id = ? or nick = ?", $user, $user);
+    $user = pdo_query("SELECT user_id from users where user_id = ? or nick = ?", $user, $user);
     $user_array = array();
     foreach ($user as $m) {
         array_push($user_array, $m[0]);
     }
     $user_str = join("','", $user_array);
-    $nick = pdo_query("select `nick` from `users` where `user_id` IN (?) ORDER BY `user_id` ASC;", $user_str);
-    $group = pdo_query("select `group`.`name` from `users` join `group` on `users`.`gid` = `group`.`gid` where `user_id` IN (?) ORDER BY `user_id` ASC;", $user_str);
-    $school = pdo_query("select `school` from `users` where `user_id` IN (?) ORDER BY `user_id` ASC;", $user_str);
+    $nick = pdo_query("SELECT `nick` from `users` where `user_id` IN (?) ORDER BY `user_id` ASC;", $user_str);
+    $group = pdo_query("SELECT `group`.`name` from `users` join `group` on `users`.`gid` = `group`.`gid` where `user_id` IN (?) ORDER BY `user_id` ASC;", $user_str);
+    $school = pdo_query("SELECT `school` from `users` where `user_id` IN (?) ORDER BY `user_id` ASC;", $user_str);
     $contest_array = array();
     if (count($user) != 1) {
         require_once("template/parent.php");
@@ -63,8 +63,8 @@ $_SESSION[$OJ_NAME . '_' . "last_parent_user"] = $user;
 foreach ($contests_private as $i) {
     $cid = $i[0];
     $right = "c" . $cid;
-    $sql = "select count(*) from privilege where user_id=? and rightstr='$right' and defunct='N' and valuestr='true'";
-    $sql2 = "select count(*) from privilege_group where gid=? and rightstr='$right' and defunct='N' and valuestr='true'";
+    $sql = "SELECT count(*) from privilege where user_id=? and rightstr='$right' and defunct='N' and valuestr='true'";
+    $sql2 = "SELECT count(*) from privilege_group where gid=? and rightstr='$right' and defunct='N' and valuestr='true'";
     $result = pdo_query($sql, $user)[0][0];
     $result2 = pdo_query($sql2, $gid)[0][0];
     if ($result + $result2) {
@@ -78,21 +78,21 @@ foreach ($contest as $i) {
 asort($contest_array);
 $contests = array();
 foreach ($contest_array as $i) {
-    $basic = pdo_query("select contest_id,title,end_time from contest where contest_id = ?", $i)[0];
-    $problem_id = pdo_query("select problem_id from contest_problem where contest_id=? order by problem_id asc", $i);
+    $basic = pdo_query("SELECT contest_id,title,end_time from contest where contest_id = ?", $i)[0];
+    $problem_id = pdo_query("SELECT problem_id from contest_problem where contest_id=? order by problem_id asc", $i);
     $end_time = $basic[2];
     $problem = array();
     foreach ($problem_id as $p) {
         $problems = array();
         $pid = $p[0];
         array_push($problems, $pid);
-        $before_ac = intval(pdo_query("select count(`solution_id`) from `solution` where `user_id`=? and `problem_id`='$pid' and `in_date`<='$end_time' and result = 4;", $user)[0][0]);
+        $before_ac = intval(pdo_query("SELECT count(`solution_id`) from `solution` where `user_id`=? and `problem_id`='$pid' and `in_date`<='$end_time' and result = 4;", $user)[0][0]);
         array_push($problems, $before_ac);
-        $before = intval(pdo_query("select count(`solution_id`) from `solution` where `user_id`=? and `problem_id`='$pid' and `in_date`<='$end_time';", $user)[0][0]);
+        $before = intval(pdo_query("SELECT count(`solution_id`) from `solution` where `user_id`=? and `problem_id`='$pid' and `in_date`<='$end_time';", $user)[0][0]);
         array_push($problems, $before);
-        $after_ac = intval(pdo_query("select count(*) from `solution` where `user_id`=? and `problem_id`='$pid' and result = 4;", $user)[0][0]);
+        $after_ac = intval(pdo_query("SELECT count(*) from `solution` where `user_id`=? and `problem_id`='$pid' and result = 4;", $user)[0][0]);
         array_push($problems, $after_ac);
-        $after = intval(pdo_query("select count(*) from `solution` where `user_id`=? and `problem_id`='$pid';", $user)[0][0]);
+        $after = intval(pdo_query("SELECT count(*) from `solution` where `user_id`=? and `problem_id`='$pid';", $user)[0][0]);
         array_push($problems, $after);
         $count = intval(pdo_query("SELECT COUNT(*) FROM sim JOIN solution ON solution.solution_id = sim.s_id WHERE solution.user_id = ? AND solution.problem_id= ?;", $user, $pid)[0][0]);
         array_push($problems, $count);
