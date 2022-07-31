@@ -7,7 +7,7 @@
         require_once('./include/const.inc.php');
         require_once('./include/memcache.php');
 	require_once('./include/setlang.php');
-	$view_title= "Welcome To Online Judge";
+	$view_title= $OJ_NAME;
  $result=false;	
 ///////////////////////////MAIN	
 	

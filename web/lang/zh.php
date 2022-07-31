@@ -159,6 +159,9 @@ $MSG_EMAIL = "电子邮件";
 $MSG_REG_INFO = "设置注册信息";
 $MSG_VCODE = "验证码";
 
+$MSG_PASSWORD_RESET = "密码重置激活";
+$MSG_PASSWORD_RESET_HINT = "%s:\n您好！\n您在 %s 选择了找回密码服务,为了验证您的身份,请将下面字串输入口令重置页面以确认身份:\n%s\n请注意，这则密码将会在重置成功后成为您的临时密码。\n\n";
+
 //problem.php
 $MSG_NO_SUCH_PROBLEM = "当前题目不可用。它可能被用于未来的作业、过去的私有作业，或者管理员由于尚未测试通过等其他原因暂时停止了该题目用于练习。";
 $MSG_Description = "题目描述";
@@ -244,8 +247,8 @@ $MSG_NOT_PASS = "未通过";
 $MSG_UNFINISHED = "未完成";
 $MSG_IS_FINISHED_IN_TIME = "是否按时完成";
 $MSG_IS_SIM_CHECKED = "是否被查重";
-$MSG_SIM_YES ="被查重";
-$MSG_SIM_NO ="未被查重";
+$MSG_SIM_YES = "被查重";
+$MSG_SIM_NO = "未被查重";
 $MSG_PARENT_EXPLAIN = "<div class='status_explain'><p>状态解释：<li>未提交，意为用户并未在系统中提交任何代码。</li><li>未通过，意为用户提交过代码，但没能完全通过测评。</li><li>已完成，意为用户的代码通过测评。</li><li>被查重，仅代表提交的代码在已提交中有相似者，并不能作为抄袭的依据。</li></p></div><p>本页面所提供之数据，仅为被查询用户在本系统中的使用情况之显示，并不构成任何意思表示。</p>";
 
 //admin menu

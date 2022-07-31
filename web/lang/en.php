@@ -159,6 +159,9 @@ $MSG_EMAIL = "Email";
 $MSG_REG_INFO = "Register Information";
 $MSG_VCODE = "Verify Code";
 
+$MSG_PASSWORD_RESET = "Password Reset";
+$MSG_PASSWORD_RESET_HINT = "%s:\nHi!\nYou have requested the password reset at %s. In order to verify your identity, please enter the following string into the password reset page to confirm your identity:\n%s\ nPlease note that this password will become your temporary password after a successful reset.\n\n";
+
 //problem.php
 $MSG_NO_SUCH_PROBLEM = "Problem is not Available!";
 $MSG_Description = "Description";

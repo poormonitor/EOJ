@@ -1,6 +1,6 @@
 <?php
+require_once("./include/db_info.inc.php");
 if (isset($_GET['lang']) && in_array($_GET['lang'], array("zh", "en"))) {
-    session_start();
     $_SESSION[$OJ_NAME . '_' . 'OJ_LANG'] = $_GET['lang'];
     setcookie("lang", $_GET['lang'], time() + 604800, $secure = true);
 }

@@ -83,7 +83,7 @@
 
 		$sql = "SELECT `gid` FROM `users` WHERE `user_id`=?";
 		$result = pdo_query($sql, $login);
-		if ($result) {
+		if ($result[0][0]) {
 			$_SESSION[$OJ_NAME . '_' . "gid"] = $result[0][0];
 
 			$sql = "SELECT allow_view from `group` where gid=?";
