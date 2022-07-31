@@ -298,8 +298,12 @@ require_once("admin-header.php");
   <script>
     function selectToTag() {
       var info = $('#multiple_problem').val();
-      $("#problem").val(info.join());
-      $('#problem').tagsinput('refresh');
+      var ti = $("#problem")
+      ti.tagsinput("removeAll");
+      info.forEach(element => {
+        ti.tagsinput("add", element)
+      });
+      ti.tagsinput('refresh');
     }
 
     function tagToSelect() {

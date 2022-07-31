@@ -722,7 +722,7 @@ void make_diff_out_simple(FILE *f1, FILE *f2, int c1, int c2, const char *path, 
 {
 	execute_cmd("echo -e '[%s]' >> diff.out", getFileNameFromPath(path));
 	execute_cmd("echo -e '\nInput' >> diff.out", getFileNameFromPath(path));
-	if (get_file_size(infile) <= 1024)
+	if (get_file_size(infile) <= 2048)
 	{
 		execute_cmd("cat %s >> diff.out", infile);
 	}
@@ -2477,9 +2477,11 @@ void run_solution(int &lang, char *work_dir, double &time_lmt, int &usedtime,
 			stdin = freopen(data_file_path, "r", stdin);
 		}
 	}
+
 	execute_cmd("touch %s/user.out", work_dir);
 	execute_cmd("chown judge %s/user.out", work_dir);
 	execute_cmd("chmod 760 %s/user.out", work_dir);
+	execute_cmd("cat /dev/null > %s/error_now.out", work_dir);
 
 	if (copy_data)
 	{
@@ -2488,7 +2490,7 @@ void run_solution(int &lang, char *work_dir, double &time_lmt, int &usedtime,
 	}
 
 	stdout = freopen("user.out", "w", stdout);
-	stderr = freopen("error.out", "a+", stderr);
+	stderr = freopen("error_now.out", "a+", stderr);
 
 	// trace me
 	ptrace(PTRACE_TRACEME, 0, NULL, NULL);
@@ -2641,7 +2643,7 @@ int fix_python_mis_judge(char *work_dir, int &ACflg, int &topmemory,
 	int comp_res2 = OJ_AC;
 
 	comp_res1 = execute_cmd(
-		"/bin/grep 'MemoryError'  %serror.out", work_dir);
+		"/bin/grep 'MemoryError'  %s/error_now.out", work_dir);
 
 	if (!comp_res1)
 	{
@@ -2651,7 +2653,7 @@ int fix_python_mis_judge(char *work_dir, int &ACflg, int &topmemory,
 	}
 
 	comp_res2 = execute_cmd(
-		"/bin/grep 'Error'  %serror.out", work_dir);
+		"/bin/grep 'Error'  %s/error_now.out", work_dir);
 
 	if (!comp_res2)
 	{
@@ -2666,19 +2668,19 @@ int fix_java_mis_judge(char *work_dir, int &ACflg, int &topmemory,
 					   int mem_lmt)
 {
 	int comp_res = OJ_AC;
-	execute_cmd("chmod 700 %s/error.out", work_dir);
+	execute_cmd("chmod 700 %s/error_now.out", work_dir);
 	if (DEBUG)
-		execute_cmd("cat %s/error.out", work_dir);
-	comp_res = execute_cmd("/bin/grep 'Exception'  %s/error.out", work_dir);
+		execute_cmd("cat %s/error_now.out", work_dir);
+	comp_res = execute_cmd("/bin/grep 'Exception'  %s/error_now.out", work_dir);
 	if (!comp_res)
 	{
 		printf("Exception reported\n");
 		ACflg = OJ_RE;
 	}
-	execute_cmd("cat %s/error.out", work_dir);
+	execute_cmd("cat %s/error_now.out", work_dir);
 
 	comp_res = execute_cmd(
-		"/bin/grep 'java.lang.OutOfMemoryError'  %s/error.out", work_dir);
+		"/bin/grep 'java.lang.OutOfMemoryError'  %s/error_now.out", work_dir);
 
 	if (!comp_res)
 	{
@@ -2693,7 +2695,7 @@ int fix_java_mis_judge(char *work_dir, int &ACflg, int &topmemory,
 		ACflg = OJ_ML;
 		topmemory = mem_lmt * STD_MB;
 	}
-	comp_res = execute_cmd("/bin/grep 'Could not create'  %s/error.out",
+	comp_res = execute_cmd("/bin/grep 'Could not create'  %s/error_now.out",
 						   work_dir);
 	if (!comp_res)
 	{
@@ -2841,6 +2843,12 @@ void judge_solution(int &ACflg, int &usedtime, double time_lmt, int isspj,
 	{
 		comp_res = fix_python_mis_judge(work_dir, ACflg, topmemory, mem_lmt);
 	}
+
+	if (ACflg == OJ_RE && num_of_error == 1)
+	{
+		execute_cmd("cat %s/error_now.out > %s/error.out", work_dir, work_dir);
+		num_of_error++;
+	}
 }
 
 int get_page_fault_mem(struct rusage &ruse, pid_t &pidApp)
@@ -2861,7 +2869,7 @@ int get_page_fault_mem(struct rusage &ruse, pid_t &pidApp)
 void print_runtimeerror(char *infile, char *err)
 {
 	FILE *ferr = fopen("error.out", "a+");
-	fprintf(ferr, "%s:%s\n", infile, err);
+	fprintf(ferr, "%s: %s\n", infile, err);
 	fclose(ferr);
 }
 
@@ -2930,7 +2938,7 @@ void watch_solution(pid_t pidApp, char *infile, int &ACflg, int isspj,
 		if (WIFEXITED(status))
 			break;
 
-		if (!isspj && (lang < 7 || lang == 9) && get_file_size("error.out") && !oi_mode)
+		if (!isspj && (lang < 7 || lang == 9) && get_file_size("error_now.out") && !oi_mode)
 		{
 			ACflg = OJ_RE;
 			// addreinfo(solution_id);
@@ -3626,7 +3634,7 @@ int main(int argc, char **argv)
 		}
 		if (DEBUG)
 			printf("custom running result:%d PEflg:%d\n", ACflg, PEflg);
-		if (ACflg == OJ_RE || get_file_size("error.out") > 0)
+		if (ACflg == OJ_RE || get_file_size("error_now.out") > 0)
 		{
 			if (DEBUG)
 				printf("add RE info of %d..... \n", solution_id);
@@ -3652,7 +3660,6 @@ int main(int argc, char **argv)
 	rewinddir(dp);
 */
 	num_of_test = namelist_len;
-
 	int num_of_error = 0;
 
 	for (int i = 0; (oi_mode || ACflg == OJ_AC || ACflg == OJ_PE) && i < namelist_len; i++)

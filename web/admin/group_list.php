@@ -1,5 +1,39 @@
 <?php
-require("admin-header.php"); ?>
+if (isset($_GET['do'])) {
+  require_once("../include/db_info.inc.php");
+  require_once("../include/my_func.inc.php");
+
+  if (isset($_GET["group_name"])) {
+    require_once("../include/check_get_key.php");
+    $group_name = trim($_GET["group_name"]);
+    if (count(pdo_query("SELECT COUNT(*) FROM group where name = ?", $group_name)) == 0) {
+      pdo_query("INSERT INTO `group` (`name`) VALUES (?);", $group_name);
+    }
+  }
+
+  if (isset($_GET["del_group"])) {
+    require_once("../include/check_get_key.php");
+    $del_group = trim($_GET["del_group"]);
+    pdo_query("DELETE FROM `group` WHERE `gid`=?;", $del_group);
+  }
+
+  if (isset($_GET["visiable"])) {
+    require_once("../include/check_get_key.php");
+    $visiable = trim($_GET["visiable"]);
+    $gid = trim($_GET["group"]);
+    if ($visiable == "true") {
+      pdo_query("UPDATE `group` SET allow_view='Y' WHERE gid=?", $gid);
+    } else {
+      pdo_query("UPDATE `group` SET allow_view='N' WHERE gid=?", $gid);
+    }
+  }
+
+  header("Location: group_list.php");
+  exit(0);
+}
+
+require("admin-header.php");
+?>
 
 <!DOCTYPE html>
 <html lang="<?php echo $OJ_LANG ?>">
@@ -22,41 +56,6 @@ require("admin-header.php"); ?>
       <div class='row lg-container'>
         <?php require_once("sidebar.php") ?>
         <div class='col-md-10'>
-
-          <?php
-          require_once("../include/db_info.inc.php");
-          require_once("../include/my_func.inc.php");
-
-          if (isset($_GET['do'])) {
-            if (isset($_GET["group_name"])) {
-              require_once("../include/check_get_key.php");
-              $group_name = trim($_GET["group_name"]);
-              if (count(pdo_query("SELECT COUNT(*) FROM group where name = ?", $group_name)) != 0) {
-                echo "<div class='alert alert-danger' role='alert' style='margin-left: 10px;margin-right: 10px;margin-top: 10px;'>$MSG_ERROR</div>";
-              } else {
-                pdo_query("INSERT INTO `group` (`name`) VALUES (?);", $group_name);
-                echo "<div class='alert alert-success' role='alert' style='margin-left: 10px;margin-right: 10px;margin-top: 10px;'>$MSG_SUCCESS</div>";
-              }
-            }
-            if (isset($_GET["del_group"])) {
-              require_once("../include/check_get_key.php");
-              $del_group = trim($_GET["del_group"]);
-              pdo_query("DELETE FROM `group` WHERE `gid`=?;", $del_group);
-              echo "<div class='alert alert-success' role='alert' style='margin-left: 10px;margin-right: 10px;margin-top: 10px;'>$MSG_SUCCESS</div>";
-            }
-            if (isset($_GET["visiable"])) {
-              require_once("../include/check_get_key.php");
-              $visiable = trim($_GET["visiable"]);
-              $gid = trim($_GET["group"]);
-              if ($visiable == "true") {
-                pdo_query("UPDATE `group` SET allow_view='Y' WHERE gid=?", $gid);
-              } else {
-                pdo_query("UPDATE `group` SET allow_view='N' WHERE gid=?", $gid);
-              }
-              echo "<div class='alert alert-success' role='alert' style='margin-left: 10px;margin-right: 10px;margin-top: 10px;'>$MSG_SUCCESS</div>";
-            }
-          }
-          ?>
           <center>
             <h3><?php echo $MSG_GROUP . "-" . $MSG_LIST ?></h3>
           </center>
@@ -105,7 +104,6 @@ require("admin-header.php"); ?>
             </div>
           </div>
           <br><br>
-          <br>
         </div>
       </div>
     </div>

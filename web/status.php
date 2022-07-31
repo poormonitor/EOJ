@@ -465,7 +465,10 @@ for ($i = 0; $i < $rows_cnt; $i++) {
   }
 
   if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
-    $view_status[$i][8] = $row['in_date'] . "[" . (strtotime($row['judgetime']) - strtotime($row['in_date'])) . "]";
+    $rs = (strtotime($row['judgetime']) - strtotime($row['in_date']));
+    if ($rs >= 100)
+      $rs = "-";
+    $view_status[$i][8] = $row['in_date'] . "[" . $rs . "]";
     $view_status[$i][9] = $row['judger'];
   } else
     $view_status[$i][8] = $row['in_date'];

@@ -86,6 +86,10 @@
 		if ($result) {
 			$_SESSION[$OJ_NAME . '_' . "gid"] = $result[0][0];
 
+			$sql = "SELECT allow_view from `group` where gid=?";
+			$allow = pdo_query($sql, $_SESSION[$OJ_NAME . '_' . "gid"]);
+			$_SESSION[$OJ_NAME . '_' . "allow_view"] = $allow[0][0] == "Y";
+
 			$sql = "SELECT * FROM `privilege_group` WHERE `gid`=?";
 			$group_privileges = pdo_query($sql, $_SESSION[$OJ_NAME . '_' . "gid"]);
 
