@@ -5,9 +5,9 @@ $OJ_CACHE_SHARE = false;
 require_once('./include/cache_start.php');
 require_once('./include/db_info.inc.php');
 require_once('./include/setlang.php');
-$view_title = "Welcome To Online Judge";
+$view_title = $OJ_NAME;
 if (!isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
-	$view_swal = "请先登录";
+	$view_swal = $MSG_NOT_LOGINED;
 	$error_location = "loginpage.php";
 	require("template/error.php");
 	exit(0);

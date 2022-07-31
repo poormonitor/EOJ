@@ -24,7 +24,7 @@ if (isset($_POST["del"])) {
 $ips = pdo_query("SELECT * FROM `ip`");
 
 $on = new online();
-$view_title = "Welcome To Online Judge";
+$view_title = $OJ_NAME;
 require_once('./include/iplocation.php');
 $ip = new IpLocation();
 $users = $on->getAll();

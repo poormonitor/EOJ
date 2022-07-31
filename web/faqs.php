@@ -4,7 +4,7 @@ $OJ_CACHE_SHARE = false;
 require_once('./include/cache_start.php');
 require_once('./include/db_info.inc.php');
 require_once('./include/setlang.php');
-$view_title = "Welcome To Online Judge";
+$view_title = $OJ_NAME;
 if (file_exists("template/faqs.$OJ_LANG.php")) {
     require("template/faqs.$OJ_LANG.php");
 } else {
