@@ -7,7 +7,7 @@
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="">
-	<meta name="author" content="<?php echo $OJ_NAME?>">
+	<meta name="author" content="<?php echo $OJ_NAME ?>">
 	<link rel="shortcut icon" href="/favicon.ico">
 
 	<title>
@@ -110,10 +110,12 @@
 					//echo "<input type=submit>";
 					*/
 					}
-					echo "<input type=submit class='form-control' value='$MSG_SEARCH'>";
+					?>
+					<input type=submit class='btn btn-default' value='<?php echo $MSG_SEARCH ?>'>
+					<?php
 					if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
 						$href = str_replace("status.php", "statusadmin.php", $_SERVER['REQUEST_URI']);
-						echo "<a class='btn btn-default' href='$href' role='button'style='margin:5px;' > Admin $MSG_SEARCH</a>";
+						echo "<a class='btn btn-default' href='$href' role='button'> Admin $MSG_SEARCH</a>";
 					}
 					?>
 
