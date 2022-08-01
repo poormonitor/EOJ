@@ -1159,7 +1159,6 @@ void _addreinfo_http(int solution_id, const char *filename)
 }
 void addreinfo(int solution_id)
 {
-	execute_cmd("echo '\n' >> error.out");
 	execute_cmd("cat diff.out >> error.out");
 	if (http_judge)
 	{
@@ -2844,9 +2843,15 @@ void judge_solution(int &ACflg, int &usedtime, double time_lmt, int isspj,
 		comp_res = fix_python_mis_judge(work_dir, ACflg, topmemory, mem_lmt);
 	}
 
+	if (ACflg == OJ_WA)
+	{
+		num_of_error++;
+	}
+
 	if (ACflg == OJ_RE && num_of_error == 1)
 	{
 		execute_cmd("cat %s/error_now.out > %s/error.out", work_dir, work_dir);
+		execute_cmd("echo '\n' >> error.out");
 		num_of_error++;
 	}
 }

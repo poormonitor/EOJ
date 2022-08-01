@@ -33,7 +33,7 @@
 							$href_url = "problemset.php"
 							?>
 							<?php if ($page > $section + 1) { ?>
-								<li class="page-item"><a href="$href_url?page=1">1</a></li>
+								<li class="page-item"><a href="<?php echo $href_url?>?page=1">1</a></li>
 							<?php } ?>
 							<?php if ($page > $section + 3) { ?>
 								<li class="page-item disabled"><span class="page-link">...</span></li>
