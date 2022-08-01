@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="<?php echo $OJ_NAME?>">
+    <meta name="author" content="<?php echo $OJ_NAME ?>">
     <link rel="shortcut icon" href="/favicon.ico">
 
     <title><?php echo $OJ_NAME ?></title>
@@ -55,7 +55,7 @@
                                 <?php
                                 foreach ($view_userstat as $row) {
                                     //i++;
-                                    echo "<tr ><td>" . $jresult[$row[0]] . "</td><td align=center><a href=status.php?user_id=$user&jresult=" . $row[0] . " >" . $row[1] . "</a></td></tr>";
+                                    echo "<tr><td>" . $jresult[$row[0]] . "</td><td align=center><a href=status.php?user_id=$user&jresult=" . $row[0] . " >" . $row[1] . "</a></td></tr>";
                                 }
                                 //}
                                 ?>
@@ -65,15 +65,30 @@
                                         <div id='container_pie' style='height:100%;width:100%;'></div>
                                     </td>
                                 </tr>
-                                <?php
-                                if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
-                                    echo "<tr ><td>$MSG_GROUP:<td align=center>$group_name</tr>";
-                                }
-                                ?>
-                                <tr>
-                                    <td><?php echo $MSG_SCHOOL ?>:
-                                    <td align=center><?php echo $school ?>
-                                </tr>
+                                <?php if ($group_name) { ?>
+                                    <tr>
+                                        <td><?php echo $MSG_GROUP ?></td>
+                                        <td align=center><?php echo $group_name ?></td>
+                                    </tr>
+                                <?php } ?>
+                                <?php if ($school) { ?>
+                                    <tr>
+                                        <td><?php echo $MSG_SCHOOL ?></td>
+                                        <td align=center><?php echo $school ?></td>
+                                    </tr>
+                                <?php } ?>
+                                <?php if (count($view_userinfo)) { ?>
+                                    <tr>
+                                        <td><?php echo $MSG_IP_LOCATION ?></td>
+                                        <?php
+                                        require_once("./include/iplocation.php");
+                                        $ip = new IpLocation();
+                                        $user_ip = $view_userinfo[0][2];
+                                        $info = $ip->getlocation($user_ip);
+                                        ?>
+                                        <td align=center><?php echo $info["country"] ?></td>
+                                    </tr>
+                                <?php } ?>
                             </tbody>
                         </table>
                     </center>
@@ -119,10 +134,10 @@
                             <thead>
                                 <tr>
                                     <th style='text-align:center;'>UserID</th>
-                                    <th style='text-align:center;'>Password</th>
+                                    <th style='text-align:center;'><?php echo $MSG_STATUS ?></th>
                                     <th style='text-align:center;'>IP</th>
                                     <th style='text-align:center;'>Time</th>
-                                    <th style='text-align:center;'>IP Info</th>
+                                    <th style='text-align:center;'><?php echo $MSG_IP_LOCATION ?></th>
                                 </tr>
                             </thead>
                             <tbody>

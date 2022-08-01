@@ -50,6 +50,7 @@ $MSG_SYSTEM = "System";
 $MSG_STANDING = "Standing";
 $MSG_STATISTICS = "Statistics";
 $MSG_USERINFO = "User Information";
+$MSG_IP_LOCATION = "IP Location";
 $MSG_MAIL = "Mail";
 $MSG_POLICY = "EULA & Privacy Policy";
 $MSG_AGREE_POLICY = "By logging in, you agree to the <a href='policy.html' id='footer'> $MSG_POLICY </a>";

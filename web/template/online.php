@@ -47,7 +47,7 @@
 											if (strlen(trim($l['area'])) == 0)
 												echo $l['country'];
 											else
-												echo $l['area'] . ' ' . $l['country'];
+												echo $l['country'] . ' ' . $l['area'];
 											?></td>
 										<td><?php echo $u["uri"] ?></td>
 										<td><?php echo $u['refer'] ?></td>
@@ -104,7 +104,7 @@
 									echo "</td>";
 								}
 								$ipinfo = $ip->getlocation($row[2]);
-								echo '<td style="text-align:center;">' . $ipinfo['area'] . ' ' . $ipinfo['country'] . '</td>';
+								echo '<td style="text-align:center;">' . $ipinfo['country'] . ' ' . $ipinfo['area'] . '</td>';
 								echo "</tr>";
 								$cnt = 1 - $cnt;
 							}

@@ -89,7 +89,7 @@
 							$showsim = 0;
 
 						echo "SIM&nbsp;
-					<select id=\"appendedInputButton\" class=\"form-control\" name=showsim onchange=\"document.getElementById('simform').submit();\">
+					<select id=\"appendedInputButton\" class=\"form-control\" name=showsim size='1'>
 						<option value=0 " . ($showsim == 0 ? 'selected' : '') . ">All</option>
 						<option value=50 " . ($showsim == 50 ? 'selected' : '') . ">50</option>
 						<option value=60 " . ($showsim == 60 ? 'selected' : '') . ">60</option>

@@ -1,12 +1,11 @@
 <?php
 $startTime = microtime(true);
 
-ini_set("display_errors", "On");  //set this to "On" for debugging  ,especially when no reason blank shows up.
+ini_set("display_errors", $OJ_DEBUG ? "On" : "Off");
 error_reporting(E_ALL);
-ini_set('date.timezone', 'Asia/Shanghai');
-date_default_timezone_set("Asia/Shanghai");
-//header('X-Frame-Options:SAMEORIGIN');
-//for people using hustoj out of China , be careful of the last two line of this file !
+ini_set('date.timezone', $OJ_TIMEZONE);
+date_default_timezone_set($OJ_TIMEZONE);
+
 @session_start();
 // connect db 
 
@@ -37,7 +36,7 @@ if (file_exists(dirname(__FILE__) . "/../upload/files/msg.txt")) {
 }
 
 pdo_query("SET names utf8");
-pdo_query("SET time_zone ='+8:00'");
+pdo_query("SET time_zone = '$OJ_TIMEZONE'");
 
 $OJ_LOG_FILE = "/var/log/hustoj/{$OJ_NAME}.log";
 require_once(dirname(__FILE__) . "/logger.php");

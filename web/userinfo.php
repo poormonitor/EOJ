@@ -38,7 +38,7 @@ $sql = "SELECT `school`,`email`,`nick` FROM `users` WHERE `user_id`=?";
 $result = pdo_query($sql, $user);
 $row_cnt = count($result);
 if ($row_cnt == 0) {
-	$view_swal = "用户不存在";
+	$view_swal = $MSG_NOT_EXISTED;
 	require("template/error.php");
 	exit(0);
 }
@@ -68,7 +68,7 @@ $result = pdo_query($sql, $AC);
 $row = $result[0];
 $Rank = intval($row[0]) + 1;
 
-if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
+if (isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
 	$sql = "SELECT user_id,password,ip,`time` FROM `loginlog` WHERE `user_id`=? order by `time` desc LIMIT 0,10";
 	$view_userinfo = pdo_query($sql, $user);
 	echo "</table>";
