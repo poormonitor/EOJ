@@ -39,7 +39,7 @@
 				<div class="row" style="margin-top:10px;white-space:nowrap">
 					<div class="col-md-6">
 						<div class="table-responsive">
-							<table class="table table-condensed lr-padding">
+							<table class="table table-condensed px-2">
 								<thead>
 									<tr>
 										<th><?php echo $MSG_RUNID ?></th>

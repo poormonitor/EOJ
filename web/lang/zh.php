@@ -50,6 +50,7 @@ $MSG_SYSTEM = "系统";
 $MSG_STANDING = "名次";
 $MSG_STATISTICS = "统计";
 $MSG_USERINFO = "用户信息";
+$MSG_IP_LOCATION = "IP属地";
 $MSG_MAIL = "短消息";
 $MSG_POLICY = "使用许可 & 隐私协议";
 $MSG_AGREE_POLICY = "登录即代表您同意<a href='policy.html' id='footer'> $MSG_POLICY </a>";
