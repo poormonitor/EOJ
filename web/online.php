@@ -26,7 +26,6 @@ $ips = pdo_query("SELECT * FROM `ip`");
 $on = new online();
 $view_title = $OJ_NAME;
 require_once('./include/iplocation.php');
-$ip = new IpLocation();
 $users = $on->getAll();
 $view_online = array();
 

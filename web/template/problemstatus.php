@@ -183,7 +183,7 @@
 								<div class='panel-body content' style='padding:10px;'>
 									<?php if (count($blank_analysis[$i][0])) { ?>
 										<span class="label label-success"><?php echo $MSG_Accepted ?></span>
-										<div class="table-responsive">
+										<div class="table-responsive mb-3">
 											<table class="table table-bordered">
 												<tbody>
 													<?php foreach ($blank_analysis[$i][0] as $key => $value) { ?>
@@ -204,7 +204,7 @@
 									<?php } ?>
 									<?php if (count($blank_analysis[$i][1])) { ?>
 										<span class="label label-danger"><?php echo $MSG_Wrong_Answer ?></span>
-										<div class="table-responsive">
+										<div class="table-responsive mb-3">
 											<table class="table table-bordered">
 												<tbody>
 													<?php foreach ($blank_analysis[$i][1] as $key => $value) { ?>

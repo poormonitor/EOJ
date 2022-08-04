@@ -54,9 +54,10 @@ require_once("../include/set_get_key.php");
 
             $sid = ($page - 1) * $idsperpage;
 
+            $ks = "";
             $sql = "";
             if (isset($_GET['keyword']) && $_GET['keyword'] != "") {
-              $keyword = $_GET['keyword'];
+              $ks = $keyword = $_GET['keyword'];
               $keyword = "%$keyword%";
               $sql = "SELECT `user_id`,`nick`,`accesstime`,`reg_time`,`ip`,`school`,`defunct`,`name` FROM `users` LEFT JOIN `group` ON `users`.`gid`=`group`.`gid` WHERE (name LIKE ?) OR (user_id LIKE ?) OR (nick LIKE ?) OR (school LIKE ?) ORDER BY `user_id` DESC";
               $result = pdo_query($sql, $keyword, $keyword, $keyword, $keyword);
@@ -68,7 +69,7 @@ require_once("../include/set_get_key.php");
 
             <center>
               <form action=user_list.php class="form-search form-inline">
-                <input type="text" name=keyword class="form-control search-query" placeholder="<?php echo $MSG_USER_ID . ', ' . $MSG_NICK . ', ' . $MSG_SCHOOL ?>">
+                <input type="text" name=keyword class="form-control search-query" value="<?php echo $ks ?>" placeholder="<?php echo $MSG_USER_ID . ', ' . $MSG_NICK . ', ' . $MSG_SCHOOL ?>">
                 <button type="submit" class="form-control"><?php echo $MSG_SEARCH ?></button>
               </form>
             </center>

@@ -82,9 +82,8 @@
                                         <td><?php echo $MSG_IP_LOCATION ?></td>
                                         <?php
                                         require_once("./include/iplocation.php");
-                                        $ip = new IpLocation();
                                         $user_ip = $view_userinfo[0][2];
-                                        $info = $ip->getlocation($user_ip);
+                                        $info = getLocation($user_ip);
                                         ?>
                                         <td align=center><?php echo $info["country"] ?></td>
                                     </tr>
@@ -144,7 +143,6 @@
                                 <?php
                                 $cnt = 0;
                                 require_once("./include/iplocation.php");
-                                $ip = new IpLocation();
                                 foreach ($view_userinfo as $row) {
                                     if ($cnt)
                                         echo "<tr class='oddrow'>";
@@ -155,8 +153,9 @@
                                         echo "\t" . $row[$i];
                                         echo "</td>";
                                     }
+                                    $info = getLocation($row[2]);
                                     echo "<td style='text-align:center;'>"
-                                        . $ip->getlocation($row[2])["country"] . " " . $ip->getlocation($row[2])["area"]
+                                        . $info["country"] . " " . $info["area"]
                                         . "</td>";
                                     echo "</tr>";
                                     $cnt = 1 - $cnt;

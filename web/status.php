@@ -296,7 +296,8 @@ for ($i = 0; $i < $rows_cnt; $i++) {
 
   if ($row['contest_id'] > 0) {
     if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
-      $view_status[$i][1] = "<a href='contestrank.php?cid=" . $row['contest_id'] . "&user_id=" . $row['user_id'] . "#" . $row['user_id'] . "' title='" . $row['ip'] . "'>" . $row['user_id'] . " " . $row['nick'] . "</a>";
+      $view_status[$i][1] = "<a title='" . $MSG_CONTEST . " " . $row['contest_id'] . "' href='contestrank.php?cid=" . $row['contest_id'] . "&user_id=" . $row['user_id'] . "#" . $row['user_id'] . "' title='" . $row['ip'] . "'>" . $row['user_id'] . "</a>";
+      $view_status[$i][1] .= "&nbsp;<a href='userinfo.php?user=" . $row['user_id'] . "' title='" . $row['ip'] . "'>" . $row['nick']  . "</a>";
     } else
       $view_status[$i][1] = "<a href='contestrank.php?cid=" . $row['contest_id'] . "&user_id=" . $row['user_id'] . "#" . $row['user_id'] . "'>" . $row['user_id'] . "</a>";
   } else {
