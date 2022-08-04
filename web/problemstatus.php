@@ -236,10 +236,16 @@ foreach ($result as $row) {
 
 if ($problem_info["blank"] && isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
   $blank = $problem_info["blank"];
-  $sql = "SELECT * FROM solution JOIN source_code ON `source_code`.`solution_id` = `solution`.`solution_id` WHERE problem_id = ?";
-  $result = pdo_query($sql, $id);
+  if (isset($_GET["cid"])) {
+    $sql = "SELECT * FROM solution JOIN source_code ON `source_code`.`solution_id` = `solution`.`solution_id` WHERE problem_id = ? AND contest_id = ?";
+    $result = pdo_query($sql, $id, $cid);
+  } else {
+    $sql = "SELECT * FROM solution JOIN source_code ON `source_code`.`solution_id` = `solution`.`solution_id` WHERE problem_id = ?";
+    $result = pdo_query($sql, $id);
+  }
   $blank_analysis = array();
   $strip_map = array();
+  
   foreach ($result as $row) {
 
     $view_src = $row["source"];

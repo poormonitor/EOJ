@@ -270,6 +270,7 @@ img {
 .table {
     border-radius: 10px;
     margin-top: 10px;
+    margin-bottom: 5px;
     box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
     background: #fff;
 }
@@ -282,6 +283,10 @@ img {
 .table-responsive {
     border: 0;
     padding: 3px;
+}
+
+.table-responsive>.table {
+    white-space: nowrap !important;
 }
 
 .dropdown-menu,
@@ -2348,6 +2353,7 @@ td.ans>img {
     word-wrap: break-word !important;
     word-break: break-word !important;
 }
+
 /* rtl:end:remove */
 
 .user-select-all {
