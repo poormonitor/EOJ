@@ -85,7 +85,7 @@ require_once("admin-header.php");
                 <br><br><br>
                 <center>
                   <div class='form-group'>
-                    <button class='btn btn-default btn-sm' type=submit>Upload to HOJ</button>
+                    <button class='btn btn-default btn-sm' type=submit>Upload to EOJ</button>
                   </div>
                 </center>
                 <?php require_once("../include/set_post_key.php"); ?>

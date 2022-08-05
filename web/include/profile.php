@@ -42,7 +42,7 @@ if (isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
 		$profile .= "<a href=./login_qq.php>$MSG_LOGIN(QQ)</a>&nbsp;";
 	}
 	$profile .= "<a href=./loginpage.php>$MSG_LOGIN</a>&nbsp;";
-	if ($OJ_LOGIN_MOD == "hoj") {
+	if ($OJ_LOGIN_MOD == "eoj") {
 		$profile .= "<a href=./registerpage.php>$MSG_REGISTER</a>&nbsp;";
 	}
 }

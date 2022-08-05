@@ -419,7 +419,7 @@ $MSG_HELP_CE = "The compiler could not compile your ANSI program. Of course, war
 
 $MSG_HELP_MORE_TESTDATA_LATER = "more testdata can be added later after this problem added.";
 $MSG_HELP_ADD_FAQS = "Add a news which titled \"faqs.$OJ_LANG\", it apears as <a href=../faqs.php>$MSG_FAQ</a>";
-$MSG_HELP_HOJ = "<sub><a target='_blank' href='https://github.com/zhblue/hustoj'><span class='glyphicon glyphicon-heart' aria-hidden='true'></span> Please give us a <span class='glyphicon glyphicon-star' aria-hidden='true'></span>Star @HUSTOJ Github!</a></sub>";
+$MSG_HELP_EOJ = "<sub><a target='_blank' href='https://github.com/zhblue/hustoj'><span class='glyphicon glyphicon-heart' aria-hidden='true'></span> Please give us a <span class='glyphicon glyphicon-star' aria-hidden='true'></span>Star @HUSTOJ Github!</a></sub>";
 $MSG_HELP_SPJ = "Add 'pre' and 'spj' to test data to do special judge. It supports C/C++, Shell, Python。<br>'pre' is pre-script which is running before the user's program,
 				<br>'spj' is the special judge program. The input parameters for running are the test input file name, the test output file name, and the user output file name.<br>'spj' returning 0 represents accepted and 1 represents wrong.";
 $MSG_HELP_BALLOON_SCHOOL = "School Field of the Printer/Balloon privileged Accout, will be used as filter in task list.";

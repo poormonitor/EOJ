@@ -10,7 +10,7 @@ if [ ! -d /volume/etc ]; then
 cp -rp /home/judge/etc /volume/etc;
 fi 
 if [ ! -d /volume/web ]; then   
-cp -rp /home/judge/hoj/web /volume/web;
+cp -rp /home/judge/eoj/web /volume/web;
 fi 
 if [ ! -d /volume/mysql ]; then 
 cp -rp /var/lib/mysql /volume/mysql;   
@@ -21,16 +21,16 @@ chmod -R 700 /volume/web/include/
 chown -R www-data:www-data /volume/data 
 chown -R www-data:www-data /volume/web  
 chown -R mysql:mysql       /volume/mysql   
-chown -R www-data:www-data /var/log/hoj
+chown -R www-data:www-data /var/log/eoj
 rm -rf /home/judge/backup   
 rm -rf /home/judge/data 
 rm -rf /home/judge/etc  
-rm -rf /home/judge/hoj/web  
+rm -rf /home/judge/eoj/web  
 rm -rf /var/lib/mysql   
 ln -s /volume/backup /home/judge/backup 
 ln -s /volume/data   /home/judge/data   
 ln -s /volume/etc    /home/judge/etc
-ln -s /volume/web    /home/judge/hoj/web
+ln -s /volume/web    /home/judge/eoj/web
 ln -s /volume/mysql  /var/lib/mysql 
 
 RUNNING=`cat /home/judge/etc/judge.conf | grep OJ_RUNNING`
