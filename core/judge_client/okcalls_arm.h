@@ -17,7 +17,7 @@
  * along with HUSTOJ. if not, see <http://www.gnu.org/licenses/>.
  */
 #include <sys/syscall.h>
-#define HOJ_MAX_LIMIT -1
+#define EOJ_MAX_LIMIT -1
 #define LANGV_LENGTH 256
 //C C++
 int LANG_CV[CALL_ARRAY_SIZE]={0,3,4,5,33,45,85,122,192,197,248,0};

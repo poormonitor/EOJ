@@ -97,7 +97,7 @@
         </div>
     </div>
     <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) { ?>
-        <br><a class='btn btn-default btn-block' href="https://github.com/poormonitor/hoj/" target="_blank"><b>HOJ</b></a>
+        <br><a class='btn btn-default btn-block' href="https://github.com/poormonitor/EOJ/" target="_blank"><b>EOJ</b></a>
     <?php } ?>
     <br>
     <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) { ?>

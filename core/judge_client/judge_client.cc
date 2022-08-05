@@ -353,93 +353,93 @@ void init_syscalls_limits(int lang)
 	{ // C & C++
 		for (i = 0; i == 0 || LANG_CV[i]; i++)
 		{
-			call_counter[LANG_CV[i]] = HOJ_MAX_LIMIT;
+			call_counter[LANG_CV[i]] = EOJ_MAX_LIMIT;
 		}
 	}
 	else if (lang == 2)
 	{ // Pascal
 		for (i = 0; i == 0 || LANG_PV[i]; i++)
-			call_counter[LANG_PV[i]] = HOJ_MAX_LIMIT;
+			call_counter[LANG_PV[i]] = EOJ_MAX_LIMIT;
 	}
 	else if (lang == 3)
 	{ // Java
 		for (i = 0; i == 0 || LANG_JV[i]; i++)
-			call_counter[LANG_JV[i]] = HOJ_MAX_LIMIT;
+			call_counter[LANG_JV[i]] = EOJ_MAX_LIMIT;
 	}
 	else if (lang == 4)
 	{ // Ruby
 		for (i = 0; i == 0 || LANG_RV[i]; i++)
-			call_counter[LANG_RV[i]] = HOJ_MAX_LIMIT;
+			call_counter[LANG_RV[i]] = EOJ_MAX_LIMIT;
 	}
 	else if (lang == 5)
 	{ // Bash
 		for (i = 0; i == 0 || LANG_BV[i]; i++)
-			call_counter[LANG_BV[i]] = HOJ_MAX_LIMIT;
+			call_counter[LANG_BV[i]] = EOJ_MAX_LIMIT;
 	}
 	else if (lang == 6)
 	{ // Python
 		for (i = 0; i == 0 || LANG_YV[i]; i++)
-			call_counter[LANG_YV[i]] = HOJ_MAX_LIMIT;
+			call_counter[LANG_YV[i]] = EOJ_MAX_LIMIT;
 	}
 	else if (lang == 7)
 	{ // php
 		for (i = 0; i == 0 || LANG_PHV[i]; i++)
-			call_counter[LANG_PHV[i]] = HOJ_MAX_LIMIT;
+			call_counter[LANG_PHV[i]] = EOJ_MAX_LIMIT;
 	}
 	else if (lang == 8)
 	{ // perl
 		for (i = 0; i == 0 || LANG_PLV[i]; i++)
-			call_counter[LANG_PLV[i]] = HOJ_MAX_LIMIT;
+			call_counter[LANG_PLV[i]] = EOJ_MAX_LIMIT;
 	}
 	else if (lang == 9)
 	{ // mono c#
 		for (i = 0; i == 0 || LANG_CSV[i]; i++)
-			call_counter[LANG_CSV[i]] = HOJ_MAX_LIMIT;
+			call_counter[LANG_CSV[i]] = EOJ_MAX_LIMIT;
 	}
 	else if (lang == 10)
 	{ // objective c
 		for (i = 0; i == 0 || LANG_OV[i]; i++)
-			call_counter[LANG_OV[i]] = HOJ_MAX_LIMIT;
+			call_counter[LANG_OV[i]] = EOJ_MAX_LIMIT;
 	}
 	else if (lang == 11)
 	{ // free basic
 		for (i = 0; i == 0 || LANG_BASICV[i]; i++)
-			call_counter[LANG_BASICV[i]] = HOJ_MAX_LIMIT;
+			call_counter[LANG_BASICV[i]] = EOJ_MAX_LIMIT;
 	}
 	else if (lang == 12)
 	{ // scheme guile
 		for (i = 0; i == 0 || LANG_SV[i]; i++)
-			call_counter[LANG_SV[i]] = HOJ_MAX_LIMIT;
+			call_counter[LANG_SV[i]] = EOJ_MAX_LIMIT;
 	}
 	else if (lang == 15)
 	{ // lua
 		for (i = 0; i == 0 || LANG_LUAV[i]; i++)
-			call_counter[LANG_LUAV[i]] = HOJ_MAX_LIMIT;
+			call_counter[LANG_LUAV[i]] = EOJ_MAX_LIMIT;
 	}
 	else if (lang == 16)
 	{ // nodejs
 		for (i = 0; i == 0 || LANG_JSV[i]; i++)
-			call_counter[LANG_JSV[i]] = HOJ_MAX_LIMIT;
+			call_counter[LANG_JSV[i]] = EOJ_MAX_LIMIT;
 	}
 	else if (lang == 17)
 	{ // go
 		for (i = 0; i == 0 || LANG_GOV[i]; i++)
-			call_counter[LANG_GOV[i]] = HOJ_MAX_LIMIT;
+			call_counter[LANG_GOV[i]] = EOJ_MAX_LIMIT;
 	}
 	else if (lang == 18)
 	{ // go
 		for (i = 0; i == 0 || LANG_SQLV[i]; i++)
-			call_counter[LANG_SQLV[i]] = HOJ_MAX_LIMIT;
+			call_counter[LANG_SQLV[i]] = EOJ_MAX_LIMIT;
 	}
 	else if (lang == 19)
 	{ // go
 		for (i = 0; i == 0 || LANG_FV[i]; i++)
-			call_counter[LANG_FV[i]] = HOJ_MAX_LIMIT;
+			call_counter[LANG_FV[i]] = EOJ_MAX_LIMIT;
 	}
 	else if (lang == 20)
 	{ // go
 		for (i = 0; i == 0 || LANG_MV[i]; i++)
-			call_counter[LANG_MV[i]] = HOJ_MAX_LIMIT;
+			call_counter[LANG_MV[i]] = EOJ_MAX_LIMIT;
 	}
 #ifdef __aarch64__
 	if (lang == 3)

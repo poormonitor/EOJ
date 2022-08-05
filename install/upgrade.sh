@@ -1,6 +1,6 @@
-cd /home/judge/hoj
+cd /home/judge/eoj
 git pull
-cd /home/judge/hoj/core/
+cd /home/judge/eoj/core/
 systemctl stop judged
 chmod a+x make.sh
 bash make.sh
