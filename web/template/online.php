@@ -41,13 +41,11 @@
 							?>
 									<tr>
 										<td class="ip">
-											<?php $l = $ip->getlocation($u['ip']);
+											<?php 
+											$l = getLocationFull($u['ip']);
 											// echo $u->ip.'<br>';
 											echo $u['ip'] . "<br>";
-											if (strlen(trim($l['area'])) == 0)
-												echo $l['country'];
-											else
-												echo $l['country'] . ' ' . $l['area'];
+											echo $l;
 											?></td>
 										<td><?php echo $u["uri"] ?></td>
 										<td><?php echo $u['refer'] ?></td>
@@ -103,8 +101,8 @@
 									echo "\t" . $table_cell . "&nbsp;";
 									echo "</td>";
 								}
-								$ipinfo = $ip->getlocation($row[2]);
-								echo '<td style="text-align:center;">' . $ipinfo['country'] . ' ' . $ipinfo['area'] . '</td>';
+								$ipinfo = getLocationFull($row[2]);
+								echo '<td style="text-align:center;">' . $ipinfo . '</td>';
 								echo "</tr>";
 								$cnt = 1 - $cnt;
 							}

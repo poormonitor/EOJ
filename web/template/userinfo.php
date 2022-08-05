@@ -83,9 +83,9 @@
                                         <?php
                                         require_once("./include/iplocation.php");
                                         $user_ip = $view_userinfo[0][2];
-                                        $info = getLocation($user_ip);
+                                        $info = getLocationShort($user_ip);
                                         ?>
-                                        <td align=center><?php echo $info["country"] ?></td>
+                                        <td align=center><?php echo $info ?></td>
                                     </tr>
                                 <?php } ?>
                             </tbody>
@@ -153,9 +153,9 @@
                                         echo "\t" . $row[$i];
                                         echo "</td>";
                                     }
-                                    $info = getLocation($row[2]);
+                                    $info = getLocationFull($row[2]);
                                     echo "<td style='text-align:center;'>"
-                                        . $info["country"] . " " . $info["area"]
+                                        . $info
                                         . "</td>";
                                     echo "</tr>";
                                     $cnt = 1 - $cnt;
