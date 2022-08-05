@@ -1,14 +1,57 @@
 <?php
+require_once("./include/geoip2.phar");
+
+use GeoIp2\Database\Reader;
+
+$IP_READER = new Reader('./include/GeoLite2-City.mmdb');
+
+function getItemAuto($item, $key)
+{
+    if (isset($item->names[$key])) {
+        return $item->names[$key];
+    }
+    return $item->name;
+}
+
 function getLocation($ip)
 {
-    if (strpos($ip, ":") !== false) {
-        require_once("./include/ipdbv6.func.php");
-        $db6 = new ipdbv6("./include/ipv6wry.db");
-        $result = $db6->query($ip);
-    } else {
-        require_once("./include/ipdbv4.func.php");
-        $db4 = new ipdbv4("./include/ipv4wry.dat");
-        $result = $db4->getlocation($ip);
+    global $IP_READER, $OJ_LANG;
+    $lang = $OJ_LANG;
+    if ($lang == "zh") {
+        $lang = "zh-CN";
     }
+    $record = $IP_READER->city($ip);
+    $city = getItemAuto($record->city, $lang);
+    $division = getItemAuto($record->mostSpecificSubdivision, $lang);
+    $country = getItemAuto($record->country, $lang);
+    $iso = $record->country->isoCode;
+    return array("city" => $city, "division" => $division, "country" => $country, "country_iso" => $iso);
+}
+
+function getLocationShort($ip)
+{
+    $record = getLocation($ip);
+
+    if ($record["country_iso"] == "CN") {
+        $result = $record["division"];
+    } else {
+        $result = $record["country"];
+    }
+    return $result;
+}
+
+function getLocationFull($ip)
+{
+    $record = getLocation($ip);
+
+    if ($record["country_iso"] == "CN") {
+        if ($record["division"] != $record["city"])
+            $result = $record["division"] . " " . $record["city"];
+        else
+            $result = $record["division"];
+    } else {
+        $result = $record["country"] . " " . $record["division"] . " " . $record["city"];
+    }
+
     return $result;
 }

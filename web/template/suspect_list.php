@@ -114,7 +114,7 @@
               foreach ($result1 as $row) {
                 echo "<tr>";
                 $ipaddr = $row["ip"];
-                $ipinfo = getLocation($ipaddr);
+                $ipinfo = getLocationFull($ipaddr);
                 echo "<td>" . $ipaddr . "</td>";
                 echo "<td>" . $ipinfo . "</td>";
                 echo "<td>" . $row['user_id'] . "</td>";
@@ -158,7 +158,7 @@
                 echo "<a href='../status.php?cid=$contest_id&user_id=" . $row['user_id'] . "'><sub>" . $MSG_CONTEST . " " . $MSG_SUBMIT . "</sub></a>";
                 echo "</td>";
                 $ipaddr = $row["ip"];
-                $ipinfo = $ip->getlocation($ipaddr)["country"] . " " . $ip->getlocation($ipaddr)["area"];
+                $ipinfo = getLocationFull($ipaddr);
                 echo "<td>" . $ipaddr . "</td>";
                 echo "<td>" . $ipinfo . "</td>";
                 echo "<td>" . $row['time'] . "</td>";
