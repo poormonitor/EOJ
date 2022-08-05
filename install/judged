@@ -8,7 +8,7 @@
 # Should-Stop:       $network $time
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
-# Short-Description: Start and stop the hoj database server daemon
+# Short-Description: Start and stop the eoj database server daemon
 # Description:       Controls the main MySQL database server daemon "judged"
 #                    and its wrapper script "judged".
 ### END INIT INFO
@@ -28,7 +28,7 @@ CONF=/home/judge/etc/judge.conf
 cd /
 umask 077
 
-# hoj likes to read /root/.my.cnf. This is usually not what I want
+# eoj likes to read /root/.my.cnf. This is usually not what I want
 # as many admins e.g. only store a password without a username there and
 # so break my scripts.
 export HOME=/home/judge

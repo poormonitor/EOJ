@@ -17,7 +17,7 @@
  * along with HUSTOJ. if not, see <http://www.gnu.org/licenses/>.
  */
 #include <sys/syscall.h>
-#define HOJ_MAX_LIMIT -1
+#define EOJ_MAX_LIMIT -1
 #define CALL_ARRAY_SIZE 512
 #ifdef __i386
    #include "okcalls32.h"

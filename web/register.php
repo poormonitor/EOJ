@@ -27,7 +27,7 @@
 		$err_str = $err_str . "Verification Code Wrong!\\n";
 		$err_cnt++;
 	}
-	if ($OJ_LOGIN_MOD != "hoj") {
+	if ($OJ_LOGIN_MOD != "eoj") {
 		$err_str = $err_str . "System do not allow register.\\n";
 		$err_cnt++;
 	}
