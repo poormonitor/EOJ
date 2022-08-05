@@ -1,4 +1,4 @@
-# HOJ -- Optimized for Teaching
+# EOJ -- Optimized for Teaching
 
 基于 HUSTOJ 的 Python 教学优化版。
 
