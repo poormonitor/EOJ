@@ -1,6 +1,7 @@
 web/favicon.ico
 web/upload/*
 web/policy.html
+web/404.html
 web/include/GeoLite2-City.mmdb
 web/include/db_info.inc.php
 **/.htaccess
