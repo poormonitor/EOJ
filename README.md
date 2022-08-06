@@ -1,4 +1,6 @@
 # EOJ -- Optimized for Teaching
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fpoormonitor%2FEOJ.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fpoormonitor%2FEOJ?ref=badge_shield)
+
 
 基于 HUSTOJ 的 Python 教学优化版。
 
@@ -99,3 +101,6 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fpoormonitor%2FEOJ.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fpoormonitor%2FEOJ?ref=badge_large)
