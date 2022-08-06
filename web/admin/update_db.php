@@ -33,11 +33,16 @@
             $csql[5] = "DELETE FROM sim WHERE s_id NOT IN (SELECT solution_id FROM solution);";
             $csql[6] = "DELETE FROM loginlog WHERE `time` < DATE_SUB(NOW(), INTERVAL 1 YEAR)";
 
-            if (isset($_POST['do'])) {
+            if (isset($_POST['db'])) {
               require_once("../include/check_post_key.php");
               for ($i = 0; isset($csql[$i]); $i++) {
                 pdo_query($csql[$i]);
               }
+              $banner = true;
+            } elseif (isset($_POST['cache'])) {
+              require_once("../include/check_post_key.php");
+              require_once("../include/memcache.php");
+              updateCache();
               $banner = true;
             }
             ?>
@@ -54,14 +59,18 @@
               <?php echo $MSG_HELP_UPDATE_DATABASE ?>
             </p>
             <br>
-            <form action='update_db.php' method=post class='middle'>
+            <form action='update_db.php' method=post class='middle mt-3'>
               <?php require_once("../include/set_post_key.php"); ?>
-              <input type='hidden' name='do' value='do'>
+              <input type='hidden' name='db' value='do'>
               <input type=submit class='btn btn-info btn-nm' value='<?php echo $MSG_UPGRADE ?>'>
             </form>
+            <form action='update_db.php' method=post class='middle mt-3'>
+              <input type=hidden name="postkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>">
+              <input type='hidden' name='cache' value='do'>
+              <input type=submit class='btn btn-info btn-nm' value='<?php echo $MSG_DELETE ?> Cache'>
+            </form>
             <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) { ?>
-              <br>
-              <form action='adminer.php' method=post class="center">
+              <form action='adminer.php' method=post class="center mt-3">
                 <input type="hidden" name="auth[driver]" value="server">
                 <input type="hidden" name="auth[server]" value="">
                 <input type="hidden" name="auth[username]" value="<?php echo $DB_USER ?>">
