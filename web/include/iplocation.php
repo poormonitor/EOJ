@@ -1,17 +1,9 @@
 <?php
-require_once("./include/geoip2.phar");
+require_once("./include/maxmind/autoload.php");
 
-use GeoIp2\Database\Reader;
+use MaxMind\Db\Reader;
 
 $IP_READER = new Reader('./include/GeoLite2-City.mmdb');
-
-function getItemAuto($item, $key)
-{
-    if (isset($item->names[$key])) {
-        return $item->names[$key];
-    }
-    return $item->name;
-}
 
 function getLocation($ip)
 {
@@ -19,15 +11,17 @@ function getLocation($ip)
     $lang = $OJ_LANG;
     if ($lang == "zh") {
         $lang = "zh-CN";
+    } else {
+        $lang = "en";
     }
     try {
-        $record = $IP_READER->city($ip);
-        $city = getItemAuto($record->city, $lang);
-        $division = getItemAuto($record->mostSpecificSubdivision, $lang);
-        $country = getItemAuto($record->country, $lang);
-        $iso = $record->country->isoCode;
+        $record = $IP_READER->get($ip);
+        $country = $record["country"][$lang];
+        $iso = $record["country"]["code"];
+        $division = $record["region"][$lang];
+        $city = $record["city"][$lang];
     } catch (Exception $e) {
-        return array("city" => "", "division" => "Not Found", "country" => "", "country_iso" => "");
+        return null;
     }
     return array("city" => $city, "division" => $division, "country" => $country, "country_iso" => $iso);
 }
@@ -35,6 +29,7 @@ function getLocation($ip)
 function getLocationShort($ip)
 {
     $record = getLocation($ip);
+    if (!$record) return "";
 
     if ($record["country_iso"] == "CN") {
         $result = $record["division"];
@@ -47,6 +42,7 @@ function getLocationShort($ip)
 function getLocationFull($ip)
 {
     $record = getLocation($ip);
+    if (!$record) return "";
 
     if ($record["country_iso"] == "CN") {
         if ($record["division"] != $record["city"])
