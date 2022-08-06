@@ -25,6 +25,7 @@ $stime = $row['time'];
 $smemory = $row['memory'];
 $sproblem_id = $row['problem_id'];
 $view_user_id = $suser_id = $row['user_id'];
+$sip = $row["ip"];
 
 
 if (!isset($_GET['right'])) {
@@ -44,7 +45,25 @@ $rtime = $row['time'];
 $rmemory = $row['memory'];
 $rproblem_id = $row['problem_id'];
 $rview_user_id = $ruser_id = $row['user_id'];
+$rip = $row["ip"];
 
+$sql = "SELECT ip.ip FROM ip WHERE `type` = 'safe'";
+$result = mysql_query_cache($sql);
+$safe =  array();
+foreach ($result as $row) {
+	array_push($safe, $row["ip"]);
+}
+
+$suspected = "";
+if ($rip == $sip && !in_array($rip, $safe)) {
+	$suspected = "red";
+}
+
+$sql = "SELECT * FROM sim WHERE s_id = ? AND sim_s_id = ?";
+$result = mysql_query_cache($sql, $rid, $sid);
+if ($result) {
+	$sim = $result[0]["sim"];
+}
 
 if (isset($OJ_AUTO_SHARE) && $OJ_AUTO_SHARE && isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
 	$sql = "SELECT 1 FROM solution where 

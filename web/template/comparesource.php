@@ -20,14 +20,23 @@
 		<?php include("template/nav.php"); ?>
 		<div class="jumbotron">
 			<div id="content" style="width:95%;margin:1em auto 0;">
+				<?php if (isset($sim)) { ?>
+					<div><?php echo $MSG_SIMILARITY ?>:&nbsp;&nbsp;<span class="fs-3 fw-bold text-danger"><?php echo $sim ?> %</span></div>
+				<?php } ?>
 
 				<table style="width:100%;margin-bottom:5px;">
 					<tr>
 						<td style="width:50%;">
+							<?php if (isset($sim)) { ?>
+								<span class="fw-bold"><?php echo $MSG_SIM_PAS ?></span>&nbsp;&nbsp;
+							<?php } ?>
 							<span id="path-lhs">getsource.php?id=<?php echo intval($_GET['left']) ?></span> &nbsp;
 							<a id="save-lhs" class="save-link" href="#">save</a>
 						</td>
 						<td style="width:50%;">
+							<?php if (isset($sim)) { ?>
+								<span class="fw-bold"><?php echo $MSG_SIM_POS ?></span>&nbsp;&nbsp;
+							<?php } ?>
 							<span id="path-rhs">getsource.php?id=<?php echo intval($_GET['right']) ?></span> &nbsp;
 							<a id="save-rhs" class="save-link" href="#">save</a>
 						</td>
@@ -52,6 +61,7 @@
 											<th><?php echo $MSG_TIME ?></th>
 											<th><?php echo $MSG_MEMORY ?></th>
 										<?php } ?>
+										<th>IP</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -66,6 +76,7 @@
 											<td><?php echo $stime ?> ms</td>
 											<td><?php echo $smemory ?> KB</td>
 										<?php } ?>
+										<td class="<?php echo $suspected ?>"><?php echo $sip ?></td>
 									</tr>
 								</tbody>
 							</table>
@@ -86,6 +97,7 @@
 											<th><?php echo $MSG_TIME ?></th>
 											<th><?php echo $MSG_MEMORY ?></th>
 										<?php } ?>
+										<th>IP</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -100,6 +112,7 @@
 											<td><?php echo $rtime ?> ms</td>
 											<td><?php echo $rmemory ?> KB</td>
 										<?php } ?>
+										<td class="<?php echo $suspected ?>"><?php echo $rip ?></td>
 									</tr>
 								</tbody>
 							</table>

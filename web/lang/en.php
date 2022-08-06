@@ -116,6 +116,10 @@ $MSG_CO = "CO";
 $MSG_TR = "Test";
 $MSG_RESET = "Reset";
 
+$MSG_SIM_POS = "Plagiarizing";
+$MSG_SIM_PAS = "Plagiarized";
+$MSG_SIMILARITY = "Similarity";
+
 //problemset.php
 $MSG_SEARCH = "Search";
 $MSG_PROBLEM_ID = "Problem ID";

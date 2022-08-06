@@ -16,37 +16,27 @@ if (!$OJ_CACHE_SHARE && isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
 if (isset($_SERVER["REQUEST_URI"])) {
     $sid .= $_SERVER["REQUEST_URI"];
 }
-if (isset($OJ_LANG)){
+if (isset($OJ_LANG)) {
     $sid .= $OJ_LANG;
 }
 
 $sid = md5($sid);
-$file = "cache/cache_$sid.html";
+$pageCacheKey = "cache_$sid.html";
 
 if ($OJ_MEMCACHE) {
     $mem = new Memcached();
     $mem->addServer($OJ_MEMSERVER,  $OJ_MEMPORT);
-    $content = $mem->get($file);
+    $ns_key = $mem->get($OJ_NAME . "_ns_key");
+    if ($ns_key === false) goto end;
+    $real_key = $OJ_NAME . "_key_" . $ns_key . $pageCacheKey;
+    $content = $mem->get($real_key);
     if ($content) {
         echo $content;
-        exit();
+        exit(0);
     } else {
+        end:
         $use_cache = false;
         $write_cache = true;
     }
-} else {
-
-    if (file_exists($file))
-        $last = filemtime($file);
-    else
-        $last = 0;
-    $use_cache = (time() - $last < $cache_time);
 }
-if ($use_cache) {
-    //header ( "Location: $file" );
-    include($file);
-    exit();
-} else {
-    ob_start();
-}
-//cache head stop
+ob_start();

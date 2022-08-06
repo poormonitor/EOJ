@@ -25,12 +25,13 @@
             <?php
             $csql = array();
 
-            $csql[0] = "DELETE FROM solution WHERE result=13;
-                        DELETE FROM source_code WHERE solution_id NOT in (SELECT solution_id FROM solution);
-                        DELETE FROM runtimeinfo WHERE solution_id NOT IN (SELECT solution_id FROM solution);
-                        UPDATE solution SET solution.nick = (SELECT users.nick FROM users WHERE users.user_id = solution.user_id) WHERE solution.nick != (SELECT users.nick FROM users WHERE users.user_id = solution.user_id);
-                        DELETE FROM sim WHERE sim_s_id NOT IN (SELECT solution_id FROM solution);
-                        DELETE FROM sim WHERE s_id NOT IN (SELECT solution_id FROM solution);";
+            $csql[0] = "DELETE FROM solution WHERE result=13;";
+            $csql[1] = "DELETE FROM source_code WHERE solution_id NOT IN (SELECT solution_id FROM solution);";
+            $csql[2] = "DELETE FROM runtimeinfo WHERE solution_id NOT IN (SELECT solution_id FROM solution);";
+            $csql[3] = "UPDATE solution JOIN users ON users.user_id = solution.user_id SET solution.nick = users.nick;";
+            $csql[4] = "DELETE FROM sim WHERE sim_s_id NOT IN (SELECT solution_id FROM solution);";
+            $csql[5] = "DELETE FROM sim WHERE s_id NOT IN (SELECT solution_id FROM solution);";
+            $csql[6] = "DELETE FROM loginlog WHERE `time` < DATE_SUB(NOW(), INTERVAL 1 YEAR)";
 
             if (isset($_POST['do'])) {
               require_once("../include/check_post_key.php");

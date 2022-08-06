@@ -116,6 +116,10 @@ $MSG_CO = "编译成功";
 $MSG_TR = "测试运行";
 $MSG_RESET = "重置";
 
+$MSG_SIM_POS = "抄袭者";
+$MSG_SIM_PAS = "被抄袭者";
+$MSG_SIMILARITY = "相似度";
+
 //problemset.php
 $MSG_SEARCH = "查找";
 $MSG_PROBLEM_ID = "题目编号";
