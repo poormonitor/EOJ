@@ -1,5 +1,6 @@
 <?php
-if (stripos($_SERVER['REQUEST_URI'], "template") !== false) exit();
+if (stripos($_SERVER['REQUEST_URI'], "template") !== false)
+  exit(0);
 $url = basename($_SERVER['REQUEST_URI']);
 if (isset($OJ_NEED_LOGIN) && $OJ_NEED_LOGIN && ($url != 'loginpage.php' &&
   $url != 'lostpassword.php' &&
@@ -28,9 +29,6 @@ $loc = isset($prefix) ? "&loc=admin" : "";
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="<?php echo $prefix . $OJ_HOME ?>"><i class="icon-home"></i><?php echo $OJ_NAME ?></a>
-      <?php if (file_exists("moodle")) { ?>
-        <a class="navbar-brand" href="moodle"><i class="icon-home"></i>Moodle</a>
-      <?php } ?>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -102,7 +100,8 @@ $loc = isset($prefix) ? "&loc=admin" : "";
             <li><a href="<?php echo $prefix ?>setlang.php?lang=en">English</a></li>
           </ul>
         </li>
-      </ul><!-- select language -->
+      </ul>
+      <!-- select language -->
     </div>
     <!--/.nav-collapse -->
   </div>

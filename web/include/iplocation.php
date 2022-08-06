@@ -20,11 +20,15 @@ function getLocation($ip)
     if ($lang == "zh") {
         $lang = "zh-CN";
     }
-    $record = $IP_READER->city($ip);
-    $city = getItemAuto($record->city, $lang);
-    $division = getItemAuto($record->mostSpecificSubdivision, $lang);
-    $country = getItemAuto($record->country, $lang);
-    $iso = $record->country->isoCode;
+    try {
+        $record = $IP_READER->city($ip);
+        $city = getItemAuto($record->city, $lang);
+        $division = getItemAuto($record->mostSpecificSubdivision, $lang);
+        $country = getItemAuto($record->country, $lang);
+        $iso = $record->country->isoCode;
+    } catch (Exception $e) {
+        return array("city" => "", "division" => "Not Found", "country" => "", "country_iso" => "");
+    }
     return array("city" => $city, "division" => $division, "country" => $country, "country_iso" => $iso);
 }
 

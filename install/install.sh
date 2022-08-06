@@ -11,6 +11,7 @@ CPU=`grep "cpu cores" /proc/cpuinfo |head -1|awk '{print $4}'`
 
 mkdir etc data log backup
 
+cp eoj/web/include/db_info.default.php eoj/web/include/db_info.inc.php
 cp eoj/install/java0.policy  /home/judge/etc
 cp eoj/install/judge.conf  /home/judge/etc
 

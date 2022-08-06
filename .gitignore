@@ -1,10 +1,8 @@
-web/.htaccess
-web/404.html
 web/favicon.ico
 web/upload/*
 web/policy.html
-web/include/db_info.inc.php
-web/.user.ini
 web/include/GeoLite2-City.mmdb
-.user.ini
-.vscode/
+web/include/db_info.inc.php
+**/.htaccess
+**/.user.ini
+**/.vscode/

@@ -24,11 +24,10 @@ function pdo_query($sql)
 		$sth->closeCursor();
 		return $result;
 	} catch (PDOException $e) {
-		if (stristr($e->getMessage(), "Access denied"))
-			$view_errors = "Database account/password fail, check db_info.inc.php<br>\n数据库账户密码错误，请检查配置文件db_info.inc.php";
-		else
-			$view_errors = "SQL error,check your sql and /var/log/nginx/error.log !";
-		require("template/error.php");
+		$message = "SQL error, check your sql and the error log! SQL 错误，检查语句和错误日志！";
+		$view_errors_js = "swal('SQL Error', '$message', 'error').then(()=>{window.location.reload()})";
+		$OJ_FAIL = true;
+		require_once(dirname(__FILE__) . "/../template/error.php");
 		exit(0);
 	}
 }

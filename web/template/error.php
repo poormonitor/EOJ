@@ -1,5 +1,9 @@
 <?php
 if (isset($view_errors_js) || isset($view_swal) || isset($view_swal_params)) { ?>
+  <?php
+  if (isset($OJ_FAIL))
+    global $OJ_LANG, $OJ_NAME, $OJ_CDN_URL;
+  ?>
   <!DOCTYPE html>
   <html lang="<?php echo $OJ_LANG ?>">
 
@@ -8,7 +12,7 @@ if (isset($view_errors_js) || isset($view_swal) || isset($view_swal_params)) { ?
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="<?php echo $OJ_NAME?>">
+    <meta name="author" content="<?php echo $OJ_NAME ?>">
     <link rel="shortcut icon" href="/favicon.ico">
 
     <title><?php echo $OJ_NAME ?></title>
@@ -49,7 +53,7 @@ if (isset($view_errors_js) || isset($view_swal) || isset($view_swal_params)) { ?
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="<?php echo $OJ_NAME?>">
+    <meta name="author" content="<?php echo $OJ_NAME ?>">
     <link rel="shortcut icon" href="/favicon.ico">
 
     <title><?php echo $OJ_NAME ?></title>
@@ -59,7 +63,7 @@ if (isset($view_errors_js) || isset($view_swal) || isset($view_swal_params)) { ?
   <body>
 
     <div class="container">
-      <?php include("template/nav.php"); ?>
+      <?php include(dirname(__FILE__) . "/nav.php"); ?>
       <div class="jumbotron">
         <div class='main-container'>
           <?php if (isset($view_error_title)) echo "<h2>" . $view_error_title . "</h2><br>" ?>

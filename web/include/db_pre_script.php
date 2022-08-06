@@ -7,7 +7,6 @@ ini_set('date.timezone', $OJ_TIMEZONE);
 date_default_timezone_set($OJ_TIMEZONE);
 
 @session_start();
-// connect db 
 
 if (isset($_SESSION[$OJ_NAME . '_' . 'OJ_LANG'])) {
 	$OJ_LANG = $_SESSION[$OJ_NAME . '_' . 'OJ_LANG'];
@@ -30,6 +29,16 @@ if (($OJ_BLOCK_START_TIME < $OJ_BLOCK_END_TIME && $time >= $OJ_BLOCK_START_TIME 
 
 require_once(dirname(__FILE__) . "/pdo.php");
 require_once(dirname(__FILE__) . "/memcache.php");
+
+try {
+	$dbh = new PDO("mysql:host=" . $DB_HOST . ';dbname=' . $DB_NAME, $DB_USER, $DB_PASS, array(PDO::ATTR_PERSISTENT => true, PDO::MYSQL_ATTR_INIT_COMMAND => "set names utf8"));
+} catch (PDOException $e) {
+	$message = "Database account/password fail, check db_info.inc.php. 数据库账户密码错误，请检查配置文件db_info.inc.php。";
+	$view_errors_js = "swal('Database Error', '$message', 'error').then(()=>{window.location.reload()})";
+	$OJ_FAIL = true;
+	require_once(dirname(__FILE__) . "/../template/error.php");
+	exit(0);
+}
 
 if (file_exists(dirname(__FILE__) . "/../upload/files/msg.txt")) {
 	$OJ_FLOAT_NOTICE = explode("\n", file_get_contents(dirname(__FILE__) . "/../upload/files/msg.txt"));

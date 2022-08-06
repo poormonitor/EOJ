@@ -1,8 +1,9 @@
 <?php
 
 require_once(dirname(__FILE__) . "/db_info.inc.php");
+
 # Connect to memcache:
-global $memcache;
+global $memcache, $OJ_MEMCACHE;
 if ($OJ_MEMCACHE) {
     $memcache = new Memcached();
     $memcache->addServer($OJ_MEMSERVER,  $OJ_MEMPORT);

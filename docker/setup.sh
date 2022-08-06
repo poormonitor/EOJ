@@ -29,6 +29,7 @@ sh /home/judge/eoj/core/make.sh
 CPU=`grep "cpu cores" /proc/cpuinfo |head -1|awk '{print $4}'`
 USERNAME=`cat /etc/mysql/debian.cnf |grep user    |head -1|awk  '{print $3}'`
 PASSWORD=`cat /etc/mysql/debian.cnf |grep password|head -1|awk  '{print $3}'`
+cp /home/judge/eoj/web/include/db_info.default.php /home/judge/eoj/web/include/db_info.inc.php
 cp /home/judge/eoj/install/java0.policy  /home/judge/etc/
 cp /home/judge/eoj/install/judge.conf    /home/judge/etc/
 cp /home/judge/eoj/install/judged        /etc/init.d/judged
