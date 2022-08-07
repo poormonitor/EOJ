@@ -60,6 +60,26 @@ div.status_explain li {
     padding: 8px;
 }
 
+.navbar-nav>li>.dropdown-menu {
+    margin-top: 4px;
+    border: 1px solid #efefef;
+    border-radius: 15px;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.open>.dropdown-menu {
+    animation: 0.2s cubic-bezier(0.33, 1, 0.68, 1) 0s fadeIn;
+}
+
 .container .jumbotron {
     padding: 8px;
     background-color: rgba(255, 255, 255, 0);
@@ -273,21 +293,13 @@ img {
 }
 
 .table {
-    border-radius: 10px;
     margin-top: 10px;
     margin-bottom: 5px;
-    box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
     background: #fff;
-}
-
-.table-bordered {
-    box-shadow: none;
-    border-radius: 0px;
 }
 
 .table-responsive {
     border: 0;
-    padding: 3px;
 }
 
 .table-responsive>.table {

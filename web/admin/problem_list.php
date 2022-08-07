@@ -88,8 +88,8 @@ echo "</select>";
             ?>
 
             <div class='table-responsive'>
-              <table width=100% class='center table table-condensed table-bordered'>
-                <form method=post action=contest_add.php>
+              <form method=post action=contest_add.php>
+                <table width=100% class='center table table-condensed'>
                   <thead>
                     <tr>
                       <th class='center'>
@@ -128,7 +128,9 @@ echo "</select>";
                   }
                   ?>
                   <tr>
-                    <td colspan=2 style="height:40px;"><?php echo $MSG_SET_TO ?></td>
+                    <td colspan=2 class="fw-bold fs-4 align-middle" style="height:40px;">
+                      <?php echo $MSG_SET_TO ?>
+                    </td>
                     <td colspan=6>
                       <div class='form-inline'>
                         <input class='form-control' type=submit name='problem2contest' value='<?php echo $MSG_ADD_TO_CONTEST ?>'>&nbsp;
@@ -137,8 +139,8 @@ echo "</select>";
                       </div>
                     </td>
                   </tr>
-                </form>
-              </table>
+                </table>
+              </form>
             </div>
 
             <?php
