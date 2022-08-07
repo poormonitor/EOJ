@@ -23,7 +23,7 @@ require_once("../include/set_get_key.php");
     <div class='jumbotron'>
       <div class='row lg-container'>
         <?php require_once("sidebar.php") ?>
-        <div class='col-md-10'>
+        <div class='col-md-10 p-0'>
           <center>
             <h3><?php echo $MSG_NEWS . "-" . $MSG_LIST ?></h3>
           </center>

@@ -20,7 +20,7 @@
 		<div class='jumbotron'>
 			<div class='row lg-container'>
 				<?php require_once("sidebar.php") ?>
-				<div class='col-md-10'>
+				<div class='col-md-10 p-0'>
 					<hr>
 					<center>
 						<h3><?php echo $MSG_USER . "-" . $MSG_SETPASSWORD ?></h3>

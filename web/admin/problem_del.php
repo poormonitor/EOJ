@@ -20,7 +20,7 @@ require_once("admin-header.php"); ?>
         <div class='jumbotron'>
             <div class='row lg-container'>
                 <?php require_once("sidebar.php") ?>
-                <div class='col-md-10'>
+                <div class='col-md-10 p-0'>
                     <?php
                     ini_set("display_errors", "On");
                     require_once("../include/check_get_key.php");

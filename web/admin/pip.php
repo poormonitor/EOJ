@@ -38,7 +38,7 @@ require("admin-header.php");
     <div class='jumbotron'>
       <div class='row lg-container'>
         <?php require_once("sidebar.php") ?>
-        <div class='col-md-10'>
+        <div class='col-md-10 p-0'>
           <h3 class='center'><?php echo $MSG_MODULE_INSTALLED ?></h3>
 
           <div class='container'>

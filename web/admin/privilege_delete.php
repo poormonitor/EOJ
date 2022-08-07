@@ -28,7 +28,7 @@ if (isset($_GET['uid'])) {
 		<div class='jumbotron'>
 			<div class='row lg-container'>
 				<?php require_once("sidebar.php") ?>
-				<div class='col-md-10'>
+				<div class='col-md-10 p-0'>
 					<script language=javascript>
 						window.setTimeOut(1000, "history.go(-1)");
 					</script>

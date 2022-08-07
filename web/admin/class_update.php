@@ -19,7 +19,7 @@
     <div class='jumbotron'>
       <div class='row lg-container'>
         <?php require_once("sidebar.php") ?>
-        <div class='col-md-10'>
+        <div class='col-md-10 p-0'>
           <center>
             <h3><?php echo $MSG_SCHOOL . "-" . $MSG_EDIT ?></h3>
           </center>
@@ -27,18 +27,18 @@
           <div class='container'>
 
             <?php
-            if (isset($_GET['do']) and isset($_GET['prefix']) and $_GET['prefix'] != "" and isset($_GET['grade']) and $_GET['grade'] != "") {
+            if (isset($_POST['do']) and isset($_POST['prefix']) and $_POST['prefix'] != "" and isset($_POST['grade']) and $_POST['grade'] != "") {
               //echo $_POST['user_id'];
-              require_once("../include/check_get_key.php");
+              require_once("../include/check_post_key.php");
               //echo $_POST['passwd'];
               require_once("../include/my_func.inc.php");
 
-              $reg = $_GET['prefix'] . ".{5}";
+              $reg = $_POST['prefix'] . ".{5}";
               $pieces = pdo_query("SELECT * FROM users WHERE user_id REGEXP ?", $reg);
               $count = 0;
               foreach ($pieces as $i) {
                 $user = $i["user_id"];
-                $class = trim($_GET['grade']) . "（" . strval(intval(substr($user, 3, 2))) . "）班";
+                $class = trim($_POST['grade']) . "（" . strval(intval(substr($user, 3, 2))) . "）班";
                 pdo_query("UPDATE `users` SET `school`=? WHERE `user_id`=?", $class, $user);
                 $count += 1;
               }
@@ -46,9 +46,9 @@
             }
             ?>
 
-            <form action="class_update.php" method="get" class="form-horizontal">
+            <form action="class_update.php" method="post" class="form-horizontal">
               <div class="form-group">
-                <?php require_once("../include/set_get_key.php"); ?>
+                <?php require_once("../include/set_post_key.php"); ?>
                 <div class='col-md-4'></div>
                 <div class='col-md-4'>
                   <label>入学年份（学号前两位）</label>

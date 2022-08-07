@@ -19,7 +19,7 @@
 		<div class='jumbotron'>
 			<div class='row lg-container'>
 				<?php require_once("sidebar.php") ?>
-				<div class='col-md-10'>
+				<div class='col-md-10 p-0'>
 					<?php if (isset($_POST['prefix'])) {
 						require_once("../include/check_post_key.php");
 						$prefix = $_POST['prefix'];
