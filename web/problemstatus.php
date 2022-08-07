@@ -245,7 +245,7 @@ if ($problem_info["blank"] && isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
   }
   $blank_analysis = array();
   $strip_map = array();
-  
+
   foreach ($result as $row) {
 
     $view_src = $row["source"];
@@ -254,7 +254,7 @@ if ($problem_info["blank"] && isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
     $user_id = $row["user_id"];
     $nick = $row["nick"];
     $user_info = $user_id . "(" . $nick . ")";
-    $res = getBlankCode($blank, $view_src);
+    $res = getBlankCodeSingle($blank, $view_src);
 
     for ($i = 0; $i < count($res); $i++) {
 

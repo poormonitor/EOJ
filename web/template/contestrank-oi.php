@@ -6,7 +6,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="">
-	<meta name="author" content="<?php echo $OJ_NAME?>">
+	<meta name="author" content="<?php echo $OJ_NAME ?>">
 	<link rel="shortcut icon" href="/favicon.ico">
 
 	<title>
@@ -14,6 +14,25 @@
 	</title>
 
 	<?php include("template/css.php"); ?>
+
+	<style>
+		.center-block {
+			margin-right: 3px;
+		}
+
+		td {
+			padding: 3px;
+			white-space: nowrap;
+		}
+
+		.well {
+			background-image: none;
+			padding: 3px;
+			text-align: center;
+			border: 0;
+			border-radius: 0;
+		}
+	</style>
 
 	<?php
 	function formatTimeLength($length)
@@ -217,8 +236,8 @@
 				<h4><?php if (isset($locked_msg)) echo $locked_msg; ?></h4>
 				<?php
 				if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
-					echo '<div class="btn-group"><a class="btn btn-primary btn-sm" href="contestrank3.php?cid=' . $cid . '">'.$MSG_ROLLING.'</a>';
-					echo '&nbsp;&nbsp;<a class="btn btn-primary btn-sm" href="contestrank2.php?cid=' . $cid . '">'.$MSG_REPLAY.'</a></div><br><br>';
+					echo '<div class="btn-group"><a class="btn btn-primary btn-sm" href="contestrank3.php?cid=' . $cid . '">' . $MSG_ROLLING . '</a>';
+					echo '&nbsp;&nbsp;<a class="btn btn-primary btn-sm" href="contestrank2.php?cid=' . $cid . '">' . $MSG_REPLAY . '</a></div><br><br>';
 				}
 				?>
 			</center>
@@ -434,18 +453,6 @@
 		var diff = new Date("<?php echo date("Y/m/d H:i:s") ?>").getTime() - new Date().getTime();
 		clock(diff);
 	</script>
-
-	<style>
-		.well {
-			background-image: none;
-			padding: 1px;
-			text-align: center;
-		}
-
-		td {
-			white-space: nowrap;
-		}
-	</style>
 
 </body>
 

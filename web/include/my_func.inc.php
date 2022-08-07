@@ -445,6 +445,22 @@ function getBlankCode($blank, $view_src)
   return $matches;
 }
 
+function getBlankCodeSingle($blank, $view_src)
+{
+  $view_src = unifyCode($view_src);
+  $blank = unifyCode($blank);
+  $blank_pat = "#" . preg_quote($blank) . "#";
+  $func = function ($value) {
+    return $value[0];
+  };
+  $blank_pat = str_replace("%\*%", "(.*)", $blank_pat);
+  $blank_pat = str_replace("\*%\*", "[\s\S]*", $blank_pat);
+  preg_match_all($blank_pat, $view_src, $matches);
+  $matches = array_slice($matches, 1);
+  $matches = array_map($func, $matches);
+  return $matches;
+}
+
 function getBlankCodeInd($blank, $view_src)
 {
   $view_src = unifyCode($view_src);

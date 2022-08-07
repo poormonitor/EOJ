@@ -34,18 +34,6 @@ div.status_explain li {
     font-size: 16px;
 }
 
-.navbar-default .navbar-nav>.active>a,
-.navbar-default .navbar-nav>.active>a:hover,
-.navbar-default .navbar-nav>.active>a:focus {
-    box-shadow: rgb(0 0 0 / 12%) 0px 2px 4px 0px inset;
-}
-
-.navbar-default .navbar-nav>.open>a,
-.navbar-default .navbar-nav>.open>a:hover,
-.navbar-default .navbar-nav>.open>a:focus {
-    box-shadow: rgb(0 0 0 / 12%) 0px 2px 4px 0px inset;
-}
-
 .navbar-default .navbar-toggle {
     border-color: #fff;
     border-radius: 12px;

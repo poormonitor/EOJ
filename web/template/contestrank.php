@@ -15,6 +15,25 @@
 
 	<?php include("template/css.php"); ?>
 
+	<style>
+		.center-block {
+			margin-right: 3px;
+		}
+
+		td {
+			padding: 3px;
+			white-space: nowrap;
+		}
+
+		.well {
+			background-image: none;
+			padding: 3px;
+			text-align: center;
+			border: 0;
+			border-radius: 0;
+		}
+	</style>
+
 	<?php
 	function formatTimeLength($length)
 	{
@@ -269,12 +288,12 @@
 								echo "<tr class='evenrow'>";
 
 							$nick = $U[$i]->nick;
-							echo "<td class='text-center'>";
+							echo "<td class='text-center'><span>";
 							if ($nick[0] != "*")
 								echo $rank++;
 							else
 								echo "*";
-							echo "</td>";
+							echo "</span></td>";
 
 							$uuid = $U[$i]->user_id;
 							if (isset($_GET['user_id']) && $uuid == $_GET['user_id'])
@@ -378,9 +397,9 @@
 				metal();
 			<?php } ?>
 
-			setTimeout(function() {
+			/*setTimeout(function() {
 				document.location.href = '/contestrank.php?cid=<?php echo $cid ?>'
-			}, 60000);
+			}, 60000);*/
 		});
 
 		function metal() {
@@ -402,29 +421,29 @@
 					var cell = rows[i].cells[0];
 					var acc = rows[i].cells[3];
 					var ac = parseInt(acc.innerText);
+					var target = cell.children[0];
 
 					if (isNaN(ac))
 						ac = parseInt(acc.textContent);
 
 					if (cell.innerHTML != "*" && ac > 0) {
-						var r = parseInt(cell.innerHTML);
+						var r = parseInt(target.innerHTML);
 						if (r == 1) {
-							cell.innerHTML = "Winner";
-							//cell.style.cssText="background-color:gold;color:red";
-							cell.className = "badge btn-warning center-block";
+							target.innerHTML = "Winner";
+							target.className = "badge btn-warning center-block";
 						}
 
 						if (r > 1 && r <= total * .05 + 1)
-							cell.className = "badge btn-warning center-block";
+							target.className = "badge btn-warning center-block";
 
 						if (r > total * .05 + 1 && r <= total * .20 + 1)
-							cell.className = "badge center-block";
+							target.className = "badge center-block";
 
 						if (r > total * .20 + 1 && r <= total * .45 + 1)
-							cell.className = "badge btn-danger center-block";
+							target.className = "badge btn-danger center-block";
 
 						if (r > total * .45 + 1 && ac > 0)
-							cell.className = "badge badge-info center-block";
+							target.className = "badge badge-info center-block";
 					}
 
 				}
@@ -453,18 +472,6 @@
 		var diff = new Date("<?php echo date("Y/m/d H:i:s") ?>").getTime() - new Date().getTime();
 		clock(diff);
 	</script>
-
-	<style>
-		.well {
-			background-image: none;
-			padding: 1px;
-			text-align: center;
-		}
-
-		td {
-			white-space: nowrap;
-		}
-	</style>
 
 </body>
 
