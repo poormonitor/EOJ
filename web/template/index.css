@@ -26,9 +26,7 @@ body {
 }
 
 .navbar-default {
-    margin-top: 4px;
     background: #fff;
-    border-color: #fff;
 }
 
 div.status_explain li {
@@ -39,15 +37,13 @@ div.status_explain li {
 .navbar-default .navbar-nav>.active>a,
 .navbar-default .navbar-nav>.active>a:hover,
 .navbar-default .navbar-nav>.active>a:focus {
-    box-shadow: 0 1px 0 rgb(255 255 255 / 15%) inset, 0 2px 6px rgb(0 0 0 / 8%);
-    border-radius: 8px;
+    box-shadow: rgb(0 0 0 / 12%) 0px 2px 4px 0px inset;
 }
 
 .navbar-default .navbar-nav>.open>a,
 .navbar-default .navbar-nav>.open>a:hover,
 .navbar-default .navbar-nav>.open>a:focus {
-    box-shadow: 0 1px 0 rgb(255 255 255 / 15%) inset, 0 2px 6px rgb(0 0 0 / 8%);
-    border-radius: 8px;
+    box-shadow: rgb(0 0 0 / 12%) 0px 2px 4px 0px inset;
 }
 
 .navbar-default .navbar-toggle {
@@ -61,10 +57,31 @@ div.status_explain li {
     border-color: #ddd;
 }
 
+.dropdown-menu,
+.navbar-default {
+    background-repeat: repeat-x;
+    border-radius: 15px;
+    border: 0;
+    box-shadow: rgb(0 0 0 / 8%) 2px 4px 12px 0px;
+}
+
+.navbar-default .navbar-nav>li>a {
+    border-radius: 8px;
+    transition: all 0.2s cubic-bezier(0.33, 1, 0.68, 1);
+    margin: 7px;
+    padding: 8px;
+}
+
 .container .jumbotron {
     padding: 8px;
     background-color: rgba(255, 255, 255, 0);
     border: 0;
+}
+
+.btn-sm,
+.btn-group-sm>.btn {
+    border-radius: 10px;
+    border-color: rgba(0, 0, 0, 0);
 }
 
 pre {
@@ -287,14 +304,6 @@ img {
 
 .table-responsive>.table {
     white-space: nowrap !important;
-}
-
-.dropdown-menu,
-.navbar-default {
-    background-repeat: repeat-x;
-    border-radius: 15px;
-    border: 0;
-    box-shadow: 0 1px 0 rgba(255, 255, 255, .15) inset, 0 2px 6px rgba(0, 0, 0, .075);
 }
 
 .multiline {

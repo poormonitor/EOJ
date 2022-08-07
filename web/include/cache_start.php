@@ -24,17 +24,11 @@ $sid = md5($sid);
 $pageCacheKey = "cache_$sid.html";
 
 if ($OJ_MEMCACHE) {
-    $mem = new Memcached();
-    $mem->addServer($OJ_MEMSERVER,  $OJ_MEMPORT);
-    $ns_key = $mem->get($OJ_NAME . "_ns_key");
-    if ($ns_key === false) goto end;
-    $real_key = $OJ_NAME . "_key_" . $ns_key . $pageCacheKey;
-    $content = $mem->get($real_key);
-    if ($content) {
+    $content = getCache($pageCacheKey);
+    if ($content !== false) {
         echo $content;
         exit(0);
     } else {
-        end:
         $use_cache = false;
         $write_cache = true;
     }

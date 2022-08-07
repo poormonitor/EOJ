@@ -8,6 +8,8 @@ date_default_timezone_set($OJ_TIMEZONE);
 
 @session_start();
 
+$OJ_IDENTITY = str_replace($OJ_NAME, " ", "");
+
 if (isset($_SESSION[$OJ_NAME . '_' . 'OJ_LANG'])) {
 	$OJ_LANG = $_SESSION[$OJ_NAME . '_' . 'OJ_LANG'];
 } else if (isset($_COOKIE['lang']) && in_array($_COOKIE['lang'], array("zh", "en"))) {
