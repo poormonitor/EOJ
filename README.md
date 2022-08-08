@@ -34,7 +34,7 @@
 1. 运行脚本
 
 ```shell
-wget https://git.oldmonitor.cn/poormonitor/hoj/raw/branch/master/install/install.sh && chmod a+x install.sh && bash install.sh
+wget https://git.oldmonitor.cn/poormonitor/EOJ/raw/branch/master/install/install.sh && chmod a+x install.sh && bash install.sh
 ```
 
 ​	脚本运行结束后，会打印数据库密码。请您复制保存。
@@ -76,10 +76,10 @@ wget https://git.oldmonitor.cn/poormonitor/hoj/raw/branch/master/install/install
 
    ```shell
    docker run -d             \
-      --name hoj             \
+      --name EOJ             \
       -p 8080:80             \
       -v ~/volume:/home/hoj  \
-      poormonitor/hoj:latest
+      poormonitor/EOJ:latest
    ```
 
 ## License

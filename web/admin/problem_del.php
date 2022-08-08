@@ -27,13 +27,12 @@ require_once("admin-header.php"); ?>
 
                     ?>
                     <?php
-                    if (function_exists('system')) {
+                    if (function_exists('shell_exec')) {
                         $id = intval($_GET['id']);
 
                         $basedir = "$OJ_DATA/$id";
-                        if (strlen($basedir) > 16) {
-                            system("rm -rf $basedir");
-                        }
+                        shell_exec("rm -rf $basedir");
+
                         $sql = "delete FROM `problem` WHERE `problem_id`=?";
                         pdo_query($sql, $id);
                         $sql = "delete from `privilege` where `rightstr`=? ";
@@ -54,21 +53,12 @@ require_once("admin-header.php"); ?>
                         <script language=javascript>
                             history.go(-1);
                         </script>
-                    <?php
-                    } else {
-
-
-                    ?>
+                    <?php } else { ?>
                         <script language=javascript>
-                            alert("Nees enable system() in php.ini");
+                            swal("Need enable shell_exec() in php.ini");
                             history.go(-1);
                         </script>
-                    <?php
-
-                    }
-
-                    ?>
-
+                    <?php } ?>
                     <br>
                 </div>
             </div>
