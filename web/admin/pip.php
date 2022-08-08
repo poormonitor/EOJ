@@ -1,22 +1,33 @@
 <?php
 require_once("../include/db_info.inc.php");
 require_once("../include/my_func.inc.php");
-
-if (isset($_GET['do'])) {
-  $module = trim($_GET["module"]);
-  //require_once("../include/check_get_key.php");
-  if ($_GET["do"] == "install") {
-    $command = $OJ_PY_BIN . " -m pip install $module";
-  }
-  if ($_GET["do"] == "uninstall") {
-    $command = $OJ_PY_BIN . " -m pip uninstall $module -y";
-  }
-  if ($_GET["do"] == "upgrade") {
-    $command = $OJ_PY_BIN . " -m pip upgrade $module";
-  }
-  $install = shell_exec($command);
-}
 require("admin-header.php");
+
+if (isset($_POST['do'])) {
+  require_once("../include/check_post_key.php");
+  $module = $_POST["module"];
+  $temp = tempnam(sys_get_temp_dir(), "pip_module");
+  file_put_contents($temp, $module);
+  if ($_POST["do"] == "install") {
+    $command = $OJ_PY_BIN . " -m pip install -r $temp";
+    $install = shell_exec($command);
+    fclose($temp);
+  }
+  if ($_POST["do"] == "uninstall") {
+    $command = $OJ_PY_BIN . " -m pip uninstall -y -r $temp";
+    $install = shell_exec($command);
+    echo $install;
+    fclose($temp);
+    exit(0);
+  }
+  if ($_POST["do"] == "upgrade") {
+    $command = $OJ_PY_BIN . " -m pip install --upgrade -r $temp";
+    $install = shell_exec($command);
+    echo $install;
+    fclose($temp);
+    exit(0);
+  }
+}
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo $OJ_LANG ?>">
@@ -47,15 +58,15 @@ require("admin-header.php");
             if (isset($install)) {
               echo "<pre id=code>";
               echo str_replace("\n", "<br>", htmlentities($install, ENT_QUOTES, "UTF-8"));
+              echo "</pre>";
             }
-            echo "</pre>";
             ?>
 
             <br>
             <center>
-              <form action=pip.php class="form-search form-inline">
+              <form action=pip.php method="POST" class="form-search form-inline">
                 <input type="text" name="module" class="form-control search-query" placeholder="<?php echo $MSG_MODULE ?>">
-                <input type=hidden name="getkey" value="<?php echo $getkey; ?>">
+                <?php require_once("../include/set_post_key.php"); ?>
                 <button name="do" value="install" type="submit" class="form-control"><?php echo $MSG_MODULE_INSTALL ?></button>
               </form>
             </center>
@@ -82,8 +93,8 @@ require("admin-header.php");
                     echo "<tr>";
                     echo "<td>$name</td>";
                     echo "<td>$version</td>";
-                    echo "<td><a class='green' href='pip.php?do=upgrade&module=$name&getkey=$getkey'>$MSG_UPGRADE</td>";
-                    echo "<td><a class='red' href='pip.php?do=uninstall&module=$name&getkey=$getkey'>$MSG_UNINSTALL</td>";
+                    echo "<td><a class='green' href='javascript:upgradeModule(\"$name\", this)'>$MSG_UPGRADE</td>";
+                    echo "<td><a class='red' href='javascript:uninstallModule(\"$name\", this)'>$MSG_UNINSTALL</td>";
                     echo "</tr>";
                   }
                   ?>
@@ -98,6 +109,37 @@ require("admin-header.php");
     </div>
   </div>
   <?php require_once("../template/js.php"); ?>
+  <script>
+    function uninstallModule(mod) {
+      $.post("pip.php", {
+        do: "uninstall",
+        module: mod,
+        postkey: "<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>"
+      }, function(data, status) {
+        swal({
+          text: data,
+          icon: "info"
+        }).then(() => {
+          window.location.reload()
+        })
+      })
+    }
+
+    function upgradeModule(mod) {
+      $.post("pip.php", {
+        do: "upgrade",
+        module: mod,
+        postkey: "<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>"
+      }, function(data, status) {
+        swal({
+          text: data,
+          icon: "info"
+        }).then(() => {
+          window.location.reload()
+        })
+      })
+    }
+  </script>
 </body>
 
 </html>

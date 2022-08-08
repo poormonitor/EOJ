@@ -1,6 +1,17 @@
 <?php
 require_once("../include/db_info.inc.php");
-require_once("admin-header.php"); ?>
+require_once("admin-header.php");
+
+$id = isset($_GET['id']) ? $_GET['id'] : 1000;
+$sql = "SELECT * FROM `problem_2` WHERE `id`=?";
+$result = pdo_query($sql, intval($id));
+if (!$result) {
+  $view_swal = $MSG_NOT_EXISTED;
+  require("../template/error.php");
+  exit(0);
+}
+$row = $result[0];
+?>
 <!DOCTYPE html>
 <html lang="<?php echo $OJ_LANG ?>">
 
@@ -28,12 +39,6 @@ require_once("admin-header.php"); ?>
 
           <div class="container">
             <form method=POST action=problem_add.php>
-              <?php
-              $id = isset($_GET['id']) ? $_GET['id'] : 1000;
-              $sql = "SELECT * FROM `problem_2` WHERE `id`=?";
-              $result = pdo_query($sql, intval($id));
-              $row = $result[0];
-              ?>
 
               <p align=left>
               <h3>来源 : <?php echo $row['source'] ?></h3>
