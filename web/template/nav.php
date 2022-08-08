@@ -15,8 +15,8 @@ if ($OJ_ONLINE) {
   require_once(dirname(__FILE__) . '/../include/online.php');
   $on = new online();
 }
-$prefix = isset($prefix) ? $prefix : "";
 $loc = isset($prefix) ? "&loc=admin" : "";
+$prefix = isset($prefix) ? $prefix : "";
 ?>
 <!-- Static navbar -->
 <nav class="navbar navbar-default" role="navigation">

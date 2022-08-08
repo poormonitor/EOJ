@@ -1,7 +1,12 @@
 <?php
 require_once('../include/db_info.inc.php');
 
-if (!isset($_SESSION[$OJ_NAME . '_' . 'uploadkey']) || !isset($_POST['uploadkey']) || $_SESSION[$OJ_NAME . '_' . 'uploadkey'] != $_POST['uploadkey'])
+if (
+	!isset($_SESSION[$OJ_NAME . '_' . 'user_id'])
+	|| !isset($_SESSION[$OJ_NAME . '_' . 'uploadkey'])
+	|| !isset($_POST['uploadkey'])
+	|| $_SESSION[$OJ_NAME . '_' . 'uploadkey'] != $_POST['uploadkey']
+)
 	exit(1);
 
 $imageFolder = "../upload/files/";
@@ -13,6 +18,11 @@ reset($_FILES);
 $temp = current($_FILES);
 if (!is_uploaded_file($temp['tmp_name'])) {
 	header("HTTP/1.1 500 Server Error");
+	exit;
+}
+
+if (in_array(strtolower(pathinfo($temp['name'], PATHINFO_EXTENSION)), array("php"))) {
+	header("HTTP/1.1 400 Invalid extension.");
 	exit;
 }
 
