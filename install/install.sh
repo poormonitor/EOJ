@@ -1,10 +1,10 @@
 #!/bin/bash
 apt-get update
-apt install build-essential libmariadb-dev libmariadbclient-dev libmariadb-dev default-libmysqlclient-dev -y
+apt install build-essential make flex clang libmariadb-dev -y
 /usr/sbin/useradd -m -u 1536 judge
 cd /home/judge/
 
-git clone https://git.oldmonitor.cn/poormonitor/eoj.git
+git clone https://github.com/poormonitor/eoj.git
 USER="jol"
 PASSWORD=`date +%s | sha256sum | base64 | head -c 10 ; echo`
 CPU=`grep "cpu cores" /proc/cpuinfo |head -1|awk '{print $4}'`

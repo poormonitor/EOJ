@@ -20,7 +20,7 @@
         <!-- Main component for a primary marketing message or call to action -->
         <div class="jumbotron">
             <center>
-                <form id=frmSolution action="submit.php" method="post" onsubmit='do_submit()'>
+                <form id=frmSolution action="submit.php" method="post">
                     <?php if (isset($id)) { ?>
                         <br>
                         <?php echo $MSG_PROBLEM_ID . " : " ?> <span class=blue><?php echo $id ?></span>
@@ -156,32 +156,6 @@
             }
         }
 
-        function encoded_submit() {
-            var mark = "<?php echo isset($id) ? 'problem_id' : 'cid'; ?>";
-            var problem_id = document.getElementById(mark);
-
-            if (typeof(editor) != "undefined")
-                $("#hide_source").val(editor.getValue());
-            if (mark == 'problem_id')
-                problem_id.value = '<?php if (isset($id)) echo $id ?>';
-            else
-                problem_id.value = '<?php if (isset($cid)) echo $cid ?>';
-
-            document.getElementById("frmSolution").target = "_self";
-            document.getElementById("encoded_submit_mark").name = "encoded_submit";
-            var source = $("#source").val();
-
-            if (typeof(editor) != "undefined") {
-                source = editor.getValue();
-                $("#hide_source").val(encode64(utf16to8(source)));
-            } else {
-                $("#source").val(encode64(utf16to8(source)));
-            }
-            //      source.value=source.value.split("").reverse().join("");
-            //      swal(source.value);
-            document.getElementById("frmSolution").submit();
-        }
-
         function reloadtemplate(lang) {
             console.log("lang=" + lang);
             document.cookie = "lastlang=" + lang;
@@ -194,27 +168,9 @@
                 if (confirm("<?php echo  $MSG_LOAD_TEMPLATE_CONFIRM ?>"))
                     document.location.href = url;
             <?php } ?>
-            switchLang(lang);
+            switchLangs(lang);
         }
 
-        function do_submit() {
-            <?php if ($OJ_LONG_LOGIN == true && isset($_COOKIE[$OJ_NAME . "_user"]) && isset($_COOKIE[$OJ_NAME . "_check"])) echo "let xhr=new XMLHttpRequest();xhr.open('GET','login.php',true);xhr.send();"; ?>
-
-            if (typeof(editor) != "undefined") {
-                $("#hide_source").val(editor.getValue());
-            }
-
-            var mark = "<?php echo isset($id) ? 'problem_id' : 'cid'; ?>";
-            var problem_id = document.getElementById(mark);
-
-            if (mark == 'problem_id')
-                problem_id.value = '<?php if (isset($id)) echo $id ?>';
-            else
-                problem_id.value = '<?php if (isset($cid)) echo $cid ?>';
-
-            document.getElementById("frmSolution").target = "_self";
-            document.getElementById("frmSolution").submit();
-        }
         var sid = 0;
         var i = 0;
         var judge_result = [<?php

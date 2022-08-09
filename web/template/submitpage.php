@@ -85,7 +85,8 @@
           <input type=hidden id="hide_source" name="source" value="" />
           <?php if ($OJ_VCODE) { ?>
             <?php echo $MSG_VCODE ?>:
-            <input name="vcode" size=4 type=text style='margin:5px;' id='vcode_input'> <img id="vcode" alt="click to change" onclick="this.src='vcode.php?small=true&'+Math.random()" autocomplete="off">
+            <input name="vcode" size=4 type=text style='margin:5px;' id='vcode_input'>
+            <img id="vcode" alt="click to change" onclick="this.src='vcode.php?small=true&'+Math.random()" autocomplete="off">
           <?php } ?>
           <?php if (isset($OJ_TEST_RUN) && $OJ_TEST_RUN) { ?>
             <div class="checkbox">
@@ -114,10 +115,6 @@
                 </div>
               </div>
             </div>
-          <?php } ?>
-          <?php if (isset($OJ_ENCODE_SUBMIT) && $OJ_ENCODE_SUBMIT) { ?>
-            <input class="btn btn-success" title="WAF gives you reset? Try this." type=button value="Encoded <?php echo $MSG_SUBMIT ?>" onclick="encoded_submit();">
-            <input type=hidden id="encoded_submit_mark" name="reverse2" value="reverse">
           <?php } ?>
           <input id="Submit" class="btn btn-info btn-sm" type=button value="<?php echo $MSG_SUBMIT ?>" onclick="do_submit();" style='margin:6px;'>
         </center>
@@ -152,48 +149,26 @@
       var t = $("#TestRun")[0];
       if (count < 0) {
         s.disabled = false;
-        if (t != null) t.disabled = false;
+        if (t != null)
+          t.disabled = false;
 
         s.value = "<?php echo $MSG_SUBMIT ?>";
 
-        if (t != null) t.value = "<?php echo $MSG_TR ?>";
+        if (t != null)
+          t.value = "<?php echo $MSG_TR ?>";
 
-        if (handler_interval) window.clearInterval(handler_interval);
+        if (handler_interval)
+          window.clearInterval(handler_interval);
 
         if ($("#vcode") != null) $("#vcode").click();
       } else {
         s.value = "<?php echo $MSG_SUBMIT ?>(" + count + ")";
 
-        if (t != null) t.value = "<?php echo $MSG_TR ?>(" + count + ")";
+        if (t != null)
+          t.value = "<?php echo $MSG_TR ?>(" + count + ")";
 
         window.setTimeout("resume();", 1000);
       }
-    }
-
-    function encoded_submit() {
-      var mark = "<?php echo isset($id) ? 'problem_id' : 'cid'; ?>";
-      var problem_id = document.getElementById(mark);
-
-      if (typeof(editor) != "undefined")
-        $("#hide_source").val(editor.getValue());
-      if (mark == 'problem_id')
-        problem_id.value = '<?php if (isset($id)) echo $id ?>';
-      else
-        problem_id.value = '<?php if (isset($cid)) echo $cid ?>';
-
-      document.getElementById("frmSolution").target = "_self";
-      document.getElementById("encoded_submit_mark").name = "encoded_submit";
-      var source = $("#source").val();
-
-      if (typeof(editor) != "undefined") {
-        source = editor.getValue();
-        $("#hide_source").val(encode64(utf16to8(source)));
-      } else {
-        $("#source").val(encode64(utf16to8(source)));
-      }
-      //      source.value=source.value.split("").reverse().join("");
-      //      swal(source.value);
-      document.getElementById("frmSolution").submit();
     }
 
     function reloadtemplate(lang) {
@@ -212,10 +187,13 @@
     }
 
     function do_submit() {
-      <?php if ($OJ_LONG_LOGIN == true && isset($_COOKIE[$OJ_NAME . "_user"]) && isset($_COOKIE[$OJ_NAME . "_check"])) echo "let xhr=new XMLHttpRequest();xhr.open('GET','login.php',true);xhr.send();"; ?>
+      <?php
+      if ($OJ_LONG_LOGIN == true && isset($_COOKIE[$OJ_NAME . "_user"]) && isset($_COOKIE[$OJ_NAME . "_check"]))
+        echo "let xhr=new XMLHttpRequest();xhr.open('GET','login.php',true);xhr.send();";
+      ?>
 
-      if (typeof(editor) != "undefined") {
-        $("#hide_source").val(editor.getValue());
+      if (typeof(window.editor) != "undefined") {
+        $("#hide_source").val(encode64(utf16to8(window.editor.getValue())));
       }
 
       var mark = "<?php echo isset($id) ? 'problem_id' : 'cid'; ?>";

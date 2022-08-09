@@ -11,23 +11,25 @@ if (isset($_POST['do'])) {
   if ($_POST["do"] == "install") {
     $command = $OJ_PY_BIN . " -m pip install -r $temp";
     $install = shell_exec($command);
-    fclose($temp);
+    unlink($temp);
   }
   if ($_POST["do"] == "uninstall") {
     $command = $OJ_PY_BIN . " -m pip uninstall -y -r $temp";
     $install = shell_exec($command);
     echo $install;
-    fclose($temp);
+    unlink($temp);
     exit(0);
   }
   if ($_POST["do"] == "upgrade") {
     $command = $OJ_PY_BIN . " -m pip install --upgrade -r $temp";
     $install = shell_exec($command);
     echo $install;
-    fclose($temp);
+    unlink($temp);
     exit(0);
   }
 }
+
+$src = shell_exec($OJ_PY_BIN . " -m pip list --format=json");
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo $OJ_LANG ?>">
@@ -85,7 +87,6 @@ if (isset($_POST['do'])) {
                   require_once("../include/set_get_key.php");
                   $getkey = $_SESSION[$OJ_NAME . '_' . 'getkey'];
 
-                  $src = shell_exec($OJ_PY_BIN . " -m pip list --format=json");
                   $json = json_decode($src);
                   foreach ($json as $i) {
                     $name = $i->name;

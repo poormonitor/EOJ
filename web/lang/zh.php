@@ -182,6 +182,7 @@ $MSG_Source = "来源";
 $MSG_ALLOW_KEYWORD = "必须关键字";
 $MSG_BLOCK_KEYWORD = "禁用关键字";
 $MSG_AB_KEYWORD = "必须/禁用关键字";
+$MSG_AB_KEYWORD_WARNING = "代码中有禁用的关键词或没有使用必须的关键词！";
 $MSG_Time_Limit = "时间限制";
 $MSG_Memory_Limit = "内存限制";
 $MSG_EDIT = "编辑";

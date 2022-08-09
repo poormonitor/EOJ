@@ -720,8 +720,8 @@ void make_diff_out_full(FILE *f1, FILE *f2, int c1, int c2, const char *path, co
 }
 void make_diff_out_simple(FILE *f1, FILE *f2, int c1, int c2, const char *path, const char *infile)
 {
-	execute_cmd("echo -e '[%s]' >> diff.out", getFileNameFromPath(path));
-	execute_cmd("echo -e '\nInput' >> diff.out", getFileNameFromPath(path));
+	execute_cmd("echo '[%s]' >> diff.out", getFileNameFromPath(path));
+	execute_cmd("echo '\nInput' >> diff.out", getFileNameFromPath(path));
 	if (get_file_size(infile) <= 2048)
 	{
 		execute_cmd("cat %s >> diff.out", infile);
@@ -730,10 +730,10 @@ void make_diff_out_simple(FILE *f1, FILE *f2, int c1, int c2, const char *path, 
 	{
 		execute_cmd("echo 'File too large' >> diff.out", infile);
 	}
-	execute_cmd("echo -e '\n' >> diff.out", getFileNameFromPath(path));
+	execute_cmd("echo '\n' >> diff.out", getFileNameFromPath(path));
 	execute_cmd("echo 'Expected						      |	Yours'>>diff.out");
 	execute_cmd("diff '%s' user.out -y|head -100>>diff.out", path);
-	execute_cmd("echo -e '\n\n'>>diff.out");
+	execute_cmd("echo '\n\n'>>diff.out");
 }
 
 /*

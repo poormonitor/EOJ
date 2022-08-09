@@ -155,9 +155,9 @@ $row = $result[0];
 
 if ($row[0] > 10) {
 	$OJ_VCODE = true;
-	//$OJ_TEST_RUN=false;
-	//echo "$row[0]";
+	$OJ_TEST_RUN = false;
 }
+
 $blank = pdo_query("SELECT blank from problem where problem_id=?", $problem_id)[0][0];
 $blank = unifyCode($blank);
 

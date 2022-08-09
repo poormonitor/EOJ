@@ -182,6 +182,7 @@ $MSG_Source = "Source";
 $MSG_ALLOW_KEYWORD = "Required Keyword";
 $MSG_BLOCK_KEYWORD = "Disabled Keyword";
 $MSG_AB_KEYWORD = "Required/Disabled Keyword";
+$MSG_AB_KEYWORD_WARNING = "There are disabled keywords in the code or the required keywords are not used!";
 $MSG_Time_Limit = "Time Limit";
 $MSG_Memory_Limit = "Memory Limit";
 $MSG_EDIT = "Edit";

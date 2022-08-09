@@ -34,12 +34,15 @@ if (!$OJ_BENCHMARK_MODE) {
   $err_str = "";
   $err_cnt = 0;
 
-  if ($OJ_VCODE && ($_SESSION[$OJ_NAME . '_' . "vcode"] == null || $vcode != $_SESSION[$OJ_NAME . '_' . "vcode"] || $vcode == "" || $vcode == null)) {
-    $_SESSION[$OJ_NAME . '_' . "vcode"] = null;
-    $err_str = $err_str . $MSG_VCODE_WRONG;
-    $err_cnt++;
-    $view_errors = "<h3>" . $err_str . "</h3>";
-    $view_errors_js .= "swal('$MSG_VCODE_WRONG').then((onConfirm)=>{history.go(-1);});";
+  if (
+    ($OJ_VCODE
+      && (!isset($_SESSION[$OJ_NAME . '_' . "vcode"])
+        || !isset($_POST["vcode"])
+        || $_POST["vcode"] != $_SESSION[$OJ_NAME . '_' . "vcode"])
+    ) || (isset($_POST["vcode"]) && $_POST["vcode"] != $_SESSION[$OJ_NAME . '_' . "vcode"])
+  ) {
+    unset($_SESSION[$OJ_NAME . '_' . "vcode"]);
+    $view_swal .= "$MSG_VCODE_WRONG";
     if (isset($_GET['ajax'])) {
       echo "-1";
     } else {
@@ -178,9 +181,10 @@ if ($c_pid < 0) {
   $c_pid = -$c_pid;
 }
 $code = pdo_query("select blank from problem where problem_id=?", $c_pid);
-if (count($code) && $code[0][0]) {
+if ($code && $code[0][0]) {
   $code = $code[0][0];
   $code = unifyCode($code);
+
   if (isset($_POST['code0']) || isset($_POST['multiline0'])) {
     for ($i = 0; isset($_POST['code' . $i]); $i++) {
       $code = str_replace_limit("%*%", $_POST['code' . $i], $code, 1);
@@ -194,25 +198,22 @@ if (count($code) && $code[0][0]) {
     $source = $code;
     $input_text = $code;
   } else {
-
     $code = str_replace(" ", "", $code);
     $code = rtrim($code, "\n");
     $code = preg_quote($code);
     $code = str_replace("%\*%", ".*", $code);
     $code = str_replace("\*%\*", "[\s\S]*", $code);
 
-    $p_source = unifyCode($_POST['source']);
+    $decoded_source = base64_decode($_POST['source']);
+    $p_source = unifyCode($decoded_source);
     $p_source = rtrim($p_source, "\n");
     $p_source = str_replace(" ", "", $p_source);
 
     if (preg_match("#" . $code . "#", $p_source, $matches) && strlen($matches[0]) == strlen($p_source)) {
-      $source = $_POST['source'];
+      $source = $decoded_source;
       $input_text = "";
     } else {
-      $err_str = $err_str . $MSG_FORMAT_ERROR;
-      $err_cnt++;
-      $view_error_title = $err_str;
-      $view_swal = $err_str;
+      $view_swal = $MSG_FORMAT_ERROR;
       if (isset($_GET['ajax'])) {
         echo "-2";
       } else {
@@ -223,10 +224,11 @@ if (count($code) && $code[0][0]) {
   }
 } else {
   $source = $_POST['source'];
+  $source = base64_decode($source);
   $input_text = "";
 }
 
-$row = pdo_query('select allow,block from problem where problem_id=?', $c_pid)[0];
+$row = pdo_query('SELECT allow,block from problem where problem_id=?', $c_pid)[0];
 $allow = $row[0];
 $block = $row[1];
 
@@ -274,13 +276,10 @@ if ($block != NULL) {
 }
 
 if (!$flag1 or !$flag2) {
-  $err_str = $err_str . "代码中有禁用的关键词或没有使用必须的关键词！";
-  $err_cnt++;
-  $view_error_title = $err_str;
-  $view_errors_js .= "swal('$err_str').then((onConfirm)=>{history.go(-1);});";
   if (isset($_GET['ajax'])) {
     echo "-3";
   } else {
+    $view_swal = "$MSG_AB_KEYWORD_WARNING";
     require "template/error.php";
   }
   exit(0);
@@ -291,12 +290,7 @@ if (isset($_POST['input_text'])) {
   $input_text = $_POST['input_text'];
 }
 
-
-if (isset($_POST['encoded_submit'])) {
-  $source = base64_decode($source);
-}
-
-$input_text = preg_replace("(\r\n)", "\n", $input_text);
+$input_text = unifyCode($input_text);
 $source_user = $source;
 
 if ($test_run) {
