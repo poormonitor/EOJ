@@ -103,9 +103,7 @@
                             </div>
                         </div>
                     <?php } ?>
-                    <input id="Submit" class="btn btn-info btn-sm" type=submit value="<?php echo $MSG_SUBMIT; ?>" style="margin:6px;">
-                </form>
-
+                    <button id="Submit" type="button" class="btn btn-info btn-sm m-2" onclick="doBlankSubmit()"><?php echo $MSG_SUBMIT; ?></button>
                 </form>
                 <br>
             </center>
@@ -139,19 +137,13 @@
             if (count < 0) {
                 s.disabled = false;
                 if (t != null) t.disabled = false;
-
                 s.value = "<?php echo $MSG_SUBMIT ?>";
-
                 if (t != null) t.value = "<?php echo $MSG_TR ?>";
-
                 if (handler_interval) window.clearInterval(handler_interval);
-
                 if ($("#vcode") != null) $("#vcode").click();
             } else {
                 s.value = "<?php echo $MSG_SUBMIT ?>(" + count + ")";
-
                 if (t != null) t.value = "<?php echo $MSG_TR ?>(" + count + ")";
-
                 window.setTimeout("resume();", 1000);
             }
         }
@@ -169,6 +161,19 @@
                     document.location.href = url;
             <?php } ?>
             switchLangs(lang);
+        }
+
+        function doBlankSubmit() {
+            var codeData = $("#frmSolution").serializeArray();
+            for (var i = 0; i < codeData.length; i++) {
+                if (/((code|multiline)[0-9]?)|(source)/.test(codeData[i].name)) {
+                    codeData[i].value = encode64(codeData[i].value)
+                }
+            }
+            var postData = $.param(codeData);
+            $.post("submit.php?ajax", postData, function(data, textStatus, request) {
+                window.location.href = data;
+            }, );
         }
 
         var sid = 0;

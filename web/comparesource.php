@@ -50,8 +50,8 @@ $rip = $row["ip"];
 $sql = "SELECT ip.ip FROM ip WHERE `type` = 'safe'";
 $result = mysql_query_cache($sql);
 $safe =  array();
-foreach ($result as $row) {
-	array_push($safe, $row["ip"]);
+foreach ($result as $rw) {
+	array_push($safe, $rw["ip"]);
 }
 
 $suspected = "";
@@ -72,8 +72,12 @@ if (isset($OJ_AUTO_SHARE) && $OJ_AUTO_SHARE && isset($_SESSION[$OJ_NAME . '_' . 
 	$ok = (count($rrs) > 0);
 }
 $view_source = "No source code available!";
-if (isset($_SESSION[$OJ_NAME . '_' . 'user_id']) && $row && $row['user_id'] == $_SESSION[$OJ_NAME . '_' . 'user_id']) $ok = true;
-if (isset($_SESSION[$OJ_NAME . '_' . 'source_browser'])) $ok = true;
+
+if (isset($_SESSION[$OJ_NAME . '_' . 'user_id']) && $row && $row['user_id'] == $_SESSION[$OJ_NAME . '_' . 'user_id'])
+	$ok = true;
+
+if (isset($_SESSION[$OJ_NAME . '_' . 'source_browser']))
+	$ok = true;
 
 $sql = "SELECT `source` FROM `source_code` WHERE `solution_id`=?";
 $result = pdo_query($sql, $sid);

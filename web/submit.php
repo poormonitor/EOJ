@@ -2,9 +2,7 @@
 session_start();
 require_once "include/db_info.inc.php";
 require_once "include/my_func.inc.php";
-
-if (isset($OJ_CSRF) && $OJ_CSRF && !isset($_SESSION[$OJ_NAME . '_' . 'http_judge']))
-  require_once(dirname(__FILE__) . "/include/csrf_check.php");
+require_once "include/csrf_check.php";
 
 if (!isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
   header("Location: loginpage.php");
@@ -503,7 +501,11 @@ if (isset($cid)) {
 }
 
 if (!$test_run) {
-  header("Location: $statusURI");
+  if (isset($_GET['ajax'])) {
+    echo $statusURI;
+  } else {
+    header("Location: $statusURI");
+  }
 } else {
   if (isset($_GET['ajax'])) {
     echo $insert_id;

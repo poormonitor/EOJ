@@ -13,7 +13,7 @@
 	<?php
 	if (isset($OJ_REGISTER) && !$OJ_REGISTER) exit(0);
 	require_once("./include/my_func.inc.php");
-	if (isset($OJ_CSRF) && $OJ_CSRF) require_once("./include/csrf_check.php");
+	require_once("./include/csrf_check.php");
 	$err_str = "";
 	$err_cnt = 0;
 	$len;
