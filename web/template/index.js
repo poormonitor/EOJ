@@ -505,22 +505,15 @@ function do_test_run() {
     if (handler_interval) window.clearInterval(handler_interval);
     var loader = "<img width=18 style='margin:0 3px;' src='" + OJ_CDN + "image/loading.gif'>";
     var tb = window.document.getElementById('result');
-
-    if (typeof (window.editor) != "undefined") {
-        source = window.editor.getValue();
-        $("#hide_source").val(source);
-    }
-
     if (tb != null) tb.innerHTML = loader;
-
     var problem_id = document.getElementById(mark);
     problem_id.value = -problem_id.value;
     document.getElementById("frmSolution").target = "testRun";
-    //$("#hide_source").val(window.editor.getValue());
-    //document.getElementById("frmSolution").submit();
+
     $.post("submit.php?ajax", $("#frmSolution").serialize(), function (data) {
         fresh_test_result(data);
     });
+
     $("#Submit").prop('disabled', true);
     $("#TestRun").prop('disabled', true);
     problem_id.value = -problem_id.value;

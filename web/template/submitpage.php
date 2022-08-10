@@ -80,9 +80,9 @@
         </center>
 
         <div id="source" class="editor-border"></div>
+        <textarea hidden="hidden" id="hide_source" name="source"><?php echo $view_src ?></textarea>
 
         <center>
-          <input type=hidden id="hide_source" name="source" value="" />
           <?php if ($OJ_VCODE) { ?>
             <?php echo $MSG_VCODE ?>:
             <input name="vcode" size=4 type=text style='margin:5px;' id='vcode_input'>
@@ -151,22 +151,16 @@
         s.disabled = false;
         if (t != null)
           t.disabled = false;
-
         s.value = "<?php echo $MSG_SUBMIT ?>";
-
         if (t != null)
           t.value = "<?php echo $MSG_TR ?>";
-
         if (handler_interval)
           window.clearInterval(handler_interval);
-
         if ($("#vcode") != null) $("#vcode").click();
       } else {
         s.value = "<?php echo $MSG_SUBMIT ?>(" + count + ")";
-
         if (t != null)
           t.value = "<?php echo $MSG_TR ?>(" + count + ")";
-
         window.setTimeout("resume();", 1000);
       }
     }
@@ -192,9 +186,7 @@
         echo "let xhr=new XMLHttpRequest();xhr.open('GET','login.php',true);xhr.send();";
       ?>
 
-      if (typeof(window.editor) != "undefined") {
-        $("#hide_source").val(encode64(utf16to8(window.editor.getValue())));
-      }
+      $("#hide_source").val(encode64(utf16to8(window.editor.getValue())));
 
       var mark = "<?php echo isset($id) ? 'problem_id' : 'cid'; ?>";
       var problem_id = document.getElementById(mark);
@@ -207,6 +199,7 @@
       document.getElementById("frmSolution").target = "_self";
       document.getElementById("frmSolution").submit();
     }
+
     var sid = 0;
     var i = 0;
     var judge_result = [<?php
