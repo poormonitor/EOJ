@@ -63,7 +63,7 @@ if ($scope) {
         case 'w':
             $monday = mktime(0, 0, 0, date("m"), date("d") - (date("w") + 7) % 8 + 1, date("Y"));
             //$monday->subDays(date('w'));
-            $s = strftime("%Y-%m-%d", $monday);
+            $s = date("Y-m-d", $monday);
             break;
         case 'm':
             $s = date('Y') . '-' . date('m') . '-01';;

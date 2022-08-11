@@ -165,7 +165,7 @@
     document.getElementById('nowdate').innerHTML = n;
     setTimeout("clock()",1000);
   }
-  clock();
+  setTimeout("clock()", diff % 1000 ? diff > 0 : 1000 + diff % 1000);
 </script>
 
 </body>

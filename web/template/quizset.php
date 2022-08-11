@@ -109,8 +109,8 @@
   <?php include("template/js.php"); ?>
 
   <script>
-    var diff = new Date("<?php echo date("Y/m/d H:i:s") ?>").getTime() - new Date().getTime();
-    clock(diff);
+    var diff = new Number("<?php echo round(microtime(true) * 1000) ?>") - new Date().getTime();
+    setTimeout("clock()", diff % 1000 ? diff > 0 : 1000 + diff % 1000);
   </script>
 </body>
 

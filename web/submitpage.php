@@ -20,6 +20,7 @@ if (!isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
 $problem_id = 1000;
 if (isset($_GET['id'])) {
 	$id = intval($_GET['id']);
+	$problem_id = $id;
 	$sample_sql = "SELECT sample_input,sample_output,problem_id FROM problem WHERE problem_id = ?";
 	if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor']))
 		$sql = "SELECT * FROM `problem` WHERE `problem_id`=?";
@@ -43,7 +44,7 @@ if (isset($_GET['id'])) {
 
 	$row = $data[0];
 	$problem_id = $row[0];
-	$sample_sql = "SELECT p.sample_input, p.sample_output, p.problem_id FROM problem p WHERE problem_id = ? ";
+	$sample_sql = "SELECT sample_input, sample_output, problem_id FROM problem WHERE problem_id = ?";
 } else {
 	$view_swal = "$MSG_NOT_EXISTED";
 	require("template/error.php");
@@ -98,10 +99,12 @@ if (isset($_GET['sid'])) {
 		if ($row && isset($_GET['langmask']))
 			$_GET['langmask'] = $row['langmask'];
 	}
+} elseif (isset($_SESSION[$OJ_NAME . "_" . "last_source"])) {
+	if ($_SESSION[$OJ_NAME . "_" . "last_source"][0] == $problem_id) {
+		$view_src = $_SESSION[$OJ_NAME . "_" . "last_source"][1];
+	}
+	unset($_SESSION[$OJ_NAME . "_" . "last_source"]);
 }
-
-if (isset($id))
-	$problem_id = $id;
 
 $view_sample_input = "1 2";
 $view_sample_output = "3";

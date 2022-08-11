@@ -92,7 +92,7 @@
               echo "<span class=text-success>$MSG_TotalTime</span>" . " " . formatTimeLength($end_time - $start_time);
             } else {
               echo "<span class=text-danger>$MSG_Running</span>&nbsp;";
-              echo "<span class=text-danger>$MSG_LeftTime</span>" . " " . formatTimeLength($end_time - $now);
+              echo "<span class='text-danger'>$MSG_LeftTime</span> <span class='time-left'>" . formatTimeLength($end_time - $now) . "</span>";
             }
             ?>
 
@@ -345,8 +345,8 @@
                         }
                         echo "''"; ?>];
 
-    var diff = new Date("<?php echo date("Y/m/d H:i:s") ?>").getTime() - new Date().getTime();
-    clock(diff);
+    var diff = new Number("<?php echo round(microtime(true) * 1000) ?>") - new Date().getTime();
+    setTimeout("clock()", diff % 1000 ? diff > 0 : 1000 + diff % 1000);
 
     var i = 0;
     var interval = 800;

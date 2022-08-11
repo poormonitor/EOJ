@@ -1,9 +1,8 @@
 <?php
 ini_set("display_errors", "Off");
-header("content-type:   application/excel");
+header("content-type: application/excel");
 
-?>
-<?php require_once("./include/db_info.inc.php");
+require_once("./include/db_info.inc.php");
 global $mark_base, $mark_per_problem, $mark_per_punish;
 $mark_start = 60;
 $mark_end = 100;
@@ -126,12 +125,9 @@ function  getMark($users,  $start,  $end, $s)
 	return $ret;
 }
 
-
-
 // contest start time
 if (!isset($_GET['cid'])) die("No Such Contest!");
 $cid = intval($_GET['cid']);
-//require_once("contest-header.php");
 $sql = "SELECT `start_time`,`title`,`end_time` FROM `contest` WHERE `contest_id`=?";
 $result = pdo_query($sql, $cid);
 $rows_cnt = count($result);

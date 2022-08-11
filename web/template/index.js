@@ -8,6 +8,7 @@ var langString = {
         VcodeWrong: "验证码错误",
         FormatWrong: "您的代码不符合填空格式",
         KeywordWrong: "代码中有禁用的关键词或没有使用必须的关键词",
+        TimeKeyword: ["天", "小时", "分", "秒"],
     }, "en":
     {
         Vcode: "Verification Code",
@@ -18,6 +19,7 @@ var langString = {
         VcodeWrong: "Verification code is wrong.",
         FormatWrong: "The code does not match the template.",
         KeywordWrong: "Required keywords are not used in the code or Banned ones are used.",
+        TimeKeyword: ["days", "hours", "minutes", "seconds"],
     }
 }[OJ_LANG];
 
@@ -348,7 +350,7 @@ function getTotal(rows) {
 }
 
 function clock() {
-    var x, h, m, s, n, xingqi, y, mon, d;
+    var x, h, m, s, n, w, y, mon, d;
     var x = new Date(new Date().getTime() + diff);
     y = x.getYear() + 1900;
 
@@ -357,14 +359,52 @@ function clock() {
 
     mon = x.getMonth() + 1;
     d = x.getDate();
-    xingqi = x.getDay();
+    w = x.getDay();
     h = x.getHours();
     m = x.getMinutes();
     s = x.getSeconds();
     n = y + "-" + (mon >= 10 ? mon : "0" + mon) + "-" + (d >= 10 ? d : "0" + d) + " " + (h >= 10 ? h : "0" + h) + ":" + (m >= 10 ? m : "0" + m) + ":" + (s >= 10 ? s : "0" + s);
 
+    getLeftTime();
     document.getElementById('nowdate').innerHTML = n;
     setTimeout("clock()", 1000);
+}
+
+function padNumber(num, fill) {
+    var len = ('' + num).length;
+    return Array(fill > len ? fill - len + 1 || 0 : 0).join(0) + num;
+}
+
+function getLeftTime() {
+    $(".time-left").each(function (i, e) {
+        var showOnScreen = $(e).text().match(/([\d]+)/g)
+        var finalTime = TimeMinusOne(showOnScreen);
+        var finalShowTime = ""
+        for (var i = 0; i < finalTime.length; i++) {
+            index = finalTime.length - 1 - i
+            indexKeyword = langString.TimeKeyword.length - 1 - i
+            finalShowTime = finalTime[index] + " " + langString.TimeKeyword[indexKeyword]
+                + " " + finalShowTime
+        }
+        $(e).text(finalShowTime)
+    })
+}
+
+function TimeMinusOne(time) {
+    var newTime = time;
+    if (newTime.length == 1 && newTime[0] == 0)
+        return newTime
+    for (var i = newTime.length - 1; i >= 0; i--) {
+        if (newTime[i] > 0) {
+            newTime[i] = padNumber(newTime[i] - 1, 2)
+            break
+        } else if (i != 0) {
+            newTime[i] = 59;
+        }
+    }
+    if (newTime[0] == 0)
+        newTime = newTime.splice(0, 1)
+    return newTime;
 }
 
 function checkFileList(files) {
@@ -510,7 +550,14 @@ function do_test_run() {
     problem_id.value = -problem_id.value;
     document.getElementById("frmSolution").target = "testRun";
 
-    $.post("submit.php?ajax", $("#frmSolution").serialize(), function (data) {
+    var codeData = $("#frmSolution").serializeArray();
+    for (var i = 0; i < codeData.length; i++) {
+        if (/((code|multiline)[0-9]?)|(source)/.test(codeData[i].name)) {
+            codeData[i].value = encode64(utf16to8(codeData[i].value))
+        }
+    }
+
+    $.post("submit.php?ajax", $.param(codeData), function (data) {
         fresh_test_result(data);
     });
 

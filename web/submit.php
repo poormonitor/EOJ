@@ -2,7 +2,7 @@
 session_start();
 require_once "include/db_info.inc.php";
 require_once "include/my_func.inc.php";
-require_once "include/csrf_check.php";
+//require_once "include/csrf_check.php";
 
 if (!isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
   header("Location: loginpage.php");
@@ -178,23 +178,23 @@ $c_pid = $id;
 if ($c_pid < 0) {
   $c_pid = -$c_pid;
 }
-$code = pdo_query("select blank from problem where problem_id=?", $c_pid);
+$code = pdo_query("SELECT blank from problem where problem_id=?", $c_pid);
 if ($code && $code[0][0]) {
   $code = $code[0][0];
   $code = unifyCode($code);
 
   if (isset($_POST['code0']) || isset($_POST['multiline0'])) {
     for ($i = 0; isset($_POST['code' . $i]); $i++) {
-      $code = str_replace_limit("%*%", $_POST['code' . $i], $code, 1);
+      $code = str_replace_limit("%*%", base64_decode($_POST['code' . $i]), $code, 1);
     }
     for ($i = 0; isset($_POST['multiline' . $i]); $i++) {
       preg_match("/\n.*\*%\*/m", $code, $matches);
       $len = strlen($matches[0]) - 4;
-      $multiline = str_replace("\n", str_repeat(" ", $len), $_POST['multiline' . $i]);
+      $multiline = str_replace("\n", str_repeat(" ", $len), base64_decode($_POST['multiline' . $i]));
       $code = str_replace_limit("*%*", $multiline, $code, 1);
     }
     $source = $code;
-    $input_text = $code;
+    $input_text = "";
   } else {
     $code = str_replace(" ", "", $code);
     $code = rtrim($code, "\n");
@@ -225,6 +225,9 @@ if ($code && $code[0][0]) {
   $source = base64_decode($source);
   $input_text = "";
 }
+
+if (!$test_run)
+  $_SESSION[$OJ_NAME . "_" . "last_source"] = array($c_pid, $source);
 
 $row = pdo_query('SELECT allow,block from problem where problem_id=?', $c_pid)[0];
 $allow = $row[0];
@@ -320,7 +323,18 @@ if ($test_run) {
 }
 
 $len = strlen($source);
-//echo $source;
+
+if ($len < 2) {
+  $view_swal = $MSG_TOO_SHORT;
+  require "template/error.php";
+  exit(0);
+}
+
+if ($len > 65536) {
+  $view_swal = $MSG_TOO_LONG;
+  require "template/error.php";
+  exit(0);
+}
 
 setcookie('lastlang', $language, time() + 360000);
 
@@ -332,21 +346,9 @@ if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
   $ip = htmlentities($tmp_ip[0], ENT_QUOTES, "UTF-8");
 }
 
-if ($len < 2) {
-  $view_errors = $MSG_TOO_SHORT . "<br>";
-  require "template/error.php";
-  exit(0);
-}
-
-if ($len > 65536) {
-  $view_errors = $MSG_TOO_LONG . "<br>";
-  require "template/error.php";
-  exit(0);
-}
-
 if (!$OJ_BENCHMARK_MODE) {
   // last submit
-  $now = strftime("%Y-%m-%d %X", time() - 10);
+  $now = date('Y-m-d H:i:s', time() - 10);
   $sql = "SELECT `in_date` FROM `solution` WHERE `user_id`=? AND in_date>? ORDER BY `in_date` DESC LIMIT 1";
   $res = pdo_query($sql, $user_id, $now);
 
@@ -436,6 +438,17 @@ if (isset($OJ_UDP) && $OJ_UDP) {
   send_udp_message($JUDGE_HOST, $OJ_UDPPORT, $insert_id);
 }
 
+if ($OJ_BENCHMARK_MODE) {
+  echo $insert_id;
+  exit(0);
+}
+
+$statusURI = "status.php?user_id=" . $_SESSION[$OJ_NAME . '_' . 'user_id'];
+
+if (isset($cid)) {
+  $statusURI .= "&cid=$cid&fixed=";
+}
+
 if ((!isset($_GET['ajax']))) { ?>
   <!DOCTYPE html>
   <html lang="<?php echo $OJ_LANG ?>">
@@ -459,47 +472,6 @@ if ((!isset($_GET['ajax']))) { ?>
 
   <?php }
 
-if ($OJ_BENCHMARK_MODE) {
-  echo $insert_id;
-  exit(0);
-}
-
-$statusURI = strstr($_SERVER['REQUEST_URI'], "submit", true) . "status.php";
-
-if (isset($cid)) {
-  $statusURI .= "?cid=$cid";
-}
-
-$sid = "";
-if (isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
-  $sid .= session_id() . $_SERVER['REMOTE_ADDR'];
-}
-
-if (isset($_SERVER["REQUEST_URI"])) {
-  $sid .= $statusURI;
-}
-//echo $statusURI."<br>";
-
-$sid = md5($sid);
-$file = "cache/cache_$sid.html";
-//echo $file;
-
-if ($OJ_MEMCACHE) {
-  $mem = new Memcached();
-  $mem->addServer($OJ_MEMSERVER,  $OJ_MEMPORT);
-
-  $mem->delete($file, 0);
-} elseif (file_exists($file)) {
-  unlink($file);
-}
-//echo $file;
-
-$statusURI = "status.php?user_id=" . $_SESSION[$OJ_NAME . '_' . 'user_id'];
-
-if (isset($cid)) {
-  $statusURI .= "&cid=$cid&fixed=";
-}
-
 if (!$test_run) {
   if (isset($_GET['ajax'])) {
     echo $statusURI;
@@ -516,4 +488,6 @@ if (!$test_run) {
     </script>
 <?php
   }
-} ?>
+}
+unset($_SESSION[$OJ_NAME . "_" . "last_source"]);
+?>

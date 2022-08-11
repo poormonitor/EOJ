@@ -167,11 +167,10 @@
             var codeData = $("#frmSolution").serializeArray();
             for (var i = 0; i < codeData.length; i++) {
                 if (/((code|multiline)[0-9]?)|(source)/.test(codeData[i].name)) {
-                    codeData[i].value = encode64(codeData[i].value)
+                    codeData[i].value = encode64(utf16to8(codeData[i].value))
                 }
             }
-            var postData = $.param(codeData);
-            $.post("submit.php?ajax", postData, function(data, textStatus, request) {
+            $.post("submit.php?ajax", $.param(codeData), function(data, textStatus, request) {
                 window.location.href = data;
             }, );
         }

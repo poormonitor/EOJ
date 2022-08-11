@@ -283,6 +283,21 @@ pre {
     }
 }
 
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-corner {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    box-shadow: inset 0 0 0 6px #aaa;
+    border: 2px solid transparent;
+    border-radius: 5px !important;
+}
+
 img {
     height: auto;
     max-width: 100%;

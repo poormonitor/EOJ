@@ -33,74 +33,6 @@
 			border-radius: 0;
 		}
 	</style>
-
-	<?php
-	function formatTimeLength($length)
-	{
-		$hour = 0;
-		$minute = 0;
-		$second = 0;
-		$result = '';
-
-		global $MSG_SECONDS, $MSG_MINUTES, $MSG_HOURS, $MSG_DAYS;
-
-		if ($length >= 60) {
-			$second = $length % 60;
-
-			if ($second > 0 && $second < 10) {
-				$result = '0' . $second . ' ' . $MSG_SECONDS;
-			} else if ($second > 0) {
-				$result = $second . ' ' . $MSG_SECONDS;
-			}
-
-			$length = floor($length / 60);
-			if ($length >= 60) {
-				$minute = $length % 60;
-
-				if ($minute == 0) {
-					if ($result != '') {
-						$result = '00' . ' ' . $MSG_MINUTES . ' ' . $result;
-					}
-				} else if ($minute > 0 && $minute < 10) {
-					if ($result != '') {
-						$result = '0' . $minute . ' ' . $MSG_MINUTES . ' ' . $result;
-					}
-				} else {
-					$result = $minute . ' ' . $MSG_MINUTES . ' ' . $result;
-				}
-
-				$length = floor($length / 60);
-
-				if ($length >= 24) {
-					$hour = $length % 24;
-
-					if ($hour == 0) {
-						if ($result != '') {
-							$result = '00' . ' ' . $MSG_HOURS . ' ' . $result;
-						}
-					} else if ($hour > 0 && $hour < 10) {
-						if ($result != '') {
-							$result = '0' . $hour . ' ' . $MSG_HOURS . ' ' . $result;
-						}
-					} else {
-						$result = $hour . ' ' . $MSG_HOURS . ' ' . $result;
-					}
-
-					$length = floor($length / 24);
-					$result = $length . ' ' . $MSG_DAYS . ' ' . $result;
-				} else {
-					$result = $length . ' ' . $MSG_HOURS . ' ' . $result;
-				}
-			} else {
-				$result = $length . ' ' . $MSG_MINUTES . ' ' . $result;
-			}
-		} else {
-			$result = $length . ' ' . $MSG_SECONDS;
-		}
-		return $result;
-	}
-	?>
-
 </head>
 
 <body>
@@ -179,7 +111,7 @@
 							echo "<span class=text-success>$MSG_TotalTime</span>" . " " . formatTimeLength($end_time - $start_time);
 						} else {
 							echo "<span class=text-danger>$MSG_Running</span>&nbsp;";
-							echo "<span class=text-danger>$MSG_LeftTime</span>" . " " . formatTimeLength($end_time - $now);
+							echo "<span class='text-danger'>$MSG_LeftTime</span> <span class='time-left'>" . formatTimeLength($end_time - $now) . "</span>";
 						}
 						?>
 
@@ -469,8 +401,8 @@
 		<?php if ($OJ_SHOW_METAL) { ?>
 			metal();
 		<?php } ?>
-		var diff = new Date("<?php echo date("Y/m/d H:i:s") ?>").getTime() - new Date().getTime();
-		clock(diff);
+		var diff = new Number("<?php echo round(microtime(true) * 1000) ?>") - new Date().getTime();
+		setTimeout("clock()", diff % 1000 ? diff > 0 : 1000 + diff % 1000);
 	</script>
 
 </body>

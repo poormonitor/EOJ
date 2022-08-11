@@ -1,5 +1,5 @@
 <?php
-////////////////////////////Common head
+
 	$cache_time=10;
 	$OJ_CACHE_SHARE=false;
 	require_once('./include/cache_start.php');

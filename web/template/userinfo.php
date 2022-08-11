@@ -25,7 +25,8 @@
             <div class='row'>
                 <div class='col-md-4'>
                     <center>
-                        <table class="table table-striped" id=statics width=70%>
+                        <div class="table-responsive">
+			<table class="table table-striped" id=statics width=70%>
                             <thead>
                                 <tr>
                                     <th colspan='2'>
@@ -90,6 +91,7 @@
                                 <?php } ?>
                             </tbody>
                         </table>
+			</div>
                     </center>
                 </div>
                 <div class='col-md-8'>

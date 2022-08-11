@@ -1,5 +1,5 @@
 <?php
-////////////////////////////Common head
+
 require_once('./include/db_info.inc.php');
 if ((!isset($OJ_DOWNLOAD)) || !$OJ_DOWNLOAD) {
     $view_errors = "Download Disabled!";
