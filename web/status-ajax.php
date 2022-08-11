@@ -38,14 +38,23 @@ if (count($result) > 0) {
 
 		if ($row) {
 			echo $row['error'];
-			$sql = "delete from custominput where solution_id=?";
+			$sql = "DELETE from solution where solution_id=?";
 			pdo_query($sql, $solution_id);
-			$sql = "delete from solution where solution_id=?";
+			$sql = "DELETE from custominput where solution_id=?";
 			pdo_query($sql, $solution_id);
-			$sql = "delete from source_code where solution_id=?";
+			$sql = "DELETE from source_code where solution_id=?";
 			pdo_query($sql, $solution_id);
-			$sql = "delete from runtimeinfo where solution_id=?";
+			$sql = "DELETE from runtimeinfo where solution_id=?";
 			pdo_query($sql, $solution_id);
+			$sql = "DELETE from compileinfo where solution_id=?";
+			pdo_query($sql, $solution_id);
+
+			$sql = "SELECT max(solution_id) FROM solution";
+			$result = pdo_query($sql);
+			if ($result) {
+				$sql = "ALTER TABLE `solution` AUTO_INCREMENT = ?";
+				pdo_query($sql, $result[0][0]);
+			}
 		}
 		//echo $sql.$res;
 	} else {
