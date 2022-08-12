@@ -98,7 +98,7 @@ if ($test_output=="") $test_output="\n";
           }
           ?>
 
-          &nbsp;&nbsp;- <a href='javascript:phpfm(<?php echo $pid; ?>);'><?php echo $MSG_TESTDATA ?></a>
+          &nbsp;&nbsp;- <a href='phpfm.php?frame=3&pid=<?php echo $pid; ?>'><?php echo $MSG_TESTDATA ?></a>
 
           <br>
         </div>
@@ -126,24 +126,9 @@ if ($test_output=="") $test_output="\n";
       if (value == "href") {
         window.location.href = "../problem.php?id=<?php echo $pid ?>"
       } else if (value == "test") {
-        phpfm(<?php echo $pid; ?>)
+        window.location.href = "phpfm.php?frame=3&pid=<?php echo $pid ?>";
       }
     })
-  </script>
-
-  <script>
-    function phpfm(pid) {
-      //alert(pid);
-      $.post("phpfm.php", {
-        'frame': 3,
-        'pid': pid,
-        'pass': ''
-      }, function(data, status) {
-        if (status == "success") {
-          document.location.href = "phpfm.php?frame=3&pid=" + pid;
-        }
-      });
-    }
   </script>
 </body>
 

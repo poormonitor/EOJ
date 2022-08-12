@@ -121,7 +121,7 @@ echo "</select>";
                       }
                       if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . "p" . $row['problem_id']]) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor'])) {
                         echo "<td><a href=problem_edit.php?id=" . $row['problem_id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">$MSG_EDIT</a>";
-                        echo "<td><a href='javascript:phpfm(" . $row['problem_id'] . ");'>$MSG_TESTDATA</a>";
+                        echo "<td><a href='phpfm.php?frame=3&pid=" . $row['problem_id'] . "'>$MSG_TESTDATA</a>";
                       }
                     }
                     echo "</tr>";
@@ -171,18 +171,3 @@ echo "</select>";
 </body>
 
 </html>
-<script>
-  function phpfm(pid) {
-    //alert(pid);
-    $.post("phpfm.php", {
-      'frame': 3,
-      'pid': pid,
-      'pass': ''
-    }, function(data, status) {
-      if (status == "success") {
-        document.location.href = "phpfm.php?frame=3&pid=" + pid;
-      }
-    });
-  }
-</script>
-</div>

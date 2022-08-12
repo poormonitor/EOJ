@@ -587,33 +587,12 @@ function save_upload($temp_file, $filename, $dir_dest)
 function zip_extract()
 {
     global $cmd_arg, $current_dir, $islinux, $path;
-    $zip = zip_open($current_dir . $cmd_arg);
+    $zip = new ZipArchive;
+    $zip->open($current_dir . $cmd_arg);
     if ($zip) {
-        while ($zip_entry = zip_read($zip)) {
-            if (zip_entry_filesize($zip_entry)) {
-                $complete_path = $path . dirname(zip_entry_name($zip_entry));
-                $complete_name = $path . zip_entry_name($zip_entry);
-                $complete_path = remove_special_chars($complete_path);
-                if (!file_exists($complete_path)) {
-                    $tmp = '';
-                    foreach (explode('/', $complete_path) as $k) {
-                        $tmp .= $k . '/';
-                        if (!file_exists($tmp)) {
-                            @mkdir($current_dir . $tmp, 0711);
-                        }
-                    }
-                }
-                if (zip_entry_open($zip, $zip_entry, "r")) {
-                    $complete_name = remove_special_chars($complete_name);
-                    if ($fd = fopen($current_dir . $complete_name, 'w')) {
-                        fwrite($fd, zip_entry_read($zip_entry, zip_entry_filesize($zip_entry)));
-                        fclose($fd);
-                    } else echo "fopen($current_dir.$complete_name) error<br>";
-                    zip_entry_close($zip_entry);
-                } else echo "zip_entry_open($zip,$zip_entry) error<br>";
-            }
-        }
-        zip_close($zip);
+        umask(755);
+        $zip->extractTo($current_dir);
+        $zip->close();
     }
 }
 // +--------------------------------------------------
@@ -1182,10 +1161,8 @@ function dir_list_form()
                 } elseif (is_dir($current_dir . $file)) {
                     // Recursive directory size disabled
                     // $entry_list[$entry_count]["size"] = total_size($current_dir.$file);
+                    unset($entry_list[$entry_count]);
                     continue; // don't display subdir
-                    $entry_list[$entry_count]["size"] = 0;
-                    $entry_list[$entry_count]["sizet"] = "&nbsp;";
-                    $entry_list[$entry_count]["type"] = "dir";
                 }
                 $entry_list[$entry_count]["name"] = $file;
                 $entry_list[$entry_count]["date"] = date("Ymd", filemtime($current_dir . $file));
