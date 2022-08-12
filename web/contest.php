@@ -196,7 +196,7 @@ if (isset($_GET['cid'])) {
 		//echo $sql;
 		$result = mysql_query_cache($sql);
 	}
-	$view_total_page = intval($total / $page_cnt) + 1;
+	$view_total_page = $total > 0 ? intval(($total - 1) / $page_cnt) + 1 : 1;
 	$view_contest = array();
 	$i = 0;
 

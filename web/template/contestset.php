@@ -87,10 +87,10 @@
             <ul class="pagination">
               <?php
               $section = 2;
-              $href_url = "contest.php"
+              $href_url = isset($_GET["my"]) ? "contest.php?my&" : "contest.php?";
               ?>
               <?php if ($page > $section + 1) { ?>
-                <li class="page-item"><a href="<?php echo $href_url ?>?page=1">1</a></li>
+                <li class="page-item"><a href="<?php echo $href_url ?>page=1">1</a></li>
               <?php } ?>
               <?php if ($page > $section + 2) { ?>
                 <li class="page-item disabled"><span class="page-link">...</span></li>
@@ -101,14 +101,14 @@
               $start = $page > $section ? $page - $section : 1;
               $end = $page + $section > $view_total_page ? $view_total_page : $page + $section;
               for ($i = $start; $i <= $end; $i++) {
-                echo "<li class='" . ($page == $i ? "active " : "") . "page-item'><a title='Go to page' href='$href_url?page=$i'>$i</a></li>";
+                echo "<li class='" . ($page == $i ? "active " : "") . "page-item'><a title='Go to page' href='" . $href_url . "page=$i'>$i</a></li>";
               }
               ?>
               <?php if ($page < $view_total_page - $section - 1) { ?>
                 <li class="page-item disabled"><span class="page-link">...</span></li>
               <?php } ?>
               <?php if ($page < $view_total_page - $section) { ?>
-                <li class="page-item"><a href="<?php echo $href_url ?>?page=<?php echo $view_total_page ?>"><?php echo $view_total_page ?></a></li>
+                <li class="page-item"><a href="<?php echo $href_url ?>page=<?php echo $view_total_page ?>"><?php echo $view_total_page ?></a></li>
               <?php } ?>
             </ul>
           </small>

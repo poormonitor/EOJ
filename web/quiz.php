@@ -163,7 +163,7 @@ if (isset($_GET['qid'])) {
         //echo $sql;
         $result = mysql_query_cache($sql);
     }
-    $view_total_page = intval($total / $page_cnt) + 1;
+    $view_total_page = $total > 0 ? intval(($total - 1) / $page_cnt) + 1 : 1;
     $view_quiz = array();
     $i = 0;
 

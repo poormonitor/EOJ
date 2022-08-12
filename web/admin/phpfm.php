@@ -137,50 +137,44 @@ foreach ($fm_color as $tag => $color) {
 // +--------------------------------------------------
 // | File Manager Actions
 // +--------------------------------------------------
-if ($loggedon == $auth_pass) {
-    switch ($frame) {
-        case 1:
-            break; // Empty Frame
-        case 2:
-            frame2();
-            break;
-        case 3:
-            frame3();
-            break;
-        default:
-            switch ($action) {
-                case 1:
-                    logout();
-                    break;
-                case 2:
-                    config_form();
-                    break;
-                case 3:
-                    download();
-                    break;
-                case 4:
-                    view();
-                    break;
-                case 5:
-                    server_info();
-                    break;
-                    //case 6: execute_cmd(); break;
-                case 7:
-                    edit_file_form();
-                    break;
-                    //case 8: chmod_form(); break;
-                    //case 9: shell_form(); break;
-                case 10:
-                    upload_form();
-                    break;
-                    //case 11: execute_file(); break;
-                default:
-                    frameset();
-            }
-    }
-} else {
-    if (isset($pass)) login();
-    else login_form();
+switch ($frame) {
+    case 1:
+        break; // Empty Frame
+    case 2:
+        frame2();
+        break;
+    case 3:
+        frame3();
+        break;
+    default:
+        switch ($action) {
+            case 1:
+                break;
+            case 2:
+                config_form();
+                break;
+            case 3:
+                download();
+                break;
+            case 4:
+                view();
+                break;
+            case 5:
+                server_info();
+                break;
+                //case 6: execute_cmd(); break;
+            case 7:
+                edit_file_form();
+                break;
+                //case 8: chmod_form(); break;
+                //case 9: shell_form(); break;
+            case 10:
+                upload_form();
+                break;
+                //case 11: execute_file(); break;
+            default:
+                frameset();
+        }
 }
 // +--------------------------------------------------
 // | Config Class
@@ -1161,8 +1155,13 @@ function dir_list_form()
                 } elseif (is_dir($current_dir . $file)) {
                     // Recursive directory size disabled
                     // $entry_list[$entry_count]["size"] = total_size($current_dir.$file);
-                    unset($entry_list[$entry_count]);
-                    continue; // don't display subdir
+                    if ($file == "ac") {
+                        unset($entry_list[$entry_count]);
+                        continue;
+                    }
+                    $entry_list[$entry_count]["size"] = 0;
+                    $entry_list[$entry_count]["sizet"] = "&nbsp;";
+                    $entry_list[$entry_count]["type"] = "dir";
                 }
                 $entry_list[$entry_count]["name"] = $file;
                 $entry_list[$entry_count]["date"] = date("Ymd", filemtime($current_dir . $file));
@@ -1695,7 +1694,7 @@ function dir_list_form()
                     $dir_out[$dir_count] = array();
                     $dir_out[$dir_count][] = "
                         <tr ID=\"entry$ind\" class=\"entryUnselected\" onmouseover=\"selectEntry(this, 'over');\" onmousedown=\"selectEntry(this, 'click');\">
-                        <td><nobr><a href=\"JavaScript:go('" . addslashes($file) . "')\">$file</a></nobr></td>";
+                        <td><nobr>$file</a></td>";
                     $dir_out[$dir_count][] = "<td>" . $dir_entry["p"] . "</td>";
                     if ($islinux) {
                         $dir_out[$dir_count][] = "<td><nobr>" . $dir_entry["u"] . "</nobr></td>";
@@ -1703,12 +1702,10 @@ function dir_list_form()
                     }
                     $dir_out[$dir_count][] = "<td><nobr>" . $dir_entry["sizet"] . "</nobr></td>";
                     $dir_out[$dir_count][] = "<td><nobr>" . $dir_entry["datet"] . "</nobr></td>";
-                    if ($has_files) $dir_out[$dir_count][] = "<td>&nbsp;</td>";
+                    if ($has_files) $dir_out[$dir_count][] = "<td>dir</td>";
                     // Opções de diretório
                     if (is_writable($current_dir . $file)) $dir_out[$dir_count][] = "
                         <td align=center><a href=\"JavaScript:if(confirm('" . et('ConfRem') . " \\'" . addslashes($file) . "\\' ?')) document.location.href='" . addslashes($path_info["basename"]) . "?frame=3&action=8&cmd_arg=" . addslashes($file) . "&current_dir=" . addslashes($current_dir) . "'\">" . et('Rem') . "</a>";
-                    if (is_writable($current_dir . $file)) $dir_out[$dir_count][] = "
-                        <td align=center><a href=\"JavaScript:rename('" . addslashes($file) . "')\">" . et('Ren') . "</a>";
                     if (count($dir_out[$dir_count]) > $max_opt) {
                         $max_opt = count($dir_out[$dir_count]);
                     }
@@ -2553,70 +2550,6 @@ function server_info()
 // +--------------------------------------------------
 // | Session
 // +--------------------------------------------------
-function logout()
-{
-    setcookie("loggedon", 0, 0, "/");
-    login_form();
-}
-function login()
-{
-    global $pass, $auth_pass, $path_info;
-    if (md5(trim($pass)) == $auth_pass) {
-        setcookie("loggedon", $auth_pass, 0, "/");
-        header("Location: " . $path_info["basename"] . "");
-    } else header("Location: " . $path_info["basename"] . "?erro=1");
-}
-function login_form()
-{
-    global $erro, $auth_pass, $path_info;
-    html_header();
-    echo "<body onLoad=\"if(parent.location.href != self.location.href){ parent.location.href = self.location.href } return true;\">\n";
-    if ($auth_pass != md5("")) {
-        echo "
-        <table border=0 cellspacing=0 cellpadding=5>
-            <form name=\"login_form\" action=\"" . $path_info["basename"] . "\" method=\"post\">
-            <tr>
-            <td><b>" . et('FileMan') . "</b>
-            </tr>
-            <tr>
-            <td align=left><font size=4>" . et('TypePass') . ".</font>
-            </tr>
-            <tr>
-            <td><input name=pass type=password size=10> <input type=submit value=\"" . et('Send') . "\">
-            </tr>
-        ";
-        if (strlen($erro)) echo "
-            <tr>
-            <td align=left><font color=red size=4>" . et('InvPass') . ".</font>
-            </tr>
-        ";
-        echo "
-            </form>
-        </table>
-             <script language=\"Javascript\" type=\"text/javascript\">
-             <!--
-             document.login_form.pass.focus();
-             //-->
-             </script>
-        ";
-    } else {
-        echo "
-        <table border=0 cellspacing=0 cellpadding=5>
-            <form name=\"login_form\" action=\"" . $path_info["basename"] . "\" method=\"post\">
-            <input type=hidden name=frame value=3>
-            <input type=hidden name=pass value=\"\">
-            <tr>
-            <td><b>" . et('FileMan') . "</b>
-            </tr>
-            <tr>
-            <td><input type=submit value=\"" . et('Enter') . "\">
-            </tr>
-            </form>
-        </table>
-        ";
-    }
-    echo "</body>\n</html>";
-}
 function frame3()
 {
     global $islinux, $cmd_arg, $chmod_arg, $zip_dir, $fm_current_root, $cookie_cache_time;
