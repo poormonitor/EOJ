@@ -6,7 +6,7 @@ require_once('./include/db_info.inc.php');
 require_once('./include/setlang.php');
 $view_title = $OJ_NAME;
 if (!isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
-	header("location:loginpage.php");
+	header("Location: loginpage.php");
 	exit(0);
 }
 require_once("./include/const.inc.php");
@@ -45,7 +45,13 @@ $view_user_id = $suser_id = $row['user_id'];
 $contest_id = $row['contest_id'];
 $snick = $row['nick'];
 
-if ($row && $row['user_id'] == $_SESSION[$OJ_NAME . '_' . 'user_id']) $ok = true;
+if (
+	$row
+	&& ($row['user_id'] == $_SESSION[$OJ_NAME . '_' . 'user_id']
+		|| isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
+		|| isset($_SESSION[$OJ_NAME . '_' . 'source_broswer']))
+)
+	$ok = true;
 if (isset($_SESSION[$OJ_NAME . '_' . 'source_browser'])) $ok = true;
 $view_reinfo = "";
 if ($ok == true) {
