@@ -1,5 +1,13 @@
 <?php require_once("admin-header.php"); ?>
 <?php require_once("../include/check_get_key.php");
+
+if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
+    $view_swal_params = "{title:'$MSG_PRIVILEGE_WARNING',icon:'error'}";
+    $error_location = "../index.php";
+    require("../template/error.php");
+    exit(0);
+}
+
 if (isset($_GET['uid'])) {
 	$user_id = $_GET['uid'];
 	$rightstr = $_GET['rightstr'];

@@ -2,7 +2,16 @@
 require_once("../include/db_info.inc.php");
 require_once("../include/check_get_key.php");
 $cid = intval($_GET['cid']);
-if (!(isset($_SESSION[$OJ_NAME . '_' . "m$cid"]) || isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator']))) exit();
+
+if (!(isset($_SESSION[$OJ_NAME . '_' . "m$cid"])
+	|| isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
+	|| isset($_SESSION[$OJ_NAME . '_' . 'contest_creator']))) {
+	$view_swal_params = "{title:'$MSG_PRIVILEGE_WARNING',icon:'error'}";
+	$error_location = "../index.php";
+	require("../template/error.php");
+	exit(0);
+}
+
 $sql = "select `defunct` FROM `contest` WHERE `contest_id`=?";
 $result = pdo_query($sql, $cid);
 $num = count($result);

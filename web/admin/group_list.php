@@ -1,8 +1,15 @@
 <?php
-if (isset($_GET['do'])) {
-  require_once("../include/db_info.inc.php");
-  require_once("../include/my_func.inc.php");
+require_once("../include/db_info.inc.php");
+require_once("../include/my_func.inc.php");
 
+if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
+  $view_swal_params = "{title:'$MSG_PRIVILEGE_WARNING',icon:'error'}";
+  $error_location = "../index.php";
+  require("../template/error.php");
+  exit(0);
+}
+
+if (isset($_GET['do'])) {
   if (isset($_GET["group_name"])) {
     require_once("../include/check_get_key.php");
     $group_name = trim($_GET["group_name"]);

@@ -2,6 +2,15 @@
 require_once("../include/db_info.inc.php");
 require_once("../lang/$OJ_LANG.php");
 require_once("../include/const.inc.php");
+
+if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
+    || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator']))) {
+    $view_swal_params = "{title:'$MSG_PRIVILEGE_WARNING',icon:'error'}";
+    $error_location = "../index.php";
+    require("../template/error.php");
+    exit(0);
+}
+
 $description = "";
 if (!(isset($_SESSION[$OJ_NAME . '_' . "mq" . $_REQUEST["qid"]]) || isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator']))) {
     header("Location: quiz_list.php");

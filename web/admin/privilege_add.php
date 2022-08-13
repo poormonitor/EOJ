@@ -1,4 +1,12 @@
 <?php require_once("admin-header.php");
+
+if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
+    $view_swal_params = "{title:'$MSG_PRIVILEGE_WARNING',icon:'error'}";
+    $error_location = "../index.php";
+    require("../template/error.php");
+    exit(0);
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo $OJ_LANG ?>">
@@ -72,7 +80,7 @@
 
 											<?php
 											$rightarray = array("administrator", "problem_editor", "source_browser", "contest_creator", "http_judge", "password_setter", 'problem_start', 'problem_end');
-											while (list($key, $val) = each($rightarray)) {
+											foreach ($rightarray as $val) {
 												if (isset($rightstr) && ($rightstr == $val)) {
 													echo '<option value="' . $val . '" selected>' . $val . '</option>';
 												} else {

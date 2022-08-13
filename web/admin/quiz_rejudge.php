@@ -1,6 +1,15 @@
 <?php
 require_once("admin-header.php");
 require_once("../include/my_func.inc.php");
+
+if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
+    || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator']))) {
+    $view_swal_params = "{title:'$MSG_PRIVILEGE_WARNING',icon:'error'}";
+    $error_location = "../index.php";
+    require("../template/error.php");
+    exit(0);
+}
+
 function machine_rejudge($type, $score, $c_answer, $answers)
 {
 	foreach ($answers as $i) {

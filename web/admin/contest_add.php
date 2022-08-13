@@ -3,7 +3,18 @@ header("Cache-control:private");
 require_once("../include/db_info.inc.php");
 require_once("../lang/$OJ_LANG.php");
 require_once("../include/const.inc.php");
-require_once("admin-header.php"); ?>
+require_once("admin-header.php");
+
+if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
+  || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator'])
+)) {
+  $view_swal_params = "{title:'$MSG_PRIVILEGE_WARNING',icon:'error'}";
+  $error_location = "../index.php";
+  require("../template/error.php");
+  exit(0);
+}
+
+?>
 <!DOCTYPE html>
 <html lang="<?php echo $OJ_LANG ?>">
 

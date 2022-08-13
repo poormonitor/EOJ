@@ -3,8 +3,9 @@
 require_once("../include/db_info.inc.php");
 if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
     || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor']))) {
-    $view_errors_js = "swal('$MSG_NOT_LOGINED','$MSG_Login','error').then((onConfirm)=>{window.location.href='loginpage.php'})";
-    require("template/error.php");
+    $view_swal_params = "{title:'$MSG_PRIVILEGE_WARNING',icon:'error'}";
+    $error_location = "../index.php";
+    require("../template/error.php");
     exit(0);
 }
 // this is not a webshell , and it need administrator / problem editor  membership to use, 

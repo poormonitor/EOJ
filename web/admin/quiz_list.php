@@ -1,6 +1,14 @@
 <?php
 require("admin-header.php");
 require_once("../include/set_get_key.php");
+
+if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
+    || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator']))) {
+    $view_swal_params = "{title:'$MSG_PRIVILEGE_WARNING',icon:'error'}";
+    $error_location = "../index.php";
+    require("../template/error.php");
+    exit(0);
+}
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo $OJ_LANG ?>">
@@ -65,12 +73,11 @@ require_once("../include/set_get_key.php");
             }
             ?>
             <center>
-              <form action=quiz_list.php class="form-search form-inline">
+              <form action=quiz_list.php class="form-search form-inline my-3">
                 <input type="text" name=keyword class="form-control search-query" placeholder="<?php echo $MSG_QUIZ . ', ' . $MSG_EXPLANATION ?>">
                 <button type="submit" class="form-control"><?php echo $MSG_SEARCH ?></button>
               </form>
             </center>
-            <br>
             <center>
               <form action=quiz_add.php method='GET' class="form-search form-inline">
                 <input type="text" name='num' class="form-control search-query" required placeholder="<?php echo $MSG_INQUERY_NUMBER ?>">

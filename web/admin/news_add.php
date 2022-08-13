@@ -3,6 +3,13 @@ require_once("../include/check_post_key.php");
 require_once("../include/db_info.inc.php");
 require_once("../include/my_func.inc.php");
 
+if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
+	$view_swal_params = "{title:'$MSG_PRIVILEGE_WARNING',icon:'error'}";
+	$error_location = "../index.php";
+	require("../template/error.php");
+	exit(0);
+}
+
 //contest_id
 $title = $_POST['title'];
 $content = $_POST['content'];

@@ -1,4 +1,14 @@
-<?php require_once("admin-header.php"); ?>
+<?php 
+require_once("admin-header.php"); 
+
+if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
+    || isset($_SESSION[$OJ_NAME . '_' . 'source_browswer']))) {
+    $view_swal_params = "{title:'$MSG_PRIVILEGE_WARNING',icon:'error'}";
+    $error_location = "../index.php";
+    require("../template/error.php");
+    exit(0);
+}
+?>
 <!DOCTYPE html>
 <html lang="<?php echo $OJ_LANG ?>">
 

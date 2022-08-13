@@ -1,8 +1,16 @@
 <?php
-@session_start();
-echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
 require_once("../include/db_info.inc.php");
 
+if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
+  || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor'])
+)) {
+  $view_swal_params = "{title:'$MSG_PRIVILEGE_WARNING',icon:'error'}";
+  $error_location = "../index.php";
+  require("../template/error.php");
+  exit(0);
+}
+
+echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
 if (!isset($OJ_LANG)) {
   $OJ_LANG = "en";
 }

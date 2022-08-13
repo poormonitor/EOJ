@@ -2,6 +2,15 @@
 require_once("../include/db_info.inc.php");
 require_once("admin-header.php");
 
+if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
+  || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor'])
+)) {
+  $view_swal_params = "{title:'$MSG_PRIVILEGE_WARNING',icon:'error'}";
+  $error_location = "../index.php";
+  require("../template/error.php");
+  exit(0);
+}
+
 $id = isset($_GET['id']) ? $_GET['id'] : 1000;
 $sql = "SELECT * FROM `problem_2` WHERE `id`=?";
 $result = pdo_query($sql, intval($id));
