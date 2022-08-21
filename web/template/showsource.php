@@ -57,18 +57,14 @@
         </div>
       </div>
       <?php
-      if ($ok == true) {
-        $brush = strtolower($language_name[$slanguage]);
-        if ($brush == "python3") $brush = "py";
-        if ($brush == 'freebasic') $brush = 'vb';
-        echo "<pre id='code' style='font-size:18px;'><code class='language-$brush line-numbers'>";
-        ob_start();
-        $auth = ob_get_contents();
-        ob_end_clean();
-        echo htmlentities(str_replace("\n\r", "\n", $view_source), ENT_QUOTES, "utf-8") . $auth . "</code></pre>";
-      } else {
-        echo $MSG_WARNING_ACCESS_DENIED;
-      }
+      $brush = strtolower($language_name[$slanguage]);
+      if ($brush == "python3") $brush = "py";
+      if ($brush == 'freebasic') $brush = 'vb';
+      echo "<pre id='code' style='font-size:18px;'><code class='language-$brush line-numbers'>";
+      ob_start();
+      $auth = ob_get_contents();
+      ob_end_clean();
+      echo htmlentities(str_replace("\n\r", "\n", $view_source), ENT_QUOTES, "utf-8") . $auth . "</code></pre>";
       ?>
     </div>
 

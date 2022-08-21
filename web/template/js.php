@@ -29,7 +29,7 @@
 </script>
 <script src="<?php echo $OJ_CDN_URL . "template/" ?>jquery.min.js"></script>
 <script src="<?php echo $OJ_CDN_URL . "template/" ?>bootstrap.min.js"></script>
-<script src="<?php echo $OJ_CDN_URL . "template/" ?>index.min.js?v=1.31"></script>
+<script src="<?php echo $OJ_CDN_URL . "template/" ?>index.min.js?v=1.32"></script>
 <script src="<?php echo $OJ_CDN_URL . "include/" ?>sweetalert.min.js"></script>
 <?php if (isset($OJ_GOOGLE_ANALYTICS)) { ?>
 	<script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo $OJ_GOOGLE_ANALYTICS ?>"></script>
@@ -51,9 +51,6 @@ $prefix = isset($prefix) ? $prefix : "";
 <script>
 	$(document).ready(function() {
 		$("#csrf").load("<?php echo $prefix; ?>csrf.php");
-		<?php
-		if (isset($_SESSION[$OJ_NAME . "_" . "administrator"])) echo "admin_mod();";
-		?>
 	});
 	console.log("Loading used <?php echo $runTime; ?>.")
 	console.log("Thanks for choosing <?php echo $OJ_NAME; ?>.");

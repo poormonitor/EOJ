@@ -24,7 +24,7 @@
       <table align=center width=80%>
         <tr align='center'>
           <td>
-            <form class=form-inline method=post action=contest.php>
+            <form class=form-inline method=post action=quiz.php>
               <input class="form-control" name=keyword value="<?php if (isset($_POST['keyword'])) echo htmlentities($_POST['keyword'], ENT_QUOTES, "UTF-8") ?>" placeholder="<?php echo $MSG_QUIZ_NAME ?>">
               <button class="form-control" type=submit><?php echo $MSG_SEARCH ?></button>
             </form>

@@ -252,31 +252,29 @@
 										} ?>
 									</div>
 								</div>
-								<?php if ($pr_flag) { ?>
-									<div class='panel panel-default'>
-										<div class='panel-heading'>
-											<h4>
-												<?php echo $MSG_SOURCE ?>
-											</h4>
-										</div>
-
-										<div fd="source" style='word-wrap:break-word;' pid=<?php echo $row['problem_id'] ?> class='panel-body content'>
-											<?php if ($row['source']) { ?>
-												<?php
-												$cats = explode(" ", $row['source']);
-												foreach ($cats as $cat) {
-													if ($cat == "") continue;
-													$hash_num = hexdec(substr(md5($cat), 0, 7));
-													$label_theme = $color_theme[$hash_num % count($color_theme)];
-													if ($label_theme == "") $label_theme = "default";
-													echo "<a class='label label-$label_theme' style='display: inline-block;' href='problemset.php?search=" . urlencode(htmlentities($cat, ENT_QUOTES, 'utf-8')) . "'>" . htmlentities($cat, ENT_QUOTES, 'utf-8') . "</a>&nbsp;";
-												} ?>
-											<?php } else {
-												echo $MSG_EMPTY;
-											} ?>
-										</div>
+								<div class='panel panel-default'>
+									<div class='panel-heading'>
+										<h4>
+											<?php echo $MSG_SOURCE ?>
+										</h4>
 									</div>
-								<?php } ?>
+
+									<div fd="source" style='word-wrap:break-word;' pid=<?php echo $row['problem_id'] ?> class='panel-body content'>
+										<?php if ($row['source']) { ?>
+											<?php
+											$cats = explode(" ", $row['source']);
+											foreach ($cats as $cat) {
+												if ($cat == "") continue;
+												$hash_num = hexdec(substr(md5($cat), 0, 7));
+												$label_theme = $color_theme[$hash_num % count($color_theme)];
+												if ($label_theme == "") $label_theme = "default";
+												echo "<a class='label label-$label_theme' style='display: inline-block;' href='problemset.php?search=" . urlencode(htmlentities($cat, ENT_QUOTES, 'utf-8')) . "'>" . htmlentities($cat, ENT_QUOTES, 'utf-8') . "</a>&nbsp;";
+											} ?>
+										<?php } else {
+											echo $MSG_EMPTY;
+										} ?>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>

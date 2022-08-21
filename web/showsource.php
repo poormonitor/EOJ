@@ -8,7 +8,7 @@ $view_title = "Source Code";
 
 require_once("./include/const.inc.php");
 if (!isset($_GET['id'])) {
-	$view_errors = "No such code!\n";
+	$view_swal = "$MSG_NOT_EXISTED";
 	require("template/error.php");
 	exit(0);
 }
@@ -30,8 +30,8 @@ $snick = $row['nick'];
 
 if (isset($OJ_EXAM_CONTEST_ID)) {
 	if ($contest_id < $OJ_EXAM_CONTEST_ID && !isset($_SESSION[$OJ_NAME . '_' . 'source_browser'])) {
-		header("Content-type: text/html; charset=utf-8");
-		echo $MSG_SOURCE_NOT_ALLOWED_FOR_EXAM;
+		$view_swal = $MSG_SOURCE_NOT_ALLOWED_FOR_EXAM;
+		require("template/error.php");
 		exit();
 	}
 }
@@ -58,9 +58,16 @@ if (isset($_SESSION[$OJ_NAME . '_' . 's' . $sproblem_id])) {
 		//echo "not right";
 	}
 }
-$view_source = "没有可用的代码！";
+$view_source = $MSG_NOT_EXISTED;
 if (isset($_SESSION[$OJ_NAME . '_' . 'user_id']) && $row && $row['user_id'] == $_SESSION[$OJ_NAME . '_' . 'user_id']) $ok = true;
 if (isset($_SESSION[$OJ_NAME . '_' . 'source_browser'])) $ok = true;
+
+if (!$ok) {
+	$view_swal = $MSG_WARNING_ACCESS_DENIED;
+	require("template/error.php");
+	exit();
+}
+
 
 $sql = "SELECT `source` FROM `source_code` WHERE `solution_id`=?";
 $result = pdo_query($sql, $id);
