@@ -191,7 +191,7 @@
 															<td>
 																<pre><?php echo htmlentities($key, ENT_QUOTES, "UTF-8") ?></pre>
 															</td>
-															<td class="keep-all">
+															<td class="text-md-wrap">
 																<?php foreach ($value as $row) { ?>
 																	<?php echo $row ?>&nbsp;&nbsp;
 																<?php } ?>
@@ -212,7 +212,7 @@
 															<td>
 																<pre><?php echo htmlentities($key, ENT_QUOTES, "UTF-8") ?></pre>
 															</td>
-															<td class="keep-all">
+															<td class="text-md-wrap">
 																<?php foreach ($value as $row) { ?>
 																	<?php echo $row ?>&nbsp;&nbsp;
 																<?php } ?>

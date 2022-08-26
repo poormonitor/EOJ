@@ -350,8 +350,7 @@ pre#code {
     box-shadow: 0 1px 0 rgba(255, 255, 255, .15) inset, 0 2px 6px rgba(0, 0, 0, .075);
 }
 
-.http_judge_form,
-text-nowrap {
+.http_judge_form {
     white-space: nowrap;
 }
 
@@ -2406,62 +2405,6 @@ td.ans>img {
     pointer-events: auto !important;
 }
 
-.rounded {
-    border-radius: var(--bs-border-radius) !important;
-}
-
-.rounded-0 {
-    border-radius: 0 !important;
-}
-
-.rounded-1 {
-    border-radius: var(--bs-border-radius-sm) !important;
-}
-
-.rounded-2 {
-    border-radius: var(--bs-border-radius) !important;
-}
-
-.rounded-3 {
-    border-radius: var(--bs-border-radius-lg) !important;
-}
-
-.rounded-4 {
-    border-radius: var(--bs-border-radius-xl) !important;
-}
-
-.rounded-5 {
-    border-radius: var(--bs-border-radius-2xl) !important;
-}
-
-.rounded-circle {
-    border-radius: 50% !important;
-}
-
-.rounded-pill {
-    border-radius: var(--bs-border-radius-pill) !important;
-}
-
-.rounded-top {
-    border-top-left-radius: var(--bs-border-radius) !important;
-    border-top-right-radius: var(--bs-border-radius) !important;
-}
-
-.rounded-end {
-    border-top-right-radius: var(--bs-border-radius) !important;
-    border-bottom-right-radius: var(--bs-border-radius) !important;
-}
-
-.rounded-bottom {
-    border-bottom-right-radius: var(--bs-border-radius) !important;
-    border-bottom-left-radius: var(--bs-border-radius) !important;
-}
-
-.rounded-start {
-    border-bottom-left-radius: var(--bs-border-radius) !important;
-    border-top-left-radius: var(--bs-border-radius) !important;
-}
-
 .visible {
     visibility: visible !important;
 }
@@ -3120,6 +3063,10 @@ td.ans>img {
     .text-sm-center {
         text-align: center !important;
     }
+
+    .text-sm-wrap{
+        white-space: wrap !important;
+    }
 }
 
 @media (min-width: 768px) {
@@ -3772,6 +3719,10 @@ td.ans>img {
     .text-md-center {
         text-align: center !important;
     }
+
+    .text-md-wrap{
+        white-space: wrap !important;
+    }
 }
 
 @media (min-width: 992px) {
@@ -4423,6 +4374,10 @@ td.ans>img {
 
     .text-lg-center {
         text-align: center !important;
+    }
+
+    .text-lg-wrap{
+        white-space: wrap !important;
     }
 }
 
