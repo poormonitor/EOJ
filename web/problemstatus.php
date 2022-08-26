@@ -261,7 +261,7 @@ if ($problem_info["blank"] && isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
 
     for ($i = 0; $i < count($res); $i++) {
 
-      if (!$res[$i] || ctype_space($res[$i][0])) {
+      if (!$res[$i] || !$res[$i][0] || ctype_space($res[$i][0])) {
         continue;
       }
 

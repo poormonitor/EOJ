@@ -81,7 +81,7 @@
           <?php } ?>
 
           <?php if (!$answered) { ?>
-            <a class="btn btn-sm btn-primary" href="quiz_submitpage.php?qid=<?php echo $view_qid ?>"><?php echo $MSG_QUIZ_ANS; ?></a>
+            <a class="btn btn-sm btn-info" href="quiz_submitpage.php?qid=<?php echo $view_qid ?>"><?php echo $MSG_QUIZ_ANS; ?></a>
           <?php } else { ?>
             <div id="statistic" class="main-container">
               <div class='table-responsive'>

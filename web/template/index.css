@@ -3065,7 +3065,8 @@ td.ans>img {
     }
 
     .text-sm-wrap{
-        white-space: wrap !important;
+        white-space: normal !important;
+        word-break: keep-all;
     }
 }
 
@@ -3721,7 +3722,8 @@ td.ans>img {
     }
 
     .text-md-wrap{
-        white-space: wrap !important;
+        white-space: normal !important;
+        word-break: keep-all;
     }
 }
 
@@ -4377,7 +4379,8 @@ td.ans>img {
     }
 
     .text-lg-wrap{
-        white-space: wrap !important;
+        white-space: normal !important;
+        word-break: keep-all;
     }
 }
 
