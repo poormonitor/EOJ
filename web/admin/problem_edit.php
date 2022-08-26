@@ -4,12 +4,12 @@ require_once("../include/my_func.inc.php");
 require_once("admin-header.php");
 
 if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
-	|| isset($_SESSION[$OJ_NAME . '_' . 'problem_editor'])
+    || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor'])
 )) {
-	$view_swal_params = "{title:'$MSG_PRIVILEGE_WARNING',icon:'error'}";
-	$error_location = "../index.php";
-	require("../template/error.php");
-	exit(0);
+    $view_swal_params = "{title:'$MSG_PRIVILEGE_WARNING',icon:'error'}";
+    $error_location = "../index.php";
+    require("../template/error.php");
+    exit(0);
 }
 
 ?>
@@ -260,48 +260,11 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
                             $spj = intval($spj);
 
                             $sql = "UPDATE `problem` SET `title`=?,`time_limit`=?,`memory_limit`=?, `description`=?,`input`=?,`output`=?,`sample_input`=?,`sample_output`=?,`hint`=?,`source`=?,`spj`=?, `background`=?, `in_date`=NOW(), `blank`=NULL, `allow`=NULL, `block`=NULL WHERE `problem_id`=?";
-
                             pdo_query($sql, $title, $time_limit, $memory_limit, $description, $input, $output, $sample_input, $sample_output, $hint, $source, $spj, $background, $id);
 
                             if ($_POST['blank'] == '1') {
-                                $sql = "SELECT * FROM `problem` WHERE `problem_id`=?";
-                                $result = pdo_query($sql, $id);
-                                $row = $result[0];
-                                $old_blank_code = $row["blank"];
-                                $new_blank_code = $_POST['blank_code'];
-
-                                if (
-                                    $new_blank_code != $old_blank_code
-                                    && subCnt($old_blank_code, "*%*", "%*%") == subCnt($new_blank_code, "*%*", "%*%")
-                                ) {
-                                    $sql = "SELECT solution.solution_id, source_code.source FROM source_code 
-                                    JOIN solution ON solution.solution_id = source_code.solution_id
-                                    JOIN problem ON problem.problem_id = solution.problem_id
-                                    WHERE problem.problem_id = ?";
-                                    $result = pdo_query($sql, $id);
-
-                                    foreach ($result as $row) {
-                                        $new_source = $new_blank_code;
-
-                                        $res = getBlankCodeInd($old_blank_code, $row[1]);
-
-                                        foreach ($res[0] as $code) {
-                                            $new_source = str_replace_limit("%*%", $code, $new_source, 1);
-                                        }
-
-                                        foreach ($res[1] as $code) {
-                                            preg_match("/\n.*\*%\*/m", $new_source, $matches);
-                                            $len = strlen($matches[0]) - 4;
-                                            $new_line = str_replace("\n", str_repeat(" ", $len), $code);
-                                            $new_source = str_replace_limit("*%*", $multiline, $new_source, 1);
-                                        }
-
-                                        $sql = "UPDATE source_code SET source = ? WHERE solution_id = ?";
-                                        pdo_query($sql, $new_source, $row[0]);
-                                    }
-                                }
                                 $sql = 'UPDATE `problem` set `blank`=? where `problem_id`=?';
-                                pdo_query($sql, $new_blank_code, $id);
+                                pdo_query($sql, $_POST['blank_code'], $id);
                             }
 
                             if ($allow) {

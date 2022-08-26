@@ -97,8 +97,7 @@
                             <div class='row' style='margin-top:10px;'>
                                 <div class='col-sm-4 col-sm-offset-4'>
                                     <input id="TestRun" class="btn btn-info btn-sm" type=button value="<?php echo $MSG_TR ?>" onclick=do_test_run();>
-                                    &nbsp;&nbsp;&nbsp;
-                                    <span class="label label-info" id=result><?php echo $MSG_STATUS ?></span>
+                                    <span class="label label-info m-3" id=result><?php echo $MSG_STATUS ?></span>
                                 </div>
                             </div>
                         </div>

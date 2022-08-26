@@ -256,24 +256,27 @@ if ($problem_info["blank"] && isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
     $user_info = $user_id . "(" . $nick . ")";
     $res = getBlankCodeSingle($blank, $view_src);
 
+    if (!$res)
+      continue;
+
     for ($i = 0; $i < count($res); $i++) {
 
-      if (!$res[$i]) {
+      if (!$res[$i] || ctype_space($res[$i][0])) {
         continue;
       }
 
       $stripped = stripBlank($res[$i]);
+
+      if (!isset($blank_analysis[$i])) {
+        $strip_map[$i] = array();
+        $blank_analysis[$i] = array(0 => array(), 1 => array());
+      }
 
       if (
         in_array($res[$i], array_keys($blank_analysis[$i][0]))
         || in_array($stripped, array_keys($blank_analysis[$i][0]))
       ) {
         $c = 0;
-      }
-
-      if (!isset($blank_analysis[$i])) {
-        $strip_map[$i] = array();
-        $blank_analysis[$i] = array(0 => array(), 1 => array());
       }
 
       $target = $res[$i];

@@ -434,14 +434,12 @@ function getBlankCode($blank, $view_src)
   $view_src = unifyCode($view_src);
   $blank = unifyCode($blank);
   $blank_pat = "#" . preg_quote($blank) . "#";
-  $func = function ($value) {
-    return $value[0];
-  };
   $blank_pat = str_replace("%\*%", "(.*)", $blank_pat);
   $blank_pat = str_replace("\*%\*", "([\s\S]*)", $blank_pat);
-  preg_match_all($blank_pat, $view_src, $matches);
+  if (preg_match_all($blank_pat, $view_src, $matches))
+    return false;
   $matches = array_slice($matches, 1);
-  $matches = array_map($func, $matches);
+  $matches = array_map("reset", $matches);
   return $matches;
 }
 
@@ -450,14 +448,12 @@ function getBlankCodeSingle($blank, $view_src)
   $view_src = unifyCode($view_src);
   $blank = unifyCode($blank);
   $blank_pat = "#" . preg_quote($blank) . "#";
-  $func = function ($value) {
-    return $value[0];
-  };
   $blank_pat = str_replace("%\*%", "(.*)", $blank_pat);
   $blank_pat = str_replace("\*%\*", "[\s\S]*", $blank_pat);
-  preg_match_all($blank_pat, $view_src, $matches);
+  if (!preg_match_all($blank_pat, $view_src, $matches))
+    return false;
   $matches = array_slice($matches, 1);
-  $matches = array_map($func, $matches);
+  $matches = array_map("reset", $matches);
   return $matches;
 }
 
@@ -466,17 +462,17 @@ function getBlankCodeInd($blank, $view_src)
   $view_src = unifyCode($view_src);
   $blank = unifyCode($blank);
   $blank_pat = "#" . preg_quote($blank) . "#";
-  $func = function ($value) {
-    return $value[0];
-  };
   $blank_pat_s = str_replace("%\*%", "(.*)", $blank_pat);
   $blank_pat_m = str_replace("\*%\*", "([\s\S]*)", $blank_pat);
-  preg_match_all($blank_pat_s, $view_src, $matches_s);
-  preg_match_all($blank_pat_m, $view_src, $matches_m);
+  if (
+    !preg_match_all($blank_pat_s, $view_src, $matches_s)
+    || !preg_match_all($blank_pat_m, $view_src, $matches_m)
+  )
+    return false;
   $matches_s = array_slice($matches_s, 1);
-  $matches_s = array_map($func, $matches_s);
+  $matches_s = array_map("reset", $matches_s);
   $matches_m = array_slice($matches_m, 1);
-  $matches_m = array_map($func, $matches_m);
+  $matches_m = array_map("reset", $matches_m);
   return array(0 => $matches_s, 1 => $matches_m);
 }
 
