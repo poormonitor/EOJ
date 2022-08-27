@@ -318,7 +318,7 @@ img {
 }
 
 .table-responsive>.table {
-    white-space: nowrap !important;
+    white-space: nowrap;
 }
 
 .multiline {

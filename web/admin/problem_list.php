@@ -3,13 +3,13 @@ require("admin-header.php");
 require_once("../include/set_get_key.php");
 
 if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
-	|| isset($_SESSION[$OJ_NAME . '_' . 'problem_editor'])
+  || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor'])
   || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator'])
 )) {
-	$view_swal_params = "{title:'$MSG_PRIVILEGE_WARNING',icon:'error'}";
-	$error_location = "../index.php";
-	require("../template/error.php");
-	exit(0);
+  $view_swal_params = "{title:'$MSG_PRIVILEGE_WARNING',icon:'error'}";
+  $error_location = "../index.php";
+  require("../template/error.php");
+  exit(0);
 }
 ?>
 <!DOCTYPE html>
@@ -32,7 +32,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
     <div class='jumbotron'>
       <div class='row lg-container'>
         <?php require_once("sidebar.php") ?>
-        <div class='col-md-10 p-0'>
+        <div class='col-md-9 col-lg-10 p-0'>
 
           <center>
             <h3><?php echo $MSG_PROBLEM . "-" . $MSG_LIST ?></h3>
@@ -97,8 +97,9 @@ echo "</select>";
 */
             ?>
 
-            <div class='table-responsive'>
-              <form method=post action=contest_add.php>
+
+            <form method=post action=contest_add.php>
+              <div class='table-responsive'>
                 <table width=100% class='center table table-condensed'>
                   <thead>
                     <tr>
@@ -150,8 +151,8 @@ echo "</select>";
                     </td>
                   </tr>
                 </table>
-              </form>
-            </div>
+              </div>
+            </form>
 
             <?php
             if (!(isset($_GET['keyword']) && $_GET['keyword'] != "")) {

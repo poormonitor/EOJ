@@ -58,7 +58,7 @@ $src = shell_exec($OJ_PY_BIN . " -m pip list --format=json");
     <div class='jumbotron'>
       <div class='row lg-container'>
         <?php require_once("sidebar.php") ?>
-        <div class='col-md-10 p-0'>
+        <div class='col-md-9 col-lg-10 p-0'>
           <h3 class='center'><?php echo $MSG_MODULE_INSTALLED ?></h3>
 
           <div class='container'>

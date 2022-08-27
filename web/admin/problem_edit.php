@@ -34,7 +34,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
         <div class='jumbotron'>
             <div class='row lg-container'>
                 <?php require_once("sidebar.php") ?>
-                <div class='col-md-10 p-0'>
+                <div class='col-md-9 col-lg-10 p-0'>
                     <?php
                     echo "<center><h3>" . $MSG_PROBLEM . "-" .  $MSG_EDIT . "</h3></center>";
                     ?>

@@ -1,4 +1,5 @@
 <?php
+require_once(dirname(__FILE__) . "/my_func.inc.php");
 /*
 数据库
 CREATE TABLE `online` (
@@ -75,17 +76,7 @@ class online
 	{
 		global $OJ_NAME;
 
-		$this->ip = ($_SERVER['REMOTE_ADDR']);
-
-
-		if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-
-			$REMOTE_ADDR = $_SERVER['HTTP_X_FORWARDED_FOR'];
-
-			$tmp_ip = explode(',', $REMOTE_ADDR);
-
-			$this->ip = (htmlentities($tmp_ip[0], ENT_QUOTES, "UTF-8"));
-		}
+		$this->ip = getRealIP();
 
 		if (isset($_SESSION[$OJ_NAME . '_' . 'user_id']))
 			$this->ua = htmlentities($_SESSION[$OJ_NAME . '_' . 'user_id'], ENT_QUOTES, "UTF-8");

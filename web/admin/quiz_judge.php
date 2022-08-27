@@ -102,7 +102,7 @@ require_once("admin-header.php");
         <div class='jumbotron'>
             <div class='row lg-container'>
                 <?php require_once("sidebar.php") ?>
-                <div class='col-md-10 p-0'>
+                <div class='col-md-9 col-lg-10 p-0'>
                     <style>
                         input[type=date],
                         input[type=time],

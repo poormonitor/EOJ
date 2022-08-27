@@ -105,7 +105,7 @@ $banner = isset($_GET["status"]);
 		<div class='jumbotron'>
 			<div class='row lg-container'>
 				<?php require_once("sidebar.php") ?>
-				<div class='col-md-10 p-0'>
+				<div class='col-md-9 col-lg-10 p-0'>
 					<div class="container">
 						<h3 class='center'><b><?php echo $MSG_REJUDGE ?></b></h3>
 						<?php if ($banner) { ?>

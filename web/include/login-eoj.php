@@ -13,16 +13,7 @@ function check_login($user_id, $password)
 		$row = $result[0];
 		if (pwCheck($password, $row['password'])) {
 			$user_id = $row['user_id'];
-			$ip = ($_SERVER['REMOTE_ADDR']);
-			if (isset($_SERVER['HTTP_X_FORWARDED_FOR']) && !empty(trim($_SERVER['HTTP_X_FORWARDED_FOR']))) {
-				$REMOTE_ADDR = $_SERVER['HTTP_X_FORWARDED_FOR'];
-				$tmp_ip = explode(',', $REMOTE_ADDR);
-				$ip = (htmlentities($tmp_ip[0], ENT_QUOTES, "UTF-8"));
-			} else if (isset($_SERVER['HTTP_X_REAL_IP']) && !empty(trim($_SERVER['HTTP_X_REAL_IP']))) {
-				$REMOTE_ADDR = $_SERVER['HTTP_X_REAL_IP'];
-				$tmp_ip = explode(',', $REMOTE_ADDR);
-				$ip = (htmlentities($tmp_ip[0], ENT_QUOTES, "UTF-8"));
-			}
+			$ip = getRealIP();
 			if (isset($OJ_EXAM_CONTEST_ID) && intval($OJ_EXAM_CONTEST_ID) > 0) {  //考试模式
 				$ccid = $OJ_EXAM_CONTEST_ID;
 				$sql = "select min(start_time) from contest where start_time<=now() and end_time>=now() and contest_id>=?";

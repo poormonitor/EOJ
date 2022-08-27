@@ -28,7 +28,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
 		<div class='jumbotron'>
 			<div class='row lg-container'>
 				<?php require_once("sidebar.php") ?>
-				<div class='col-md-10 p-0'>
+				<div class='col-md-9 col-lg-10 p-0'>
 					<?php if (isset($_POST['prefix'])) {
 						require_once("../include/check_post_key.php");
 						$prefix = $_POST['prefix'];
@@ -61,12 +61,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
 								$email = "your_own_email@internet";
 
 								$school = "your_own_school";
-								$ip = ($_SERVER['REMOTE_ADDR']);
-								if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-									$REMOTE_ADDR = $_SERVER['HTTP_X_FORWARDED_FOR'];
-									$tmp_ip = explode(',', $REMOTE_ADDR);
-									$ip = (htmlentities($tmp_ip[0], ENT_QUOTES, "UTF-8"));
-								}
+								$ip = getRealIP();
 
 								if (mb_strlen($nick, 'utf-8') > 20) {
 									$new_len = mb_strlen($nick, 'utf-8');

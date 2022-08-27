@@ -1,4 +1,4 @@
-<?php 
+<?php
 require_once("admin-header.php");
 
 if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
@@ -28,7 +28,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
     <div class='jumbotron'>
       <div class='row lg-container'>
         <?php require_once("sidebar.php") ?>
-        <div class='col-md-10 p-0'>
+        <div class='col-md-9 col-lg-10 p-0'>
           <center>
             <h3><?php echo $MSG_USER . "-" . $MSG_ADD ?></h3>
           </center>
@@ -80,9 +80,9 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
                       pdo_query($sql, $id_pw[0], $passwd, $nick, $gid);
                       echo $id_pw[0] . " is added!<br>";
 
-                      $ip = ($_SERVER['REMOTE_ADDR']);
+                      $ip = getRealIP();
                       $sql = "INSERT INTO `loginlog` VALUES(?,?,?,NOW())";
-                      pdo_query($sql, $id_pw[0], "user added", $ip);
+                      pdo_query($sql, $id_pw[0], "User added by " . $_SESSION[$OJ_NAME . "_" . "user_id"], $ip);
                     }
                   }
                 }

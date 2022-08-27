@@ -1,4 +1,5 @@
 <?php require_once("./include/db_info.inc.php"); ?>
+<?php require_once("./include/my_func.inc.php"); ?>
 <!DOCTYPE html>
 <html lang="<?php echo $OJ_LANG ?>">
 
@@ -87,16 +88,7 @@
 	$nick = (htmlentities($nick, ENT_QUOTES, "UTF-8"));
 	$school = (htmlentities($school, ENT_QUOTES, "UTF-8"));
 	$email = (htmlentities($email, ENT_QUOTES, "UTF-8"));
-	$ip = ($_SERVER['REMOTE_ADDR']);
-	if (isset($_SERVER['HTTP_X_FORWARDED_FOR']) && !empty(trim($_SERVER['HTTP_X_FORWARDED_FOR']))) {
-		$REMOTE_ADDR = $_SERVER['HTTP_X_FORWARDED_FOR'];
-		$tmp_ip = explode(',', $REMOTE_ADDR);
-		$ip = (htmlentities($tmp_ip[0], ENT_QUOTES, "UTF-8"));
-	} else if (isset($_SERVER['HTTP_X_REAL_IP']) && !empty(trim($_SERVER['HTTP_X_REAL_IP']))) {
-		$REMOTE_ADDR = $_SERVER['HTTP_X_REAL_IP'];
-		$tmp_ip = explode(',', $REMOTE_ADDR);
-		$ip = (htmlentities($tmp_ip[0], ENT_QUOTES, "UTF-8"));
-	}
+	$ip = getRealIP();
 	if (isset($OJ_REG_NEED_CONFIRM) && $OJ_REG_NEED_CONFIRM) $defunct = "Y";
 	else $defunct = "N";
 	$sql = "INSERT INTO `users`("

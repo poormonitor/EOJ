@@ -81,7 +81,7 @@ if (isset($_POST['do']) && isset($_POST['qid'])) {
 		<div class='jumbotron'>
 			<div class='row lg-container'>
 				<?php require_once("sidebar.php") ?>
-				<div class='col-md-10 p-0'>
+				<div class='col-md-9 col-lg-10 p-0'>
 					<?php require_once("../include/set_post_key.php"); ?>
 					<hr>
 					<div class="container">
