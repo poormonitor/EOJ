@@ -54,6 +54,7 @@ if (!count($result)) {
 }
 
 $row = $result[0];
+$show_info = $row;
 $lang = $row['language'];
 $pid = $row["problem_id"];
 $contest_id = intval($row['contest_id']);

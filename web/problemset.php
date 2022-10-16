@@ -82,8 +82,8 @@ if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {  //all problems
 		SELECT  `problem_id` 
 		FROM contest c
 			INNER JOIN  `contest_problem` cp ON c.`contest_id` = cp.`contest_id` " .
-		" AND (c.`defunct` = 'N' AND c.`start_time`<=NOW() AND NOW()<c.`end_time`)" .    // option style show all non-running contest
-		//"and (c.`end_time` >  NOW()  OR c.private =1)" .    // original style , hidden all private contest problems
+		" AND c.`defunct` = 'N' AND c.`start_time` <= NOW()" .    // option style show all non-running contest
+		" AND c.`end_time` >  NOW() AND c.`private` = 1" .    // original style , hidden all private contest problems
 		")";
 }
 

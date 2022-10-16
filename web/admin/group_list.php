@@ -10,22 +10,22 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
 }
 
 if (isset($_GET['do'])) {
-  if (isset($_GET["group_name"])) {
-    require_once("../include/check_get_key.php");
-    $group_name = trim($_GET["group_name"]);
-    if (count(pdo_query("SELECT COUNT(*) FROM group where name = ?", $group_name)) == 0) {
-      pdo_query("INSERT INTO `group` (`name`) VALUES (?);", $group_name);
+  require_once("../include/check_get_key.php");
+
+  if (isset($_GET["add"])) {
+    $group_name = trim($_GET["add"]);
+    echo pdo_query("SELECT COUNT(*) FROM `group` WHERE `name` = ?", $group_name)[0][0];
+    if (!pdo_query("SELECT COUNT(*) FROM `group` WHERE `name` = ?", $group_name)[0][0]) {
+      pdo_query("INSERT INTO `group` (`name`, `allow_view`) VALUES (?, 'N');", $group_name);
     }
   }
 
-  if (isset($_GET["del_group"])) {
-    require_once("../include/check_get_key.php");
-    $del_group = trim($_GET["del_group"]);
+  if (isset($_GET["del"])) {
+    $del_group = trim($_GET["del"]);
     pdo_query("DELETE FROM `group` WHERE `gid`=?;", $del_group);
   }
 
   if (isset($_GET["visiable"])) {
-    require_once("../include/check_get_key.php");
     $visiable = trim($_GET["visiable"]);
     $gid = trim($_GET["group"]);
     if ($visiable == "true") {
@@ -40,6 +40,7 @@ if (isset($_GET['do'])) {
 }
 
 require("admin-header.php");
+require_once("../include/set_get_key.php");
 ?>
 
 <!DOCTYPE html>
@@ -75,7 +76,7 @@ require("admin-header.php");
             ?>
             <center>
               <form action=group_list.php class="form-search form-inline">
-                <input type="text" name=group_name class="form-control search-query" placeholder="<?php echo $MSG_GROUP ?>">
+                <input type="text" name="add" class="form-control search-query" placeholder="<?php echo $MSG_GROUP ?>">
                 <input type=hidden name="getkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'getkey'] ?>">
                 <button name="do" value="do" type="submit" class="form-control"><?php echo $MSG_ADD ?></button>
               </form>
@@ -97,7 +98,7 @@ require("admin-header.php");
                     echo "<tr>";
                     echo "<td>" . $row['gid'] . "</td>";
                     echo "<td>" . $row['name'] . "</td>";
-                    echo "<td><a href='group_list.php?do=do&del_group=" . $row['gid'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . "'>$MSG_DELETE</a></td>";
+                    echo "<td><a href='group_list.php?do=do&del=" . $row['gid'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . "'>$MSG_DELETE</a></td>";
                     if ($row["allow_view"] == "Y") {
                       echo "<td><a href='group_list.php?do=do&visiable=false&group=" . $row['gid'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . "'><span class=green>$MSG_TRUE</span></a></td>";
                     } else {
