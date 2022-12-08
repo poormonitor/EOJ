@@ -1,6 +1,6 @@
 #!/bin/bash
 apt-get update
-apt install build-essential make flex clang libmariadb-dev -y
+apt install build-essential make flex clang libmariadb-dev libmysql++-dev -y
 /usr/sbin/useradd -m -u 1536 judge
 cd /home/judge/
 

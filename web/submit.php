@@ -41,7 +41,7 @@ if (!$OJ_BENCHMARK_MODE) {
   ) {
     unset($_SESSION[$OJ_NAME . '_' . "vcode"]);
     $view_swal .= "$MSG_VCODE_WRONG";
-    if (isset($_GET['ajax'])) {
+    if (isset($_REQUEST['ajax'])) {
       echo "-1";
     } else {
       require "template/error.php";
@@ -66,8 +66,13 @@ if (isset($_POST['cid'])) {
 
 $res = mysql_query_cache($sql);
 if (isset($res) && count($res) < 1 && !isset($_SESSION[$OJ_NAME . '_' . 'administrator']) && !((isset($cid) && $cid <= 0) || (isset($id) && $id <= 0))) {
-  $view_errors = $MSG_LINK_ERROR . "<br>";
-  require "template/error.php";
+  $view_errors = $MSG_LINK_ERROR;
+
+  if (isset($_REQUEST['ajax'])) {
+    echo $view_errors;
+  } else {
+    require "template/error.php";
+  }
   exit(0);
 }
 
@@ -76,7 +81,7 @@ if (false && $res[0][1] != 'N' && !isset($_SESSION[$OJ_NAME . '_' . 'administrat
   //  echo "$sql";
   $view_errors = $MSG_PROBLEM_RESERVED . "<br>";
 
-  if (isset($_POST['ajax'])) {
+  if (isset($_REQUEST['ajax'])) {
     echo $view_errors;
   } else {
     require "template/error.php";
@@ -111,7 +116,11 @@ if (isset($_POST['id'])) {
 
   if ($rows_cnt != 1) {
     $view_swal = $MSG_NOT_IN_CONTEST;
-    require "template/error.php";
+    if (isset($_REQUEST['ajax'])) {
+      echo $view_swal;
+    } else {
+      require "template/error.php";
+    }
     exit(0);
   } else {
     $row = $result[0];
@@ -128,7 +137,11 @@ if (isset($_POST['id'])) {
 
       if ($ccnt == 0 && !isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
         $view_errors = $MSG_NOT_INVITED . "\n";
-        require "template/error.php";
+        if (isset($_REQUEST['ajax'])) {
+          echo $view_errors;
+        } else {
+          require "template/error.php";
+        }
         exit(0);
       }
     }
@@ -141,7 +154,12 @@ if (isset($_POST['id'])) {
 
   if ($rows_cnt != 1) {
     $view_errors = $MSG_NO_PROBLEM . "\n";
-    require "template/error.php";
+
+    if (isset($_REQUEST['ajax'])) {
+      echo $view_errors;
+    } else {
+      require "template/error.php";
+    }
     exit(0);
   } else {
     $row = $result[0];
@@ -170,7 +188,11 @@ $language = strval($language);
 
 if ($langmask & (1 << $language)) {
   $view_errors = $MSG_NO_PLS . "\n[$language][$langmask][" . ($langmask & (1 << $language)) . "]";
-  require "template/error.php";
+  if (isset($_REQUEST['ajax'])) {
+    echo $view_errors;
+  } else {
+    require "template/error.php";
+  }
   exit(0);
 }
 
@@ -212,7 +234,7 @@ if ($code && $code[0][0]) {
       $input_text = "";
     } else {
       $view_swal = $MSG_FORMAT_ERROR;
-      if (isset($_GET['ajax'])) {
+      if (isset($_REQUEST['ajax'])) {
         echo "-2";
       } else {
         require "template/error.php";
@@ -277,7 +299,7 @@ if ($block != NULL) {
 }
 
 if (!$flag1 or !$flag2) {
-  if (isset($_GET['ajax'])) {
+  if (isset($_REQUEST['ajax'])) {
     echo "-3";
   } else {
     $view_swal = "$MSG_AB_KEYWORD_WARNING";
@@ -443,7 +465,7 @@ if (isset($cid)) {
   $statusURI .= "&cid=$cid&fixed=";
 }
 
-if ((!isset($_GET['ajax']))) { ?>
+if ((!isset($_REQUEST['ajax']))) { ?>
   <!DOCTYPE html>
   <html lang="<?php echo $OJ_LANG ?>">
 
@@ -467,13 +489,13 @@ if ((!isset($_GET['ajax']))) { ?>
   <?php }
 
 if (!$test_run) {
-  if (isset($_GET['ajax'])) {
+  if (isset($_REQUEST['ajax'])) {
     echo $statusURI;
   } else {
     header("Location: $statusURI");
   }
 } else {
-  if (isset($_GET['ajax'])) {
+  if (isset($_REQUEST['ajax'])) {
     echo $insert_id;
   } else {
   ?>

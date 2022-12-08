@@ -82,7 +82,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
             <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) { ?>
               <form action='adminer.php' method=post class="center mt-3">
                 <input type="hidden" name="auth[driver]" value="server">
-                <input type="hidden" name="auth[server]" value="">
+                <input type="hidden" name="auth[server]" value="<?php echo $DB_HOST ?>">
                 <input type="hidden" name="auth[username]" value="<?php echo $DB_USER ?>">
                 <input type="hidden" name="auth[password]" value="<?php echo $DB_PASS ?>">
                 <input type="hidden" name="auth[db]" value="<?php echo $DB_NAME ?>">

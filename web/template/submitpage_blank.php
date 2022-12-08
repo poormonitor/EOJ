@@ -170,7 +170,11 @@
                 }
             }
             $.post("submit.php?ajax", $.param(codeData), function(data, textStatus, request) {
-                window.location.href = data;
+                if (/status\.php\?.*/.test(data)) {
+                    window.location.href = data;
+                } else {
+                    swal("<?php echo $MSG_ERROR ?>", data, "error")
+                }
             }, );
         }
 

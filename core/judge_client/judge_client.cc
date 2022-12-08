@@ -940,7 +940,7 @@ void _update_solution_mysql(int solution_id, int result, int time, int memory,
 	{
 		//              printf("..update failed! %s\n",mysql_error(conn));
 	}
-	if (sim)
+	if (sim && solution_id)
 	{
 		sprintf(sql,
 				"insert into sim(s_id,sim_s_id,sim) values(%d,%d,%d) on duplicate key update  sim_s_id=%d,sim=%d",

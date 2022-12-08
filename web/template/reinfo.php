@@ -30,7 +30,7 @@
                 <th><?php echo $MSG_NICK ?></th>
                 <th><?php echo $MSG_LANG ?></th>
                 <th><?php echo $MSG_RESULT ?></span></th>
-                <?php if ($sresult == 4) { ?>
+                <?php if ($show_info["result"] == 4) { ?>
                   <th><?php echo $MSG_TIME ?></th>
                   <th><?php echo $MSG_MEMORY ?></th>
                 <?php } ?>
