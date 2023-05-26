@@ -48,13 +48,6 @@ if (count($result) > 0) {
 			pdo_query($sql, $solution_id);
 			$sql = "DELETE from compileinfo where solution_id=?";
 			pdo_query($sql, $solution_id);
-
-			$sql = "SELECT max(solution_id) FROM solution";
-			$result = pdo_query($sql);
-			if ($result) {
-				$sql = "ALTER TABLE `solution` AUTO_INCREMENT = ?";
-				pdo_query($sql, $result[0][0]);
-			}
 		}
 		//echo $sql.$res;
 	} else {

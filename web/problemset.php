@@ -14,7 +14,7 @@ $sql = "SELECT MAX(`problem_id`) AS upid FROM `problem`";
 $page_cnt = 50;  //50 prlblems per page
 $result = mysql_query_cache($sql);
 $row = $result[0];
-$cnt = $row['upid'] - $first;
+$cnt = $row['upid'] - $first + 1;
 $cnt = ceil($cnt / $page_cnt);
 
 //remember page

@@ -385,24 +385,37 @@ if (~$OJ_LANGMASK & (1 << $language)) {
     $nick = "Guest";
   }
 
-  if (!isset($pid)) {
-    $sql = "INSERT INTO solution(problem_id,user_id,nick,in_date,language,ip,code_length,result) VALUES(?,?,?,NOW(),?,?,?,14)";
-    $insert_id = pdo_query($sql, $id, $user_id, $nick, $language, $ip, $len);
-  } else {
-    $sql = "INSERT INTO solution(problem_id,user_id,nick,in_date,language,ip,code_length,contest_id,num,result) VALUES(?,?,?,NOW(),?,?,?,?,?,14)";
+  if ($test_run) {
+    $sql = "SELECT MIN(solution_id) from solution";
+    $insert_id = min(pdo_query($sql)[0][0], 1000) - 1;
 
-    if ((stripos($title, $OJ_NOIP_KEYWORD) !== false) && isset($OJ_OI_1_SOLUTION_ONLY) && $OJ_OI_1_SOLUTION_ONLY) {
-      $delete = pdo_query("DELETE FROM solution WHERE contest_id=? AND user_id=? AND num=?", $cid, $user_id, $pid);
-
-      if ($delete > 0) {
-        $sql_fix = "UPDATE problem p INNER JOIN (SELECT problem_id pid ,count(1) ac FROM solution WHERE problem_id=? AND result=4) s ON p.problem_id=s.pid SET p.accepted=s.ac;";
-        $fixed = pdo_query($sql_fix, $id);
-        $sql_fix = "UPDATE problem p INNER JOIN (SELECT problem_id pid ,count(1) submit FROM solution WHERE problem_id=?) s ON p.problem_id=s.pid SET p.submit=s.submit;";
-        $fixed = pdo_query($sql_fix, $id);
-      }
+    if (!isset($pid)) {
+      $sql = "INSERT INTO solution(solution_id,problem_id,user_id,nick,in_date,language,ip,code_length,result) VALUES(?,?,?,?,NOW(),?,?,?,14)";
+      pdo_query($sql, $insert_id, $id, $user_id, $nick, $language, $ip, $len);
+    } else {
+      $sql = "INSERT INTO solution(solution_id,problem_id,user_id,nick,in_date,language,ip,code_length,contest_id,num,result) VALUES(?,?,?,?,NOW(),?,?,?,?,?,14)";
+      pdo_query($sql, $insert_id, $id, $user_id, $nick, $language, $ip, $len, $cid, $pid);
     }
+  } else {
+    if (!isset($pid)) {
+      $sql = "INSERT INTO solution(problem_id,user_id,nick,in_date,language,ip,code_length,result) VALUES(?,?,?,NOW(),?,?,?,14)";
+      $insert_id = pdo_query($sql, $id, $user_id, $nick, $language, $ip, $len);
+    } else {
+      $sql = "INSERT INTO solution(problem_id,user_id,nick,in_date,language,ip,code_length,contest_id,num,result) VALUES(?,?,?,NOW(),?,?,?,?,?,14)";
 
-    $insert_id = pdo_query($sql, $id, $user_id, $nick, $language, $ip, $len, $cid, $pid);
+      if ((stripos($title, $OJ_NOIP_KEYWORD) !== false) && isset($OJ_OI_1_SOLUTION_ONLY) && $OJ_OI_1_SOLUTION_ONLY) {
+        $delete = pdo_query("DELETE FROM solution WHERE contest_id=? AND user_id=? AND num=?", $cid, $user_id, $pid);
+
+        if ($delete > 0) {
+          $sql_fix = "UPDATE problem p INNER JOIN (SELECT problem_id pid ,count(1) ac FROM solution WHERE problem_id=? AND result=4) s ON p.problem_id=s.pid SET p.accepted=s.ac;";
+          $fixed = pdo_query($sql_fix, $id);
+          $sql_fix = "UPDATE problem p INNER JOIN (SELECT problem_id pid ,count(1) submit FROM solution WHERE problem_id=?) s ON p.problem_id=s.pid SET p.submit=s.submit;";
+          $fixed = pdo_query($sql_fix, $id);
+        }
+      }
+
+      $insert_id = pdo_query($sql, $id, $user_id, $nick, $language, $ip, $len, $cid, $pid);
+    }
   }
 
   $sql = "INSERT INTO `source_code`(`solution_id`,`source`) VALUES(?,?)";
