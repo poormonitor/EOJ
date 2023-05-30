@@ -44,7 +44,7 @@
 #include <sys/time.h>
 #include <sys/resource.h>
 #include <sys/signal.h>
-//#include <sys/types.h>
+// #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
 #ifdef OJ_USE_MYSQL
@@ -946,10 +946,17 @@ void _update_solution_mysql(int solution_id, int result, int time, int memory,
 				"insert into sim(s_id,sim_s_id,sim) values(%d,%d,%d) on duplicate key update  sim_s_id=%d,sim=%d",
 				solution_id, sim_s_id, sim, sim_s_id, sim);
 		//      printf("sql= %s\n",sql);
-		if (mysql_real_query(conn, sql, strlen(sql)))
-		{
-			//              printf("..update failed! %s\n",mysql_error(conn));
-		}
+	}
+	else
+	{
+		sprintf(sql,
+				"delete from sim where s_id = %d",
+				solution_id);
+		//      printf("sql= %s\n",sql);
+	}
+	if (mysql_real_query(conn, sql, strlen(sql)))
+	{
+		//              printf("..update failed! %s\n",mysql_error(conn));
 	}
 }
 #endif
@@ -2793,7 +2800,7 @@ void judge_solution(int &ACflg, int &usedtime, double time_lmt, int isspj,
 				ACflg = OJ_TL; // 单点超过限制
 		}
 		else
-		{								  //测试数为0 ，这种情况不应该出现，但给出，作为保险。
+		{								  // 测试数为0 ，这种情况不应该出现，但给出，作为保险。
 			real_limit = time_lmt * 1000; // fallback
 			if (usedtime > real_limit)
 				ACflg = OJ_TL;
@@ -3213,6 +3220,10 @@ int get_sim(int solution_id, int lang, int pid, int &sim_s_id)
 	}
 	if (solution_id <= sim_s_id)
 		sim = 0;
+
+	if (DEBUG)
+		printf("Sim detection %d %d\n", sim, sim_s_id);
+
 	return sim;
 }
 

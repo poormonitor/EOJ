@@ -226,10 +226,10 @@ SELECT user_id FROM solution WHERE solution_id=new.s_id INTO new_user_id;
 SELECT user_id FROM solution WHERE solution_id=new.sim_s_id INTO old_user_id;
 SELECT blank FROM problem JOIN solution ON solution.problem_id = problem.problem_id WHERE solution.solution_id=new.s_id INTO blank_code;
 
-if old_user_id=new_user_id THEN SET new.s_id=0;
+if old_user_id=new_user_id THEN SET new.s_id = null;
 END if;
 
-if blank_code IS NOT NULL THEN SET new.s_id=0;
+if blank_code IS NOT NULL THEN SET new.s_id = null;
 END if; 
 
 END;;
