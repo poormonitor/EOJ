@@ -18,6 +18,7 @@ $MSG_NO_SUBMISSION = "无提交";
 $MSG_PRIVILEGE_WARNING = "您没有权限访问此页面";
 $MSG_ERROR = "错误";
 $MSG_SUCCESS = "成功";
+$MSG_LOADING = "加载中";
 $MSG_UP_WRONG = "用户名或密码错误";
 $MSG_PARAMS_ERROR = "您填写的某些项目不正确";
 $MSG_PARAMS_TOO_FEW = "您填写的项目太少";
@@ -98,6 +99,7 @@ $MSG_TIME = "用时";
 $MSG_LANG = "语言";
 $MSG_CODE_LENGTH = "代码长度";
 $MSG_SUBMIT_TIME = "提交时间";
+$MSG_CODE = "代码";
 
 //problemstatistics.php
 $MSG_PD = "等待";

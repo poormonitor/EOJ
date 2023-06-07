@@ -12,17 +12,48 @@
 	<title><?php echo $OJ_NAME ?></title>
 	<?php include("template/css.php"); ?>
 
+	<style>
+		.highlight-red {
+			background-color: rgba(255, 0, 0, 0.15);
+		}
+	</style>
+
 </head>
 
 <body>
-
+	<div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
+		<div class="modal__overlay" tabindex="-1" data-micromodal-close>
+			<div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+				<main class="modal__content" id="modal-1-content">
+					<div id="center" class="table-responsive">
+						<table class="table table-striped content-box-header">
+							<thead>
+								<tr>
+									<th><?php echo $MSG_SIM_PAS ?></th>
+									<th></th>
+									<th><?php echo $MSG_SIMILARITY ?></th>
+									<th><?php echo $MSG_CODE ?></th>
+								</tr>
+							</thead>
+							<tbody id="content"></tbody>
+						</table>
+						<div class="fs-1 text-center mt-5" id="loading"><?php echo $MSG_LOADING ?></div>
+					</div>
+				</main>
+			</div>
+		</div>
+	</div>
 	<div class="container">
 		<?php include("template/nav.php"); ?>
 		<div class="jumbotron">
 			<div id="content" style="width:95%;margin:1em auto 0;">
-				<?php if (isset($sim)) { ?>
-					<div><?php echo $MSG_SIMILARITY ?>:&nbsp;&nbsp;<span class="fs-3 fw-bold text-danger"><?php echo $sim ?> %</span></div>
-				<?php } ?>
+				<div class="mb-3">
+					<?php if (isset($sim)) { ?>
+						<span class="fs-3 me-3"><?php echo $MSG_SIMILARITY ?>:</span>
+						<span class="fs-2 fw-bold text-danger"><?php echo $sim ?> %</span>
+					<?php } ?>
+					<a class='btn btn-sm btn-info ms-3' href="javascript:go_render_ana('<?php echo $rid ?>')"><?php echo $MSG_ANALYSIS ?></a>
+				</div>
 
 				<table style="width:100%;margin-bottom:5px;">
 					<tr>
@@ -122,8 +153,43 @@
 			</div>
 		</div>
 		<?php include("template/js.php"); ?>
-		<script src="<?php echo $OJ_CDN_URL . "monaco/min/vs/" ?>loader.js"></script>
+		<script language="javascript" type="text/javascript" src="<?php echo $OJ_CDN_URL ?>template/micromodal.min.js"></script>
+		<script>
+			MicroModal.init();
+			var rendered = false;
 
+			function go_render_ana(rid) {
+				if (!rendered)
+					$.ajax({
+						url: 'simsource.php?sid=<?php echo $rid ?>',
+						method: 'GET',
+						dataType: 'json',
+						success: function(response) {
+							$("#loading").hide()
+							rendered = true;
+							$.each(response, function(index, item) {
+								var tr = $("<tr>");
+
+								var sHref = $("<a>").text(item[1])
+								sHref.attr("href", "comparesource.php?left=" + item[1] + "&right=" + rid)
+								sHref.attr("target", "_blank")
+								var sTd = $("<td>");
+								sTd.append(sHref)
+								var nameTd = $("<td>").text(item[3][0] + " " + item[3][1])
+								var simTd = $("<td>").text((item[0] * 100).toFixed(2) + "%");
+								var codeTd = $("<td>").html("<pre>" + item[2] + "</pre>");
+
+								tr.append(sTd, nameTd, simTd, codeTd);
+								$("tbody#content").append(tr);
+							});
+						},
+					});
+
+				MicroModal.show("modal-1");
+			}
+		</script>
+
+		<script src="<?php echo $OJ_CDN_URL . "monaco/min/vs/" ?>loader.js"></script>
 		<script type="text/javascript">
 			var config = {};
 

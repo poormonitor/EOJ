@@ -8,6 +8,11 @@
   <meta name="description" content="">
   <meta name="author" content="<?php echo $OJ_NAME ?>">
   <link rel="shortcut icon" href="/favicon.ico">
+  <style>
+    .table-td-space td {
+      padding: 0 2px;
+    }
+  </style>
 
   <title>
     <?php echo $OJ_NAME ?>
@@ -100,19 +105,19 @@
         <center>
           <?php echo $MSG_CONTEST_SUSPECT1 ?><br><br>
           <div class='table-responsive'>
-            <table class="table-hover table-striped text-center" align=center width=90% border=0>
-              <tr>
-                <td>IP address</td>
-                <td>IP info</td>
-                <td>Used ID</td>
-                <td>Trace</td>
-                <td>Time</td>
-                <td>IP address count</td>
+            <table class="table-hover table-striped text-center table-td-space" align=center width=90% border=0>
+              <tr class='text-nowrap'>
+                <th class="text-center">IP address</th>
+                <th class="text-center">IP info</th>
+                <th class="text-center">Used ID</th>
+                <th class="text-center">Trace</th>
+                <th class="text-center">Time</th>
+                <th class="text-center">IP address count</th>
               </tr>
 
               <?php
               foreach ($result1 as $row) {
-                echo "<tr>";
+                echo "<tr class='text-nowrap'>";
                 $ipaddr = $row["ip"];
                 $ipinfo = getLocationFull($ipaddr);
                 echo "<td>" . $ipaddr . "</td>";
@@ -139,19 +144,19 @@
         <center>
           <?php echo $MSG_CONTEST_SUSPECT2 ?><br><br>
           <div class='table-responsive'>
-            <table class="table-hover table-striped text-center" align=center width=90% border=0>
-              <tr>
-                <td>Used ID</td>
-                <td>Trace</td>
-                <td>Used IP address</td>
-                <td>IP info</td>
-                <td>Time</td>
-                <td>IP address count</td>
+            <table class="table-hover table-striped text-center table-td-space" align=center width=90% border=0>
+              <tr class='text-nowrap'>
+                <th class="text-center">Used ID</th>
+                <th class="text-center">Trace</th>
+                <th class="text-center">Used IP address</th>
+                <th class="text-center">IP info</th>
+                <th class="text-center">Time</th>
+                <th class="text-center">IP address count</th>
               </tr>
 
               <?php
               foreach ($result2 as $row) {
-                echo "<tr>";
+                echo "<tr class='text-nowrap'>";
                 echo "<td>" . $row['user_id'] . "</td>";
                 echo "<td>";
                 echo "<a href='../userinfo.php?user=" . $row['user_id'] . "'><sub>" . $MSG_USERINFO . "</sub></a> <sub>/</sub> ";

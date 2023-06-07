@@ -42,7 +42,7 @@
       <form id=frmSolution action="submit.php" method="post" onsubmit='do_submit()'>
         <center>
           <?php if (isset($id)) { ?>
-            <div style="font-size: 1.8rem">
+            <div class="fs-2">
               <div>
                 <?php echo $MSG_PROBLEM_ID ?> :
                 <a href="javascript:MicroModal.show('modal-1');" class=blue>
@@ -57,7 +57,7 @@
             //$PID="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             //if ($pid>25) $pid=25;
           ?>
-            <div style="font-size: 1.8rem">
+            <div class="fs-2">
               <div>
                 <?php echo $MSG_PROBLEM_ID ?> :
                 <a href="javascript:MicroModal.show('modal-1');" class=blue>

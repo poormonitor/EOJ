@@ -3186,10 +3186,12 @@ void init_parameters(int argc, char **argv, int &solution_id,
 int get_sim(int solution_id, int lang, int pid, int &sim_s_id)
 {
 	char src_pth[BUFFER_SIZE];
+	char com_pth[BUFFER_SIZE];
 	// char cmd[BUFFER_SIZE];
 	sprintf(src_pth, "Main.%s", lang_ext[lang]);
+	sprintf(com_pth, "../data/%d/ac/", pid);
 
-	int sim = execute_cmd("/usr/bin/sim.py %s %d", src_pth, pid);
+	int sim = execute_cmd("/usr/bin/sim.py %s %s", src_pth, com_pth);
 	if (!sim)
 	{
 		execute_cmd("/bin/mkdir ../data/%d/ac/ 2>/dev/null", pid);

@@ -18,6 +18,7 @@ $MSG_NO_SUBMISSION = "No Submission";
 $MSG_PRIVILEGE_WARNING = "You are not authorized to view this page.";
 $MSG_ERROR = "Error";
 $MSG_SUCCESS = "Success";
+$MSG_LOADING = "Loading";
 $MSG_UP_WRONG = "Username or password is wrong";
 $MSG_PARAMS_ERROR = "Some of items is wrong";
 $MSG_PARAMS_TOO_FEW = "You have filled in too few items";
@@ -98,6 +99,7 @@ $MSG_TIME = "Time";
 $MSG_LANG = "Language";
 $MSG_CODE_LENGTH = "Code Length";
 $MSG_SUBMIT_TIME = "Submit Time";
+$MSG_CODE = "Code";
 
 //problemstatistics.php
 $MSG_PD = "PD";

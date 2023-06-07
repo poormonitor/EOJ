@@ -9,7 +9,7 @@ $view_title = "Source Code";
 require_once("./include/const.inc.php");
 
 if (!isset($_GET['left'])) {
-	$view_errors = "No such code!\n";
+	$view_errors = "$MSG_NOT_EXISTED";
 	require("template/error.php");
 	exit(0);
 }
@@ -29,7 +29,7 @@ $sip = $row["ip"];
 
 
 if (!isset($_GET['right'])) {
-	$view_errors = "No such code!\n";
+	$view_errors = "$MSG_NOT_EXISTED";
 	require("template/error.php");
 	exit(0);
 }
