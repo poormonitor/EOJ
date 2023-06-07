@@ -38,12 +38,28 @@
             </thead>
             <tbody>
               <tr>
-                <td><a href="showsource.php?id=<?php echo $id ?>"><?php echo $id ?></a></td>
-                <td><?php echo $show_info["problem_id"] ?></td>
-                <td><?php echo $show_info["user_id"] ?></td>
+                <td><?php echo $id ?></td>
+                <td>
+                  <a href="problem.php?id=<?php echo $show_info["problem_id"] ?>">
+                    <?php echo $show_info["problem_id"] ?>
+                  </a>
+                </td>
+                <td>
+                  <a href="userinfo.php?user=<?php echo $show_info["user_id"] ?>">
+                    <?php echo $show_info["user_id"] ?>
+                  </a>
+                </td>
                 <td><?php echo $show_info["nick"] ?></td>
-                <td><?php echo $language_name[$show_info["language"]] ?></td>
-                <td><?php echo $judge_result[$show_info["result"]] ?></td>
+                <td>
+                  <a href="showsource.php?id=<?php echo $id ?>">
+                    <?php echo $language_name[$show_info["language"]] ?>
+                  </a>
+                </td>
+                <td>
+                  <span class="label label-<?php echo $judge_color[$show_info["result"]] ?>">
+                    <?php echo $judge_result[$show_info["result"]] ?>
+                  </span>
+                </td>
                 <?php if ($show_info["result"] == 4) { ?>
                   <td><?php echo $show_info["time"] ?> ms</td>
                   <td><?php echo $show_info["memory"] ?> KB</td>

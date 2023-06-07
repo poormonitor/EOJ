@@ -15,6 +15,19 @@
 </head>
 
 <body>
+    <div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
+        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+            <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+                <main class="modal__content" id="modal-1-content">
+                    <?php if (isset($id)) { ?>
+                        <iframe class="modal-iframe" src="problem.php?simple&id=<?php echo $id ?>"></iframe>
+                    <?php } else { ?>
+                        <iframe class="modal-iframe" src="problem.php?simple&cid=<?php echo $cid ?>&pid=<?php echo $pid ?>"></iframe>
+                    <?php } ?>
+                </main>
+            </div>
+        </div>
+    </div>
     <div class="container">
         <?php include("template/nav.php"); ?>
         <!-- Main component for a primary marketing message or call to action -->
@@ -22,19 +35,34 @@
             <center>
                 <form id=frmSolution action="submit.php" method="post">
                     <?php if (isset($id)) { ?>
+                        <div style="font-size: 1.8rem">
+                            <div>
+                                <?php echo $MSG_PROBLEM_ID ?> :
+                                <a href="javascript:MicroModal.show('modal-1');" class=blue>
+                                    <?php echo $id ?>
+                                </a>
+                            </div>
+                        </div>
                         <br>
-                        <?php echo $MSG_PROBLEM_ID . " : " ?> <span class=blue><?php echo $id ?></span>
-                        <br>
+
                         <input id=problem_id type='hidden' value='<?php echo $id ?>' name="id">
-                        <br>
                     <?php } else {
                         //$PID="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
                         //if ($pid>25) $pid=25;
                     ?>
+                        <div style="font-size: 1.8rem">
+                            <div>
+                                <?php echo $MSG_PROBLEM_ID ?> :
+                                <a href="javascript:MicroModal.show('modal-1');" class=blue>
+                                    <?php echo chr($pid + ord('A')) ?>
+                                </a>
+                            </div>
+                            <div>
+                                <?php echo $MSG_CONTEST_ID ?> : <a href="contest.php?cid=<?php echo $cid ?>" class=blue> <?php echo $cid ?> </a>
+                            </div>
+                        </div>
                         <br>
-                        <?php echo $MSG_PROBLEM_ID . " : " ?> <span class=blue><?php echo chr($pid + ord('A')) ?></span>
-                        <br><?php echo $MSG_CONTEST_ID ?> : <span class=blue> <?php echo $cid ?> </span>
-                        <br>
+
                         <input id="cid" type='hidden' value='<?php echo $cid ?>' name="cid">
                         <input id="pid" type='hidden' value='<?php echo $pid ?>' name="pid">
                     <?php } ?>
@@ -186,8 +214,11 @@
                             } ?> ''];
     </script>
 
-    <script language="Javascript" type="text/javascript" src="<?php echo $OJ_CDN_URL ?>include/base64.min.js"></script>
-
+    <script language="javascript" type="text/javascript" src="<?php echo $OJ_CDN_URL ?>include/base64.min.js"></script>
+    <script src="https://unpkg.com/micromodal@0.4.10/dist/micromodal.min.js"></script>
+    <script>
+        MicroModal.init();
+    </script>
     <script src="<?php echo $OJ_CDN_URL . "monaco/min/vs/" ?>loader.js"></script>
     <script>
         require.config({

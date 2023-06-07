@@ -60,6 +60,7 @@ $pid = $row["problem_id"];
 $contest_id = intval($row['contest_id']);
 $user_id = $row["user_id"];
 $isRE = $row['result'] == 10;
+$judge_color = array("label label-info", "label label-info", "label label-warning", "label label-warning", "label label-success", "label label-danger", "label label-danger", "label label-warning", "label label-warning", "label label-warning", "label label-warning", "label label-warning", "label label-warning", "label label-info");
 
 if (
   isset($_SESSION[$OJ_NAME . '_' . 'source_browser'])

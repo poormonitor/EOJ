@@ -44,6 +44,7 @@ $sproblem_id = $row['problem_id'];
 $view_user_id = $suser_id = $row['user_id'];
 $contest_id = $row['contest_id'];
 $snick = $row['nick'];
+$judge_color = array("label label-info", "label label-info", "label label-warning", "label label-warning", "label label-success", "label label-danger", "label label-danger", "label label-warning", "label label-warning", "label label-warning", "label label-warning", "label label-warning", "label label-warning", "label label-info");
 
 if (
 	$row

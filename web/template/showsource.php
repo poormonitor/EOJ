@@ -42,11 +42,25 @@
             <tbody>
               <tr>
                 <td><?php echo $id ?></td>
-                <td><?php echo $sproblem_id ?></td>
-                <td><?php echo $suser_id ?></td>
+                <td>
+                  <a href="problem.php?id=<?php echo $sproblem_id ?>">
+                    <?php echo $sproblem_id ?>
+                  </a>
+                </td>
+                <td>
+                  <a href="userinfo.php?user=<?php echo $suser_id ?>">
+                    <?php echo $suser_id ?>
+                  </a>
+                </td>
                 <td><?php echo $snick ?></td>
                 <td><?php echo $language_name[$slanguage] ?></td>
-                <td><?php echo $judge_result[$sresult] ?></td>
+                <?php if ($sresult == 11) { ?>
+                  <td><a class="label label-<?php echo $judge_color[$sresult] ?>" href="ceinfo.php?sid=<?php echo $id ?>"><?php echo $judge_result[$sresult] ?></a></td>
+                <?php } elseif (in_array($sresult, array(4, 5, 6, 7, 8, 9, 10, 13))) { ?>
+                  <td><a class="label label-<?php echo $judge_color[$sresult] ?>" href="reinfo.php?sid=<?php echo $id ?>"><?php echo $judge_result[$sresult] ?></a></td>
+                <?php } else { ?>
+                  <td><span class="label label-<?php echo $judge_color[$sresult] ?>"><?php echo $judge_result[$sresult] ?></span></td>
+                <?php } ?>
                 <?php if ($sresult == 4) { ?>
                   <td><?php echo $stime ?> ms</td>
                   <td><?php echo $smemory ?> KB</td>

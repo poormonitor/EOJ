@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
-  <meta name="author" content="<?php echo $OJ_NAME?>">
+  <meta name="author" content="<?php echo $OJ_NAME ?>">
   <link rel="shortcut icon" href="/favicon.ico">
   <title><?php echo $OJ_NAME ?></title>
   <?php include("template/css.php"); ?>
@@ -20,7 +20,7 @@
     <?php include("template/nav.php"); ?>
     <!-- Main component for a primary marketing message or call to action -->
     <div class="jumbotron">
-    <div class="lr-container">
+      <div class="lr-container">
         <div class="table-responsive">
           <table class="table" style="margin-bottom:0;width:50%">
             <thead>
@@ -40,11 +40,27 @@
             <tbody>
               <tr>
                 <td><?php echo $id ?></td>
-                <td><?php echo $sproblem_id ?></td>
-                <td><?php echo $suser_id ?></td>
+                <td>
+                  <a href="problem.php?id=<?php echo $sproblem_id ?>">
+                    <?php echo $sproblem_id ?>
+                  </a>
+                </td>
+                <td>
+                  <a href="userinfo.php?user=<?php echo $suser_id ?>">
+                    <?php echo $suser_id ?>
+                  </a>
+                </td>
                 <td><?php echo $snick ?></td>
-                <td><?php echo $language_name[$slanguage] ?></td>
-                <td><?php echo $judge_result[$sresult] ?></td>
+                <td>
+                  <a href="showsource.php?id=<?php echo $id ?>">
+                    <?php echo $language_name[$slanguage] ?>
+                  </a>
+                </td>
+                <td>
+                  <span class="label label-<?php echo $judge_color[$sresult] ?>">
+                    <?php echo $judge_result[$sresult] ?>
+                  </span>
+                </td>
                 <?php if ($sresult == 4) { ?>
                   <td><?php echo $stime ?> ms</td>
                   <td><?php echo $smemory ?> KB</td>
