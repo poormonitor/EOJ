@@ -234,11 +234,10 @@
   </script>
 
   <script language="javascript" type="text/javascript" src="<?php echo $OJ_CDN_URL ?>include/base64.min.js"></script>
-  <script src="https://unpkg.com/micromodal@0.4.10/dist/micromodal.min.js"></script>
+  <script language="javascript" type="text/javascript" src="<?php echo $OJ_CDN_URL ?>template/micromodal.min.js"></script>
   <script>
     MicroModal.init();
   </script>
-
   <script src="<?php echo $OJ_CDN_URL . "monaco/min/vs/" ?>loader.js"></script>
   <script>
     require.config({
