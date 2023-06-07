@@ -3189,7 +3189,7 @@ int get_sim(int solution_id, int lang, int pid, int &sim_s_id)
 	// char cmd[BUFFER_SIZE];
 	sprintf(src_pth, "Main.%s", lang_ext[lang]);
 
-	int sim = execute_cmd("/usr/bin/sim.sh %s %d", src_pth, pid);
+	int sim = execute_cmd("/usr/bin/sim.py %s %d", src_pth, pid);
 	if (!sim)
 	{
 		execute_cmd("/bin/mkdir ../data/%d/ac/ 2>/dev/null", pid);
