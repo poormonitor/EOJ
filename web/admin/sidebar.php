@@ -112,15 +112,8 @@
                 <?php } ?>
             </div>
         </div>
-        <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) { ?>
-            <br><a class='btn btn-default btn-block' href="https://github.com/poormonitor/EOJ/" target="_blank"><b>EOJ</b></a>
-        <?php } ?>
-        <br>
-        <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) { ?>
-            <a href="problem_changeid.php" title="Danger,Use it on your own risk">
-                <font color="eeeeee">ReOrderProblem</font>
-            </a>
-        <?php } ?>
-        <hr>
     </div>
+    <br>
+    <a class='btn btn-default btn-block' href="https://github.com/poormonitor/EOJ/" target="_blank"><b>EOJ</b></a>
+    <hr>
 </div>

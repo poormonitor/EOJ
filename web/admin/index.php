@@ -282,14 +282,6 @@
                             </tbody>
                         </table>
                     </div>
-                    <br>
-                    <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) { ?>
-                        <a href="problem_changeid.php" title="Danger,Use it on your own risk">
-                            <font color="eeeeee">ReOrderProblem</font>
-                        </a>
-
-                    <?php } ?>
-                    <br>
                 </div>
             </div>
         </div>

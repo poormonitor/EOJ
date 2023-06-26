@@ -42,7 +42,6 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
             $csql[5] = "DELETE FROM sim WHERE sim_s_id NOT IN (SELECT solution_id FROM solution);";
             $csql[6] = "DELETE FROM sim WHERE s_id NOT IN (SELECT solution_id FROM solution);";
             $csql[7] = "DELETE FROM loginlog WHERE `time` < DATE_SUB(NOW(), INTERVAL 1 YEAR)";
-            $csql[8] = "DELETE SIM FROM sim JOIN solution s1 ON s1.solution_id = sim.s_id JOIN solution s2 ON s2.solution_id = sim.sim_s_id WHERE s1.problem_id != s2.problem_id";
 
             if (isset($_POST['db'])) {
               require_once("../include/check_post_key.php");

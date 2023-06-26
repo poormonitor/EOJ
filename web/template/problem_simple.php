@@ -80,37 +80,6 @@
                 echo "<span class=green>$MSG_Memory_Limit : </span>" . $row['memory_limit'] . " MB";
                 if ($row['spj']) echo "&nbsp;&nbsp;<span class=red>Special Judge</span>";
                 echo "<br><br>";
-                echo "<div class='btn-group' role='group'>";
-                if ($pr_flag) {
-                    echo "<a class='btn btn-info btn-sm' href='submitpage.php?id=$id' role='button'>$MSG_SUBMIT</a>";
-                } else {
-                    echo "<a class='btn btn-info btn-sm' href='submitpage.php?cid=$cid&pid=$pid&langmask=$langmask' role='button'>$MSG_SUBMIT</a>";
-                    if (isset($s_id)) {
-                        echo "<a class='btn btn-info btn-sm' href='submitpage.php?cid=$cid&pid=$pid&sid=$s_id&langmask=$langmask' role='button'>$MSG_SYNC_HISTORY</a>";
-                    }
-                    echo "<a class='btn btn-primary btn-sm' role='button' href='contest.php?cid=$cid'>$MSG_CONTEST-$MSG_LIST</a>";
-                    if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
-                        echo "<a class='btn btn-primary btn-sm' role='button' href=problem.php?id=$id>$MSG_LEAVE_CONTEST</a>";
-                    }
-                }
-                if (isset($OJ_OI_MODE) && $OJ_OI_MODE) {
-                } else {
-                    if ($pr_flag) {
-                        echo "<a class='btn btn-primary btn-sm' role='button' href=status.php?problem_id=" . $row['problem_id'] . "&jresult=4>$MSG_SOVLED: " . $row['accepted'] . "</a>";
-                        echo "<a class='btn btn-primary btn-sm' role='button' href=status.php?problem_id=" . $row['problem_id'] . ">$MSG_SUBMIT_NUM: " . $row['submit'] . "</a>";
-                        echo "<a class='btn btn-primary btn-sm' role='button' href=problemstatus.php?id=" . $row['problem_id'] . ">$MSG_STATISTICS</a>";
-                    } else {
-                        echo "<a class='btn btn-primary btn-sm' role='button' href=status.php?cid=$cid&problem_id=" . $PID[$pid] . "&jresult=4>$MSG_SOVLED: " . $row['accepted'] . "</a>";
-                        echo "<a class='btn btn-primary btn-sm' role='button' href=status.php?cid=$cid&problem_id=" . $PID[$pid] . ">$MSG_SUBMIT_NUM: " . $row['submit'] . "</a>";
-                        echo "<a class='btn btn-primary btn-sm' role='button' href=problemstatus.php?cid=$cid&id=" . $PID[$pid] . ">$MSG_STATISTICS</a>";
-                    }
-                }
-                if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor'])) {
-                    require_once("include/set_get_key.php");
-                    echo "<a class='btn btn-success btn-sm' role='button' href=admin/problem_edit.php?id=$id&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">$MSG_EDIT</a>";
-                    echo "<a class='btn btn-success btn-sm' role='button' href='admin/phpfm.php?frame=3&pid=" . $row['problem_id'] . "'>$MSG_TESTDATA</a>";
-                }
-                echo "</div>";
                 echo "</center>";
                 # end of head
                 echo "</div>";
