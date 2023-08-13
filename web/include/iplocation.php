@@ -3,17 +3,29 @@ require_once("./include/maxmind/autoload.php");
 
 use MaxMind\Db\Reader;
 
-$IP_READER = new Reader('./include/GeoLite2-City.mmdb');
+if (!file_exists('./include/GeoLite2-City.mmdb')) {
+    $IP_READER = NULL;
+} else {
+    $IP_READER = new Reader('./include/GeoLite2-City.mmdb');
+}
+
 
 function getLocation($ip)
 {
     global $IP_READER, $OJ_LANG;
+
+
+    if ($IP_READER === NULL) {
+        return array("city" => "", "division" => "", "country" => "", "country_iso" => "");
+    }
+
     $lang = $OJ_LANG;
     if ($lang == "zh") {
         $lang = "zh-CN";
     } else {
         $lang = "en";
     }
+
     try {
         $record = $IP_READER->get($ip);
         $country = $record["country"][$lang];
@@ -21,8 +33,9 @@ function getLocation($ip)
         $division = $record["region"][$lang];
         $city = $record["city"][$lang];
     } catch (Exception $e) {
-        return null;
+        return array("city" => "", "division" => "", "country" => "", "country_iso" => "");
     }
+
     return array("city" => $city, "division" => $division, "country" => $country, "country_iso" => $iso);
 }
 
