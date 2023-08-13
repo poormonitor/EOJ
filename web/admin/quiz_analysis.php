@@ -37,7 +37,7 @@ if (isset($_GET['qid'])) {
 
     $sql = "SELECT * FROM `answer` JOIN `users` 
             ON `answer`.`user_id` = `users`.`user_id`
-            JOIN `group` ON `users`.`gid` = `group`.`gid`
+            LEFT JOIN `group` ON `users`.`gid` = `group`.`gid`
             WHERE `answer`.quiz_id = ?";
 
     if (isset($_GET['gid'])) {

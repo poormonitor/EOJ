@@ -308,9 +308,12 @@
 		<style>
 			@media (prefers-color-scheme: light) {
 				body {
-					opacity: 0.9;
 					background: url("<?php echo $row["background"] ?>") no-repeat 50% 50% / cover;
 					background-attachment: fixed;
+				}
+
+				.container {
+					opacity: 0.9;
 				}
 
 				.footer-container {

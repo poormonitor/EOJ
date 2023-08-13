@@ -1,7 +1,7 @@
 <footer class="footer">
 	<div class="container">
 		<div class="footer-container">
-			<span class="text-nowrap pe-3">Powered by <a id='footer' href='https://git.oldmonitor.cn/poormonitor/EOJ'>EOJ</a></span>
+			<span class="text-nowrap pe-3">Powered by <a id='footer' href='https://git.techo.cool/poormonitor/EOJ'>EOJ</a></span>
 			<span class="text-nowrap pe-3">
 				<a id='footer' href='/policy.html'><?php echo $MSG_POLICY ?></a>
 			</span>
