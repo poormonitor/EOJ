@@ -2812,6 +2812,13 @@ function frameset()
  */
 class archive
 {
+    public array $options;
+    public array $files;
+    public array $exclude;
+    public array $storeonly;
+    public array $error;
+    public $archive;
+
     function start_archive($name)
     {
         $this->options = array(
