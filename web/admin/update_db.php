@@ -1,11 +1,11 @@
-<?php 
-require("admin-header.php"); 
+<?php
+require("admin-header.php");
 
 if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
-    $view_swal_params = "{title:'$MSG_PRIVILEGE_WARNING',icon:'error'}";
-    $error_location = "../index.php";
-    require("../template/error.php");
-    exit(0);
+  $view_swal_params = "{title:'$MSG_PRIVILEGE_WARNING',icon:'error'}";
+  $error_location = "../index.php";
+  require("../template/error.php");
+  exit(0);
 }
 ?>
 <!DOCTYPE html>
@@ -35,13 +35,16 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
             $csql = array();
 
             $csql[0] = "DELETE FROM solution WHERE result=13;";
-            $csql[1] = "DELETE FROM source_code WHERE solution_id NOT IN (SELECT solution_id FROM solution);";
-            $csql[2] = "DELETE FROM runtimeinfo WHERE solution_id NOT IN (SELECT solution_id FROM solution);";
-            $csql[3] = "DELETE FROM compileinfo WHERE solution_id NOT IN (SELECT solution_id FROM solution);";
-            $csql[4] = "UPDATE solution JOIN users ON users.user_id = solution.user_id SET solution.nick = users.nick;";
-            $csql[5] = "DELETE FROM sim WHERE sim_s_id NOT IN (SELECT solution_id FROM solution);";
-            $csql[6] = "DELETE FROM sim WHERE s_id NOT IN (SELECT solution_id FROM solution);";
-            $csql[7] = "DELETE FROM loginlog WHERE `time` < DATE_SUB(NOW(), INTERVAL 1 YEAR)";
+            $csql[1] = "DELETE FROM solution WHERE user_id NOT IN (SELECT user_id FROM users)";
+            $csql[2] = "DELETE FROM source_code WHERE solution_id NOT IN (SELECT solution_id FROM solution);";
+            $csql[3] = "DELETE FROM runtimeinfo WHERE solution_id NOT IN (SELECT solution_id FROM solution);";
+            $csql[4] = "DELETE FROM compileinfo WHERE solution_id NOT IN (SELECT solution_id FROM solution);";
+            $csql[5] = "UPDATE solution JOIN users ON users.user_id = solution.user_id SET solution.nick = users.nick;";
+            $csql[6] = "DELETE FROM sim WHERE sim_s_id NOT IN (SELECT solution_id FROM solution);";
+            $csql[7] = "DELETE FROM sim WHERE s_id NOT IN (SELECT solution_id FROM solution);";
+            $csql[8] = "DELETE FROM loginlog WHERE `time` < DATE_SUB(NOW(), INTERVAL 1 YEAR)";
+            $csql[9] = "DELETE FROM privilege WHERE user_id NOT IN (SELECT user_id FROM users)";
+            $csql[10] = "DELETE FROM answer WHERE user_id NOT IN (SELECT user_id FROM users)";
 
             if (isset($_POST['db'])) {
               require_once("../include/check_post_key.php");

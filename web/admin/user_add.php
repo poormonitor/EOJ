@@ -52,7 +52,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
                   $id_pw[0] = preg_replace("/[^\x20-\x7e]/", " ", $id_pw[0]);
                   $id_pw[1] = preg_replace("/[^\x20-\x7e]/", " ", $id_pw[1]);
                   if (count($id_pw) != 2 and count($id_pw) != 3) {
-                    echo "&nbsp;&nbsp;&nbsp;&nbsp;" . $id_pw[0] . " ... Error : Line format error!<br>";
+                    echo "&nbsp;&nbsp;&nbsp;&nbsp;" . $id_pw[0] . " ... $ERROR : $MSG_PARAMS_ERROR<br>";
                     for ($j = 0; $j < count($id_pw); $j++) {
                       $ulist = $ulist . $id_pw[$j] . " ";
                     }
@@ -63,7 +63,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
                     $rows_cnt = count($result);
 
                     if ($rows_cnt == 1) {
-                      echo "&nbsp;&nbsp;&nbsp;&nbsp;" . $id_pw[0] . " ... Error : User already exist!<br>";
+                      echo "&nbsp;&nbsp;&nbsp;&nbsp;" . $id_pw[0] . " ... $MSG_ERROR : $MSG_EXISTED<br>";
                       $ulist = $ulist . $id_pw[0] . " " . $id_pw[1];
                       if (count($id_pw) == 3) {
                         $ulist .= " " . $id_pw[2];
@@ -78,7 +78,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
                       }
                       $sql = "INSERT INTO `users` (`user_id`, `password`, `reg_time`, `nick`, `gid`) VALUES (?, ?, NOW(), ?, ?);";
                       pdo_query($sql, $id_pw[0], $passwd, $nick, $gid);
-                      echo $id_pw[0] . " is added!<br>";
+                      echo "$MSG_ADD " . $id_pw[0] . " $MSG_SUCCESS!<br>";
 
                       $ip = getRealIP();
                       $sql = "INSERT INTO `loginlog` VALUES(?,?,?,NOW())";
@@ -86,7 +86,10 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
                     }
                   }
                 }
-                echo "<br>Remained lines have error!<hr>";
+                if ($ulist !== "") {
+                  echo "<br>$MSG_REMAINED_ERROR<hr>";
+                }
+                echo "<hr>";
               }
             }
             ?>
@@ -96,7 +99,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
                 <label class="col-sm"><?php echo $MSG_USER_ID ?> &nbsp; <?php echo $MSG_PASSWORD ?> &nbsp; <?php echo $MSG_NICK ?></label>
               </div>
               <div>
-                <?php echo "( Add new user, password and name(optional) with newline )" ?>
+                <?php echo $MSG_HINT_USER_ADD ?>
                 <br><br>
                 <table width="100%">
                   <tr>

@@ -13,6 +13,8 @@ $MSG_DISABLED = "禁用";
 $MSG_EMPTY = "无";
 $MSG_UPLOAD = "上传";
 $MSG_NOT_EXISTED = "您请求的项目不存在";
+$MSG_EXISTED = "已经存在";
+$MSG_UNKNOWN = "未知";
 $MSG_SUBMISSIONS = "次提交";
 $MSG_NO_SUBMISSION = "无提交";
 $MSG_PRIVILEGE_WARNING = "您没有权限访问此页面";
@@ -21,7 +23,9 @@ $MSG_SUCCESS = "成功";
 $MSG_LOADING = "加载中";
 $MSG_UP_WRONG = "用户名或密码错误";
 $MSG_PARAMS_ERROR = "您填写的某些项目不正确";
+$MSG_REMAINED_ERROR = "剩余内容存在错误！";
 $MSG_PARAMS_TOO_FEW = "您填写的项目太少";
+$MSG_PROCESSING = "正在处理您的请求";
 $MSG_NICK_TOO_LONG = "用户名太长";
 $MSG_SCHOOL_TOO_LONG = "学校名太长";
 $MSG_DOWNLOAD_ALL_AC = "下载所有通过代码";
@@ -393,6 +397,7 @@ $MSG_HELP_ADD_NEWS = "添加首页显示的新闻";
 $MSG_HELP_NEWS_LIST = "管理已经发布的新闻";
 $MSG_HELP_USER_LIST = "对注册用户停用、启用帐号";
 $MSG_HELP_USER_ADD = "添加用户";
+$MSG_HELP_USER_DEL = "删除用户";
 $MSG_HELP_ADD_PROBLEM = "手动添加新的题目，多组测试数据在添加后从题目列表TestData按钮进入上传，新建题目<b>默认隐藏</b>，需在问题列表中点击红色<font color='red'>Reserved</font>切换为绿色<font color='green'>Available</font>启用。";
 $MSG_HELP_PROBLEM_LIST = "管理已有的题目和数据，上传数据可以用zip压缩不含目录的数据。";
 $MSG_HELP_ADD_CONTEST = "规划新的作业，用逗号分隔题号。可以设定私有作业，用密码或名单限制参与者。";
@@ -422,6 +427,9 @@ $MSG_HELP_MLE = "超出内存限制，数据可能需要压缩，检查内存是
 $MSG_HELP_OLE = "输出超过限制，你的输出比正确答案长了两倍，一定是哪里弄错了";
 $MSG_HELP_RE = "运行时错误，非法的内存访问，数组越界，指针漂移，调用禁用的系统函数。请点击后获得详细输出";
 $MSG_HELP_CE = "编译错误，请点击后获得编译器的详细输出";
+
+$MSG_HINT_USER_ADD = "添加用户，依次为用户名、密码和姓名（可选），每行一个";
+$MSG_HINT_USER_DEL = "删除用户，每行一个用户名";
 
 $MSG_HELP_MORE_TESTDATA_LATER = "更多组测试数据，请在题目添加完成后补充";
 $MSG_HELP_ADD_FAQS = "管理员可以添加一条新闻，命名为\"faqs.$OJ_LANG\" 来取代本页内容 <a href=../faqs.php>$MSG_FAQ</a>。";

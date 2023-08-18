@@ -41,11 +41,11 @@ wget https://raw.githubusercontent.com/poormonitor/EOJ/master/install/install.sh
 
 2. 创建数据库
 
-   请至本机数据库（MySQL或其兼容者）中以jol为用户名创建jol库，并将密码设置为第一步复制的密码。随后，使用 install/db.sql 初始化数据库。
+   请至本机数据库（MySQL或其兼容数据库）中以 jol 为用户名创建 jol 库，并将密码设置为第一步复制的密码。随后，使用 install/db.sql 初始化数据库。
 
 3. *安装Python
 
-   为加速判题，默认开启了PYTHON_FREE。若需使用虚拟环境，您可以修改配置文件OJ_PY_BIN指向 /home/judge/py3/bin/python3 （自定），并选用如下方法安装Python。
+   为加速判题，默认开启了 PYTHON_FREE。若需使用虚拟环境，您可以修改配置文件 OJ_PY_BIN 指向 /home/judge/py3/bin/python3 （自定），并选用如下方法安装Python。如需使用在线安装模块功能，需设置 Python 安装文件夹所有者为 www。
 
    1. 编译安装（以3.10.0为例）
 
@@ -58,7 +58,7 @@ wget https://raw.githubusercontent.com/poormonitor/EOJ/master/install/install.sh
       make install
       ```
 
-   2. Virtualenv安装
+   2. virtualenv 安装
 
       ```shell
       pip3 install virtualenv
@@ -68,11 +68,11 @@ wget https://raw.githubusercontent.com/poormonitor/EOJ/master/install/install.sh
 
 4. 使用
 
-   注册admin账号自动成为管理员。Enjoy it!
+   注册 admin 账号自动成为管理员。Enjoy it!
 
 ### Docker安装
 
-   基于 Github Action 每周构建Docker镜像。
+   基于 Github Action 每周构建 Docker 镜像。
 
    ```shell
    docker run -d             \

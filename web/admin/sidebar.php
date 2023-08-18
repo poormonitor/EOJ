@@ -42,6 +42,7 @@
                         <?php } ?>
                         <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) { ?>
                             <li><a class="dropdown-item" href="user_add.php" title="<?php echo $MSG_HELP_USER_ADD ?>"><b><?php echo $MSG_USER . "-" . $MSG_ADD ?></b></a></li>
+                            <li><a class="dropdown-item" href="user_del.php" title="<?php echo $MSG_HELP_USER_DEL ?>"><b><?php echo $MSG_USER . "-" . $MSG_DELETE ?></b></a></li>
                         <?php } ?>
                         <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'password_setter'])) { ?>
                             <li><a class="dropdown-item" href="changepass.php" title="<?php echo $MSG_HELP_SETPASSWORD ?>"><b><?php echo $MSG_USER . "-" . $MSG_SETPASSWORD ?></b></a></li>

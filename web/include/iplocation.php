@@ -3,21 +3,18 @@ require_once("./include/maxmind/autoload.php");
 
 use MaxMind\Db\Reader;
 
-if (!file_exists('./include/GeoLite2-City.mmdb')) {
-    $IP_READER = NULL;
+$file = dirname(__FILE__) . '/GeoLite2-City.mmdb';
+if (file_exists($file)) {
+    $IP_READER = new Reader($file);
 } else {
-    $IP_READER = new Reader('./include/GeoLite2-City.mmdb');
+    $IP_READER = null;
 }
-
 
 function getLocation($ip)
 {
     global $IP_READER, $OJ_LANG;
 
-
-    if ($IP_READER === NULL) {
-        return array("city" => "", "division" => "", "country" => "", "country_iso" => "");
-    }
+    if (is_null($IP_READER)) return null;
 
     $lang = $OJ_LANG;
     if ($lang == "zh") {
@@ -28,12 +25,12 @@ function getLocation($ip)
 
     try {
         $record = $IP_READER->get($ip);
-        $country = $record["country"][$lang];
-        $iso = $record["country"]["code"];
-        $division = $record["region"][$lang];
-        $city = $record["city"][$lang];
+        $country = $record["country"]["names"][$lang];
+        $iso = $record["country"]["iso_code"];
+        $division = isset($record["subdivisions"]) ? $record["subdivisions"][0]["names"][$lang] : "";
+        $city = $record["city"]["names"][$lang];
     } catch (Exception $e) {
-        return array("city" => "", "division" => "", "country" => "", "country_iso" => "");
+        return null;
     }
 
     return array("city" => $city, "division" => $division, "country" => $country, "country_iso" => $iso);
@@ -41,21 +38,28 @@ function getLocation($ip)
 
 function getLocationShort($ip)
 {
+    global $MSG_UNKNOWN;
+
     $record = getLocation($ip);
-    if (!$record) return "";
+    if (is_null($record)) return $MSG_UNKNOWN;
 
     if ($record["country_iso"] == "CN") {
         $result = $record["division"];
     } else {
         $result = $record["country"];
     }
+
+    if (!strlen(trim($result))) $result = $MSG_UNKNOWN;
+
     return $result;
 }
 
 function getLocationFull($ip)
 {
+    global $MSG_UNKNOWN;
+
     $record = getLocation($ip);
-    if (!$record) return "";
+    if (is_null($record)) return $MSG_UNKNOWN;
 
     if ($record["country_iso"] == "CN") {
         if ($record["division"] != $record["city"])
@@ -65,6 +69,8 @@ function getLocationFull($ip)
     } else {
         $result = $record["country"] . " " . $record["division"] . " " . $record["city"];
     }
+
+    if (!strlen(trim($result))) $result = $MSG_UNKNOWN;
 
     return $result;
 }

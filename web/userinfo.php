@@ -74,7 +74,9 @@ if (isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
 	echo "</table>";
 
 	$sql = "SELECT `name` FROM `users` JOIN `group` ON `users`.`gid`=`group`.`gid` WHERE `users`.`user_id`=?;";
-	$group_name = pdo_query($sql, $user)[0]["name"];
+	$group_info = pdo_query($sql, $user);
+	if (count($group_info)) $group_name = $group_info[0]["name"];
+	else $group_info = "";
 }
 $sql = "SELECT result,count(1) FROM solution WHERE `user_id`=? AND result>=4 group by result order by result";
 $result = pdo_query($sql, $user);

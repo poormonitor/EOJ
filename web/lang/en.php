@@ -13,6 +13,8 @@ $MSG_DISABLED = "Disabled";
 $MSG_EMPTY = "Empty";
 $MSG_UPLOAD = "Upload";
 $MSG_NOT_EXISTED = "The resource you request does not exist.";
+$MSG_EXISTED = "Already exists.";
+$MSG_UNKNOWN = "Unknown";
 $MSG_SUBMISSIONS = " Submission(s)";
 $MSG_NO_SUBMISSION = "No Submission";
 $MSG_PRIVILEGE_WARNING = "You are not authorized to view this page.";
@@ -21,7 +23,9 @@ $MSG_SUCCESS = "Success";
 $MSG_LOADING = "Loading";
 $MSG_UP_WRONG = "Username or password is wrong";
 $MSG_PARAMS_ERROR = "Some of items is wrong";
+$MSG_REMAINED_ERROR = "Remained content have error!";
 $MSG_PARAMS_TOO_FEW = "You have filled in too few items";
+$MSG_PROCESSING = "Processing your request";
 $MSG_NICK_TOO_LONG = "Nick is too long";
 $MSG_SCHOOL_TOO_LONG = "School is too long";
 $MSG_DOWNLOAD_ALL_AC = "Download all AC code";
@@ -394,6 +398,7 @@ $MSG_HELP_ADD_NEWS = "add news for the homepage";
 $MSG_HELP_NEWS_LIST = "edit or shutdown published news";
 $MSG_HELP_USER_LIST = "enable/disable user";
 $MSG_HELP_USER_ADD = "add new user";
+$MSG_HELP_USER_DEL = "delete user";
 $MSG_HELP_ADD_PROBLEM = "add new problem,multi test cases can be added after problem added ,using TestData button on the Problem List";
 $MSG_HELP_PROBLEM_LIST = "manage existing problems, test case files can be uploaded within a zip file and decompress later";
 $MSG_HELP_ADD_CONTEST = "schedule a new homework, problem list seperated with comma. You can set up private homework and restrict participants with passwords or lists.";
@@ -423,6 +428,9 @@ $MSG_HELP_MLE = "Your program tried to use more memory than the judge default se
 $MSG_HELP_OLE = "Your program tried to write too much information. This usually occurs if it goes into a infinite loop. Currently the output limit is 1M bytes";
 $MSG_HELP_RE = "All the other Error on the running phrase will get Runtime Error, such as 'segmentation fault','floating point exception','used forbidden functions', 'tried to access forbidden memories' and so on";
 $MSG_HELP_CE = "The compiler could not compile your ANSI program. Of course, warning messages are not error messages. Click the link at the judge reply to see the actual error message";
+
+$MSG_HINT_USER_ADD = "Add new user, password and name(optional) with newline";
+$MSG_HINT_USER_DEL = "Delete one user with newline";
 
 $MSG_HELP_MORE_TESTDATA_LATER = "more testdata can be added later after this problem added.";
 $MSG_HELP_ADD_FAQS = "Add a news which titled \"faqs.$OJ_LANG\", it apears as <a href=../faqs.php>$MSG_FAQ</a>";

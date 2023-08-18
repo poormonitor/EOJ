@@ -3,37 +3,44 @@ require_once("../include/db_info.inc.php");
 require_once("../include/my_func.inc.php");
 require("admin-header.php");
 
-if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
-    $view_swal_params = "{title:'$MSG_PRIVILEGE_WARNING',icon:'error'}";
-    $error_location = "../index.php";
-    require("../template/error.php");
-    exit(0);
-}
-
 if (isset($_POST['do'])) {
+  if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
+    echo $MSG_PRIVILEGE_WARNING;
+    exit(0);
+  }
+
   require_once("../include/check_post_key.php");
   $module = $_POST["module"];
   $temp = tempnam(sys_get_temp_dir(), "pip_module");
   file_put_contents($temp, $module);
   if ($_POST["do"] == "install") {
     $command = $OJ_PY_BIN . " -m pip install -r $temp";
-    $install = shell_exec($command);
+    $result = shell_exec($command);
+    echo $result;
     unlink($temp);
+    exit(0);
   }
   if ($_POST["do"] == "uninstall") {
     $command = $OJ_PY_BIN . " -m pip uninstall -y -r $temp";
-    $install = shell_exec($command);
-    echo $install;
+    $result = shell_exec($command);
+    echo $result;
     unlink($temp);
     exit(0);
   }
   if ($_POST["do"] == "upgrade") {
     $command = $OJ_PY_BIN . " -m pip install --upgrade -r $temp";
-    $install = shell_exec($command);
-    echo $install;
+    $result = shell_exec($command);
+    echo $result;
     unlink($temp);
     exit(0);
   }
+}
+
+if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
+  $view_swal_params = "{title:'$MSG_PRIVILEGE_WARNING',icon:'error'}";
+  $error_location = "../index.php";
+  require("../template/error.php");
+  exit(0);
 }
 
 $src = shell_exec($OJ_PY_BIN . " -m pip list --format=json");
@@ -73,11 +80,11 @@ $src = shell_exec($OJ_PY_BIN . " -m pip list --format=json");
 
             <br>
             <center>
-              <form action=pip.php method="POST" class="form-search form-inline">
-                <input type="text" name="module" class="form-control search-query" placeholder="<?php echo $MSG_MODULE ?>">
+              <div class="form-search form-inline">
+                <input type="text" id="module" class="form-control search-query" placeholder="<?php echo $MSG_MODULE ?>">
                 <?php require_once("../include/set_post_key.php"); ?>
-                <button name="do" value="install" type="submit" class="form-control"><?php echo $MSG_MODULE_INSTALL ?></button>
-              </form>
+                <button class="form-control" onclick="installModule()"><?php echo $MSG_MODULE_INSTALL ?></button>
+              </div>
             </center>
             <center>
               <table width=100% class='center table table-condensed'>
@@ -118,6 +125,22 @@ $src = shell_exec($OJ_PY_BIN . " -m pip list --format=json");
   </div>
   <?php require_once("../template/js.php"); ?>
   <script>
+    function installModule() {
+      var mod = $("#module").val()
+      $.post("pip.php", {
+        do: "install",
+        module: mod,
+        postkey: "<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>"
+      }, function(data, status) {
+        swal({
+          text: data,
+          icon: "success"
+        }).then(() => {
+          window.location.reload()
+        })
+      })
+    }
+
     function uninstallModule(mod) {
       $.post("pip.php", {
         do: "uninstall",
@@ -126,7 +149,7 @@ $src = shell_exec($OJ_PY_BIN . " -m pip list --format=json");
       }, function(data, status) {
         swal({
           text: data,
-          icon: "info"
+          icon: "success"
         }).then(() => {
           window.location.reload()
         })
@@ -141,7 +164,7 @@ $src = shell_exec($OJ_PY_BIN . " -m pip list --format=json");
       }, function(data, status) {
         swal({
           text: data,
-          icon: "info"
+          icon: "success"
         }).then(() => {
           window.location.reload()
         })
