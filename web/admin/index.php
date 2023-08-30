@@ -79,16 +79,6 @@
                                         </td>
                                     </tr>
                                 <?php } ?>
-                                <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) { ?>
-                                    <tr>
-                                        <td>
-                                            <center><a class='btn btn-primary btn-sm' href="user_del.php"><b><?php echo $MSG_USER . "-" . $MSG_DELETE ?></b></a></center>
-                                        </td>
-                                        <td>
-                                            <p><?php echo $MSG_HELP_USER_DEL ?></p>
-                                        </td>
-                                    </tr>
-                                <?php } ?>
                                 <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'password_setter'])) { ?>
                                     <tr>
                                         <td>

@@ -1,13 +1,13 @@
 <?php
-require_once("admin-header.php"); 
+require_once("admin-header.php");
 
 if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
-	|| isset($_SESSION[$OJ_NAME . '_' . 'problem_editor'])
+    || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor'])
 )) {
-	$view_swal_params = "{title:'$MSG_PRIVILEGE_WARNING',icon:'error'}";
-	$error_location = "../index.php";
-	require("../template/error.php");
-	exit(0);
+    $view_swal_params = "{title:'$MSG_PRIVILEGE_WARNING',icon:'error'}";
+    $error_location = "../index.php";
+    require("../template/error.php");
+    exit(0);
 }
 ?>
 <!DOCTYPE html>
@@ -58,6 +58,10 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
 
                     $sql = "ALTER TABLE problem AUTO_INCREMENT = $max_id";
                     pdo_query($sql);
+
+                    $ip = getRealIP();
+                    $sql = "INSERT INTO `oplog` (`target`,`user_id`,`operation`,`ip`) VALUES (?,?,?,?)";
+                    pdo_query($sql, "p$id", $_SESSION[$OJ_NAME . '_' . 'user_id'], "delete", $ip);
                     ?>
                     <script language=javascript>
                         history.go(-1);

@@ -82,7 +82,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
 
                       $ip = getRealIP();
                       $sql = "INSERT INTO `loginlog` VALUES(?,?,?,NOW())";
-                      pdo_query($sql, $id_pw[0], "User added by " . $_SESSION[$OJ_NAME . "_" . "user_id"], $ip);
+                      pdo_query($sql, $id_pw[0], "user added by " . $_SESSION[$OJ_NAME . "_" . "user_id"], $ip);
                     }
                   }
                 }

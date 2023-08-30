@@ -112,8 +112,8 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
                     echo "<td>" . $row['end_time'] . "</td>";
                     $qid = $row['quiz_id'];
                     if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . "mq$qid"])) {
-                      echo "<td><a href=quiz_pr_change.php?qid=" . $row['quiz_id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">" . ($row['private'] == "0" ? "<span class=green>$MSG_Public</span>" : "<span class=red>$MSG_Private<span>") . "</a></td>";
-                      echo "<td><a href=quiz_df_change.php?qid=" . $row['quiz_id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">" . ($row['defunct'] == "N" ? "<span class=green>$MSG_ENABLED</span>" : "<span class=red>$MSG_DISABLED</span>") . "</a></td>";
+                      echo "<td><a href=quiz_pr_change.php?page=$page&qid=" . $row['quiz_id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">" . ($row['private'] == "0" ? "<span class=green>$MSG_Public</span>" : "<span class=red>$MSG_Private<span>") . "</a></td>";
+                      echo "<td><a href=quiz_df_change.php?page=$page&qid=" . $row['quiz_id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">" . ($row['defunct'] == "N" ? "<span class=green>$MSG_ENABLED</span>" : "<span class=red>$MSG_DISABLED</span>") . "</a></td>";
                       echo "<td><a href=quiz_edit.php?qid=" . $row['quiz_id'] . ">$MSG_EDIT</a></td>";
                       echo "<td><a href=quiz_add.php?qid=" . $row['quiz_id'] . ">$MSG_COPY</a></td>";
                     } else {

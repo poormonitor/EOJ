@@ -1,6 +1,7 @@
 <?php
 require_once("../include/db_info.inc.php");
 require_once("../include/my_func.inc.php");
+
 if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
   $view_swal_params = "{title:'$MSG_PRIVILEGE_WARNING',icon:'error'}";
   $error_location = "../index.php";
@@ -25,8 +26,8 @@ if (isset($_POST['news_id'])) {
   //echo $sql;
   pdo_query($sql, $title, $content, $user_id, $news_id);
 
-  $sql = "DELETE FROM privilege_group where rightstr = 'n$news_id'";
-  pdo_query($sql);
+  $sql = "DELETE FROM privilege_group where rightstr = ?";
+  pdo_query($sql, "n$news_id");
 
   if ($_POST['private'] == '1') {
     $privilege = $_POST['gid'];
@@ -42,9 +43,13 @@ if (isset($_POST['news_id'])) {
   } else {
     $sql = "UPDATE news set `private` = 'N' where news_id = ?";
     pdo_query($sql, $news_id);
-    $sql = "DELETE from privilege where rightstr = 'n$news_id'";
-    pdo_query($sql);
+    $sql = "DELETE from privilege where rightstr = ?";
+    pdo_query($sql, "n$news_id");
   }
+
+  $ip = getRealIP();
+  $sql = "INSERT INTO `oplog` (`target`,`user_id`,`operation`,`ip`) VALUES (?,?,?,?)";
+  pdo_query($sql, "n$news_id", $_SESSION[$OJ_NAME . '_' . 'user_id'], "edit", $ip);
 
   header("location:news_list.php");
   exit(0);

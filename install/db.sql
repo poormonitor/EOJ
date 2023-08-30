@@ -113,6 +113,17 @@ CREATE TABLE `online` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
+CREATE TABLE `oplog` (
+  `target` varchar(30) NOT NULL,
+  `user_id` varchar(48) NOT NULL DEFAULT '',
+  `operation` varchar(50) NOT NULL,
+  `time` datetime NOT NULL DEFAULT current_timestamp(),
+  `ip` VARCHAR(46) NOT NULL DEFAULT '',
+  KEY `target_index` (`target`) USING BTREE,
+  KEY `user_id_index` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+
 CREATE TABLE `privilege` (
   `user_id` char(48) NOT NULL DEFAULT '',
   `rightstr` char(30) NOT NULL DEFAULT '',
@@ -158,6 +169,7 @@ CREATE TABLE `problem` (
   `blank` text DEFAULT NULL,
   `allow` varchar(100) CHARACTER SET utf8mb3 DEFAULT NULL,
   `block` varchar(100) CHARACTER SET utf8mb3 DEFAULT NULL,
+  `background` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`problem_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8mb4;
 
@@ -209,7 +221,7 @@ CREATE TABLE `sim` (
   `sim_s_id` int(11) DEFAULT NULL,
   `sim` int(11) DEFAULT NULL,
   PRIMARY KEY (`s_id`),
-  KEY `Index_sim_id` (`sim_s_id`)
+  KEY `sim_s_id` (`sim_s_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 

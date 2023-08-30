@@ -1,6 +1,7 @@
 <?php
 //a:9:{s:4:"lang";s:2:"en";s:9:"auth_pass";s:32:"d41d8cd98f00b204e9800998ecf8427e";s:8:"quota_mb";i:0;s:17:"upload_ext_filter";a:0:{}s:19:"download_ext_filter";a:0:{}s:15:"error_reporting";i:1;s:7:"fm_root";s:0:"";s:17:"cookie_cache_time";i:2592000;s:7:"version";s:5:"0.9.8";}
 require_once("../include/db_info.inc.php");
+require_once("../include/my_func.inc.php");
 if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
     || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor']))) {
     $view_swal_params = "{title:'$MSG_PRIVILEGE_WARNING',icon:'error'}";
@@ -83,11 +84,11 @@ switch ($error_reporting) {
         break;
 }
 if (isset($_GET['pid'])) {
-    $current_dir = "$OJ_DATA/" . intval($_GET['pid']) . "/";
+    $pid = intval($_GET['pid']);
+    $current_dir = "$OJ_DATA/" . $pid . "/";
 } else {
     $pid = intval(basename($current_dir));
     if ($pid == 0) $pid = intval(basename($dir_dest));
-
     $current_dir = "$OJ_DATA/" . intval($pid) . "/";
 }
 $dir_dest = $current_dir;
@@ -577,6 +578,12 @@ function save_upload($temp_file, $filename, $dir_dest)
             if (file_exists("/usr/bin/dos2unix") && function_exists("system")) system("/usr/bin/dos2unix " . $file);
         } else $out = 3;
     } else $out = 4;
+
+    global $OJ_NAME, $pid;
+    $ip = getRealIP();
+    $sql = "INSERT INTO `oplog` (`target`,`user_id`,`operation`,`ip`) VALUES (?,?,?,?)";
+    pdo_query($sql, "p$pid", $_SESSION[$OJ_NAME . '_' . 'user_id'], "$filename uploaded", $ip);
+
     return $out;
 }
 function zip_extract()
@@ -1861,9 +1868,9 @@ function upload_form()
         echo "
         <input type=button value=\"" . et('Send') . "\" onclick=\"test_upload_form()\"></nobr>
         <tr><td> <td><input type=checkbox name=fechar value=\"1\" checked> <a href=\"JavaScript:troca();\">" . et('AutoClose') . "</a>
-        <tr><td colspan=2>zip file can be decompressed on the server later. 
-			  just don't add dirs,please<br>
-			  可以上传zip文件，之后点击decompress解压缩，但是请不要在zip文件中包含子目录。
+        <tr><td colspan=2>Zip file can be decompressed on the server later. 
+			  Just don't add dirs, please.<br>
+			  可以上传 zip 文件，之后点击 decompress 解压缩，但是请不要在 zip 文件中包含子目录。
 	</td></tr>
         </form>
         </table>
@@ -2262,6 +2269,11 @@ function edit_file_form()
         $file_data = preg_replace("(\r\n)", "\n", $file_data);
         fputs($fh, $file_data, strlen($file_data));
         fclose($fh);
+
+        global $OJ_NAME, $pid;
+        $ip = getRealIP();
+        $sql = "INSERT INTO `oplog` (`target`,`user_id`,`operation`,`ip`) VALUES (?,?,?,?)";
+        pdo_query($sql, "p$pid", $_SESSION[$OJ_NAME . '_' . 'user_id'], "$filename edited", $ip);
     }
     $file_data = file_get_contents($file);
     html_header();
@@ -2557,6 +2569,7 @@ function frame3()
     global $dir_dest, $current_dir, $dir_before;
     global $selected_file_list, $selected_dir_list, $old_name, $new_name;
     global $action, $or_by, $order_dir_list_by;
+    global $OJ_NAME, $pid;
     if (!isset($order_dir_list_by)) {
         $order_dir_list_by = "1A";
         setcookie("order_dir_list_by", $order_dir_list_by, time() + $cookie_cache_time, "/");
@@ -2586,12 +2599,21 @@ function frame3()
                             @fclose($fh);
                         }
                         @chmod($cmd_arg, 0644);
+
+                        $ip = getRealIP();
+                        $sql = "INSERT INTO `oplog` (`target`,`user_id`,`operation`,`ip`) VALUES (?,?,?,?)";
+                        pdo_query($sql, "p$pid", $_SESSION[$OJ_NAME . '_' . 'user_id'], "$cmd_arg created", $ip);
                     } else alert(et('FileDirExists') . ".");
                 }
                 break;
             case 3: // rename arq ou dir
                 if ((strlen($old_name)) && (strlen($new_name))) {
                     rename($current_dir . $old_name, $current_dir . $new_name);
+
+                    $ip = getRealIP();
+                    $sql = "INSERT INTO `oplog` (`target`,`user_id`,`operation`,`ip`) VALUES (?,?,?,?)";
+                    pdo_query($sql, "p$pid", $_SESSION[$OJ_NAME . '_' . 'user_id'], "$old_name renamed to $new_name", $ip);
+
                     if (is_dir($current_dir . $new_name)) reloadframe("parent", 2);
                 }
                 break;
@@ -2603,6 +2625,10 @@ function frame3()
                             for ($x = 0; $x < count($selected_file_list); $x++) {
                                 $selected_file_list[$x] = trim($selected_file_list[$x]);
                                 if (strlen($selected_file_list[$x])) total_delete($current_dir . $selected_file_list[$x], $dir_dest . $selected_file_list[$x]);
+
+                                $ip = getRealIP();
+                                $sql = "INSERT INTO `oplog` (`target`,`user_id`,`operation`,`ip`) VALUES (?,?,?,?)";
+                                pdo_query($sql, "p$pid", $_SESSION[$OJ_NAME . '_' . 'user_id'], $selected_file_list[$x] . " deleted", $ip);
                             }
                         }
                     }
@@ -2612,6 +2638,10 @@ function frame3()
                             for ($x = 0; $x < count($selected_dir_list); $x++) {
                                 $selected_dir_list[$x] = trim($selected_dir_list[$x]);
                                 if (strlen($selected_dir_list[$x])) total_delete($current_dir . $selected_dir_list[$x], $dir_dest . $selected_dir_list[$x]);
+
+                                $ip = getRealIP();
+                                $sql = "INSERT INTO `oplog` (`target`,`user_id`,`operation`,`ip`) VALUES (?,?,?,?)";
+                                pdo_query($sql, "p$pid", $_SESSION[$OJ_NAME . '_' . 'user_id'], $selected_dir_list[$x] . " deleted", $ip);
                             }
                             reloadframe("parent", 2);
                         }
@@ -2701,6 +2731,10 @@ function frame3()
                             }
                         }
                         $zipfile->create_archive();
+
+                        $ip = getRealIP();
+                        $sql = "INSERT INTO `oplog` (`target`,`user_id`,`operation`,`ip`) VALUES (?,?,?,?)";
+                        pdo_query($sql, "p$pid", $_SESSION[$OJ_NAME . '_' . 'user_id'], "$cmd_arg compressed", $ip);
                     }
                     unset($zipfile);
                 }
@@ -2720,6 +2754,11 @@ function frame3()
                         unset($zipfile);
                         if (function_exists("system")) system("/home/judge/src/install/ans2out " . $current_dir);
                         if (file_exists("/usr/bin/dos2unix") && function_exists("system")) system("/usr/bin/dos2unix " . $current_dir . "/*");
+                        
+                        $ip = getRealIP();
+                        $sql = "INSERT INTO `oplog` (`target`,`user_id`,`operation`,`ip`) VALUES (?,?,?,?)";
+                        pdo_query($sql, "p$pid", $_SESSION[$OJ_NAME . '_' . 'user_id'], "$cmd_arg decompressed", $ip);
+
                         reloadframe("parent", 2);
                     }
                 }
@@ -2727,6 +2766,11 @@ function frame3()
             case 8: // delete arq/dir
                 if (strlen($cmd_arg)) {
                     if (file_exists($current_dir . $cmd_arg)) total_delete($current_dir . $cmd_arg);
+
+                    $ip = getRealIP();
+                    $sql = "INSERT INTO `oplog` (`target`,`user_id`,`operation`,`ip`) VALUES (?,?,?,?)";
+                    pdo_query($sql, "p$pid", $_SESSION[$OJ_NAME . '_' . 'user_id'], "$cmd_arg deleted", $ip);
+
                     if (is_dir($current_dir . $cmd_arg)) reloadframe("parent", 2);
                 }
                 break;

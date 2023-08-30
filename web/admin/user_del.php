@@ -58,7 +58,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
 
                     $ip = getRealIP();
                     $sql = "INSERT INTO `loginlog` VALUES(?,?,?,NOW())";
-                    pdo_query($sql, $user, "User deleted by " . $_SESSION[$OJ_NAME . "_" . "user_id"], $ip);
+                    pdo_query($sql, $user, "user deleted by " . $_SESSION[$OJ_NAME . "_" . "user_id"], $ip);
                   } else {
                     $ulist = $ulist . "$user\n";
                   }

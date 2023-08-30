@@ -1,6 +1,7 @@
 <?php
 require_once("../include/db_info.inc.php");
 require_once("../include/my_func.inc.php");
+require_once("../include/const.inc.php");
 
 if (file_exists("../lang/$OJ_LANG.php"))
     require_once("../lang/$OJ_LANG.php");

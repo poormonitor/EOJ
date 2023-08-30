@@ -86,4 +86,4 @@ static  $OJ_LOG_URL_HOST_ENABLED = false;
 static  $OJ_LOG_URL_PARAM_ENABLED = false;
 static  $OJ_LOG_TRACE_ENABLED = false;
 
-require_once(dirname(__FILE__) . "/db_pre_script.php");
+require_once(dirname(__FILE__) . "/pre_script.inc.php");

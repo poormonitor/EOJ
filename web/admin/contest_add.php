@@ -1,8 +1,4 @@
 <?php
-header("Cache-control:private");
-require_once("../include/db_info.inc.php");
-require_once("../lang/$OJ_LANG.php");
-require_once("../include/const.inc.php");
 require_once("admin-header.php");
 
 if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
@@ -127,6 +123,9 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
                 }
               }
             }
+            $ip = getRealIP();
+            $sql = "INSERT INTO `oplog` (`target`,`user_id`,`operation`,`ip`) VALUES (?,?,?,?)";
+            pdo_query($sql, "c$cid", $_SESSION[$OJ_NAME . '_' . 'user_id'], "add", $ip);
 
             echo "<script>window.location.href=\"contest_list.php\";</script>";
           } else {

@@ -47,7 +47,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
                 for ($i = 0; $i < count($pieces); $i++) {
                   $id_pw = explode(" ", trim($pieces[$i]));
                   if (count($id_pw) != 2) {
-                    echo "&nbsp;&nbsp;&nbsp;&nbsp;" . $id_pw[0] . " ... 错误：格式错误！<br>";
+                    echo "&nbsp;&nbsp;&nbsp;&nbsp;" . $id_pw[0] . " ... $MSG_ERROR : $MSG_PARAMS_ERROR <br>";
                     for ($j = 0; $j < count($id_pw); $j++) {
                       $ulist = $ulist . $id_pw[$j] . " ";
                     }
@@ -58,7 +58,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
                     $rows_cnt = count($result);
 
                     if ($rows_cnt != 1) {
-                      echo "&nbsp;&nbsp;&nbsp;&nbsp;" . $id_pw[0] . " ... 错误：用户不存在！<br>";
+                      echo "&nbsp;&nbsp;&nbsp;&nbsp;" . $id_pw[0] . " ... $MSG_ERROR : $MSG_EXISTED<br>";
                       $ulist = $ulist . $id_pw[0] . " " . $id_pw[1] . "\n";
                     } else {
                       $nick = $id_pw[1];
@@ -66,11 +66,16 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
                       pdo_query($sql, $nick, $id_pw[0]);
                       $sql = "UPDATE `solution` set `nick`=? WHERE `user_id`=?;";
                       pdo_query($sql, $nick, $id_pw[0]);
-                      echo $id_pw[0] . " 已更新！<br>";
+
+                      $ip = getRealIP();
+                      $sql = "INSERT INTO `loginlog` VALUES(?,?,?,NOW())";
+                      pdo_query($sql, $id_pw[0], "user nick set by " . $_SESSION[$OJ_NAME . "_" . "user_id"], $ip);
+
+                      echo $id_pw[0] . "$MSG_SUCCESS!<br>";
                     }
                   }
                 }
-                echo "<br>剩余行有错误！<hr>";
+                echo "<br>$MSG_REMAINED_ERROR<hr>";
               }
             }
             ?>

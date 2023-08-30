@@ -1,5 +1,6 @@
 <?php 
 require_once("../include/db_info.inc.php");
+require_once("../include/my_func.inc.php");
 require_once("../include/check_get_key.php");
 
 if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
@@ -10,6 +11,9 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
 }
 
 $id = intval($_GET['id']);
+$page = intval($_GET['page']);
+$page = $page ? $page : 1;
+
 $sql = "SELECT `defunct` FROM `news` WHERE `news_id`=?";
 $result = pdo_query($sql, $id);
 $row = $result[0];
@@ -19,4 +23,8 @@ if ($defunct == 'Y') $sql = "update `news` set `defunct`='N' where `news_id`=?";
 else $sql = "update `news` set `defunct`='Y' where `news_id`=?";
 pdo_query($sql, $id);
 
-header("Location: news_list.php");
+$ip = getRealIP();
+$sql = "INSERT INTO `oplog` (`target`,`user_id`,`operation`,`ip`) VALUES (?,?,?,?)";
+pdo_query($sql, "n$id", $_SESSION[$OJ_NAME . '_' . 'user_id'], "df change", $ip);
+
+header("Location: news_list.php?page=$page");

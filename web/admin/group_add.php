@@ -1,10 +1,10 @@
 <?php require_once("admin-header.php");
 
 if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
-	$view_swal_params = "{title:'$MSG_PRIVILEGE_WARNING',icon:'error'}";
-	$error_location = "../index.php";
-	require("../template/error.php");
-	exit(0);
+  $view_swal_params = "{title:'$MSG_PRIVILEGE_WARNING',icon:'error'}";
+  $error_location = "../index.php";
+  require("../template/error.php");
+  exit(0);
 }
 ?>
 <!DOCTYPE html>
@@ -44,6 +44,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
               $gid = $_POST['gid'];
               $pieces = explode("\n", trim($_POST['ulist']));
               $pieces = preg_replace("/[^\x20-\x7e]/", " ", $pieces);  //!!important
+              $ip = getRealIP();
               $count = 0;
               foreach ($pieces as $i) {
                 // delete all right
@@ -60,9 +61,13 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
                     pdo_query("INSERT INTO privilege (user_id,rightstr) VALUES (?,?)", $i, $p[0]);
                   }
                 }
+
+                $sql = "INSERT INTO `loginlog` VALUES(?,?,?,NOW())";
+                pdo_query($sql, $id_pw[0], "group set by " . $_SESSION[$OJ_NAME . "_" . "user_id"], $ip);
+                
                 $count += 1;
               }
-              echo "<div class='alert alert-success' role='alert' style='margin-left: 10px;margin-right: 10px;margin-top: 10px;'>成功设置了 $count 用户。</div>";
+              echo "<div class='alert alert-success' role='alert' style='margin-left: 10px;margin-right: 10px;margin-top: 10px;'>$count $MSG_SUCCESS</div>";
             }
             ?>
 

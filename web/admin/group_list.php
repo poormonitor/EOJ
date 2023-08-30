@@ -16,13 +16,21 @@ if (isset($_GET['do'])) {
     $group_name = trim($_GET["add"]);
     echo pdo_query("SELECT COUNT(*) FROM `group` WHERE `name` = ?", $group_name)[0][0];
     if (!pdo_query("SELECT COUNT(*) FROM `group` WHERE `name` = ?", $group_name)[0][0]) {
-      pdo_query("INSERT INTO `group` (`name`, `allow_view`) VALUES (?, 'N');", $group_name);
+      $gid = pdo_query("INSERT INTO `group` (`name`, `allow_view`) VALUES (?, 'N');", $group_name);
+
+      $ip = getRealIP();
+      $sql = "INSERT INTO `oplog` (`target`,`user_id`,`operation`,`ip`) VALUES (?,?,?,?)";
+      pdo_query($sql, "g$gid", $_SESSION[$OJ_NAME . '_' . 'user_id'], "add", $ip);
     }
   }
 
   if (isset($_GET["del"])) {
     $del_group = trim($_GET["del"]);
     pdo_query("DELETE FROM `group` WHERE `gid`=?;", $del_group);
+
+    $ip = getRealIP();
+    $sql = "INSERT INTO `oplog` (`target`,`user_id`,`operation`,`ip`) VALUES (?,?,?,?)";
+    pdo_query($sql, "g$del_group", $_SESSION[$OJ_NAME . '_' . 'user_id'], "delete", $ip);
   }
 
   if (isset($_GET["visiable"])) {
@@ -33,6 +41,10 @@ if (isset($_GET['do'])) {
     } else {
       pdo_query("UPDATE `group` SET allow_view='N' WHERE gid=?", $gid);
     }
+    
+    $ip = getRealIP();
+    $sql = "INSERT INTO `oplog` (`target`,`user_id`,`operation`,`ip`) VALUES (?,?,?,?)";
+    pdo_query($sql, "g$gid", $_SESSION[$OJ_NAME . '_' . 'user_id'], "change visible", $ip);
   }
 
   header("Location: group_list.php");

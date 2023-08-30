@@ -1,5 +1,6 @@
 <?php
 require_once("../include/db_info.inc.php");
+require_once("../include/my_func.inc.php");
 require_once("../include/const.inc.php");
 
 if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
@@ -99,6 +100,10 @@ if (isset($_POST['startdate'])) {
       }
     }
   }
+
+  $ip = getRealIP();
+  $sql = "INSERT INTO `oplog` (`target`,`user_id`,`operation`,`ip`) VALUES (?,?,?,?)";
+  pdo_query($sql, "c$cid", $_SESSION[$OJ_NAME . '_' . 'user_id'], "edit", $ip);
 
   header("Location: contest_list.php");
   exit(0);

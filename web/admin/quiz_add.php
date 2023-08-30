@@ -1,14 +1,15 @@
 <?php
 require_once("../include/db_info.inc.php");
 require_once("../lang/$OJ_LANG.php");
+require_once("../include/my_func.inc.php");
 require_once("../include/const.inc.php");
 
 if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
-    || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator']))) {
-    $view_swal_params = "{title:'$MSG_PRIVILEGE_WARNING',icon:'error'}";
-    $error_location = "../index.php";
-    require("../template/error.php");
-    exit(0);
+  || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator']))) {
+  $view_swal_params = "{title:'$MSG_PRIVILEGE_WARNING',icon:'error'}";
+  $error_location = "../index.php";
+  require("../template/error.php");
+  exit(0);
 }
 
 $description = "";
@@ -78,6 +79,11 @@ if (isset($_POST['startdate'])) {
       $result = pdo_query($sql, trim($i), "q$qid");
     }
   }
+
+  $ip = getRealIP();
+  $sql = "INSERT INTO `oplog` (`target`,`user_id`,`operation`,`ip`) VALUES (?,?,?,?)";
+  pdo_query($sql, "q$qid", $_SESSION[$OJ_NAME . '_' . 'user_id'], "add", $ip);
+
   header("Location: quiz_list.php");
   exit(0);
 }

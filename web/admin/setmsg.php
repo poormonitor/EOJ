@@ -44,6 +44,11 @@ if (!file_exists($file)) {
     $content = file_get_contents($file);
     $content = explode("\n", $content);
 }
+
+$ip = getRealIP();
+$sql = "INSERT INTO `oplog` (`target`,`user_id`,`operation`,`ip`) VALUES (?,?,?,?)";
+pdo_query($sql, "msg", $_SESSION[$OJ_NAME . '_' . 'user_id'], "set", $ip);
+
 require_once("admin-header.php");
 ?>
 <!DOCTYPE html>

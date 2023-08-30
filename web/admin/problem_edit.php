@@ -1,6 +1,4 @@
 <?php
-require_once("../include/db_info.inc.php");
-require_once("../include/my_func.inc.php");
 require_once("admin-header.php");
 
 if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
@@ -276,6 +274,11 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
                                 $sql = 'UPDATE `problem` set `block`=? where `problem_id`=?';
                                 pdo_query($sql, $block, $id);
                             }
+
+                            $ip = getRealIP();
+                            $sql = "INSERT INTO `oplog` (`target`,`user_id`,`operation`,`ip`) VALUES (?,?,?,?)";
+                            pdo_query($sql, "p$id", $_SESSION[$OJ_NAME . '_' . 'user_id'], "edit", $ip);
+
 ?>
     <p><?php echo $MSG_EDIT_SUCCESS ?></p>
     <a href='../problem.php?id=<?php echo $id ?>'><?php echo $MSG_SEE ?></a>

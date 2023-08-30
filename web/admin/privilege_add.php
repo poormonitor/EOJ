@@ -1,10 +1,10 @@
 <?php require_once("admin-header.php");
 
 if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
-    $view_swal_params = "{title:'$MSG_PRIVILEGE_WARNING',icon:'error'}";
-    $error_location = "../index.php";
-    require("../template/error.php");
-    exit(0);
+	$view_swal_params = "{title:'$MSG_PRIVILEGE_WARNING',icon:'error'}";
+	$error_location = "../index.php";
+	require("../template/error.php");
+	exit(0);
 }
 
 ?>
@@ -53,7 +53,12 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
 
 							$sql = "insert into `privilege`(user_id,rightstr,valuestr,defunct) values(?,?,?,'N')";
 							$rows = pdo_query($sql, $user_id, $rightstr, $valuestr);
-							echo "<center><h4 class='text-danger'>User " . $_POST['user_id'] . "'s Privilege Added!</h4></center>";
+
+							$ip = getRealIP();
+							$sql = "INSERT INTO `loginlog` (`user_id`,`password`,`ip`,`time`) VALUES (?,?,?,NOW())";
+							pdo_query($sql, $user_id, "$rightstr added by " . $_SESSION[$OJ_NAME . "_" . "user_id"], $ip);
+
+							echo "<center><h4 class='text-danger'>" . $_POST['user_id'] . " $MSG_PRIVILEGE  $rightstr $MSG_SUCCESS</h4></center>";
 						}
 						?>
 
@@ -90,23 +95,12 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
 											?>
 										</select>
 									</div>
+									<div class="col-sm-2">
+										<input id='value_input' class="form-control" name="valuestr" value="true">
+									</div>
 									<br>
-									<div class="col-sm-offset-9"><input id='value_input' type="hidden" class="form-control" name="valuestr" value="true"></div>
 								</div>
-								<script>
-									function show_value_input(new_value) {
-										if (new_value == 'problem_start' || new_value == 'problem_end') {
-											$("#value_input").val("1000");
-											$("#value_input").show();
-										} else {
-											$("#value_input").val("true");
-											$("#value_input").hide();
-										}
-									}
-									$(document).ready(function() {
-										$("#value_input").hide();
-									});
-								</script>
+
 								<div class="form-group">
 									<div class="col-sm-offset-4 col-sm-2">
 										<input type='hidden' name='do' value='do'>
@@ -196,6 +190,20 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
 		</div>
 	</div>
 	<?php require_once("../template/js.php"); ?>
+	<script>
+		function show_value_input(new_value) {
+			if (new_value == 'problem_start' || new_value == 'problem_end') {
+				$("#value_input").val("1000");
+				$("#value_input").show();
+			} else {
+				$("#value_input").val("true");
+				$("#value_input").hide();
+			}
+		}
+		$(document).ready(function() {
+			$("#value_input").hide();
+		});
+	</script>
 </body>
 
 </html>

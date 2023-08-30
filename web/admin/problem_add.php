@@ -5,12 +5,12 @@ require_once("../include/my_func.inc.php");
 require_once("../include/problem.php");
 
 if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
-	|| isset($_SESSION[$OJ_NAME . '_' . 'problem_editor'])
+  || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor'])
 )) {
-	$view_swal_params = "{title:'$MSG_PRIVILEGE_WARNING',icon:'error'}";
-	$error_location = "../index.php";
-	require("../template/error.php");
-	exit(0);
+  $view_swal_params = "{title:'$MSG_PRIVILEGE_WARNING',icon:'error'}";
+  $error_location = "../index.php";
+  require("../template/error.php");
+  exit(0);
 }
 
 require_once("admin-header.php"); ?>
@@ -105,6 +105,10 @@ if ($test_output=="") $test_output="\n";
             $sql = 'UPDATE `problem` set `block`=? where `problem_id`=?';
             pdo_query($sql, $block, $pid);
           }
+
+          $ip = getRealIP();
+          $sql = "INSERT INTO `oplog` (`target`,`user_id`,`operation`,`ip`) VALUES (?,?,?,?)";
+          pdo_query($sql, "p$pid", $_SESSION[$OJ_NAME . '_' . 'user_id'], "add", $ip);
           ?>
 
           &nbsp;&nbsp;- <a href='phpfm.php?frame=3&pid=<?php echo $pid; ?>'><?php echo $MSG_TESTDATA ?></a>

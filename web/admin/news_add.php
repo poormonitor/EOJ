@@ -36,6 +36,10 @@ if (!in_array(-1, $_POST['gid'])) {
   }
 }
 
+$ip = getRealIP();
+$sql = "INSERT INTO `oplog` (`target`,`user_id`,`operation`,`ip`) VALUES (?,?,?,?)";
+pdo_query($sql, "n$news_id", $_SESSION[$OJ_NAME . '_' . 'user_id'], "add", $ip);
+
 require_once("admin-header.php");
 ?>
 <!DOCTYPE html>

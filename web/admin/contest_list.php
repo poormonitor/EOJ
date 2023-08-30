@@ -107,8 +107,8 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
                   echo "<td>" . $row['end_time'] . "</td>";
                   $cid = $row['contest_id'];
                   if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . "m$cid"])) {
-                    echo "<td><a href=contest_pr_change.php?cid=" . $row['contest_id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">" . ($row['private'] == "0" ? "<span class=green>$MSG_Public</span>" : "<span class=red>$MSG_Private<span>") . "</a></td>";
-                    echo "<td><a href=contest_df_change.php?cid=" . $row['contest_id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">" . ($row['defunct'] == "N" ? "<span class=green>$MSG_ENABLED</span>" : "<span class=red>$MSG_DISABLED</span>") . "</a></td>";
+                    echo "<td><a href=contest_pr_change.php?page=$page&cid=" . $row['contest_id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">" . ($row['private'] == "0" ? "<span class=green>$MSG_Public</span>" : "<span class=red>$MSG_Private<span>") . "</a></td>";
+                    echo "<td><a href=contest_df_change.php?page=$page&cid=" . $row['contest_id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">" . ($row['defunct'] == "N" ? "<span class=green>$MSG_ENABLED</span>" : "<span class=red>$MSG_DISABLED</span>") . "</a></td>";
                     echo "<td><a href=contest_edit.php?cid=" . $row['contest_id'] . ">$MSG_EDIT</a></td>";
                     echo "<td><a href=contest_add.php?cid=" . $row['contest_id'] . ">$MSG_COPY</a></td>";
                     if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator'])) {

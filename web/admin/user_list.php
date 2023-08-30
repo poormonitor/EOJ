@@ -109,7 +109,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
                     echo "<td>" . $row['accesstime'] . "</td>";
                     echo "<td>" . $row['reg_time'] . "</td>";
                     if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
-                      echo "<td><a href=user_df_change.php?cid=" . $row['user_id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">" . ($row['defunct'] == "N" ? "<span class=green>$MSG_ENABLED</span>" : "<span class=red>$MSG_DISABLED</span>") . "</a></td>";
+                      echo "<td><a href=user_df_change.php?page=$page&cid=" . $row['user_id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">" . ($row['defunct'] == "N" ? "<span class=green>$MSG_ENABLED</span>" : "<span class=red>$MSG_DISABLED</span>") . "</a></td>";
                     } else {
                       echo "<td>" . ($row['defunct'] == "N" ? "<span>$MSG_ENABLED</span>" : "<span>$MSG_DISABLED</span>") . "</td>";
                     }
