@@ -1991,6 +1991,7 @@ void prepare_files(char *filename, int namelen, char *infile, int &p_id,
 	if (copy_data)
 		execute_cmd("/bin/cp '%s' %s/data.in", infile, work_dir);
 	execute_cmd("/bin/cp `ls %s/data/%d/* | grep %s | grep -v -e '.*\\.in' | grep -v -e '.*\\.out'` %s", oj_home, p_id, fname, work_dir);
+	execute_cmd("/bin/cp %s/data/%d/help* %s 2>/dev/null", oj_home, p_id, work_dir);
 	execute_cmd("/bin/cp %s/data/%d/*.dic %s 2>/dev/null", oj_home, p_id, work_dir);
 	execute_cmd("chown judge %s* ", work_dir);
 	sprintf(outfile, "%s/data/%d/%s.out", oj_home, p_id, fname0);

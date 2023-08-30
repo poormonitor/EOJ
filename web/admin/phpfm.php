@@ -349,8 +349,8 @@ function et($tag)
     $en['GenerateOut'] = 'Generate Out files';
     $en['Ans2out'] = '*.ans -> *.out';
     $en['Back'] = "Back";
-    $en['SameName'] = "Other files with the same name as .in and .out will be automatically copied to the judging directory.";
-
+    $en['SameName'] = "Other files with the same name as .in and .out will be automatically copied to the working directory during the corresponding judging.";
+    $en['HelpFile'] = "Files starting with help will be automatically copied to the working directory during each judging.";
     // chinese
     $cn['Version'] = '版本';
     $cn['DocRoot'] = '根目录';
@@ -462,7 +462,8 @@ function et($tag)
     $cn['GenerateOut'] = '用标程Main覆盖生成Out文件';
     $cn['Ans2out'] = '.ans改名.out';
     $cn['Back'] = "返回上一级";
-    $cn['SameName'] = "与 in 和 out 同名的其他文件会自动被拷贝至测评目录下。";
+    $cn['SameName'] = "与 in 和 out 同名的其他文件会在对应评测时自动被拷贝至测评目录下。";
+    $cn['HelpFile'] = "help 开头的文件会在每次评测时自动被拷贝至测评目录下。";
 
     $lang_ = $$lang;
     if (isset($lang_[$tag])) return html_encode($lang_[$tag]);
@@ -1832,6 +1833,8 @@ function dir_list_form()
             $out .= "
                 <tr><td bgcolor=\"#DDDDDD\" colspan=50><b>" . et("SameName") . "</b></td></tr>";
             $out .= "
+                <tr><td bgcolor=\"#DDDDDD\" colspan=50><b>" . et("HelpFile") . "</b></td></tr>";
+            $out .= "
             <script language=\"Javascript\" type=\"text/javascript\">
             <!--
                 update_sel_status();
@@ -2754,7 +2757,7 @@ function frame3()
                         unset($zipfile);
                         if (function_exists("system")) system("/home/judge/src/install/ans2out " . $current_dir);
                         if (file_exists("/usr/bin/dos2unix") && function_exists("system")) system("/usr/bin/dos2unix " . $current_dir . "/*");
-                        
+
                         $ip = getRealIP();
                         $sql = "INSERT INTO `oplog` (`target`,`user_id`,`operation`,`ip`) VALUES (?,?,?,?)";
                         pdo_query($sql, "p$pid", $_SESSION[$OJ_NAME . '_' . 'user_id'], "$cmd_arg decompressed", $ip);
