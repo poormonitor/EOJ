@@ -15,7 +15,7 @@ if (isset($_GET['uid'])) {
 	$rows = pdo_query($sql, $user_id, $rightstr);
 
 	$ip = getRealIP();
-	$sql = "INSERT INTO `loginlog` (`user_id`,`password`,`ip`,`time`) VALUES (?,?,?,NOW())";
+	$sql = "INSERT INTO `loginlog` VALUES (?,?,?,NOW())";
 	pdo_query($sql, $user_id, "$rightstr deleted by " . $_SESSION[$OJ_NAME . "_" . "user_id"], $ip);
 }
 ?>

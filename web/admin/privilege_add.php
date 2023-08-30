@@ -55,7 +55,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
 							$rows = pdo_query($sql, $user_id, $rightstr, $valuestr);
 
 							$ip = getRealIP();
-							$sql = "INSERT INTO `loginlog` (`user_id`,`password`,`ip`,`time`) VALUES (?,?,?,NOW())";
+							$sql = "INSERT INTO `loginlog` VALUES (?,?,?,NOW())";
 							pdo_query($sql, $user_id, "$rightstr added by " . $_SESSION[$OJ_NAME . "_" . "user_id"], $ip);
 
 							echo "<center><h4 class='text-danger'>" . $_POST['user_id'] . " $MSG_PRIVILEGE  $rightstr $MSG_SUCCESS</h4></center>";
