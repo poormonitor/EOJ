@@ -439,6 +439,13 @@ $MSG_HELP_SPJ = "Add 'pre' and 'spj' to test data to do special judge. It suppor
 				<br>'spj' is the special judge program. The input parameters for running are the test input file name, the test output file name, and the user output file name.<br>'spj' returning 0 represents accepted and 1 represents wrong.";
 $MSG_HELP_BALLOON_SCHOOL = "School Field of the Printer/Balloon privileged Accout, will be used as filter in task list.";
 
+$MSG_HISTORY = "History";
+$MSG_HISTORY_TARGET = "Operation target";
+$MSG_HISTORY_OPERATION = "Operation";
+$MSG_HISTORY_TIME = "Operation Time";
+
+$MSG_LOCATION = "Location";
+
 $MSG_WARNING_LOGIN_FROM_DIFF_IP = "Login from a diffrent ip ";
 $MSG_WARNING_DURING_EXAM_NOT_ALLOWED = " during exam is not allowed ";
 $MSG_WARNING_ACCESS_DENIED = "I am sorry, You could not view this message! Because it's not belong to you, or Administrator won't show you.";

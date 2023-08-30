@@ -117,6 +117,7 @@ echo "</select>";
                         echo "<th class='center'>$MSG_EDIT</th><th class='center'>$MSG_TESTDATA</th>";
                       }
                       ?>
+                      <th class='center'><?php echo $MSG_HISTORY ?></th>
                     </tr>
                   </thead>
                   <?php
@@ -135,6 +136,7 @@ echo "</select>";
                         echo "<td><a href='phpfm.php?frame=3&pid=" . $row['problem_id'] . "'>$MSG_TESTDATA</a>";
                       }
                     }
+                    echo "<td><a href=history.php?target=p" . $row['problem_id'] . ">$MSG_HISTORY</a></td>";
                     echo "</tr>";
                   }
                   ?>

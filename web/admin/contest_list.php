@@ -96,6 +96,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
                     <th class='center'><?php echo $MSG_EXPORT ?></th>
                     <th class='center'><?php echo $MSG_LOG ?></th>
                     <th class='center'><?php echo $MSG_SUSPECT ?></th>
+                    <th class='center'><?php echo $MSG_HISTORY ?></th>
                   </tr>
                 </thead>
                 <?php
@@ -121,6 +122,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
                     echo "<td colspan=5 align=right><a href=contest_add.php?cid=" . $row['contest_id'] . ">$MSG_COPY</a><td>";
                   }
                   echo "<td><a href='suspect_list.php?cid=" . $row['contest_id'] . "'>$MSG_SUSPECT</a></td>";
+                  echo "<td><a href=history.php?target=c" . $row['contest_id'] . ">$MSG_HISTORY</a></td>";
                   echo "</tr>";
                 }
                 ?>

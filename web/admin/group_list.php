@@ -41,7 +41,7 @@ if (isset($_GET['do'])) {
     } else {
       pdo_query("UPDATE `group` SET allow_view='N' WHERE gid=?", $gid);
     }
-    
+
     $ip = getRealIP();
     $sql = "INSERT INTO `oplog` (`target`,`user_id`,`operation`,`ip`) VALUES (?,?,?,?)";
     pdo_query($sql, "g$gid", $_SESSION[$OJ_NAME . '_' . 'user_id'], "change visible", $ip);
@@ -102,6 +102,7 @@ require_once("../include/set_get_key.php");
                     <th class='center'><?php echo $MSG_GROUP ?></th>
                     <th class='center'><?php echo $MSG_DELETE ?></th>
                     <th class='center'><?php echo $MSG_VIEW_ERROR ?></th>
+                    <th class='center'><?php echo $MSG_HISTORY ?></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -116,6 +117,7 @@ require_once("../include/set_get_key.php");
                     } else {
                       echo "<td><a href='group_list.php?do=do&visiable=true&group=" . $row['gid'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . "'><span class=red>$MSG_FALSE</span></a></td>";
                     }
+                    echo "<td><a href=history.php?target=g" . $row['gid'] . ">$MSG_HISTORY</a></td>";
 
                     echo "</tr>";
                   } ?>

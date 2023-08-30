@@ -438,6 +438,13 @@ $MSG_HELP_SPJ = "在测试文件中添加 pre 和 spj 程序特判，支持C/C++
 				<br>spj 为特判程序，运行传入参数分别为测试输入文件名，测试输出文件名，用户输出文件名。<br>特判程序返回0为正确，1为错误。";
 $MSG_HELP_BALLOON_SCHOOL = "打印，气球帐号的School字段用于过滤任务列表，例如填zjicm则只显示帐号为zjicm开头的任务";
 
+$MSG_HISTORY = "历史";
+$MSG_HISTORY_TARGET = "操作目标";
+$MSG_HISTORY_OPERATION = "操作内容";
+$MSG_HISTORY_TIME = "操作时间";
+
+$MSG_LOCATION = "位置";
+
 $MSG_WARNING_LOGIN_FROM_DIFF_IP = "从不同的IP地址登录";
 $MSG_WARNING_DURING_EXAM_NOT_ALLOWED = " 在考试期间不被允许 ";
 $MSG_WARNING_ACCESS_DENIED = "抱歉，您无法查看此消息！因为它不属于您，或者管理员设定系统状态为不显示此类信息。";

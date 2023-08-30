@@ -100,6 +100,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
                     <th class='center'><?php echo $MSG_REJUDGE ?></th>
                     <th class='center'><?php echo $MSG_QUIZ_JUDGE ?></th>
                     <th class='center'><?php echo $MSG_ANALYSIS ?></th>
+                    <th class='center'><?php echo $MSG_HISTORY ?></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -122,6 +123,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
                     echo "<td><a href=quiz_rejudge.php?qid=" . $row['quiz_id'] . ">" . $MSG_REJUDGE . "</a></td>";
                     echo "<td><a href=quiz_judge.php?qid=" . $row['quiz_id'] . ">" . $MSG_QUIZ_JUDGE . "</a></td>";
                     echo "<td><a href=quiz_analysis.php?qid=" . $row['quiz_id'] . ">" . $MSG_ANALYSIS . "</a></td>";
+                    echo "<td><a href=history.php?target=q" . $row['quiz_id'] . ">$MSG_HISTORY</a></td>";
                     echo "</tr>";
                   }
                   ?>

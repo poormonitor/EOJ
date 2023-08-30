@@ -1,5 +1,5 @@
 <?php
-require_once("./include/maxmind/autoload.php");
+require_once(dirname(__FILE__) . "/maxmind/autoload.php");
 
 use MaxMind\Db\Reader;
 

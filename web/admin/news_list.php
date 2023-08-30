@@ -87,6 +87,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
                     <th class='center'><?php echo $MSG_LAST_UPDATE ?></th>
                     <th class='center'><?php echo $MSG_STATUS ?></th>
                     <th class='center'><?php echo $MSG_COPY ?></th>
+                    <th class='center'><?php echo $MSG_HISTORY ?></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -98,6 +99,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
                     echo "<td>" . $row['time'] . "</td>";
                     echo "<td><a href=news_df_change.php?page=$page&id=" . $row['news_id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">" . ($row['defunct'] == "N" ? "<span class=green>$MSG_ENABLED</span>" : "<span class=red>$MSG_DISABLED</span>") . "</a>" . "</td>";
                     echo "<td><a href=news_add_page.php?cid=" . $row['news_id'] . ">$MSG_COPY</a></td>";
+                    echo "<td><a href=history.php?target=n" . $row['news_id'] . ">$MSG_HISTORY</a></td>";
                     echo "</tr>";
                   }
                   ?>
