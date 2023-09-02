@@ -25,15 +25,17 @@
 	require_once('./include/setlang.php');
 	$use_cookie = false;
 	$login = false;
-	if ($OJ_COOKIE_LOGIN = true && isset($_COOKIE[$OJ_NAME . "_user"]) && isset($_COOKIE[$OJ_NAME . "_check"])) {
-		$C_check = $_COOKIE[$OJ_NAME . "_check"];
-		$C_user = $_COOKIE[$OJ_NAME . "_user"];
+	$cookie_user = str_replace($OJ_NAME, " ", "") . "_user";
+	$cookie_check = str_replace($OJ_NAME, " ", "") . "_check";
+	if ($OJ_COOKIE_LOGIN = true && isset($_COOKIE[$cookie_user]) && isset($_COOKIE[$cookie_check])) {
+		$C_check = $_COOKIE[$cookie_check];
+		$C_user = $_COOKIE[$cookie_user];
 		$use_cookie = true;
 		$C_num = strlen($C_check) - 1;
 		$C_num = ($C_num * $C_num) % 7;
 		if ($C_check[strlen($C_check) - 1] != $C_num) {
-			setcookie($OJ_NAME . "_check", "", 0);
-			setcookie($OJ_NAME . "_user", "", 0);
+			setcookie($cookie_check, "", 0);
+			setcookie($cookie_user, "", 0);
 			echo "<script>\nswal('Cookie $MSG_ERROR (-1)').then((onConfirm)=>{history.go(-1);});\n</script>";
 			exit(0);
 		}
@@ -46,8 +48,8 @@
 		if (substr($C_check, 0, -1) == sha1($C_res))
 			$login = $C_user;
 		else {
-			setcookie($OJ_NAME . "_check", "", 0);
-			setcookie($OJ_NAME . "_user", "", 0);
+			setcookie($cookie_check, "", 0);
+			setcookie($cookie_user, "", 0);
 			echo "<script>\nswal('Cookie $MSG_ERROR (-2)').then((onConfirm)=>{history.go(-1);});\n</script>";
 			exit(0);
 		}
@@ -122,8 +124,8 @@
 			}
 			$C_res = sha1($C_res);
 			$C_time = time() + 86400 * $OJ_KEEP_TIME;
-			setcookie($OJ_NAME . "_user", $login, time() + $C_time);
-			setcookie($OJ_NAME . "_check", $C_res . (strlen($C_res) * strlen($C_res)) % 7, $C_time);
+			setcookie($cookie_user, $login, time() + $C_time);
+			setcookie($cookie_check, $C_res . (strlen($C_res) * strlen($C_res)) % 7, $C_time);
 		}
 		echo "<script language='javascript'>\n";
 		if ($OJ_NEED_LOGIN)

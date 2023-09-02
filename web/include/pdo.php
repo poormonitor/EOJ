@@ -27,6 +27,7 @@ function pdo_query($sql)
 		$message = "SQL error, check your sql and the error log! SQL 错误，检查语句和错误日志！";
 		$view_errors_js = "swal('SQL Error', '$message', 'error').then(()=>{window.location.reload()})";
 		$OJ_FAIL = true;
+		error_log(strval($e));
 		require_once(dirname(__FILE__) . "/../template/error.php");
 		exit(0);
 	}

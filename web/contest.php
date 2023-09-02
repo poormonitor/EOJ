@@ -173,7 +173,7 @@ if (isset($_GET['cid'])) {
 
 	//echo "$keyword";
 	$wheremy = "";
-	if (isset($_SESSION[$OJ_NAME . '_user_id'])) {
+	if (isset($_SESSION[$OJ_NAME . '_user_id']) && $user_allowed) {
 		if (isset($_GET['my']))
 			$wheremy = " and contest_id in ($user_allowed)";
 		elseif (isset($user_allowed) && !isset($_SESSION[$OJ_NAME . '_' . "administrator"])) {
@@ -190,7 +190,7 @@ if (isset($_GET['cid'])) {
 
 		$result = pdo_query($sql, $keyword);
 	} else {
-		$sql = "SELECT *  FROM contest WHERE contest.defunct='N' $wheremy  ORDER BY contest_id DESC";
+		$sql = "SELECT * FROM contest WHERE contest.defunct='N' $wheremy ORDER BY contest_id DESC";
 		$total = count(pdo_query($sql));
 		$sql .= " limit " . strval($pstart) . "," . strval($pend);
 		//echo $sql;
