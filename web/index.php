@@ -76,8 +76,8 @@ if (
 	isset($OJ_LONG_LOGIN)
 	&& $OJ_LONG_LOGIN
 	&& (!isset($_SESSION[$OJ_NAME . '_user_id']))
-	&& isset($_COOKIE[str_replace($OJ_NAME, " ", "") . "_user"])
-	&& isset($_COOKIE[str_replace($OJ_NAME, " ", "") . "_check"])
+	&& isset($_COOKIE[$OJ_IDENTITY . "_user"])
+	&& isset($_COOKIE[$OJ_IDENTITY . "_check"])
 ) {
 	echo "<script>let xhr=new XMLHttpRequest();xhr.open('GET','login.php',true);xhr.send();setTimeout('location.reload()',800);</script>";
 }

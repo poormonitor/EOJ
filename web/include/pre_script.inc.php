@@ -8,7 +8,7 @@ date_default_timezone_set($OJ_TIMEZONE);
 
 @session_start();
 
-$OJ_IDENTITY = str_replace($OJ_NAME, " ", "");
+$OJ_IDENTITY = $OJ_IDENTITY;
 
 if (isset($_SESSION[$OJ_NAME . '_' . 'OJ_LANG'])) {
 	$OJ_LANG = $_SESSION[$OJ_NAME . '_' . 'OJ_LANG'];

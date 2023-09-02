@@ -25,8 +25,8 @@
 	require_once('./include/setlang.php');
 	$use_cookie = false;
 	$login = false;
-	$cookie_user = str_replace($OJ_NAME, " ", "") . "_user";
-	$cookie_check = str_replace($OJ_NAME, " ", "") . "_check";
+	$cookie_user = $OJ_IDENTITY . "_user";
+	$cookie_check = $OJ_IDENTITY . "_check";
 	if ($OJ_COOKIE_LOGIN = true && isset($_COOKIE[$cookie_user]) && isset($_COOKIE[$cookie_check])) {
 		$C_check = $_COOKIE[$cookie_check];
 		$C_user = $_COOKIE[$cookie_user];
