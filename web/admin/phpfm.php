@@ -2605,7 +2605,8 @@ function frame3()
 
                         $ip = getRealIP();
                         $sql = "INSERT INTO `oplog` (`target`,`user_id`,`operation`,`ip`) VALUES (?,?,?,?)";
-                        pdo_query($sql, "p$pid", $_SESSION[$OJ_NAME . '_' . 'user_id'], "$cmd_arg created", $ip);
+                        $basename = basename($cmd_arg);
+                        pdo_query($sql, "p$pid", $_SESSION[$OJ_NAME . '_' . 'user_id'],  "$basename created", $ip);
                     } else alert(et('FileDirExists') . ".");
                 }
                 break;

@@ -3192,7 +3192,7 @@ int get_sim(int solution_id, int lang, int pid, int &sim_s_id)
 	sprintf(src_pth, "Main.%s", lang_ext[lang]);
 	sprintf(com_pth, "../data/%d/ac/", pid);
 
-	int sim = execute_cmd("/usr/bin/sim.py %s %s", src_pth, com_pth);
+	int sim = execute_cmd("%s /usr/bin/sim.py %s %s", py_bin, src_pth, com_pth);
 	if (!sim)
 	{
 		execute_cmd("/bin/mkdir ../data/%d/ac/ 2>/dev/null", pid);
