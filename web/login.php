@@ -83,9 +83,11 @@
 				$_SESSION[$OJ_NAME . '_' . $row['rightstr']] = true;
 		}
 
+		$_SESSION[$OJ_NAME . '_' . "allow_view"] = true;
+
 		$sql = "SELECT `gid` FROM `users` WHERE `user_id`=?";
 		$result = pdo_query($sql, $login);
-		if ($result[0][0]) {
+		if (count($result)) {
 			$_SESSION[$OJ_NAME . '_' . "gid"] = $result[0][0];
 
 			$sql = "SELECT allow_view from `group` where gid=?";

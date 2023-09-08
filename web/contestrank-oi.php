@@ -33,7 +33,7 @@ class TM
   }
   function Add($pid, $sec, $res)
   {
-    if ($pid == NULL) {
+    if ($pid === NULL) {
       return;
     }
     //              echo "Add $pid $sec $res<br>";

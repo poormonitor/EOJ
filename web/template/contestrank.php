@@ -194,10 +194,10 @@
 
 									$tpid = $tresult[0][0];
 									$sql = "SELECT `problem_id` FROM `problem` WHERE `problem_id`=? AND `problem_id` IN (
-				          SELECT `problem_id` FROM `contest_problem` WHERE `contest_id` IN (
-				            SELECT `contest_id` FROM `contest` WHERE (`defunct`='N' AND now()<`end_time`)
-				          )
-				        )";
+												SELECT `problem_id` FROM `contest_problem` WHERE `contest_id` IN (
+													SELECT `contest_id` FROM `contest` WHERE (`defunct`='N' AND now()<`end_time`)
+												)
+											)";
 									$tresult = pdo_query($sql, $tpid);
 
 									if (intval($tresult) != 0)   //if the problem will be use remained contes/exam */

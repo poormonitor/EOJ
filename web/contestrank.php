@@ -33,9 +33,7 @@ class TM
 
 	function Add($pid, $sec, $res)
 	{
-		if ($pid == NULL) {
-			return;
-		}
+		if ($pid === NULL) return;
 		global $OJ_CE_PENALTY;
 		//echo "Add $pid $sec $res<br>";
 
@@ -191,9 +189,9 @@ for ($i = 0; $i < $pid_cnt; $i++) {
 }
 
 $sql = "SELECT s.num,s.user_id from solution s ,
-	(select num,min(solution_id) minId from solution where contest_id=? and result=4 GROUP BY num ) c 
+	(select num,min(solution_id) minId from solution where contest_id=? and result=4 GROUP BY num) c 
 	where s.solution_id = c.minId";
-	
+
 $fb = mysql_query_cache($sql, $cid);
 
 if ($fb)

@@ -36,9 +36,14 @@ if (isset($OJ_EXAM_CONTEST_ID)) {
 	}
 }
 
-if (isset($OJ_AUTO_SHARE) && $OJ_AUTO_SHARE && isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
+if (
+	isset($OJ_AUTO_SHARE) && $OJ_AUTO_SHARE &&
+	isset($_SESSION[$OJ_NAME . '_' . 'user_id'])
+	&& $_SESSION[$OJ_NAME . '_' . "allow_view"]
+) {
 	$sql = "SELECT 1 FROM solution where 
-			result=4 and problem_id=$sproblem_id and user_id=?";
+			result = 4 and problem_id = $sproblem_id and user_id= ?";
+	if ($contest_id) $sql .= " AND contest_id = $contest_id";
 	$rrs = pdo_query($sql, $_SESSION[$OJ_NAME . '_' . 'user_id']);
 	$ok = (count($rrs) > 0);
 }

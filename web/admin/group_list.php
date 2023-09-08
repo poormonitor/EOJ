@@ -26,7 +26,12 @@ if (isset($_GET['do'])) {
 
   if (isset($_GET["del"])) {
     $del_group = trim($_GET["del"]);
-    pdo_query("DELETE FROM `group` WHERE `gid`=?;", $del_group);
+
+    $sql = "DELETE FROM `group` WHERE `gid`= ?";
+    pdo_query($sql, $del_group);
+
+    $sql = "UPDATE users SET gid = NULL WHERE gid = ?";
+    pdo_query($sql, $del_group);
 
     $ip = getRealIP();
     $sql = "INSERT INTO `oplog` (`target`,`user_id`,`operation`,`ip`) VALUES (?,?,?,?)";

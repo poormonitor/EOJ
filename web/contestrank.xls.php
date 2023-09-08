@@ -30,7 +30,7 @@ class TM
 	}
 	function Add($pid, $sec, $res, $mark_base, $mark_per_problem, $mark_per_punish)
 	{
-		if ($pid == NULL) {
+		if ($pid === NULL) {
 			return;
 		}
 		global $OJ_CE_PENALTY;
