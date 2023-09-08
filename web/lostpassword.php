@@ -19,7 +19,7 @@
     $lost_user_id = $_POST['user_id'];
     $lost_email = $_POST['email'];
     if (isset($_POST['vcode'])) $vcode = trim($_POST['vcode']);
-    if ($lost_user_id && ($vcode != $_SESSION[$OJ_NAME . '_' . "vcode"] || $vcode == "" || $vcode == null)) {
+    if ($lost_user_id && $vcode != $_SESSION[$OJ_NAME . '_' . "vcode"]) {
         $view_swal = "$MSG_VCODE_WRONG";
         require("template/error.php");
         exit(0);

@@ -20,7 +20,7 @@
   $lost_user_id = $_POST['user_id'];
   $lost_key = $_POST['lost_key'];
   $vcode = trim($_POST['vcode']);
-  if ($lost_user_id == $_SESSION[$OJ_NAME . '_' . 'lost_user_id'] && ($vcode != $_SESSION[$OJ_NAME . '_' . "vcode"] || $vcode == "" || $vcode == null)) {
+  if ($lost_user_id == $_SESSION[$OJ_NAME . '_' . 'lost_user_id'] && ($vcode != $_SESSION[$OJ_NAME . '_' . "vcode"])) {
     echo "<script language='javascript'>\n";
     echo "swal('Verify Code Wrong!').then((onConfirm)=>{history.go(-1);});\n";
     echo "</script>";

@@ -25,7 +25,7 @@ if ($OJ_VCODE) {
 $err_str = "";
 $err_cnt = 0;
 
-if ($OJ_VCODE && ($_SESSION[$OJ_NAME . '_' . "vcode"] == null || $vcode != $_SESSION[$OJ_NAME . '_' . "vcode"] || $vcode == "" || $vcode == null)) {
+if ($OJ_VCODE && ($vcode != $_SESSION[$OJ_NAME . '_' . "vcode"])) {
     $_SESSION[$OJ_NAME . '_' . "vcode"] = null;
     $view_swal = $MSG_VCODE_WRONG;
     require "template/error.php";

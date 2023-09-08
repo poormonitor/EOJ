@@ -23,7 +23,7 @@
 	$email = trim($_POST['email']);
 	$school = trim($_POST['school']);
 	if (isset($OJ_VCODE) && $OJ_VCODE) $vcode = trim($_POST['vcode']);
-	if ($OJ_VCODE && ($vcode != $_SESSION[$OJ_NAME . '_' . "vcode"] || $vcode == "" || $vcode == null)) {
+	if ($OJ_VCODE && ($vcode != $_SESSION[$OJ_NAME . '_' . "vcode"])) {
 		$_SESSION[$OJ_NAME . '_' . "vcode"] = null;
 		$err_str = $err_str . "Verification Code Wrong!\\n";
 		$err_cnt++;

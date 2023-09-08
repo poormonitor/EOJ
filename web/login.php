@@ -57,7 +57,7 @@
 	$vcode = "";
 	if (!$use_cookie) {
 		if (isset($_POST['vcode'])) $vcode = trim($_POST['vcode']);
-		if ($OJ_VCODE && ($vcode != $_SESSION[$OJ_NAME . '_' . "vcode"] || $vcode == "" || $vcode == null)) {
+		if ($OJ_VCODE && ($vcode != $_SESSION[$OJ_NAME . '_' . "vcode"])) {
 			echo "<script language='javascript'>\n";
 			echo "swal('$MSG_ERROR','$MSG_VCODE_WRONG','error).then((onConfirm)=>{history.go(-1);});\n";
 			echo "</script>";

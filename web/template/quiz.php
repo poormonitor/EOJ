@@ -105,7 +105,7 @@
                       <td><?php echo $quiz_total ?></td>
                       <td><?php echo $answer["total"] ?></td>
                       <td><?php echo $answer["judged"] ? $MSG_TRUE_FALSE[true] : $MSG_TRUE_FALSE[false] ?></td>
-                      <td><?php echo $answer["judgetime"] == NULL ? "-" : $answer["judgetime"] ?></td>
+                      <td><?php echo is_null($answer["judgetime"]) ? "-" : $answer["judgetime"] ?></td>
                     </tr>
                   </tbody>
                 </table>

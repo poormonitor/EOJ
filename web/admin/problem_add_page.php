@@ -178,7 +178,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
   </div>
   <?php require_once("../template/js.php"); ?>
   <script>
-    <?php if (!isset($row) || $row['blank'] == NULL) { ?>
+    <?php if (!isset($row) || is_null($row['blank'])) { ?>
       $("#blank_code").hide();
       $("#blank_false").click()
     <?php } else { ?>
