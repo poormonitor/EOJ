@@ -42,7 +42,9 @@ else
 
 $now = date("Y-m-d H:i");
 
-$sql = "SELECT 1 FROM `contest_problem` WHERE `problem_id` = ? AND `contest_id` IN (SELECT `contest_id` FROM `contest` WHERE `start_time`<? AND `end_time`>? AND `title` LIKE ?)";
+$sql = "SELECT 1 FROM `contest_problem` WHERE `problem_id` = ? 
+        AND `contest_id` IN (SELECT `contest_id` FROM `contest` 
+        WHERE `start_time`<? AND `end_time`>? AND `title` LIKE ?)";
 
 $rrs = pdo_query($sql, $id, $now, $now, "%$OJ_NOIP_KEYWORD%");
 
@@ -143,24 +145,16 @@ if (isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
   }
 }
 
-$sql = "SELECT * FROM (
-  SELECT COUNT(*) att, user_id, min(10000000000000000000 + time * 100000000000 + memory * 100000 + code_length) score
-  FROM solution
-  WHERE problem_id =? AND result =4
-  GROUP BY user_id
-  ORDER BY score 
-  )c
-    inner JOIN (
-    SELECT solution_id, user_id, language, 10000000000000000000 + time * 100000000000 + memory * 100000 + code_length score, in_date
-    FROM solution 
-    WHERE problem_id =? AND result =4  
-    ORDER BY score
-    )b ON b.user_id=c.user_id AND b.score=c.score ORDER BY c.score, solution_id ASC LIMIT $start, $sz;";
+$sql = "SELECT COUNT(*) att, user_id, time, memory, code_length, solution_id,
+        language, in_date
+        FROM solution WHERE problem_id = ? AND result = 4
+        GROUP BY user_id
+        ORDER BY time, memory, code_length, solution_id ASC 
+        LIMIT $start, $sz;";
 
 //echo $sql;
 
-$result = pdo_query("SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''))");
-$result = pdo_query($sql, $id, $id);
+$result = pdo_query($sql, $id);
 
 $view_solution = array();
 $j = 0;
@@ -171,10 +165,9 @@ foreach ($result as $row) {
   if ($row['user_id'] == $last_user_id)
     continue;
 
-  $sscore = strval($row['score']);
-  $s_time = intval(substr($sscore, 1, 8));
-  $s_memory = intval(substr($sscore, 9, 6));
-  $s_cl = intval(substr($sscore, 15, 5));
+  $s_time = intval($row['time']);
+  $s_memory = intval($row['memory']);
+  $s_cl = intval($row['code_length']);
 
   $view_solution[$j][0] = $i;
   $view_solution[$j][1] = $row['solution_id'];
@@ -237,10 +230,14 @@ foreach ($result as $row) {
 if ($problem_info["blank"] && isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
   $blank = $problem_info["blank"];
   if (isset($_GET["cid"])) {
-    $sql = "SELECT * FROM solution JOIN source_code ON `source_code`.`solution_id` = `solution`.`solution_id` WHERE problem_id = ? AND contest_id = ?";
+    $sql = "SELECT * FROM solution JOIN source_code 
+            ON `source_code`.`solution_id` = `solution`.`solution_id` 
+            WHERE problem_id = ? AND contest_id = ?";
     $result = pdo_query($sql, $id, $cid);
   } else {
-    $sql = "SELECT * FROM solution JOIN source_code ON `source_code`.`solution_id` = `solution`.`solution_id` WHERE problem_id = ?";
+    $sql = "SELECT * FROM solution JOIN source_code 
+            ON `source_code`.`solution_id` = `solution`.`solution_id`
+            WHERE problem_id = ?";
     $result = pdo_query($sql, $id);
   }
   $blank_analysis = array();

@@ -25,8 +25,9 @@ $MSG_UP_WRONG = "Username or password is wrong";
 $MSG_PARAMS_ERROR = "Some of items is wrong";
 $MSG_REMAINED_ERROR = "Remained content have error!";
 $MSG_PARAMS_TOO_FEW = "You have filled in too few items";
-$MSG_PROCESSING = "Processing your request";
+$MSG_PROCESSING = "Processing the request";
 $MSG_NICK_TOO_LONG = "Nick is too long";
+$MSG_GOBACK = "Go back";
 $MSG_SCHOOL_TOO_LONG = "School is too long";
 $MSG_DOWNLOAD_ALL_AC = "Download all AC code";
 

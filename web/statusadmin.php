@@ -29,7 +29,7 @@ $str2 = "";
 $lock = false;
 $lock_time = date("Y-m-d H:i:s", time());
 
-$sql = "WHERE problem_id>0 ";
+$sql = "WHERE problem_id > 0 ";
 
 if (isset($_GET['cid']) and $_GET['cid'] != "" and $_GET['cid'] != "0") {
   $cid = intval($_GET['cid']);
@@ -46,22 +46,6 @@ if (isset($_GET['cid']) and $_GET['cid'] != "" and $_GET['cid'] != "0") {
     $start_time = strtotime($row[0]);
     $title = $row[1];
     $end_time = strtotime($row[2]);
-
-    $noip = (time() < $end_time) && (stripos($title, $OJ_NOIP_KEYWORD) !== false);
-    if (
-      isset($_SESSION[$OJ_NAME . '_' . "administrator"]) ||
-      isset($_SESSION[$OJ_NAME . '_' . "m$cid"]) ||
-      isset($_SESSION[$OJ_NAME . '_' . "source_browser"]) ||
-      isset($_SESSION[$OJ_NAME . '_' . "contest_creator"])
-    ) $noip = false;
-    if ($noip) {
-      $view_errors =  "<h2> $MSG_NOIP_WARNING <a href=\"contest.php?cid=$cid\">返回比赛</a></h2>";
-      $refererUrl = parse_url($_SERVER['HTTP_REFERER']);
-      if ($refererUrl['path'] == "/submitpage.php")
-        $view_errors = "<h2>提交成功!</h2><a href=\"contest.php?cid=$cid\">返回比赛</a></h2>";
-      require("template/error.php");
-      exit(0);
-    }
   }
 
   $lock_time = $end_time - ($end_time - $start_time) * $OJ_RANK_LOCK_PERCENT;
@@ -120,47 +104,37 @@ if (isset($_GET['problem_id']) && $_GET['problem_id'] != "") {
   }
 }
 
-// check group arg
-if (isset($_GET['gid']) && $_GET['gid'] != "" && $_GET['gid'] != "-1") {
-  $gid = trim($_GET['gid']);
-  $sql_gname = "SELECT `name` FROM `group` WHERE `gid`= ? ;";
-  $result = pdo_query($sql_gname, $gid);
-  $group_name = $result[0]["name"];
-  $sql_g2u = "SELECT `user_id` FROM `users` WHERE `gid` = ?;";
-  $result = pdo_query($sql_g2u, $gid);
-  $uid = array();
-  foreach ($result as $i) {
-    array_push($uid, $i["user_id"]);
-  }
-}
-
-$sql_all = "SELECT * FROM `group`;";
-$result = pdo_query($sql_all);
+$sql_all_group = "SELECT * FROM `group`;";
+$result = pdo_query($sql_all_group);
 $all_group = $result;
 
 // check the user_id arg
 $user_id = "";
-if (isset($OJ_ON_SITE_CONTEST_ID) && $OJ_ON_SITE_CONTEST_ID > 0 && !isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
+if (
+  isset($OJ_ON_SITE_CONTEST_ID)
+  && $OJ_ON_SITE_CONTEST_ID > 0
+  && !isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
+) {
   $_GET['user_id'] = $_SESSION[$OJ_NAME . '_' . 'user_id'];
 }
 
 if (isset($_GET['user_id']) && $_GET['user_id'] != "") {
   $user_id = trim($_GET['user_id']);
   if (is_valid_user_name($user_id) && $user_id != "") {
-    $sql = $sql . "AND `user_id` LIKE '%$user_id%' ";
-    if ($str2 != "")
-      $str2 = $str2 . "&";
-
-    $str2 = $str2 . "user_id=" . urlencode($user_id);
-  } else
+    $sql = $sql . " AND `solution`.`user_id` LIKE '%$user_id%' ";
+    $str2 = $str2 . "&user_id=" . urlencode($user_id);
+  } else {
     $user_id = "";
-} else if (isset($uid)) {
-  $user_id = join(",", $uid);
-  $sql = $sql . "AND `user_id` IN ($user_id) ";
+  }
+} else if (isset($_GET['gid']) && $_GET['gid'] != "" && $_GET['gid'] != "-1") {
+  // check group arg
+  $gid = intval($_GET['gid']);
+  $sql .= " AND grp.gid = $gid";
 }
 
 if (isset($_GET["solution_id"]) && $_GET["solution_id"]) {
   $solution_id = intval($_GET["solution_id"]);
+  $sql .= " AND solution_id = $solution_id";
 }
 
 if (!$user_id and !$problem_id and (!isset($cid) or !$cid) && !$solution_id) {
@@ -196,33 +170,29 @@ if ($result != -1 && !$lock) {
   $str2 = $str2 . "&jresult=" . $result;
 }
 
+$select = "SELECT * FROM solution 
+          LEFT JOIN `sim` sim ON solution.solution_id=sim.s_id 
+          LEFT JOIN (SELECT user_id, gid FROM `users`) users 
+          ON users.user_id = solution.user_id ";
 if ($OJ_SIM) {
   //$old=$sql;
-  $sql = "select * from solution solution left join `sim` sim on solution.solution_id=sim.s_id " . $sql;
+  $select .= " LEFT JOIN `group` grp ON grp.gid = users.gid ";
   if (isset($_GET['showsim']) && intval($_GET['showsim']) > 0) {
     $showsim = intval($_GET['showsim']);
     $sql .= " and sim.sim>=$showsim";
     $str2 .= "&showsim=$showsim";
   }
-
   //$sql=$sql.$order_str." LIMIT 20";
-} else {
-  $sql = "select * from `solution` " . $sql;
 }
+
+$sql = $select . $sql;
 
 //echo $sql;
 
 $sql = $sql . $order_str;
 //echo $sql;
 
-if (isset($solution_id)) {
-  $sql = "SELECT * FROM `solution` WHERE solution_id = ?";
-  $result = mysql_query_cache($sql, $solution_id);
-} elseif (isset($_GET['user_id'])) {
-  $result = pdo_query($sql, $user_id);
-} else {
-  $result = mysql_query_cache($sql);
-}
+$result = mysql_query_cache($sql);
 
 if ($result)
   $rows_cnt = count($result);
@@ -369,7 +339,7 @@ for ($i = 0; $i < $rows_cnt; $i++) {
     $view_status[$i][5] .= "<span>---</span>";
   } else {
     if (!$lock || $lock_time > $row['in_date'] || $row['user_id'] == $_SESSION[$OJ_NAME . '_' . 'user_id']) {
-      if ($OJ_SIM && $row['sim'] > 80 && $row['sim_s_id'] != $row['s_id']) {
+      if ($OJ_SIM && isset($row["sim"]) && $row['sim'] > 80 && $row['sim_s_id'] != $row['s_id']) {
         $view_status[$i][3] .= "<a href=reinfo.php?sid=" . $row['solution_id'] . " class='" . $judge_color[$row['result']] . "' title='$MSG_Tips'>*" . $judge_result[$row['result']];
 
         if ($row['result'] != 4 && isset($row['pass_rate']) && $row['pass_rate'] != 1)
@@ -451,16 +421,7 @@ for ($i = 0; $i < $rows_cnt; $i++) {
 
   $view_status[$i][11] = $row['judger'];
 
-
-
-  if (isset($gid)) {
-    $view_status[$i][12] = $group_name;
-  } else {
-    $user_id = $row['user_id'];
-    $sql_group = "SELECT `name` FROM `users` JOIN `group` ON `users`.gid = `group`.gid WHERE `users`.`user_id` = $user_id;";
-    $view_status[$i][12] = "";
-    if (isset(pdo_query($sql_group)[0]["name"])) $view_status[$i][12] = pdo_query($sql_group)[0]["name"];
-  }
+  $view_status[$i][12] = $row["name"];
 }
 
 ?>

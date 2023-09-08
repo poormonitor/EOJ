@@ -122,15 +122,8 @@
 
 										$i = 1;
 										foreach ($row as $table_cell) {
-											if ($i == 1 || $i == 8)
-												echo "<td class='text-center'>";
-											else if ($i == 2 || $i == 4 || $i == 5 || $i == 6  || $i == 7)
-												echo "<td class='text-center'>";
-											else
-												echo "<td>";
-
+											echo "<td class='text-center'>";
 											echo $table_cell;
-											echo "&nbsp";
 											echo "</td>";
 											$i++;
 										}

@@ -28,6 +28,7 @@ function pdo_query($sql)
 		$view_errors_js = "swal('SQL Error', '$message', 'error').then(()=>{window.location.reload()})";
 		$OJ_FAIL = true;
 		error_log(strval($e));
+		error_log("SQL: " . str_replace(array(PHP_EOL, "   "), "", $sql) . " ARGS: " . json_encode($args));
 		require_once(dirname(__FILE__) . "/../template/error.php");
 		exit(0);
 	}

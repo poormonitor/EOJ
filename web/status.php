@@ -51,10 +51,10 @@ if (isset($_GET['cid'])) {
       isset($_SESSION[$OJ_NAME . '_' . "contest_creator"])
     ) $noip = false;
     if ($noip) {
-      $view_errors =  "<h2> $MSG_NOIP_WARNING <a href=\"contest.php?cid=$cid\">返回比赛</a></h2>";
+      $view_errors =  "<h2> $MSG_NOIP_WARNING <a href=\"contest.php?cid=$cid\">$MSG_GOBACK</a></h2>";
       $refererUrl = parse_url($_SERVER['HTTP_REFERER']);
       if ($refererUrl['path'] == "/submitpage.php")
-        $view_errors = "<h2>提交成功!</h2><a href=\"contest.php?cid=$cid\">返回比赛</a></h2>";
+        $view_errors = "<h2>$MSG_SUCCESS</h2><a href=\"contest.php?cid=$cid\">$MSG_GOBACK</a></h2>";
       require("template/error.php");
       exit(0);
     }
@@ -125,7 +125,7 @@ if (isset($OJ_ON_SITE_CONTEST_ID) && $OJ_ON_SITE_CONTEST_ID > 0 && !isset($_SESS
 if (isset($_GET['user_id'])) {
   $user_id = trim($_GET['user_id']);
   if (is_valid_user_name($user_id) && $user_id != "") {
-    $sql = $sql . "AND `user_id`=? ";
+    $sql = $sql . " AND `user_id`= '$user_id' ";
     if ($str2 != "")
       $str2 = $str2 . "&";
     $str2 = $str2 . "user_id=" . urlencode($user_id);
@@ -178,12 +178,7 @@ if ($OJ_SIM) {
 $sql = $sql . $order_str . " LIMIT 50";
 //echo $sql;
 
-
-if (isset($_GET['user_id'])) {
-  $result = pdo_query($sql, $user_id);
-} else {
-  $result = mysql_query_cache($sql);
-}
+$result = mysql_query_cache($sql);
 
 if ($result)
   $rows_cnt = count($result);

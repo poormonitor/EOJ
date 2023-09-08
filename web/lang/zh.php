@@ -25,9 +25,10 @@ $MSG_UP_WRONG = "用户名或密码错误";
 $MSG_PARAMS_ERROR = "您填写的某些项目不正确";
 $MSG_REMAINED_ERROR = "剩余内容存在错误！";
 $MSG_PARAMS_TOO_FEW = "您填写的项目太少";
-$MSG_PROCESSING = "正在处理您的请求";
+$MSG_PROCESSING = "正在处理请求";
 $MSG_NICK_TOO_LONG = "用户名太长";
 $MSG_SCHOOL_TOO_LONG = "学校名太长";
+$MSG_GOBACK = "返回";
 $MSG_DOWNLOAD_ALL_AC = "下载所有通过代码";
 
 $MSG_CLIPBOARD = "剪贴板";
