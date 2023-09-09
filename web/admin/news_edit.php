@@ -22,6 +22,8 @@ if (isset($_POST['news_id'])) {
   $user_id = $_SESSION[$OJ_NAME . '_' . 'user_id'];
   $news_id = intval($_POST['news_id']);
 
+  if ($news_id <= 0) header("location:news_list.php");
+
   $sql = "UPDATE `news` SET `title`=?,`time`=now(),`content`=?,user_id=? WHERE `news_id`=?";
   //echo $sql;
   pdo_query($sql, $title, $content, $user_id, $news_id);
@@ -55,7 +57,7 @@ if (isset($_POST['news_id'])) {
   exit(0);
 } else {
   $news_id = intval($_GET['id']);
-  $sql = "SELECT * FROM `news` WHERE `news_id`=?";
+  $sql = "SELECT * FROM `news` WHERE `news_id`=? AND news_id >= 0";
   $result = pdo_query($sql, $news_id);
   if (count($result) != 1) {
     echo "No such News!";

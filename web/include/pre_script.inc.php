@@ -42,10 +42,6 @@ try {
 	exit(0);
 }
 
-if (file_exists(dirname(__FILE__) . "/../upload/files/msg.txt")) {
-	$OJ_FLOAT_NOTICE = explode("\n", file_get_contents(dirname(__FILE__) . "/../upload/files/msg.txt"));
-}
-
 pdo_query("SET names utf8");
 pdo_query("SET time_zone = '$OJ_TIMEZONE'");
 

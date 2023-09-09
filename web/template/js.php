@@ -54,9 +54,14 @@ $prefix = isset($prefix) ? $prefix : "";
 	});
 	console.log("Loading used <?php echo $runTime; ?>.")
 	console.log("Thanks for choosing <?php echo $OJ_NAME; ?>.");
-	<?php if (isset($OJ_FLOAT_NOTICE) && intval($OJ_FLOAT_NOTICE[0])) { ?>
-		setAD("<?php echo $OJ_FLOAT_NOTICE[1] ?>",
-			"<?php echo $OJ_FLOAT_NOTICE[2] ?>",
-			<?php echo intval($OJ_FLOAT_NOTICE[3]) ? 'true' : 'false' ?>);
+	<?php
+	$sql = "SELECT * FROM news WHERE news_id = -1 AND defunct = 'N'";
+	$result = pdo_query($sql);
+	if ($result) {
+		$message = json_decode($result[0]["content"], true);
+	?>
+		setAD("<?php echo $message["image"] ?>",
+			"<?php echo $message["href"] ?>",
+			<?php echo $message["float"] ?>);
 	<?php } ?>
 </script>

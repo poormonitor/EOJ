@@ -63,10 +63,14 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
             if (isset($_GET['keyword']) && $_GET['keyword'] != "") {
               $keyword = $_GET['keyword'];
               $keyword = "%$keyword%";
-              $sql = "SELECT `news_id`,`user_id`,`title`,`time`,`defunct` FROM `news` WHERE (title LIKE ?) OR (content LIKE ?) ORDER BY `news_id` DESC";
+              $sql = "SELECT `news_id`,`user_id`,`title`,`time`,`defunct` 
+                      FROM `news` WHERE ((title LIKE ?) OR (content LIKE ?)) AND news_id >= 0 
+                      ORDER BY `news_id` DESC";
               $result = pdo_query($sql, $keyword, $keyword);
             } else {
-              $sql = "SELECT `news_id`,`user_id`,`title`,`time`,`defunct` FROM `news` ORDER BY `news_id` DESC LIMIT $sid, $idsperpage";
+              $sql = "SELECT `news_id`,`user_id`,`title`,`time`,`defunct` 
+                      FROM `news` WHERE news_id >= 0
+                      ORDER BY `news_id` DESC LIMIT $sid, $idsperpage";
               $result = pdo_query($sql);
             }
             ?>

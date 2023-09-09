@@ -11,43 +11,43 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
 
 $user_id = $_SESSION[$OJ_NAME . '_' . 'user_id'];
 
-$folder = "../upload/files/";
-if (!file_exists($folder)) {
-    mkdir($folder, 0755);
+$sql = "SELECT * FROM news WHERE news_id = -1";
+$result = pdo_query($sql);
+
+if (!$result) {
+    $content = array("float" => "false", "image" => "", "href" => "");
+    $content = json_encode($content);
+
+    $sql = "INSERT INTO news (news_id, user_id, title, content, defunct) 
+            VALUES (-1, ?, 'msg', ?, 'Y')";
+    pdo_query($sql, $_SESSION[$OJ_NAME . '_' . 'user_id'], $content);
+
+    $sql = "SELECT * FROM news WHERE news_id = -1";
+    $result = pdo_query($sql);
 }
 
-$file = "../upload/files/msg.txt";
+$content = $result[0]["content"];
+$content = json_decode($content, true);
+$disable = $result[0]["defunct"];
 
-if (isset($_POST['enable'])) {
+if (isset($_POST['disable'])) {
     require_once("../include/check_post_key.php");
 
-    $enable = $_POST["enable"];
+    $disable = $_POST["disable"];
     $src = $_POST["src"];
     $href = $_POST["href"];
     $floating = $_POST["floating"];
 
-    $content = "$enable\n$src\n$href\n$floating";
+    $content = array("float" => $floating, "image" => $src, "href" => $href);
+    $json = json_encode($content);
 
-    $fp = fopen($file, "w");
-    fputs($fp, $content);
-    fclose($fp);
+    $sql = "UPDATE news SET content = ?, defunct = ? WHERE news_id = -1";
+    pdo_query($sql, $json, $disable);
+
+    $ip = getRealIP();
+    $sql = "INSERT INTO `oplog` (`target`,`user_id`,`operation`,`ip`) VALUES (?,?,?,?)";
+    pdo_query($sql, "msg", $_SESSION[$OJ_NAME . '_' . 'user_id'], "set msg", $ip);
 }
-
-if (!file_exists($file)) {
-    touch($file);
-    chmod($file, 0755);
-    $fp = fopen($file, "w");
-    fputs($fp, "\n\n\n");
-    fclose($fp);
-    $content = array("", "", "");
-} else {
-    $content = file_get_contents($file);
-    $content = explode("\n", $content);
-}
-
-$ip = getRealIP();
-$sql = "INSERT INTO `oplog` (`target`,`user_id`,`operation`,`ip`) VALUES (?,?,?,?)";
-pdo_query($sql, "msg", $_SESSION[$OJ_NAME . '_' . 'user_id'], "set", $ip);
 
 require_once("admin-header.php");
 ?>
@@ -82,9 +82,9 @@ require_once("admin-header.php");
                                 <label class="col-sm-4 control-label"><?php echo $MSG_ENABLE ?></label>
                                 <div class="col-sm-4">
                                     <?php echo $MSG_TRUE_FALSE[true] ?>
-                                    <input type=radio name="enable" value='1' <?php if ($content[0] == 1) echo "checked" ?>>
+                                    <input type=radio name="disable" value='N' <?php if ($disable === "N") echo "checked" ?>>
                                     <?php echo "/ " . $MSG_TRUE_FALSE[false] ?>
-                                    <input type=radio name="enable" value='0' <?php if ($content[0] == 0) echo "checked" ?>>
+                                    <input type=radio name="disable" value='Y' <?php if ($disable === "Y") echo "checked" ?>>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -99,22 +99,22 @@ require_once("admin-header.php");
                             <div class="form-group">
                                 <label class="col-sm-4 control-label"><?php echo $MSG_FLOATING_URL ?></label>
                                 <div class="col-sm-4">
-                                    <input id="src" name="src" value="<?php echo $content[1] ?>" class="form-control" placeholder="<?php echo $MSG_FLOATING_URL ?>" type="text">
+                                    <input id="src" name="src" value="<?php echo $content["image"] ?>" class="form-control" placeholder="<?php echo $MSG_FLOATING_URL ?>" type="text">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4 control-label"><?php echo $MSG_FLOATING_HREF ?></label>
                                 <div class="col-sm-4">
-                                    <input name="href" value="<?php echo $content[2] ?>" class="form-control" placeholder="<?php echo $MSG_FLOATING_HREF ?>" type="text">
+                                    <input name="href" value="<?php echo $content["href"] ?>" class="form-control" placeholder="<?php echo $MSG_FLOATING_HREF ?>" type="text">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4 control-label"><?php echo $MSG_FLOATING_STATIC ?></label>
                                 <div class="col-sm-4">
                                     <?php echo $MSG_TRUE_FALSE[true] ?>
-                                    <input type=radio name="floating" value='0' <?php if ($content[3] == 0) echo "checked" ?>>
+                                    <input type=radio name="floating" value='false' <?php if ($content["float"] === "false") echo "checked" ?>>
                                     <?php echo "/ " . $MSG_TRUE_FALSE[false] ?>
-                                    <input type=radio name="floating" value='1' <?php if ($content[3] == 1 || !$content[2]) echo "checked" ?>>
+                                    <input type=radio name="floating" value='true' <?php if ($content["float"] === "true") echo "checked" ?>>
                                 </div>
                             </div>
                             <div class='col-sm-4 col-sm-offset-4'>

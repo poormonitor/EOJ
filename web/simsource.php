@@ -36,7 +36,8 @@ $temp_path = $temp . "." . $language_ext[$slanguage];
 rename($temp, $temp_path);
 file_put_contents($temp_path, $source);
 
-$json = shell_exec("/usr/bin/sim.py $temp_path /home/judge/data/$sproblem_id/ac/ debug json");
+$shell = "$OJ_PY_BIN /usr/bin/sim.py $temp_path /home/judge/data/$sproblem_id/ac/ debug json";
+$json = shell_exec($shell);
 $ob = json_decode($json);
 $rs = array();
 
