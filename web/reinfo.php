@@ -64,19 +64,14 @@ $judge_color = array("label label-info", "label label-info", "label label-warnin
 
 if (
   isset($_SESSION[$OJ_NAME . '_' . 'source_browser'])
-  || (isset($_SESSION[$OJ_NAME . '_' . "allow_view"])
-    && $_SESSION[$OJ_NAME . '_' . "allow_view"]
+  || ($_SESSION[$OJ_NAME . '_' . "allow_view"]
     && $user_id == $_SESSION[$OJ_NAME . '_' . 'user_id'])
 ) {
   $ok = true;
 }
 
 $view_reinfo = "";
-if (isset($_SESSION[$OJ_NAME . '_' . 'source_browser']) or $allow == "Y") {
-
-  if ($row['user_id'] != $_SESSION[$OJ_NAME . '_' . 'user_id']) {
-    $view_mail_link = "<a href='mail.php?to_user=" . htmlentities($row['user_id'], ENT_QUOTES, "UTF-8") . "&title=$MSG_SUBMIT $id'>Mail the auther</a>";
-  }
+if ($ok) {
   $sql = "SELECT `error` FROM `runtimeinfo` WHERE `solution_id`=?";
   $result = pdo_query($sql, $id);
 
@@ -110,7 +105,7 @@ if (strstr($view_reinfo, "File too large")) {
       $_SESSION[$OJ_NAME . "_" . "testfile"] = array("$pid/$file");
     }
     $file = urlencode($file);
-    $a_tag = "<a href='./testfile_download.php?pid=$pid&name=$file'>Download</a>";
+    $a_tag = "<a href='./testfile.php?pid=$pid&name=$file'>Download</a>";
     $view_reinfo = str_replace("File too large", "File too large, $a_tag", $view_reinfo);
   }
 }

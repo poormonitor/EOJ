@@ -27,7 +27,7 @@ if (isset($_POST['content'])) {
 }
 $sql = 'select clipboard from users where user_id=?';
 $result = pdo_query($sql,  $_SESSION[$OJ_NAME . '_' . 'user_id']);
-if ($result[0][0] != NULL) {
+if ($result[0][0] !== NULL) {
 	$content = $result[0][0];
 }
 require("template/clipboard.php");

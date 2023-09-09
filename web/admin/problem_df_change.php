@@ -16,41 +16,46 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   require_once("../include/check_get_key.php");
 }
 
-$plist = "";
-sort($_POST['pid']);
-foreach ($_POST['pid'] as $i) {
-  if ($plist)
-    $plist .= ',' . intval($i);
-  else
-    $plist = $i;
-}
 //echo "===".$plist;
 
-if (isset($_POST['enable']) && $plist) {
-  $sql = "UPDATE `problem` SET defunct='N' WHERE `problem_id` IN ($plist)";
-  pdo_query($sql);
-} else if (isset($_POST['disable']) && $plist) {
-  $sql = "UPDATE `problem` SET defunct='Y' WHERE `problem_id` IN ($plist)";
-  pdo_query($sql);
-} else {
+$ip = getRealIP();
+
+if (isset($_POST["pid"])) {
+  $pids = array_map("intval", $_POST['pid']);
+  sort($pids);
+  $pids = array_map("strval", $pids);
+
+  $plist = join(",", $pids);
+
+  if (isset($_POST['enable'])) {
+    $sql = "UPDATE `problem` SET defunct='N' WHERE `problem_id` IN ($plist)";
+    pdo_query($sql);
+  } else if (isset($_POST['disable'])) {
+    $sql = "UPDATE `problem` SET defunct='Y' WHERE `problem_id` IN ($plist)";
+    pdo_query($sql);
+  }
+
+  foreach ($i as $pids) {
+    $sql = "INSERT INTO `oplog` (`target`,`user_id`,`operation`,`ip`) VALUES (?,?,?,?)";
+    pdo_query($sql, "p$i", $_SESSION[$OJ_NAME . '_' . 'user_id'], "df change", $ip);
+  }
+} elseif (isset($_GET['id'])) {
   $id = intval($_GET['id']);
   $sql = "SELECT `defunct` FROM `problem` WHERE `problem_id`=?";
   $result = pdo_query($sql, $id);
 
   $row = $result[0];
   $defunct = $row[0];
-  echo $defunct;
 
   if ($defunct == 'Y') $sql = "UPDATE `problem` SET `defunct`='N' WHERE `problem_id`=?";
   else $sql = "UPDATE `problem` SET `defunct`='Y' WHERE `problem_id`=?";
   pdo_query($sql, $id);
+
+  $sql = "INSERT INTO `oplog` (`target`,`user_id`,`operation`,`ip`) VALUES (?,?,?,?)";
+  pdo_query($sql, "p$id", $_SESSION[$OJ_NAME . '_' . 'user_id'], "df change", $ip);
 }
 
 $page = intval($_GET['page']);
 $page = $page ? $page : 1;
-
-$ip = getRealIP();
-$sql = "INSERT INTO `oplog` (`target`,`user_id`,`operation`,`ip`) VALUES (?,?,?,?)";
-pdo_query($sql, "p$id", $_SESSION[$OJ_NAME . '_' . 'user_id'], "df change", $ip);
 
 header("Location: problem_list.php?page=$page");

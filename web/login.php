@@ -1,3 +1,8 @@
+<?php
+require_once("./include/db_info.inc.php");
+require_once('./include/setlang.php');
+?>
+
 <!DOCTYPE html>
 <html lang="<?php echo $OJ_LANG ?>">
 
@@ -16,13 +21,10 @@
 		}
 	</style>
 
-	<?php require_once("./include/db_info.inc.php"); ?>
-
 	<script src="<?php echo $OJ_CDN_URL . "template/" ?>jquery.min.js"></script>
 	<script src="<?php echo $OJ_CDN_URL .  "include/" ?>sweetalert.min.js"></script>
 
 	<?php
-	require_once('./include/setlang.php');
 	$use_cookie = false;
 	$login = false;
 	$cookie_user = $OJ_IDENTITY . "_user";
@@ -87,7 +89,7 @@
 
 		$sql = "SELECT `gid` FROM `users` WHERE `user_id`=?";
 		$result = pdo_query($sql, $login);
-		if (count($result)) {
+		if ($result[0][0]) {
 			$_SESSION[$OJ_NAME . '_' . "gid"] = $result[0][0];
 
 			$sql = "SELECT allow_view from `group` where gid=?";

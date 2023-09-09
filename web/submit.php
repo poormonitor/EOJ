@@ -258,7 +258,7 @@ $block = $row[1];
 $flag2 = True;
 $flag1 = True;
 
-if ($allow != NULL) {
+if ($allow !== NULL) {
   foreach (explode(" ", $allow) as $i) {
     if (substr_count($i, "||") != 0) {
       $temp_flag = False;
@@ -278,7 +278,7 @@ if ($allow != NULL) {
   }
 }
 
-if ($block != NULL) {
+if ($block !== NULL) {
   foreach (explode(" ", $block) as $i) {
     if (substr_count($i, "||") != 0) {
       $temp_flag = False;

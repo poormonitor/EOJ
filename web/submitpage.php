@@ -167,19 +167,19 @@ $blank = unifyCode($blank);
 $no_blank = (isset($_GET["blank"]) && $_GET["blank"] == 'false');
 $multiline = false;
 
-if (isset($sid)) {
-	$blank_pat = "#" . preg_quote($blank) . "#";
+if ($blank !== NULL) {
+	if (isset($sid)) {
+		$blank_pat = "#" . preg_quote($blank) . "#";
+	
+		$single_blank = str_replace("%\*%", "(.*)", $blank_pat);
+		preg_match_all($single_blank, $view_src, $single_line_matches);
+		$single_line_matches = array_slice($single_line_matches, 1);
+	
+		$multi_blank = str_replace("\*%\*", "([\s\S]*)", $blank_pat);
+		preg_match_all($multi_blank, $view_src, $multi_line_matches);
+		$multi_line_matches = array_slice($multi_line_matches, 1);
+	}
 
-	$single_blank = str_replace("%\*%", "(.*)", $blank_pat);
-	preg_match_all($single_blank, $view_src, $single_line_matches);
-	$single_line_matches = array_slice($single_line_matches, 1);
-
-	$multi_blank = str_replace("\*%\*", "([\s\S]*)", $blank_pat);
-	preg_match_all($multi_blank, $view_src, $multi_line_matches);
-	$multi_line_matches = array_slice($multi_line_matches, 1);
-}
-
-if ($blank != NULL) {
 	$code = $blank;
 	$code = htmlentities($code, ENT_QUOTES, "UTF-8");
 
