@@ -86,15 +86,15 @@ foreach ($contest_array as $i) {
         $problems = array();
         $pid = $p[0];
         array_push($problems, $pid);
-        $before_ac = intval(pdo_query("SELECT count(`solution_id`) from `solution` where `user_id`=? and `problem_id`='$pid' and `in_date`<='$end_time' and result = 4;", $user)[0][0]);
+        $before_ac = intval(pdo_query("SELECT count(`solution_id`) from `solution` where `user_id`=? and `problem_id`='$pid' and `contest_id`='$i' and `in_date`<='$end_time' and result = 4;", $user)[0][0]);
         array_push($problems, $before_ac);
-        $before = intval(pdo_query("SELECT count(`solution_id`) from `solution` where `user_id`=? and `problem_id`='$pid' and `in_date`<='$end_time';", $user)[0][0]);
+        $before = intval(pdo_query("SELECT count(`solution_id`) from `solution` where `user_id`=? and `problem_id`='$pid' and `contest_id`='$i' and `in_date`<='$end_time';", $user)[0][0]);
         array_push($problems, $before);
         $after_ac = intval(pdo_query("SELECT count(*) from `solution` where `user_id`=? and `problem_id`='$pid' and result = 4;", $user)[0][0]);
         array_push($problems, $after_ac);
         $after = intval(pdo_query("SELECT count(*) from `solution` where `user_id`=? and `problem_id`='$pid';", $user)[0][0]);
         array_push($problems, $after);
-        $count = intval(pdo_query("SELECT COUNT(*) FROM sim JOIN solution ON solution.solution_id = sim.s_id WHERE solution.user_id = ? AND solution.problem_id= ?;", $user, $pid)[0][0]);
+        $count = intval(pdo_query("SELECT COUNT(*) FROM sim JOIN solution ON solution.solution_id = sim.s_id WHERE solution.user_id = ? AND solution.problem_id= ? and `solution`.`contest_id`='$i';", $user, $pid)[0][0]);
         array_push($problems, $count);
         array_push($problem, $problems);
     }

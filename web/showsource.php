@@ -25,6 +25,7 @@ $sproblem_id = $row['problem_id'];
 $view_user_id = $suser_id = $row['user_id'];
 $contest_id = $row['contest_id'];
 $snick = $row['nick'];
+$sdate = $row["in_date"];
 $judge_color = array("label label-info", "label label-info", "label label-warning", "label label-warning", "label label-success", "label label-danger", "label label-danger", "label label-warning", "label label-warning", "label label-warning", "label label-warning", "label label-warning", "label label-warning", "label label-info");
 
 
@@ -49,20 +50,9 @@ if (
 }
 
 //check whether user has the right of view solutions of this problem
-//echo "checking...";
-if (isset($_SESSION[$OJ_NAME . '_' . 's' . $sproblem_id])) {
-	$ok = true;
-	//	echo "Yes";
-} else {
-	$sql = "select count(1) from privilege where user_id=? and rightstr=?";
-	$count = pdo_query($sql, $_SESSION[$OJ_NAME . '_' . 'user_id'], "s" . $sproblem_id);
-	if ($count && $count[0][0] > 0) {
-		$_SESSION[$OJ_NAME . '_' . 's' . $sproblem_id] = true;
-		$ok = true;
-	} else {
-		//echo "not right";
-	}
-}
+if (isset($_SESSION[$OJ_NAME . '_' . 's' . $sproblem_id])) $ok = true;
+if (isset($_SESSION[$OJ_NAME . '_' . 'a' . $id])) $ok = true;
+
 $view_source = $MSG_NOT_EXISTED;
 if (isset($_SESSION[$OJ_NAME . '_' . 'user_id']) && $row && $row['user_id'] == $_SESSION[$OJ_NAME . '_' . 'user_id']) $ok = true;
 if (isset($_SESSION[$OJ_NAME . '_' . 'source_browser'])) $ok = true;

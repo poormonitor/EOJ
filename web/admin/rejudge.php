@@ -109,6 +109,7 @@ $banner = isset($_GET["status"]);
 					<div class="container">
 						<h3 class='center'><b><?php echo $MSG_REJUDGE ?></b></h3>
 						<?php if ($banner) { ?>
+							<br>
 							<div class="row">
 								<div class="col-sm-4"></div>
 								<div class="alert alert-success center col-sm-4" role="alert"><?php echo $MSG_SUCCESS ?></div>
@@ -165,7 +166,8 @@ $banner = isset($_GET["status"]);
 										<input type=submit class='form-control btn btn-default ud-margin' value='<?php echo $MSG_SUBMIT; ?>'>
 									</div>
 								</form>
-								<form action='rejudge.php' method=post class='form-group'>
+								<br>
+								<form action='rejudge.php' id="del" method=post class='form-group' onsubmit="confirm_delete();return false">
 									<label class='control-label col-sm-4 red'>
 										<?php echo $MSG_DELETE ?>
 									</label>
@@ -185,6 +187,16 @@ $banner = isset($_GET["status"]);
 		</div>
 	</div>
 	<?php require_once("../template/js.php"); ?>
+	<script>
+		async function confirm_delete() {
+			return await swal({
+				title: "<?php echo $MSG_DELETE ?> ?"
+			}).then((confirm) => {
+				if (confirm)
+					$("#del").attr("onsubmit", "").submit()
+			})
+		}
+	</script>
 </body>
 
 </html>
