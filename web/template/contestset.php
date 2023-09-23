@@ -45,7 +45,7 @@
       <br>
 
       <center>
-        <h3><?php echo $MSG_SERVER_TIME ?> <span id=nowdate></span></h3>
+        <h3><?php echo $MSG_SERVER_TIME ?> <span id=nowdate> <?php echo date("Y-m-d H:i:s") ?> </span></h3>
       </center><br>
       <div class="table-responsive">
         <table class='table table-striped' width=90%>
