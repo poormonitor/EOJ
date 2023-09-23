@@ -346,7 +346,7 @@
                         echo "''"; ?>];
 
     var diff = new Number("<?php echo round(microtime(true) * 1000) ?>") - new Date().getTime();
-    setTimeout("clock()", diff % 1000 ? diff > 0 : 1000 + diff % 1000);
+    setTimeout("clock()", diff > 0 ? diff % 1000 : 1000 + diff % 1000);
 
     var i = 0;
     var interval = 800;

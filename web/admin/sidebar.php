@@ -11,9 +11,11 @@
     }
 </style>
 <div class='col-md-3 col-lg-2'>
-    <a class="btn btn-primary expandBtn" role="button" data-toggle="collapse" href="#collapsePanel" aria-expanded="false" aria-controls="collapsePanel">
-        Expand
-    </a>
+    <div class="center">
+        <a class="btn btn-default btn-block expandBtn" role="button" data-toggle="collapse" href="#collapsePanel" aria-expanded="false" aria-controls="collapsePanel">
+            <?php echo $MSG_MENU ?>
+        </a>
+    </div>
     <div class="collapse" id="collapsePanel">
         <hr>
         <a class='btn btn-default btn-block' href="./" title="<?php echo $MSG_ADMIN ?>"><b><?php echo $MSG_ADMIN ?></b></a>
@@ -112,8 +114,8 @@
                 <?php } ?>
             </div>
         </div>
+        <br>
+        <a class='btn btn-default btn-block' href="https://github.com/poormonitor/EOJ/" target="_blank"><b>EOJ</b></a>
     </div>
-    <br>
-    <a class='btn btn-default btn-block' href="https://github.com/poormonitor/EOJ/" target="_blank"><b>EOJ</b></a>
     <hr>
 </div>

@@ -337,7 +337,7 @@
 			document.getElementById('nowdate').innerHTML = n;
 			setTimeout("clock()", 1000);
 		}
-		setTimeout("clock()", diff % 1000 ? diff > 0 : 1000 + diff % 1000);
+		setTimeout("clock()", diff > 0 ? diff % 1000 : 1000 + diff % 1000);
 	</script>
 
 </body>
