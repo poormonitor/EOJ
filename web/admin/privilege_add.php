@@ -54,10 +54,13 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
 							if (isset($_POST['sub']))
 								$rightstr = "a$rightstr";
 
+							if (strlen($rightstr) <= 1)
+								exit(0);
+
 							if (isset($_POST['user_id'])) {
 								$user_id = $_POST['user_id'];
 
-								$sql = "insert into `privilege`(user_id,rightstr,valuestr,defunct) values(?,?,?,'N')";
+								$sql = "INSERT into `privilege`(user_id,rightstr,valuestr,defunct) values(?,?,?,'N')";
 								$rows = pdo_query($sql, $user_id, $rightstr, $valuestr);
 
 								$ip = getRealIP();

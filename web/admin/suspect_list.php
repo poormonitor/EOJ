@@ -34,6 +34,8 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
 						<h3><?php echo $MSG_IP_VERIFICATION ?></h3>
 					</center>
 
+					<br>
+					
 					<div class='container'>
 
 						<?php
@@ -54,9 +56,9 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
 										<tr>
 											<th class='center'>IP address</th>
 											<th class='center'>Used ID</th>
+											<th class='center'></th>
 											<th class='center'>Time</th>
 											<th class='center'>IP address count</th>
-											<th class='center'></th>
 										</tr>
 									</thead>
 									<tbody>

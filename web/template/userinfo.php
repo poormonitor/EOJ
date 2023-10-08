@@ -213,7 +213,7 @@
                 type: 'value'
             },
             textStyle: {
-                fontFamily: "Inter-SemiBold,SourceHanSansCN-Medium"
+                fontFamily: "SourceHanSansCN-Medium"
             },
             series: [{
                 data: <?php echo json_encode($chart_data_all) ?>,
@@ -262,7 +262,7 @@
                 trigger: 'item'
             },
             textStyle: {
-                fontFamily: "Inter-SemiBold,SourceHanSansCN-Medium"
+                fontFamily: "SourceHanSansCN-Medium"
             },
             series: [{
                 radius: ["40%", "80%"],

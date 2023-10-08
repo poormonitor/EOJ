@@ -265,7 +265,7 @@
 				trigger: 'item'
 			},
 			textStyle: {
-				fontFamily: "Inter-SemiBold,SourceHanSansCN-Medium"
+				fontFamily: "SourceHanSansCN-Medium"
 			},
 			series: [{
 				radius: ["40%", "80%"],
