@@ -31,7 +31,7 @@ if (!$result) {
 		$hash_num = hexdec(substr(md5($cat), 0, 7));
 		$label_theme = $color_theme[$hash_num % count($color_theme)];
 		if ($label_theme == "") $label_theme = "default";
-		$view_category .= "<a class='label label-$label_theme' style='display: inline-block; margin-top: 2px; margin-bottom: 2px;' href='problemset.php?search=" . (htmlentities($cat, ENT_QUOTES, 'UTF-8')) . "'>" . htmlentities($cat, ENT_QUOTES, 'utf-8') . "</a>&nbsp;";
+		$view_category .= "<a class='label label-$label_theme label-inline' href='problemset.php?search=" . (htmlentities($cat, ENT_QUOTES, 'UTF-8')) . "'>" . htmlentities($cat, ENT_QUOTES, 'utf-8') . "</a>&nbsp;";
 	}
 
 	$view_category .= "</div>";

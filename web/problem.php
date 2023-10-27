@@ -144,10 +144,8 @@ if ($row["blank"]) {
 	$blank = str_replace("%*%", "__________", $blank);
 }
 
-if ($row['block'])
-	$block = str_replace(" ", "</span>&nbsp;<span style='margin:0px 2px 0px 2px' class='label label-danger'>", $row['block']);
-if ($row['allow'])
-	$allow = str_replace(" ", "</span><span style='margin:0px 2px 0px 2px' class='label label-success'>", $row['allow']);
+if ($row['block']) $block = $row['block'];
+if ($row['allow']) $allow = $row['allow'];
 
 $sql = "select user_id from privilege where rightstr=? LIMIT 1";
 $result = mysql_query_cache($sql, "p" . $id);

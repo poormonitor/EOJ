@@ -130,7 +130,7 @@
 										</h4>
 									</div>
 									<div class='panel-body content'>
-										<div class='describe'><?php echo $row['description'] ?></div>
+										<div class='describe text-break'><?php echo $row['description'] ?></div>
 									</div>
 								</div>
 								<div class="row">
@@ -143,7 +143,7 @@
 														<?php echo $MSG_Input ?>
 													</h4>
 												</div>
-												<div class='panel-body content'>
+												<div class='panel-body content text-break'>
 													<?php echo $row['input'] ?>
 												</div>
 											</div>
@@ -158,7 +158,7 @@
 														<?php echo $MSG_Output ?>
 													</h4>
 												</div>
-												<div class='panel-body content'>
+												<div class='panel-body content text-break'>
 													<?php echo $row['output'] ?>
 												</div>
 											</div>
@@ -212,7 +212,7 @@
 												<?php echo $MSG_HINT ?>
 											</h4>
 										</div>
-										<div class='panel-body content'>
+										<div class='panel-body content text-break'>
 											<?php echo $row['hint'] ?>
 										</div>
 									</div>
@@ -242,10 +242,20 @@
 									<div class='panel-body content'>
 										<?php if ($row['allow'] || $row['block']) { ?>
 											<?php if ($row['block']) { ?>
-												<div style='margin-top:10px;'><?php echo $MSG_BLOCK_KEYWORD ?>: <span class='label label-danger'><?php echo $block; ?></span></div>
+												<div style='margin-top:10px;'>
+													<?php echo $MSG_BLOCK_KEYWORD ?>:
+													<?php foreach (explode(" ", $row["block"]) as $block) { ?>
+														<span class='label label-danger label-inline'><?php echo $block; ?></span>
+													<?php } ?>
+												</div>
 											<?php }
 											if ($row['allow']) { ?>
-												<div style='margin-top:10px;'><?php echo $MSG_ALLOW_KEYWORD ?>: <span class='label label-success'><?php echo $allow; ?></span></div>
+												<div style='margin-top:10px;'>
+													<?php echo $MSG_ALLOW_KEYWORD ?>:
+													<?php foreach (explode(" ", $row["allow"]) as $allow) { ?>
+														<span class='label label-success label-inline'><?php echo $allow; ?></span>
+													<?php } ?>
+												</div>
 											<?php } ?>
 										<?php } else {
 											echo $MSG_EMPTY;
@@ -259,7 +269,7 @@
 										</h4>
 									</div>
 
-									<div fd="source" style='word-wrap:break-word;' pid=<?php echo $row['problem_id'] ?> class='panel-body content'>
+									<div fd="source" pid=<?php echo $row['problem_id'] ?> class='panel-body content text-break'>
 										<?php if ($row['source']) { ?>
 											<?php
 											$cats = explode(" ", $row['source']);
@@ -268,7 +278,7 @@
 												$hash_num = hexdec(substr(md5($cat), 0, 7));
 												$label_theme = $color_theme[$hash_num % count($color_theme)];
 												if ($label_theme == "") $label_theme = "default";
-												echo "<a class='label label-$label_theme' style='display: inline-block;' href='problemset.php?search=" . urlencode(htmlentities($cat, ENT_QUOTES, 'utf-8')) . "'>" . htmlentities($cat, ENT_QUOTES, 'utf-8') . "</a>&nbsp;";
+												echo "<a class='label label-$label_theme label-inline' href='problemset.php?search=" . urlencode(htmlentities($cat, ENT_QUOTES, 'utf-8')) . "'>" . htmlentities($cat, ENT_QUOTES, 'utf-8') . "</a>&nbsp;";
 											} ?>
 										<?php } else {
 											echo $MSG_EMPTY;
@@ -303,6 +313,15 @@
 			$(elem).wrap(atag)
 		})
 		$(".image").simpleLightbox();
+		$("div.content table").each(function(_, elem) {
+			table = $(elem);
+			if (!table.parent().hasClass("table-responsive")) {
+				$(elem).wrap("<div class='table-responsive'></div>");
+			}
+			if (!table.hasClass("whitespace-nowrap")) {
+				$(elem).addClass("whitespace-nowrap")
+			}
+		})
 	</script>
 	<?php if ($row["background"]) { ?>
 		<style>
