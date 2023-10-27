@@ -145,19 +145,23 @@ if (isset($_GET['qid'])) {
 
     $wheremy = "";
     if (isset($_SESSION[$OJ_NAME . '_user_id'])) {
-        if (isset($user_allowed) && !isset($_SESSION[$OJ_NAME . '_' . "administrator"])) {
-            $wheremy = " and (quiz_id in ($user_allowed) or private=0)";
+        if (!isset($_SESSION[$OJ_NAME . '_' . "administrator"])) {
+            if (isset($user_allowed) && $user_allowed) {
+                $wheremy = " and (quiz_id in ($user_allowed) or private=0)";
+            } else {
+                $wheremy = " and private=0";
+            }
         }
     }
 
     if ($keyword) {
-        $sql = "SELECT *  FROM quiz WHERE quiz.defunct='N' AND quiz.title LIKE ? $wheremy  ORDER BY quiz_id DESC";
+        $sql = "SELECT * FROM quiz WHERE quiz.defunct='N' AND quiz.title LIKE ? $wheremy ORDER BY quiz_id DESC";
         $total = count(pdo_query($sql, $keyword));
         $sql .= " limit " . strval($pstart) . "," . strval($pend);
 
         $result = pdo_query($sql, $keyword);
     } else {
-        $sql = "SELECT *  FROM quiz WHERE quiz.defunct='N' $wheremy  ORDER BY quiz_id DESC";
+        $sql = "SELECT * FROM quiz WHERE quiz.defunct='N' $wheremy ORDER BY quiz_id DESC";
         $total = count(pdo_query($sql));
         $sql .= " limit " . strval($pstart) . "," . strval($pend);
         //echo $sql;
