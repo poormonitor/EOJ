@@ -29,8 +29,9 @@
 </script>
 <script src="<?php echo $OJ_CDN_URL . "template/" ?>jquery.min.js"></script>
 <script src="<?php echo $OJ_CDN_URL . "template/" ?>bootstrap.min.js"></script>
-<script src="<?php echo $OJ_CDN_URL . "template/" ?>index.min.js?v=1.32"></script>
-<script src="<?php echo $OJ_CDN_URL . "include/" ?>sweetalert.min.js"></script>
+<script src="<?php echo $OJ_CDN_URL . "include/" ?>message.min.js"></script>
+<script src="<?php echo $OJ_CDN_URL . "template/" ?>index.min.js?v=1.34"></script>
+<script src="<?php echo $OJ_CDN_URL . "template/" ?>watermark-plus.min.js"></script>
 <?php if (isset($OJ_GOOGLE_ANALYTICS)) { ?>
 	<script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo $OJ_GOOGLE_ANALYTICS ?>"></script>
 	<script>
@@ -47,6 +48,10 @@
 $endTime = microtime(true);
 $runTime = ($endTime - $startTime) * 1000 . ' ms';
 $prefix = isset($prefix) ? $prefix : "";
+
+$info = time() . " " . $_COOKIE["PHPSESSID"] . " " . getRealIP();
+if (isset($_SESSION[$OJ_NAME . '_' . 'user_id']))
+	$info .= " " . $_SESSION[$OJ_NAME . '_' . 'user_id'];
 ?>
 <script>
 	$(document).ready(function() {
@@ -54,6 +59,7 @@ $prefix = isset($prefix) ? $prefix : "";
 	});
 	console.log("Loading used <?php echo $runTime; ?>.")
 	console.log("Thanks for choosing <?php echo $OJ_NAME; ?>.");
+
 	<?php
 	$sql = "SELECT * FROM news WHERE news_id = -1 AND defunct = 'N'";
 	$result = pdo_query($sql);
@@ -64,4 +70,17 @@ $prefix = isset($prefix) ? $prefix : "";
 			"<?php echo $message["href"] ?>",
 			<?php echo $message["float"] ?>);
 	<?php } ?>
+
+	var watermark_config = {
+		contentType: 'multi-line-text',
+		content: '<?php echo $info ?>',
+		fontSize: '12px',
+		lineHeight: 16,
+		rotate: 25,
+		width: 200,
+		height: 200
+	}
+	if (isDarkMode) watermark_config.fontColor = '#fff'
+	var watermark = new WatermarkPlus.BlindWatermark(watermark_config)
+	watermark.create()
 </script>

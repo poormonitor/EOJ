@@ -3,11 +3,11 @@ require("admin-header.php");
 require_once("../include/set_get_key.php");
 
 if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
-    || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator']))) {
-    $view_swal_params = "{title:'$MSG_PRIVILEGE_WARNING',icon:'error'}";
-    $error_location = "../index.php";
-    require("../template/error.php");
-    exit(0);
+  || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator']))) {
+  $view_swal_params = "{title:'$MSG_PRIVILEGE_WARNING',icon:'error'}";
+  $error_location = "../index.php";
+  require("../template/error.php");
+  exit(0);
 }
 ?>
 <!DOCTYPE html>
@@ -148,25 +148,22 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
               echo "</div>";
             }
             ?>
-
           </div>
-          <br>
-          <?php if (isset($_GET['judge_over'])) { ?>
-            <script src="<?php echo $OJ_CDN_URL . "include/" ?>sweetalert.min.js"></script>
-            <script>
-              swal({
-                title: '<?php echo $MSG_JUDGE_OVER ?>',
-                icon: 'success',
-                timer: 1500,
-              })
-            </script>
-          <?php } ?>
           <br>
         </div>
       </div>
     </div>
   </div>
   <?php require_once("../template/js.php"); ?>
+  <?php if (isset($_GET['judge_over'])) { ?>
+    <script>
+      swal({
+        title: '<?php echo $MSG_JUDGE_OVER ?>',
+        icon: 'success',
+        timer: 1500,
+      })
+    </script>
+  <?php } ?>
 </body>
 
 </html>

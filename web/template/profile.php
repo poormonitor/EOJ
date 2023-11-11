@@ -1,8 +1,6 @@
 <?php
 header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
-header("Cache-Control: no-cache");
-header("Pragma: no-cache");
-header("content-type:application/javascript");
+header("Content-Type: application/javascript");
 
 require_once("../include/db_info.inc.php");
 

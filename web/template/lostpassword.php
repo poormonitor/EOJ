@@ -6,14 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
-  <meta name="author" content="<?php echo $OJ_NAME?>">
+  <meta name="author" content="<?php echo $OJ_NAME ?>">
   <link rel="shortcut icon" href="/favicon.ico">
 
-  <title><?php echo $OJ_NAME ?></title>
+  <title><?php echo $MSG_PASSWORD_RESET . " - " . $OJ_NAME ?></title>
   <?php include("template/css.php"); ?>
-
-
-
 </head>
 
 <body>
@@ -46,7 +43,7 @@
           </div>
           <div class="form-group">
             <div class="col-sm-offset-4 col-sm-4">
-              <input name="submit_btn" type="submit" class="btn btn-default btn-block" value="<?php echo $MSG_SUBMIT;?>">
+              <input name="submit_btn" type="submit" class="btn btn-default btn-block" value="<?php echo $MSG_SUBMIT; ?>">
             </div>
           </div>
         </form>

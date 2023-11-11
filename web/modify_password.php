@@ -5,19 +5,12 @@
 <head>
 	<meta charset="utf-8">
 	<title><?php echo $OJ_NAME; ?></title>
-	<style>
-		@media (prefers-color-scheme: dark) {
-			body {
-				height: auto;
-				background: #242424;
-			}
-		}
-	</style>
+	<?php include("./template/css.php"); ?>
 </head>
 
 <body>
 	<script src="<?php echo $OJ_CDN_URL . "template/" ?>jquery.min.js"></script>
-	<script src="<?php echo $OJ_CDN_URL .  "include/" ?>sweetalert.min.js"></script>
+	<script src="<?php echo $OJ_CDN_URL .  "include/" ?>message.min.js"></script>
 	<?php
 	$cache_time = 10;
 	$OJ_CACHE_SHARE = false;
@@ -50,15 +43,15 @@
 	if ($row && pwCheck($password, $row['password'])) $rows_cnt = 1;
 	else $rows_cnt = 0;
 	if ($rows_cnt == 0) {
-		$err_str = $err_str . "旧密码不正确！";
+		$err_str = $err_str . "Old password incorrect!";
 		$err_cnt++;
 	}
 	$len = strlen($_POST['new1-password']);
 	if ($len < 6 && $len > 0) {
 		$err_cnt++;
-		$err_str = $err_str . "密码长度至少6位\\n";
+		$err_str = $err_str . "Password at least six characters!\\n";
 	} else if (strcmp($_POST['new1-password'], $_POST['new2-password']) != 0) {
-		$err_str = $err_str . "密码不一致！";
+		$err_str = $err_str . "Passwords do not match!";
 		$err_cnt++;
 	}
 	if ($err_cnt > 0) {
@@ -78,7 +71,7 @@
 	pdo_query($sql, $password, $user_id);
 	?>
 	<script>
-		swal("修改成功！").then((onConfirm) => {
+		swal("<?php echo $MSG_SUCCESS ?>").then((onConfirm) => {
 			history.go(-1);
 		});
 	</script>

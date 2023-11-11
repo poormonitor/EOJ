@@ -25,6 +25,11 @@ var langString = {
 
 var language_monaco = ["c", "cpp", "pascal", "java", "ruby", "bash", "python", "php", "perl", "csharp", "objective-c", "vb", "scheme", "c", "cpp", "lua", "javascript", "go", "sql", "fortran", "matlab", ""];
 
+var notyf = new Notyf();
+
+var isDarkMode = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    || ("querySelector" in document && !!document.querySelector("meta[name=darkreader]"));
+
 $(document).ready(function () {
     $("form").append("<div id='csrf' />");
 });
@@ -255,15 +260,9 @@ function CopyToClipboard(input) {
     }
 
     if (success) {
-        swal({
-            text: langString.Copied,
-            timer: 1000
-        });
+        notyf.success(langString.Copied);
     } else {
-        swal({
-            text: langString.CopyForbidden,
-            timer: 1000
-        });
+        notyf.error(langString.CopyForbidden);
     }
 }
 
@@ -412,24 +411,24 @@ function print_result(solution_id) {
     $.get("status-ajax.php?tr=1&solution_id=" + solution_id, function (data, status) {
         $("#out").text(data)
     })
-    swal(langString.TestRunOver);
+    notyf.success(langString.TestRunOver)
 }
 
 function fresh_test_result(solution_id) {
     var tb = window.document.getElementById('result');
     switch (solution_id) {
         case "-1":
-            swal(langString.VcodeWrong);
+            notyf.error(langString.VcodeWrong)
             tb.innerHTML = langString.Status;
             if ($("#vcode") != null) $("#vcode").click();
             return;
         case "-2":
-            swal(langString.FormatWrong);
+            notyf.error(langString.FormatWrong)
             tb.innerHTML = langString.Status;
             if ($("#vcode") != null) $("#vcode").click();
             return;
         case "-3":
-            swal(langString.KeywordWrong);
+            notyf.error(langString.KeywordWrong)
             tb.innerHTML = langString.Status;
             if ($("#vcode") != null) $("#vcode").click();
             return;

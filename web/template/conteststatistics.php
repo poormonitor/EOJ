@@ -10,7 +10,7 @@
 	<link rel="shortcut icon" href="/favicon.ico">
 
 	<title>
-		<?php echo $OJ_NAME ?>
+		<?php echo $MSG_STATISTICS . " - " . $OJ_NAME ?>
 	</title>
 
 	<?php include("template/css.php"); ?>
@@ -263,7 +263,7 @@
 			},
 			legend: [{
 				data: ['<?php echo $MSG_TOTAL ?>', '<?php echo $MSG_ACCEPTED ?>'],
-				top: "10%"
+				top: "10%",
 			}],
 			grid: {
 				left: '1%',
@@ -292,7 +292,7 @@
 				type: 'value'
 			},
 			textStyle: {
-				fontFamily: "SourceHanSansCN-Medium"
+				fontFamily: "SourceHanSansCN-Medium",
 			},
 			series: [{
 				data: <?php echo json_encode($chart_data_all) ?>,

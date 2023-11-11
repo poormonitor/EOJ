@@ -15,7 +15,7 @@
   </style>
 
   <title>
-    <?php echo $OJ_NAME ?>
+    <?php echo $MSG_SUSPECT . " - " . $OJ_NAME ?>
   </title>
 
   <?php

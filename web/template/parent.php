@@ -245,19 +245,6 @@
     </div>
   </div>
   <?php include("template/js.php"); ?>
-  <script src="<?php echo $OJ_CDN_URL . "template/" ?>watermark.js"></script>
-  <?php
-  $info = time() . " " . $_COOKIE["PHPSESSID"];
-  ?>
-  <script>
-    window.onload = function() {
-      watermark.init({
-        watermark_txt: "<?php echo $info; ?>",
-        watermark_width: 300,
-        watermark_alpha: 0.08
-      });
-    }
-  </script>
   <script>
     <?php if ($view_error) { ?>
       swal('<?php echo $view_error; ?>');

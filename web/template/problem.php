@@ -10,7 +10,7 @@
 	<link rel="shortcut icon" href="/favicon.ico">
 
 	<title>
-		<?php echo $OJ_NAME ?>
+		<?php echo $row['title'] . " - " . $OJ_NAME ?>
 	</title>
 
 	<?php include("template/css.php"); ?>
@@ -68,16 +68,13 @@
 				<div class="panel-heading">
 					<?php
 					if ($pr_flag) {
-						echo "<title>$MSG_PROBLEM" . $row['problem_id'] . "--" . $row['title'] . "</title>";
 						echo "<center><h3>$id: " . $row['title'] . "</h3></center>";
-						echo "<div align=right><sub>[$MSG_Creator : <span id='creator'><a href='userinfo.php?user=" . htmlentities($creator, ENT_QUOTES, 'utf-8') . "'>" . htmlentities($creator, ENT_QUOTES, 'utf-8') . "</a></span>]</sub></div>";
 					} else {
 						//$PID="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 						$id = $row['problem_id'];
-						echo "<title>$MSG_PROBLEM " . $PID[$pid] . ": " . $row['title'] . " </title>";
-						echo "<center><h3>$MSG_PROBLEM " . $PID[$pid] . ": " . $row['title'] . "</h3><center>";
-						echo "<div align=right><sub>[$MSG_Creator : <span id='creator'><a href='userinfo.php?user=" . htmlentities($creator, ENT_QUOTES, 'utf-8') . "'>" . htmlentities($creator, ENT_QUOTES, 'utf-8') . "</a></span>]</sub></div>";
+						echo "<center><h3>$MSG_PROBLEM " . $PID[$pid] . ": " . $row['title'] . "</h3></center>";
 					}
+					echo "<div align=right><sub>[$MSG_Creator : <span id='creator'><a href='userinfo.php?user=" . htmlentities($creator, ENT_QUOTES, 'utf-8') . "'>" . htmlentities($creator, ENT_QUOTES, 'utf-8') . "</a></span>]</sub></div>";
 					echo "<center>";
 					echo "<span class=green>$MSG_Time_Limit : </span><span><span fd='time_limit' pid='" . $row['problem_id'] . "'  >" . $row['time_limit'] . "</span></span> sec&nbsp;&nbsp;";
 					echo "<span class=green>$MSG_Memory_Limit : </span>" . $row['memory_limit'] . " MB";

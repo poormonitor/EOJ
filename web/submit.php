@@ -485,15 +485,8 @@ if ((!isset($_REQUEST['ajax']))) { ?>
   <head>
     <meta charset='utf-8'>
     <title><?php echo $MSG_SUBMIT ?></title>
+    <?php include("./template/css.php"); ?>
   </head>
-  <style>
-    @media(prefers-color-scheme: dark) {
-      body {
-        height: auto;
-        background: #242424;
-      }
-    }
-  </style>
 
   <body></body>
 

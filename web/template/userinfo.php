@@ -9,7 +9,7 @@
     <meta name="author" content="<?php echo $OJ_NAME ?>">
     <link rel="shortcut icon" href="/favicon.ico">
 
-    <title><?php echo $OJ_NAME ?></title>
+    <title><?php echo htmlentities($nick, ENT_QUOTES, "UTF-8") . " - " . $OJ_NAME ?></title>
     <?php include("template/css.php"); ?>
 
 
@@ -26,72 +26,72 @@
                 <div class='col-md-4'>
                     <center>
                         <div class="table-responsive">
-			<table class="table table-striped" id=statics width=70%>
-                            <thead>
-                                <tr>
-                                    <th colspan='2'>
-                                        <div style='font-size:140%;'>
-                                            <?php echo htmlentities($nick, ENT_QUOTES, "UTF-8") ?>
-                                        </div>
-                                        <div>
-                                            <?php echo $user; ?>
-                                        </div>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td width=20%><?php echo $MSG_Number ?></td>
-                                    <td width=80% align=center><?php echo $Rank ?></td>
-                                </tr>
-                                <tr>
-                                    <td><?php echo $MSG_SOVLED ?>
-                                    <td align=center><a href='status.php?user_id=<?php echo $user ?>&jresult=4'><?php echo $AC ?></td></a>
+                            <table class="table table-striped" id=statics width=70%>
+                                <thead>
+                                    <tr>
+                                        <th colspan='2'>
+                                            <div style='font-size:140%;'>
+                                                <?php echo htmlentities($nick, ENT_QUOTES, "UTF-8") ?>
+                                            </div>
+                                            <div>
+                                                <?php echo $user; ?>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td width=20%><?php echo $MSG_Number ?></td>
+                                        <td width=80% align=center><?php echo $Rank ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td><?php echo $MSG_SOVLED ?>
+                                        <td align=center><a href='status.php?user_id=<?php echo $user ?>&jresult=4'><?php echo $AC ?></td></a>
 
-                                </tr>
-                                <tr>
-                                    <td><?php echo $MSG_SUBMIT ?></td>
-                                    <td align=center><a href='status.php?user_id=<?php echo $user ?>'><?php echo $Submit ?></a></td>
-                                </tr>
-                                <?php
-                                foreach ($view_userstat as $row) {
-                                    //i++;
-                                    echo "<tr><td>" . $jresult[$row[0]] . "</td><td align=center><a href=status.php?user_id=$user&jresult=" . $row[0] . " >" . $row[1] . "</a></td></tr>";
-                                }
-                                //}
-                                ?>
-                                <tr id='pie'>
-                                    <td><?php echo $MSG_STATISTICS ?></td>
-                                    <td style='height:150px;width:80%'>
-                                        <div id='container_pie' style='height:100%;width:100%;'></div>
-                                    </td>
-                                </tr>
-                                <?php if ($group_name) { ?>
-                                    <tr>
-                                        <td><?php echo $MSG_GROUP ?></td>
-                                        <td align=center><?php echo $group_name ?></td>
                                     </tr>
-                                <?php } ?>
-                                <?php if ($school) { ?>
                                     <tr>
-                                        <td><?php echo $MSG_SCHOOL ?></td>
-                                        <td align=center><?php echo $school ?></td>
+                                        <td><?php echo $MSG_SUBMIT ?></td>
+                                        <td align=center><a href='status.php?user_id=<?php echo $user ?>'><?php echo $Submit ?></a></td>
                                     </tr>
-                                <?php } ?>
-                                <?php if (count($view_userinfo)) { ?>
-                                    <tr>
-                                        <td><?php echo $MSG_IP_LOCATION ?></td>
-                                        <?php
-                                        require_once("./include/iplocation.php");
-                                        $user_ip = $view_userinfo[0][2];
-                                        $info = getLocationShort($user_ip);
-                                        ?>
-                                        <td align=center><?php echo $info ?></td>
+                                    <?php
+                                    foreach ($view_userstat as $row) {
+                                        //i++;
+                                        echo "<tr><td>" . $jresult[$row[0]] . "</td><td align=center><a href=status.php?user_id=$user&jresult=" . $row[0] . " >" . $row[1] . "</a></td></tr>";
+                                    }
+                                    //}
+                                    ?>
+                                    <tr id='pie'>
+                                        <td><?php echo $MSG_STATISTICS ?></td>
+                                        <td style='height:150px;width:80%'>
+                                            <div id='container_pie' style='height:100%;width:100%;'></div>
+                                        </td>
                                     </tr>
-                                <?php } ?>
-                            </tbody>
-                        </table>
-			</div>
+                                    <?php if ($group_name) { ?>
+                                        <tr>
+                                            <td><?php echo $MSG_GROUP ?></td>
+                                            <td align=center><?php echo $group_name ?></td>
+                                        </tr>
+                                    <?php } ?>
+                                    <?php if ($school) { ?>
+                                        <tr>
+                                            <td><?php echo $MSG_SCHOOL ?></td>
+                                            <td align=center><?php echo $school ?></td>
+                                        </tr>
+                                    <?php } ?>
+                                    <?php if (count($view_userinfo)) { ?>
+                                        <tr>
+                                            <td><?php echo $MSG_IP_LOCATION ?></td>
+                                            <?php
+                                            require_once("./include/iplocation.php");
+                                            $user_ip = $view_userinfo[0][2];
+                                            $info = getLocationShort($user_ip);
+                                            ?>
+                                            <td align=center><?php echo $info ?></td>
+                                        </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </center>
                 </div>
                 <div class='col-md-8'>
@@ -184,7 +184,7 @@
             },
             legend: [{
                 data: ['<?php echo $MSG_TOTAL ?>', '<?php echo $MSG_ACCEPTED ?>'],
-                top: "10%"
+                top: "10%",
             }],
             grid: {
                 left: '1%',
@@ -213,7 +213,7 @@
                 type: 'value'
             },
             textStyle: {
-                fontFamily: "SourceHanSansCN-Medium"
+                fontFamily: "SourceHanSansCN-Medium",
             },
             series: [{
                 data: <?php echo json_encode($chart_data_all) ?>,

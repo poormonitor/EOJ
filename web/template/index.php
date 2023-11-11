@@ -42,7 +42,7 @@
          },
          legend: [{
             data: ['<?php echo $MSG_TOTAL ?>', '<?php echo $MSG_ACCEPTED ?>'],
-            top: "10%"
+            top: "10%",
          }],
          grid: {
             left: '1%',
@@ -71,7 +71,7 @@
             type: 'value'
          },
          textStyle: {
-            fontFamily: "SourceHanSansCN-Medium"
+            fontFamily: "SourceHanSansCN-Medium",
          },
          series: [{
             data: <?php echo json_encode($chart_data_all) ?>,
@@ -87,7 +87,7 @@
             smooth: true
          }]
       };
-      statusChart.setOption(option);
+      statusChart.setOption(option, isDarkMode ? "dark" : "light");
       window.onresize = function() {
          statusChart.resize();
       };

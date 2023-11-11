@@ -11,7 +11,7 @@
   <link rel="shortcut icon" href="/favicon.ico">
 
   <title>
-    <?php echo $OJ_NAME ?>
+    <?php echo $MSG_STATUS . " - " . $OJ_NAME ?>
   </title>
 
   <?php include("template/css.php"); ?>

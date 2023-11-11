@@ -9,20 +9,13 @@ require_once('./include/setlang.php');
 <head>
 	<meta charset="utf-8">
 	<title><?php echo $MSG_LOGIN ?></title>
+	<?php include("./template/css.php"); ?>
 </head>
 
 <body>
-	<style>
-		@media (prefers-color-scheme: dark) {
-			body {
-				height: auto;
-				background: #242424;
-			}
-		}
-	</style>
 
 	<script src="<?php echo $OJ_CDN_URL . "template/" ?>jquery.min.js"></script>
-	<script src="<?php echo $OJ_CDN_URL .  "include/" ?>sweetalert.min.js"></script>
+	<script src="<?php echo $OJ_CDN_URL .  "include/" ?>message.min.js"></script>
 
 	<?php
 	$use_cookie = false;

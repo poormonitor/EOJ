@@ -9,7 +9,7 @@
     <meta name="author" content="<?php echo $OJ_NAME ?>">
     <link rel="shortcut icon" href="/favicon.ico">
 
-    <title><?php echo $OJ_NAME ?></title>
+    <title><?php echo $MSG_SUBMIT . " - " . $OJ_NAME ?></title>
     <?php include("template/css.php"); ?>
 
 </head>
@@ -19,11 +19,7 @@
         <div class="modal__overlay" tabindex="-1" data-micromodal-close>
             <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
                 <main class="modal__content" id="modal-1-content">
-                    <?php if (isset($id)) { ?>
-                        <iframe class="modal-iframe" src="problem.php?simple&id=<?php echo $id ?>"></iframe>
-                    <?php } else { ?>
-                        <iframe class="modal-iframe" src="problem.php?simple&cid=<?php echo $cid ?>&pid=<?php echo $pid ?>"></iframe>
-                    <?php } ?>
+                    <?php include("template/problem_simple.php") ?>
                 </main>
             </div>
         </div>

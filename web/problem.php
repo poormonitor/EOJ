@@ -151,11 +151,7 @@ $sql = "select user_id from privilege where rightstr=? LIMIT 1";
 $result = mysql_query_cache($sql, "p" . $id);
 $creator = count($result) ? $result[0][0] : "admin";
 
-if (isset($_GET["simple"])) {
-	require("template/problem_simple.php");
-} else {
-	require("template/problem.php");
-}
+require("template/problem.php");
 
 if (file_exists('./include/cache_end.php'))
 	require_once('./include/cache_end.php');

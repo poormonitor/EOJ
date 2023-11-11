@@ -10,7 +10,7 @@
     <link rel="shortcut icon" href="/favicon.ico">
 
     <title>
-        <?php echo $OJ_NAME ?>
+        帮助 - <?php echo $OJ_NAME ?>
     </title>
     <?php include("template/css.php"); ?>
 

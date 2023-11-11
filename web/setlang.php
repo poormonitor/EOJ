@@ -11,14 +11,7 @@ if (isset($_GET['lang']) && in_array($_GET['lang'], array("zh", "en"))) {
 <head>
     <meta charset="utf-8">
     <title><?php echo $OJ_NAME; ?></title>
-    <style>
-        @media (prefers-color-scheme: dark) {
-            body {
-                height: auto;
-                background: #242424;
-            }
-        }
-    </style>
+    <?php include("./template/css.php"); ?>
 </head>
 
 <body>

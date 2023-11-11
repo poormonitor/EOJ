@@ -10,7 +10,7 @@
   <link rel="shortcut icon" href="/favicon.ico">
   <link href='<?php echo $OJ_CDN_URL ?>template/prism.css' rel='stylesheet' type='text/css' />
 
-  <title><?php echo $OJ_NAME ?></title>
+  <title><?php echo  $id . " - " . $OJ_NAME ?></title>
   <?php include("template/css.php"); ?>
 
 </head>

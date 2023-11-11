@@ -1,6 +1,4 @@
 <?php
-header("Cache-Control: no-cache, must-revalidate");
-
 $cache_time = 10;
 $OJ_CACHE_SHARE = false;
 

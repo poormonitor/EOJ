@@ -44,12 +44,18 @@ if (isset($_GET['id'])) {
 
 	$row = $data[0];
 	$problem_id = $row[0];
+
+	$sql = "SELECT * FROM `problem` WHERE `problem_id`=?";
+	$result = pdo_query($sql, $problem_id);
+
 	$sample_sql = "SELECT sample_input, sample_output, problem_id FROM problem WHERE problem_id = ?";
 } else {
 	$view_swal = "$MSG_NOT_EXISTED";
 	require("template/error.php");
 	exit(0);
 }
+
+$problem_info = $result[0];
 
 $view_src = "";
 
@@ -170,11 +176,11 @@ $multiline = false;
 if ($blank !== NULL) {
 	if (isset($sid)) {
 		$blank_pat = "#" . preg_quote($blank) . "#";
-	
+
 		$single_blank = str_replace("%\*%", "(.*)", $blank_pat);
 		preg_match_all($single_blank, $view_src, $single_line_matches);
 		$single_line_matches = array_slice($single_line_matches, 1);
-	
+
 		$multi_blank = str_replace("\*%\*", "([\s\S]*)", $blank_pat);
 		preg_match_all($multi_blank, $view_src, $multi_line_matches);
 		$multi_line_matches = array_slice($multi_line_matches, 1);

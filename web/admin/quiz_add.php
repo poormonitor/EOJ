@@ -287,7 +287,7 @@ require_once("admin-header.php");
 
           <?php
           if (isset($unknown)) { ?>
-            <script src="<?php echo $OJ_CDN_URL .  "include/" ?>sweetalert.min.js"></script>
+            <script src="<?php echo $OJ_CDN_URL .  "include/" ?>message.min.js"></script>
             <script>
               function warning() {
                 swal('<?php echo $MSG_INPUT_NUMBER ?>', {

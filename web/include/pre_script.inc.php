@@ -1,6 +1,9 @@
 <?php
 $startTime = microtime(true);
 
+header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP/1.1
+header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past
+
 ini_set("display_errors", $OJ_DEBUG ? "On" : "Off");
 error_reporting(E_ALL);
 ini_set('date.timezone', $OJ_TIMEZONE);
@@ -24,7 +27,6 @@ $time = date("H", time());
 if (($OJ_BLOCK_START_TIME < $OJ_BLOCK_END_TIME && $time >= $OJ_BLOCK_START_TIME && $time < $OJ_BLOCK_END_TIME - 1) ||
 	($OJ_BLOCK_START_TIME > $OJ_BLOCK_END_TIME && ($time >= $OJ_BLOCK_START_TIME || $time < $OJ_BLOCK_END_TIME - 1))
 ) {
-	header("Cache-Control: no-cache, must-revalidate");
 	require(dirname(__FILE__) . "/../index.html");
 	exit(0);
 }

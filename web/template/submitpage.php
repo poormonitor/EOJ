@@ -9,12 +9,11 @@
   <meta name="author" content="<?php echo $OJ_NAME ?>">
   <link rel="shortcut icon" href="/favicon.ico">
 
-  <title><?php echo $OJ_NAME ?></title>
+  <title><?php echo  $MSG_SUBMIT . " - " . $OJ_NAME ?></title>
   <?php include("template/css.php"); ?>
 
   <style>
     #source {
-      width: 80%;
       height: 600px;
       margin: 20px auto;
     }
@@ -26,11 +25,7 @@
     <div class="modal__overlay" tabindex="-1" data-micromodal-close>
       <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
         <main class="modal__content" id="modal-1-content">
-          <?php if (isset($id)) { ?>
-            <iframe class="modal-iframe" src="problem.php?simple&id=<?php echo $id ?>"></iframe>
-          <?php } else { ?>
-            <iframe class="modal-iframe" src="problem.php?simple&cid=<?php echo $cid ?>&pid=<?php echo $pid ?>"></iframe>
-          <?php } ?>
+          <?php include("template/problem_simple.php") ?>
         </main>
       </div>
     </div>
@@ -99,14 +94,15 @@
           <?php if (isset($code) && $no_blank) { ?>
             <pre id='copy' class='alert alert-error' style='text-align:left;display:none;'><?php echo $copy; ?></pre>
             <br>
-            <div class='btn-group' style='margin-bottom:10px;'>
+            <div class='btn-group mt-4'>
               <a class='btn btn-sm btn-info' href='javascript:CopyToClipboard($("#copy").text())'><?php echo $MSG_COPY ?></a>
               <a class='btn btn-sm btn-info' href='<?php echo str_replace("&blank=false", "", $_SERVER['REQUEST_URI']); ?>'><?php echo $MSG_BLANK_FILLING ?></a>
             </div>
           <?php } ?>
         </center>
 
-        <div id="source" class="editor-border"></div>
+        <div id="source" class="editor-border news"></div>
+
         <textarea hidden="hidden" id="hide_source" name="source"><?php echo $view_src ?></textarea>
         <center>
           <?php if ($OJ_VCODE) { ?>

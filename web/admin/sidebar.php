@@ -23,7 +23,7 @@
         <div class='middle'>
             <div class="btn-group-vertical" role="menu">
                 <div class="btn-group" role="menu">
-                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button type="button" class="btn btn-nm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <?php echo $MSG_NEWS . "-" . $MSG_ADMIN ?> <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
@@ -35,7 +35,7 @@
                     </ul>
                 </div>
                 <div class="btn-group">
-                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button type="button" class="btn btn-nm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <?php echo $MSG_USER . "-" . $MSG_ADMIN ?> <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
@@ -59,7 +59,7 @@
                     </ul>
                 </div>
                 <div class="btn-group" role="menu">
-                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button type="button" class="btn btn-nm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <?php echo $MSG_PROBLEM . "-" . $MSG_ADMIN ?> <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
@@ -75,7 +75,7 @@
                     </ul>
                 </div>
                 <div class="btn-group" role="menu">
-                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button type="button" class="btn btn-nm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <?php echo $MSG_CONTEST . "-" . $MSG_ADMIN ?> <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
@@ -88,7 +88,7 @@
                     </ul>
                 </div>
                 <div class="btn-group" role="menu">
-                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button type="button" class="btn btn-nm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <?php echo $MSG_QUIZ . "-" . $MSG_ADMIN ?> <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
@@ -100,7 +100,7 @@
                 </div>
                 <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) { ?>
                     <div class="btn-group" role="menu">
-                        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button type="button" class="btn btn-nm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <?php echo $MSG_SYSTEM . "-" . $MSG_ADMIN ?> <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">

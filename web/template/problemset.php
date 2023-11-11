@@ -10,16 +10,13 @@
 	<link rel="shortcut icon" href="/favicon.ico">
 
 	<title>
-		<?php echo $OJ_NAME ?>
+		<?php echo $MSG_PROBLEM . " - " . $OJ_NAME ?>
 	</title>
 	<?php include("template/css.php"); ?>
-
-
 
 </head>
 
 <body>
-
 	<div class="container">
 		<?php include("template/nav.php"); ?>
 		<!-- Main component for a primary marketing message or call to action -->
@@ -33,7 +30,7 @@
 							$href_url = "problemset.php"
 							?>
 							<?php if ($page > $section + 1) { ?>
-								<li class="page-item"><a href="<?php echo $href_url?>?page=1">1</a></li>
+								<li class="page-item"><a href="<?php echo $href_url ?>?page=1">1</a></li>
 							<?php } ?>
 							<?php if ($page > $section + 3) { ?>
 								<li class="page-item disabled"><span class="page-link">...</span></li>

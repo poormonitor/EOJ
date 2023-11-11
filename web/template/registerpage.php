@@ -9,7 +9,7 @@
   <meta name="author" content="<?php echo $OJ_NAME?>">
   <link rel="shortcut icon" href="/favicon.ico">
 
-  <title><?php echo $OJ_NAME ?></title>
+  <title><?php echo  $MSG_REGISTER . " - " . $OJ_NAME ?></title>
   <?php include("template/css.php"); ?>
 
 

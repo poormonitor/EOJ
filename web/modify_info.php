@@ -5,19 +5,12 @@
 <head>
 	<meta charset="utf-8">
 	<title><?php echo $OJ_NAME; ?></title>
-	<style>
-		@media (prefers-color-scheme: dark) {
-			body {
-				height: auto;
-				background: #242424;
-			}
-		}
-	</style>
+	<?php include("./template/css.php"); ?>
 </head>
 
 <body>
 	<script src="<?php echo $OJ_CDN_URL . "template/" ?>jquery.min.js"></script>
-	<script src="<?php echo $OJ_CDN_URL .  "include/" ?>sweetalert.min.js"></script>
+	<script src="<?php echo $OJ_CDN_URL .  "include/" ?>message.min.js"></script>
 	<?php
 	$cache_time = 10;
 	$OJ_CACHE_SHARE = false;

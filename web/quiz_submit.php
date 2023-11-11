@@ -125,16 +125,9 @@ header("Location: $statusURI");
 
 <head>
     <meta charset='utf-8'>
-    <title>提交</title>
+    <title><?php echo $MSG_SUBMIT ?></title>
+    <?php include("./template/css.php"); ?>
 </head>
-<style>
-    @media(prefers-color-scheme: dark) {
-        body {
-            height: auto;
-            background: #242424;
-        }
-    }
-</style>
 
 <body></body>
 

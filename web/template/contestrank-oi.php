@@ -10,7 +10,7 @@
 	<link rel="shortcut icon" href="/favicon.ico">
 
 	<title>
-		<?php echo $OJ_NAME ?>
+		<?php echo $MSG_CONTEST . " - " . $OJ_NAME ?>
 	</title>
 
 	<?php include("template/css.php"); ?>
@@ -61,7 +61,7 @@
 				$password = stripslashes($password);
 
 				if ($rows_cnt == 0) {
-					$view_title = "比赛已经关闭!";
+					$view_title = "Content closed!";
 				} else {
 					$row = $result[0];
 					$view_private = $row['private'];

@@ -5,11 +5,12 @@
 <head>
     <meta charset="utf-8">
     <title><?php echo $OJ_NAME; ?></title>
+    <?php include("./template/css.php"); ?>
 </head>
 
 <body>
     <script src="<?php echo $OJ_CDN_URL . "template/" ?>jquery.min.js"></script>
-    <script src="<?php echo $OJ_CDN_URL .  "include/" ?>sweetalert.min.js"></script>
+    <script src="<?php echo $OJ_CDN_URL .  "include/" ?>message.min.js"></script>
     <?php
     require_once('./include/setlang.php');
     $view_title = $OJ_NAME;

@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="<?php echo $OJ_NAME ?>">
   <link rel="shortcut icon" href="/favicon.ico">
-  <title><?php echo $OJ_NAME ?></title>
+  <title><?php echo $id . " - " .$OJ_NAME ?></title>
   <?php include("template/css.php"); ?>
 
   <link href='<?php echo $OJ_CDN_URL ?>template/prism.css' rel='stylesheet' type='text/css' />
