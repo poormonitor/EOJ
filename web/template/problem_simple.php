@@ -1,4 +1,4 @@
-<div class="panel panel-default panel-lg">
+<div class="panel panel-default panel-lg pb-5">
     <div class="panel-heading">
         <?php
         if (isset($cid)) {

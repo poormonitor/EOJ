@@ -49,7 +49,7 @@ $endTime = microtime(true);
 $runTime = ($endTime - $startTime) * 1000 . ' ms';
 $prefix = isset($prefix) ? $prefix : "";
 
-$info = time() . " " . $_COOKIE["PHPSESSID"] . " " . getRealIP();
+$info = $_COOKIE["PHPSESSID"] . " " . time() . " " . getRealIP();
 if (isset($_SESSION[$OJ_NAME . '_' . 'user_id']))
 	$info .= " " . $_SESSION[$OJ_NAME . '_' . 'user_id'];
 ?>
@@ -76,9 +76,9 @@ if (isset($_SESSION[$OJ_NAME . '_' . 'user_id']))
 		content: '<?php echo $info ?>',
 		fontSize: '12px',
 		lineHeight: 16,
-		rotate: 25,
+		rotate: 15,
 		width: 200,
-		height: 200
+		height: 80
 	}
 	if (isDarkMode) watermark_config.fontColor = '#fff'
 	var watermark = new WatermarkPlus.BlindWatermark(watermark_config)
