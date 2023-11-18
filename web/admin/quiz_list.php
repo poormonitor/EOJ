@@ -155,15 +155,6 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
     </div>
   </div>
   <?php require_once("../template/js.php"); ?>
-  <?php if (isset($_GET['judge_over'])) { ?>
-    <script>
-      swal({
-        title: '<?php echo $MSG_JUDGE_OVER ?>',
-        icon: 'success',
-        timer: 1500,
-      })
-    </script>
-  <?php } ?>
 </body>
 
 </html>

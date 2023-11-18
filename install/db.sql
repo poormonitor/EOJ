@@ -175,20 +175,20 @@ CREATE TABLE `problem` (
 
 
 CREATE TABLE `problem_2` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(100) DEFAULT NULL,
-  `description` text DEFAULT NULL,
-  `input` text DEFAULT NULL,
-  `output` text DEFAULT NULL,
-  `time` float DEFAULT NULL,
-  `memory` int(11) DEFAULT NULL,
-  `tag` varchar(100) DEFAULT NULL,
-  `sample_input` text DEFAULT NULL,
-  `sample_output` text DEFAULT NULL,
-  `source` varchar(100) DEFAULT NULL,
-  `spj` int(11) DEFAULT NULL,
-  `hint` text DEFAULT NULL,
-  PRIMARY KEY (`id`)
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`title` VARCHAR(100) NULL DEFAULT '',
+	`description` TEXT NULL DEFAULT '',
+	`input` TEXT NULL DEFAULT '',
+	`output` TEXT NULL DEFAULT '',
+	`time` FLOAT NULL DEFAULT '1',
+	`memory` INT(11) NULL DEFAULT '128',
+	`tag` VARCHAR(100) NULL DEFAULT '',
+	`sample_input` TEXT NULL DEFAULT '',
+	`sample_output` TEXT NULL DEFAULT '',
+	`source` VARCHAR(100) NULL DEFAULT '',
+	`spj` INT(11) NULL DEFAULT '0',
+	`hint` TEXT NULL DEFAULT '',
+	PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8mb4;
 
 

@@ -3,12 +3,12 @@ require("admin-header.php");
 require_once("../include/set_get_key.php");
 
 if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
-	|| isset($_SESSION[$OJ_NAME . '_' . 'problem_editor'])
+  || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor'])
 )) {
-	$view_swal_params = "{title:'$MSG_PRIVILEGE_WARNING',icon:'error'}";
-	$error_location = "../index.php";
-	require("../template/error.php");
-	exit(0);
+  $view_swal_params = "{title:'$MSG_PRIVILEGE_WARNING',icon:'error'}";
+  $error_location = "../index.php";
+  require("../template/error.php");
+  exit(0);
 }
 ?>
 
@@ -67,10 +67,10 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
             if (isset($_GET['keyword']) && $_GET['keyword'] != "") {
               $keyword = $_GET['keyword'];
               $keyword = "%$keyword%";
-              $sql = "SELECT `id`,`title`,`tag` FROM `problem_2` WHERE (`id` LIKE ?) OR (`title` LIKE ?) OR (`description` LIKE ?) OR (`tag` LIKE ?)";
+              $sql = "SELECT `id`,`title`,`tag`,`source` FROM `problem_2` WHERE (`id` LIKE ?) OR (`title` LIKE ?) OR (`description` LIKE ?) OR (`tag` LIKE ?) OR (`source` LIKE ?)";
               $result = pdo_query($sql, $keyword, $keyword, $keyword, $keyword);
             } else {
-              $sql = "SELECT `id`,`title`,`tag` FROM `problem_2` ORDER BY `id` DESC LIMIT $sid, $idsperpage";
+              $sql = "SELECT `id`,`title`,`tag`,`source` FROM `problem_2` ORDER BY `id` DESC LIMIT $sid, $idsperpage";
               $result = pdo_query($sql);
             }
             ?>
@@ -89,6 +89,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
                     <th class='center'><?php echo $MSG_PROBLEM_ID ?></th>
                     <th class='center'><?php echo $MSG_TITLE ?></th>
                     <th class='center'><?php echo $MSG_SOURCE ?></th>
+                    <th class='center'><?php echo $MSG_Source ?></th>
                     <?php
                     if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor'])) {
                       echo "<th class='center'>$MSG_EDIT</th>";
@@ -103,6 +104,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
                     echo "<td>" . $row['id'] . "</td>";
                     echo "<td>" . $row['title'] . "</td>";
                     echo "<td>" . $row['tag'] . "</td>";
+                    echo "<td>" . $row['source'] . "</td>";
                     if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor'])) {
                       echo "<td><a href=problem_add_page_2.php?id=" . $row['id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">$MSG_EDIT</a>";
                     }
