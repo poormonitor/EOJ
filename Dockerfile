@@ -7,8 +7,9 @@ RUN apt-get -y update  && \
         nginx \
         mariadb-server \
         mariadb-client \
-        memcached \
-        libmariadb-dev \
+        libmysqlclient-dev \
+        default-libmysqlclient-dev \
+        libmysql++-dev \
         php-common \
         php-fpm \
         php-mysql \
@@ -21,7 +22,9 @@ RUN apt-get -y update  && \
         flex \
         gcc \
         g++ \
-        openjdk-11-jdk
+        openjdk-11-jdk \
+        python3 \
+        python3-pip
 
 COPY . /trunk/
 
