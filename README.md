@@ -76,10 +76,10 @@ wget https://raw.githubusercontent.com/poormonitor/EOJ/master/install/install.sh
    基于 Github Action 每周构建 Docker 镜像。
 
    ```shell
-   docker run -d             \
-      --name EOJ             \
-      -p 8080:80             \
-      -v ~/volume:/home/eoj  \
+   docker run -d           \
+      --name EOJ           \
+      -p 8080:80           \
+      -v ~/eoj:/volume     \
       poormonitor/eoj:latest
    ```
 
