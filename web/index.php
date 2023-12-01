@@ -37,7 +37,7 @@ if (!isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
 }
 
 if (!$result) {
-	$view_news .= "";
+	$view_news = "";
 } else {
 	foreach ($result as $row) {
 		$view_news .= "<div class='panel panel-default'>";
@@ -45,8 +45,8 @@ if (!$result) {
 		$view_news .= "<div class='panel-body'>" . $row['content'] . "</div>";
 		$view_news .= "</div>";
 	}
+	$view_news .= "</div></div>";
 }
-$view_news .= "</div></div>";
 
 $view_apc_info = "";
 
@@ -68,7 +68,7 @@ foreach ($result as $row) {
 	array_push($chart_data_ac, array($row['md'], intval($row['c'])));
 }
 
-if (isset(end($chart_data_all)[1])) $speed = (end($chart_data_all)[1] ? end($chart_data_all)[1] : 0) . ' / ' . $MSG_DAYS;
+$speed = (isset(end($chart_data_all)[1]) ? end($chart_data_all)[1] : 0) . ' / ' . $MSG_DAYS;
 
 
 require("template/index.php");
