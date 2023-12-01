@@ -238,6 +238,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
                             $source = join(" ", explode(",", trim($_POST['source'])));
                             $allow = join(" ", explode(",", trim($_POST['allow'])));
                             $block = join(" ", explode(",", trim($_POST['block'])));
+                            $blank = $_POST['blank_code'];
 
                             $background = $_POST["background"];
 
@@ -257,12 +258,31 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
 
                             $spj = intval($spj);
 
+
+                            $sql = "SELECT * FROM `problem` WHERE `problem_id`=?";
+                            $result = pdo_query($sql, $id);
+                            $row = $result[0];
+
+                            $log = array();
+                            $compare = array(
+                                "title", "time_limit", "memory_limit", "description",
+                                "input", "output", "sample_input", "sample_output",
+                                "hint", "source", "spj", "background", "blank", "allow", "block"
+                            );
+                            foreach ($compare as $key) {
+                                if ($row[$key] != ${$key}) {
+                                    $log[] = $key;
+                                }
+                            }
+                            $logs = join(", ", $log);
+
+
                             $sql = "UPDATE `problem` SET `title`=?,`time_limit`=?,`memory_limit`=?, `description`=?,`input`=?,`output`=?,`sample_input`=?,`sample_output`=?,`hint`=?,`source`=?,`spj`=?, `background`=?, `in_date`=NOW(), `blank`=NULL, `allow`=NULL, `block`=NULL WHERE `problem_id`=?";
                             pdo_query($sql, $title, $time_limit, $memory_limit, $description, $input, $output, $sample_input, $sample_output, $hint, $source, $spj, $background, $id);
 
                             if ($_POST['blank'] == '1') {
                                 $sql = 'UPDATE `problem` set `blank`=? where `problem_id`=?';
-                                pdo_query($sql, $_POST['blank_code'], $id);
+                                pdo_query($sql, $blank, $id);
                             }
 
                             if ($allow) {
@@ -277,7 +297,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
 
                             $ip = getRealIP();
                             $sql = "INSERT INTO `oplog` (`target`,`user_id`,`operation`,`ip`) VALUES (?,?,?,?)";
-                            pdo_query($sql, "p$id", $_SESSION[$OJ_NAME . '_' . 'user_id'], "edit", $ip);
+                            pdo_query($sql, "p$id", $_SESSION[$OJ_NAME . '_' . 'user_id'], "edit $logs", $ip);
 
 ?>
     <p><?php echo $MSG_EDIT_SUCCESS ?></p>

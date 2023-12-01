@@ -116,7 +116,7 @@ CREATE TABLE `online` (
 CREATE TABLE `oplog` (
   `target` varchar(30) NOT NULL,
   `user_id` varchar(48) NOT NULL DEFAULT '',
-  `operation` varchar(50) NOT NULL,
+  `operation` text NOT NULL,
   `time` datetime NOT NULL DEFAULT current_timestamp(),
   `ip` VARCHAR(46) NOT NULL DEFAULT '',
   KEY `target_index` (`target`) USING BTREE,
@@ -176,7 +176,7 @@ CREATE TABLE `problem` (
 
 CREATE TABLE `problem_2` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
-	`title` VARCHAR(100) NULL DEFAULT '',
+	`title` VARCHAR(200) NULL DEFAULT '',
 	`description` TEXT NULL DEFAULT '',
 	`input` TEXT NULL DEFAULT '',
 	`output` TEXT NULL DEFAULT '',

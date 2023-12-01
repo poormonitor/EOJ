@@ -17,48 +17,94 @@ if (isset($_POST['qid'])) {
   require_once("../include/check_post_key.php");
   $qid = intval($_POST['qid']);
 
-  $starttime = $_POST['startdate'] . " " . intval($_POST['shour']) . ":" . intval($_POST['sminute']) . ":00";
-  $endtime = $_POST['enddate'] . " " . intval($_POST['ehour']) . ":" . intval($_POST['eminute']) . ":00";
-  //echo $starttime;
-  //echo $endtime;
+  $start_time = $_POST['startdate'] . " " . getTimeVal($_POST['shour']) . ":" . getTimeVal($_POST['sminute']) . ":00";
+  $end_time = $_POST['enddate'] . " " . getTimeVal($_POST['ehour']) . ":" . getTimeVal($_POST['eminute']) . ":00";
+
+  //echo $start_time;
+  //echo $end_time;
 
   $title = $_POST['title'];
   $private = intval($_POST['private']);
 
-  $question = array();
+  $questions = array();
   for ($i = 1; isset($_POST['qc' . $i]); $i++) {
-    array_push($question, $_POST['qc' . $i]);
+    array_push($questions, $_POST['qc' . $i]);
   }
-  $question = join("<sep />", $question);
-  $type = array();
+  $question = join("<sep />", $questions);
+
+  $types = array();
   for ($i = 0; isset($_POST['qt' . $i]); $i++) {
-    array_push($type, $_POST['qt' . $i]);
+    array_push($types, $_POST['qt' . $i]);
   }
-  $type = join("/", $type);
-  $score = array();
+  $type = join("/", $types);
+
+  $scores = array();
   for ($i = 0; isset($_POST['qs' . $i]); $i++) {
-    array_push($score, $_POST['qs' . $i]);
+    array_push($scores, $_POST['qs' . $i]);
   }
-  $score = join("/", $score);
-  $correct_answer = array();
+  $score = join("/", $scores);
+
+  $correct_answers = array();
   for ($i = 0; isset($_POST['qca' . $i]); $i++) {
-    array_push($correct_answer, $_POST['qca' . $i]);
+    array_push($correct_answers, $_POST['qca' . $i]);
   }
-  $correct_answer = join("/", $correct_answer);
+  $correct_answer = join("/", $correct_answers);
 
   $description = $_POST['description'];
 
   $title = stripslashes($title);
   $description = stripslashes($description);
-
-  $sql = "UPDATE `quiz` SET `title`=?,`start_time`=?,`end_time`=?,`private`=?,`description`=?,`user_id`=?,`question`=?,`type`=?,`score`=?,`correct_answer`=? WHERE `quiz_id`=?";
-
   $description = str_replace("<p>", "", $description);
   $description = str_replace("</p>", "<br>", $description);
   $description = str_replace(",", "&#44; ", $description);
+
+  # compare question details and add the number to the diff
+  $sql = "SELECT * FROM `quiz` WHERE `quiz_id`=?";
+  $result = pdo_query($sql, $qid);
+  $row = $result[0];
+
+  $diff = array();
+
+  $compare = array("title", "start_time", "end_time", "private", "description");
+  foreach ($compare as $i) {
+    if (strval($row[$i]) != strval($$i)) {
+      array_push($diff, $i);
+    }
+  }
+
+  $compare = array("question", "type", "score", "correct_answer");
+
+  $old_question = explode("<sep />", $row['question']);
+  $old_type = explode("/", $row['type']);
+  $old_score = explode("/", $row['score']);
+  $old_correct_answer = explode("/", $row['correct_answer']);
+
+  for ($i = 0; $i < count($questions); $i++) {
+    $diff_now = array();
+    foreach ($compare as $j) {
+      if (strval(${$j . "s"}[$i]) != strval(${"old_" . $j}[$i])) {
+        array_push($diff_now, substr($j, 0, 1));
+      }
+    }
+    if (count($diff_now)) {
+      array_push($diff, $i + 1 . join("", $diff_now));
+    }
+  }
+
+  $diffs = join(", ", $diff);
+
+  # get orinal gourp privilege
+  $sql = "SELECT `gid` FROM `privilege_group` WHERE `rightstr` = ? order BY `gid`";
+  $result = pdo_query($sql, "q$qid");
+  $old_glist = array();
+  foreach ($result as $row) {
+    array_push($old_glist, $row['gid']);
+  }
+
+  $sql = "UPDATE `quiz` SET `title`=?,`start_time`=?,`end_time`=?,`private`=?,`description`=?,`user_id`=?,`question`=?,`type`=?,`score`=?,`correct_answer`=? WHERE `quiz_id`=?";
+
   $user_id = $_SESSION[$OJ_NAME . '_' . 'user_id'];
-  pdo_query($sql, $title, $starttime, $endtime, $private, $description, $user_id, $question, $type, $score, $correct_answer, $qid);
-  echo "Edit Quiz " . $qid;
+  pdo_query($sql, $title, $start_time, $end_time, $private, $description, $user_id, $question, $type, $score, $correct_answer, $qid);
 
   $sql = "DELETE FROM `privilege` WHERE `rightstr`=?";
   pdo_query($sql, "mq$qid");
@@ -81,7 +127,7 @@ if (isset($_POST['qid'])) {
 
   $ip = getRealIP();
   $sql = "INSERT INTO `oplog` (`target`,`user_id`,`operation`,`ip`) VALUES (?,?,?,?)";
-  pdo_query($sql, "q$qid", $_SESSION[$OJ_NAME . '_' . 'user_id'], "edit", $ip);
+  pdo_query($sql, "q$qid", $_SESSION[$OJ_NAME . '_' . 'user_id'], "edit $diffs", $ip);
 
   header("Location: quiz_list.php");
   exit(0);
@@ -100,8 +146,8 @@ if (isset($_POST['qid'])) {
   $answer = explode("/", $row['correct_answer']);
   $score = explode("/", $row['score']);
   $num = count($type);
-  $starttime = $row['start_time'];
-  $endtime = $row['end_time'];
+  $start_time = $row['start_time'];
+  $end_time = $row['end_time'];
   $blank = max(array_map('strlen', $question)) ? false : true;
 
   $ulist = "";
@@ -156,15 +202,15 @@ require_once("admin-header.php");
                 <input class='form-control' style="width:100%;" type=text name=title value="<?php echo isset($title) ? $title : "" ?>"><br><br>
               <div style="margin-bottom: 10px;" class='form-inline'>
                 <?php echo $MSG_QUIZ . $MSG_Start ?>:
-                <input class='form-control' type=date name='startdate' value='<?php echo substr($starttime, 0, 10) ?>' size=4>
-                Hour: <input class='form-control' type=text name=shour size=2 value='<?php echo substr($starttime, 11, 2) ?>'>&nbsp;
-                Minute: <input class='form-control' type=text name=sminute value='<?php echo substr($starttime, 14, 2) ?>' size=2>
+                <input class='form-control' type=date name='startdate' value='<?php echo substr($start_time, 0, 10) ?>' size=4>
+                Hour: <input class='form-control' type=text name=shour size=2 value='<?php echo substr($start_time, 11, 2) ?>'>&nbsp;
+                Minute: <input class='form-control' type=text name=sminute value='<?php echo substr($start_time, 14, 2) ?>' size=2>
               </div>
               <div style="margin-bottom: 10px;" class='form-inline'>
                 <?php echo $MSG_QUIZ . $MSG_End ?>:
-                <input class='form-control' type=date name='enddate' value='<?php echo substr($endtime, 0, 10) ?>' size=4>
-                Hour: <input class='form-control' type=text name=ehour size=2 value='<?php echo substr($endtime, 11, 2) ?>'>&nbsp;
-                Minute: <input class='form-control' type=text name=eminute value='<?php echo substr($endtime, 14, 2) ?>' size=2>
+                <input class='form-control' type=date name='enddate' value='<?php echo substr($end_time, 0, 10) ?>' size=4>
+                Hour: <input class='form-control' type=text name=ehour size=2 value='<?php echo substr($end_time, 11, 2) ?>'>&nbsp;
+                Minute: <input class='form-control' type=text name=eminute value='<?php echo substr($end_time, 14, 2) ?>' size=2>
               </div>
               <br>
               <p align=left>

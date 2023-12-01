@@ -576,3 +576,8 @@ function getRealIP()
 
   return $ip;
 }
+
+function getTimeVal($name)
+{
+  return str_pad(intval($name), 2, "0", STR_PAD_LEFT);
+};

@@ -4,21 +4,21 @@ require_once("../include/my_func.inc.php");
 require_once("../include/const.inc.php");
 
 if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
-	|| isset($_SESSION[$OJ_NAME . '_' . 'contest_creator'])
+  || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator'])
 )) {
-	$view_swal_params = "{title:'$MSG_PRIVILEGE_WARNING',icon:'error'}";
-	$error_location = "../index.php";
-	require("../template/error.php");
-	exit(0);
+  $view_swal_params = "{title:'$MSG_PRIVILEGE_WARNING',icon:'error'}";
+  $error_location = "../index.php";
+  require("../template/error.php");
+  exit(0);
 }
 
 if (isset($_POST['startdate'])) {
   require_once("../include/check_post_key.php");
 
-  $starttime = $_POST['startdate'] . " " . intval($_POST['shour']) . ":" . intval($_POST['sminute']) . ":00";
-  $endtime = $_POST['enddate'] . " " . intval($_POST['ehour']) . ":" . intval($_POST['eminute']) . ":00";
-  //echo $starttime;
-  //echo $endtime;
+  $start_time = $_POST['startdate'] . " " . getTimeVal($_POST['shour']) . ":" . getTimeVal($_POST['sminute']) . ":00";
+  $end_time = $_POST['enddate'] . " " . getTimeVal($_POST['ehour']) . ":" . getTimeVal($_POST['eminute']) . ":00";
+  //echo $start_time;
+  //echo $end_time;
 
   $title = $_POST['title'];
   $private = $_POST['private'];
@@ -50,10 +50,41 @@ if (isset($_POST['startdate'])) {
   $description = str_replace("</p>", "<br>", $description);
   $description = str_replace(",", "&#44;", $description);
 
+  # get the original ones and compare
+  $sql = "SELECT * FROM `contest` WHERE `contest_id`=?";
+  $result = pdo_query($sql, $cid);
+  $row = $result[0];
+
+  $compare = array("title", "description", "start_time", "end_time", "private", "langmask", "password");
+  $diff = array();
+  foreach ($compare as $i) {
+    if (strval($row[$i]) != strval($$i)) {
+      array_push($diff, $i);
+    }
+  }
+
+  # compare contest problem
+  $sql = "SELECT `problem_id` FROM `contest_problem` WHERE `contest_id`=? ORDER BY `num`";
+  $result = pdo_query($sql, $cid);
+  $old_plist = array_map(function ($x) {
+    return $x[0];
+  }, $result);
+  foreach ($old_plist as $row) {
+    if (!in_array($row, $_POST['problem'])) {
+      array_push($diff, "p$row deleted");
+    }
+  }
+  foreach ($_POST['problem'] as $i) {
+    if (!in_array($i, $old_plist)) {
+      array_push($diff, "p$i added");
+    }
+  }
+
+  $diffs = implode(", ", $diff);
 
   $sql = "UPDATE `contest` SET `title`=?,`description`=?,`start_time`=?,`end_time`=?,`private`=?,`langmask`=?,`password`=? WHERE `contest_id`=?";
   //echo $sql;
-  pdo_query($sql, $title, $description, $starttime, $endtime, $private, $langmask, $password, $cid);
+  pdo_query($sql, $title, $description, $start_time, $end_time, $private, $langmask, $password, $cid);
 
   $sql = "DELETE FROM `contest_problem` WHERE `contest_id`=?";
   pdo_query($sql, $cid);
@@ -103,7 +134,7 @@ if (isset($_POST['startdate'])) {
 
   $ip = getRealIP();
   $sql = "INSERT INTO `oplog` (`target`,`user_id`,`operation`,`ip`) VALUES (?,?,?,?)";
-  pdo_query($sql, "c$cid", $_SESSION[$OJ_NAME . '_' . 'user_id'], "edit", $ip);
+  pdo_query($sql, "c$cid", $_SESSION[$OJ_NAME . '_' . 'user_id'], "edit $diffs", $ip);
 
   header("Location: contest_list.php");
   exit(0);
@@ -118,8 +149,8 @@ if (isset($_POST['startdate'])) {
   }
 
   $row = $result[0];
-  $starttime = $row['start_time'];
-  $endtime = $row['end_time'];
+  $start_time = $row['start_time'];
+  $end_time = $row['end_time'];
   $private = $row['private'];
   $password = $row['password'];
   $langmask = $row['langmask'];
@@ -186,15 +217,15 @@ require_once("admin-header.php");
               </p>
               <div style="margin-bottom: 10px;" class='form-inline'>
                 <?php echo $MSG_CONTEST . $MSG_Start ?>:
-                <input class='form-control' type=date name='startdate' value='<?php echo substr($starttime, 0, 10) ?>' size=4>
-                Hour: <input class='form-control' type=text name=shour size=2 value='<?php echo substr($starttime, 11, 2) ?>'>&nbsp;
-                Minute: <input class='form-control' type=text name=sminute value='<?php echo substr($starttime, 14, 2) ?>' size=2>
+                <input class='form-control' type=date name='startdate' value='<?php echo substr($start_time, 0, 10) ?>' size=4>
+                Hour: <input class='form-control' type=text name=shour size=2 value='<?php echo substr($start_time, 11, 2) ?>'>&nbsp;
+                Minute: <input class='form-control' type=text name=sminute value='<?php echo substr($start_time, 14, 2) ?>' size=2>
               </div>
               <div style="margin-bottom: 10px;" class='form-inline'>
                 <?php echo $MSG_CONTEST . $MSG_End ?>:
-                <input class='form-control' type=date name='enddate' value='<?php echo substr($endtime, 0, 10) ?>' size=4>
-                Hour: <input class='form-control' type=text name=ehour size=2 value='<?php echo substr($endtime, 11, 2) ?>'>&nbsp;
-                Minute: <input class='form-control' type=text name=eminute value='<?php echo substr($endtime, 14, 2) ?>' size=2>
+                <input class='form-control' type=date name='enddate' value='<?php echo substr($end_time, 0, 10) ?>' size=4>
+                Hour: <input class='form-control' type=text name=ehour size=2 value='<?php echo substr($end_time, 11, 2) ?>'>&nbsp;
+                Minute: <input class='form-control' type=text name=eminute value='<?php echo substr($end_time, 14, 2) ?>' size=2>
               </div>
               <br>
               <p align=left>
