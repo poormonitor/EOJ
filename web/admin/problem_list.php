@@ -112,8 +112,8 @@ echo "</select>";
                       <th class='center'><?php echo $MSG_EDIT_TIME ?></th>
                       <?php
                       if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor'])) {
-                        echo "<th class='center'>$MSG_HISTORY</th>";
                         echo "<th class='center'>$MSG_STATUS</th>";
+                        echo "<th class='center'>$MSG_HISTORY</th>";
                         echo "<th class='center'>$MSG_EDIT</th><th class='center'>$MSG_TESTDATA</th>";
                       }
                       ?>
