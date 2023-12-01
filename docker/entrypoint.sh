@@ -45,5 +45,5 @@ ln -sf /dev/stderr /var/log/nginx/error.log
 
 service mysql      start  
 service php7.4-fpm start  
-service hustoj     start
+service judged     start
 nginx -g "daemon off;"

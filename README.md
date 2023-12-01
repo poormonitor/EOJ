@@ -80,7 +80,7 @@ wget https://raw.githubusercontent.com/poormonitor/EOJ/master/install/install.sh
       --name EOJ             \
       -p 8080:80             \
       -v ~/volume:/home/eoj  \
-      poormonitor/EOJ:latest
+      poormonitor/eoj:latest
    ```
 
 ## License
