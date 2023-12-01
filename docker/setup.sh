@@ -29,6 +29,7 @@ sh /home/judge/eoj/core/make.sh
 CPU=`grep "cpu cores" /proc/cpuinfo |head -1|awk '{print $4}'`
 USERNAME="jol"
 PASSWORD=`cat /dev/urandom | tr -dc A-Za-z0-9 | head -c 8`
+mysql -e "CREATE USER '$USERNAME'@'%' IDENTIFIED BY '$PASSWORD';"
 mysql -e "GRANT ALL PRIVILEGES ON *.* TO '$USERNAME'@'%' IDENTIFIED BY '$PASSWORD' WITH GRANT OPTION;"
 cp /home/judge/eoj/web/include/db_info.default.php /home/judge/eoj/web/include/db_info.inc.php
 cp /home/judge/eoj/install/java0.policy  /home/judge/etc/
