@@ -99,6 +99,7 @@ echo "</select>";
 
 
             <form method=post action=contest_add.php>
+              <?php require_once("../include/set_post_key.php"); ?>
               <div class='table-responsive'>
                 <table width=100% class='center table table-condensed'>
                   <thead>

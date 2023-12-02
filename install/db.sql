@@ -297,7 +297,7 @@ CREATE TABLE `users` (
   `nick` varchar(20) NOT NULL DEFAULT '',
   `school` varchar(20) NOT NULL DEFAULT '',
   `gid` int(11) DEFAULT NULL,
-  `clipboard` text DEFAULT NULL,
+  `clipboard` text DEFAULT '',
   PRIMARY KEY (`user_id`) USING BTREE,
   KEY `GID_KEY` (`gid`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

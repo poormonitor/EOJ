@@ -2,11 +2,11 @@
     <div class="panel-heading">
         <?php
         if (isset($cid)) {
-            echo "<center><h3>$id: " . $problem_info['title'] . "</h3></center>";
-        } else {
             $PID = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             $problem_id = $problem_info['problem_id'];
             echo "<center><h3>$MSG_PROBLEM " . $PID[$pid] . ": " . $problem_info['title'] . "</h3></center>";
+        } else {
+            echo "<center><h3>$id: " . $problem_info['title'] . "</h3></center>";
         }
         echo "<center>";
         echo "<span class=green>$MSG_Time_Limit : </span><span><span fd='time_limit' pid='" . $problem_info['problem_id'] . "'  >" . $problem_info['time_limit'] . "</span></span> sec&nbsp;&nbsp;";

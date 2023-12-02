@@ -3,11 +3,11 @@ require_once("admin-header.php");
 require_once("../include/check_post_key.php");
 
 if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
-    || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor']))) {
-    $view_swal_params = "{title:'$MSG_PRIVILEGE_WARNING',icon:'error'}";
-    $error_location = "../index.php";
-    require("../template/error.php");
-    exit(0);
+  || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor']))) {
+  $view_swal_params = "{title:'$MSG_PRIVILEGE_WARNING',icon:'error'}";
+  $error_location = "../index.php";
+  require("../template/error.php");
+  exit(0);
 }
 
 if (isset($OJ_LANG)) {
@@ -28,6 +28,11 @@ function image_save_file($filepath, $base64_encoded_img)
 
 require_once("../include/problem.php");
 require_once("../include/db_info.inc.php");
+
+$sql = "SELECT `nick` from `users` WHERE `user_id`=?";
+$result = pdo_query($sql, $_SESSION[$OJ_NAME . '_' . 'user_id']);
+$row = $result[0];
+$nick = $row['nick'];
 
 function getLang($language)
 {
@@ -51,12 +56,12 @@ function getLang($language)
 
 function submitSolution($pid, $solution, $language)
 {
-  global $OJ_NAME;
+  global $OJ_NAME, $nick;
   $language = getLang($language);
   $len = mb_strlen($solution, 'utf-8');
 
-  $sql = "INSERT INTO solution(problem_id,user_id,in_date,language,ip,code_length,result) VALUES(?,?,NOW(),?,'127.0.0.1',?,14)";
-  $insert_id = pdo_query($sql, $pid, $_SESSION[$OJ_NAME . '_' . 'user_id'], $language, $len);
+  $sql = "INSERT INTO solution(problem_id,user_id,nick,in_date,language,ip,code_length,result) VALUES(?,?,?,NOW(),?,'127.0.0.1',?,14)";
+  $insert_id = pdo_query($sql, $pid, $_SESSION[$OJ_NAME . '_' . 'user_id'], $nick, $language, $len);
   //echo "submiting$language.....";
 
   $sql = "INSERT INTO `source_code`(`solution_id`,`source`) VALUES(?,?)";

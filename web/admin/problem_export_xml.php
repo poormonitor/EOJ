@@ -57,23 +57,16 @@ function printTestCases($pid, $OJ_DATA)
         $outfile = "$OJ_DATA/$pid/" . $ret . ".out";
         $infile = "$OJ_DATA/$pid/" . $ret . ".in";
 
-        if (file_exists($infile)) { ?>
-          <test_input name="<?php echo $ret ?>">
-            <![CDATA[<?php echo fixcdata(file_get_contents($infile)) ?>]]>
-          </test_input>
-        <?php }
+        if (file_exists($infile)) {
+          echo '<test_input name="' . $ret . '"><![CDATA[' . fixcdata(file_get_contents($infile)) . ']]></test_input>';
+        }
 
-        if (file_exists($outfile)) { ?>
-          <test_output name="<?php echo $ret ?>">
-            <![CDATA[<?php echo fixcdata(file_get_contents($outfile)) ?>]]>
-          </test_output>
-        <?php }
+        if (file_exists($outfile)) {
+          echo '<test_output name="' . $ret . '"><![CDATA[' . fixcdata(file_get_contents($outfile)) . ']]></test_output>';
+        }
         //break;
-      } else if ($pinfo['extension'] != "in" && $pinfo['extension'] != "out") { ?>
-        <test_file name="<?php echo $pinfo["basename"] ?>">
-          <![CDATA[<?php echo fixcdata(base64_encode(file_get_contents($fullpath))) ?>]]>
-        </test_file>
-  <?php
+      } else if ($pinfo['extension'] != "in" && $pinfo['extension'] != "out") {
+        echo '<test_file name="' . $pinfo["basename"] . '"><![CDATA[' . fixcdata(base64_encode(file_get_contents($fullpath))) . ']]></test_file>';
       }
     }
   }
@@ -239,71 +232,43 @@ if (isset($_POST['do']) || isset($_GET['cid'])) {
     header("content-type:application/file");
     header("content-disposition:attachment;filename=\"fps-" . $_SESSION[$OJ_NAME . '_' . 'user_id'] . $filename . ".xml\"");
   }
-  ?>
+?>
 
   <!DOCTYPE fps PUBLIC "-//freeproblemset//An opensource XML standard for Algorithm Contest Problem Set//EN" "http://hustoj.com/fps.current.dtd">
   <fps version="1.3" url="https://github.com/zhblue/freeproblemset/">
     <generator name="EOJ" url="https://github.com/poormonitor/eoj/" />
-    <?php
-    foreach ($result as  $row) {
-    ?>
+    <?php foreach ($result as  $row) { ?>
       <item>
-        <title>
-          <![CDATA[<?php echo $row['title'] ?>]]>
-        </title>
-        <time_limit unit="s">
-          <![CDATA[<?php echo $row['time_limit'] ?>]]>
-        </time_limit>
-        <memory_limit unit="mb">
-          <![CDATA[<?php echo $row['memory_limit'] ?>]]>
-        </memory_limit>
         <?php
+        echo "<title><![CDATA[" . $row['title'] . "]]></title>";
+        echo "<time_limit unit=\"s\"><![CDATA[" . $row['time_limit'] . "]]></time_limit>";
+        echo "<memory_limit unit=\"mb\"><![CDATA[" . $row['memory_limit'] . "]]></memory_limit>";
+
         $did = array();
         fixImageURL($row['description'], $did);
         fixImageURL($row['input'], $did);
         fixImageURL($row['output'], $did);
         fixImageURL($row['hint'], $did);
-        ?>
-        <description>
-          <![CDATA[<?php echo $row['description'] ?>]]>
-        </description>
-        <input>
-        <![CDATA[<?php echo $row['input'] ?>]]></input>
-        <output>
-          <![CDATA[<?php echo $row['output'] ?>]]>
-        </output>
-        <sample_input>
-          <![CDATA[<?php echo $row['sample_input'] ?>]]>
-        </sample_input>
-        <sample_output>
-          <![CDATA[<?php echo $row['sample_output'] ?>]]>
-        </sample_output>
-        <?php printTestCases($row['problem_id'], $OJ_DATA) ?>
-        <hint>
-          <![CDATA[<?php echo $row['hint'] ?>]]>
-        </hint>
-        <source>
-        <![CDATA[<?php echo fixcdata($row['source']) ?>]]>
-        </source>
-        <allow>
-          <![CDATA[<?php echo fixcdata($row['allow']) ?>]]>
-        </allow>
-        <block>
-          <![CDATA[<?php echo fixcdata($row['block']) ?>]]>
-        </block>
-        <blank>
-          <![CDATA[<?php echo fixcdata($row['blank']) ?>]]>
-        </blank>
-        <?php
+        echo "<description><![CDATA[" . $row['description'] . "]]></description>";
+        echo "<input><![CDATA[" . $row['input'] . "]]></input>";
+        echo "<output><![CDATA[" . $row['output'] . "]]></output>";
+        echo "<hint><![CDATA[" . $row['hint'] . "]]></hint>";
+
+        echo "<sample_input><![CDATA[" . $row['sample_input'] . "]]></sample_input>";
+        echo "<sample_output><![CDATA[" . $row['sample_output'] . "]]></sample_output>";
+        printTestCases($row['problem_id'], $OJ_DATA);
+
+        echo "<source><![CDATA[" . fixcdata($row['source']) . "]]></source>";
+        echo "<allow><![CDATA[" . fixcdata($row['allow']) . "]]></allow>";
+        echo "<block><![CDATA[" . fixcdata($row['block']) . "]]></block>";
+        echo "<blank><![CDATA[" . fixcdata($row['blank']) . "]]></blank>";
+
         $pid = $row['problem_id'];
         for ($lang = 0; $lang < count($language_ext); $lang++) {
           $solution = getSolution($pid, $lang);
 
-          if ($solution->language) { ?>
-            <solution language="<?php echo $solution->language ?>">
-              <![CDATA[<?php echo fixcdata($solution->source_code) ?>]]>
-            </solution>
-            <?php
+          if ($solution->language) {
+            echo "<solution language=\"" . $solution->language . "\">" . htmlspecialchars($solution->source_code) . "</solution>";
           }
 
           $pta = array("prepend", "template", "append");
@@ -312,11 +277,8 @@ if (isset($_POST['do']) || isset($_GET['cid'])) {
             $append_file = "$OJ_DATA/$pid/$pta_file." . $language_ext[$lang];
             //echo "<filename value=\"$lang  $append_file $language_ext[$lang]\"/>";
 
-            if (file_exists($append_file)) { ?>
-              <<?php echo $pta_file ?> language="<?php echo $language_name[$lang] ?>">
-                <![CDATA[<?php echo fixcdata(file_get_contents($append_file)) ?>]]>
-              </<?php echo $pta_file ?>>
-        <?php
+            if (file_exists($append_file)) {
+              echo "<" . $pta_file . " language=\"" . $language_name[$lang] . "\"><![CDATA[" . fixcdata(file_get_contents($append_file)) . "]]></" . $pta_file . ">";
             }
           }
         }
@@ -329,33 +291,19 @@ if (isset($_POST['do']) || isset($_GET['cid'])) {
           $filesh = "$OJ_DATA/" . $row['problem_id'] . "/spj.sh";
           $filepy = "$OJ_DATA/" . $row['problem_id'] . "/spj.py";
 
-          if (file_exists($filec)) { ?>
-            <spj language="C">
-              <![CDATA[<?php echo fixcdata(file_get_contents($filec)); ?>]]>
-            </spj>
-          <?php
-          } else if (file_exists($filecc)) { ?>
-            <spj language="C++">
-              <![CDATA[<?php echo fixcdata(file_get_contents($filecc)); ?>]]>
-            </spj>
-          <?php
-          } else if (file_exists($filesh)) { ?>
-            <spj language="Shell">
-              <![CDATA[<?php echo fixcdata(file_get_contents($filesh)); ?>]]>
-            </spj>
-          <?php
-          } else if (file_exists($filepy)) { ?>
-            <spj language="Python">
-              <![CDATA[<?php echo fixcdata(file_get_contents($filepy)); ?>]]>
-            </spj>
-        <?php
+          if (file_exists($filec)) {
+            echo '<spj language="C"><![CDATA[' . fixcdata(file_get_contents($filec)) . ']]></spj>';
+          } else if (file_exists($filecc)) {
+            echo '<spj language="C++"><![CDATA[' . fixcdata(file_get_contents($filecc)) . ']]></spj>';
+          } else if (file_exists($filesh)) {
+            echo '<spj language="Shell"><![CDATA[' . fixcdata(file_get_contents($filesh)) . ']]></spj>';
+          } else if (file_exists($filepy)) {
+            echo '<spj language="Python"><![CDATA[' . fixcdata(file_get_contents($filepy)) . ']]></spj>';
           }
         }
         ?>
       </item>
 
-    <?php }
-    ?>
-  </fps> <?php
-        }
-          ?>
+    <?php } ?>
+  </fps>
+<?php } ?>
