@@ -49,7 +49,7 @@ $endTime = microtime(true);
 $runTime = ($endTime - $startTime) * 1000 . ' ms';
 $prefix = isset($prefix) ? $prefix : "";
 
-$info = $_COOKIE["PHPSESSID"] . " " . time() . " " . getRealIP();
+$info = session_id() . " " . time() . " " . getRealIP();
 if (isset($_SESSION[$OJ_NAME . '_' . 'user_id']))
 	$info .= " " . $_SESSION[$OJ_NAME . '_' . 'user_id'];
 ?>

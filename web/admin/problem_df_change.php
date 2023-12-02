@@ -35,7 +35,7 @@ if (isset($_POST["pid"])) {
     pdo_query($sql);
   }
 
-  foreach ($i as $pids) {
+  foreach ($pids as $i) {
     $sql = "INSERT INTO `oplog` (`target`,`user_id`,`operation`,`ip`) VALUES (?,?,?,?)";
     pdo_query($sql, "p$i", $_SESSION[$OJ_NAME . '_' . 'user_id'], "df change", $ip);
   }
@@ -55,7 +55,7 @@ if (isset($_POST["pid"])) {
   pdo_query($sql, "p$id", $_SESSION[$OJ_NAME . '_' . 'user_id'], "df change", $ip);
 }
 
-$page = intval($_GET['page']);
+$page = intval($_REQUEST['page']);
 $page = $page ? $page : 1;
 
 header("Location: problem_list.php?page=$page");

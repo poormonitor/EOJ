@@ -86,7 +86,7 @@ if (isset($_GET['id'])) {
 
 		$result = pdo_query($sql, $cid, $pid);
 		$id = $result[0]['problem_id'];
-		if (isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
+		if (isset($_SESSION[$OJ_NAME . '_' . 'user_id']) && $_SESSION[$OJ_NAME . '_' . 'allow_view']) {
 			$sql = "SELECT solution_id FROM solution WHERE `user_id`=? AND `result` = 4 AND problem_id = ?;";
 			$s_id = pdo_query($sql, $_SESSION[$OJ_NAME . '_' . 'user_id'], $result[0]['problem_id']);
 			if (count($s_id) != 0) {
