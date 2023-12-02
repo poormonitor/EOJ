@@ -3,12 +3,12 @@ require_once("../include/db_info.inc.php");
 require_once("admin-header.php");
 
 if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
-	|| isset($_SESSION[$OJ_NAME . '_' . 'problem_editor'])
+  || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor'])
 )) {
-	$view_swal_params = "{title:'$MSG_PRIVILEGE_WARNING',icon:'error'}";
-	$error_location = "../index.php";
-	require("../template/error.php");
-	exit(0);
+  $view_swal_params = "{title:'$MSG_PRIVILEGE_WARNING',icon:'error'}";
+  $error_location = "../index.php";
+  require("../template/error.php");
+  exit(0);
 }
 ?>
 <!DOCTYPE html>
@@ -36,13 +36,22 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
 
           function writable($path)
           {
-            $ret = false;
-            $fp = fopen($path . "/testifwritable.tst", "w");
-            $ret = !($fp === false);
+            $path = realpath($path);
+            if (!is_dir($path)) {
+              $path = dirname($path);
+            }
 
-            fclose($fp);
-            unlink($path . "/testifwritable.tst");
-            return $ret;
+            $temp_file = $path . '/.testifwritable.txt';
+            $file = @fopen($temp_file, 'w');
+            if ($file === false) {
+              return false;
+            }
+
+            fclose($file);
+            @chmod($temp_file, 0777);
+            @unlink($temp_file);
+
+            return true;
           }
 
           $maxfile = min(ini_get("upload_max_filesize"), ini_get("post_max_size"));
@@ -58,9 +67,9 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
 
             if (!writable($OJ_DATA)) {
               echo "- You need to add  $OJ_DATA into your open_basedir setting of php.ini,<br>
-        or you need to execute:<br>
-        <b>chmod 775 -R $OJ_DATA && chgrp -R www-data $OJ_DATA</b><br>
-        you can't use import function at this time.<br>";
+                    or you need to execute:<br>
+                    <b>chmod 775 -R $OJ_DATA && chgrp -R www-data $OJ_DATA</b><br>
+                    you can't use import function at this time.<br>";
 
               if ($OJ_LANG == "cn")
                 echo "权限异常，请先去执行sudo chmod 775 -R $OJ_DATA <br> 和 sudo chgrp -R www-data $OJ_DATA <br>";
@@ -81,13 +90,13 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
               - Import Problem XML<br><br>
               <form class='form-inline' action='problem_import_xml.php' method=post enctype="multipart/form-data">
                 <div class='form-group'>
-                  <input class='form-control' type=file name=fps>
+                  <input type=file name=fps>
                 </div>
                 <br><br>
                 <br><br><br>
                 <center>
                   <div class='form-group'>
-                    <button class='btn btn-default btn-sm' type=submit>Upload to EOJ</button>
+                    <button class='btn btn-primary btn-sm' type=submit>Upload to EOJ</button>
                   </div>
                 </center>
                 <?php require_once("../include/set_post_key.php"); ?>

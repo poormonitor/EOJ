@@ -59,7 +59,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
                 <div class='form-group'>
                   <input type="hidden" name="do" value="do">
                   <!-- <input type="submit" name="submit" value="Export to XML Script"> -->
-                  <button class='btn btn-default btn-sm' type=submit>Download to XML File</button>
+                  <button class='btn btn-primary btn-sm' type=submit>Download to XML File</button>
                 </div>
               </center>
 
