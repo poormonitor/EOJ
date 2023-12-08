@@ -4,6 +4,8 @@ RUN apt-get -y update  && \
     apt-get -y upgrade && \
     DEBIAN_FRONTEND=noninteractive \
     apt-get -y install --no-install-recommends \
+        git \
+        nano \
         nginx \
         mariadb-server \
         mariadb-client \
