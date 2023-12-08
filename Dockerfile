@@ -26,9 +26,9 @@ RUN apt-get -y update  && \
         python3 \
         python3-pip
 
-COPY . /trunk/
+ADD . /trunk/
 
-COPY docker/ /opt/docker/
+ADD docker/ /opt/docker/
 
 RUN bash /opt/docker/setup.sh
 
