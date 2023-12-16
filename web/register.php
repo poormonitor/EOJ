@@ -11,7 +11,7 @@
 
 <body>
 	<script src="<?php echo $OJ_CDN_URL . "template/" ?>jquery.min.js"></script>
-	<script src="<?php echo $OJ_CDN_URL .  "include/" ?>message.min.js"></script>
+	<script src="<?php echo $OJ_CDN_URL .  "include/" ?>vendor.min.js"></script>
 	<?php
 	if (isset($OJ_REGISTER) && !$OJ_REGISTER) exit(0);
 	require_once("./include/my_func.inc.php");

@@ -1,11 +1,12 @@
 @font-face {
     font-family: SourceHanSansCN-Medium;
-    src: url("SourceHanSansCN-Medium.woff");
+    src: url("SourceHanSansCN-Medium.woff2");
 }
 
 p,
 body {
     font-family: SourceHanSansCN-Medium;
+    font-weight: 500;
 }
 
 html {

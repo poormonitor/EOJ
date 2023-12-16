@@ -29,9 +29,8 @@
 </script>
 <script src="<?php echo $OJ_CDN_URL . "template/" ?>jquery.min.js"></script>
 <script src="<?php echo $OJ_CDN_URL . "template/" ?>bootstrap.min.js"></script>
-<script src="<?php echo $OJ_CDN_URL . "include/" ?>message.min.js"></script>
-<script src="<?php echo $OJ_CDN_URL . "template/" ?>index.min.js?v=1.34"></script>
-<script src="<?php echo $OJ_CDN_URL . "template/" ?>watermark-plus.min.js"></script>
+<script src="<?php echo $OJ_CDN_URL . "include/" ?>vendor.min.js"></script>
+<script src="<?php echo $OJ_CDN_URL . "template/" ?>index.min.js?v=1.35"></script>
 <?php if (isset($OJ_GOOGLE_ANALYTICS)) { ?>
 	<script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo $OJ_GOOGLE_ANALYTICS ?>"></script>
 	<script>

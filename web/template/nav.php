@@ -82,10 +82,10 @@ $prefix = isset($prefix) ? $prefix : "";
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <span id="profile"><?php echo $MSG_USER ?></span>
+            <span id="profile-user"><?php echo $MSG_USER ?></span>
             <span class="caret"></span>
           </a>
-          <ul class="dropdown-menu" role="menu">
+          <ul class="dropdown-menu" role="menu" id="profile-injection">
             <script src="<?php echo $prefix . "template/profile.php?profile_csrf=" . $_SESSION[$OJ_NAME . '_' . 'profile_csrf'] . $loc; ?>"></script>
             <!--<li><a href="../navbar-fixed-top/">Fixed top</a></li>-->
           </ul>

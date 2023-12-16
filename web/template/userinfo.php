@@ -104,19 +104,18 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td rowspan=14 align=center>
-                                        <script language='javascript'>
-                                            function p(id, c) {
-                                                document.write("<a href=problem.php?id=" + id + ">" + id + " </a>(<a href='status.php?user_id=<?php echo $user ?>&problem_id=" + id + "'>" + c + "</a>)&nbsp;&nbsp;");
-
-                                            }
-                                            <?php $sql = "SELECT `problem_id`,count(1) from solution where `user_id`=? and result=4 group by `problem_id` ORDER BY `problem_id` ASC";
-                                            if ($result = pdo_query($sql, $user)) {
-                                                foreach ($result as $row)
-                                                    echo "p($row[0],$row[1]);";
+                                    <td rowspan=14 id="user-problems" align=center>
+                                        <div class="whitespace-normal">
+                                            <?php
+                                            foreach ($user_ac as $row) {
+                                                $id = $row[0];
+                                                $c = $row[1];
+                                                echo "<span>";
+                                                echo "<a href=problem.php?id=$id>$id</a>(<a href='status.php?user_id=$user?>&problem_id=$id'>$c</a>)";
+                                                echo "</span> ";
                                             }
                                             ?>
-                                        </script>
+                                        </div>
                                         <div id="container_status" style="height:300px;margin:1em auto 1em"></div>
                                     </td>
                                 </tr>
@@ -128,7 +127,7 @@
             <center>
                 <br>
                 <?php
-                if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
+                if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) && $view_userinfo) {
                 ?>
                     <div class='table-responsive'>
                         <table class='table table-condensed' style='width:auto'>

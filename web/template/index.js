@@ -60,7 +60,7 @@ function create_mce(students = false) {
                 inline: false,
                 plugins: 'image paste',
                 toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | paste image',
-                font_formats: 'SourceHanSansCN=SourceHanSansCN-Medium',
+                font_formats: 'Source Han Sans=SourceHanSansCN-Medium',
                 height: 400,
                 fontsize_formats: '14px',
                 extended_valid_elements: [
@@ -121,7 +121,7 @@ function create_mce(students = false) {
                 toolbar: 'code undo redo restoredraft | cut copy paste pastetext | forecolor backcolor bold italic underline strikethrough anchor | alignleft aligncenter alignright alignjustify outdent indent | \
                          formatselect fontselect fontsizeselect | bullist numlist | blockquote subscript superscript removeformat | \
                          table image media charmap emoticons hr pagebreak insertdatetime print preview | fullscreen | lineheight link mathjax',
-                font_formats: 'SourceHanSansCN=SourceHanSansCN-Medium',
+                font_formats: 'Source Han Sans=SourceHanSansCN-Medium',
                 height: 650,
                 min_height: 400,
                 fontsize_formats: '14px 24px',

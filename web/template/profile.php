@@ -71,5 +71,5 @@ if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NA
 
 //$profile.="</ul></li>";
 ?>
-document.write("<?php echo ($profile); ?>");
-document.getElementById("profile").innerHTML="<?php echo  isset($sid) ? $sid : $MSG_LOGIN  ?>";
+document.getElementById("profile-injection").innerHTML="<?php echo ($profile); ?>"
+document.getElementById("profile-user").innerHTML="<?php echo isset($sid) ? $sid : $MSG_LOGIN ?>";

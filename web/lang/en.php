@@ -59,7 +59,7 @@ $MSG_STATISTICS = "Statistics";
 $MSG_USERINFO = "User Information";
 $MSG_IP_LOCATION = "IP Location";
 $MSG_MAIL = "Mail";
-$MSG_POLICY = "EULA & Privacy Policy";
+$MSG_POLICY = "ToS & Privacy Policy";
 $MSG_AGREE_POLICY = "By logging in, you agree to the <a href='policy.html' id='footer'> $MSG_POLICY </a>";
 $MSG_PASSWORD_RESET = "Password Reset";
 //status.php

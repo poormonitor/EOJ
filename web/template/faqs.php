@@ -62,7 +62,7 @@
                 </p>
                 <br>
                 <h2 class="ui header">Profile</h2>
-                <p>Please read the <a href='/policy.html'>EULA and Privacy Policy</a> carefully before using the service, which stipulates how we collect and use your information.
+                <p>Please read the <a href='/policy.html'>ToS and Privacy Policy</a> carefully before using the service, which stipulates how we collect and use your information.
                     <br>We store and use your private data in accordance with GB/T 35273-2020 "Information Security Technology Personal Information Security Specification".
                 </p>
                 <br>

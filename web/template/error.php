@@ -23,7 +23,7 @@ if (isset($view_errors_js) || isset($view_swal) || isset($view_swal_params)) { ?
   </body>
 
   <script src="<?php echo $OJ_CDN_URL . "template/" ?>jquery.min.js"></script>
-  <script src="<?php echo $OJ_CDN_URL .  "include/" ?>message.min.js"></script>
+  <script src="<?php echo $OJ_CDN_URL .  "include/" ?>vendor.min.js"></script>
   <script>
     <?php if (isset($view_errors_js)) {
       echo $view_errors_js;

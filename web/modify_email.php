@@ -10,7 +10,7 @@
 
 <body>
 	<script src="<?php echo $OJ_CDN_URL . "template/" ?>jquery.min.js"></script>
-	<script src="<?php echo $OJ_CDN_URL .  "include/" ?>message.min.js"></script>
+	<script src="<?php echo $OJ_CDN_URL .  "include/" ?>vendor.min.js"></script>
 	<?php
 	$cache_time = 10;
 	$OJ_CACHE_SHARE = false;

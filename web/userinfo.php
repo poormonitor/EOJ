@@ -78,6 +78,7 @@ if (isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
 	if (count($group_info)) $group_name = $group_info[0]["name"];
 	else $group_info = "";
 }
+
 $sql = "SELECT result,count(1) FROM solution WHERE `user_id`=? AND result>=4 group by result order by result";
 $result = pdo_query($sql, $user);
 $view_userstat = array();
@@ -85,7 +86,6 @@ $i = 0;
 foreach ($result as $row) {
 	$view_userstat[$i++] = $row;
 }
-
 
 $sql =	"SELECT date(in_date) md,count(1) c FROM `solution` where date_sub(curdate(), INTERVAL 1 year) <= DATE(`in_date`) and `user_id`=? group by md order by md asc";
 $result = pdo_query($sql, $user); //mysql_escape_string($sql));
@@ -104,6 +104,9 @@ $chart_data_ac = array();
 foreach ($result as $row) {
 	array_push($chart_data_ac, array($row['md'], intval($row['c'])));
 }
+
+$sql = "SELECT `problem_id`,count(1) from solution where `user_id`=? and result=4 group by `problem_id` ORDER BY `problem_id` ASC";
+$user_ac = pdo_query($sql, $user);
 
 require("template/userinfo.php");
 
