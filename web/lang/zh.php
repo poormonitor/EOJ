@@ -28,7 +28,7 @@ $MSG_REMAINED_ERROR = "剩余内容存在错误！";
 $MSG_PARAMS_TOO_FEW = "您填写的项目太少";
 $MSG_PROCESSING = "正在处理请求";
 $MSG_NICK_TOO_LONG = "用户名太长";
-$MSG_SCHOOL_TOO_LONG = "学校名太长";
+$MSG_SCHOOL_TOO_LONG = "单位名太长";
 $MSG_GOBACK = "返回";
 $MSG_DOWNLOAD_ALL_AC = "下载所有通过代码";
 
@@ -167,7 +167,7 @@ $MSG_RANK_LOCKED = "排名已锁定";
 $MSG_USER_ID = "用户名";
 $MSG_PASSWORD = "密码";
 $MSG_REPEAT_PASSWORD = "重复密码";
-$MSG_SCHOOL = "班级";
+$MSG_SCHOOL = "单位";
 $MSG_EMAIL = "电子邮件";
 $MSG_REG_INFO = "设置注册信息";
 $MSG_VCODE = "验证码";
@@ -247,14 +247,10 @@ $MSG_SCORE_DIFF = "区分度";
 $MSG_SUBMITTED = "已提交";
 $MSG_NOT_SUBMITTED = "未提交";
 
-$MSG_PARENT_SEARCH = "家长查询";
-$MSG_ID_OR_NICK = "学号/姓名";
+$MSG_USER_QUERY = "用户查询";
+$MSG_ID_OR_NICK = "账号/姓名";
 $MSG_NOT_FOUND = "用户未找到！";
 $MSG_MULTIPLE_USER_CHOICE = "有多个用户匹配，请选择";
-$MSG_STUDENT_ID = "学号";
-$MSG_STUDENT_NAME = "姓名";
-$MSG_STUDENT_ADMINISTRATIVE_CLASS = "行政班";
-$MSG_STUDENT_TEACHING_CLASS = "教学班";
 $MSG_IS_FINISHED = "是否完成";
 $MSG_FINISHED = "已完成";
 $MSG_NOT_PASS = "未通过";
@@ -263,7 +259,7 @@ $MSG_IS_FINISHED_IN_TIME = "是否按时完成";
 $MSG_IS_SIM_CHECKED = "是否被查重";
 $MSG_SIM_YES = "被查重";
 $MSG_SIM_NO = "未被查重";
-$MSG_PARENT_EXPLAIN = "<div class='status_explain'><p>状态解释：<li>未提交，意为用户并未在系统中提交任何代码。</li><li>未通过，意为用户提交过代码，但没能完全通过测评。</li><li>已完成，意为用户的代码通过测评。</li><li>被查重，仅代表提交的代码在已提交中有相似者，并不能作为抄袭的依据。</li></p></div><p>本页面所提供之数据，仅为被查询用户在本系统中的使用情况之显示，并不构成任何意思表示。</p>";
+$MSG_QUERY_EXPLAIN = "<div class='status_explain'><p>状态解释：<li>未提交，意为用户并未在系统中提交任何代码。</li><li>未通过，意为用户提交过代码，但没能完全通过测评。</li><li>已完成，意为用户的代码通过测评。</li><li>被查重，仅代表提交的代码在已提交中有相似者，并不能作为抄袭的依据。</li></p></div><p>本页面所提供之数据，仅为被查询用户在本系统中的使用情况之显示，并不构成任何意思表示。</p>";
 
 //admin menu
 $MSG_SEE = "查看";
@@ -390,7 +386,7 @@ $MSG_VIEW_ERROR = "查看错误信息";
 
 $MSG_HELP_MODULE = "安装Python模块。";
 $MSG_HELP_PROBLEM_2 = "存放一些题目但并不在前台展示，可以随时转换到前台。";
-$MSG_HELP_EDIT_SCHOOL = "根据规则批量修改用户的班级。";
+$MSG_HELP_EDIT_SCHOOL = "根据规则批量修改用户的单位。";
 $MSG_HELP_EDIT_NICK = "批量修改用户的昵称。";
 $MSG_HELP_LIST_GROUP = "查看已有用户组，并可添加新的用户组。";
 $MSG_HELP_CHANGE_GROUP = "将用户批量加入用户组，或批量删除用户的用户组信息。";

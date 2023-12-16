@@ -23,10 +23,10 @@
       <table align=center width=80%>
         <tr align='center'>
           <td>
-            <form method="get" action="parent.php" class="form-inline" <?php if (!isset($_SESSION[$OJ_NAME . '_' . "user_id"])) echo "onsubmit='return vcode_required(this)';" ?>>
-              <input class='form-control' id='parent_user' name='user' placeholder='<?php echo $MSG_ID_OR_NICK ?>' value="<?php if (isset($_GET['user'])) echo (htmlentities($_GET['user'])); ?>">
+            <form method="get" action="query.php" class="form-inline" <?php if (!isset($_SESSION[$OJ_NAME . '_' . "user_id"])) echo "onsubmit='return vcode_required(this)';" ?>>
+              <input class='form-control' id='query_user' name='user' placeholder='<?php echo $MSG_ID_OR_NICK ?>' value="<?php if (isset($_GET['user'])) echo (htmlentities($_GET['user'])); ?>">
               <input class='form-control' id='vcode' name='vcode' type='hidden'>
-              <button class='form-control' type='submit'><?php echo $MSG_PARENT_SEARCH ?></button>
+              <button class='form-control' type='submit'><?php echo $MSG_USER_QUERY ?></button>
             </form>
           </td>
         </tr>

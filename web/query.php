@@ -12,12 +12,12 @@ if (isset($OJ_LANG)) {
 
 if (isset($_GET["query"]) && trim($_GET["query"]) == "false") {
     $no_query = false;
-    require_once("template/parent.php");
+    require_once("template/query.php");
     exit(0);
 }
 if (!isset($_SESSION[$OJ_NAME . '_' . "user_id"]) && $_SESSION[$OJ_NAME . "_" . "vcode"] != trim($_GET["vcode"])) {
     $view_swal = "$MSG_VCODE_WRONG";
-    $error_location = "parent.php?query=false";
+    $error_location = "query.php?query=false";
     require_once("template/error.php");
     exit(0);
 }
@@ -29,35 +29,31 @@ $contests_private = pdo_query("SELECT `contest`.contest_id FROM `contest_problem
 
 if (isset($_GET['user']) and $_GET['user'] != '') {
     $user = trim($_GET['user']);
-    $user = pdo_query("SELECT user_id from users where user_id = ? or nick = ?", $user, $user);
-    $user_array = array();
-    foreach ($user as $m) {
-        array_push($user_array, $m[0]);
-    }
-    $user_str = join("','", $user_array);
-    $nick = pdo_query("SELECT `nick` from `users` where `user_id` IN (?) ORDER BY `user_id` ASC;", $user_str);
-    $group = pdo_query("SELECT `group`.`name` from `users` join `group` on `users`.`gid` = `group`.`gid` where `user_id` IN (?) ORDER BY `user_id` ASC;", $user_str);
-    $school = pdo_query("SELECT `school` from `users` where `user_id` IN (?) ORDER BY `user_id` ASC;", $user_str);
-    $contest_array = array();
-    if (count($user) != 1) {
-        require_once("template/parent.php");
-        exit(0);
-    }
-    $user = $user[0][0];
-
-    $sql = "SELECT gid FROM users where `user_id` = ?";
-    $gid = pdo_query($sql, $user)[0][0];
+    $sql = "SELECT user_id, g.name, nick, school from users 
+            JOIN `group` g ON g.gid = users.gid
+            where user_id = ? or nick = ?";
+    $user = pdo_query($sql, $user, $user);
 } else {
     $view_swal = $MSG_PARAMS_ERROR;
-    $error_location = "parent.php?query=false";
+    $error_location = "query.php?query=false";
     require_once("template/error.php");
     exit(0);
 }
 
-if (isset($_SESSION[$OJ_NAME . '_' . "last_parent_user"]) && $_SESSION[$OJ_NAME . '_' . "last_parent_user"] != $user) {
+if (count($user) != 1) {
+    require_once("template/query.php");
+    exit(0);
+}
+
+$nick = $user[0][2];
+$school = $user[0][3];
+$gid = $user[0][1];
+$user = $user[0][0];
+
+if (isset($_SESSION[$OJ_NAME . '_' . "last_query_user"]) && $_SESSION[$OJ_NAME . '_' . "last_query_user"] != $user) {
     $_SESSION[$OJ_NAME . '_' . "vcode"] = '';
 }
-$_SESSION[$OJ_NAME . '_' . "last_parent_user"] = $user;
+$_SESSION[$OJ_NAME . '_' . "last_query_user"] = $user;
 foreach ($contests_private as $i) {
     $cid = $i[0];
     $right = "c" . $cid;
@@ -70,6 +66,7 @@ foreach ($contests_private as $i) {
     }
 }
 
+$contest_array = array();
 foreach ($contest as $i) {
     array_push($contest_array, $i[0]);
 }
@@ -100,6 +97,6 @@ foreach ($contest_array as $i) {
     array_push($contests, $basic);
 }
 
-require_once("template/parent.php");
+require_once("template/query.php");
 if (file_exists('./include/cache_end.php'))
     require_once('./include/cache_end.php');

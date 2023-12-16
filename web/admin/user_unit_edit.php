@@ -1,4 +1,4 @@
-<?php 
+<?php
 require_once("admin-header.php");
 
 if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
@@ -38,7 +38,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
           <div class='container'>
 
             <?php
-            if (isset($_POST['do']) and isset($_POST['prefix']) and $_POST['prefix'] != "" and isset($_POST['grade']) and $_POST['grade'] != "") {
+            if (isset($_POST['do']) and isset($_POST['prefix']) and $_POST['prefix'] != "" and isset($_POST['unit']) and $_POST['unit'] != "") {
               //echo $_POST['user_id'];
               require_once("../include/check_post_key.php");
               //echo $_POST['passwd'];
@@ -49,7 +49,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
               $count = 0;
               foreach ($pieces as $i) {
                 $user = $i["user_id"];
-                $class = trim($_POST['grade']) . "（" . strval(intval(substr($user, 3, 2))) . "）班";
+                $class = trim($_POST['unit']) . "（" . strval(intval(substr($user, 3, 2))) . "）班";
                 pdo_query("UPDATE `users` SET `school`=? WHERE `user_id`=?", $class, $user);
                 $count += 1;
               }
@@ -57,15 +57,16 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
             }
             ?>
 
-            <form action="class_update.php" method="post" class="form-horizontal">
+            <br>
+            <form action="user_unit_edit.php" method="post" class="form-horizontal">
               <div class="form-group">
                 <?php require_once("../include/set_post_key.php"); ?>
                 <div class='col-md-4'></div>
                 <div class='col-md-4'>
-                  <label>入学年份（学号前两位）</label>
+                  <label><?php echo $MSG_PREFIX ?></label>
                   <input type="text" name=prefix class="form-control search-query" placeholder="20" style='margin-top:5px;margin-bottom:10px'>
-                  <label>年级</label>
-                  <input type="text" name=grade class="form-control search-query" placeholder="高二" style='margin-top:5px;margin-bottom:10px'>
+                  <label><?php echo $MSG_SCHOOL ?></label>
+                  <input type="text" name=unit class="form-control search-query" placeholder="高二" style='margin-top:5px;margin-bottom:10px'>
                   <input type=hidden name=getkey value="<?php echo $_SESSION[$OJ_NAME . '_' . 'getkey'] ?>">
                   <button name="do" type="hidden" value="do" class="btn btn-default btn-block" style='margin-top:10px;'><?php echo $MSG_SAVE ?></button>
                 </div>

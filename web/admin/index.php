@@ -92,7 +92,7 @@
                                 <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) { ?>
                                     <tr>
                                         <td>
-                                            <center><a class='btn btn-primary btn-sm' href="class_update.php"><b><?php echo $MSG_USER . "-" . $MSG_EDIT . $MSG_SCHOOL ?></b></a></center>
+                                            <center><a class='btn btn-primary btn-sm' href="user_unit_edit.php"><b><?php echo $MSG_USER . "-" . $MSG_EDIT . $MSG_SCHOOL ?></b></a></center>
                                         </td>
                                         <td>
                                             <p><?php echo $MSG_HELP_EDIT_SCHOOL ?></p>

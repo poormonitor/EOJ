@@ -29,7 +29,7 @@ $MSG_PARAMS_TOO_FEW = "You have filled in too few items";
 $MSG_PROCESSING = "Processing the request";
 $MSG_NICK_TOO_LONG = "Nick is too long";
 $MSG_GOBACK = "Go back";
-$MSG_SCHOOL_TOO_LONG = "School is too long";
+$MSG_SCHOOL_TOO_LONG = "Unit is too long";
 $MSG_DOWNLOAD_ALL_AC = "Download all AC code";
 
 $MSG_CLIPBOARD = "Clipboard";
@@ -167,7 +167,7 @@ $MSG_RANK_LOCKED = "The rank has been locked.";
 $MSG_USER_ID = "User ID";
 $MSG_PASSWORD = "Password";
 $MSG_REPEAT_PASSWORD = "Repeat Password";
-$MSG_SCHOOL = "School";
+$MSG_SCHOOL = "Unit";
 $MSG_EMAIL = "Email";
 $MSG_REG_INFO = "Register Information";
 $MSG_VCODE = "Verify Code";
@@ -247,14 +247,10 @@ $MSG_SCORE_DIFF = "Distinction";
 $MSG_SUBMITTED = "Submitted";
 $MSG_NOT_SUBMITTED = "Not Submitted";
 
-$MSG_PARENT_SEARCH = "Parent Check";
+$MSG_USER_QUERY = "User Query";
 $MSG_ID_OR_NICK = "ID/Nick";
 $MSG_NOT_FOUND = "The user is not found!";
 $MSG_MULTIPLE_USER_CHOICE = "There are multiple matches. Please choose one!";
-$MSG_STUDENT_ID = "ID";
-$MSG_STUDENT_NAME = "Name";
-$MSG_STUDENT_ADMINISTRATIVE_CLASS = "Administrative Class";
-$MSG_STUDENT_TEACHING_CLASS = "Teaching Class";
 $MSG_IS_FINISHED = "Is Finished";
 $MSG_FINISHED = "Finished";
 $MSG_NOT_PASS = "Not Pass";
@@ -263,7 +259,7 @@ $MSG_IS_FINISHED_IN_TIME = "Is in time";
 $MSG_IS_SIM_CHECKED = "Is Plagiarized";
 $MSG_SIM_YES = "Plagiarized";
 $MSG_SIM_NO = "Not Plagiarized";
-$MSG_PARENT_EXPLAIN = "<div class='status_explain'><p>State Explanation:<li>Unfinished, means the user has not submitted any code in the system.</li><li>Not Pass, means that the user has submitted code but failed to pass the judging completely.</li><li>Finished, means that the user's code passed the judging.</li><li>Plagiarized, means that the submitted code has similarities in the submitted code, and cannot be used as a basis for copying.</li></p></div><p>The data provided on this page is only a display of the user's usage in this system, and does not constitute any meaning. </p>";
+$MSG_QUERY_EXPLAIN = "<div class='status_explain'><p>State Explanation:<li>Unfinished, means the user has not submitted any code in the system.</li><li>Not Pass, means that the user has submitted code but failed to pass the judging completely.</li><li>Finished, means that the user's code passed the judging.</li><li>Plagiarized, means that the submitted code has similarities in the submitted code, and cannot be used as a basis for copying.</li></p></div><p>The data provided on this page is only a display of the user's usage in this system, and does not constitute any meaning. </p>";
 
 //admin menu
 $MSG_SEE = "See";
@@ -391,7 +387,7 @@ $MSG_VIEW_ERROR = "Allow View Error";
 
 $MSG_HELP_MODULE = "Install Python Modules.";
 $MSG_HELP_PROBLEM_2 = "Store some problems which is not showed and can be switched at any time";
-$MSG_HELP_EDIT_SCHOOL = "Change users' school according to some rules";
+$MSG_HELP_EDIT_SCHOOL = "Change users' unit according to some rules";
 $MSG_HELP_EDIT_NICK = "Change nick for users";
 $MSG_HELP_LIST_GROUP = "View the existed gruops and add new groups";
 $MSG_HELP_CHANGE_GROUP = "Add users to groups or delete users from a group.";
