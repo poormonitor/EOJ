@@ -227,19 +227,12 @@ foreach ($result as $row) {
   $i++;
 }
 
-if ($problem_info["blank"] && isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
+if (isset($_GET["cid"]) && $problem_info["blank"] && isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
   $blank = $problem_info["blank"];
-  if (isset($_GET["cid"])) {
-    $sql = "SELECT * FROM solution JOIN source_code 
-            ON `source_code`.`solution_id` = `solution`.`solution_id` 
-            WHERE problem_id = ? AND contest_id = ?";
-    $result = pdo_query($sql, $id, $cid);
-  } else {
-    $sql = "SELECT * FROM solution JOIN source_code 
-            ON `source_code`.`solution_id` = `solution`.`solution_id`
-            WHERE problem_id = ?";
-    $result = pdo_query($sql, $id);
-  }
+  $sql = "SELECT * FROM solution JOIN source_code 
+          ON `source_code`.`solution_id` = `solution`.`solution_id` 
+          WHERE problem_id = ? AND contest_id = ?";
+  $result = pdo_query($sql, $id, $cid);
   $blank_analysis = array();
   $strip_map = array();
 
@@ -323,6 +316,10 @@ if ($problem_info["blank"] && isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
   $blank_show = htmlentities($blank, ENT_QUOTES, "UTF-8");
   $blank_show = str_replace("*%*\r\n", "...\r\n" . str_repeat(" ", $len) . "...\r\n", $blank_show);
   $blank_show = str_replace("%*%", "__________", $blank_show);
+
+  if (!count($blank_analysis)) {
+    unset($blank_analysis);
+  }
 }
 
 require("template/problemstatus.php");

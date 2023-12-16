@@ -10,7 +10,7 @@
 	<link rel="shortcut icon" href="/favicon.ico">
 
 	<title>
-		<?php echo $MSG_STATISTICS . " - " .$OJ_NAME ?>
+		<?php echo $MSG_STATISTICS . " - " . $OJ_NAME ?>
 	</title>
 	<?php include("template/css.php"); ?>
 
@@ -160,7 +160,7 @@
 				</div>
 			</center>
 
-			<?php if (isset($blank) && isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) { ?>
+			<?php if (isset($blank_analysis) && isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) { ?>
 				<div class="row">
 					<div class="col-md-4">
 						<pre id='code' class="blank-code" style='padding:15px!important;'><?php echo $blank_show; ?></pre>
