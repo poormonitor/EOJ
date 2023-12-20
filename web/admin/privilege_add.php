@@ -57,11 +57,13 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
 							if (strlen($rightstr) <= 1)
 								exit(0);
 
+
 							if (isset($_POST['user_id'])) {
 								$user_id = $_POST['user_id'];
 
-								$sql = "INSERT into `privilege`(user_id,rightstr,valuestr,defunct) values(?,?,?,'N')";
-								$rows = pdo_query($sql, $user_id, $rightstr, $valuestr);
+								$sql = "INSERT into `privilege`(`user_id`, `rightstr`, `valuestr`, `defunct`) values(?,?,?,'N')
+										ON DUPLICATE KEY UPDATE `defunct` = 'N' AND `valuestr` = ?";
+								$rows = pdo_query($sql, $user_id, $rightstr, $valuestr, $valuestr);
 
 								$ip = getRealIP();
 								$sql = "INSERT INTO `loginlog` VALUES (?,?,?,NOW())";
@@ -69,8 +71,9 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
 							} elseif (isset($_POST["gid"])) {
 								$gid = $_POST['gid'];
 
-								$sql = "INSERT into `privilege_group`(gid, rightstr, valuestr, defunct) values(?,?,?,'N')";
-								$rows = pdo_query($sql, $gid, $rightstr, $valuestr);
+								$sql = "INSERT into `privilege_group`(`gid`, `rightstr`, `valuestr`, `defunct`) values(?,?,?,'N')
+										ON DUPLICATE KEY UPDATE `defunct` = 'N' AND `valuestr` = ?";
+								$rows = pdo_query($sql, $gid, $rightstr, $valuestr, $valuestr);
 
 								$ip = getRealIP();
 								$sql = "INSERT INTO `oplog` (`target`,`user_id`,`operation`,`ip`) VALUES (?,?,?,?)";

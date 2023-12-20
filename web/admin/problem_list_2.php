@@ -67,7 +67,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
             if (isset($_GET['keyword']) && $_GET['keyword'] != "") {
               $keyword = $_GET['keyword'];
               $keyword = "%$keyword%";
-              $sql = "SELECT `id`,`title`,`tag`,`source` FROM `problem_2` WHERE (`id` LIKE ?) OR (`title` LIKE ?) OR (`description` LIKE ?) OR (`tag` LIKE ?) OR (`source` LIKE ?)";
+              $sql = "SELECT `id`,`title`,`tag`,`source` FROM `problem_2` WHERE (`title` LIKE ?) OR (`description` LIKE ?) OR (`tag` LIKE ?) OR (`source` LIKE ?)";
               $result = pdo_query($sql, $keyword, $keyword, $keyword, $keyword);
             } else {
               $sql = "SELECT `id`,`title`,`tag`,`source` FROM `problem_2` ORDER BY `id` DESC LIMIT $sid, $idsperpage";

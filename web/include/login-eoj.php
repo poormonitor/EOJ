@@ -30,8 +30,10 @@ function check_login($user_id, $password)
 					return false;
 				} //如遇机器故障，可经管理员后台指定新的ip来允许登陆。
 			}
-			$sql = "INSERT INTO `loginlog` VALUES(?,'login ok',?,NOW())";
-			pdo_query($sql, $user_id, $ip);
+			$sql = "INSERT INTO `loginlog` VALUES(?,?,?,NOW())";
+			// get the first 7 digits of session id
+			$sess_id = substr(session_id(), 0, 7);
+			pdo_query($sql, $user_id, "login ok " . $sess_id, $ip);
 			$sql = "UPDATE users set accesstime=now() where user_id=?";
 			pdo_query($sql, $user_id);
 			return $user_id;
