@@ -35,15 +35,30 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
             $csql = array();
 
             $csql[0] = "DELETE FROM solution WHERE result=13;";
-            $csql[1] = "DELETE FROM solution WHERE user_id NOT IN (SELECT user_id FROM users)";
-            $csql[2] = "DELETE FROM source_code WHERE solution_id NOT IN (SELECT solution_id FROM solution);";
-            $csql[3] = "DELETE FROM runtimeinfo WHERE solution_id NOT IN (SELECT solution_id FROM solution);";
-            $csql[4] = "DELETE FROM compileinfo WHERE solution_id NOT IN (SELECT solution_id FROM solution);";
-            $csql[5] = "UPDATE solution JOIN users ON users.user_id = solution.user_id SET solution.nick = users.nick;";
-            $csql[6] = "DELETE FROM sim WHERE sim_s_id NOT IN (SELECT solution_id FROM solution);";
-            $csql[7] = "DELETE FROM sim WHERE s_id NOT IN (SELECT solution_id FROM solution);";
-            $csql[9] = "DELETE FROM privilege WHERE user_id NOT IN (SELECT user_id FROM users)";
-            $csql[10] = "DELETE FROM answer WHERE user_id NOT IN (SELECT user_id FROM users)";
+            $csql[1] = "DELETE source_code FROM source_code 
+                        LEFT JOIN solution ON source_code.solution_id = solution.solution_id
+                        WHERE solution.solution_id IS NULL;";
+            $csql[3] = "DELETE runtimeinfo FROM runtimeinfo
+                        LEFT JOIN solution ON runtimeinfo.solution_id = solution.solution_id
+                        WHERE solution.solution_id IS NULL;";
+            $csql[4] = "DELETE compileinfo FROM compileinfo
+                        LEFT JOIN solution ON compileinfo.solution_id = solution.solution_id
+                        WHERE solution.solution_id IS NULL;";
+            $csql[5] = "DELETE sim FROM sim
+                        LEFT JOIN solution ON sim.sim_s_id = solution.solution_id
+                        WHERE solution.solution_id IS NULL;";
+            $csql[6] = "DELETE sim FROM sim
+                        LEFT JOIN solution ON sim.s_id = solution.solution_id
+                        WHERE solution.solution_id IS NULL;";
+            $csql[7] = "DELETE privilege FROM privilege
+                        LEFT JOIN users ON privilege.user_id = users.user_id
+                        WHERE users.user_id IS NULL;";
+            $csql[8] = "UPDATE solution JOIN users ON users.user_id = solution.user_id SET solution.nick = users.nick;";
+            $csql[9] = "UPDATE users INNER JOIN (SELECT user_id, 
+                        COUNT(DISTINCT CASE WHEN result = 4 THEN problem_id END) as solved_cnt,
+                        COUNT(CASE WHEN problem_id > 0 THEN solution_id END) as submit_cnt
+                        FROM solution GROUP BY user_id) s ON users.user_id = s.user_id 
+                        SET users.solved = s.solved_cnt, users.submit = s.submit_cnt;";
 
             if (isset($_POST['db'])) {
               require_once("../include/check_post_key.php");

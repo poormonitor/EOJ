@@ -13,8 +13,6 @@
   <title><?php echo $MSG_RANKLIST . " - " . $OJ_NAME ?></title>
   <?php include("template/css.php"); ?>
 
-
-
 </head>
 
 <body>
@@ -48,40 +46,41 @@
         <tr>
       </table>
       <br>
+      <div class="table-responsive whitespace-nowrap">
+        <table class="table table-striped content-box-header" align=center>
+          <thead>
+            <tr class='toprow'>
+              <th class='text-center'><?php echo $MSG_Number ?></th>
+              <th class='text-center'><?php echo $MSG_USER ?></th>
+              <th class='text-center'><?php echo $MSG_NICK ?></th>
+              <th class='text-center'><?php echo $MSG_SOVLED ?></th>
+              <th class='text-center'><?php echo $MSG_SUBMIT ?></th>
+              <th class='text-center'><?php echo $MSG_RATIO ?></th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+            $cnt = 0;
+            foreach ($view_rank as $row) {
+              if ($cnt)
+                echo "<tr class='oddrow'>";
+              else
+                echo "<tr class='evenrow'>";
 
-      <table class="table table-striped content-box-header" align=center>
-        <thead>
-          <tr class='toprow'>
-            <th class='text-center'><?php echo $MSG_Number ?></th>
-            <th class='text-center'><?php echo $MSG_USER ?></th>
-            <th class='text-center'><?php echo $MSG_NICK ?></th>
-            <th class='text-center'><?php echo $MSG_SOVLED ?></th>
-            <th class='text-center'><?php echo $MSG_SUBMIT ?></th>
-            <th class='text-center'><?php echo $MSG_RATIO ?></th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php
-          $cnt = 0;
-          foreach ($view_rank as $row) {
-            if ($cnt)
-              echo "<tr class='oddrow'>";
-            else
-              echo "<tr class='evenrow'>";
-
-            $i = 0;
-            foreach ($row as $table_cell) {
-              echo "<td class='text-center'>";
-              echo $table_cell;
-              echo "</td>";
-              $i++;
+              $i = 0;
+              foreach ($row as $table_cell) {
+                echo "<td class='text-center'>";
+                echo $table_cell;
+                echo "</td>";
+                $i++;
+              }
+              echo "</tr>";
+              $cnt = 1 - $cnt;
             }
-            echo "</tr>";
-            $cnt = 1 - $cnt;
-          }
-          ?>
-        </tbody>
-      </table>
+            ?>
+          </tbody>
+        </table>
+      </div>
       <?php
       $qs = "";
       if (isset($_GET['prefix'])) {

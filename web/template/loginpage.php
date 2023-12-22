@@ -43,7 +43,7 @@
 						</div>
 					<?php } ?>
 					<div style='text-align:center;'>
-						<span class="col-sm-4 col-sm-offset-4" id='footer'>
+						<span id='footer'>
 							<?php echo $MSG_AGREE_POLICY ?>
 						</span>
 						<br><br>

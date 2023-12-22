@@ -66,7 +66,7 @@
                                             <div id='container_pie' style='height:100%;width:100%;'></div>
                                         </td>
                                     </tr>
-                                    <?php if ($group_name) { ?>
+                                    <?php if (isset($group_name) && $group_name) { ?>
                                         <tr>
                                             <td><?php echo $MSG_GROUP ?></td>
                                             <td align=center><?php echo $group_name ?></td>

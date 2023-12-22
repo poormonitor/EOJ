@@ -19,16 +19,20 @@ if (isset($_POST['do'])) {
 		}
 		$sql = "UPDATE `solution` SET `result`=1 WHERE `problem_id`=? and problem_id>0";
 		pdo_query($sql, $rjpid);
-		$sql = "delete from `sim` WHERE `s_id` in (select solution_id from solution where `problem_id`=?)";
-		pdo_query($sql, $rjpid);
 		$url = "../status.php?problem_id=" . $rjpid;
 		header("Location: " . $url);
 	} else if (isset($_POST['rjsid'])) {
-		if (strpos($_POST['rjsid'], ",")) {
-			$rjsid = explode(",", $_POST['rjsid']);
-			$sql = "DELETE FROM `sim` WHERE `s_id`>= ? AND `s_id` <= ?";
-			pdo_query($sql, $rjsid[0], $rjsid[1]);
+		if (strpos($_POST['rjsid'], "-")) {
+			$rjsid = explode("-", $_POST['rjsid']);
 			$sql = "UPDATE `solution` SET `result`=1 WHERE `solution_id`>= ? AND `solution_id` <= ?  AND problem_id>0";
+			pdo_query($sql, $rjsid[0], $rjsid[1]);
+			$url = "../status.php?top=" . ($rjsid[1]);
+			header("Location: " . $url);
+		} else if (strpos($_POST['rjsid'], ",")) {
+			$rjsid = preg_replace("/[^0-9,]/", '', $_POST['rjsid']);
+			$rjsid = explode(",", $_POST['rjsid']);
+			$sql_in = implode(",", array_map('intval', $rjsid));
+			$sql = "UPDATE `solution` SET `result`=1 WHERE `solution_id` IN ($sql_in)  AND problem_id>0";
 			pdo_query($sql, $rjsid[0], $rjsid[1]);
 			$url = "../status.php?top=" . ($rjsid[1]);
 			header("Location: " . $url);
@@ -148,7 +152,14 @@ $banner = isset($_GET["status"]);
 										<?php echo $MSG_STUCK_IN_RUNNING ?>
 									</label>
 									<div class='col-sm-4'>
-										<input type=input class='form-control' name='result' placeholder="3" value="3">
+										<select class='form-control' name='result' value="3">
+											<?php
+											$result_range = array(3, 2, 1, 12, 13);
+											for ($i = 0; $i < count($result_range); $i++) {
+											?>
+												<option value='<?php echo $result_range[$i] ?>'><?php echo $jresult[$result_range[$i]] ?></option>
+											<?php } ?>
+										</select>
 										<input type='hidden' name='do' value='do'>
 										<input type=hidden name="postkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>">
 										<input type=submit class='form-control btn btn-default ud-margin' value='<?php echo $MSG_SUBMIT; ?>'>

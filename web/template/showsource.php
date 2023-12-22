@@ -38,7 +38,7 @@
                   <th><?php echo $MSG_MEMORY ?></th>
                 <?php } ?>
                 <th><?php echo $MSG_SUBMIT_TIME ?></th>
-                <?php if ($_SESSION[$OJ_NAME . '_' . 'administrator']) { ?>
+                <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) { ?>
                   <th><?php echo $MSG_PRIVILEGE ?></th>
                 <?php } ?>
               </tr>
@@ -70,7 +70,7 @@
                   <td><?php echo $smemory ?> KB</td>
                 <?php } ?>
                 <td><?php echo $sdate ?></td>
-                <?php if ($_SESSION[$OJ_NAME . '_' . 'administrator']) { ?>
+                <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) { ?>
                   <td><a href="admin/privilege_add.php?sid=<?php echo $id ?>"><?php echo $MSG_ADD ?></a></td>
                 <?php } ?>
               </tr>

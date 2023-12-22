@@ -8,5 +8,5 @@ if (!isset($_SESSION[$OJ_NAME . '_' . 'csrf_keys'])) {
 array_push($_SESSION[$OJ_NAME . '_' . 'csrf_keys'], $token);
 while (count($_SESSION[$OJ_NAME . '_' . 'csrf_keys']) > 10)
   array_shift($_SESSION[$OJ_NAME . '_' . 'csrf_keys']);
-
-?><input type="hidden" name="csrf" value="<?php echo $token ?>" class="<?php echo in_array($token, $_SESSION[$OJ_NAME . '_' . 'csrf_keys']) ?>">
+?>
+<input type="hidden" name="csrf" value="<?php echo $token ?>" class="<?php echo in_array($token, $_SESSION[$OJ_NAME . '_' . 'csrf_keys']) ?>">

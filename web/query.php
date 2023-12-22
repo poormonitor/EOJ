@@ -11,7 +11,7 @@ if (isset($OJ_LANG)) {
 }
 
 if (isset($_GET["query"]) && trim($_GET["query"]) == "false") {
-    $no_query = false;
+    $no_query = true;
     require_once("template/query.php");
     exit(0);
 }
@@ -29,10 +29,10 @@ $contests_private = pdo_query("SELECT `contest`.contest_id FROM `contest_problem
 
 if (isset($_GET['user']) and $_GET['user'] != '') {
     $user = trim($_GET['user']);
-    $sql = "SELECT user_id, g.name, nick, school from users 
-            JOIN `group` g ON g.gid = users.gid
+    $sql = "SELECT user_id, g.name, nick, school, users.gid from users 
+            LEFT JOIN `group` g ON g.gid = users.gid
             where user_id = ? or nick = ?";
-    $user = pdo_query($sql, $user, $user);
+    $users = pdo_query($sql, $user, $user);
 } else {
     $view_swal = $MSG_PARAMS_ERROR;
     $error_location = "query.php?query=false";
@@ -40,15 +40,17 @@ if (isset($_GET['user']) and $_GET['user'] != '') {
     exit(0);
 }
 
-if (count($user) != 1) {
+if (count($users) != 1) {
+    $multiple = true;
     require_once("template/query.php");
     exit(0);
 }
 
-$nick = $user[0][2];
-$school = $user[0][3];
-$gid = $user[0][1];
-$user = $user[0][0];
+$user = $users[0][0];
+$group = $users[0][1];
+$nick = $users[0][2];
+$school = $users[0][3];
+$gid = $users[0][4];
 
 if (isset($_SESSION[$OJ_NAME . '_' . "last_query_user"]) && $_SESSION[$OJ_NAME . '_' . "last_query_user"] != $user) {
     $_SESSION[$OJ_NAME . '_' . "vcode"] = '';

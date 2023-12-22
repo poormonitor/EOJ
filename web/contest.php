@@ -1,5 +1,5 @@
 <?php
-if (isset($_POST['keyword']))
+if (isset($_GET['keyword']))
 	$cache_time = 1;
 else
 	$cache_time = 10;
@@ -167,8 +167,8 @@ if (isset($_GET['cid'])) {
 	$user_allowed = join(",", $user_allowed);
 
 
-	if (isset($_POST['keyword'])) {
-		$keyword = "%" . $_POST['keyword'] . "%";
+	if (isset($_GET['keyword'])) {
+		$keyword = "%" . $_GET['keyword'] . "%";
 	}
 
 	//echo "$keyword";
