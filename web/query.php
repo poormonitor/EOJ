@@ -10,14 +10,9 @@ if (isset($OJ_LANG)) {
     require_once("./lang/$OJ_LANG.php");
 }
 
-if (isset($_GET["query"]) && trim($_GET["query"]) == "false") {
-    $no_query = true;
-    require_once("template/query.php");
-    exit(0);
-}
 if (!isset($_SESSION[$OJ_NAME . '_' . "user_id"]) && $_SESSION[$OJ_NAME . "_" . "vcode"] != trim($_GET["vcode"])) {
     $view_swal = "$MSG_VCODE_WRONG";
-    $error_location = "query.php?query=false";
+    $error_location = "contest.php";
     require_once("template/error.php");
     exit(0);
 }
@@ -35,7 +30,7 @@ if (isset($_GET['user']) and $_GET['user'] != '') {
     $users = pdo_query($sql, $user, $user);
 } else {
     $view_swal = $MSG_PARAMS_ERROR;
-    $error_location = "query.php?query=false";
+    $error_location = "contest.php";
     require_once("template/error.php");
     exit(0);
 }
