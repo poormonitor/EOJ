@@ -56,13 +56,13 @@
 
 				<table>
 					<tr align='center' class='evenrow'>
-						<td width='5'></td>
 						<td colspan='1'>
 							<form class=form-inline action=problem.php>
 								<input class="form-control search-query" type='text' name='id' placeholder="<?php echo $MSG_PROBLEM_ID ?>">
-								<button class="form-control" type='submit'><?php echo $MSG_SEARCH ?></button>&nbsp;&nbsp;
+								<button class="form-control" type='submit'><?php echo $MSG_SEARCH ?></button>
 							</form>
 						</td>
+						<td style="width: 10px;"></td>
 						<td colspan='1'>
 							<form class="form-search form-inline">
 								<input type="text" name=search class="form-control search-query" placeholder="<?php echo $MSG_TITLE . ', ' . $MSG_SOURCE ?>">

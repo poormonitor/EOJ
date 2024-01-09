@@ -195,7 +195,7 @@
 
 			require.config({
 				paths: {
-					vs: 'monaco/min/vs'
+					vs: ['monaco/min/vs']
 				}
 			});
 
@@ -203,14 +203,11 @@
 				window.diffEditor = monaco.editor.createDiffEditor(document.getElementById('container'), {
 					readOnly: true,
 					fontSize: "18px",
-					scrollbar: {
-						alwaysConsumeMouseWheel: false
-					}
 				});
 
 				diffEditor.setModel({
-					original: monaco.editor.createModel(`<?php echo $sview_source ?>`, '<?php echo $language_monaco[$slanguage] ?>'),
-					modified: monaco.editor.createModel(`<?php echo $rview_source ?>`, '<?php echo $language_monaco[$rlanguage] ?>')
+					original: monaco.editor.createModel(`<?php echo str_replace("`", "\`", $sview_source) ?>`, '<?php echo $language_monaco[$slanguage] ?>'),
+					modified: monaco.editor.createModel(`<?php echo str_replace("`", "\`", $rview_source) ?>`, '<?php echo $language_monaco[$rlanguage] ?>')
 				});
 				window.onresize = function() {
 					window.diffEditor.layout();

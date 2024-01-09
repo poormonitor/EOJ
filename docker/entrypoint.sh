@@ -9,29 +9,30 @@ fi
 if [ ! -d /volume/etc ]; then   
 cp -rp /home/judge/etc /volume/etc;
 fi 
-if [ ! -d /volume/web ]; then   
-cp -rp /home/judge/eoj/web /volume/web;
+if [ ! -d /volume/eoj ]; then   
+cp -rp /home/judge/eoj /volume/eoj;
 fi 
 if [ ! -d /volume/mysql ]; then 
 cp -rp /var/lib/mysql /volume/mysql;   
 fi 
-chmod -R 700 /volume/etc
-chmod -R 700 /volume/backup 
-chmod -R 700 /volume/web/include/   
+chmod -R 755 /volume/etc
+chmod -R 755 /volume/backup 
+chmod -R 755 /volume/eoj/web/include/   
 chown -R www-data:www-data /volume/data 
-chown -R www-data:www-data /volume/web  
+chown -R www-data:www-data /volume/eoj/web 
 chown -R mysql:mysql       /volume/mysql   
 chown -R www-data:www-data /var/log/eoj
 rm -rf /home/judge/backup   
 rm -rf /home/judge/data 
 rm -rf /home/judge/etc  
-rm -rf /home/judge/eoj/web  
+rm -rf /home/judge/eoj
 rm -rf /var/lib/mysql   
 ln -s /volume/backup /home/judge/backup 
 ln -s /volume/data   /home/judge/data   
 ln -s /volume/etc    /home/judge/etc
-ln -s /volume/web    /home/judge/eoj/web
+ln -s /volume/eoj    /home/judge/eoj
 ln -s /volume/mysql  /var/lib/mysql 
+ln -s /volume/web    /volume/eoj/web
 
 RUNNING=`cat /home/judge/etc/judge.conf | grep OJ_RUNNING`
 RUNNING=${RUNNING:11}

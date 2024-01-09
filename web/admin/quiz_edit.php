@@ -215,7 +215,7 @@ require_once("admin-header.php");
               <br>
               <p align=left>
                 <?php echo "<h4>" . $MSG_QUIZ . "-" . $MSG_Description . "</h4>" ?>
-                <textarea id="tinymce0" rows=13 name=description cols=80><?php echo isset($description) ? $description : "" ?></textarea>
+                <textarea id="tinymce0" class='form-control' rows=13 name=description cols=80><?php echo isset($description) ? $description : "" ?></textarea>
               </p>
               <br>
               <p>
@@ -224,7 +224,7 @@ require_once("admin-header.php");
                   $pid = $i + 1;
                   echo "<h4>" . $MSG_QUIZ . "-" . $MSG_QUIZ_PROBLEM . " " . $pid . "</h4>";
                   if (!$blank) {
-                    echo "<textarea id='tinymce$pid' rows=13 name='qc$pid' cols=80>";
+                    echo "<textarea id='tinymce$pid' class='form-control' rows=13 name='qc$pid' cols=80>";
                     if (isset($question)) {
                       echo $question[$i];
                     }

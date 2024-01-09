@@ -257,7 +257,7 @@ require_once("admin-header.php");
               <br>
               <p align=left>
                 <?php echo "<h4>" . $MSG_CONTEST . "-" . $MSG_Description . "</h4>" ?>
-                <textarea id="tinymce0" rows=13 name=description cols=80>
+                <textarea id="tinymce0" class='form-control' rows=13 name=description cols=80>
                   <?php echo htmlentities($description, ENT_QUOTES, 'UTF-8') ?>
                 </textarea>
                 <br>

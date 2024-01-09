@@ -35,7 +35,9 @@
    <?php include("template/js.php"); ?>
    <script src="<?php echo $OJ_CDN_URL . "template/" ?>echarts.min.js"></script>
    <script>
-      var statusChart = echarts.init(document.getElementById('container'));
+      var statusChart = echarts.init(document.getElementById('container'), null, {
+         renderer: "svg"
+      });
       var option = {
          title: {
             text: "<?php echo $MSG_RECENT_SUBMISSION ?>",
@@ -71,7 +73,7 @@
             type: 'value'
          },
          textStyle: {
-            fontFamily: "SourceHanSansCN-Medium",
+            fontFamily: "HarmonySans",
          },
          series: [{
             data: <?php echo json_encode($chart_data_all) ?>,
@@ -87,7 +89,7 @@
             smooth: true
          }]
       };
-      statusChart.setOption(option, isDarkMode ? "dark" : "light");
+      statusChart.setOption(option);
       window.onresize = function() {
          statusChart.resize();
       };

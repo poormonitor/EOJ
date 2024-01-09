@@ -14,6 +14,7 @@
 
   <style>
     #source {
+      width: 100%;
       height: 600px;
       margin: 20px auto;
     }
@@ -69,7 +70,8 @@
             <input id="pid" type='hidden' value='<?php echo $pid ?>' name="pid">
           <?php } ?>
 
-          <span class='form-inline' id="language_span"><?php echo $MSG_LANG ?>&nbsp;:
+          <div class='form-inline' id="language_span">
+            <label><?php echo $MSG_LANG ?> :</label>
             <select class='form-control' id="language" name="language" onChange="reloadtemplate($(this).val());">
               <?php
               $lang_count = count($language_ext);
@@ -90,7 +92,7 @@
               }
               ?>
             </select>
-          </span>
+          </div>
           <?php if (isset($code) && $no_blank) { ?>
             <pre id='copy' class='alert alert-error' style='text-align:left;display:none;'><?php echo $copy; ?></pre>
             <br>
@@ -100,8 +102,9 @@
             </div>
           <?php } ?>
         </center>
-
-        <div id="source" class="editor-border news"></div>
+        <div class="editor mx-auto">
+          <div id="source" class="editor-border"></div>
+        </div>
 
         <textarea hidden="hidden" id="hide_source" name="source"><?php echo $view_src ?></textarea>
         <center>
@@ -123,10 +126,10 @@
                   <textarea id="input_text" class='form-control' style='width:100%;resize:none;' rows=5 name="input_text"><?php echo $view_sample_input ?></textarea>
                 </div>
                 <div class='col-sm-4'>
-                  <textarea id="s_out" name="out" class='form-control' style='width:100%;resize:none;' rows=5 disabled="true"><?php echo $view_sample_output ?></textarea>
+                  <textarea id="s_out" name="out" class='form-control cursor-auto' style='width:100%;resize:none;' rows=5 disabled="true"><?php echo $view_sample_output ?></textarea>
                 </div>
                 <div class='col-sm-4'>
-                  <textarea id="out" name="out" class='form-control' style='width:100%;resize:none;' rows=5 disabled="true"></textarea>
+                  <textarea id="out" name="out" class='form-control cursor-auto' style='width:100%;resize:none;' rows=5 disabled="true"></textarea>
                 </div>
               </div>
               <div class='row' style='margin-top:10px;'>
@@ -238,7 +241,7 @@
   <script>
     require.config({
       paths: {
-        vs: 'monaco/min/vs'
+        vs: ['monaco/min/vs']
       }
     });
 
@@ -246,10 +249,7 @@
       window.editor = monaco.editor.create(document.getElementById('source'), {
         value: `<?php echo $view_src ?>`,
         language: 'plain',
-        fontSize: "18px",
-        scrollbar: {
-          alwaysConsumeMouseWheel: false
-        }
+        fontSize: window.innerWidth < 768 ? "14px" : "18px",
       });
 
       window.editor.getModel().onDidChangeContent((event) => {
@@ -261,6 +261,9 @@
 
     window.onresize = function() {
       window.editor.layout();
+      window.editor.updateOptions({
+        fontSize: window.innerWidth < 768 ? "14px" : "18px",
+      });
     }
   </script>
 

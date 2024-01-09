@@ -23,14 +23,6 @@ if (isset($_SESSION[$OJ_NAME . '_' . 'OJ_LANG'])) {
 	$OJ_LANG = "zh";
 }
 
-$time = date("H", time());
-if (($OJ_BLOCK_START_TIME < $OJ_BLOCK_END_TIME && $time >= $OJ_BLOCK_START_TIME && $time < $OJ_BLOCK_END_TIME - 1) ||
-	($OJ_BLOCK_START_TIME > $OJ_BLOCK_END_TIME && ($time >= $OJ_BLOCK_START_TIME || $time < $OJ_BLOCK_END_TIME - 1))
-) {
-	require(dirname(__FILE__) . "/../index.html");
-	exit(0);
-}
-
 require_once(dirname(__FILE__) . "/pdo.php");
 require_once(dirname(__FILE__) . "/memcache.php");
 

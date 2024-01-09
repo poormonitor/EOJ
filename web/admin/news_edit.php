@@ -103,7 +103,7 @@ require_once("admin-header.php");
                 <input class='form-control' type=text name=title size=71 value='<?php echo $title ?>'>
               </p>
               <p align=left>
-                <textarea id="tinymce0" name=content>
+                <textarea id="tinymce0" class='form-control' rows="13" name=content>
         <?php echo htmlentities($content, ENT_QUOTES, "UTF-8") ?>
       </textarea>
               </p>

@@ -402,12 +402,16 @@ require_once("admin-header.php");
     <script>
         var score_charts = [];
         $("div[id^=score]").each(function(index, elem) {
-            score_charts[index] = echarts.init(elem);
+            score_charts[index] = echarts.init(elem, null, {
+                renderer: "svg"
+            });
             score_charts[index].setOption(score_options[index]);
         });
         var choice_charts = [];
         $("div[id^=choice]").each(function(index, elem) {
-            choice_charts[index] = echarts.init(elem);
+            choice_charts[index] = echarts.init(elem, null, {
+                renderer: "svg"
+            });
             choice_charts[index].setOption(choice_options[index]);
         });
     </script>

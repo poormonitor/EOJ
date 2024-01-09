@@ -94,6 +94,9 @@ if ($test_output=="") $test_output="\n";
           $_SESSION[$OJ_NAME . '_' . "p$pid"] = true;
           if ($_POST['blank'] == '1') {
             $blank_code = $_POST['blank_code'];
+            if (substr($blank_code, -3) == "*%*") {
+              $blank_code = substr($blank_code, 0, -3) . "\n";
+            }
             $sql = 'UPDATE `problem` set `blank`=? where `problem_id`=?';
             pdo_query($sql, $blank_code, $pid);
           }

@@ -9,12 +9,12 @@
   <meta name="author" content="<?php echo $OJ_NAME ?>">
   <link rel="shortcut icon" href="/favicon.ico">
 
-  <title><?php echo $MSG_CLIPBOARD . " - " .$OJ_NAME ?></title>
+  <title><?php echo $MSG_CLIPBOARD . " - " . $OJ_NAME ?></title>
   <?php include("template/css.php"); ?>
 
   <style>
     #source {
-      width: 80%;
+      width: 100%;
       height: 600px;
     }
   </style>
@@ -35,7 +35,33 @@
           <?php } ?>
         </center>
         <br>
-        <div class="editor-border" style="width:80%;height:600;margin:8px auto;" id="source"></div>
+        <center class="mb-4">
+          <span class='form-inline' id="language_span"><?php echo $MSG_LANG ?>&nbsp;:
+            <select class='form-control' id="language" name="language" onChange="reloadtemplate($(this).val());">
+              <?php
+              $lang_count = count($language_ext);
+
+              if (isset($_GET['langmask']))
+                $langmask = $_GET['langmask'];
+              else
+                $langmask = $OJ_LANGMASK;
+
+              $lang = (~((int)$langmask)) & ((1 << ($lang_count)) - 1);
+
+              if (isset($_COOKIE['lastlang'])) $lastlang = $_COOKIE['lastlang'];
+              else $lastlang = 6;
+
+              for ($i = 0; $i < $lang_count; $i++) {
+                if ($lang & (1 << $i))
+                  echo "<option value=$i " . ($lastlang == $i ? "selected" : "") . ">" . $language_name[$i] . "</option>";
+              }
+              ?>
+            </select>
+          </span>
+        </center>
+        <div class="w-container mx-auto">
+          <div class="editor-border" id="source"></div>
+        </div>
         <textarea name='content' style='display:none;'><?php if (isset($content)) echo htmlentities($content, ENT_QUOTES, "UTF-8") ?></textarea>
         <center>
           <input id="Submit" class="btn btn-info btn-sm" type=submit value="<?php echo $MSG_SUBMIT; ?>" style="margin:6px;">
@@ -48,25 +74,39 @@
 
   <script src="<?php echo $OJ_CDN_URL . "monaco/min/vs/" ?>loader.js"></script>
   <script>
+    function reloadtemplate(lang) {
+      console.log("lang=" + lang);
+      document.cookie = "lastlang=" + lang;
+      //swal(document.cookie);
+      var url = window.location.href;
+      var i = url.indexOf("sid=");
+      if (i != -1) url = url.substring(0, i - 1);
+
+      <?php if (isset($OJ_APPENDCODE) && $OJ_APPENDCODE) { ?>
+        if (confirm("<?php echo  $MSG_LOAD_TEMPLATE_CONFIRM ?>"))
+          document.location.href = url;
+      <?php } ?>
+      switchLang(lang);
+    }
+
     require.config({
       paths: {
-        vs: 'monaco/min/vs'
+        vs: ['monaco/min/vs']
       }
     });
 
     require(['vs/editor/editor.main'], function() {
       window.editor = monaco.editor.create(document.getElementById('source'), {
-        value: `<?php if (isset($content)) echo str_replace('`', '\\`', $content) ?>`,
+        value: `<?php if (isset($content)) echo str_replace('`', '\`', $content) ?>`,
         language: 'plain',
         fontSize: "18px",
-        scrollbar: {
-          alwaysConsumeMouseWheel: false
-        }
       });
 
       window.editor.getModel().onDidChangeContent((event) => {
         $("textarea[name=content]").val(window.editor.getValue())
       });
+
+      switchLang(<?php echo isset($lastlang) ? $lastlang : 6;  ?>);
     });
 
     window.onresize = function() {

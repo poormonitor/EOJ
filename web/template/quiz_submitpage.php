@@ -75,7 +75,7 @@
                   break;
                 case 3:
                   echo "<div class='form-group' id='t3'>";
-                  echo "<textarea name='q$i' id='tinymce$tinymce'></textarea>";
+                  echo "<textarea name='q$i' id='tinymce$tinymce' class='form-control' rows='13'></textarea>";
                   echo "</div>";
                   $tinymce++;
                   break;

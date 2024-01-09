@@ -112,10 +112,10 @@
                                     <textarea id="input_text" class='form-control' style='width:100%;resize:none;' rows=5 name="input_text"><?php echo $view_sample_input ?></textarea>
                                 </div>
                                 <div class='col-sm-4'>
-                                    <textarea id="s_out" name="out" class='form-control' style='width:100%;resize:none;' rows=5 disabled="true"><?php echo $view_sample_output ?></textarea>
+                                    <textarea id="s_out" name="out" class='form-control cursor-auto' style='width:100%;resize:none;' rows=5 disabled="true"><?php echo $view_sample_output ?></textarea>
                                 </div>
                                 <div class='col-sm-4'>
-                                    <textarea id="out" name="out" class='form-control' style='width:100%;resize:none;' rows=5 disabled="true"></textarea>
+                                    <textarea id="out" name="out" class='form-control cursor-auto' style='width:100%;resize:none;' rows=5 disabled="true"></textarea>
                                 </div>
                             </div>
                             <div class='row' style='margin-top:10px;'>
@@ -219,7 +219,7 @@
     <script>
         require.config({
             paths: {
-                vs: 'monaco/min/vs'
+                vs: ['monaco/min/vs']
             }
         });
 
@@ -227,7 +227,8 @@
 
         var CodeContent = [
             <?php if (isset($multi_line_matches)) {
-                foreach ($multi_line_matches as $line) { ?> `<?php echo $line[0] ?>`,
+                foreach ($multi_line_matches as $line) { ?> `
+                <?php echo str_replace("`", "\`", $line[0]) ?>`,
             <?php }
             } ?>
         ];
@@ -243,9 +244,6 @@
                     folding: false,
                     lineDecorationsWidth: 0,
                     lineNumbersMinChars: 0,
-                    scrollbar: {
-                        alwaysConsumeMouseWheel: false
-                    }
                 });
 
                 window.editors[index].getModel().onDidChangeContent((event) => {

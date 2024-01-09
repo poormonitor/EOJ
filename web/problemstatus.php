@@ -227,7 +227,10 @@ foreach ($result as $row) {
   $i++;
 }
 
-if (isset($_GET["cid"]) && $problem_info["blank"] && isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
+if (
+  isset($_GET["cid"]) && $problem_info["blank"]
+  && isset($_SESSION[$OJ_NAME . '_' . 'source_browser'])
+) {
   $blank = $problem_info["blank"];
   $sql = "SELECT * FROM solution JOIN source_code 
           ON `source_code`.`solution_id` = `solution`.`solution_id` 

@@ -66,17 +66,17 @@ $row = $result[0];
 
               <p align=left>
                 <?php echo "<h4>" . $MSG_Description . "</h4>" ?>
-                <textarea id="tinymce0" rows=13 name=description cols=80><?php echo htmlentities($row['description'], ENT_QUOTES, "UTF-8") ?></textarea><br>
+                <textarea id="tinymce0" class='form-control' rows=13 name=description cols=80><?php echo htmlentities($row['description'], ENT_QUOTES, "UTF-8") ?></textarea><br>
               </p>
 
               <p align=left>
                 <?php echo "<h4>" . $MSG_Input . "</h4>" ?>
-                <textarea id="tinymce1" rows=13 name=input cols=80><?php echo htmlentities($row['input'], ENT_QUOTES, "UTF-8") ?></textarea><br>
+                <textarea id="tinymce1" class='form-control' rows=13 name=input cols=80><?php echo htmlentities($row['input'], ENT_QUOTES, "UTF-8") ?></textarea><br>
               </p>
 
               <p align=left>
                 <?php echo "<h4>" . $MSG_Output . "</h4>" ?>
-                <textarea id="tinymce2" rows=13 name=output cols=80><?php echo htmlentities($row['output'], ENT_QUOTES, "UTF-8") ?></textarea><br>
+                <textarea id="tinymce2" class='form-control' class='form-control' rows=13 name=output cols=80><?php echo htmlentities($row['output'], ENT_QUOTES, "UTF-8") ?></textarea><br>
               </p>
 
               <p align=left>
@@ -91,7 +91,7 @@ $row = $result[0];
 
               <p align=left>
                 <?php echo "<h4>" . $MSG_HINT . "</h4>" ?>
-                <textarea id="tinymce3" rows=13 name=hint cols=80><?php echo htmlentities($row['hint'], ENT_QUOTES, "UTF-8") ?></textarea><br>
+                <textarea id="tinymce3" class='form-control' rows=13 name=hint cols=80><?php echo htmlentities($row['hint'], ENT_QUOTES, "UTF-8") ?></textarea><br>
               </p>
 
               <p>
@@ -157,7 +157,7 @@ $row = $result[0];
   <script>
     require.config({
       paths: {
-        vs: '../monaco/min/vs'
+        vs: ['../monaco/min/vs']
       }
     });
 
@@ -166,9 +166,6 @@ $row = $result[0];
         value: ``,
         language: 'plain',
         fontSize: "18px",
-        scrollbar: {
-          alwaysConsumeMouseWheel: false
-        }
       });
 
       window.editor.getModel().onDidChangeContent((event) => {

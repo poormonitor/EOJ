@@ -57,7 +57,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
               </div>
               </p>
               <p align=left>
-                <textarea id="tinymce0" name=content>
+                <textarea id="tinymce0" class='form-control' rows="13" name=content>
         <?php echo isset($content) ? $content : "" ?>
       </textarea>
               </p>

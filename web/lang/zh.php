@@ -34,6 +34,7 @@ $MSG_DOWNLOAD_ALL_AC = "下载所有通过代码";
 
 $MSG_CLIPBOARD = "剪贴板";
 $MSG_NOT_LOGINED = "您还没有登录";
+$MSG_NOT_AT_SERVICE = "当前并非服务时间，登录被禁止";
 $MSG_DELETE = "删除";
 //index.php
 $MSG_RECENT_SUBMISSION = "最近提交";

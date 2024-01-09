@@ -7,6 +7,22 @@ require_once('./include/my_func.inc.php');
 
 $view_title = $MSG_SUBMIT;
 
+$time = date("H", time());
+if (($OJ_BLOCK_START_TIME < $OJ_BLOCK_END_TIME &&
+		$time >= $OJ_BLOCK_START_TIME && $time < $OJ_BLOCK_END_TIME - 1) ||
+	($OJ_BLOCK_START_TIME > $OJ_BLOCK_END_TIME &&
+		($time >= $OJ_BLOCK_START_TIME || $time < $OJ_BLOCK_END_TIME - 1))
+) {
+	if (
+		isset($_SESSION[$OJ_NAME . '_' . 'last_submit'])
+		&& $_SESSION[$OJ_NAME . '_' . 'last_submit'] > time() - 10 * 60
+	) {
+		$view_swal = "$MSG_NOT_AT_SERVICE";
+		require_once("./template/error.php");
+		exit(0);
+	}
+}
+
 if (!isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
 	if (isset($OJ_GUEST) && $OJ_GUEST) {
 		$_SESSION[$OJ_NAME . '_' . 'user_id'] = "Guest";
@@ -196,7 +212,7 @@ if ($blank !== NULL) {
 
 	for ($i = 0; $i < $num; $i++) {
 		$content = isset($single_line_matches) ? $single_line_matches[$i][0] : "";
-		$pattern = "<input name='code$i' class='singleline form-control' autocomplete='off' value='$content'>";
+		$pattern = "<input name='code$i' class='singleline form-control' autocomplete='off' spellcheck='false' value='$content'>";
 		$code = str_replace_limit("%*%", $pattern, $code, 1);
 	}
 

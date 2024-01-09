@@ -1,6 +1,18 @@
 <?php
 require_once("./include/db_info.inc.php");
 require_once('./include/setlang.php');
+
+$time = date("H", time());
+if (($OJ_BLOCK_START_TIME < $OJ_BLOCK_END_TIME &&
+		$time >= $OJ_BLOCK_START_TIME && $time < $OJ_BLOCK_END_TIME - 1) ||
+	($OJ_BLOCK_START_TIME > $OJ_BLOCK_END_TIME &&
+		($time >= $OJ_BLOCK_START_TIME || $time < $OJ_BLOCK_END_TIME - 1))
+) {
+	$view_swal = "$MSG_NOT_AT_SERVICE";
+	$error_location = "index.php";
+	require_once("./template/error.php");
+	exit(0);
+}
 ?>
 
 <!DOCTYPE html>

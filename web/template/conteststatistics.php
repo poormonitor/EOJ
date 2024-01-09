@@ -190,25 +190,30 @@
 								else
 									echo "<tr class='evenrow'>";
 
-								if (time() < $end_time) {  //during contest/exam time
-									echo "<td class='text-center'><a href=problem.php?cid=$cid&pid=$i>$PID[$i]</a></td>";
+
+
+								if (
+									isset($_SESSION[$OJ_NAME . '_' . 'administrator']) ||
+									isset($_SESSION[$OJ_NAME . '_' . 'source_browser']) ||
+									time() < $end_time
+								) {  //during contest/exam time
+									echo "<td class='text-center'><a href=problemstatus.php?cid=$cid&pid=$i>$PID[$i]</a></td>";
 								} else {  //over contest/exam time
 									//check the problem will be use remained contest/exam
 									$sql = "SELECT `problem_id` FROM `contest_problem` WHERE (`contest_id`=? AND `num`=?)";
 									$tresult = pdo_query($sql, $cid, $i);
 
 									$tpid = $tresult[0][0];
-									$sql = "SELECT `problem_id` FROM `problem` WHERE `problem_id`=? AND `problem_id` IN (
-									SELECT `problem_id` FROM `contest_problem` WHERE `contest_id` IN (
-										SELECT `contest_id` FROM `contest` WHERE (`defunct`='N' AND now()<`end_time`)
-									)
-								)";
+									$sql = "SELECT `problem_id` FROM `problem` WHERE `problem_id`=? AND `problem_id` IN 
+											(SELECT `problem_id` FROM `contest_problem` WHERE `contest_id` IN 
+												(SELECT `contest_id` FROM `contest` WHERE `defunct`='N' AND now()<`end_time`)
+											)";
 									$tresult = pdo_query($sql, $tpid);
 
 									if (intval($tresult) != 0)   //if the problem will be use remained contes/exam */
 										echo "<td class='text-center'>$PID[$i]</td>";
 									else
-										echo "<td class='text-center'><a href='problem.php?id=" . $tpid . "'>" . $PID[$i] . "</a></td>";
+										echo "<td class='text-center'><a href='problemstatus.php?id=" . $tpid . "'>" . $PID[$i] . "</a></td>";
 								}
 
 								for ($j = 0; $j < count($language_name) + 11; $j++) {
@@ -256,7 +261,9 @@
 	</script>
 	<script src="<?php echo $OJ_CDN_URL . "template/" ?>echarts.min.js"></script>
 	<script type="text/javascript">
-		var statusChart = echarts.init(document.getElementById('container_status'));
+		var statusChart = echarts.init(document.getElementById('container_status'), null, {
+			renderer: "svg"
+		});
 		var statusOption = {
 			title: {
 				text: "<?php echo $MSG_RECENT_SUBMISSION ?>",
@@ -292,7 +299,7 @@
 				type: 'value'
 			},
 			textStyle: {
-				fontFamily: "SourceHanSansCN-Medium",
+				fontFamily: "HarmonySans",
 			},
 			series: [{
 				data: <?php echo json_encode($chart_data_all) ?>,

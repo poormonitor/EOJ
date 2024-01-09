@@ -227,7 +227,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
                 <br>
                 <p align=left>
                   <?php echo "<h4>" . $MSG_CONTEST . "-" . $MSG_Description . "</h4>" ?>
-                  <textarea id="tinymce0" rows=13 name=description cols=80><?php echo isset($description) ? $description : "" ?></textarea>
+                  <textarea id="tinymce0" class='form-control' rows=13 name=description cols=80><?php echo isset($description) ? $description : "" ?></textarea>
                   <br>
                 <table width="100%">
                   <tr>

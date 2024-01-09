@@ -1,11 +1,6 @@
-@font-face {
-    font-family: SourceHanSansCN-Medium;
-    src: url("SourceHanSansCN-Medium.woff2");
-}
-
 p,
 body {
-    font-family: SourceHanSansCN-Medium;
+    font-family: HarmonySans, sans-serif;
     font-weight: 500;
 }
 
@@ -88,6 +83,10 @@ div.status_explain li {
     }
 }
 
+.cursor-auto {
+    cursor: auto!important;;
+}
+
 .label-inline {
     display: inline-block;
     margin-top: 2px;
@@ -162,53 +161,14 @@ pre {
     background-color: #fff;
 }
 
-@media (prefers-color-scheme: dark) {
-    html {
-        filter: invert(1) hue-rotate(180deg);
-    }
-
-    body {
-        background: #eeeeee !important;
-    }
-
-    img {
-        filter: invert(1) hue-rotate(180deg);
-    }
-
-    .jumbotron {
-        filter: brightness(88%);
-    }
-
-    .btn-nm,
-    .btn-sm,
-    .btn-xs {
-        color: #fff;
-        filter: invert(1) hue-rotate(180deg) brightness(140%);
-    }
-
-    .label {
-        color: #fff;
-        filter: invert(1) hue-rotate(180deg) brightness(120%);
-    }
-
-    .label-info {
-        background-color: #1aa2cb;
-    }
-
-    .navbar-default,
-    .dropdown-menu {
-        background: #e5e5e5;
-    }
-
-    .notyf {
-        color: #000;
-    }
-}
-
 @media (max-width: 575.98px) {
     .news,
     #container {
         width: 95%;
+    }
+
+    .editor {
+        width: 100%;
     }
 
     #container_status {
@@ -235,6 +195,10 @@ pre {
         width: 95%;
     }
 
+    .editor {
+        width: 100%;
+    }
+
     #container_status {
         width: 90%;
     }
@@ -259,6 +223,10 @@ pre {
         width: 90%;
     }
 
+    .editor {
+        width: 95%;
+    }
+
     #container_status {
         width: 80%;
     }
@@ -281,6 +249,10 @@ pre {
     .news,
     #container {
         width: 80%;
+    }
+
+    .editor {
+        width: 75%;
     }
 
     #container_status {
@@ -332,6 +304,7 @@ img {
 }
 
 .table-responsive {
+    overflow-y: hidden;
     border: 0;
 }
 

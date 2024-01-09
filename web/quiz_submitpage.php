@@ -7,7 +7,6 @@ require_once('./include/const.inc.php');
 require_once('./include/setlang.php');
 $view_title = $MSG_QUIZ;
 
-
 if (!isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
     if (isset($OJ_GUEST) && $OJ_GUEST) {
         $_SESSION[$OJ_NAME . '_' . 'user_id'] = "Guest";
@@ -17,6 +16,22 @@ if (!isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
         require("template/error.php");
         exit(0);
     }
+}
+
+$time = date("H", time());
+if (($OJ_BLOCK_START_TIME < $OJ_BLOCK_END_TIME &&
+		$time >= $OJ_BLOCK_START_TIME && $time < $OJ_BLOCK_END_TIME - 1) ||
+	($OJ_BLOCK_START_TIME > $OJ_BLOCK_END_TIME &&
+		($time >= $OJ_BLOCK_START_TIME || $time < $OJ_BLOCK_END_TIME - 1))
+) {
+	if (
+		isset($_SESSION[$OJ_NAME . '_' . 'last_submit'])
+		&& $_SESSION[$OJ_NAME . '_' . 'last_submit'] > time() - 10 * 60
+	) {
+		$view_swal = "$MSG_NOT_AT_SERVICE";
+		require_once("./template/error.php");
+		exit(0);
+	}
 }
 
 $problem_id = 1000;

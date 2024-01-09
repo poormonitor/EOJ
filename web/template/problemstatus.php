@@ -160,7 +160,7 @@
 				</div>
 			</center>
 
-			<?php if (isset($blank_analysis) && isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) { ?>
+			<?php if (isset($blank_analysis)) { ?>
 				<div class="row">
 					<div class="col-md-4">
 						<pre id='code' class="blank-code" style='padding:15px!important;'><?php echo $blank_show; ?></pre>
@@ -253,7 +253,9 @@
 				value: n
 			});
 		}
-		var pieChart = echarts.init(document.getElementById('container_pie'));
+		var pieChart = echarts.init(document.getElementById('container_pie'), null, {
+			renderer: "svg"
+		});
 		var pieOption = {
 			grid: {
 				left: '1%',
@@ -265,7 +267,7 @@
 				trigger: 'item'
 			},
 			textStyle: {
-				fontFamily: "SourceHanSansCN-Medium"
+				fontFamily: "HarmonySans"
 			},
 			series: [{
 				radius: ["40%", "80%"],

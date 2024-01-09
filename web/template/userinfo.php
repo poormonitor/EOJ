@@ -176,7 +176,9 @@
     </script>
     <script src="<?php echo $OJ_CDN_URL . "template/" ?>echarts.min.js"></script>
     <script>
-        var statusChart = echarts.init(document.getElementById('container_status'));
+        var statusChart = echarts.init(document.getElementById('container_status'), null, {
+            renderer: "svg"
+        });
         var statusOption = {
             title: {
                 text: "<?php echo $MSG_RECENT_SUBMISSION ?>",
@@ -212,7 +214,7 @@
                 type: 'value'
             },
             textStyle: {
-                fontFamily: "SourceHanSansCN-Medium",
+                fontFamily: "HarmonySans",
             },
             series: [{
                 data: <?php echo json_encode($chart_data_all) ?>,
@@ -249,7 +251,9 @@
                 value: m
             });
         }
-        var pieChart = echarts.init(document.getElementById('container_pie'));
+        var pieChart = echarts.init(document.getElementById('container_pie'), null, {
+            renderer: "svg"
+        });
         var pieOption = {
             grid: {
                 left: '1%',
@@ -261,7 +265,7 @@
                 trigger: 'item'
             },
             textStyle: {
-                fontFamily: "SourceHanSansCN-Medium"
+                fontFamily: "HarmonySans"
             },
             series: [{
                 radius: ["40%", "80%"],

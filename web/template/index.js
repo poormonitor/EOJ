@@ -23,7 +23,7 @@ var langString = {
     }
 }[OJ_LANG];
 
-var language_monaco = ["c", "cpp", "pascal", "java", "ruby", "bash", "python", "php", "perl", "csharp", "objective-c", "vb", "scheme", "c", "cpp", "lua", "javascript", "go", "sql", "fortran", "matlab", ""];
+var language_monaco = ["cpp", "cpp", "pascal", "java", "ruby", "shell", "python", "php", "perl", "csharp", "objective-c", "vb", "scheme", "cpp", "cpp", "lua", "javascript", "go", "sql", "plain", "plain", "plain"];
 
 var notyf = new Notyf();
 
@@ -60,7 +60,6 @@ function create_mce(students = false) {
                 inline: false,
                 plugins: 'image paste',
                 toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | paste image',
-                font_formats: 'Source Han Sans=SourceHanSansCN-Medium',
                 height: 400,
                 fontsize_formats: '14px',
                 extended_valid_elements: [
@@ -75,7 +74,6 @@ function create_mce(students = false) {
                 setup: function (editor) {
                     editor.on('init', function (e) {
                         this.getBody().style.fontSize = '14px';
-                        this.getBody().style.fontFamily = 'SourceHanSansCN-Medium';
                     });
                 },
                 relative_urls: false,
@@ -119,9 +117,8 @@ function create_mce(students = false) {
                         template codesample table charmap hr pagebreak nonbreaking anchor insertdatetime advlist lists wordcount \
                         textpattern help emoticons autosave autoresize mathjax code',
                 toolbar: 'code undo redo restoredraft | cut copy paste pastetext | forecolor backcolor bold italic underline strikethrough anchor | alignleft aligncenter alignright alignjustify outdent indent | \
-                         formatselect fontselect fontsizeselect | bullist numlist | blockquote subscript superscript removeformat | \
+                         formatselect fontsizeselect | bullist numlist | blockquote subscript superscript removeformat | \
                          table image media charmap emoticons hr pagebreak insertdatetime print preview | fullscreen | lineheight link mathjax',
-                font_formats: 'Source Han Sans=SourceHanSansCN-Medium',
                 height: 650,
                 min_height: 400,
                 fontsize_formats: '14px 24px',
@@ -144,7 +141,6 @@ function create_mce(students = false) {
                 setup: function (editor) {
                     editor.on('init', function (e) {
                         this.getBody().style.fontSize = '14px';
-                        this.getBody().style.fontFamily = 'SourceHanSansCN-Medium';
                     });
                 },
                 relative_urls: false,

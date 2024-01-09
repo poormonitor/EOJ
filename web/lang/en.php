@@ -34,6 +34,7 @@ $MSG_DOWNLOAD_ALL_AC = "Download all AC code";
 
 $MSG_CLIPBOARD = "Clipboard";
 $MSG_NOT_LOGINED = "You are not logged in.";
+$MSG_NOT_AT_SERVICE = "It's not service time and login is disabled";
 $MSG_DELETE = "Delete";
 //index.php
 $MSG_RECENT_SUBMISSION = "Recent Submission";

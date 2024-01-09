@@ -18,6 +18,19 @@ if (!isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
     }
 }
 
+$time = date("H", time());
+if (($OJ_BLOCK_START_TIME < $OJ_BLOCK_END_TIME &&
+        $time >= $OJ_BLOCK_START_TIME && $time < $OJ_BLOCK_END_TIME - 1) ||
+    ($OJ_BLOCK_START_TIME > $OJ_BLOCK_END_TIME &&
+        ($time >= $OJ_BLOCK_START_TIME || $time < $OJ_BLOCK_END_TIME - 1))
+) {
+    if (!isset($_SESSION[$OJ_NAME . '_' . 'last_submit'])) {
+        $_SESSION[$OJ_NAME . '_' . 'last_submit'] = time();
+    }
+} else {
+    unset($_SESSION[$OJ_NAME . '_' . 'last_submit']);
+}
+
 if ($OJ_VCODE) {
     $vcode = $_POST["vcode"];
 }

@@ -65,17 +65,17 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
 
                                 <p align=left>
                                     <?php echo "<h4>" . $MSG_Description . "</h4>" ?>
-                                    <textarea id="tinymce0" rows=13 name=description cols=80><?php echo htmlentities($row['description'], ENT_QUOTES, "UTF-8") ?></textarea><br>
+                                    <textarea id="tinymce0" class='form-control' rows=13 name=description cols=80><?php echo htmlentities($row['description'], ENT_QUOTES, "UTF-8") ?></textarea><br>
                                 </p>
 
                                 <p align=left>
                                     <?php echo "<h4>" . $MSG_Input . "</h4>" ?>
-                                    <textarea id="tinymce1" rows=13 name=input cols=80><?php echo htmlentities($row['input'], ENT_QUOTES, "UTF-8") ?></textarea><br>
+                                    <textarea id="tinymce1" class='form-control' rows=13 name=input cols=80><?php echo htmlentities($row['input'], ENT_QUOTES, "UTF-8") ?></textarea><br>
                                 </p>
 
                                 <p align=left>
                                     <?php echo "<h4>" . $MSG_Output . "</h4>" ?>
-                                    <textarea id="tinymce2" rows=13 name=output cols=80><?php echo htmlentities($row['output'], ENT_QUOTES, "UTF-8") ?></textarea><br>
+                                    <textarea id="tinymce2" class='form-control' rows=13 name=output cols=80><?php echo htmlentities($row['output'], ENT_QUOTES, "UTF-8") ?></textarea><br>
                                 </p>
 
                                 <p align=left>
@@ -90,7 +90,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
 
                                 <p align=left>
                                     <?php echo "<h4>" . $MSG_HINT . "</h4>" ?>
-                                    <textarea id="tinymce3" rows=13 name=hint cols=80><?php echo htmlentities($row['hint'], ENT_QUOTES, "UTF-8") ?></textarea><br>
+                                    <textarea id="tinymce3" class='form-control' rows=13 name=hint cols=80><?php echo htmlentities($row['hint'], ENT_QUOTES, "UTF-8") ?></textarea><br>
                                 </p>
 
                                 <p align=left>
@@ -169,18 +169,15 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
     <script>
         require.config({
             paths: {
-                vs: '../monaco/min/vs'
+                vs: ['../monaco/min/vs']
             }
         });
 
         require(['vs/editor/editor.main'], function() {
             window.editor = monaco.editor.create(document.getElementById('source'), {
-                value: `<?php echo $row['blank'] ?>`,
+                value: `<?php echo str_replace("`", "\`", $row['blank']) ?>`,
                 language: 'plain',
                 fontSize: "18px",
-                scrollbar: {
-                    alwaysConsumeMouseWheel: false
-                }
             });
 
             window.editor.getModel().onDidChangeContent((event) => {
@@ -239,6 +236,10 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
                             $allow = join(" ", explode(",", trim($_POST['allow'])));
                             $block = join(" ", explode(",", trim($_POST['block'])));
                             $blank = $_POST['blank_code'];
+
+                            if (substr($blank, -3) == "*%*") {
+                                $blank = substr($blank, 0, -3) . "\n";
+                            }
 
                             $background = $_POST["background"];
 
