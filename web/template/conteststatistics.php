@@ -290,7 +290,8 @@
 						})
 					}
 					return text
-				}
+				},
+				className: "echarts-tooltip",
 			},
 			xAxis: {
 				type: 'time',

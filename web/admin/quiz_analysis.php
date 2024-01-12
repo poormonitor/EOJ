@@ -207,6 +207,7 @@ require_once("admin-header.php");
                                                     enterable: true,
                                                     triggerOn: 'click',
                                                     transitionDuration: 0,
+                                                    className: "echarts-tooltip",
                                                     extraCssText: 'overflow-y:auto;max-height:120px;'
                                                 },
                                                 series: [{
@@ -267,6 +268,7 @@ require_once("admin-header.php");
                                                     enterable: true,
                                                     triggerOn: 'click',
                                                     transitionDuration: 0,
+                                                    className: "echarts-tooltip",
                                                     extraCssText: 'overflow-y:auto;max-height:120px;'
                                                 },
                                                 series: [{

@@ -83,6 +83,16 @@ div.status_explain li {
     }
 }
 
+.echarts-tooltip {
+    --darkreader-inline-boxshadow: rgba(0, 0, 0, 0.2) 1px 2px 10px;
+    --darkreader-inline-bgcolor: #191a1b;
+    --darkreader-inline-color: #aaa295;
+    --darkreader-inline-border-top: #313436;
+    --darkreader-inline-border-right: #313436;
+    --darkreader-inline-border-bottom: #313436;
+    --darkreader-inline-border-left: #313436;
+}
+
 .cursor-auto {
     cursor: auto!important;;
 }

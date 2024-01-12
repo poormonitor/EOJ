@@ -205,7 +205,8 @@
                         })
                     }
                     return text
-                }
+                },
+                className: "echarts-tooltip",
             },
             xAxis: {
                 type: 'time',
@@ -262,7 +263,8 @@
                 containLabel: true
             },
             tooltip: {
-                trigger: 'item'
+                trigger: 'item',
+                className: "echarts-tooltip",
             },
             textStyle: {
                 fontFamily: "HarmonySans"
