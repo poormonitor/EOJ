@@ -17,23 +17,28 @@ if (!isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
 	}
 }
 
-$sql = 'SELECT content from clipboard where user_id=?';
+$sql = 'SELECT content, lang from clipboard where user_id=?';
 $result = pdo_query($sql, $_SESSION[$OJ_NAME . '_' . 'user_id']);
 
 if (!$result) {
-	$sql = 'INSERT INTO clipboard (user_id) VALUES (?)';
-	pdo_query($sql, $_SESSION[$OJ_NAME . '_' . 'user_id']);
+	if (isset($_COOKIE['lastlang'])) $lang = $_COOKIE['lastlang'];
+	else $lang = 6;
+
+	$sql = 'INSERT INTO clipboard (user_id, lang) VALUES (?,?)';
+	pdo_query($sql, $_SESSION[$OJ_NAME . '_' . 'user_id'], $lang);
 	$content = "";
 } else {
 	$content = $result[0][0];
+	$lang = $result[0][1];
 }
 
 if (isset($_POST['content'])) {
 	if (strlen($_POST['content']) > 65536) $flag = False;
 
-	$sql = 'UPDATE clipboard set content=? where user_id=?';
-	pdo_query($sql, $_POST['content'], $_SESSION[$OJ_NAME . '_' . 'user_id']);
+	$sql = 'UPDATE clipboard SET content=?, lang=? where user_id=?';
+	pdo_query($sql, $_POST['content'], $_POST["language"], $_SESSION[$OJ_NAME . '_' . 'user_id']);
 
+	$lang = $_POST["language"];
 	$content = $_POST['content'];
 	$flag = True;
 }

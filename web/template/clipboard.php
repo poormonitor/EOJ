@@ -40,20 +40,8 @@
             <select class='form-control' id="language" name="language" onChange="reloadtemplate($(this).val());">
               <?php
               $lang_count = count($language_ext);
-
-              if (isset($_GET['langmask']))
-                $langmask = $_GET['langmask'];
-              else
-                $langmask = $OJ_LANGMASK;
-
-              $lang = (~((int)$langmask)) & ((1 << ($lang_count)) - 1);
-
-              if (isset($_COOKIE['lastlang'])) $lastlang = $_COOKIE['lastlang'];
-              else $lastlang = 6;
-
               for ($i = 0; $i < $lang_count; $i++) {
-                if ($lang & (1 << $i))
-                  echo "<option value=$i " . ($lastlang == $i ? "selected" : "") . ">" . $language_name[$i] . "</option>";
+                echo "<option value=$i " . ($lang == $i ? "selected" : "") . ">" . $language_name[$i] . "</option>";
               }
               ?>
             </select>

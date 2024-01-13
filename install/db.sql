@@ -23,6 +23,7 @@ CREATE TABLE `answer` (
 CREATE TABLE `clipboard` (
   `user_id` varchar(48) NOT NULL,
   `content` text NOT NULL DEFAULT '',
+  `lang` int(10) NOT NULL DEFAULT 0,
   PRIMARY KEY (`user_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -301,7 +302,6 @@ CREATE TABLE `users` (
   `nick` varchar(20) NOT NULL DEFAULT '',
   `school` varchar(20) NOT NULL DEFAULT '',
   `gid` int(11) DEFAULT NULL,
-  `clipboard` text DEFAULT '',
   PRIMARY KEY (`user_id`) USING BTREE,
   KEY `GID_KEY` (`gid`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
