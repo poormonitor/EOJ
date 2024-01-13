@@ -5,6 +5,7 @@ SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
 CREATE DATABASE `jol` /*!40100 DEFAULT CHARACTER SET utf8mb3 */;
 USE `jol`;
+SET NAMES utf8mb4;
 
 CREATE TABLE `answer` (
   `aid` int(11) NOT NULL AUTO_INCREMENT,
@@ -19,8 +20,11 @@ CREATE TABLE `answer` (
   PRIMARY KEY (`aid`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8mb3;
 
-
-SET NAMES utf8mb4;
+CREATE TABLE `clipboard` (
+  `user_id` varchar(48) NOT NULL,
+  `content` text NOT NULL DEFAULT '',
+  PRIMARY KEY (`user_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `compileinfo` (
   `solution_id` int(11) NOT NULL DEFAULT 0,
@@ -272,7 +276,7 @@ CREATE TABLE `solution` (
   KEY `pid` (`problem_id`),
   KEY `res` (`result`),
   KEY `cid` (`contest_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=FIXED;
+) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8mb4;
 
 
 CREATE TABLE `source_code` (

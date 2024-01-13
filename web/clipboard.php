@@ -17,17 +17,25 @@ if (!isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
 	}
 }
 
-if (isset($_POST['content'])) {
-	if (strlen($_POST['content'])>65536) {
-		$flag = False;
-	}
-	$sql = 'update users set clipboard=? where user_id=?';
-	pdo_query($sql, $_POST['content'], $_SESSION[$OJ_NAME . '_' . 'user_id']);
-	$flag = True;
-}
-$sql = 'select clipboard from users where user_id=?';
-$result = pdo_query($sql,  $_SESSION[$OJ_NAME . '_' . 'user_id']);
-if ($result[0][0] !== NULL) {
+$sql = 'SELECT content from clipboard where user_id=?';
+$result = pdo_query($sql, $_SESSION[$OJ_NAME . '_' . 'user_id']);
+
+if (!$result) {
+	$sql = 'INSERT INTO clipboard (user_id) VALUES (?)';
+	pdo_query($sql, $_SESSION[$OJ_NAME . '_' . 'user_id']);
+	$content = "";
+} else {
 	$content = $result[0][0];
 }
+
+if (isset($_POST['content'])) {
+	if (strlen($_POST['content']) > 65536) $flag = False;
+
+	$sql = 'UPDATE clipboard set content=? where user_id=?';
+	pdo_query($sql, $_POST['content'], $_SESSION[$OJ_NAME . '_' . 'user_id']);
+
+	$content = $_POST['content'];
+	$flag = True;
+}
+
 require("template/clipboard.php");

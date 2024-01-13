@@ -59,7 +59,7 @@
             </select>
           </span>
         </center>
-        <div class="w-container mx-auto">
+        <div class="editor mx-auto">
           <div class="editor-border" id="source"></div>
         </div>
         <textarea name='content' style='display:none;'><?php if (isset($content)) echo htmlentities($content, ENT_QUOTES, "UTF-8") ?></textarea>
