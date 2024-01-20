@@ -61,7 +61,7 @@ $MSG_USERINFO = "用户信息";
 $MSG_IP_LOCATION = "IP属地";
 $MSG_MAIL = "短消息";
 $MSG_POLICY = "使用许可 & 隐私协议";
-$MSG_AGREE_POLICY = "登录即代表您同意<a href='policy.html' id='footer'> $MSG_POLICY </a>";
+$MSG_AGREE_POLICY = "登录即代表您同意 <a href='policy.html' id='footer'>$MSG_POLICY</a>";
 $MSG_PASSWORD_RESET = "密码重置";
 //status.php
 $MSG_Pending = "等待";
@@ -136,6 +136,7 @@ $MSG_TITLE = "标题";
 $MSG_SOURCE = "来源/分类";
 $MSG_SUBMIT_NUM = "提交量";
 $MSG_SUBMIT = "提交";
+$MSG_NO_CATEGORY = "当前无分类";
 
 //submit.php
 $MSG_NO_SUCH_CONTEST = '您请求的作业不存在。这可能是因为作业本身不存在或您尚未被邀请';

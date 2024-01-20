@@ -61,7 +61,7 @@ $MSG_USERINFO = "User Information";
 $MSG_IP_LOCATION = "IP Location";
 $MSG_MAIL = "Mail";
 $MSG_POLICY = "ToS & Privacy Policy";
-$MSG_AGREE_POLICY = "By logging in, you agree to the <a href='policy.html' id='footer'> $MSG_POLICY </a>";
+$MSG_AGREE_POLICY = "By logging in, you agree to the <a href='policy.html' id='footer'>$MSG_POLICY</a>";
 $MSG_PASSWORD_RESET = "Password Reset";
 //status.php
 $MSG_Pending = "Pending";
@@ -136,6 +136,7 @@ $MSG_TITLE = "Title";
 $MSG_SOURCE = "Source/Category";
 $MSG_SUBMIT_NUM = "Submit Num";
 $MSG_SUBMIT = "Submit";
+$MSG_NO_CATEGORY = "No Category Now";
 
 //submit.php
 $MSG_NO_SUCH_CONTEST = 'The homework you request does not exist. It\'s problably beacuse it does not exist itself or you are not invited.';

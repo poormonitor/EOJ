@@ -23,7 +23,7 @@ foreach ($result as $row) {
 }
 $category = array_unique($category);
 if (!$result) {
-	$view_category = "<h4 class='mx-4'>No Category Now!</h4>";
+	$view_category = "<h4 class='mx-4'>$MSG_NO_CATEGORY</h4>";
 } else {
 	$view_category .= "<div style='word-wrap:break-word;'>";
 	foreach ($category as $cat) {
