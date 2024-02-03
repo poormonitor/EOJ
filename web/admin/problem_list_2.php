@@ -106,7 +106,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
                     echo "<td>" . $row['tag'] . "</td>";
                     echo "<td>" . $row['source'] . "</td>";
                     if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor'])) {
-                      echo "<td><a href=problem_add_page_2.php?id=" . $row['id'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">$MSG_EDIT</a>";
+                      echo "<td><a href=problem_add_page_2.php?id=" . $row['id'] . "&getkey=" . end($_SESSION[$OJ_NAME . '_' . 'getkey']) . ">$MSG_EDIT</a>";
                     }
                     echo "</tr>";
                   }

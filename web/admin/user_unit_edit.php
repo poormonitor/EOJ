@@ -70,7 +70,7 @@ if (isset($_POST["do"])) {
                   <input type="text" name=prefix class="form-control search-query" placeholder="20" style='margin-top:5px;margin-bottom:10px'>
                   <label><?php echo $MSG_SCHOOL ?></label>
                   <input type="text" name=unit class="form-control search-query" placeholder="高二" style='margin-top:5px;margin-bottom:10px'>
-                  <input type=hidden name=getkey value="<?php echo $_SESSION[$OJ_NAME . '_' . 'getkey'] ?>">
+                  <input type=hidden name=getkey value="<?php echo end($_SESSION[$OJ_NAME . '_' . 'getkey']) ?>">
                   <button name="do" type="hidden" value="do" class="btn btn-default btn-block" style='margin-top:10px;'><?php echo $MSG_SAVE ?></button>
                 </div>
                 <div class='col-md-4'></div>

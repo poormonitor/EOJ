@@ -99,7 +99,7 @@ $src = shell_exec($OJ_PY_BIN . " -m pip list --format=json");
                 <tbody>
                   <?php
                   require_once("../include/set_get_key.php");
-                  $getkey = $_SESSION[$OJ_NAME . '_' . 'getkey'];
+                  $getkey = end($_SESSION[$OJ_NAME . '_' . 'getkey']);
 
                   $json = json_decode($src);
                   foreach ($json as $i) {

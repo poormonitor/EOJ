@@ -94,7 +94,7 @@ require_once("../include/set_get_key.php");
             <center>
               <form action=group_list.php class="form-search form-inline">
                 <input type="text" name="add" class="form-control search-query" placeholder="<?php echo $MSG_GROUP ?>">
-                <input type=hidden name="getkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'getkey'] ?>">
+                <input type=hidden name="getkey" value="<?php echo end($_SESSION[$OJ_NAME . '_' . 'getkey']) ?>">
                 <button name="do" value="do" type="submit" class="form-control"><?php echo $MSG_ADD ?></button>
               </form>
             </center>
@@ -116,11 +116,11 @@ require_once("../include/set_get_key.php");
                     echo "<tr>";
                     echo "<td>" . $row['gid'] . "</td>";
                     echo "<td>" . $row['name'] . "</td>";
-                    echo "<td><a href='group_list.php?do=do&del=" . $row['gid'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . "'>$MSG_DELETE</a></td>";
+                    echo "<td><a href='group_list.php?do=do&del=" . $row['gid'] . "&getkey=" . end($_SESSION[$OJ_NAME . '_' . 'getkey']) . "'>$MSG_DELETE</a></td>";
                     if ($row["allow_view"] == "Y") {
-                      echo "<td><a href='group_list.php?do=do&visiable=false&group=" . $row['gid'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . "'><span class=green>$MSG_TRUE</span></a></td>";
+                      echo "<td><a href='group_list.php?do=do&visiable=false&group=" . $row['gid'] . "&getkey=" . end($_SESSION[$OJ_NAME . '_' . 'getkey']) . "'><span class=green>$MSG_TRUE</span></a></td>";
                     } else {
-                      echo "<td><a href='group_list.php?do=do&visiable=true&group=" . $row['gid'] . "&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . "'><span class=red>$MSG_FALSE</span></a></td>";
+                      echo "<td><a href='group_list.php?do=do&visiable=true&group=" . $row['gid'] . "&getkey=" . end($_SESSION[$OJ_NAME . '_' . 'getkey']) . "'><span class=red>$MSG_FALSE</span></a></td>";
                     }
                     echo "<td><a href=history.php?target=g" . $row['gid'] . ">$MSG_HISTORY</a></td>";
 

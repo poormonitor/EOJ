@@ -107,7 +107,7 @@
 					}
 					if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor'])) {
 						require_once("include/set_get_key.php");
-						echo "<a class='btn btn-success btn-sm' role='button' href=admin/problem_edit.php?id=$id&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . ">$MSG_EDIT</a>";
+						echo "<a class='btn btn-success btn-sm' role='button' href=admin/problem_edit.php?id=$id&getkey=" . end($_SESSION[$OJ_NAME . '_' . 'getkey']) . ">$MSG_EDIT</a>";
 						echo "<a class='btn btn-success btn-sm' role='button' href='admin/phpfm.php?frame=3&pid=" . $row['problem_id'] . "'>$MSG_TESTDATA</a>";
 					}
 					echo "</div>";

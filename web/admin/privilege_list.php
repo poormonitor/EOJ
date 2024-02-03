@@ -96,7 +96,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
                       echo "<td>" . $row['rightstr'];
                       if ($row['valuestr'] != "true") echo ":" . $row['valuestr'];
                       echo "</td>";
-                      echo "<td><a href='privilege_delete.php?uid=" . htmlentities($row['user_id'], ENT_QUOTES, "UTF-8") . "&rightstr={$row['rightstr']}&getkey=" . $_SESSION[$OJ_NAME . '_' . 'getkey'] . "'>$MSG_DELETE</a></td>";
+                      echo "<td><a href='privilege_delete.php?uid=" . htmlentities($row['user_id'], ENT_QUOTES, "UTF-8") . "&rightstr={$row['rightstr']}&getkey=" . end($_SESSION[$OJ_NAME . '_' . 'getkey']) . "'>$MSG_DELETE</a></td>";
                       echo "</tr>";
                     }
                     ?>

@@ -1,6 +1,5 @@
 <?php
 require_once("db_info.inc.php");
-print_r($_SESSION);
 if (
 	!isset($_SESSION[$OJ_NAME . '_' . 'postkey'])
 	|| !isset($_POST['postkey'])
