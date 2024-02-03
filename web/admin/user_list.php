@@ -9,7 +9,6 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
     require("../template/error.php");
     exit(0);
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo $OJ_LANG ?>">
