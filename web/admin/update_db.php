@@ -7,6 +7,10 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
   require("../template/error.php");
   exit(0);
 }
+
+if (isset($_POST["do"])) {
+  require_once("../include/check_post_key.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo $OJ_LANG ?>">
@@ -61,18 +65,15 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
                         SET users.solved = s.solved_cnt, users.submit = s.submit_cnt;";
 
             if (isset($_POST['db'])) {
-              require_once("../include/check_post_key.php");
               for ($i = 0; isset($csql[$i]); $i++) {
                 pdo_query($csql[$i]);
               }
               $banner = true;
             } elseif (isset($_POST['cache'])) {
-              require_once("../include/check_post_key.php");
               require_once("../include/memcache.php");
               updateCache();
               $banner = true;
             } elseif (isset($_POST['update'])) {
-              require_once("../include/check_post_key.php");
               $shell = "git pull & cd ../../core/ && ./make.sh \
                         && service judged restart > /dev/null 2>/dev/null &";
               shell_exec($shell);
@@ -95,16 +96,19 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
             <form action='update_db.php' method=post class='middle mt-3'>
               <?php require_once("../include/set_post_key.php"); ?>
               <input type='hidden' name='db' value='do'>
+              <input type="hidden" name="do" value="true">
               <input type=submit class='btn btn-info btn-nm' value='<?php echo $MSG_UPDATE_DATABASE ?>'>
             </form>
             <form action='update_db.php' method=post class='middle mt-3'>
               <input type=hidden name="postkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>">
               <input type='hidden' name='cache' value='do'>
+              <input type="hidden" name="do" value="true">
               <input type=submit class='btn btn-info btn-nm' value='<?php echo $MSG_DELETE ?> Cache'>
             </form>
             <form action='update_db.php' method=post class='middle mt-3'>
               <input type=hidden name="postkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>">
               <input type='hidden' name='update' value='do'>
+              <input type="hidden" name="do" value="true">
               <input type=submit class='btn btn-info btn-nm' value='<?php echo $MSG_UPGRADE ?> EOJ'>
             </form>
             <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) { ?>

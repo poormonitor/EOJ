@@ -353,6 +353,7 @@ $MSG_Start = "Start";
 $MSG_End = "End";
 $MSG_TotalTime = "Total";
 $MSG_LeftTime = "Left";
+$MSG_NotStarted = "Not Started";
 $MSG_Ended = "Finished";
 $MSG_Login = "Please Login";
 $MSG_JUDGER = "Judger";

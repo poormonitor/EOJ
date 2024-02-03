@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="<?php echo $OJ_NAME?>">
+    <meta name="author" content="<?php echo $OJ_NAME ?>">
     <link rel="shortcut icon" href="/favicon.ico">
 
     <title>
@@ -37,7 +37,7 @@
         <?php include("template/nav.php"); ?>
         <div class="jumbotron">
             <div class='main-container'>
-            <h2 class="ui center aligned header" style="font-size:36px!important;">Help</h2>
+                <h2 class="ui center aligned header" style="font-size:36px!important;">Help</h2>
                 <br>
                 <h2 class="ui header">Judging</h2>
                 <p>
@@ -61,11 +61,13 @@
                     <br>200% similarity means that both the token-based comparison and the text comparison return 100%, that is, the two codes are identical.
                 </p>
                 <br>
-                <h2 class="ui header">Profile</h2>
-                <p>Please read the <a href='/policy.html'>ToS and Privacy Policy</a> carefully before using the service, which stipulates how we collect and use your information.
-                    <br>We store and use your private data in accordance with GB/T 35273-2020 "Information Security Technology Personal Information Security Specification".
-                </p>
-                <br>
+                <?php if (file_exists("./policy.html")) { ?>
+                    <h2 class="ui header">Profile</h2>
+                    <p>Please read the <a href='/policy.html'>ToS and Privacy Policy</a> carefully before using the service, which stipulates how we collect and use your information.
+                        <br>We store and use your private data in accordance with GB/T 35273-2020 "Information Security Technology Personal Information Security Specification".
+                    </p>
+                    <br>
+                <?php } ?>
                 <h2 class="ui header">Return result description</h2>
                 <div class="ques-view">
                     <p>After the answer to the test question is submitted, the scoring system will give an instant score, and the judgment result will be notified in time for each submission; the possible feedback information of the system includes:</p>

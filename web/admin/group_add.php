@@ -6,6 +6,10 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
   require("../template/error.php");
   exit(0);
 }
+
+if (isset($_POST["do"])) {
+  require_once("../include/check_post_key.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo $OJ_LANG ?>">
@@ -37,7 +41,6 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
             <?php
             if (isset($_POST['do']) and $_POST['do'] != "" and isset($_POST['gid']) and $_POST['gid'] != "" and $_POST['gid'] != "-1") {
               //echo $_POST['user_id'];
-              require_once("../include/check_post_key.php");
               //echo $_POST['passwd'];
               require_once("../include/my_func.inc.php");
 

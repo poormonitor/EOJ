@@ -7,6 +7,10 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
 	require("../template/error.php");
 	exit(0);
 }
+
+if (isset($_POST["do"])) {
+	require_once("../include/check_post_key.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo $OJ_LANG ?>">
@@ -39,8 +43,6 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
 						require_once("../include/set_get_key.php");
 						$sql = "";
 						if (isset($_POST['do'])) {
-							require_once("../include/check_post_key.php");
-
 							$user_id = $_POST['user_id'];
 							$ip = $_POST['ip'];
 

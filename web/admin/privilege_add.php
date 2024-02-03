@@ -7,6 +7,9 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
 	exit(0);
 }
 
+if (isset($_POST["do"])) {
+	require_once("../include/check_post_key.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo $OJ_LANG ?>">
@@ -37,8 +40,6 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
 
 						<?php
 						if (isset($_POST['do'])) {
-							require_once("../include/check_post_key.php");
-
 							$rightstr = $_POST['rightstr'];
 							$valuestr = "true";
 

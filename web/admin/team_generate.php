@@ -1,11 +1,15 @@
-<?php 
-require("admin-header.php"); 
+<?php
+require("admin-header.php");
 
 if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
-    $view_swal_params = "{title:'$MSG_PRIVILEGE_WARNING',icon:'error'}";
-    $error_location = "../index.php";
-    require("../template/error.php");
-    exit(0);
+	$view_swal_params = "{title:'$MSG_PRIVILEGE_WARNING',icon:'error'}";
+	$error_location = "../index.php";
+	require("../template/error.php");
+	exit(0);
+}
+
+if (isset($_POST["prefix"])) {
+	require_once("../include/check_post_key.php");
 }
 ?>
 <!DOCTYPE html>
@@ -30,7 +34,6 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
 				<?php require_once("sidebar.php") ?>
 				<div class='col-md-9 col-lg-10 p-0'>
 					<?php if (isset($_POST['prefix'])) {
-						require_once("../include/check_post_key.php");
 						$prefix = $_POST['prefix'];
 						require_once("../include/my_func.inc.php");
 						if (!is_valid_user_name($prefix)) {
@@ -71,7 +74,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator']))) {
 										pdo_query($longer);
 									}
 								}
-								$sql = "INSERT INTO `users`(" . "`user_id`,`email`,`ip`,`accesstime`,`password`,`reg_time`,`nick`,`school`)" .
+								$sql = "INSERT INTO `users` (`user_id`,`email`,`ip`,`accesstime`,`password`,`reg_time`,`nick`,`school`)" .
 									"VALUES(?,?,?,NOW(),?,NOW(),?,?)on DUPLICATE KEY UPDATE `email`=?,`ip`=?,`accesstime`=NOW(),`password`=?,`reg_time`=now(),nick=?,`school`=?";
 								pdo_query($sql, $user_id, $email, $ip, $password, $nick, $school, $email, $ip, $password, $nick, $school);
 							}

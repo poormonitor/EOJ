@@ -7,6 +7,10 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
 	require("../template/error.php");
 	exit(0);
 }
+
+if (isset($_POST["do"])) {
+	require_once("../include/check_post_key.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -40,7 +44,6 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
 						<?php
 						if (isset($_POST['do'])) {
 							//echo $_POST['user_id'];
-							require_once("../include/check_post_key.php");
 							//echo $_POST['passwd'];
 							require_once("../include/my_func.inc.php");
 

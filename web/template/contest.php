@@ -39,7 +39,7 @@
           <?php if ($now > $end_time) {
             echo "<span class=text-muted>$MSG_Ended</span>";
           } else if ($now < $start_time) {
-            echo "<span class=text-success>$MSG_Start&nbsp;</span>";
+            echo "<span class=text-success>$MSG_NotStarted</span>&nbsp;";
             echo "<span class=text-success>$MSG_TotalTime</span>" . " " . formatTimeLength($end_time - $start_time);
           } else {
             echo "<span class=text-danger>$MSG_Running</span>&nbsp;";
@@ -55,7 +55,7 @@
           if ($now > $end_time)
             echo "<span class=text-muted>" . $MSG_End . "</span>";
           else if ($now < $start_time)
-            echo "<span class=text-success>" . $MSG_Start . "</span>";
+            echo "<span class=text-success>" . $MSG_NotStarted . "</span>";
           else
             echo "<span class=text-danger>" . $MSG_Running . "</span>";
           ?>

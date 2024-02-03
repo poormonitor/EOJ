@@ -1,4 +1,7 @@
-<?php require_once("./include/db_info.inc.php"); ?>
+<?php
+require_once("./include/db_info.inc.php");
+require_once("./include/check_post_key.php");
+?>
 <!DOCTYPE html>
 <html lang="<?php echo $OJ_LANG ?>">
 
@@ -18,7 +21,6 @@
 	require_once('./include/db_info.inc.php');
 	require_once('./include/setlang.php');
 	$view_title = $OJ_NAME;
-	require_once("./include/check_post_key.php");
 	require_once("./include/my_func.inc.php");
 	if (
 		(isset($OJ_EXAM_CONTEST_ID) && $OJ_EXAM_CONTEST_ID > 0) ||

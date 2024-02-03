@@ -3,7 +3,9 @@
 		<div class="footer-container">
 			<span class="text-nowrap pe-3">Powered by <a id='footer' href='https://github.com/poormonitor/EOJ'>EOJ</a></span>
 			<span class="text-nowrap pe-3">
-				<a id='footer' href='/policy.html'><?php echo $MSG_POLICY ?></a>
+				<?php if (file_exists("./policy.html")) { ?>
+					<a id='footer' href='/policy.html'><?php echo $MSG_POLICY ?></a>
+				<?php } ?>
 			</span>
 			<span class="text-nowrap pe-3">
 				<?php if ($OJ_SPONSOR) { ?>

@@ -352,6 +352,7 @@ $MSG_Start = "开始于";
 $MSG_End = "结束于";
 $MSG_TotalTime = "总赛时";
 $MSG_LeftTime = "剩余";
+$MSG_NotStarted = "未开始";
 $MSG_Ended = "已结束";
 $MSG_Login = "请登录后继续操作";
 $MSG_JUDGER = "判题机";

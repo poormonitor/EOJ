@@ -10,6 +10,10 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
     exit(0);
 }
 
+if (isset($_POST["do"])) {
+    require_once("../include/check_post_key.php");
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -27,21 +31,18 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
 </head>
 
 <body>
-    <div class='container'>
-        <?php include("../template/nav.php") ?>
-        <div class='jumbotron'>
-            <div class='row lg-container'>
-                <?php require_once("sidebar.php") ?>
-                <div class='col-md-9 col-lg-10 p-0'>
-                    <?php
-                    echo "<center><h3>" . $MSG_PROBLEM . "-" .  $MSG_EDIT . "</h3></center>";
-                    ?>
-
-                    <div class="container">
+    <?php if (isset($_GET['id'])) { ?>
+        <div class='container'>
+            <?php include("../template/nav.php") ?>
+            <div class='jumbotron'>
+                <div class='row lg-container'>
+                    <?php require_once("sidebar.php") ?>
+                    <div class='col-md-9 col-lg-10 p-0'>
                         <?php
-                        if (isset($_GET['id'])) {; //require_once("../include/check_get_key.php");
+                        echo "<center><h3>" . $MSG_PROBLEM . "-" .  $MSG_EDIT . "</h3></center>";
                         ?>
 
+                        <div class="container">
                             <form method=POST action=problem_edit.php>
                                 <?php
                                 $sql = "SELECT * FROM `problem` WHERE `problem_id`=?";
@@ -142,172 +143,179 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
                                     <input class='btn btn-default' type=submit value='<?php echo $MSG_SAVE ?>' name=submit>
                                 </div>
                             </form>
+                        </div>
+                        <br>
                     </div>
-                    <br>
                 </div>
             </div>
         </div>
-    </div>
-    <?php require_once("../template/js.php"); ?>
-    <script>
-        <?php if (is_null($row['blank'])) { ?>
-            $("#blank_code").hide();
-            $("#blank_false").click()
-        <?php } else { ?>
-            $("#blank_true").click()
-        <?php } ?>
-        $("#blank_false").click(function() {
-            $("#blank_code").hide();
-        })
-        $("#blank_true").click(function() {
-            $("#blank_code").show();
-            window.editor.layout();
-        })
-    </script>
-    <script src='<?php echo $OJ_CDN_URL .  "include/" ?>bootstrap-tagsinput.min.js'></script>
-    <script src="<?php echo $OJ_CDN_URL . "monaco/min/vs/" ?>loader.js"></script>
-    <script>
-        require.config({
-            paths: {
-                vs: ['../monaco/min/vs']
+        <?php require_once("../template/js.php"); ?>
+        <script>
+            <?php if (is_null($row['blank'])) { ?>
+                $("#blank_code").hide();
+                $("#blank_false").click()
+            <?php } else { ?>
+                $("#blank_true").click()
+            <?php } ?>
+            $("#blank_false").click(function() {
+                $("#blank_code").hide();
+            })
+            $("#blank_true").click(function() {
+                $("#blank_code").show();
+                window.editor.layout();
+            })
+        </script>
+        <script src='<?php echo $OJ_CDN_URL .  "include/" ?>bootstrap-tagsinput.min.js'></script>
+        <script src="<?php echo $OJ_CDN_URL . "monaco/min/vs/" ?>loader.js"></script>
+        <script>
+            require.config({
+                paths: {
+                    vs: ['../monaco/min/vs']
+                }
+            });
+
+            require(['vs/editor/editor.main'], function() {
+                window.editor = monaco.editor.create(document.getElementById('source'), {
+                    value: `<?php echo str_replace("`", "\`", $row['blank']) ?>`,
+                    language: 'plain',
+                    fontSize: "18px",
+                });
+
+                window.editor.getModel().onDidChangeContent((event) => {
+                    $("#multiline").val(window.editor.getValue())
+                });
+            });
+
+            window.onresize = function() {
+                window.editor.layout();
             }
-        });
-
-        require(['vs/editor/editor.main'], function() {
-            window.editor = monaco.editor.create(document.getElementById('source'), {
-                value: `<?php echo str_replace("`", "\`", $row['blank']) ?>`,
-                language: 'plain',
-                fontSize: "18px",
-            });
-
-            window.editor.getModel().onDidChangeContent((event) => {
-                $("#multiline").val(window.editor.getValue())
-            });
-        });
-
-        window.onresize = function() {
-            window.editor.layout();
-        }
-    </script>
-    <?php require_once('../tinymce/tinymce.php'); ?>
+        </script>
+        <?php require_once('../tinymce/tinymce.php'); ?>
 </body>
 
-</html>
 <?php
-                        } else {
-                            require_once("../include/check_post_key.php");
-                            $id = intval($_POST['problem_id']);
+    } else {
+        $id = intval($_POST['problem_id']);
 
-                            $title = $_POST['title'];
-                            $title = str_replace(",", "&#44;", $title);
+        $title = $_POST['title'];
+        $title = str_replace(",", "&#44;", $title);
 
-                            $time_limit = $_POST['time_limit'];
+        $time_limit = $_POST['time_limit'];
 
-                            $memory_limit = $_POST['memory_limit'];
+        $memory_limit = $_POST['memory_limit'];
 
-                            $description = $_POST['description'];
-                            $description = str_replace("<p>", "", $description);
-                            $description = str_replace("</p>", "<br>", $description);
-                            $description = str_replace(",", "&#44;", $description);
+        $description = $_POST['description'];
+        $description = str_replace("<p>", "", $description);
+        $description = str_replace("</p>", "<br>", $description);
+        $description = str_replace(",", "&#44;", $description);
 
-                            $input = $_POST['input'];
-                            $input = str_replace("<p>", "", $input);
-                            $input = str_replace("</p>", "<br>", $input);
-                            $input = str_replace(",", "&#44;", $input);
+        $input = $_POST['input'];
+        $input = str_replace("<p>", "", $input);
+        $input = str_replace("</p>", "<br>", $input);
+        $input = str_replace(",", "&#44;", $input);
 
-                            $output = $_POST['output'];
-                            $output = str_replace("<p>", "", $output);
-                            $output = str_replace("</p>", "<br>", $output);
-                            $output = str_replace(",", "&#44;", $output);
+        $output = $_POST['output'];
+        $output = str_replace("<p>", "", $output);
+        $output = str_replace("</p>", "<br>", $output);
+        $output = str_replace(",", "&#44;", $output);
 
-                            $sample_input = $_POST['sample_input'];
-                            $sample_output = $_POST['sample_output'];
-                            if ($sample_input == "") $sample_input = "\n";
-                            if ($sample_output == "") $sample_output = "\n";
+        $sample_input = $_POST['sample_input'];
+        $sample_output = $_POST['sample_output'];
+        if ($sample_input == "") $sample_input = "\n";
+        if ($sample_output == "") $sample_output = "\n";
 
-                            $hint = $_POST['hint'];
-                            $hint = str_replace("<p>", "", $hint);
-                            $hint = str_replace("</p>", "<br>", $hint);
-                            $hint = str_replace(",", "&#44;", $hint);
+        $hint = $_POST['hint'];
+        $hint = str_replace("<p>", "", $hint);
+        $hint = str_replace("</p>", "<br>", $hint);
+        $hint = str_replace(",", "&#44;", $hint);
 
-                            $spj = $_POST['spj'];
+        $spj = $_POST['spj'];
 
-                            $source = join(" ", explode(",", trim($_POST['source'])));
-                            $allow = join(" ", explode(",", trim($_POST['allow'])));
-                            $block = join(" ", explode(",", trim($_POST['block'])));
-                            $blank = $_POST['blank_code'];
+        $source = join(" ", explode(",", trim($_POST['source'])));
+        $allow = join(" ", explode(",", trim($_POST['allow'])));
+        $block = join(" ", explode(",", trim($_POST['block'])));
+        $blank = $_POST['blank_code'];
 
-                            if (substr($blank, -3) == "*%*") {
-                                $blank = substr($blank, 0, -3) . "\n";
-                            }
+        if (substr($blank, -3) == "*%*") {
+            $blank = substr($blank, 0, -3) . "\n";
+        }
 
-                            $background = $_POST["background"];
+        $background = $_POST["background"];
 
-                            $title = ($title);
-                            $basedir = $OJ_DATA . "/$id";
+        $title = ($title);
+        $basedir = $OJ_DATA . "/$id";
 
-                            if ($sample_input && file_exists($basedir . "/sample.in")) {
-                                //mkdir($basedir);
-                                $fp = fopen($basedir . "/sample.in", "w");
-                                fputs($fp, preg_replace("(\r\n)", "\n", $sample_input));
-                                fclose($fp);
+        if ($sample_input && file_exists($basedir . "/sample.in")) {
+            //mkdir($basedir);
+            $fp = fopen($basedir . "/sample.in", "w");
+            fputs($fp, preg_replace("(\r\n)", "\n", $sample_input));
+            fclose($fp);
 
-                                $fp = fopen($basedir . "/sample.out", "w");
-                                fputs($fp, preg_replace("(\r\n)", "\n", $sample_output));
-                                fclose($fp);
-                            }
+            $fp = fopen($basedir . "/sample.out", "w");
+            fputs($fp, preg_replace("(\r\n)", "\n", $sample_output));
+            fclose($fp);
+        }
 
-                            $spj = intval($spj);
-
-
-                            $sql = "SELECT * FROM `problem` WHERE `problem_id`=?";
-                            $result = pdo_query($sql, $id);
-                            $row = $result[0];
-
-                            $log = array();
-                            $compare = array(
-                                "title", "time_limit", "memory_limit", "description",
-                                "input", "output", "sample_input", "sample_output",
-                                "hint", "source", "spj", "background", "blank", "allow", "block"
-                            );
-                            foreach ($compare as $key) {
-                                if ($row[$key] != ${$key}) {
-                                    $log[] = $key;
-                                }
-                            }
-                            $logs = join(", ", $log);
+        $spj = intval($spj);
 
 
-                            $sql = "UPDATE `problem` SET `title`=?,`time_limit`=?,`memory_limit`=?, `description`=?,`input`=?,`output`=?,`sample_input`=?,`sample_output`=?,`hint`=?,`source`=?,`spj`=?, `background`=?, `in_date`=NOW(), `blank`=NULL, `allow`=NULL, `block`=NULL WHERE `problem_id`=?";
-                            pdo_query($sql, $title, $time_limit, $memory_limit, $description, $input, $output, $sample_input, $sample_output, $hint, $source, $spj, $background, $id);
+        $sql = "SELECT * FROM `problem` WHERE `problem_id`=?";
+        $result = pdo_query($sql, $id);
+        $row = $result[0];
 
-                            if ($_POST['blank'] == '1') {
-                                $sql = 'UPDATE `problem` set `blank`=? where `problem_id`=?';
-                                pdo_query($sql, $blank, $id);
-                            }
+        $log = array();
+        $compare = array(
+            "title", "time_limit", "memory_limit", "description",
+            "input", "output", "sample_input", "sample_output",
+            "hint", "source", "spj", "background", "blank", "allow", "block"
+        );
+        foreach ($compare as $key) {
+            if ($row[$key] != ${$key}) {
+                $log[] = $key;
+            }
+        }
+        $logs = join(", ", $log);
 
-                            if ($allow) {
-                                $sql = 'UPDATE `problem` set `allow`=? where `problem_id`=?';
-                                pdo_query($sql, $allow, $id);
-                            }
 
-                            if ($block) {
-                                $sql = 'UPDATE `problem` set `block`=? where `problem_id`=?';
-                                pdo_query($sql, $block, $id);
-                            }
+        $sql = "UPDATE `problem` SET `title`=?,`time_limit`=?,`memory_limit`=?, `description`=?,`input`=?,`output`=?,`sample_input`=?,`sample_output`=?,`hint`=?,`source`=?,`spj`=?, `background`=?, `in_date`=NOW(), `blank`=NULL, `allow`=NULL, `block`=NULL WHERE `problem_id`=?";
+        pdo_query($sql, $title, $time_limit, $memory_limit, $description, $input, $output, $sample_input, $sample_output, $hint, $source, $spj, $background, $id);
 
-                            $ip = getRealIP();
-                            $sql = "INSERT INTO `oplog` (`target`,`user_id`,`operation`,`ip`) VALUES (?,?,?,?)";
-                            pdo_query($sql, "p$id", $_SESSION[$OJ_NAME . '_' . 'user_id'], "edit $logs", $ip);
+        if ($_POST['blank'] == '1') {
+            $sql = 'UPDATE `problem` set `blank`=? where `problem_id`=?';
+            pdo_query($sql, $blank, $id);
+        }
 
+        if ($allow) {
+            $sql = 'UPDATE `problem` set `allow`=? where `problem_id`=?';
+            pdo_query($sql, $allow, $id);
+        }
+
+        if ($block) {
+            $sql = 'UPDATE `problem` set `block`=? where `problem_id`=?';
+            pdo_query($sql, $block, $id);
+        }
+
+        $ip = getRealIP();
+        $sql = "INSERT INTO `oplog` (`target`,`user_id`,`operation`,`ip`) VALUES (?,?,?,?)";
+        pdo_query($sql, "p$id", $_SESSION[$OJ_NAME . '_' . 'user_id'], "edit $logs", $ip);
 ?>
-    <p><?php echo $MSG_EDIT_SUCCESS ?></p>
-    <a href='../problem.php?id=<?php echo $id ?>'><?php echo $MSG_SEE ?></a>
-    </div>
-    <br>
-    </div>
-    </div>
-    </div>
+    <div class='container'>
+        <?php include("../template/nav.php") ?>
+        <div class='jumbotron'>
+            <div class='row lg-container'>
+                <?php require_once("sidebar.php") ?>
+                <div class='col-md-9 col-lg-10 p-0'>
+                    <?php
+                    echo "<center><h3>" . $MSG_PROBLEM . "-" .  $MSG_EDIT . "</h3></center>";
+                    ?>
+                    <div class="container">
+                        <p><?php echo $MSG_EDIT_SUCCESS ?></p>
+                        <a href='../problem.php?id=<?php echo $id ?>'><?php echo $MSG_SEE ?></a>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </div>
     </div>
     <?php require_once("../template/js.php"); ?>
     <script>
@@ -328,8 +336,8 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
             }
         })
     </script>
-    </body>
-
-    </html>
-
 <?php } ?>
+
+</body>
+
+</html>

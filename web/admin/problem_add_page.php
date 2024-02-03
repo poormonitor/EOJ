@@ -164,7 +164,7 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
 
               <div align=center>
                 <?php require_once("../include/set_post_key.php"); ?>
-                <input class='btn-sm btn btn-default' type=submit value='<?php echo $MSG_SAVE ?>' name=submit>
+                <input class='btn btn-default' type=submit value='<?php echo $MSG_SAVE ?>' name=submit>
               </div>
               </input>
             </form>

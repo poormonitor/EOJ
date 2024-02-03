@@ -8,6 +8,10 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
     require("../template/error.php");
     exit(0);
 }
+
+if (isset($_POST["do"])) {
+	require_once("../include/check_post_key.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo $OJ_LANG ?>">
@@ -31,7 +35,6 @@ if (!(isset($_SESSION[$OJ_NAME . '_' . 'administrator'])
 				<?php require_once("sidebar.php") ?>
 				<div class='col-md-9 col-lg-10 p-0'>
 					<?php if (isset($_POST['do'])) {
-						require_once("../include/check_post_key.php");
 						$from = $_POST['from'];
 						$to = $_POST['to'];
 						$start = intval($_POST['start']);
