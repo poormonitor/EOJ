@@ -142,7 +142,7 @@ $banner = isset($_GET["status"]);
 									<div class='col-sm-4'>
 										<input type=input class='form-control' name='rjsid' style='%' placeholder="1001" value='<?php if (isset($_GET['sid'])) echo $_GET['sid'] ?>'>
 										<input type='hidden' name='do' value='do'>
-										<input type=hidden name="postkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>">
+										<input type=hidden name="postkey" value="<?php echo end($_SESSION[$OJ_NAME . '_' . 'postkey']) ?>">
 										<input type=submit class='form-control btn btn-default ud-margin' value='<?php echo $MSG_SUBMIT; ?>'>
 									</div>
 								</form>
@@ -161,7 +161,7 @@ $banner = isset($_GET["status"]);
 											<?php } ?>
 										</select>
 										<input type='hidden' name='do' value='do'>
-										<input type=hidden name="postkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>">
+										<input type=hidden name="postkey" value="<?php echo end($_SESSION[$OJ_NAME . '_' . 'postkey']) ?>">
 										<input type=submit class='form-control btn btn-default ud-margin' value='<?php echo $MSG_SUBMIT; ?>'>
 									</div>
 								</form>
@@ -173,7 +173,7 @@ $banner = isset($_GET["status"]);
 									<div class='col-sm-4'>
 										<input type=input class='form-control' name='rjcid' placeholder="1003">
 										<input type='hidden' name='do' value='do'>
-										<input type=hidden name="postkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>">
+										<input type=hidden name="postkey" value="<?php echo end($_SESSION[$OJ_NAME . '_' . 'postkey']) ?>">
 										<input type=submit class='form-control btn btn-default ud-margin' value='<?php echo $MSG_SUBMIT; ?>'>
 									</div>
 								</form>
@@ -185,7 +185,7 @@ $banner = isset($_GET["status"]);
 									<div class='col-sm-4'>
 										<input type=input class='form-control' name='dlsid' placeholder="1003" value="<?php if (isset($_GET['sid'])) echo $_GET['sid'] ?>">
 										<input type='hidden' name='do' value='do'>
-										<input type=hidden name="postkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>">
+										<input type=hidden name="postkey" value="<?php echo end($_SESSION[$OJ_NAME . '_' . 'postkey']) ?>">
 										<input type=submit class='form-control btn btn-default ud-margin' value='<?php echo $MSG_SUBMIT; ?>'>
 									</div>
 								</form>

@@ -100,13 +100,13 @@ if (isset($_POST["do"])) {
               <input type=submit class='btn btn-info btn-nm' value='<?php echo $MSG_UPDATE_DATABASE ?>'>
             </form>
             <form action='update_db.php' method=post class='middle mt-3'>
-              <input type=hidden name="postkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>">
+              <input type=hidden name="postkey" value="<?php echo end($_SESSION[$OJ_NAME . '_' . 'postkey']) ?>">
               <input type='hidden' name='cache' value='do'>
               <input type="hidden" name="do" value="true">
               <input type=submit class='btn btn-info btn-nm' value='<?php echo $MSG_DELETE ?> Cache'>
             </form>
             <form action='update_db.php' method=post class='middle mt-3'>
-              <input type=hidden name="postkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>">
+              <input type=hidden name="postkey" value="<?php echo end($_SESSION[$OJ_NAME . '_' . 'postkey']) ?>">
               <input type='hidden' name='update' value='do'>
               <input type="hidden" name="do" value="true">
               <input type=submit class='btn btn-info btn-nm' value='<?php echo $MSG_UPGRADE ?> EOJ'>

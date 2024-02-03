@@ -97,7 +97,7 @@ if (isset($_POST['do']) && isset($_POST['qid'])) {
 										<input type=input class='form-control' name='qid' style='%' placeholder="1001" value='<?php if (isset($_GET['qid'])) echo $_GET['qid'] ?>'>
 										<input type='hidden' name='do' value='do'>
 										<input type='hidden' name='all' value='all'>
-										<input type=hidden name="postkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>">
+										<input type=hidden name="postkey" value="<?php echo end($_SESSION[$OJ_NAME . '_' . 'postkey']) ?>">
 										<input type=submit class='form-control btn btn-default' value='<?php echo $MSG_SUBMIT; ?>'>
 									</div>
 								</form>
@@ -109,7 +109,7 @@ if (isset($_POST['do']) && isset($_POST['qid'])) {
 										<input type=input class='form-control' name='qid' style='%' placeholder="1001" value='<?php if (isset($_GET['qid'])) echo $_GET['qid'] ?>'>
 										<input type='hidden' name='do' value='do'>
 										<input type='hidden' name='human' value='human'>
-										<input type=hidden name="postkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>">
+										<input type=hidden name="postkey" value="<?php echo end($_SESSION[$OJ_NAME . '_' . 'postkey']) ?>">
 										<input type=submit class='form-control btn btn-default' value='<?php echo $MSG_SUBMIT; ?>'>
 									</div>
 								</form>
@@ -121,7 +121,7 @@ if (isset($_POST['do']) && isset($_POST['qid'])) {
 										<input type=input class='form-control' name='qid' style='%' placeholder="1001" value='<?php if (isset($_GET['qid'])) echo $_GET['qid'] ?>'>
 										<input type='hidden' name='do' value='do'>
 										<input type='hidden' name='auto' value='auto'>
-										<input type=hidden name="postkey" value="<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>">
+										<input type=hidden name="postkey" value="<?php echo end($_SESSION[$OJ_NAME . '_' . 'postkey']) ?>">
 										<input type=submit class='form-control btn btn-default' value='<?php echo $MSG_SUBMIT; ?>'>
 									</div>
 								</form>

@@ -147,7 +147,7 @@
 		function deleteIP(ip) {
 			$.post("online.php", {
 				del: ip,
-				postkey: "<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>"
+				postkey: "<?php echo end($_SESSION[$OJ_NAME . '_' . 'postkey']) ?>"
 			}, function(data, status) {
 				if (data == "success") {
 					$("tr[data-ip='" + ip + "']").fadeOut("slow", function() {

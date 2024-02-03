@@ -130,7 +130,7 @@ $src = shell_exec($OJ_PY_BIN . " -m pip list --format=json");
       $.post("pip.php", {
         do: "install",
         module: mod,
-        postkey: "<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>"
+        postkey: "<?php echo end($_SESSION[$OJ_NAME . '_' . 'postkey']) ?>"
       }, function(data, status) {
         swal({
           text: data,
@@ -145,7 +145,7 @@ $src = shell_exec($OJ_PY_BIN . " -m pip list --format=json");
       $.post("pip.php", {
         do: "uninstall",
         module: mod,
-        postkey: "<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>"
+        postkey: "<?php echo end($_SESSION[$OJ_NAME . '_' . 'postkey']) ?>"
       }, function(data, status) {
         swal({
           text: data,
@@ -160,7 +160,7 @@ $src = shell_exec($OJ_PY_BIN . " -m pip list --format=json");
       $.post("pip.php", {
         do: "upgrade",
         module: mod,
-        postkey: "<?php echo $_SESSION[$OJ_NAME . '_' . 'postkey'] ?>"
+        postkey: "<?php echo end($_SESSION[$OJ_NAME . '_' . 'postkey']) ?>"
       }, function(data, status) {
         swal({
           text: data,
