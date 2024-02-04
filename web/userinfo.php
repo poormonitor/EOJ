@@ -71,7 +71,6 @@ $Rank = intval($row[0]) + 1;
 if (isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
 	$sql = "SELECT user_id,password,ip,`time` FROM `loginlog` WHERE `user_id`=? order by `time` desc LIMIT 0,10";
 	$view_userinfo = pdo_query($sql, $user);
-	echo "</table>";
 
 	$sql = "SELECT `name` FROM `users` JOIN `group` ON `users`.`gid`=`group`.`gid` WHERE `users`.`user_id`=?;";
 	$group_info = pdo_query($sql, $user);
