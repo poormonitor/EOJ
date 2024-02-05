@@ -247,7 +247,7 @@
 
     require(['vs/editor/editor.main'], function() {
       window.editor = monaco.editor.create(document.getElementById('source'), {
-        value: `<?php echo $view_src ?>`,
+        value: `<?php echo str_replace("`", "\`", $view_src) ?>`,
         language: 'plain',
         fontSize: window.innerWidth < 768 ? "14px" : "18px",
       });
