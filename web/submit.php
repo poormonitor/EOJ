@@ -264,7 +264,7 @@ if ($code && $code[0][0]) {
 if (!$test_run)
   $_SESSION[$OJ_NAME . "_" . "last_source"] = array($c_pid, $source);
 
-$row = pdo_query('SELECT allow,block from problem where problem_id=?', $c_pid)[0];
+$row = pdo_query('SELECT `allow`, `block` from problem where problem_id=?', $c_pid)[0];
 $allow = $row[0];
 $block = $row[1];
 
@@ -353,10 +353,6 @@ if ($language == 6 && strpos($source, "coding=utf-8") == false) {
   $source = "# coding=utf-8\n" . $source;
 }
 
-if ($test_run) {
-  $id = 0;
-}
-
 $len = strlen($source);
 
 if ($len < 2) {
@@ -404,7 +400,7 @@ if (~$OJ_LANGMASK & (1 << $language)) {
 
     if (!isset($pid)) {
       $sql = "INSERT INTO solution(solution_id,problem_id,user_id,nick,in_date,language,ip,code_length,result) VALUES(?,?,?,?,NOW(),?,?,?,14)";
-      pdo_query($sql, $insert_id, $id, $user_id, $nick, $language, $ip, $len);
+      pdo_query($sql, $insert_id, -$id, $user_id, $nick, $language, $ip, $len);
     } else {
       $sql = "INSERT INTO solution(solution_id,problem_id,user_id,nick,in_date,language,ip,code_length,contest_id,num,result) VALUES(?,?,?,?,NOW(),?,?,?,?,?,14)";
       pdo_query($sql, $insert_id, $id, $user_id, $nick, $language, $ip, $len, $cid, $pid);

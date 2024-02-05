@@ -1337,7 +1337,7 @@ int compile(int lang, char *work_dir)
 
 	const char *CP_R[] = {"ruby", "-c", "Main.rb", NULL};
 	const char *CP_B[] = {"chmod", "+rx", "Main.sh", NULL};
-	const char *CP_Y[] = {py_bin, "-m", "py_compile", "Main.py", NULL};
+	const char *CP_Y[] = {py2 ? "python3" : "python", "-m", "py_compile", "Main.py", NULL};
 	const char *CP_PH[] = {"php", "-l", "Main.php", NULL};
 	const char *CP_PL[] = {"perl", "-c", "Main.pl", NULL};
 	const char *CP_CS[] = {"mcs", "-codepage:utf8", "-warn:0", "Main.cs", NULL};
@@ -2000,6 +2000,23 @@ void prepare_files(char *filename, int namelen, char *infile, int &p_id,
 	{
 		prepare_spj(oj_home, p_id, work_dir);
 	}
+}
+
+void prepare_files_custom(char *filename, int namelen, int &p_id,
+						  char *work_dir, int runner_id)
+{
+	//              printf("ACflg=%d %d check a file!\n",ACflg,solution_id);
+
+	char fname0[BUFFER_SIZE];
+	char fname[BUFFER_SIZE];
+	strncpy(fname0, filename, namelen);
+	fname0[namelen] = 0;
+	escape(fname, fname0);
+	// printf("%s\n%s\n",fname0,fname);
+	execute_cmd("/bin/cp `ls %s/data/%d/* | grep %s | grep -v -e '.*\\.in' | grep -v -e '.*\\.out'` %s", oj_home, p_id, fname, work_dir);
+	execute_cmd("/bin/cp %s/data/%d/help* %s 2>/dev/null", oj_home, p_id, work_dir);
+	execute_cmd("/bin/cp %s/data/%d/*.dic %s 2>/dev/null", oj_home, p_id, work_dir);
+	execute_cmd("chown judge %s* ", work_dir);
 }
 
 void copy_shell_runtime(char *work_dir)
@@ -3423,7 +3440,7 @@ int main(int argc, char **argv)
 	char user_id[BUFFER_SIZE];
 	int solution_id = 1000;
 	int runner_id = 0;
-	int p_id, mem_lmt, lang, isspj, sim, sim_s_id, max_case_time = 0, cid = 0;
+	int p_id, test_run, mem_lmt, lang, isspj, sim, sim_s_id, max_case_time = 0, cid = 0;
 	double time_lmt;
 	char time_space_table[BUFFER_SIZE * 100];
 	int time_space_index = 0;
@@ -3472,9 +3489,17 @@ int main(int argc, char **argv)
 
 	if (p_id == 0)
 	{
+		test_run = 1;
 		time_lmt = 5;
 		mem_lmt = 128;
 		isspj = 0;
+	}
+	else if (p_id < 0)
+	{
+		test_run = 1;
+		p_id = -p_id;
+		isspj = 0;
+		get_problem_info(p_id, time_lmt, mem_lmt, isspj);
 	}
 	else
 	{
@@ -3552,13 +3577,13 @@ int main(int argc, char **argv)
 	// DIR *dp;
 	dirent *dirp;
 	// using http to get remote test data files
-	if (p_id > 0 && http_judge && http_download)
+	if (http_judge && http_download)
 		get_test_file(work_dir, p_id);
 
 	struct dirent **namelist;
 	int namelist_len;
 	namelist_len = scandir(fullpath, &namelist, inFile, alphasort);
-	if (p_id > 0 && namelist_len == -1)
+	if (namelist_len == -1)
 	{
 
 		write_log("No such dir:%s!\n", fullpath);
@@ -3567,6 +3592,21 @@ int main(int argc, char **argv)
 			mysql_close(conn);
 #endif
 		exit(-1);
+	}
+	else if (test_run)
+	{
+		int left_count = namelist_len;
+		// only keep the case of "sample"
+		for (int i = 0; i < namelist_len; i++)
+		{
+			if (strstr(namelist[i]->d_name, "sample") == NULL)
+			{
+				free(namelist[i]);
+				namelist[i] = NULL;
+				left_count--;
+			}
+		}
+		namelist_len = left_count;
 	}
 	else
 	{
@@ -3634,9 +3674,18 @@ int main(int argc, char **argv)
 	double pass_rate = 0.0;
 	int mark = 0, total_mark = 0, get_mark = 0;
 	int finalACflg = ACflg;
-	if (p_id == 0)
+	if (test_run)
 	{ // custom input running
 		printf("running a custom input...\n");
+		if (namelist_len != 0)
+		{
+			namelen = isInFile(namelist[0]->d_name);
+			prepare_files_custom(namelist[0]->d_name, namelen, p_id, work_dir, runner_id);
+		}
+		else
+		{
+			write_log("No such file: %s/sample.*!\n", fullpath);
+		}
 		get_custominput(solution_id, work_dir);
 		init_syscalls_limits(lang);
 		pid_t pidApp = fork();
