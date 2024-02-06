@@ -38,7 +38,7 @@ if (isset($_POST["do"])) {
             <?php
             $csql = array();
 
-            $csql[0] = "DELETE FROM solution WHERE result=13;";
+            $csql[0] = "DELETE FROM solution WHERE result=13 OR result=14 OR solution_id<1000;";
             $csql[1] = "DELETE source_code FROM source_code 
                         LEFT JOIN solution ON source_code.solution_id = solution.solution_id
                         WHERE solution.solution_id IS NULL;";
