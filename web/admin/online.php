@@ -51,7 +51,7 @@ $i = 0;
 
 foreach ($result as $row) {
 
-	$view_online[$i][0] = "<a href='userinfo.php?user=" . htmlentities($row[0], ENT_QUOTES, "UTF-8") . "'>" . htmlentities($row[0], ENT_QUOTES, "UTF-8") . "</a>";
+	$view_online[$i][0] = "<a href='../userinfo.php?user=" . htmlentities($row[0], ENT_QUOTES, "UTF-8") . "'>" . htmlentities($row[0], ENT_QUOTES, "UTF-8") . "</a>";
 	$view_online[$i][1] = htmlentities($row[1], ENT_QUOTES, "UTF-8");
 	$view_online[$i][2] = htmlentities($row[2], ENT_QUOTES, "UTF-8");
 	$view_online[$i][3] = htmlentities($row[3], ENT_QUOTES, "UTF-8");
@@ -92,10 +92,10 @@ foreach ($result as $row) {
 										<tr class=toprow>
 											<th>IP</th>
 											<th>IP info</th>
+											<th>User ID</th>
 											<th>URI</th>
 											<th>Refer</th>
 											<th>Stay time</th>
-											<th>User ID</th>
 											<th>User Agent</th>
 										</tr>
 									</thead>
@@ -112,18 +112,18 @@ foreach ($result as $row) {
 													<td>
 														<?php echo getLocationFull($u['ip']); ?>
 													</td>
-													<td><?php echo $u["uri"] ?></td>
-													<td><?php echo $u['refer'] ?></td>
-													<td class="time"><?php echo sprintf("%dmin %dsec", ($u['lastmove'] - $u['firsttime']) / 60, ($u['lastmove'] - $u['firsttime']) % 60) ?></td>
 													<td>
 														<?php if ($ua[0] != "guest") { ?>
-															<a target="view_window" href="userinfo.php?user=<?php echo $ua[0] ?>">
+															<a target="view_window" href="../userinfo.php?user=<?php echo $ua[0] ?>">
 																<?php echo $ua[0] ?>
 															</a>
 														<?php } else { ?>
 															<?php echo $ua[0] ?>
 														<?php } ?>
 													</td>
+													<td><?php echo $u["uri"] ?></td>
+													<td><?php echo $u['refer'] ?></td>
+													<td class="time"><?php echo sprintf("%dmin %dsec", ($u['lastmove'] - $u['firsttime']) / 60, ($u['lastmove'] - $u['firsttime']) % 60) ?></td>
 													<td><?php echo $ua[1] ?></td>
 												</tr>
 										<?php
