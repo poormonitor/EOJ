@@ -27,12 +27,12 @@ rm -rf /home/judge/data
 rm -rf /home/judge/etc  
 rm -rf /home/judge/eoj
 rm -rf /var/lib/mysql   
-ln -s /volume/backup /home/judge/backup 
-ln -s /volume/data   /home/judge/data   
-ln -s /volume/etc    /home/judge/etc
-ln -s /volume/eoj    /home/judge/eoj
-ln -s /volume/mysql  /var/lib/mysql 
-ln -s /volume/web    /volume/eoj/web
+ln -s /volume/backup   /home/judge/backup 
+ln -s /volume/data     /home/judge/data   
+ln -s /volume/etc      /home/judge/etc
+ln -s /volume/eoj      /home/judge/eoj
+ln -s /volume/mysql    /var/lib/mysql 
+ln -s /volume/eoj/web  /volume/eoj
 
 RUNNING=`cat /home/judge/etc/judge.conf | grep OJ_RUNNING`
 RUNNING=${RUNNING:11}

@@ -398,12 +398,19 @@ if (~$OJ_LANGMASK & (1 << $language)) {
     $sql = "SELECT MIN(solution_id) from solution";
     $insert_id = min(pdo_query($sql)[0][0], 1000) - 1;
 
+    $sql = "DELETE FROM custominput WHERE solution_id=?";
+    pdo_query($sql, $insert_id);
+    $sql = "DELETE FROM runtimeinfo WHERE solution_id=?";
+    pdo_query($sql, $insert_id);
+    $sql = "DELETE FROM compileinfo WHERE solution_id=?";
+    pdo_query($sql, $insert_id);
+
     if (!isset($pid)) {
       $sql = "INSERT INTO solution(solution_id,problem_id,user_id,nick,in_date,language,ip,code_length,result) VALUES(?,?,?,?,NOW(),?,?,?,14)";
       pdo_query($sql, $insert_id, -$id, $user_id, $nick, $language, $ip, $len);
     } else {
       $sql = "INSERT INTO solution(solution_id,problem_id,user_id,nick,in_date,language,ip,code_length,contest_id,num,result) VALUES(?,?,?,?,NOW(),?,?,?,?,?,14)";
-      pdo_query($sql, $insert_id, $id, $user_id, $nick, $language, $ip, $len, $cid, $pid);
+      pdo_query($sql, $insert_id, -$id, $user_id, $nick, $language, $ip, $len, $cid, $pid);
     }
   } else {
     if (!isset($pid)) {

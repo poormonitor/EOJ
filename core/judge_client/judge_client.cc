@@ -607,6 +607,7 @@ int isInFile(const char fname[])
 	else
 		return l - 3;
 }
+
 int inFile(const struct dirent *dp)
 {
 	int l = strlen(dp->d_name);
@@ -618,6 +619,19 @@ int inFile(const struct dirent *dp)
 	if (DEBUG)
 		printf("\t:%d\n", ret);
 	return ret;
+}
+
+int sampleInFile(const struct dirent *dp)
+{
+	int l = strlen(dp->d_name);
+	if (DEBUG)
+		printf("file name:%s\n", dp->d_name);
+	if (DEBUG)
+		printf("ext name:%s\n", dp->d_name + l - 3);
+	if (strcmp(dp->d_name, "sample.in") == 0)
+		return 6;
+	else
+		return 0;
 }
 
 void find_next_nonspace(int &c1, int &c2, FILE *&f1, FILE *&f2, int &ret)
@@ -1680,7 +1694,7 @@ void _get_custominput_mysql(int solution_id, char *work_dir)
 {
 	char sql[BUFFER_SIZE], src_pth[BUFFER_SIZE];
 	// get the source code
-	printf("geting custom input\n");
+	printf("getting custom input\n");
 	MYSQL_RES *res;
 	MYSQL_ROW row;
 	sprintf(sql, "SELECT input_text FROM custominput WHERE solution_id=%d",
@@ -1699,7 +1713,7 @@ void _get_custominput_mysql(int solution_id, char *work_dir)
 	}
 	if (res != NULL)
 	{
-		printf("no custom input\n");
+		printf("releasing mysql result\n");
 		mysql_free_result(res); // free the memory
 		res = NULL;
 	}
@@ -3582,7 +3596,16 @@ int main(int argc, char **argv)
 
 	struct dirent **namelist;
 	int namelist_len;
-	namelist_len = scandir(fullpath, &namelist, inFile, alphasort);
+
+	if (test_run)
+	{
+		namelist_len = scandir(fullpath, &namelist, sampleInFile, alphasort);
+	}
+	else
+	{
+		namelist_len = scandir(fullpath, &namelist, inFile, alphasort);
+	}
+
 	if (namelist_len == -1)
 	{
 
@@ -3592,21 +3615,6 @@ int main(int argc, char **argv)
 			mysql_close(conn);
 #endif
 		exit(-1);
-	}
-	else if (test_run)
-	{
-		int left_count = namelist_len;
-		// only keep the case of "sample"
-		for (int i = 0; i < namelist_len; i++)
-		{
-			if (strstr(namelist[i]->d_name, "sample") == NULL)
-			{
-				free(namelist[i]);
-				namelist[i] = NULL;
-				left_count--;
-			}
-		}
-		namelist_len = left_count;
 	}
 	else
 	{
