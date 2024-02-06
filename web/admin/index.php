@@ -256,7 +256,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <center><a class='btn btn-danger btn-sm' href="../online.php"><b><?php echo $MSG_SYSTEM . "-" . $MSG_HELP_ONLINE ?></b></a></center>
+                                            <center><a class='btn btn-danger btn-sm' href="online.php"><b><?php echo $MSG_SYSTEM . "-" . $MSG_HELP_ONLINE ?></b></a></center>
                                         </td>
                                         <td>
                                             <p><?php echo $MSG_HELP_ONLINE ?></p>

@@ -106,7 +106,7 @@
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="rejudge.php" title="<?php echo $MSG_HELP_REJUDGE ?>"><b><?php echo $MSG_SYSTEM . "-" . $MSG_REJUDGE ?></b></a></li>
                             <li><a class="dropdown-item" href="source_give.php" title="<?php echo $MSG_HELP_GIVESOURCE ?>"><b><?php echo $MSG_SYSTEM . "-" . $MSG_GIVESOURCE ?></b></a></li>
-                            <li><a class="dropdown-item" href="../online.php"><b><?php echo $MSG_SYSTEM . "-" . $MSG_HELP_ONLINE ?></b></a></li>
+                            <li><a class="dropdown-item" href="online.php"><b><?php echo $MSG_SYSTEM . "-" . $MSG_HELP_ONLINE ?></b></a></li>
                             <li><a class="dropdown-item" href="update_db.php" title="<?php echo $MSG_HELP_UPDATE_DATABASE ?>"><b><?php echo $MSG_SYSTEM . "-" . $MSG_UPDATE_DATABASE ?></b></a></li>
                             <li><a class="dropdown-item" href="pip.php" title="<?php echo $MSG_HELP_MODULE ?>"><b><?php echo $MSG_SYSTEM . "-" . $MSG_MODULE_INSTALL ?></b></a></li>
                         </ul>
