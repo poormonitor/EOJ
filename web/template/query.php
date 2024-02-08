@@ -239,10 +239,11 @@
       content: `<?php echo $info ?>`,
       fontSize: '16px',
       fontFamily: "HarmonySans",
-      globalAlpha: 0.03,
+      lineHeight: 16,
+      globalAlpha: 0.05,
       rotate: 45,
-      width: 160,
-      height: 160,
+      width: 180,
+      height: 180,
     }
     if (isDarkMode) watermark_config_query.fontColor = '#fff'
     watermark.changeOptions(watermark_config_query);

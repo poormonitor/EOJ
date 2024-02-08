@@ -50,9 +50,9 @@ $endTime = microtime(true);
 $runTime = ($endTime - $startTime) * 1000 . ' ms';
 $prefix = isset($prefix) ? $prefix : "";
 
-$info = substr(session_id(), 0, 7) . " " . time() . " " . getRealIP();
+$info = substr(session_id(), 0, 7) . " | " . time() . " | " . getRealIP();
 if (isset($_SESSION[$OJ_NAME . '_' . 'user_id']))
-	$info .= " " . $_SESSION[$OJ_NAME . '_' . 'user_id'];
+	$info .= " | " . $_SESSION[$OJ_NAME . '_' . 'user_id'];
 ?>
 <script>
 	$(document).ready(function() {
@@ -75,11 +75,12 @@ if (isset($_SESSION[$OJ_NAME . '_' . 'user_id']))
 	var watermark_config = {
 		contentType: 'multi-line-text',
 		content: `<?php echo $info ?>`,
-		fontSize: '16px',
+		fontSize: '18px',
 		fontFamily: "HarmonySans",
+		lineHeight: 18,
 		rotate: 45,
-		width: 160,
-		height: 160,
+		width: 180,
+		height: 180,
 	}
 	if (isDarkMode) watermark_config.fontColor = '#fff'
 	var watermark = new WatermarkPlus.BlindWatermark(watermark_config)
