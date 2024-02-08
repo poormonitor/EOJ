@@ -37,16 +37,25 @@ $view_online = array();
 
 $sql = "SELECT * FROM `loginlog`";
 $search = isset($_GET['search']) ? $_GET['search'] : '';
+$search_2 = isset($_GET['search_2']) ? $_GET['search_2'] : '';
+
+$params = array();
 if ($search != '') {
 	$sql = $sql . " WHERE ip like ? ";
-	$search = "%$search%";
-} else {
-	$sql = $sql . " where user_id<>? ";
-	$search = $_SESSION[$OJ_NAME . '_' . 'user_id'];
+	$params[] = "%$search%";
 }
-$sql = $sql . "  order by `time` desc LIMIT 0,50";
+if ($search_2 != '') {
+	$sql = $sql . " WHERE password like ? ";
+	$params[] = "%$search_2%";
+}
+if (!count($params)) {
+	$sql = $sql . " where user_id<>? ";
+	$params[] = $_SESSION[$OJ_NAME . '_' . 'user_id'];
+}
 
-$result = pdo_query($sql, $search);
+$sql = $sql . "  order by `time` desc LIMIT 0,50";
+$result = pdo_query($sql, ...$params);
+
 $i = 0;
 
 foreach ($result as $row) {
@@ -137,8 +146,11 @@ foreach ($result as $row) {
 								<?php
 								if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
 								?>
-									<form>IP
-										<input type='text' class="form-control" name='search' style='margin:5px;'>
+									<form>
+										<label class="m-2" for="search"> IP </label>
+										<input type='text' class="form-control" name='search' value="<?php echo $search ?>">
+										<label class="m-2" for="search_2"> Session ID </label>
+										<input type='text' class="form-control" name='search_2' value="<?php echo $search_2 ?>">
 										<input type='submit' class="form-control" value='<?php echo $MSG_SEARCH ?>'>
 									</form>
 							</div>
