@@ -74,12 +74,12 @@ if (isset($_SESSION[$OJ_NAME . '_' . 'user_id']))
 
 	var watermark_config = {
 		contentType: 'multi-line-text',
-		content: '<?php echo $info ?>',
-		fontSize: '14px',
-		lineHeight: 18,
-		rotate: 15,
+		content: `<?php echo $info ?>`,
+		fontSize: '16px',
+		fontFamily: "HarmonySans",
+		rotate: 45,
 		width: 160,
-		height: 60
+		height: 160,
 	}
 	if (isDarkMode) watermark_config.fontColor = '#fff'
 	var watermark = new WatermarkPlus.BlindWatermark(watermark_config)

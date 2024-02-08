@@ -236,12 +236,13 @@
   <script>
     var watermark_config_query = {
       contentType: 'multi-line-text',
-      content: '<?php echo $info ?>',
-      fontSize: '18px',
-      globalAlpha: 0.05,
-      rotate: 35,
-      width: 300,
-      height: 250,
+      content: `<?php echo $info ?>`,
+      fontSize: '16px',
+      fontFamily: "HarmonySans",
+      globalAlpha: 0.03,
+      rotate: 45,
+      width: 160,
+      height: 160,
     }
     if (isDarkMode) watermark_config_query.fontColor = '#fff'
     watermark.changeOptions(watermark_config_query);
