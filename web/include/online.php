@@ -82,7 +82,7 @@ class online
 			$this->ua = htmlentities($_SESSION[$OJ_NAME . '_' . 'user_id'], ENT_QUOTES, "UTF-8");
 		else
 			$this->ua = "guest";
-		$user_agent = strtolower($_SERVER['HTTP_USER_AGENT'] || "");
+		$user_agent = strtolower($_SERVER['HTTP_USER_AGENT']);
 		if (strstr($user_agent, "bot") || strstr($user_agent, "spider")) {
 			return;
 		}
