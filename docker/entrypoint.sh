@@ -32,7 +32,6 @@ ln -s /volume/data     /home/judge/data
 ln -s /volume/etc      /home/judge/etc
 ln -s /volume/eoj      /home/judge/eoj
 ln -s /volume/mysql    /var/lib/mysql 
-ln -s /volume/eoj/web  /volume/eoj
 
 RUNNING=`cat /home/judge/etc/judge.conf | grep OJ_RUNNING`
 RUNNING=${RUNNING:11}
