@@ -18,7 +18,6 @@ mkdir -p /var/log/eoj
 mv /trunk /home/judge/eoj
 chmod -R 755 /home/judge/etc
 chmod -R 755 /home/judge/backup
-chmod -R 755 /home/judge/eoj/web/
 chown -R www-data:www-data /home/judge/data
 chown -R www-data:www-data /home/judge/eoj/web
 

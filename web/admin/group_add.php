@@ -66,7 +66,7 @@ if (isset($_POST["do"])) {
                 }
 
                 $sql = "INSERT INTO `loginlog` VALUES(?,?,?,NOW())";
-                pdo_query($sql, $id_pw[0], "group set by " . $_SESSION[$OJ_NAME . "_" . "user_id"], $ip);
+                pdo_query($sql, $i, "group set by " . $_SESSION[$OJ_NAME . "_" . "user_id"], $ip);
                 
                 $count += 1;
               }

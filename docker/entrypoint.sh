@@ -17,7 +17,6 @@ cp -rp /var/lib/mysql /volume/mysql;
 fi 
 chmod -R 755 /volume/etc
 chmod -R 755 /volume/backup 
-chmod -R 755 /volume/eoj/web/include/   
 chown -R www-data:www-data /volume/data 
 chown -R www-data:www-data /volume/eoj/web 
 chown -R mysql:mysql       /volume/mysql   
