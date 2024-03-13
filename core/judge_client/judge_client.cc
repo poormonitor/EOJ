@@ -2174,14 +2174,14 @@ void copy_ruby_runtime(char *work_dir)
 {
 
 	copy_shell_runtime(work_dir);
-	execute_cmd("mkdir -p %s/usr", work_dir);
+	execute_cmd("mkdir -p %s/usr/bin", work_dir);
 	execute_cmd("mkdir -p %s/usr/lib", work_dir);
 	execute_cmd("mkdir -p %s/usr/lib64", work_dir);
 	execute_cmd("cp -a /usr/lib/libruby* %s/usr/lib/", work_dir);
 	execute_cmd("cp -a /usr/lib/ruby* %s/usr/lib/", work_dir);
 	execute_cmd("cp -a /usr/lib64/ruby* %s/usr/lib64/", work_dir);
 	execute_cmd("cp -a /usr/lib64/libruby* %s/usr/lib64/", work_dir);
-	execute_cmd("cp -a /usr/bin/ruby* %s/", work_dir);
+	execute_cmd("cp -a /usr/bin/ruby* %s/usr/bin", work_dir);
 #ifdef __x86_64__
 	execute_cmd("/bin/cp -a /usr/lib/x86_64-linux-gnu/libruby* %s/usr/lib/", work_dir);
 	execute_cmd("/bin/cp -a /usr/lib/x86_64-linux-gnu/libgmp* %s/usr/lib/", work_dir);
@@ -2194,6 +2194,7 @@ void copy_guile_runtime(char *work_dir)
 	copy_shell_runtime(work_dir);
 	execute_cmd("/bin/mkdir -p %s/proc", work_dir);
 	execute_cmd("/bin/mount -o bind /proc %s/proc", work_dir);
+	execute_cmd("/bin/mkdir -p %s/usr/bin", work_dir);
 	execute_cmd("/bin/mkdir -p %s/usr/lib", work_dir);
 	execute_cmd("/bin/mkdir -p %s/usr/share", work_dir);
 	execute_cmd("/bin/cp -a /usr/share/guile %s/usr/share/", work_dir);
@@ -2207,7 +2208,7 @@ void copy_guile_runtime(char *work_dir)
 	execute_cmd("/bin/cp /usr/lib/libgmp* %s/usr/lib/", work_dir);
 	execute_cmd("/bin/cp /usr/lib/*/libltdl* %s/usr/lib/", work_dir);
 	execute_cmd("/bin/cp /usr/lib/libltdl* %s/usr/lib/", work_dir);
-	execute_cmd("/bin/cp /usr/bin/guile* %s/", work_dir);
+	execute_cmd("/bin/cp /usr/bin/guile* %s/usr/bin", work_dir);
 #ifdef __x86_64__
 	execute_cmd("/bin/cp -a /usr/lib/x86_64-linux-gnu/libguile* %s/usr/lib/", work_dir);
 	execute_cmd("/bin/cp -a /usr/lib/x86_64-linux-gnu/libgc* %s/usr/lib/", work_dir);
@@ -2222,6 +2223,7 @@ void copy_python_runtime(char *work_dir)
 	execute_cmd("mkdir -p %s/usr/include", work_dir);
 	execute_cmd("mkdir -p %s/dev", work_dir);
 
+	execute_cmd("mkdir -p %s/usr/bin", work_dir);
 	execute_cmd("mkdir -p %s/usr/lib", work_dir);
 	execute_cmd("mkdir -p %s/usr/lib64", work_dir);
 	execute_cmd("mkdir -p %s/usr/local/lib", work_dir);
@@ -2240,7 +2242,7 @@ void copy_python_runtime(char *work_dir)
 	execute_cmd("cp -a /usr/share/abrt/conf.d/plugins/python.conf %s/usr/share/abrt/conf.d/plugins/python.conf", work_dir);
 	if (!py2)
 	{
-		execute_cmd("cp /usr/bin/python2* %s/", work_dir);
+		execute_cmd("cp /usr/bin/python2* %s/usr/bin", work_dir);
 		execute_cmd("cp -a /usr/lib/python2* %s/usr/lib/", work_dir);
 		execute_cmd("cp -a /usr/lib64/python2.7  %s/usr/lib64/", work_dir);
 #if (defined __mips__)
@@ -2251,7 +2253,7 @@ void copy_python_runtime(char *work_dir)
 	}
 	else
 	{
-		execute_cmd("cp /usr/bin/python3* %s/", work_dir);
+		execute_cmd("cp /usr/bin/python3* %s/usr/bin", work_dir);
 		execute_cmd("cp -a /usr/lib/python3* %s/usr/lib/", work_dir);
 		execute_cmd("cp -a /usr/lib64/python3.6  %s/usr/lib64/", work_dir);
 #if (defined __mips__)
@@ -2304,7 +2306,7 @@ void copy_php_runtime(char *work_dir)
 {
 
 	copy_shell_runtime(work_dir);
-	execute_cmd("/bin/mkdir %s/usr", work_dir);
+	execute_cmd("/bin/mkdir -p %s/usr/bin", work_dir);
 	execute_cmd("/bin/mkdir %s/usr/lib", work_dir);
 	execute_cmd("/bin/cp /usr/lib/libedit* %s/usr/lib/", work_dir);
 	execute_cmd("/bin/cp /usr/lib/libdb* %s/usr/lib/", work_dir);
@@ -2325,17 +2327,17 @@ void copy_php_runtime(char *work_dir)
 	execute_cmd("/bin/cp /usr/lib/x86_64-linux-gnu/libssl* %s/usr/lib/", work_dir);
 	execute_cmd("/bin/cp /usr/lib/x86_64-linux-gnu/libcrypto* %s/usr/lib/", work_dir);
 #endif
-	execute_cmd("/bin/cp /usr/bin/php* %s/", work_dir);
+	execute_cmd("/bin/cp /usr/bin/php* %s/usr/bin", work_dir);
 	execute_cmd("chmod +rx %s/Main.php", work_dir);
 }
 void copy_perl_runtime(char *work_dir)
 {
 
 	copy_shell_runtime(work_dir);
-	execute_cmd("/bin/mkdir %s/usr", work_dir);
+	execute_cmd("/bin/mkdir -p %s/usr/bin", work_dir);
 	execute_cmd("/bin/mkdir %s/usr/lib", work_dir);
 	execute_cmd("/bin/cp /usr/lib/libperl* %s/usr/lib/", work_dir);
-	execute_cmd("/bin/cp /usr/bin/perl* %s/", work_dir);
+	execute_cmd("/bin/cp /usr/bin/perl* %s/usr/bin", work_dir);
 }
 void copy_freebasic_runtime(char *work_dir)
 {
@@ -2351,7 +2353,7 @@ void copy_mono_runtime(char *work_dir)
 {
 
 	copy_shell_runtime(work_dir);
-	execute_cmd("/bin/mkdir %s/usr", work_dir);
+	execute_cmd("/bin/mkdir -p %s/usr/bin", work_dir);
 	execute_cmd("/bin/mkdir %s/proc", work_dir);
 	execute_cmd("/bin/mkdir -p %s/usr/lib/mono/2.0", work_dir);
 	execute_cmd("/bin/cp -a /usr/lib/mono %s/usr/lib/", work_dir);
@@ -2361,7 +2363,7 @@ void copy_mono_runtime(char *work_dir)
 	execute_cmd("/bin/cp /usr/lib/libgthread* %s/usr/lib/", work_dir);
 
 	execute_cmd("/bin/mount -o bind /proc %s/proc", work_dir);
-	execute_cmd("/bin/cp /usr/bin/mono* %s/", work_dir);
+	execute_cmd("/bin/cp /usr/bin/mono* %s/usr", work_dir);
 
 	execute_cmd("/bin/cp /usr/lib/libgthread* %s/usr/lib/", work_dir);
 	execute_cmd("/bin/cp /lib/libglib* %s/lib/", work_dir);
@@ -2388,15 +2390,17 @@ void copy_lua_runtime(char *work_dir)
 {
 
 	copy_shell_runtime(work_dir);
+	execute_cmd("mkdir -p %s/usr/bin", work_dir);
 	execute_cmd("/bin/mkdir -p %s/usr/local/lib", work_dir);
 	execute_cmd("/bin/mkdir -p %s/usr/local/bin", work_dir);
-	execute_cmd("/bin/cp /usr/bin/lua %s/", work_dir);
+	execute_cmd("/bin/cp /usr/bin/lua %s/usr/bin", work_dir);
 }
 void copy_sql_runtime(char *work_dir)
 {
 
 	copy_shell_runtime(work_dir);
-	execute_cmd("/bin/cp /usr/bin/sqlite3 %s/", work_dir);
+	execute_cmd("mkdir -p %s/usr/bin", work_dir);
+	execute_cmd("/bin/cp /usr/bin/sqlite3 %s/usr/bin", work_dir);
 #ifdef __mips__
 	execute_cmd("/bin/cp /lib64/libedit.so.0 %s/lib64/", work_dir);
 	execute_cmd("/bin/cp /lib64/libm.so.6 %s/lib64/", work_dir);
@@ -2435,6 +2439,7 @@ void copy_js_runtime(char *work_dir)
 {
 
 	// copy_shell_runtime(work_dir);
+	execute_cmd("mkdir -p %s/usr/bin", work_dir);
 	execute_cmd("mkdir -p %s/dev", work_dir);
 	execute_cmd("/bin/mount -o bind /dev %s/dev", work_dir);
 	execute_cmd("/bin/mount -o remount,ro %s/dev", work_dir);
@@ -2481,7 +2486,7 @@ void copy_js_runtime(char *work_dir)
 	execute_cmd("/bin/cp /lib64/ld-linux-x86-64.so.* %s/lib64/", work_dir);
 	execute_cmd("/bin/cp /usr/lib/x86_64-linux-gnu/libicudata.so.* %s/lib/x86_64-linux-gnu/", work_dir);
 #endif
-	execute_cmd("/bin/cp /usr/bin/nodejs %s/", work_dir);
+	execute_cmd("/bin/cp /usr/bin/node %s/usr/bin", work_dir);
 }
 
 void run_solution(int &lang, char *work_dir, double &time_lmt, int &usedtime,
@@ -2623,7 +2628,7 @@ void run_solution(int &lang, char *work_dir, double &time_lmt, int &usedtime,
 		break;
 	case 4:
 		// system("/ruby Main.rb<data.in");
-		execl("/ruby", "/ruby", "Main.rb", (char *)NULL);
+		execl("/usr/bin/ruby", "/usr/bin/ruby", "Main.rb", (char *)NULL);
 		break;
 	case 5: // bash
 		execl("/bin/bash", "/bin/bash", "Main.sh", (char *)NULL);
@@ -2632,38 +2637,38 @@ void run_solution(int &lang, char *work_dir, double &time_lmt, int &usedtime,
 		if (!py2)
 		{
 			if (python_free)
-				execl("/usr/bin/python2", "/usr/bin/python2", "Main.py", (char *)NULL);
+				execl(py_bin, py_bin, "Main.py", (char *)NULL);
 			else
-				execl("/python2", "/python2", "Main.py", (char *)NULL);
+				execl("/usr/bin/python2", "/usr/bin/python2", "Main.py", (char *)NULL);
 		}
 		else
 		{
 			if (python_free)
 				execl(py_bin, py_bin, "Main.py", (char *)NULL);
 			else
-				execle("/python3", "/python3", "Main.py", (char *)NULL, envp);
+				execle("/usr/bin/python3", "/usr/bin/python3", "Main.py", (char *)NULL, envp);
 		}
 		break;
 	case 7: // php
-		execl("/php", "/php", "Main.php", (char *)NULL);
+		execl("/usr/bin/php", "/usr/bin/php", "Main.php", (char *)NULL);
 		break;
 	case 8: // perl
-		execl("/perl", "/perl", "Main.pl", (char *)NULL);
+		execl("/usr/bin/perl", "/usr/bin/perl", "Main.pl", (char *)NULL);
 		break;
 	case 9: // Mono C#
 		execle("/usr/bin/mono", "/usr/bin/mono", "--debug", "Main.exe", (char *)NULL, envp);
 		break;
 	case 12: // guile
-		execl("/guile", "/guile", "Main.scm", (char *)NULL);
+		execl("/usr/bin/guile", "/usr/bin/guile", "Main.scm", (char *)NULL);
 		break;
 	case 15: // guile
-		execl("/lua", "/lua", "Main", (char *)NULL);
+		execl("/usr/bin/lua", "/usr/bin/lua", "Main", (char *)NULL);
 		break;
 	case 16: // Node.js
-		execl("/nodejs", "/nodejs", "Main.js", (char *)NULL);
+		execl("/usr/bin/nodejs", "/usr/bin/nodejs", "Main.js", (char *)NULL);
 		break;
 	case 18: // sqlite3
-		execl("/sqlite3", "/sqlite3", "data.db", (char *)NULL);
+		execl("/usr/bin/sqlite3", "/usr/bin/sqlite3", "data.db", (char *)NULL);
 		break;
 	case 20: // octave
 		execl("/usr/bin/octave-cli", "/usr/bin/octave-cli", "Main.m", (char *)NULL);

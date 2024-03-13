@@ -1,12 +1,6 @@
 <?php
 if ($ok == true) {
-    $brush = strtolower($language_name[$slanguage]);
-    if ($brush == 'pascal') $brush = 'delphi';
-    if ($brush == 'obj-c') $brush = 'c';
-    if ($brush == 'freebasic') $brush = 'vb';
-    if ($brush == 'fortran') $brush = 'vb';
-    if ($brush == 'swift') $brush = 'csharp';
-    if ($brush == 'python3') $brush = 'python';
+    $brush = strtolower($language_toolkit[$slanguage]);
     ob_start();
     echo "\n'''\n";
     echo "=== Submission Info ===\n";

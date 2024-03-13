@@ -79,9 +79,7 @@
         </div>
       </div>
       <?php
-      $brush = strtolower($language_name[$slanguage]);
-      if ($brush == "python3") $brush = "py";
-      if ($brush == 'freebasic') $brush = 'vb';
+      $brush = strtolower($language_toolkit[$slanguage]);
       echo "<pre id='code' style='font-size:18px;'><code class='language-$brush line-numbers'>";
       ob_start();
       $auth = ob_get_contents();

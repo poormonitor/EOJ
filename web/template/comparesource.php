@@ -206,8 +206,8 @@
 				});
 
 				diffEditor.setModel({
-					original: monaco.editor.createModel(`<?php echo str_replace("`", "\`", $sview_source) ?>`, '<?php echo $language_monaco[$slanguage] ?>'),
-					modified: monaco.editor.createModel(`<?php echo str_replace("`", "\`", $rview_source) ?>`, '<?php echo $language_monaco[$rlanguage] ?>')
+					original: monaco.editor.createModel(`<?php echo str_replace("`", "\`", $sview_source) ?>`, '<?php echo $language_toolkit[$slanguage] ?>'),
+					modified: monaco.editor.createModel(`<?php echo str_replace("`", "\`", $rview_source) ?>`, '<?php echo $language_toolkit[$rlanguage] ?>')
 				});
 				window.onresize = function() {
 					window.diffEditor.layout();

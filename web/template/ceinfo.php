@@ -73,9 +73,7 @@
       <pre id='code' class="alert alert-error"><?php echo $view_reinfo ?></pre>
       <?php
       if ($ok == true) {
-        $brush = strtolower($language_name[$slanguage]);
-        if ($brush == "python3") $brush = "py";
-        if ($brush == 'freebasic') $brush = 'vb';
+        $brush = strtolower($language_toolkit[$slanguage]);
         echo "<pre id='code'><code class='language-$brush line-numbers'>";
         ob_start();
         $auth = ob_get_contents();

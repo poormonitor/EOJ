@@ -40,6 +40,7 @@ sed -i "s#OJ_PASSWORD[[:space:]]*=[[:space:]]*root#OJ_PASSWORD=$PASSWORD#g"     
 sed -i "s#OJ_COMPILE_CHROOT[[:space:]]*=[[:space:]]*1#OJ_COMPILE_CHROOT=0#g"     /home/judge/etc/judge.conf
 sed -i "s#OJ_RUNNING[[:space:]]*=[[:space:]]*1#OJ_RUNNING=$CPU#g"                /home/judge/etc/judge.conf
 sed -i "s#OJ_SHM_RUN[[:space:]]*=[[:space:]]*1#OJ_SHM_RUN=0#g"                   /home/judge/etc/judge.conf
+sed -i "s#OJ_USE_DOCKER[[:space:]]*=[[:space:]]*0#OJ_USE_DOCKER=1#g"                   /home/judge/etc/judge.conf
 sed -i "s#127.0.0.1:9000#unix:/var/run/php/php7.4-fpm.sock#g"    /etc/nginx/sites-available/default
 sed -i "s#DB_USER[[:space:]]*=[[:space:]]*\"jol\"#DB_USER=\"$USERNAME\"#g"                  /home/judge/eoj/web/include/db_info.inc.php
 sed -i "s#DB_PASS[[:space:]]*=[[:space:]]*\"\"#DB_PASS=\"$PASSWORD\"#g"                  /home/judge/eoj/web/include/db_info.inc.php
