@@ -83,6 +83,7 @@
 
               $lang = (~((int)$langmask)) & ((1 << ($lang_count)) - 1);
 
+              if (isset($_))
               if (isset($_COOKIE['lastlang'])) $lastlang = $_COOKIE['lastlang'];
               else $lastlang = 6;
 
