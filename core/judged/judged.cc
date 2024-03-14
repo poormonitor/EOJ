@@ -91,6 +91,7 @@ static char oj_redisauth[BUFFER_SIZE];
 static char oj_redisqname[BUFFER_SIZE];
 static int turbo_mode = 0;
 static int use_docker = 0;
+static int internal_client = 0;
 
 static bool STOP = false;
 static int DEBUG = 0;
@@ -248,6 +249,7 @@ void init_judge_conf()
 			read_buf(buf, "OJ_REDISQNAME", oj_redisqname);
 			read_int(buf, "OJ_TURBO_MODE", &turbo_mode);
 			read_int(buf, "OJ_USE_DOCKER", &use_docker);
+			read_int(buf, "OJ_INTERNAL_CLIENT", &internal_client);
 		}
 #ifdef _mysql_h
 		if (oj_tot == 1)

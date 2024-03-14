@@ -188,6 +188,7 @@ static int compile_chroot = 0;
 static int turbo_mode = 0;
 static int python_free = 0;
 static int use_docker = 0;
+static int internal_client = 0;
 static const char *tbname = "solution";
 static char cc_opt[BUFFER_SIZE / 10];
 static char cc_std[BUFFER_SIZE / 10];
@@ -579,6 +580,7 @@ void init_judge_conf()
 			read_int(buf, "OJ_PYTHON_FREE", &python_free);
 			read_int(buf, "OJ_COPY_DATA", &copy_data);
 			read_int(buf, "OJ_USE_DOCKER", &use_docker);
+			read_int(buf, "OJ_INTERNAL_CLIENT", &internal_client);
 			read_buf(buf, "OJ_CC_STD", cc_std);
 			read_buf(buf, "OJ_CPP_STD", cpp_std);
 			read_buf(buf, "OJ_CC_OPT", cc_opt);
@@ -2496,7 +2498,8 @@ void run_solution(int &lang, char *work_dir, double &time_lmt, int &usedtime,
 						  (char *const)"LANG=zh_CN.UTF-8",
 						  (char *const)"LANGUAGE=zh_CN.UTF-8",
 						  (char *const)"LC_ALL=zh_CN.utf-8", NULL};
-	nice(19);
+	if (nice(19))
+		printf("nice failed\n");
 	// now the user is "judger"
 	if (chdir(work_dir))
 		exit(-4);
@@ -2538,9 +2541,13 @@ void run_solution(int &lang, char *work_dir, double &time_lmt, int &usedtime,
 	// trace me
 	ptrace(PTRACE_TRACEME, 0, NULL, NULL);
 	// run me
-	if ((!use_docker) && lang != 3 && lang != 5 && lang != 20 && lang != 9 && !(lang == 6 && python_free))
+	if (!use_docker && !internal_client && lang != 3 &&
+		lang != 5 && !(lang == 6 && python_free) &&
+		lang != 9 && lang != 18 && lang != 20)
 	{
-		chroot(work_dir);
+		if (chroot(work_dir))
+		{
+		}
 	}
 
 	while (setgid(1536))
@@ -3654,17 +3661,17 @@ int main(int argc, char **argv)
 	int namelen;
 	int usedtime = 0, topmemory = 0;
 
+	if (lang == 5)
+	{
+		execute_cmd("busybox dos2unix Main.sh", work_dir);
+	}
 	// create chroot for ruby bash python
-	if (!use_docker)
+	if (!use_docker && !internal_client)
 	{
 		if (lang == 4)
 			copy_ruby_runtime(work_dir);
 		if (lang == 5)
-		{
-			execute_cmd("busybox dos2unix Main.sh", work_dir);
-			if (!use_docker)
-				copy_bash_runtime(work_dir);
-		}
+			copy_bash_runtime(work_dir);
 		if (lang == 6 && !python_free)
 			copy_python_runtime(work_dir);
 		if (lang == 7)
@@ -3683,8 +3690,8 @@ int main(int argc, char **argv)
 			copy_lua_runtime(work_dir);
 		if (lang == 16)
 			copy_js_runtime(work_dir);
-		if (lang == 18)
-			copy_sql_runtime(work_dir);
+		//	if (lang == 18)
+		//		copy_sql_runtime(work_dir);
 	}
 	// read files and run
 	double pass_rate = 0.0;
