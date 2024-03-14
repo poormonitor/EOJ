@@ -15,12 +15,15 @@ fi
 if [ ! -d /volume/mysql ]; then 
 cp -rp /var/lib/mysql /volume/mysql;   
 fi 
+chmod 755 /home/judge
 chmod -R 755 /volume/etc
-chmod -R 755 /volume/backup 
-chown -R www-data:www-data /volume/data 
-chown -R www-data:www-data /volume/eoj/web 
-chown -R mysql:mysql       /volume/mysql   
+chmod -R 755 /volume/backup
+find /volume/eoj/web -type d | xargs chmod 755
+find /volume/eoj/web -type f | xargs chmod 644
+chown -R www-data:www-data /volume/data
+chown -R www-data:www-data /volume/eoj/web
 chown -R www-data:www-data /var/log/eoj
+chown -R mysql:mysql       /volume/mysql
 rm -rf /home/judge/backup   
 rm -rf /home/judge/data 
 rm -rf /home/judge/etc  
@@ -42,7 +45,7 @@ done
 ln -sf /dev/stdout /var/log/nginx/access.log
 ln -sf /dev/stderr /var/log/nginx/error.log
 
-service mysql      start  
-service php7.4-fpm start  
+service mariadb    start  
+service php8.1-fpm start  
 service judged     start
 nginx -g "daemon off;"

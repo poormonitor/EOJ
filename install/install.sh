@@ -1,6 +1,7 @@
 #!/bin/bash
 apt-get update
-apt install build-essential make flex clang libmariadb-dev libmysql++-dev -y
+apt install build-essential make flex clang libmariadb-dev libmysql++-dev \
+	python3 python3-pip python3-virtualenv -y
 /usr/sbin/useradd -m -u 1536 judge
 cd /home/judge/
 
@@ -8,6 +9,7 @@ git clone https://github.com/poormonitor/eoj.git
 USER="jol"
 PASSWORD=`date +%s | sha256sum | base64 | head -c 10 ; echo`
 CPU=`grep "cpu cores" /proc/cpuinfo |head -1|awk '{print $4}'`
+COMPENSATION=`grep 'mips' /proc/cpuinfo|head -1|awk -F: '{printf("%.2f",$2/5000)}'`
 
 mkdir etc data log backup
 
@@ -20,19 +22,20 @@ if grep "OJ_SHM_RUN=0" etc/judge.conf ; then
 	chown judge run0 run1 run2 run3
 fi
 
+sed -i "s/#OJ_PY_BIN/OJ_PY_BIN/g" etc/judge.conf
 sed -i "s/OJ_USER_NAME=root/OJ_USER_NAME=$USER/g" etc/judge.conf
 sed -i "s/OJ_PASSWORD=root/OJ_PASSWORD=$PASSWORD/g" etc/judge.conf
-sed -i "s/OJ_COMPILE_CHROOT=1/OJ_COMPILE_CHROOT=0/g" etc/judge.conf
 sed -i "s/OJ_RUNNING=1/OJ_RUNNING=$CPU/g" etc/judge.conf
-sed -i "s/OJ_PYTHON_FREE=0/OJ_PYTHON_FREE=1/g" etc/judge.conf
+sed -i "s/OJ_CPU_COMPENSATION=1.0/OJ_CPU_COMPENSATION=$COMPENSATION/g" etc/judge.conf
 sed -i "s/DB_USER[[:space:]]*=[[:space:]]*\"root\"/DB_USER=\"$USER\"/g" eoj/web/include/db_info.inc.php
 sed -i "s/DB_PASS[[:space:]]*=[[:space:]]*\"root\"/DB_PASS=\"$PASSWORD\"/g" eoj/web/include/db_info.inc.php
 
 chmod 755 backup
 chmod 755 etc/judge.conf
 
-COMPENSATION=`grep 'mips' /proc/cpuinfo|head -1|awk -F: '{printf("%.2f",$2/5000)}'`
-sed -i "s/OJ_CPU_COMPENSATION=1.0/OJ_CPU_COMPENSATION=$COMPENSATION/g" etc/judge.conf
+python3 -m virtualenv py3
+source py3/bin/activate
+pip3 install copydetect
 
 cd eoj/core
 chmod +x ./make.sh

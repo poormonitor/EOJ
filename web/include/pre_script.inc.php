@@ -36,8 +36,19 @@ try {
 	exit(0);
 }
 
+$timezone_offset = function ($timezone) {
+	$offset = new DateTimeZone($timezone);
+	$offset = $offset->getOffset(new DateTime("now"));
+	$offset_hours = $offset / 3600;
+	$offset_sign = $offset_hours >= 0 ? '+' : '-';
+	$offset_hours = abs($offset_hours);
+	$offset_minutes = ($offset_hours - floor($offset_hours)) * 60;
+	return sprintf("%s%02d:%02d", $offset_sign, floor($offset_hours), $offset_minutes);
+};
+
+$timezone_offset = $timezone_offset($OJ_TIMEZONE);
 pdo_query("SET names utf8");
-pdo_query("SET time_zone = '$OJ_TIMEZONE'");
+pdo_query("SET time_zone = '$timezone_offset'");
 
 $OJ_LOG_FILE = "/var/log/hustoj/{$OJ_NAME}.log";
 require_once(dirname(__FILE__) . "/logger.php");

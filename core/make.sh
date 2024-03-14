@@ -11,5 +11,4 @@ make clean
 cd ..
 cp sim.py /usr/bin
 chmod +x /usr/bin/sim.py
-pip install copydetect
 echo "Core part done!"
