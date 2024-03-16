@@ -349,10 +349,6 @@ if (isset($OJ_APPENDCODE) && $OJ_APPENDCODE && file_exists($append_file)) {
 }
 //end of append
 
-if ($language == 6 && strpos($source, "coding=utf-8") == false) {
-  $source = "# coding=utf-8\n" . $source;
-}
-
 $len = strlen($source);
 
 if ($len < 2) {

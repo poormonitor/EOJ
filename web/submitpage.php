@@ -109,9 +109,6 @@ if (isset($_GET['sid'])) {
 			$view_src = $row['source'];
 		$view_src = unifyCode($view_src);
 
-		if ($language_id == 6)
-			$view_src = str_replace('# coding=utf-8' . PHP_EOL, "", $view_src);
-
 		$sql = "SELECT langmask FROM contest WHERE contest_id=?";
 
 		$result = pdo_query($sql, $cid);

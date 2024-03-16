@@ -1687,6 +1687,7 @@ void get_solution(int solution_id, char *work_dir, int lang)
 	if (lang == 6)
 	{
 		py2 = execute_cmd("/bin/grep 'python2' %s/Main.py > /dev/null", work_dir);
+		execute_cmd("/bin/sed -i '1i # coding=utf-8' %s/Main.py", work_dir);
 	}
 	execute_cmd("chown judge %s/%s", work_dir, src_pth);
 }
