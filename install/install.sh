@@ -1,6 +1,6 @@
 #!/bin/bash
 apt-get update
-apt install build-essential make flex clang libmariadb-dev libmysql++-dev \
+apt install build-essential make flex clang default-libmysqlclient-dev \
 	python3 python3-pip python3-virtualenv -y
 /usr/sbin/useradd -m -u 1536 judge
 cd /home/judge/
