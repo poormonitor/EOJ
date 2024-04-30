@@ -21,7 +21,7 @@ $view_news .= "<div class='panel-body'>";
 if (!isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
 	$result = array();
 	if (isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
-		$sql = "select * FROM `news` WHERE `defunct`!='Y' AND `title` NOT LIKE 'faqs%' AND `private` = 'Y' ORDER BY `importance` ASC,`time` DESC LIMIT 50";
+		$sql = "select * FROM `news` WHERE `defunct`!='Y' AND `title` NOT LIKE 'faqs%' AND `news_id` > 0 AND `private` = 'Y' ORDER BY `importance` ASC,`time` DESC LIMIT 50";
 		$temp = mysql_query_cache($sql);
 		foreach ($temp as $i) {
 			if (isset($_SESSION[$OJ_NAME . '_' . "n" . $i['news_id']])) {
@@ -29,10 +29,10 @@ if (!isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
 			}
 		}
 	}
-	$sql = "select * FROM `news` WHERE `defunct`!='Y' AND `title` NOT LIKE 'faqs%' AND `private` = 'N' ORDER BY `importance` ASC,`time` DESC LIMIT 50";
+	$sql = "select * FROM `news` WHERE `defunct`!='Y' AND `title` NOT LIKE 'faqs%' AND `news_id` > 0 AND `private` = 'N' ORDER BY `importance` ASC,`time` DESC LIMIT 50";
 	$result = array_merge($result, mysql_query_cache($sql));
 } else {
-	$sql = "select * FROM `news` WHERE `defunct`!='Y' AND `title` NOT LIKE 'faqs%' ORDER BY `importance` ASC,`time` DESC LIMIT 50";
+	$sql = "select * FROM `news` WHERE `defunct`!='Y' AND `title` NOT LIKE 'faqs%' AND `news_id` > 0 ORDER BY `importance` ASC,`time` DESC LIMIT 50";
 	$result = mysql_query_cache($sql);
 }
 
