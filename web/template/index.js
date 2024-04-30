@@ -860,19 +860,6 @@ function changePos() {
     }
 }
 
-function staticPos() {
-    var img = document.getElementById("float"); //获得图片所在层的ID
-    var height = document.documentElement.clientHeight; //浏览器的高度
-    var width = document.documentElement.clientWidth; //浏览器的宽度
-    var imgHeight = document.getElementById("floatImg").height; //飘浮图片的高度
-    var imgWidth = document.getElementById("floatImg").width; //瓢浮图片的宽度
-    //设置飘浮图片距离浏览器左侧位置
-    img.style.right = moveX + "px";
-    //设置飘浮图片距离浏览器右侧位置
-    img.style.top = parseInt(document.documentElement.scrollTop + height - imgHeight - moveY) + "px";
-    //设置图片在Y轴上的移动规律
-}
-
 var moveX = 0; //X轴方向上移动的距离
 var moveY = 0; //Y轴方向上移动的距离
 var stepX = 1; //图片X轴移动的速度
@@ -904,8 +891,9 @@ function setAD(url, href, ft) {
     } else {
         moveX = 50
         moveY = 50
-        staticPos()
-        setInterval(staticPos, 20);
+        float.css("position", "fixed")
+        float.css("right", moveX)
+        float.css("bottom", moveY)
     }
     float.css("display", "")
 }
