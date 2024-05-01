@@ -35,7 +35,7 @@
                                 <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) { ?>
                                     <tr>
                                         <td>
-                                            <center><a class='btn btn-info btn-sm' href="setmsg.php" target="main"><b><?php echo $MSG_NEWS . "-" . $MSG_SETMESSAGE ?></b></a></center>
+                                            <center><a class='btn btn-info btn-sm' href="setmsg.php"><b><?php echo $MSG_NEWS . "-" . $MSG_SETMESSAGE ?></b></a></center>
                                         </td>
                                         <td>
                                             <p><?php echo $MSG_HELP_SETMESSAGE ?></p>
