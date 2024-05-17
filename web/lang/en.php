@@ -30,6 +30,8 @@ $MSG_PROCESSING = "Processing the request";
 $MSG_NICK_TOO_LONG = "Nick is too long";
 $MSG_GOBACK = "Go back";
 $MSG_SCHOOL_TOO_LONG = "Unit is too long";
+$MSG_CONFIRM = "Confirm";
+$MSG_CONFIRM_MSG = "Are you sure to perform the operation?";
 $MSG_DOWNLOAD_ALL_AC = "Download all AC code";
 
 $MSG_CLIPBOARD = "Clipboard";

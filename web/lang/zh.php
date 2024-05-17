@@ -30,6 +30,8 @@ $MSG_PROCESSING = "正在处理请求";
 $MSG_NICK_TOO_LONG = "用户名太长";
 $MSG_SCHOOL_TOO_LONG = "单位名太长";
 $MSG_GOBACK = "返回";
+$MSG_CONFIRM = "确认";
+$MSG_CONFIRM_MSG = "确认执行操作？";
 $MSG_DOWNLOAD_ALL_AC = "下载所有通过代码";
 
 $MSG_CLIPBOARD = "剪贴板";

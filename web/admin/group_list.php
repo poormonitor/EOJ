@@ -90,6 +90,32 @@ require_once("../include/set_get_key.php");
             require_once("../include/set_get_key.php");
             $sql = "SELECT `gid`,`name`,`allow_view` FROM `group` ORDER BY `gid` DESC";
             $result = pdo_query($sql);
+
+            $sql = "SELECT COUNT('gid') AS ids FROM `group`";
+            $result = pdo_query($sql);
+            $row = $result[0];
+
+            $ids = intval($row['ids']);
+
+            $idsperpage = 25;
+            $pages = intval(ceil($ids / $idsperpage));
+
+            if (isset($_GET['page'])) {
+              $page = intval($_GET['page']);
+            } else {
+              $page = 1;
+            }
+
+            $pagesperframe = 5;
+            $frame = intval(ceil($page / $pagesperframe));
+
+            $spage = ($frame - 1) * $pagesperframe + 1;
+            $epage = min($spage + $pagesperframe - 1, $pages);
+
+            $sid = ($page - 1) * $idsperpage;
+
+            $sql = "SELECT `gid`,`name`,`allow_view` FROM `group` ORDER BY `gid` DESC LIMIT $sid,$idsperpage";
+            $result = pdo_query($sql);
             ?>
             <center>
               <form action=group_list.php class="form-search form-inline">
@@ -116,7 +142,7 @@ require_once("../include/set_get_key.php");
                     echo "<tr>";
                     echo "<td>" . $row['gid'] . "</td>";
                     echo "<td>" . $row['name'] . "</td>";
-                    echo "<td><a href='group_list.php?do=do&del=" . $row['gid'] . "&getkey=" . end($_SESSION[$OJ_NAME . '_' . 'getkey']) . "'>$MSG_DELETE</a></td>";
+                    echo "<td><a href='javascript:confirmDelete(\"" . $row['gid'] . "\",\"" . end($_SESSION[$OJ_NAME . "_" . "getkey"]) . "\")'>$MSG_DELETE</a></td>";
                     if ($row["allow_view"] == "Y") {
                       echo "<td><a href='group_list.php?do=do&visiable=false&group=" . $row['gid'] . "&getkey=" . end($_SESSION[$OJ_NAME . '_' . 'getkey']) . "'><span class=green>$MSG_TRUE</span></a></td>";
                     } else {
@@ -129,13 +155,45 @@ require_once("../include/set_get_key.php");
                 </tbody>
               </table>
             </div>
+
+            <?php
+            echo "<div style='display:inline;'>";
+            echo "<nav class='center'>";
+            echo "<ul class='pagination pagination-sm'>";
+            echo "<li class='page-item'><a href='group_list.php?page=" . (strval(1)) . "'>&lt;&lt;</a></li>";
+            echo "<li class='page-item'><a href='group_list.php?page=" . ($page == 1 ? strval(1) : strval($page - 1)) . "'>&lt;</a></li>";
+            for ($i = $spage; $i <= $epage; $i++) {
+              echo "<li class='" . ($page == $i ? "active " : "") . "page-item'><a title='go to page' href='group_list.php?page=" . $i . (isset($_GET['my']) ? "&my" : "") . "'>" . $i . "</a></li>";
+            }
+            echo "<li class='page-item'><a href='group_list.php?page=" . ($page == $pages ? strval($page) : strval($page + 1)) . "'>&gt;</a></li>";
+            echo "<li class='page-item'><a href='group_list.php?page=" . (strval($pages)) . "'>&gt;&gt;</a></li>";
+            echo "</ul>";
+            echo "</nav>";
+            echo "</div>";
+            ?>
           </div>
+
           <br><br>
         </div>
       </div>
     </div>
   </div>
   <?php require_once("../template/js.php"); ?>
+  <script>
+    function confirmDelete(gid, getkey) {
+      swal({
+        title: "<?php echo $MSG_CONFIRM ?>",
+        text: "<?php echo $MSG_CONFIRM_MSG ?>",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      }).then((willDelete) => {
+        if (willDelete) {
+          window.location.href = "group_list.php?do=do&del=" + gid + "&getkey=" + getkey;
+        }
+      });
+    }
+  </script>
 </body>
 
 </html>
