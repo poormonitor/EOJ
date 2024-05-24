@@ -97,6 +97,9 @@ if (isset($_GET['search']) && trim($_GET['search']) != "") {
 
 $view_total_page = $cnt;
 
+if (isset($_GET['search']) && trim($_GET['search']) != "")
+	$view_total_page = 1;
+
 $cnt = 0;
 $view_problemset = array();
 $i = 0;
