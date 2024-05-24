@@ -46,6 +46,7 @@ $(".hint pre").each(function () {
 
 $("table.ud-margin").each(function (_, elem) {
     table = $(elem);
+    table.addClass("table")
     if (!table.parent().hasClass("table-responsive")) {
         $(elem).wrap("<div class='table-responsive'></div>");
     }
