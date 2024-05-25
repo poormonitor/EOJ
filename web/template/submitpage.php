@@ -49,18 +49,15 @@
             <br>
 
             <input id=problem_id type='hidden' value='<?php echo $id ?>' name="id">
-          <?php } else {
-            //$PID="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            //if ($pid>25) $pid=25;
-          ?>
-            <div class="fs-2">
-              <div>
+          <?php } else { ?>
+            <div>
+              <div class="fs-2">
                 <?php echo $MSG_PROBLEM_ID ?> :
-                <a href="javascript:MicroModal.show('modal-1');" class=blue>
-                  <?php echo chr($pid + ord('A')) ?>
+                <a href="javascript:MicroModal.show('modal-1');" class="blue">
+                  <?php echo $PID[$pid] ?>
                 </a>
               </div>
-              <div>
+              <div class="fs-3">
                 <?php echo $MSG_CONTEST_ID ?> : <a href="contest.php?cid=<?php echo $cid ?>" class=blue> <?php echo $cid ?> </a>
               </div>
             </div>
@@ -84,8 +81,8 @@
               $lang = (~((int)$langmask)) & ((1 << ($lang_count)) - 1);
 
               if (isset($_))
-              if (isset($_COOKIE['lastlang'])) $lastlang = $_COOKIE['lastlang'];
-              else $lastlang = 6;
+                if (isset($_COOKIE['lastlang'])) $lastlang = $_COOKIE['lastlang'];
+                else $lastlang = 6;
 
               for ($i = 0; $i < $lang_count; $i++) {
                 if ($lang & (1 << $i))

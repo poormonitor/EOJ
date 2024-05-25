@@ -2,7 +2,6 @@
     <div class="panel-heading">
         <?php
         if (isset($cid)) {
-            $PID = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             $problem_id = $problem_info['problem_id'];
             echo "<center><h3>$MSG_PROBLEM " . $PID[$pid] . ": " . $problem_info['title'] . "</h3></center>";
         } else {
