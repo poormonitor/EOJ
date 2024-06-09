@@ -65,7 +65,7 @@
 						<td style="width: 10px;"></td>
 						<td colspan='1'>
 							<form class="form-search form-inline">
-								<input type="text" name=search class="form-control search-query" value="<?php echo $_GET['search'] ?>" placeholder="<?php echo $MSG_TITLE . ', ' . $MSG_SOURCE ?>">
+								<input type="text" name=search class="form-control search-query" value="<?php echo isset($_GET['search']) ? $_GET['search'] : "" ?>" placeholder="<?php echo $MSG_TITLE . ', ' . $MSG_SOURCE ?>">
 								<button type="submit" class="form-control"><?php echo $MSG_SEARCH ?></button>
 							</form>
 						</td>

@@ -81,6 +81,8 @@ $MSG_Compile_Error = "编译错误";
 $MSG_Runtime_Click = "运行错误(点击看详细)";
 $MSG_Compile_Click = "编译错误(点击看详细)";
 $MSG_Compile_OK = "编译成功";
+$MSG_TestRun = "测试运行";
+$MSG_Waiting_TestRun = "等待测试运行";
 $MSG_Click_Detail = "点击看详细";
 $MSG_Manual = "人工判题";
 $MSG_OK = "确定";
@@ -126,7 +128,6 @@ $MSG_CE = "编译错误";
 $MSG_CO = "编译成功";
 $MSG_TR = "测试运行";
 $MSG_RESET = "重置";
-
 $MSG_SIM_POS = "抄袭者";
 $MSG_SIM_PAS = "被抄袭者";
 $MSG_SIMILARITY = "相似度";
