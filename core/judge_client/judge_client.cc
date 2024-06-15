@@ -2690,26 +2690,25 @@ void run_solution(int &lang, char *work_dir, double &time_lmt, int &usedtime,
 int fix_python_mis_judge(char *work_dir, int &ACflg, int &topmemory,
 						 int mem_lmt)
 {
-	int comp_res1 = OJ_AC;
-	int comp_res2 = OJ_AC;
+	int comp_res1, comp_res2;
 
 	comp_res1 = execute_cmd(
-		"/bin/grep 'MemoryError'  %s/error_now.out", work_dir);
+		"/bin/grep 'Error'  %s/error_now.out", work_dir);
 
 	if (!comp_res1)
+	{
+		printf("Python Error not empty!\n");
+		ACflg = OJ_RE;
+	}
+
+	comp_res2 = execute_cmd(
+		"/bin/grep 'MemoryError'  %s/error_now.out", work_dir);
+
+	if (!comp_res2)
 	{
 		printf("Python need more Memory!\n");
 		ACflg = OJ_ML;
 		topmemory = mem_lmt * STD_MB;
-	}
-
-	comp_res2 = execute_cmd(
-		"/bin/grep 'Error'  %s/error_now.out", work_dir);
-
-	if (!comp_res2)
-	{
-		printf("(Python) Error not empty!\n");
-		ACflg = OJ_RE;
 	}
 
 	return comp_res1 || comp_res2;
@@ -2900,7 +2899,7 @@ void judge_solution(int &ACflg, int &usedtime, double time_lmt, int isspj,
 		num_of_error++;
 	}
 
-	if (ACflg == OJ_RE && num_of_error == 1)
+	if (ACflg == OJ_RE && num_of_error == 0)
 	{
 		execute_cmd("cat %s/error_now.out > %s/error.out", work_dir, work_dir);
 		execute_cmd("echo '\n' >> error.out");
