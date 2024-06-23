@@ -2899,7 +2899,7 @@ void judge_solution(int &ACflg, int &usedtime, double time_lmt, int isspj,
 		num_of_error++;
 	}
 
-	if (ACflg == OJ_RE && num_of_error == 0)
+	if (ACflg == OJ_RE && num_of_error == 1)
 	{
 		execute_cmd("cat %s/error_now.out > %s/error.out", work_dir, work_dir);
 		execute_cmd("echo '\n' >> error.out");
