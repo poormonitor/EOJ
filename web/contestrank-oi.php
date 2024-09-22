@@ -75,14 +75,14 @@ class TM
 
 function s_cmp($A, $B)
 {
-  if ($A->solved == 0 && $B->solved == 0) {
+  if ($A->total != $B->total) {
+    return $A->total < $B->total ? 1 : -1;
+  } else if ($A->solved == 0 && $B->solved == 0) {
     if (array_sum($A->p_wa_num) != array_sum($B->p_wa_num)) {
       return array_sum($A->p_wa_num) < array_sum($B->p_wa_num) ? 1 : -1;
     } else {
       return intval($A->user_id) > intval($B->user_id) ? 1 : -1;
     }
-  } elseif ($A->total != $B->total) {
-    return $A->total < $B->total ? 1 : -1;
   } else {
     if ($A->solved != $B->solved) {
       return $A->solved < $B->solved ? 1 : -1;
