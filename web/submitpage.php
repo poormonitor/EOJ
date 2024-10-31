@@ -211,7 +211,7 @@ if ($blank !== NULL) {
 
 	for ($i = 0; $i < $num; $i++) {
 		$content = isset($single_line_matches) ? $single_line_matches[$i][0] : "";
-		$content = str_replace("\"", "&quot;", $content);
+		$content = str_replace("'", "&#39;", $content);
 		$pattern = "<input name='code$i' class='singleline form-control' autocomplete='off' spellcheck='false' value='$content'>";
 		$code = str_replace_limit("%*%", $pattern, $code, 1);
 	}
