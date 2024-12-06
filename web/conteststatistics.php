@@ -14,7 +14,7 @@ $sql = "SELECT title,end_time FROM `contest` WHERE `contest_id`=? AND `start_tim
 $result = pdo_query($sql, $cid);
 $num = count($result);
 if ($num == 0) {
-	$view_errors = $MSG_PRIVATE_WARNING;
+	$view_swal = $MSG_PRIVATE_WARNING;
 	require("template/error.php");
 	exit(0);
 }
@@ -29,7 +29,7 @@ if (
 	isset($_SESSION[$OJ_NAME . '_' . "contest_creator"])
 ) $noip = false;
 if ($noip) {
-	$view_errors =  "<h2>$MSG_NOIP_WARNING</h2>";
+	$view_swal =  "$MSG_NOIP_WARNING";
 	require("template/error.php");
 	exit(0);
 }
