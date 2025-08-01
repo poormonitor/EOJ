@@ -78,4 +78,4 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-** 本仓库的拥有者，代码的主要贡献者在此声明，其同时为 中国发明专利申请 CN202210591127.X 的申请人和发明人。**
+**本仓库的拥有者，代码的主要贡献者在此声明，其同时为 中国发明专利申请 CN202210591127.X 的申请人和发明人。**
